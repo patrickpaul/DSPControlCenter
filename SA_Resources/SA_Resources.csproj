@@ -1,0 +1,475 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{CBB53399-CC71-4AE3-87EE-D87DEAF0AD0D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SA_Resources</RootNamespace>
+    <AssemblyName>SA_Resources</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Classes\COMPortInfo.cs" />
+    <Compile Include="Enum.cs" />
+    <Compile Include="Forms\Configurations\CompressorConfig.cs" />
+    <Compile Include="Classes\Line.cs" />
+    <Compile Include="Forms\Configurations\DelayConfig.cs" />
+    <Compile Include="Forms\Configurations\GainConfig.cs" />
+    <Compile Include="Forms\Configurations\InputConfig.cs" />
+    <Compile Include="Forms\Configurations\OutputConfig.cs" />
+    <Compile Include="Forms\CopyForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CopyForm.Designer.cs">
+      <DependentUpon>CopyForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\OutputConfiguration.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\OutputConfiguration.Designer.cs">
+      <DependentUpon>OutputConfiguration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FilterForm6.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FilterForm6.Designer.cs">
+      <DependentUpon>FilterForm6.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Resource Classes\Buttons.cs" />
+    <Compile Include="Classes\ConfigChangeEventArgs.cs" />
+    <Compile Include="Resource Classes\ControlIcons.cs" />
+    <Compile Include="Forms\Configurations\FilterConfig.cs" />
+    <Compile Include="Resource Classes\Icons.cs" />
+    <Compile Include="UIElements\UI_Helpers.cs" />
+    <Compile Include="UIElements\Controls\OrientedTextLabel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UIElements\Controls\PictureButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UIElements\Controls\PictureCheckbox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UIElements\Controls\PictureRadioButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Filters\BandPassFilter.cs" />
+    <Compile Include="Filters\BiquadFilter.cs" />
+    <Compile Include="Filters\HighPassFilter.cs" />
+    <Compile Include="Filters\HighShelfFilter.cs" />
+    <Compile Include="Filters\LowPassFilter.cs" />
+    <Compile Include="Filters\LowShelfFilter.cs" />
+    <Compile Include="Filters\NotchFilter.cs" />
+    <Compile Include="Filters\PeakFilter.cs" />
+    <Compile Include="Forms\AboutForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AboutForm.Designer.cs">
+      <DependentUpon>AboutForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UIElements\Dial.cs" />
+    <Compile Include="UIElements\DialHelpers.cs" />
+    <Compile Include="Classes\DSP_Math.cs" />
+    <Compile Include="Classes\DSP_Setting.cs" />
+    <Compile Include="Classes\ImageHelpers.cs" />
+    <Compile Include="Resource Classes\Images.cs" />
+    <Compile Include="Classes\PIC_Bridge.cs" />
+    <Compile Include="Forms\CompressorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CompressorForm.Designer.cs">
+      <DependentUpon>CompressorForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\DelayForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\DelayForm.Designer.cs">
+      <DependentUpon>DelayForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FilterForm3.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FilterForm3.Designer.cs">
+      <DependentUpon>FilterForm3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\GainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\GainForm.Designer.cs">
+      <DependentUpon>GainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\InputConfiguration.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\InputConfiguration.Designer.cs">
+      <DependentUpon>InputConfiguration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\MixerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\MixerForm.Designer.cs">
+      <DependentUpon>MixerForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\SaveForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SaveForm.Designer.cs">
+      <DependentUpon>SaveForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Classes\Helpers.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="GlobalResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GlobalResources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\knob_blue_bg.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\knob_blue_line.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\knob_green_bg.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\knob_green_line.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\knob_grey_bg.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\knob_grey_line.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\knob_orange_bg.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\knob_orange_line.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\knob_purple_bg.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\knob_purple_line.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\knob_red_bg.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\knob_red_line.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\knob_yellow_bg.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\knob_yellow_line.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\peq_curve_mockup.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Forms\AboutForm.resx">
+      <DependentUpon>AboutForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CompressorForm.resx">
+      <DependentUpon>CompressorForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CopyForm.resx">
+      <DependentUpon>CopyForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\OutputConfiguration.resx">
+      <DependentUpon>OutputConfiguration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FilterForm6.resx">
+      <DependentUpon>FilterForm6.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\DelayForm.resx">
+      <DependentUpon>DelayForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FilterForm3.resx">
+      <DependentUpon>FilterForm3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\GainForm.resx">
+      <DependentUpon>GainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\InputConfiguration.resx">
+      <DependentUpon>InputConfiguration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\MixerForm.resx">
+      <DependentUpon>MixerForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SaveForm.resx">
+      <DependentUpon>SaveForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GlobalResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>GlobalResources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SA Icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SA Company Logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FilterGraph-BG-Blue.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ui_bypass_grey.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ui_bypass_red.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ui_btn_mute.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ui_btn_save.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\checkbox_checked.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\checkbox_unchecked.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\radio_checked.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\radio_unchecked.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ui_btn_compressor.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ui_btn_compressor_over.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ui_btn_delay.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ui_btn_delay_over.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ui_btn_filters.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ui_btn_filters_over.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ui_btn_gain.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ui_btn_gain_over.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ui_btn_limiter.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ui_btn_limiter_over.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ui_btn_trim.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ui_btn_trim_over.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ui_compressor_bg.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ui_fader_bg_12toinfinite.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ui_fader_slider.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ui_icon_matrix.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ui_logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\uidesign_prematrix_line.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bg_toolbar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\menu_load.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\menu_load_over.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\menu_program.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\menu_program_over.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\menu_read.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\menu_read_over.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\menu_save.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\menu_save_over.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ui_icon_overlay_bypassed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ui_icon_overlay_mute.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ui_btn_go.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ui_mute_grey.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ui_mute_red.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\gain_24_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\menu_program_selection.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\radio_checked_green.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\radio_checked_red.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\meter_0.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\meter_1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\meter_2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\meter_3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\meter_4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\meter_5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\meter_6.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\meter_7.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\meter_8.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\meter_9.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\meter_10.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\meter_11.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties BuildVersion_UpdateAssemblyVersion="True" BuildVersion_UpdateFileVersion="True" BuildVersion_AssemblyInfoFilename="Properties\AssemblyInfo.cs" BuildVersion_UseGlobalSettings="True" />
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
