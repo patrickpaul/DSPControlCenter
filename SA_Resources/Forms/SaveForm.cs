@@ -232,7 +232,7 @@ namespace SA_Resources
             worker.ReportProgress(88);
 
             
-            AddTextToLog("Saving to EEPROM. This may take a moment... ");
+            AddTextToLog("Saving to device memory. This may take a moment... ");
 
             if (_PIC_Conn.sendAckdCommand(command_SaveEEPROM, 6000))
             {
