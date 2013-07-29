@@ -5,6 +5,7 @@ using System.IO.Ports;
 using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
+using Microsoft.Win32;
 using SA_Resources;
 
 namespace SA_Resources
@@ -27,6 +28,52 @@ namespace SA_Resources
         {
             InitializeComponent();
 
+
+            string InstallPath = (string)Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\StewartAudioDSP", "Path", null);
+            if (!_vsDebug)
+            {
+                // Do stuff
+                Directory.SetCurrentDirectory(InstallPath);
+
+                string[] args = Environment.GetCommandLineArgs();
+                string deviceIDstring = "";
+                if (args.Length > 1)
+                {
+
+                    //try
+                    //{
+                    string tempLine = "";
+                    string channel_name = "";
+                    using (System.IO.StreamReader file = new System.IO.StreamReader(args[1]))
+                    {
+                        int lineCount = 0, index = 0;
+                        UInt32 value = 0x00000000;
+                        while (file.Peek() >= 0)
+                        {
+                            lineCount++;
+                            tempLine = file.ReadLine();
+
+                            if (tempLine.Contains("DEVICE-ID:"))
+                            {
+                                // TODO - CHECK HERE FOR VALID DEVICE-ID
+                                deviceIDstring = tempLine;
+                                continue;
+                            }
+
+
+                        }
+                    }
+                    //}
+                    //catch (Exception ex)
+                    //{
+                    //    MessageBox.Show("Unable to load program file. Message: " + ex.Message, "Load Program Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //}
+                }
+                
+
+            }
+
+
             _deviceIDs.Add(0x01, "FLX Tester");
 
             _deviceIDs.Add(0x02, "FLX80-4");
@@ -42,6 +89,8 @@ namespace SA_Resources
             _deviceIDs.Add(0x20, "DSP 4x4");
 
             ProvenCOMPorts = new List<COMPortInfo>();
+
+            
 
         }
 

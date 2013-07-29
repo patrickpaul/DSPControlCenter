@@ -265,6 +265,8 @@
 		<row><td>NewBinary18</td><td/><td>&lt;ISProductFolder&gt;\Redist\Language Independent\OS Independent\InstallStateMenu.ico</td></row>
 		<row><td>NewBinary19</td><td/><td>&lt;ISProductFolder&gt;\redist\Language independent\i386\SerialNumCAHelper.dll</td></row>
 		<row><td>NewBinary2</td><td/><td>&lt;ISProductFolder&gt;\Redist\Language Independent\OS Independent\New.ibd</td></row>
+		<row><td>NewBinary20</td><td/><td>C:\Program Files (x86)\InstallShield\2012SpringLE\Support\Themes\Stewart Audio\welcome.jpg</td></row>
+		<row><td>NewBinary21</td><td/><td>C:\Program Files (x86)\InstallShield\2012SpringLE\Support\Themes\Stewart Audio\banner.jpg</td></row>
 		<row><td>NewBinary3</td><td/><td>&lt;ISProductFolder&gt;\Redist\Language Independent\OS Independent\Up.ibd</td></row>
 		<row><td>NewBinary4</td><td/><td>&lt;ISProductFolder&gt;\Redist\Language Independent\OS Independent\WarningIcon.ibd</td></row>
 		<row><td>NewBinary5</td><td/><td>&lt;ISProductFolder&gt;\Support\Themes\InstallShield Blue Theme\welcome.jpg</td></row>
@@ -350,6 +352,7 @@
 		<row><td>ISX_DEFAULTCOMPONENT4</td><td>{ADB76161-8B0F-47D7-8A12-BBA7A1F0F03F}</td><td>STATIC</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>ISX_DEFAULTCOMPONENT5</td><td>{6C73D936-9E39-42F6-BCDF-08DBA4BCF64A}</td><td>AMD641</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>ISX_DEFAULTCOMPONENT6</td><td>{5A0978B7-03DC-427F-9A4A-4F8FF69E12A4}</td><td>I3861</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>ISX_DEFAULTCOMPONENT7</td><td>{48769C3C-2FAF-4738-AF9F-622BB62EF516}</td><td>INSTALLDIR</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>SA_Resources.Primary_output</td><td>{783DE6CC-41D8-4D55-AA2F-47C185C73166}</td><td>INSTALLDIR</td><td>2</td><td/><td>sa_resources.primary_output</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>Stewart_Audio_Control_Center.Primary_output</td><td>{18B7467C-4701-4055-B4D8-E7788171F138}</td><td>INSTALLDIR</td><td>2</td><td/><td>stewart_audio_control_center</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>dp_chooser.exe</td><td>{D549B446-CD04-49C9-9598-A7166F509AB8}</td><td>DRIVERS</td><td>2</td><td/><td>dp_chooser.exe</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
@@ -473,7 +476,7 @@
 		<row><td>CustomSetupTips</td><td>OK</td><td>PushButton</td><td>301</td><td>243</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS_SetupTips_OK##</td><td/><td/><td>0</td><td/><td/><td/></row>
 		<row><td>CustomSetupTips</td><td>PartialText</td><td>Text</td><td>60</td><td>130</td><td>300</td><td>20</td><td>3</td><td/><td>##IDS_SetupTips_SubFeaturesInstalledLocal##</td><td/><td/><td>0</td><td/><td/><td/></row>
 		<row><td>CustomerInformation</td><td>Back</td><td>PushButton</td><td>164</td><td>243</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS_BACK##</td><td>Next</td><td/><td>0</td><td/><td/><td/></row>
-		<row><td>CustomerInformation</td><td>Banner</td><td>Bitmap</td><td>0</td><td>0</td><td>374</td><td>44</td><td>1</td><td/><td/><td/><td/><td>0</td><td/><td/><td>NewBinary1</td></row>
+		<row><td>CustomerInformation</td><td>Banner</td><td>Bitmap</td><td>0</td><td>0</td><td>374</td><td>44</td><td>1</td><td/><td/><td/><td/><td>0</td><td/><td/><td>NewBinary21</td></row>
 		<row><td>CustomerInformation</td><td>BannerLine</td><td>Line</td><td>0</td><td>44</td><td>374</td><td>0</td><td>1</td><td/><td/><td/><td/><td>0</td><td/><td/><td/></row>
 		<row><td>CustomerInformation</td><td>Branding1</td><td>Text</td><td>4</td><td>229</td><td>50</td><td>13</td><td>3</td><td/><td>##IDS_INSTALLSHIELD_FORMATTED##</td><td/><td/><td>0</td><td/><td/><td/></row>
 		<row><td>CustomerInformation</td><td>Branding2</td><td>Text</td><td>3</td><td>228</td><td>50</td><td>13</td><td>65537</td><td/><td>##IDS_INSTALLSHIELD##</td><td/><td/><td>0</td><td/><td/><td/></row>
@@ -560,13 +563,13 @@
 		<row><td>InstallWelcome</td><td>Cancel</td><td>PushButton</td><td>301</td><td>243</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS_CANCEL##</td><td>Back</td><td/><td>0</td><td/><td/><td/></row>
 		<row><td>InstallWelcome</td><td>Copyright</td><td>Text</td><td>135</td><td>144</td><td>228</td><td>73</td><td>65539</td><td/><td>##IDS__IsWelcomeDlg_WarningCopyright##</td><td>Next</td><td/><td>0</td><td/><td/><td/></row>
 		<row><td>InstallWelcome</td><td>DlgLine</td><td>Line</td><td>0</td><td>234</td><td>374</td><td>0</td><td>1</td><td/><td/><td/><td/><td>0</td><td/><td/><td/></row>
-		<row><td>InstallWelcome</td><td>Image</td><td>Bitmap</td><td>0</td><td>0</td><td>374</td><td>234</td><td>1</td><td/><td/><td/><td/><td>0</td><td/><td/><td>NewBinary5</td></row>
+		<row><td>InstallWelcome</td><td>Image</td><td>Bitmap</td><td>0</td><td>0</td><td>374</td><td>234</td><td>1</td><td/><td/><td/><td/><td>0</td><td/><td/><td>NewBinary20</td></row>
 		<row><td>InstallWelcome</td><td>Next</td><td>PushButton</td><td>230</td><td>243</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS_NEXT##</td><td>Cancel</td><td/><td>0</td><td/><td/><td/></row>
 		<row><td>InstallWelcome</td><td>TextLine1</td><td>Text</td><td>135</td><td>8</td><td>225</td><td>45</td><td>196611</td><td/><td>##IDS__IsWelcomeDlg_WelcomeProductName##</td><td/><td/><td>0</td><td/><td/><td/></row>
 		<row><td>InstallWelcome</td><td>TextLine2</td><td>Text</td><td>135</td><td>55</td><td>228</td><td>45</td><td>196611</td><td/><td>##IDS__IsWelcomeDlg_InstallProductName##</td><td/><td/><td>0</td><td/><td/><td/></row>
 		<row><td>LicenseAgreement</td><td>Agree</td><td>RadioButtonGroup</td><td>8</td><td>190</td><td>291</td><td>40</td><td>3</td><td>AgreeToLicense</td><td/><td>Back</td><td/><td>0</td><td/><td/><td/></row>
 		<row><td>LicenseAgreement</td><td>Back</td><td>PushButton</td><td>164</td><td>243</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS_BACK##</td><td>Next</td><td/><td>0</td><td/><td/><td/></row>
-		<row><td>LicenseAgreement</td><td>Banner</td><td>Bitmap</td><td>0</td><td>0</td><td>374</td><td>44</td><td>1</td><td/><td/><td/><td/><td>0</td><td/><td/><td>NewBinary1</td></row>
+		<row><td>LicenseAgreement</td><td>Banner</td><td>Bitmap</td><td>0</td><td>0</td><td>374</td><td>44</td><td>1</td><td/><td/><td/><td/><td>0</td><td/><td/><td>NewBinary21</td></row>
 		<row><td>LicenseAgreement</td><td>BannerLine</td><td>Line</td><td>0</td><td>44</td><td>374</td><td>0</td><td>1</td><td/><td/><td/><td/><td>0</td><td/><td/><td/></row>
 		<row><td>LicenseAgreement</td><td>Branding1</td><td>Text</td><td>4</td><td>229</td><td>50</td><td>13</td><td>3</td><td/><td>##IDS_INSTALLSHIELD_FORMATTED##</td><td/><td/><td>0</td><td/><td/><td/></row>
 		<row><td>LicenseAgreement</td><td>Branding2</td><td>Text</td><td>3</td><td>228</td><td>50</td><td>13</td><td>65537</td><td/><td>##IDS_INSTALLSHIELD##</td><td/><td/><td>0</td><td/><td/><td/></row>
@@ -641,7 +644,7 @@
 		<row><td>ReadmeInformation</td><td>Next</td><td>PushButton</td><td>230</td><td>243</td><td>66</td><td>17</td><td>1048579</td><td/><td>##IDS_NEXT##</td><td>Cancel</td><td/><td>0</td><td/><td/><td/></row>
 		<row><td>ReadmeInformation</td><td>Readme</td><td>ScrollableText</td><td>10</td><td>55</td><td>353</td><td>166</td><td>3</td><td/><td/><td>Banner</td><td/><td>0</td><td/><td>&lt;ISProductFolder&gt;\Redist\0409\Readme.rtf</td><td/></row>
 		<row><td>ReadyToInstall</td><td>Back</td><td>PushButton</td><td>164</td><td>243</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS_BACK##</td><td>GroupBox1</td><td/><td>0</td><td/><td/><td/></row>
-		<row><td>ReadyToInstall</td><td>Banner</td><td>Bitmap</td><td>0</td><td>0</td><td>374</td><td>44</td><td>1</td><td/><td/><td/><td/><td>0</td><td/><td/><td>NewBinary1</td></row>
+		<row><td>ReadyToInstall</td><td>Banner</td><td>Bitmap</td><td>0</td><td>0</td><td>374</td><td>44</td><td>1</td><td/><td/><td/><td/><td>0</td><td/><td/><td>NewBinary21</td></row>
 		<row><td>ReadyToInstall</td><td>BannerLine</td><td>Line</td><td>0</td><td>44</td><td>374</td><td>0</td><td>1</td><td/><td/><td/><td/><td>0</td><td/><td/><td/></row>
 		<row><td>ReadyToInstall</td><td>Branding1</td><td>Text</td><td>4</td><td>229</td><td>50</td><td>13</td><td>3</td><td/><td>##IDS_INSTALLSHIELD_FORMATTED##</td><td/><td/><td>0</td><td/><td/><td/></row>
 		<row><td>ReadyToInstall</td><td>Branding2</td><td>Text</td><td>3</td><td>228</td><td>50</td><td>13</td><td>65537</td><td/><td>##IDS_INSTALLSHIELD##</td><td/><td/><td>0</td><td/><td/><td/></row>
@@ -700,7 +703,7 @@
 		<row><td>SetupCompleteSuccess</td><td>CheckLaunchReadme</td><td>CheckBox</td><td>151</td><td>148</td><td>10</td><td>9</td><td>2</td><td>LAUNCHREADME</td><td/><td>CheckBoxUpdates</td><td/><td>0</td><td/><td/><td/></row>
 		<row><td>SetupCompleteSuccess</td><td>CheckShowMsiLog</td><td>CheckBox</td><td>151</td><td>182</td><td>10</td><td>9</td><td>2</td><td>ISSHOWMSILOG</td><td/><td>Back</td><td/><td>0</td><td/><td/><td/></row>
 		<row><td>SetupCompleteSuccess</td><td>DlgLine</td><td>Line</td><td>0</td><td>234</td><td>374</td><td>0</td><td>1</td><td/><td/><td/><td/><td>0</td><td/><td/><td/></row>
-		<row><td>SetupCompleteSuccess</td><td>Image</td><td>Bitmap</td><td>0</td><td>0</td><td>374</td><td>234</td><td>1</td><td/><td/><td>CheckLaunchProgram</td><td/><td>0</td><td/><td/><td>NewBinary5</td></row>
+		<row><td>SetupCompleteSuccess</td><td>Image</td><td>Bitmap</td><td>0</td><td>0</td><td>374</td><td>234</td><td>1</td><td/><td/><td>CheckLaunchProgram</td><td/><td>0</td><td/><td/><td>NewBinary20</td></row>
 		<row><td>SetupCompleteSuccess</td><td>LaunchProgramText</td><td>Text</td><td>164</td><td>112</td><td>98</td><td>15</td><td>65538</td><td/><td>##IDS__IsExitDialog_LaunchProgram##</td><td/><td/><td>0</td><td>0</td><td/><td/></row>
 		<row><td>SetupCompleteSuccess</td><td>LaunchReadmeText</td><td>Text</td><td>164</td><td>148</td><td>120</td><td>13</td><td>65538</td><td/><td>##IDS__IsExitDialog_ShowReadMe##</td><td/><td/><td>0</td><td>0</td><td/><td/></row>
 		<row><td>SetupCompleteSuccess</td><td>OK</td><td>PushButton</td><td>230</td><td>243</td><td>66</td><td>17</td><td>3</td><td/><td>##IDS__IsExitDialog_Finish##</td><td>Cancel</td><td/><td>0</td><td/><td/><td/></row>
@@ -745,7 +748,7 @@
 		<row><td>SetupProgress</td><td>ActionProgress95</td><td>ProgressBar</td><td>59</td><td>113</td><td>275</td><td>12</td><td>65537</td><td/><td>##IDS__IsProgressDlg_ProgressDone##</td><td/><td/><td>0</td><td/><td/><td/></row>
 		<row><td>SetupProgress</td><td>ActionText</td><td>Text</td><td>59</td><td>100</td><td>275</td><td>12</td><td>3</td><td/><td>##IDS__IsProgressDlg_2##</td><td/><td/><td>0</td><td/><td/><td/></row>
 		<row><td>SetupProgress</td><td>Back</td><td>PushButton</td><td>164</td><td>243</td><td>66</td><td>17</td><td>1</td><td/><td>##IDS_BACK##</td><td>Next</td><td/><td>0</td><td/><td/><td/></row>
-		<row><td>SetupProgress</td><td>Banner</td><td>Bitmap</td><td>0</td><td>0</td><td>374</td><td>44</td><td>1</td><td/><td/><td/><td/><td>0</td><td/><td/><td>NewBinary1</td></row>
+		<row><td>SetupProgress</td><td>Banner</td><td>Bitmap</td><td>0</td><td>0</td><td>374</td><td>44</td><td>1</td><td/><td/><td/><td/><td>0</td><td/><td/><td>NewBinary21</td></row>
 		<row><td>SetupProgress</td><td>BannerLine</td><td>Line</td><td>0</td><td>44</td><td>374</td><td>0</td><td>1</td><td/><td/><td/><td/><td>0</td><td/><td/><td/></row>
 		<row><td>SetupProgress</td><td>Branding1</td><td>Text</td><td>4</td><td>229</td><td>50</td><td>13</td><td>3</td><td/><td>##IDS_INSTALLSHIELD_FORMATTED##</td><td/><td/><td>0</td><td/><td/><td/></row>
 		<row><td>SetupProgress</td><td>Branding2</td><td>Text</td><td>3</td><td>228</td><td>50</td><td>13</td><td>65537</td><td/><td>##IDS_INSTALLSHIELD##</td><td/><td/><td>0</td><td/><td/><td/></row>
@@ -1075,6 +1078,7 @@
 		<col key="yes" def="s72">Directory_</col>
 		<col key="yes" def="s72">Component_</col>
 		<row><td>DEVICES</td><td>ISX_DEFAULTCOMPONENT</td></row>
+		<row><td>INSTALLDIR</td><td>ISX_DEFAULTCOMPONENT7</td></row>
 		<row><td>STATIC</td><td>ISX_DEFAULTCOMPONENT4</td></row>
 	</table>
 
@@ -1874,7 +1878,8 @@
 		<col def="S255">ProgId_</col>
 		<col def="S64">MIME_</col>
 		<col def="s38">Feature_</col>
-		<row><td>*.scfg</td><td>Stewart_Audio_Control_Center.Primary_output</td><td/><td/><td>AlwaysInstall</td></row>
+		<row><td>NewExtension1</td><td>Stewart_Audio_Control_Center.Primary_output</td><td/><td/><td>AlwaysInstall</td></row>
+		<row><td>scfg</td><td>Stewart_Audio_Control_Center.Primary_output</td><td>ext1.File</td><td/><td>AlwaysInstall</td></row>
 	</table>
 
 	<table name="Feature">
@@ -1905,6 +1910,7 @@
 		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT4</td></row>
 		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT5</td></row>
 		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT6</td></row>
+		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT7</td></row>
 		<row><td>AlwaysInstall</td><td>SA_Resources.Primary_output</td></row>
 		<row><td>AlwaysInstall</td><td>Stewart_Audio_Control_Center.Primary_output</td></row>
 		<row><td>AlwaysInstall</td><td>dp_chooser.exe</td></row>
@@ -1981,6 +1987,7 @@
 		<col def="S255">Data</col>
 		<row><td>PROJECT_ASSISTANT_DEFAULT_FEATURE</td><td>AlwaysInstall</td></row>
 		<row><td>PROJECT_ASSISTANT_FEATURES</td><td>NonSelectable</td></row>
+		<row><td>RegistryPageEnabled</td><td>Yes</td></row>
 		<row><td>_Built</td><td/></row>
 	</table>
 
@@ -2230,6 +2237,7 @@
 		<row><td>ISX_DEFAULTCOMPONENT4</td><td/><td/><td>_E41F7D86_7999_4EC7_8FD0_0EA5C8F6CC45_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>ISX_DEFAULTCOMPONENT5</td><td/><td/><td>_4B23D6EB_7893_402E_B5D2_50FD68534055_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>ISX_DEFAULTCOMPONENT6</td><td/><td/><td>_EF24590E_E6EE_4522_881D_559BBAB526BD_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>ISX_DEFAULTCOMPONENT7</td><td/><td/><td>_8A56F7F1_9542_435F_90DB_896EFBC9FC60_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>SA_Resources.Primary_output</td><td/><td/><td>_4024C84A_BDDF_4B95_9140_2B0F708F08A4_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>Stewart_Audio_Control_Center.Primary_output</td><td/><td/><td>_208BFD0F_A5DC_4BA9_9C4F_31B30DC69147_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>dp_chooser.exe</td><td/><td/><td>_7680A715_CB2E_496B_B86F_ED4C7E2598E9_FILTER</td><td/><td/><td/><td/></row>
@@ -3695,9 +3703,6 @@
 		<row><td>IDS_SHORTCUT_DISPLAY_NAME4</td><td>1033</td><td>LAUNCH~1.EXE|Launch dp-chooser.exe</td><td>0</td><td/><td>-341724497</td></row>
 		<row><td>IDS_SHORTCUT_DISPLAY_NAME5</td><td>1033</td><td>LAUNCH~1.EXE|Launch dpinst-amd64.exe</td><td>0</td><td/><td>-341724497</td></row>
 		<row><td>IDS_SHORTCUT_DISPLAY_NAME6</td><td>1033</td><td>LAUNCH~1.EXE|Launch dpinst-x86.exe</td><td>0</td><td/><td>-341724497</td></row>
-		<row><td>IDS_SHORTCUT_DISPLAY_NAME7</td><td>1033</td><td>LAUNCH~1.EXE|Launch dp-chooser.exe</td><td>0</td><td/><td>-341710161</td></row>
-		<row><td>IDS_SHORTCUT_DISPLAY_NAME8</td><td>1033</td><td>LAUNCH~1.EXE|Launch dpinst-amd64.exe</td><td>0</td><td/><td>-341710161</td></row>
-		<row><td>IDS_SHORTCUT_DISPLAY_NAME9</td><td>1033</td><td>LAUNCH~1.EXE|Launch dpinst-x86.exe</td><td>0</td><td/><td>-341710161</td></row>
 		<row><td>IDS_SQLBROWSE_INTRO</td><td>1033</td><td>From the list of servers below, select the database server you would like to target.</td><td>0</td><td/><td>-341734801</td></row>
 		<row><td>IDS_SQLBROWSE_INTRO_DB</td><td>1033</td><td>From the list of catalog names below, select the database catalog you would like to target.</td><td>0</td><td/><td>-341734801</td></row>
 		<row><td>IDS_SQLBROWSE_INTRO_TEMPLATE</td><td>1033</td><td>[IS_SQLBROWSE_INTRO]</td><td>0</td><td/><td>-341734801</td></row>
@@ -3991,6 +3996,9 @@
 		<row><td>ID_STRING3</td><td>1033</td><td>Stewart Audio</td><td>0</td><td/><td>-341726609</td></row>
 		<row><td>ID_STRING4</td><td>1033</td><td>DSP Control Center</td><td>0</td><td/><td>-341718321</td></row>
 		<row><td>IIDS_UITEXT_FeatureUninstalled</td><td>1033</td><td>This feature will remain uninstalled.</td><td>0</td><td/><td>-341734801</td></row>
+		<row><td>NEW_STRING1</td><td>1033</td><td>scfg</td><td>0</td><td/><td>-341721681</td></row>
+		<row><td>NEW_STRING2</td><td>1033</td><td>scfg</td><td>0</td><td/><td>-341746960</td></row>
+		<row><td>NEW_STRING3</td><td>1033</td><td>scfg</td><td>0</td><td/><td>-341714160</td></row>
 	</table>
 
 	<table name="ISSwidtagProperty">
@@ -4098,15 +4106,15 @@
 		<col def="S255">ISBuildSourcePath</col>
 		<col def="I2">ISIconIndex</col>
 		<row><td>ARPPRODUCTICON.exe</td><td/><td>C:\SOURCE\DSPControlCenter\DSP Control Center v4.ico</td><td>0</td></row>
+		<row><td>_56C34E30_E160_4BB1_97EA_988FB162CC80</td><td/><td>C:\SOURCE\DSPControlCenter\DSP Control Center v4.ico</td><td>0</td></row>
+		<row><td>_B4FC6954_DD33_422E_8857_87BB63F71AF0</td><td/><td>C:\SOURCE\DSPControlCenter\DSP Control Center v4.ico</td><td>0</td></row>
 		<row><td>_Built1_C48E196F73854B82BE4B3D2A523E0A1F.exe</td><td/><td>C:\SOURCE\DSPControlCenter\DSP Control Center v4.ico</td><td>0</td></row>
 		<row><td>_Built_DF81D4826ACD456B81F47F59235693B2.exe</td><td/><td>C:\SOURCE\DSPControlCenter\DSP Control Center v4.ico</td><td>0</td></row>
+		<row><td>_F7C68B79_B656_4B5E_BB31_330699E3125B</td><td/><td>C:\SOURCE\DSPControlCenter\DSP Control Center v4.ico</td><td>0</td></row>
 		<row><td>dp_chooser.exe_289AB4CFFC3942F69D9765AE57E643AC.exe</td><td/><td>&lt;ISProductFolder&gt;\redist\Language Independent\OS Independent\GenericExe.ico</td><td>0</td></row>
-		<row><td>dp_chooser.exe_BFA6D7C902604B7DB0FF4A51D2D8A7B7.exe</td><td/><td>&lt;ISProductFolder&gt;\redist\Language Independent\OS Independent\GenericExe.ico</td><td>0</td></row>
 		<row><td>dp_chooser.exe_DD6425703330491F88239C529AA06A2B.exe</td><td/><td>&lt;ISProductFolder&gt;\redist\Language Independent\OS Independent\GenericExe.ico</td><td>0</td></row>
 		<row><td>dpinst_amd64.exe_2B57620D9E51489DA0442EF012CEAD97.exe</td><td/><td>C:\SOURCE\DSPControlCenter\Drivers\dpinst-amd64.exe</td><td>0</td></row>
-		<row><td>dpinst_amd64.exe_5B67182CCEB949C2B7FA90BA436F0A47.exe</td><td/><td>C:\SOURCE\DSPControlCenter\Drivers\dpinst-amd64.exe</td><td>0</td></row>
 		<row><td>dpinst_amd64.exe_F03E77F9B1404C92BDD538E436B30F21.exe</td><td/><td>C:\SOURCE\DSPControlCenter\Drivers\dpinst-amd64.exe</td><td>0</td></row>
-		<row><td>dpinst_x86.exe_87002E20AAE741B9B8C37DB99D5CD5A2.exe</td><td/><td>C:\SOURCE\DSPControlCenter\Drivers\dpinst-x86.exe</td><td>0</td></row>
 		<row><td>dpinst_x86.exe_D7FAFFBA3E6E4F4A868239A089B80A55.exe</td><td/><td>C:\SOURCE\DSPControlCenter\Drivers\dpinst-x86.exe</td><td>0</td></row>
 		<row><td>dpinst_x86.exe_E00E4F80F97344F7A83F3D613950482A.exe</td><td/><td>C:\SOURCE\DSPControlCenter\Drivers\dpinst-x86.exe</td><td>0</td></row>
 	</table>
@@ -4242,7 +4250,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>ISTheme</td><td>InstallShield Blue.theme</td></row>
 		<row><td>ISUSLock</td><td>{D8E2F9FF-1ABD-43FE-B1A2-D1254BE3A2C4}</td></row>
 		<row><td>ISUSSignature</td><td>{9E07B878-5CD4-41D4-90D5-838D58A26570}</td></row>
-		<row><td>ISVisitedViews</td><td>viewAssistant,viewCustomActions,viewISToday,viewUI,viewTextMessages,viewRelease</td></row>
+		<row><td>ISVisitedViews</td><td>viewAssistant,viewCustomActions,viewISToday,viewUI,viewTextMessages,viewRelease,viewProject,viewRealSetupDesign,viewSetupDesign,viewSetupTypes,viewUpgradePaths,viewObjects,viewDependencies,viewFileExtensions,viewSystemSearch,viewShortcuts,viewRegistry</td></row>
 		<row><td>Limited</td><td>1</td></row>
 		<row><td>LockPermissionMode</td><td>1</td></row>
 		<row><td>MsiExecCmdLineOptions</td><td/></row>
@@ -4542,6 +4550,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col def="S72">Icon_</col>
 		<col def="I2">IconIndex</col>
 		<col def="I4">ISAttributes</col>
+		<row><td>ext1.File</td><td/><td/><td>Stewart Audio Configuration File</td><td>_F7C68B79_B656_4B5E_BB31_330699E3125B</td><td>0</td><td/></row>
 	</table>
 
 	<table name="Property">
@@ -4550,6 +4559,8 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col def="S255">ISComments</col>
 		<row><td>ALLUSERS</td><td>1</td><td/></row>
 		<row><td>ARPINSTALLLOCATION</td><td/><td/></row>
+		<row><td>ARPNOMODIFY</td><td>1</td><td/></row>
+		<row><td>ARPNOREPAIR</td><td>1</td><td/></row>
 		<row><td>ARPPRODUCTICON</td><td>ARPPRODUCTICON.exe</td><td/></row>
 		<row><td>ARPSIZE</td><td/><td/></row>
 		<row><td>ARPURLINFOABOUT</td><td>##ID_STRING2##</td><td/></row>
@@ -4690,6 +4701,10 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col def="S0">Value</col>
 		<col def="s72">Component_</col>
 		<col def="I4">ISAttributes</col>
+		<row><td>Registry1</td><td>2</td><td>Software\Microsoft\Windows\CurrentVersion\App Paths\StewartAudioDSP</td><td/><td/><td>Stewart_Audio_Control_Center.Primary_output</td><td>1</td></row>
+		<row><td>Registry2</td><td>2</td><td>Software\Stewart Audio</td><td>INSTALLDIR</td><td>[INSTALLDIR]</td><td>ISX_DEFAULTCOMPONENT7</td><td>0</td></row>
+		<row><td>Registry3</td><td>2</td><td>Software\Microsoft\Windows\CurrentVersion\App Paths\StewartAudioDSP</td><td>Path</td><td>[INSTALLDIR]</td><td>Stewart_Audio_Control_Center.Primary_output</td><td>0</td></row>
+		<row><td>Registry4</td><td>2</td><td>Software\Microsoft\Windows\CurrentVersion\App Paths\StewartAudioDSP</td><td/><td>[!stewart_audio_control_center]</td><td>Stewart_Audio_Control_Center.Primary_output</td><td>0</td></row>
 	</table>
 
 	<table name="RemoveFile">
@@ -4699,9 +4714,6 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col def="s72">DirProperty</col>
 		<col def="i2">InstallMode</col>
 		<row><td>_Built</td><td>Stewart_Audio_Control_Center.Primary_output</td><td/><td>dspcon_1_dsp_control_center</td><td>2</td></row>
-		<row><td>dp_chooser.exe</td><td>dp_chooser.exe</td><td/><td>dspcon_1_dsp_control_center</td><td>2</td></row>
-		<row><td>dpinst_amd64.exe</td><td>dpinst_amd64.exe</td><td/><td>dspcon_1_dsp_control_center</td><td>2</td></row>
-		<row><td>dpinst_x86.exe</td><td>dpinst_x86.exe</td><td/><td>dspcon_1_dsp_control_center</td><td>2</td></row>
 	</table>
 
 	<table name="RemoveIniFile">
@@ -4787,11 +4799,8 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col def="S255">ISComments</col>
 		<col def="S255">ISShortcutName</col>
 		<col def="I4">ISAttributes</col>
-		<row><td>_Built</td><td>dspcon_1_dsp_control_center</td><td>##IDS_SHORTCUT_DISPLAY_NAME10##</td><td>Stewart_Audio_Control_Center.Primary_output</td><td>AlwaysInstall</td><td/><td/><td/><td>_Built_DF81D4826ACD456B81F47F59235693B2.exe</td><td>0</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>_Built1</td><td>DesktopFolder</td><td>##IDS_SHORTCUT_DISPLAY_NAME10##</td><td>Stewart_Audio_Control_Center.Primary_output</td><td>AlwaysInstall</td><td/><td/><td/><td>_Built1_C48E196F73854B82BE4B3D2A523E0A1F.exe</td><td>0</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>dp_chooser.exe</td><td>dspcon_1_dsp_control_center</td><td>##IDS_SHORTCUT_DISPLAY_NAME7##</td><td>dp_chooser.exe</td><td>AlwaysInstall</td><td/><td/><td/><td>dp_chooser.exe_BFA6D7C902604B7DB0FF4A51D2D8A7B7.exe</td><td>0</td><td>1</td><td>DRIVERS</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>dpinst_amd64.exe</td><td>dspcon_1_dsp_control_center</td><td>##IDS_SHORTCUT_DISPLAY_NAME8##</td><td>dpinst_amd64.exe</td><td>AlwaysInstall</td><td/><td/><td/><td>dpinst_amd64.exe_5B67182CCEB949C2B7FA90BA436F0A47.exe</td><td>1</td><td>1</td><td>DRIVERS</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>dpinst_x86.exe</td><td>dspcon_1_dsp_control_center</td><td>##IDS_SHORTCUT_DISPLAY_NAME9##</td><td>dpinst_x86.exe</td><td>AlwaysInstall</td><td/><td/><td/><td>dpinst_x86.exe_87002E20AAE741B9B8C37DB99D5CD5A2.exe</td><td>1</td><td>1</td><td>DRIVERS</td><td/><td/><td/><td/><td/><td/><td/></row>
+		<row><td>_Built</td><td>dspcon_1_dsp_control_center</td><td>##IDS_SHORTCUT_DISPLAY_NAME10##</td><td>Stewart_Audio_Control_Center.Primary_output</td><td>AlwaysInstall</td><td/><td/><td/><td>_Built_DF81D4826ACD456B81F47F59235693B2.exe</td><td>0</td><td>1</td><td>INSTALLDIR</td><td/><td/><td/><td/><td/><td/><td/></row>
+		<row><td>_Built1</td><td>DesktopFolder</td><td>##IDS_SHORTCUT_DISPLAY_NAME10##</td><td>Stewart_Audio_Control_Center.Primary_output</td><td>AlwaysInstall</td><td/><td/><td/><td>_Built1_C48E196F73854B82BE4B3D2A523E0A1F.exe</td><td>0</td><td>1</td><td>INSTALLDIR</td><td/><td/><td/><td/><td/><td/><td/></row>
 	</table>
 
 	<table name="Signature">
@@ -4922,7 +4931,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col def="I2">Sequence</col>
 		<col def="L255">Command</col>
 		<col def="L255">Argument</col>
-		<row><td>*.scfg</td><td>Open</td><td/><td/><td>"%1"</td></row>
+		<row><td>scfg</td><td>open</td><td/><td>&amp;Open in DSP Control Center</td><td>"%1"</td></row>
 	</table>
 
 	<table name="_Validation">
