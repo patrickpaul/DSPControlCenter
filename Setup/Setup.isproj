@@ -28,14 +28,6 @@
 	</ItemGroup>
 	<Import Project="$(MSBuildExtensionsPath32)\InstallShield\2012SpringLimited\InstallShield.targets"/>
 	<ItemGroup>
-		<ProjectReference Include="..\Devices\DSP 4x4\DSP 4x4.csproj">
-			<Name>DSP 4x4</Name>
-			<Project>{FE01ACC1-CE92-44BC-BAF9-04799748362C}</Project>
-		</ProjectReference>
-		<ProjectReference Include="..\Devices\FLX80-4\FLX 80-4.csproj">
-			<Name>FLX 80-4</Name>
-			<Project>{C5E20D4F-2041-4B17-AF6C-D30BF58906FC}</Project>
-		</ProjectReference>
 		<ProjectReference Include="..\SA_Resources\SA_Resources.csproj">
 			<Name>SA_Resources</Name>
 			<Project>{CBB53399-CC71-4AE3-87EE-D87DEAF0AD0D}</Project>

@@ -22,57 +22,57 @@ namespace DSP_4x4
         private const int SECOND_LOW_PASS = 6;
         private const int SECOND_HIGH_PASS = 7;
 
-        private MainForm ParentForm;
+        private MainForm _parentForm;
         public ConfigurationPrintout(MainForm _parent)
         {
             InitializeComponent();
 
-            ParentForm = _parent;
+            _parentForm = _parent;
         }
 
         private void ConfigurationPrintout_Load(object sender, EventArgs e)
         {
-            for (int i = 0; i < ParentForm.num_channels; i++)
+            for (int i = 0; i < _parentForm.num_channels; i++)
             {
                 //txtConfig.Text += "Channel " + (i + 1).ToString("N0") + Environment.NewLine;
 
 
                 txtConfig.Text += "Channel " + (i + 1).ToString("N0") + System.Environment.NewLine;
 
-                PrintInput(ParentForm.inputs[i]);
+                PrintInput(_parentForm.inputs[i]);
 
                 
                 txtConfig.Text += "Input Gain" + Environment.NewLine;
-                PrintGain(ParentForm.gains[i][0]);
+                PrintGain(_parentForm.gains[i][0]);
 
                 txtConfig.Text += "Filters" + Environment.NewLine;
 
                 for (int j = 0; j < 3; j++)
                 {
-                    if (ParentForm.filters[i][j] == null || ParentForm.filters[i][j].Filter == null)
+                    if (_parentForm.filters[i][j] == null || _parentForm.filters[i][j].Filter == null)
                     {
                         txtConfig.Text += "Filter " + (j + 1) + " - Not Used" + Environment.NewLine;
                     }
                     else
                     {
-                        PrintFilter(ParentForm.filters[i][j].Filter);
+                        PrintFilter(_parentForm.filters[i][j].Filter);
                     }
                 }
                 txtConfig.Text += Environment.NewLine; 
 
                 txtConfig.Text += "Compressor" + Environment.NewLine; 
-                PrintCompressor(ParentForm.compressors[i][0]);
+                PrintCompressor(_parentForm.compressors[i][0]);
 
                 txtConfig.Text += "Pre-mix Gain" + Environment.NewLine;
-                PrintGain(ParentForm.gains[i][1]);
+                PrintGain(_parentForm.gains[i][1]);
 
                 txtConfig.Text += "Post-mix Gain" + Environment.NewLine;
-                PrintGain(ParentForm.gains[i][2]);
+                PrintGain(_parentForm.gains[i][2]);
 
                 txtConfig.Text += "Limiter" + Environment.NewLine; 
-                PrintCompressor(ParentForm.compressors[i][1]);
+                PrintCompressor(_parentForm.compressors[i][1]);
                 txtConfig.Text += "Output Gain" + Environment.NewLine;
-                PrintGain(ParentForm.gains[i][3]);
+                PrintGain(_parentForm.gains[i][3]);
 
                 txtConfig.Text += System.Environment.NewLine;
                 txtConfig.Text += System.Environment.NewLine;

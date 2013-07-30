@@ -7,7 +7,7 @@ using SA_Resources;
 using System.Linq;
 using System.Globalization;
 
-/* DEVICE NAME = DSP100-1 */
+/* DEVICE NAME = DSP 4x4 */
 namespace DSP_4x4
 {
     public partial class MainForm : Form
@@ -46,18 +46,20 @@ namespace DSP_4x4
         private static Thread UpdateThread;
 
         private PIC_Bridge _PIC_Conn;
-
-        private static Thread UIThread;
+         
+        //private static Thread UIThread;
 
         // TODO - Move all DEVICE ID's to a global list
         private int DEVICE_ID = 0x20;
         private string SERIALNUM = "";
 
+        private string CONFIGFILE = "";
+
         #endregion
 
         #region Constructor and Load
 
-        public MainForm(PIC_Bridge PIC_Conn, string serialNumber)
+        public MainForm(PIC_Bridge PIC_Conn, string serialNumber, string configFile)
         {
             InitializeComponent();
 
@@ -175,6 +177,12 @@ namespace DSP_4x4
 
             dropProgramSelection.SelectedIndex = 0;
 
+            if (configFile != "")
+            {
+                CONFIGFILE = configFile;
+                
+            }
+
 
         }
 
@@ -184,6 +192,10 @@ namespace DSP_4x4
             {
                 DefaultSettings();
 
+                if (CONFIGFILE != "")
+                {
+                    LoadFromFile(CONFIGFILE);
+                }
                 //FIXME
                 LoadSettingsToForm();
 
@@ -231,7 +243,7 @@ namespace DSP_4x4
             lblCH4Output.Invalidate();
             
             int counter = 0;
-            int i, j, k;
+            int i, j;
 
             for (i = 0; i < 4; i++)
             {
@@ -1009,77 +1021,8 @@ namespace DSP_4x4
             //{
             if (openProgramDialog.ShowDialog() == DialogResult.OK)
             {
-                string tempLine = "";
-                string channel_name = "";
-                using (System.IO.StreamReader file = new System.IO.StreamReader(openProgramDialog.FileName))
-                {
-                    int lineCount = 0, index = 0;
-                    UInt32 value = 0x00000000;
-                    while (file.Peek() >= 0)
-                    {
-                        lineCount++;
-                        tempLine = file.ReadLine();
 
-                        if (tempLine.Contains("DEVICE-ID:"))
-                        {
-                            // TODO - CHECK HERE FOR VALID DEVICE-ID
-                            continue;
-                        }
-
-                        if (tempLine.Contains("DEVICE-ID:"))
-                        {
-                            // TODO - CHECK HERE FOR VALID DEVICE-ID
-                            continue;
-                        }
-
-                        if (tempLine.Contains("SERIAL:"))
-                        {
-                            // TODO - CHECK HERE FOR VALID DEVICE-ID
-                            continue;
-                        }
-
-                        if (tempLine.Contains("TIMESTAMP:"))
-                        {
-                            // TODO - CHECK HERE FOR VALID DEVICE-ID
-                            continue;
-                        }
-
-                        if(tempLine.Substring(0,5) == "INPUT")
-                        {
-                            index = int.Parse(tempLine.Substring(6, 1));
-                            channel_name = tempLine.Substring(8, tempLine.Length - 9);
-                            inputs[index - 1].Name = channel_name;
-                            continue;
-                        }
-
-                        if (tempLine.Substring(0, 6) == "OUTPUT")
-                        {
-                            index = int.Parse(tempLine.Substring(7, 1));
-                            channel_name = tempLine.Substring(9, tempLine.Length - 10);
-                            outputs[index - 1].Name = channel_name;
-                            continue;
-                        }
-
-                        if ((tempLine.Length != 13) || (tempLine.IndexOf('=') != 3) || (tempLine.IndexOf(';') != 12))
-                        {
-                            throw new Exception("Invalid format encountered on line " + lineCount);
-                        }
-                        else
-                        {
-                            index = int.Parse(tempLine.Substring(0, 3));
-                            bool parsedSuccessfully = UInt32.TryParse(tempLine.Substring(4, 8), NumberStyles.HexNumber, CultureInfo.CurrentCulture, out value);
-                            if (!parsedSuccessfully)
-                            {
-                                throw new Exception("Invalid value encountered on line " + lineCount);
-                            }
-                            else
-                            {
-                                _settings[index].Value = value;
-                            }
-                        }
-                    }
-                }
-
+                LoadFromFile(openProgramDialog.FileName);
                 LoadSettingsToForm();
 
             }
@@ -1088,6 +1031,81 @@ namespace DSP_4x4
             //{
             //    MessageBox.Show("Unable to load program file. Message: " + ex.Message, "Load Program Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             //}
+        }
+
+        private void LoadFromFile(string filename)
+        {
+
+            string tempLine = "";
+            string channel_name = "";
+            using (System.IO.StreamReader file = new System.IO.StreamReader(filename))
+            {
+                int lineCount = 0, index = 0;
+                UInt32 value = 0x00000000;
+                while (file.Peek() >= 0)
+                {
+                    lineCount++;
+                    tempLine = file.ReadLine();
+
+                    if (tempLine.Contains("DEVICE-ID:"))
+                    {
+                        // TODO - CHECK HERE FOR VALID DEVICE-ID
+                        continue;
+                    }
+
+                    if (tempLine.Contains("DEVICE-ID:"))
+                    {
+                        // TODO - CHECK HERE FOR VALID DEVICE-ID
+                        continue;
+                    }
+
+                    if (tempLine.Contains("SERIAL:"))
+                    {
+                        // TODO - CHECK HERE FOR VALID DEVICE-ID
+                        continue;
+                    }
+
+                    if (tempLine.Contains("TIMESTAMP:"))
+                    {
+                        // TODO - CHECK HERE FOR VALID DEVICE-ID
+                        continue;
+                    }
+
+                    if (tempLine.Substring(0, 5) == "INPUT")
+                    {
+                        index = int.Parse(tempLine.Substring(6, 1));
+                        channel_name = tempLine.Substring(8, tempLine.Length - 9);
+                        inputs[index - 1].Name = channel_name;
+                        continue;
+                    }
+
+                    if (tempLine.Substring(0, 6) == "OUTPUT")
+                    {
+                        index = int.Parse(tempLine.Substring(7, 1));
+                        channel_name = tempLine.Substring(9, tempLine.Length - 10);
+                        outputs[index - 1].Name = channel_name;
+                        continue;
+                    }
+
+                    if ((tempLine.Length != 13) || (tempLine.IndexOf('=') != 3) || (tempLine.IndexOf(';') != 12))
+                    {
+                        throw new Exception("Invalid format encountered on line " + lineCount);
+                    }
+                    else
+                    {
+                        index = int.Parse(tempLine.Substring(0, 3));
+                        bool parsedSuccessfully = UInt32.TryParse(tempLine.Substring(4, 8), NumberStyles.HexNumber, CultureInfo.CurrentCulture, out value);
+                        if (!parsedSuccessfully)
+                        {
+                            throw new Exception("Invalid value encountered on line " + lineCount);
+                        }
+                        else
+                        {
+                            _settings[index].Value = value;
+                        }
+                    }
+                }
+            }
         }
 
         #endregion

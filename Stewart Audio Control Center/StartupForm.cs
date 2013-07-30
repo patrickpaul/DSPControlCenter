@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.IO.Ports;
 using System.Reflection;
@@ -24,54 +25,14 @@ namespace SA_Resources
 
         private List<COMPortInfo> USBCOMPorts;
         private List<COMPortInfo> ProvenCOMPorts;
+
+        private string CONFIGFILE = "";
         public StartupForm()
         {
             InitializeComponent();
 
 
-            string InstallPath = (string)Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\StewartAudioDSP", "Path", null);
-            if (!_vsDebug)
-            {
-                // Do stuff
-                Directory.SetCurrentDirectory(InstallPath);
-
-                string[] args = Environment.GetCommandLineArgs();
-                string deviceIDstring = "";
-                if (args.Length > 1)
-                {
-
-                    //try
-                    //{
-                    string tempLine = "";
-                    string channel_name = "";
-                    using (System.IO.StreamReader file = new System.IO.StreamReader(args[1]))
-                    {
-                        int lineCount = 0, index = 0;
-                        UInt32 value = 0x00000000;
-                        while (file.Peek() >= 0)
-                        {
-                            lineCount++;
-                            tempLine = file.ReadLine();
-
-                            if (tempLine.Contains("DEVICE-ID:"))
-                            {
-                                // TODO - CHECK HERE FOR VALID DEVICE-ID
-                                deviceIDstring = tempLine;
-                                continue;
-                            }
-
-
-                        }
-                    }
-                    //}
-                    //catch (Exception ex)
-                    //{
-                    //    MessageBox.Show("Unable to load program file. Message: " + ex.Message, "Load Program Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    //}
-                }
-                
-
-            }
+            
 
 
             _deviceIDs.Add(0x01, "FLX Tester");
@@ -90,7 +51,66 @@ namespace SA_Resources
 
             ProvenCOMPorts = new List<COMPortInfo>();
 
-            
+            string InstallPath = (string)Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\StewartAudioDSP", "Path", null);
+            string[] args = Environment.GetCommandLineArgs();
+
+            if (!_vsDebug)
+            {
+                // Do stuff
+                Directory.SetCurrentDirectory(InstallPath);
+            }
+
+            if ((args.Length > 1) && args[1].Contains(".scfg"))
+            {
+                CONFIGFILE = args[1];
+
+            }
+
+        }
+
+        private void OpenDevicefile(string filename)
+        {
+            try
+            {
+                string tempLine = "";
+                string deviceIDstring = "";
+                string file_basename = Path.GetFileName(filename);
+                int device_id = 0x00;
+
+                using (System.IO.StreamReader file = new System.IO.StreamReader(filename))
+                {
+                    int lineCount = 0;
+                    while (file.Peek() >= 0)
+                    { 
+                        lineCount++;
+                        tempLine = file.ReadLine();
+
+                        if (tempLine.Contains("DEVICE-ID:"))
+                        {
+                            // TODO - CHECK HERE FOR VALID DEVICE-ID
+                            deviceIDstring = tempLine.Replace("DEVICE-ID:","").Replace(";","");
+                            continue;
+                        }
+
+
+                    }
+                }
+
+                if (deviceIDstring == "") {
+                    throw new Exception("No device ID found in " + file_basename);
+                }
+
+                device_id = int.Parse(deviceIDstring, NumberStyles.HexNumber);
+
+                //MessageBox.Show("Parsed " + _deviceIDs[device_id]);
+                loadingWithoutConnecting = true;
+                loadDevice(_deviceIDs[device_id], filename);
+ 
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unable to load SCFG file. Message: " + ex.Message, "Load Device File Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
         }
 
@@ -98,27 +118,25 @@ namespace SA_Resources
         {
             PIC_Conn = new PIC_Bridge(serialPort1);
             
-            string[] device_files = Directory.GetFiles(@"Devices\", "*.dll"); // <-- Case-insensitive
+            string[] device_files = Directory.GetFiles(@"Devices\", "*.sadev"); // <-- Case-insensitive
 
             foreach (string name in device_files)
             {
-                if(name.Contains("Resources"))
-                {
-                    continue;
-                }
 
-                DeviceListBox.Items.Add(Path.GetFileName(name).Replace(".dll", "").Replace("__", "-").Replace("_", " "));
+                DeviceListBox.Items.Add(Path.GetFileName(name).Replace(".sadev", "").Replace("__", "-").Replace("_", " "));
             }
+
+            
         }
 
-        private void loadDevice(string deviceName)
+        private void loadDevice(string deviceName, string configFile = "")
         {
 
 
             //try
             //{
 
-                String assembly_path = Directory.GetCurrentDirectory() + @"\Devices\" + deviceName.Replace(" ", "_").Replace("-", "_") + ".dll";
+                String assembly_path = Directory.GetCurrentDirectory() + @"\Devices\" + deviceName.Replace(" ", "_").Replace("-", "_") + ".sadev";
                 String assembly_name = deviceName.Replace(" ", "_").Replace("-", "_");
                 Assembly a = null;
                 a = Assembly.LoadFrom(assembly_path);
@@ -127,11 +145,11 @@ namespace SA_Resources
                 Form form;
                 if (loadingWithoutConnecting)
                 {
-                    form = Activator.CreateInstance(classType, PIC_Conn, "") as Form;
+                    form = Activator.CreateInstance(classType, PIC_Conn, "",configFile) as Form;
                 }
                 else
                 {
-                    form = Activator.CreateInstance(classType, PIC_Conn, USBCOMPorts[listDevices.SelectedIndex].SerialNumber) as Form;
+                    form = Activator.CreateInstance(classType, PIC_Conn, USBCOMPorts[listDevices.SelectedIndex].SerialNumber, configFile) as Form;
                 }
                 
 
@@ -303,6 +321,14 @@ namespace SA_Resources
             if (!_isRunning)
             {
                 PIC_Conn.Close();
+            }
+        }
+
+        private void StartupForm_Shown(object sender, EventArgs e)
+        {
+            if (CONFIGFILE != "")
+            {
+                OpenDevicefile(CONFIGFILE);
             }
         }
     }

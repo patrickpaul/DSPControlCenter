@@ -23,15 +23,15 @@ namespace DSP_4x4
         bool debug_mode = true;
 
         private PIC_Bridge _PIC_Conn;
-        private MainForm ParentForm;
+        private MainForm _parentForm;
 
 
 
-        public ReadForm(MainForm _parentForm, PIC_Bridge PIC_Conn)
+        public ReadForm(MainForm parentForm, PIC_Bridge PIC_Conn)
         {
             InitializeComponent();
-
-            ParentForm = _parentForm;
+             
+            _parentForm = parentForm;
             _PIC_Conn = PIC_Conn;
         }
 
@@ -55,7 +55,7 @@ namespace DSP_4x4
 
             BackgroundWorker worker = sender as BackgroundWorker;
 
-            double total = ParentForm._settings.Count;
+            double total = _parentForm._settings.Count;
             double current = 0;
             AddDebugTextToLog("Clearing out serial data buffer... ");
 
@@ -83,8 +83,8 @@ namespace DSP_4x4
             for(int x = 0; x < 4; x++)
             {
                 // TODO - make this zero-based
-                ParentForm.inputs[x].Name = _PIC_Conn.ReadChannelName(x + 1); // Must increment by 1
-                AddDebugTextToLog("Read " + ParentForm.inputs[x].Name + System.Environment.NewLine);
+                _parentForm.inputs[x].Name = _PIC_Conn.ReadChannelName(x + 1); // Must increment by 1
+                AddDebugTextToLog("Read " + _parentForm.inputs[x].Name + System.Environment.NewLine);
                 Thread.Sleep(100);
             }
 
@@ -93,21 +93,21 @@ namespace DSP_4x4
             for (int x = 0; x < 4; x++)
             {
                 // TODO - make this zero-based
-                ParentForm.outputs[x].Name = _PIC_Conn.ReadChannelName(x + 1, true); // Must increment by 1
-                AddDebugTextToLog("Read " + ParentForm.outputs[x].Name + System.Environment.NewLine);
+                _parentForm.outputs[x].Name = _PIC_Conn.ReadChannelName(x + 1, true); // Must increment by 1
+                AddDebugTextToLog("Read " + _parentForm.outputs[x].Name + System.Environment.NewLine);
                 Thread.Sleep(100);
             } 
             
             for (int x = 0; x < 4; x++)
             {
-                ParentForm.inputs[x].PhantomPower = _PIC_Conn.ReadPhantomPower(x);
-                AddDebugTextToLog("Phantom Power on CH" + (x + 1) + " " + ParentForm.inputs[x].PhantomPower.ToString() + System.Environment.NewLine);
+                _parentForm.inputs[x].PhantomPower = _PIC_Conn.ReadPhantomPower(x);
+                AddDebugTextToLog("Phantom Power on CH" + (x + 1) + " " + _parentForm.inputs[x].PhantomPower.ToString() + System.Environment.NewLine);
                 Thread.Sleep(10);
             }
 
             UInt32 read_value = 0x00000000;
             int count = 0;
-            foreach (DSP_Setting single_setting in ParentForm._settings)
+            foreach (DSP_Setting single_setting in _parentForm._settings)
             {
 
 
@@ -124,7 +124,7 @@ namespace DSP_4x4
                 {
                     //Thread.Sleep(delay_ms);
                     read_value = _PIC_Conn.Read_DSP_Value(single_setting.Index);
-                    ParentForm._settings[count].Value = read_value;
+                    _parentForm._settings[count].Value = read_value;
                     AddDebugTextToLog("Read: " + read_value.ToString("X8") + System.Environment.NewLine);
                 }
                 else

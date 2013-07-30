@@ -38,6 +38,8 @@ namespace SA_Resources
             ERROR_LOOKUP.Add(0x22, "Invalid phantom bool");
 
             serialPort = _serialPort;
+
+            isOpen = false;
         }
 
         public bool Open(string portName)
