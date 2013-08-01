@@ -33,12 +33,20 @@ namespace DSP_4x4
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.tsStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.fileToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.mbtnOpenConfiguration = new System.Windows.Forms.ToolStripMenuItem();
+            this.openConfigurationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveConfigurationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitApplicationToolStripMenuItem = new System.Windows.Forms.ToolStripSeparator();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deviceToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.viewHelpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.checkForUpdatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
+            this.aboutDSPControlCenterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deviceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -117,6 +125,7 @@ namespace DSP_4x4
             this.pbtnSaveConfiguration = new SA_Resources.PictureButton();
             this.pbtnReadDevice = new SA_Resources.PictureButton();
             this.pbtnProgramDevice = new SA_Resources.PictureButton();
+            this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.pnlCH4PostMixer.SuspendLayout();
             this.pnlCH3PostMixer.SuspendLayout();
@@ -137,33 +146,73 @@ namespace DSP_4x4
             // 
             // statusStrip1
             // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsStatusLabel});
             this.statusStrip1.Location = new System.Drawing.Point(0, 372);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(906, 22);
             this.statusStrip1.TabIndex = 0;
             this.statusStrip1.Text = "statusStrip1";
             // 
+            // tsStatusLabel
+            // 
+            this.tsStatusLabel.BackColor = System.Drawing.Color.Transparent;
+            this.tsStatusLabel.Name = "tsStatusLabel";
+            this.tsStatusLabel.Size = new System.Drawing.Size(0, 17);
+            // 
             // menuStrip1
             // 
             this.menuStrip1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem1,
+            this.mbtnOpenConfiguration,
             this.editToolStripMenuItem,
             this.deviceToolStripMenuItem1,
-            this.toolsToolStripMenuItem,
             this.helpToolStripMenuItem1});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
             this.menuStrip1.Size = new System.Drawing.Size(906, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
-            // fileToolStripMenuItem1
+            // mbtnOpenConfiguration
             // 
-            this.fileToolStripMenuItem1.ForeColor = System.Drawing.Color.Gainsboro;
-            this.fileToolStripMenuItem1.Name = "fileToolStripMenuItem1";
-            this.fileToolStripMenuItem1.Size = new System.Drawing.Size(37, 20);
-            this.fileToolStripMenuItem1.Text = "File";
+            this.mbtnOpenConfiguration.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.openConfigurationToolStripMenuItem,
+            this.saveConfigurationToolStripMenuItem,
+            this.exitApplicationToolStripMenuItem,
+            this.exitToolStripMenuItem});
+            this.mbtnOpenConfiguration.ForeColor = System.Drawing.Color.Gainsboro;
+            this.mbtnOpenConfiguration.Name = "mbtnOpenConfiguration";
+            this.mbtnOpenConfiguration.Size = new System.Drawing.Size(37, 20);
+            this.mbtnOpenConfiguration.Text = "File";
+            // 
+            // openConfigurationToolStripMenuItem
+            // 
+            this.openConfigurationToolStripMenuItem.Name = "openConfigurationToolStripMenuItem";
+            this.openConfigurationToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
+            this.openConfigurationToolStripMenuItem.Size = new System.Drawing.Size(223, 22);
+            this.openConfigurationToolStripMenuItem.Text = "Open Configuration";
+            this.openConfigurationToolStripMenuItem.Click += new System.EventHandler(this.openConfigurationToolStripMenuItem_Click);
+            // 
+            // saveConfigurationToolStripMenuItem
+            // 
+            this.saveConfigurationToolStripMenuItem.Name = "saveConfigurationToolStripMenuItem";
+            this.saveConfigurationToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
+            this.saveConfigurationToolStripMenuItem.Size = new System.Drawing.Size(223, 22);
+            this.saveConfigurationToolStripMenuItem.Text = "Save Configuration";
+            this.saveConfigurationToolStripMenuItem.Click += new System.EventHandler(this.saveConfigurationToolStripMenuItem_Click);
+            // 
+            // exitApplicationToolStripMenuItem
+            // 
+            this.exitApplicationToolStripMenuItem.Name = "exitApplicationToolStripMenuItem";
+            this.exitApplicationToolStripMenuItem.Size = new System.Drawing.Size(220, 6);
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(223, 22);
+            this.exitToolStripMenuItem.Text = "E&xit";
             // 
             // editToolStripMenuItem
             // 
@@ -179,19 +228,45 @@ namespace DSP_4x4
             this.deviceToolStripMenuItem1.Size = new System.Drawing.Size(54, 20);
             this.deviceToolStripMenuItem1.Text = "Device";
             // 
-            // toolsToolStripMenuItem
-            // 
-            this.toolsToolStripMenuItem.ForeColor = System.Drawing.Color.Gainsboro;
-            this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
-            this.toolsToolStripMenuItem.Text = "Tools";
-            // 
             // helpToolStripMenuItem1
             // 
+            this.helpToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.viewHelpToolStripMenuItem,
+            this.checkForUpdatesToolStripMenuItem,
+            this.toolStripMenuItem2,
+            this.aboutDSPControlCenterToolStripMenuItem});
             this.helpToolStripMenuItem1.ForeColor = System.Drawing.Color.Gainsboro;
             this.helpToolStripMenuItem1.Name = "helpToolStripMenuItem1";
             this.helpToolStripMenuItem1.Size = new System.Drawing.Size(44, 20);
             this.helpToolStripMenuItem1.Text = "Help";
+            this.helpToolStripMenuItem1.ForeColorChanged += new System.EventHandler(this.helpToolStripMenuItem1_ForeColorChanged);
+            this.helpToolStripMenuItem1.MouseEnter += new System.EventHandler(this.helpToolStripMenuItem1_MouseEnter);
+            this.helpToolStripMenuItem1.MouseLeave += new System.EventHandler(this.helpToolStripMenuItem1_MouseLeave);
+            // 
+            // viewHelpToolStripMenuItem
+            // 
+            this.viewHelpToolStripMenuItem.Name = "viewHelpToolStripMenuItem";
+            this.viewHelpToolStripMenuItem.Size = new System.Drawing.Size(212, 22);
+            this.viewHelpToolStripMenuItem.Text = "View Help";
+            // 
+            // checkForUpdatesToolStripMenuItem
+            // 
+            this.checkForUpdatesToolStripMenuItem.Name = "checkForUpdatesToolStripMenuItem";
+            this.checkForUpdatesToolStripMenuItem.Size = new System.Drawing.Size(212, 22);
+            this.checkForUpdatesToolStripMenuItem.Text = "Check for Updates";
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(209, 6);
+            // 
+            // aboutDSPControlCenterToolStripMenuItem
+            // 
+            this.aboutDSPControlCenterToolStripMenuItem.BackColor = System.Drawing.SystemColors.Control;
+            this.aboutDSPControlCenterToolStripMenuItem.Name = "aboutDSPControlCenterToolStripMenuItem";
+            this.aboutDSPControlCenterToolStripMenuItem.Size = new System.Drawing.Size(212, 22);
+            this.aboutDSPControlCenterToolStripMenuItem.Text = "About DSP Control Center";
+            this.aboutDSPControlCenterToolStripMenuItem.Click += new System.EventHandler(this.aboutDSPControlCenterToolStripMenuItem_Click);
             // 
             // fileToolStripMenuItem
             // 
@@ -1299,7 +1374,6 @@ namespace DSP_4x4
             this.button2.TabIndex = 40;
             this.button2.Text = "button2";
             this.button2.UseVisualStyleBackColor = true;
-            this.button2.Visible = false;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // btnMatrixMixer
@@ -1452,6 +1526,8 @@ namespace DSP_4x4
             this.Name = "MainForm";
             this.Text = "DSP 4x4";
             this.Load += new System.EventHandler(this.MainForm_Load);
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.pnlCH4PostMixer.ResumeLayout(false);
@@ -1498,7 +1574,7 @@ namespace DSP_4x4
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.PictureBox pictureBox1;
         private PictureButton btnCH1PostFilters;
-        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem mbtnOpenConfiguration;
         private PictureButton btnCH1PostGain;
         private PictureButton btnCH1Delay;
         private PictureButton btnCH1Limiter;
@@ -1543,7 +1619,6 @@ namespace DSP_4x4
         private PictureButton btnCH4Compressor;
         private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deviceToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem1;
         private System.Windows.Forms.Button btnPrintConfiguration;
         private System.Windows.Forms.ToolTip toolTip1;
@@ -1561,5 +1636,14 @@ namespace DSP_4x4
         private System.Windows.Forms.SaveFileDialog saveProgramDialog;
         private System.Windows.Forms.OpenFileDialog openProgramDialog;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.ToolStripMenuItem openConfigurationToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saveConfigurationToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator exitApplicationToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem viewHelpToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem checkForUpdatesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem aboutDSPControlCenterToolStripMenuItem;
+        private System.Windows.Forms.ToolStripStatusLabel tsStatusLabel;
     }
 }

@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using SA_Resources;
 using System.Linq;
 using System.Globalization;
+using System.IO;
 
 /* DEVICE NAME = DSP 4x4 */
 namespace DSP_4x4
@@ -1017,8 +1018,8 @@ namespace DSP_4x4
 
         private void pbtnLoadConfiguration_Click(object sender, EventArgs e)
         {
-            //try
-            //{
+            try
+            {
             if (openProgramDialog.ShowDialog() == DialogResult.OK)
             {
 
@@ -1026,11 +1027,11 @@ namespace DSP_4x4
                 LoadSettingsToForm();
 
             }
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show("Unable to load program file. Message: " + ex.Message, "Load Program Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //}
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unable to load program file. Message: " + ex.Message, "Load Program Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void LoadFromFile(string filename)
@@ -1197,12 +1198,55 @@ namespace DSP_4x4
 
         private void button2_Click(object sender, EventArgs e)
         {
-            List<COMPortInfo> comPorts = COMPortInfo.GetUSBCOMPorts();
-            Console.WriteLine(("Limiter 100 ratio: " + DSP_Math.comp_ratio_to_value(100).ToString("X8")));
+
         }
 
-        
-        
+        private void saveConfigurationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Save!");
+        }
+
+        private void openConfigurationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (openProgramDialog.ShowDialog() == DialogResult.OK)
+                {
+
+                    LoadFromFile(openProgramDialog.FileName);
+
+                    tsStatusLabel.Text = "Successfully loaded " + Path.GetFileName(openProgramDialog.FileName);
+
+                    LoadSettingsToForm();
+
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unable to load program file. Message: " + ex.Message, "Load Program Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void helpToolStripMenuItem1_MouseEnter(object sender, EventArgs e)
+        {
+            //((ToolStripMenuItem)sender).ForeColor = Color.Black;
+        }
+
+        private void helpToolStripMenuItem1_MouseLeave(object sender, EventArgs e)
+        {
+            //((ToolStripMenuItem)sender).ForeColor = Color.Gainsboro;
+        }
+
+        private void helpToolStripMenuItem1_ForeColorChanged(object sender, EventArgs e)
+        {
+            MessageBox.Show("Changed!");
+        }
+
+        private void aboutDSPControlCenterToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
 
     }
+
 }

@@ -945,7 +945,7 @@
 		<row><td>DatabaseFolder</td><td>ChangeFolder</td><td>SpawnDialog</td><td>InstallChangeFolder</td><td>1</td><td>1</td></row>
 		<row><td>DatabaseFolder</td><td>ChangeFolder</td><td>[_BrowseProperty]</td><td>DATABASEDIR</td><td>1</td><td>2</td></row>
 		<row><td>DatabaseFolder</td><td>Next</td><td>NewDialog</td><td>SetupType</td><td>1</td><td>1</td></row>
-		<row><td>DestinationFolder</td><td>Back</td><td>NewDialog</td><td>CustomerInformation</td><td>1</td><td>0</td></row>
+		<row><td>DestinationFolder</td><td>Back</td><td>NewDialog</td><td>CustomerInformation</td><td>NOT Installed</td><td>0</td></row>
 		<row><td>DestinationFolder</td><td>Cancel</td><td>SpawnDialog</td><td>CancelSetup</td><td>1</td><td>1</td></row>
 		<row><td>DestinationFolder</td><td>ChangeFolder</td><td>SpawnDialog</td><td>InstallChangeFolder</td><td>1</td><td>1</td></row>
 		<row><td>DestinationFolder</td><td>ChangeFolder</td><td>[_BrowseProperty]</td><td>INSTALLDIR</td><td>1</td><td>2</td></row>
@@ -2877,7 +2877,7 @@
 		<col def="I2">Encoded</col>
 		<col def="S0">Comment</col>
 		<col def="I4">TimeStamp</col>
-		<row><td>COMPANY_NAME</td><td>1033</td><td>Stewart Audio</td><td>0</td><td/><td>-341726609</td></row>
+		<row><td>COMPANY_NAME</td><td>1033</td><td>Stewart Audio</td><td>0</td><td/><td>-207521041</td></row>
 		<row><td>DN_AlwaysInstall</td><td>1033</td><td>Always Install</td><td>0</td><td/><td>-341734801</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_COLOR</td><td>1033</td><td>The color settings of your system are not adequate for running [ProductName].</td><td>0</td><td/><td>-341734801</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_DOTNETVERSION40CLIENT</td><td>1033</td><td>Microsoft .NET Framework 4.0 Client Package or greater needs to be installed for this installation to continue.</td><td>0</td><td/><td>-341765489</td></row>
@@ -3985,8 +3985,8 @@
 		<row><td>IDS__TargetReq_DESC_RAM</td><td>1033</td><td>The amount of RAM is not adequate for running [ProductName].</td><td>0</td><td/><td>-341734801</td></row>
 		<row><td>IDS__TargetReq_DESC_RESOLUTION</td><td>1033</td><td>The screen resolution is not adequate for running [ProductName].</td><td>0</td><td/><td>-341734801</td></row>
 		<row><td>ID_STRING1</td><td>1033</td><td/><td>0</td><td/><td>-341734801</td></row>
-		<row><td>ID_STRING2</td><td>1033</td><td>http://www.stewartaudio.com</td><td>0</td><td/><td>-341718417</td></row>
-		<row><td>ID_STRING3</td><td>1033</td><td>Stewart Audio</td><td>0</td><td/><td>-341726609</td></row>
+		<row><td>ID_STRING2</td><td>1033</td><td>http://www.StewartAudio.com</td><td>0</td><td/><td>-207521041</td></row>
+		<row><td>ID_STRING3</td><td>1033</td><td>Stewart Audio</td><td>0</td><td/><td>-207521041</td></row>
 		<row><td>ID_STRING4</td><td>1033</td><td>DSP Control Center</td><td>0</td><td/><td>-341718321</td></row>
 		<row><td>IIDS_UITEXT_FeatureUninstalled</td><td>1033</td><td>This feature will remain uninstalled.</td><td>0</td><td/><td>-341734801</td></row>
 		<row><td>NEW_STRING1</td><td>1033</td><td>scfg</td><td>0</td><td/><td>-341721681</td></row>
@@ -4243,7 +4243,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>ISTheme</td><td>InstallShield Blue.theme</td></row>
 		<row><td>ISUSLock</td><td>{D8E2F9FF-1ABD-43FE-B1A2-D1254BE3A2C4}</td></row>
 		<row><td>ISUSSignature</td><td>{9E07B878-5CD4-41D4-90D5-838D58A26570}</td></row>
-		<row><td>ISVisitedViews</td><td>viewAssistant,viewCustomActions,viewISToday,viewUI,viewTextMessages,viewRelease,viewProject,viewRealSetupDesign,viewSetupDesign,viewSetupTypes,viewUpgradePaths,viewObjects,viewDependencies,viewFileExtensions,viewSystemSearch,viewShortcuts,viewRegistry,viewFeatureFiles,viewAppFiles</td></row>
+		<row><td>ISVisitedViews</td><td>viewAssistant,viewCustomActions,viewISToday,viewUI,viewTextMessages,viewRelease,viewProject,viewRealSetupDesign,viewSetupDesign,viewSetupTypes,viewUpgradePaths,viewObjects,viewDependencies,viewFileExtensions,viewSystemSearch,viewShortcuts,viewRegistry,viewFeatureFiles,viewAppFiles,viewAppV</td></row>
 		<row><td>Limited</td><td>1</td></row>
 		<row><td>LockPermissionMode</td><td>1</td></row>
 		<row><td>MsiExecCmdLineOptions</td><td/></row>
@@ -4595,7 +4595,6 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>LAUNCHPROGRAM</td><td>1</td><td/></row>
 		<row><td>LAUNCHPROGRAMCOMPCODE</td><td>{18B7467C-4701-4055-B4D8-E7788171F138}</td><td/></row>
 		<row><td>LAUNCHPROGRAMFILEKEY</td><td>stewart_audio_control_center</td><td/></row>
-		<row><td>LAUNCHREADME</td><td>1</td><td/></row>
 		<row><td>Manufacturer</td><td>##COMPANY_NAME##</td><td/></row>
 		<row><td>PIDKEY</td><td/><td/></row>
 		<row><td>PIDTemplate</td><td>12345&lt;###-%%%%%%%&gt;@@@@@</td><td/></row>
@@ -4638,6 +4637,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>SERIALNUMBER</td><td/><td/></row>
 		<row><td>SERIALNUMVALSUCCESSRETVAL</td><td>1</td><td/></row>
 		<row><td>SHOWLAUNCHPROGRAM</td><td>-1</td><td/></row>
+		<row><td>SHOWLAUNCHREADME</td><td>0</td><td/></row>
 		<row><td>SecureCustomProperties</td><td>ISFOUNDNEWERPRODUCTVERSION;USERNAME;COMPANYNAME;ISX_SERIALNUM;SUPPORTDIR;DOTNETVERSION40CLIENT</td><td/></row>
 		<row><td>SelectedSetupType</td><td>##IDS__DisplayName_Typical##</td><td/></row>
 		<row><td>SetupType</td><td>Typical</td><td/></row>
@@ -4698,6 +4698,10 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>Registry2</td><td>2</td><td>Software\Stewart Audio</td><td>INSTALLDIR</td><td>[INSTALLDIR]</td><td>ISX_DEFAULTCOMPONENT7</td><td>0</td></row>
 		<row><td>Registry3</td><td>2</td><td>Software\Microsoft\Windows\CurrentVersion\App Paths\StewartAudioDSP</td><td>Path</td><td>[INSTALLDIR]</td><td>Stewart_Audio_Control_Center.Primary_output</td><td>0</td></row>
 		<row><td>Registry4</td><td>2</td><td>Software\Microsoft\Windows\CurrentVersion\App Paths\StewartAudioDSP</td><td/><td>[!stewart_audio_control_center]</td><td>Stewart_Audio_Control_Center.Primary_output</td><td>0</td></row>
+		<row><td>Registry5</td><td>2</td><td>Software\Stewart Audio</td><td>USER</td><td>[USERNAME]</td><td>ISX_DEFAULTCOMPONENT7</td><td>0</td></row>
+		<row><td>Registry6</td><td>2</td><td>Software\Stewart Audio</td><td>ORGANIZATION</td><td>[COMPANYNAME]</td><td>ISX_DEFAULTCOMPONENT7</td><td>0</td></row>
+		<row><td>Registry7</td><td>2</td><td>Software\Stewart Audio</td><td>LAST_OPEN_DIR</td><td/><td>ISX_DEFAULTCOMPONENT7</td><td>0</td></row>
+		<row><td>Registry8</td><td>2</td><td>Software\Stewart Audio</td><td>LAST_SAVE_DIR</td><td/><td>ISX_DEFAULTCOMPONENT7</td><td>0</td></row>
 	</table>
 
 	<table name="RemoveFile">

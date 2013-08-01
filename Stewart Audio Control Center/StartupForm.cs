@@ -27,12 +27,10 @@ namespace SA_Resources
         private List<COMPortInfo> ProvenCOMPorts;
 
         private string CONFIGFILE = "";
+
         public StartupForm()
         {
             InitializeComponent();
-
-
-            
 
 
             _deviceIDs.Add(0x01, "FLX Tester");
@@ -41,8 +39,6 @@ namespace SA_Resources
             _deviceIDs.Add(0x03, "FLX 480 70V");
             _deviceIDs.Add(0x04, "FLX 160-2 70V");
             _deviceIDs.Add(0x05, "FLX 320-1 70V");
-
-
 
             _deviceIDs.Add(0x10, "DSP100-1");
             _deviceIDs.Add(0x11, "DSP100-2");
@@ -65,7 +61,32 @@ namespace SA_Resources
                 CONFIGFILE = args[1];
 
             }
+        }
 
+
+        private void StartupForm_Load(object sender, EventArgs e)
+        {
+            PIC_Conn = new PIC_Bridge(serialPort1);
+            
+            string[] device_files = Directory.GetFiles(@"Devices\", "*.sadev"); // <-- Case-insensitive
+
+            foreach (string name in device_files)
+            {
+
+                DeviceListBox.Items.Add(Path.GetFileName(name).Replace(".sadev", "").Replace("__", "-").Replace("_", " "));
+            }
+
+            DeviceListBox.SelectedIndex = 0;
+            DeviceListBox.Invalidate();
+            
+        }
+
+        private void StartupForm_Shown(object sender, EventArgs e)
+        {
+            if (CONFIGFILE != "")
+            {
+                OpenDevicefile(CONFIGFILE);
+            }
         }
 
         private void OpenDevicefile(string filename)
@@ -81,14 +102,14 @@ namespace SA_Resources
                 {
                     int lineCount = 0;
                     while (file.Peek() >= 0)
-                    { 
+                    {
                         lineCount++;
                         tempLine = file.ReadLine();
 
                         if (tempLine.Contains("DEVICE-ID:"))
                         {
                             // TODO - CHECK HERE FOR VALID DEVICE-ID
-                            deviceIDstring = tempLine.Replace("DEVICE-ID:","").Replace(";","");
+                            deviceIDstring = tempLine.Replace("DEVICE-ID:", "").Replace(";", "");
                             continue;
                         }
 
@@ -96,16 +117,21 @@ namespace SA_Resources
                     }
                 }
 
-                if (deviceIDstring == "") {
+                if (deviceIDstring == "")
+                {
                     throw new Exception("No device ID found in " + file_basename);
                 }
 
                 device_id = int.Parse(deviceIDstring, NumberStyles.HexNumber);
 
-                //MessageBox.Show("Parsed " + _deviceIDs[device_id]);
+                if (!_deviceIDs.ContainsKey(device_id))
+                {
+                    throw new Exception("Unrecognized device ID found in " + file_basename);
+                }
+
                 loadingWithoutConnecting = true;
                 loadDevice(_deviceIDs[device_id], filename);
- 
+
             }
             catch (Exception ex)
             {
@@ -114,27 +140,11 @@ namespace SA_Resources
 
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            PIC_Conn = new PIC_Bridge(serialPort1);
-            
-            string[] device_files = Directory.GetFiles(@"Devices\", "*.sadev"); // <-- Case-insensitive
-
-            foreach (string name in device_files)
-            {
-
-                DeviceListBox.Items.Add(Path.GetFileName(name).Replace(".sadev", "").Replace("__", "-").Replace("_", " "));
-            }
-
-            
-        }
-
         private void loadDevice(string deviceName, string configFile = "")
         {
 
-
-            //try
-            //{
+            try
+            {
 
                 String assembly_path = Directory.GetCurrentDirectory() + @"\Devices\" + deviceName.Replace(" ", "_").Replace("-", "_") + ".sadev";
                 String assembly_name = deviceName.Replace(" ", "_").Replace("-", "_");
@@ -154,21 +164,22 @@ namespace SA_Resources
                 
 
                 form.ShowDialog();
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show("Unable to load device plugin for " + deviceName + ". Error encountered: " + ex.Message, "Device Load Error",MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //}
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error encountered: " + ex.Message, "Device Configuration Error",MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             
 
         }
+
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             PIC_Conn.Close();
         }
 
-        private void btnLoadDemo_Click(object sender, EventArgs e)
+        private void btnLaunch_Click(object sender, EventArgs e)
         {
             loadingWithoutConnecting = true;
             
@@ -183,15 +194,10 @@ namespace SA_Resources
             
         }
 
-        private void DeviceListBox_DoubleClick(object sender, EventArgs e)
-        {
-            loadDevice(DeviceListBox.Items[DeviceListBox.SelectedIndex].ToString());
-        }
-
         private void btnScanDevices_Click(object sender, EventArgs e)
         {
-            //try
-            //{
+            try
+            {
                 int deviceCount = 0;
 
                 lblScanStatus.Text = "Scanning for Devices";
@@ -250,13 +256,11 @@ namespace SA_Resources
                         btnConnect.Enabled = false;
                     }
                 }
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show("Error loading application: \n\n" + ex.Message + "\n\nProgram will now exit.", "Exception During Load", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                
-
-            //}
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error loading application: \n\n" + ex.Message + "\n\nProgram will now exit.", "Exception During Load", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
         }
 
         private void btnConnect_Click(object sender, EventArgs e)
@@ -324,12 +328,6 @@ namespace SA_Resources
             }
         }
 
-        private void StartupForm_Shown(object sender, EventArgs e)
-        {
-            if (CONFIGFILE != "")
-            {
-                OpenDevicefile(CONFIGFILE);
-            }
-        }
+        
     }
 }
