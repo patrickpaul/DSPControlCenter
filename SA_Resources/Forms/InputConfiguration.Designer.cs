@@ -32,7 +32,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.txtDisplayName = new System.Windows.Forms.TextBox();
             this.lblPhantomPower = new System.Windows.Forms.Label();
-            this.chkPhantomPower = new Controls.PictureCheckbox();
+            this.chkPhantomPower = new SA_Resources.PictureCheckbox();
             this.btnCancel = new System.Windows.Forms.PictureBox();
             this.btnSave = new System.Windows.Forms.PictureBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -165,7 +165,7 @@
         private System.Windows.Forms.Label label1;
         public System.Windows.Forms.TextBox txtDisplayName;
         private System.Windows.Forms.Label lblPhantomPower;
-        private Controls.PictureCheckbox chkPhantomPower;
+        private SA_Resources.PictureCheckbox chkPhantomPower;
         private System.Windows.Forms.PictureBox btnCancel;
         private System.Windows.Forms.PictureBox btnSave;
         private System.Windows.Forms.Label label3;

@@ -53,7 +53,7 @@ namespace SA_Resources
             if (!_vsDebug)
             {
                 // Do stuff
-                Directory.SetCurrentDirectory(InstallPath);
+                //Directory.SetCurrentDirectory(InstallPath);
             }
 
             if ((args.Length > 1) && args[1].Contains(".scfg"))
@@ -78,6 +78,8 @@ namespace SA_Resources
 
             DeviceListBox.SelectedIndex = 0;
             DeviceListBox.Invalidate();
+
+            ScanForDevices();
             
         }
 
@@ -194,11 +196,10 @@ namespace SA_Resources
             
         }
 
-        private void btnScanDevices_Click(object sender, EventArgs e)
+        private void ScanForDevices()
         {
             try
             {
-                int deviceCount = 0;
 
                 lblScanStatus.Text = "Scanning for Devices";
                 lblScanStatus.Invalidate();
@@ -212,10 +213,10 @@ namespace SA_Resources
 
                 if (USBCOMPorts.Count == 0)
                 {
-                        // Hide this message during development
-                        lblScanStatus.Text = "None found";
-                        lblScanStatus.Invalidate();
-                        return;
+                    // Hide this message during development
+                    lblScanStatus.Text = "None found";
+                    lblScanStatus.Invalidate();
+                    return;
                 }
                 else
                 {
@@ -243,15 +244,23 @@ namespace SA_Resources
                         }
                     }
 
-                    
-                    lblScanStatus.Text = devices.Count + " devices found.";
 
-                    if(devices.Count > 0)
+                    if (devices.Count == 1)
+                    {
+                        lblScanStatus.Text = devices.Count + " device found";
+                    }
+                    else
+                    {
+                        lblScanStatus.Text = devices.Count + " devices found";
+                    }
+
+                    if (devices.Count > 0)
                     {
                         listDevices.SelectedIndex = 0;
                         listDevices.Invalidate();
                         btnConnect.Enabled = true;
-                    } else
+                    }
+                    else
                     {
                         btnConnect.Enabled = false;
                     }
@@ -263,10 +272,16 @@ namespace SA_Resources
             }
         }
 
+        private void btnScanDevices_Click(object sender, EventArgs e)
+        {
+            ScanForDevices();
+        }
+
         private void btnConnect_Click(object sender, EventArgs e)
         {
             if (_isRunning)
             {
+                lblScanStatus.Text = "";
                 // This is a STOP command
                 btnConnect.Text = "Connect";
 
@@ -279,7 +294,7 @@ namespace SA_Resources
 
             _isRunning = false;
 
-            lblStatus.Text = "Connecting to Device...";
+            lblScanStatus.Text = "Connecting to Device...";
 
             try
             {
@@ -289,13 +304,13 @@ namespace SA_Resources
                     Thread.Sleep(100);
                     if (PIC_Conn.getRTS())
                     {
-                        lblStatus.Text = "Connected\nDownloading...";
+                        lblScanStatus.Text = "Connected. Downloading...";
 
                         int device_type = PIC_Conn.GetDeviceID();
 
                         if (_deviceIDs.ContainsKey(device_type))
                         {
-                            lblStatus.Text = "Connected to\n" + _deviceIDs[device_type];
+                            lblScanStatus.Text = "Connected to " + _deviceIDs[device_type];
                             loadDevice(_deviceIDs[device_type]);
 
                             btnConnect.Text = "Disconnect";
@@ -303,17 +318,17 @@ namespace SA_Resources
                         }
                         else
                         {
-                            lblStatus.Text = "Device ID not\nrecognized";
+                            lblScanStatus.Text = "Device ID not recognized";
                         }
                     }
                     else
                     {
-                        lblStatus.Text = "Device not\nrecognized";
+                        lblScanStatus.Text = "Device not recognized";
                     }
                 }
                 else
                 {
-                    lblStatus.Text = "Unable to Connect";
+                    lblScanStatus.Text = "Unable to Connect";
                 }
 
             }

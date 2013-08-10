@@ -37,7 +37,7 @@ namespace SA_Resources
                     }
                 } catch (Exception ex)
                 {
-                    // do nothing with it for now...
+                    Console.WriteLine("Exception in PictureButton.ToolTipText: " + ex.Message);
                 }
                 
             }

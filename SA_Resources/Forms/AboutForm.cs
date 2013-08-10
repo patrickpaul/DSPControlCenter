@@ -14,7 +14,7 @@ namespace SA_Resources
 
             lblVersion.Text = "Version " + currentVersion.Major + "." + currentVersion.Minor + " " + versionSuffix;
 
-            pictureBox1.Image = Images.Company_Logo;
+            //pictureBox1.Image = Images.Company_Logo;
         }
 
         private void BtnAboutOk_Click(object sender, EventArgs e)

@@ -7,24 +7,26 @@ using System.Linq;
 using System.Media;
 using System.Text;
 using System.Windows.Forms;
+using SA_Resources.Forms;
 
 namespace SA_Resources
 {
     public partial class OutputConfiguration : Form
     {
-        private int channel = 0;
-        private OutputConfig config;
+        private MainForm_Template PARENT_FORM;
+        private int CH_NUMBER;
 
-        public OutputConfiguration(OutputConfig _inConfig, int index)
+        public OutputConfiguration(MainForm_Template _parentForm, int _ch_number)
         {
             InitializeComponent();
 
-            channel = index;
-            config = _inConfig;
+            PARENT_FORM = _parentForm;
+            CH_NUMBER = _ch_number;
+            
 
-            this.Text = "CH " + channel.ToString("N0") + " - Output Configuration";
+            this.Text = "CH " + CH_NUMBER.ToString("N0") + " - Output Configuration";
 
-            txtDisplayName.Text = config.Name;
+            txtDisplayName.Text = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].outputs[CH_NUMBER-1].Name;
         }
 
         private void OutputConfiguration_Load(object sender, EventArgs e)
@@ -86,7 +88,7 @@ namespace SA_Resources
 
         private void OutputConfiguration_FormClosing(object sender, FormClosingEventArgs e)
         {
-            config.Name = txtDisplayName.Text;
+            PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].outputs[CH_NUMBER - 1].Name = txtDisplayName.Text;
         }
     }
 }

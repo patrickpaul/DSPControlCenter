@@ -61,10 +61,13 @@
             this.TextCompRelease = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.DialCompRelease = new System.Windows.Forms.PictureBox();
-            this.chkSoftKnee = new Controls.PictureCheckbox();
-            this.chkBypass = new Controls.PictureCheckbox();
+            this.chkSoftKnee = new SA_Resources.PictureCheckbox();
+            this.chkBypass = new SA_Resources.PictureCheckbox();
             this.btnCancel = new SA_Resources.PictureButton();
             this.btnSave = new SA_Resources.PictureButton();
+            this.btnGo = new SA_Resources.PictureButton();
+            this.dropAction = new System.Windows.Forms.ComboBox();
+            this.lblAction = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dynChart)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudCompRatio)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudCompThreshold)).BeginInit();
@@ -408,12 +411,57 @@
             this.btnSave.ToolTipText = "";
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
+            // btnGo
+            // 
+            this.btnGo.AutoResize = true;
+            this.btnGo.BackgroundImage = global::SA_Resources.GlobalResources.ui_btn_go;
+            this.btnGo.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnGo.Location = new System.Drawing.Point(221, 490);
+            this.btnGo.Name = "btnGo";
+            this.btnGo.OverImage = null;
+            this.btnGo.Overlay1Image = null;
+            this.btnGo.Overlay1Visible = false;
+            this.btnGo.Overlay2Image = null;
+            this.btnGo.Overlay2Visible = false;
+            this.btnGo.Overlay3Image = null;
+            this.btnGo.Overlay3Visible = false;
+            this.btnGo.PressedImage = null;
+            this.btnGo.Size = new System.Drawing.Size(49, 23);
+            this.btnGo.TabIndex = 105;
+            this.btnGo.ToolTipText = "";
+            this.btnGo.Click += new System.EventHandler(this.btnGo_Click);
+            // 
+            // dropAction
+            // 
+            this.dropAction.FormattingEnabled = true;
+            this.dropAction.Items.AddRange(new object[] {
+            "Copy configuration to...",
+            "Reset to Defaults"});
+            this.dropAction.Location = new System.Drawing.Point(80, 490);
+            this.dropAction.Name = "dropAction";
+            this.dropAction.Size = new System.Drawing.Size(133, 21);
+            this.dropAction.TabIndex = 104;
+            // 
+            // lblAction
+            // 
+            this.lblAction.AutoSize = true;
+            this.lblAction.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAction.ForeColor = System.Drawing.Color.Gainsboro;
+            this.lblAction.Location = new System.Drawing.Point(30, 493);
+            this.lblAction.Name = "lblAction";
+            this.lblAction.Size = new System.Drawing.Size(44, 13);
+            this.lblAction.TabIndex = 103;
+            this.lblAction.Text = "Action:";
+            // 
             // CompressorForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(82)))), ((int)(((byte)(82)))));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.ClientSize = new System.Drawing.Size(300, 476);
+            this.ClientSize = new System.Drawing.Size(300, 523);
+            this.Controls.Add(this.btnGo);
+            this.Controls.Add(this.dropAction);
+            this.Controls.Add(this.lblAction);
             this.Controls.Add(this.chkSoftKnee);
             this.Controls.Add(this.chkBypass);
             this.Controls.Add(this.btnCancel);
@@ -464,7 +512,10 @@
         private System.Windows.Forms.PictureBox DialCompRelease;
         private PictureButton btnSave;
         private PictureButton btnCancel;
-        private Controls.PictureCheckbox chkBypass;
-        private Controls.PictureCheckbox chkSoftKnee;
+        private SA_Resources.PictureCheckbox chkBypass;
+        private SA_Resources.PictureCheckbox chkSoftKnee;
+        private PictureButton btnGo;
+        private System.Windows.Forms.ComboBox dropAction;
+        private System.Windows.Forms.Label lblAction;
     }
 }

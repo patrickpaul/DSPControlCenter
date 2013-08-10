@@ -6,25 +6,21 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using SA_Resources.Forms;
 
 namespace SA_Resources
 {
     public partial class MixerForm : Form
     {
-        public event ConfigChangeEventHandler OnChange;
 
-        GainConfig[][] config = new GainConfig[6][];
+        MainForm_Template PARENT_FORM;
 
-        public MixerForm(GainConfig[][] in_config)
+        public MixerForm(MainForm_Template _parentForm)
         {
-            InitializeComponent(); 
-            
-            for (int i = 0; i < 6; i++)
-            {
-                config[i] = new GainConfig[4];
-            }
+            InitializeComponent();
 
-            config = in_config;
+            PARENT_FORM = _parentForm;
+
 
             for (int i = 0; i < 6; i++)
             {
@@ -43,14 +39,14 @@ namespace SA_Resources
                     toolTip1.ShowAlways = true;
 
                     // Set up the ToolTip text for the Button and Checkbox.
-                    if (config[i][j].Muted)
+                    if (PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].crosspoints[i][j].Muted)
                     {
                         toolTip1.SetToolTip(pbControl, "Muted");
                         pbControl.Overlay3Visible = true;
                     }
                     else
                     {
-                        toolTip1.SetToolTip(pbControl, config[i][j].Gain.ToString("N1") + "dB");
+                        toolTip1.SetToolTip(pbControl, PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].crosspoints[i][j].Gain.ToString("N1") + "dB");
                         pbControl.Overlay1Visible = true;
                     }
                     pbControl.Invalidate();
@@ -75,7 +71,7 @@ namespace SA_Resources
             int index_in = int.Parse(((PictureButton)sender).Name.Substring(9, 1));
             int index_out = int.Parse(((PictureButton)sender).Name.Substring(11, 1));
 
-            using (GainForm gainForm = new GainForm(config[index_in-1][index_out-1]))
+            using (GainForm gainForm = new GainForm(PARENT_FORM, index_in-1, index_out-1,true))
             {
                 gainForm.ShowDialog(this);
 
@@ -92,26 +88,26 @@ namespace SA_Resources
                 toolTip1.ShowAlways = true;
 
                 // Set up the ToolTip text for the Button and Checkbox.
-                if (config[index_in - 1][index_out - 1].Muted)
+                if (PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].crosspoints[index_in - 1][index_out - 1].Muted)
                 {
                     toolTip1.SetToolTip(crosspoint_button, "Muted");
                 }
                 else
                 {
-                    toolTip1.SetToolTip(crosspoint_button, config[index_in - 1][index_out - 1].Gain.ToString("N1") + "dB");
+                    toolTip1.SetToolTip(crosspoint_button, PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].crosspoints[index_in - 1][index_out - 1].Gain.ToString("N1") + "dB");
                 }
                 //toolTip1.SetToolTip(this.checkBox1, "My checkBox1"); 
                 
-                //crosspoint_button.ToolTipText = config[index_in - 1][index_out - 1].Gain.ToString("N1") + "dB";
+                //crosspoint_button.ToolTipText = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].crosspoints[index_in - 1][index_out - 1].Gain.ToString("N1") + "dB";
 
-                if(!config[index_in - 1][index_out - 1].Muted)
+                if(!PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].crosspoints[index_in - 1][index_out - 1].Muted)
                 {
                     crosspoint_button.Overlay3Visible = false;
                     crosspoint_button.Overlay1Visible = true; 
                     
                 } else
                 {
-                    //config[index_in - 1][index_out - 1].Gain = -24;
+                    //PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].crosspoints[index_in - 1][index_out - 1].Gain = -24;
                     crosspoint_button.Overlay3Visible = true;
                 }
 

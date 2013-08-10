@@ -6,33 +6,50 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-
+using SA_Resources.Forms;
 namespace SA_Resources
 {
     public partial class GainForm : Form
     {
-        private GainConfig gainConfig;
+        
 
         private bool mouseDown;
 
         private ToolTip toolTip1;
         private int oldX, oldY;
 
-        public GainForm(GainConfig in_gain, string formTitle = "CH1 Gain")
+        private MainForm_Template PARENT_FORM;
+        private int CH_INDEX = 0; // NOTE - THIS IS ZERO BASED
+        private int GAIN_INDEX = 0;
+
+        private bool IS_MIXER = false;
+
+        public GainForm(MainForm_Template _parentForm, int _ch_index, int _gain_index, bool _is_mixer = false, string formTitle = "CH1 Gain")
         {
             InitializeComponent();
 
-            gainConfig = in_gain;
+            PARENT_FORM = _parentForm;
+            CH_INDEX = _ch_index;
+            GAIN_INDEX = _gain_index;
+            IS_MIXER = _is_mixer;
 
-            lblGain.Text = gainConfig.Gain.ToString("N1") + "dB";
+            if (IS_MIXER)
+            {
+                lblGain.Text = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].crosspoints[CH_INDEX][GAIN_INDEX].Gain.ToString("N1") + "dB";
+                sliderPB.Location = new Point(18, (int)gain_to_yval(PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].crosspoints[CH_INDEX][GAIN_INDEX].Gain));
+            }
+            else
+            {
+                lblGain.Text = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].gains[CH_INDEX][GAIN_INDEX].Gain.ToString("N1") + "dB";
+                sliderPB.Location = new Point(18, (int)gain_to_yval(PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].gains[CH_INDEX][GAIN_INDEX].Gain));
+            }
+            
 
             this.Text = formTitle;
 
             this.MouseWheel += new MouseEventHandler(panel1_MouseWheel);
 
-            sliderPB.Location = new Point(18, (int)gain_to_yval(gainConfig.Gain));
 
-            
 
             toolTip1 = new ToolTip();
 
@@ -46,19 +63,40 @@ namespace SA_Resources
             // Set up the ToolTip text for the Button and Checkbox.
             toolTip1.SetToolTip(sliderPB, "Muted");
 
-            chkMuted.Checked = gainConfig.Muted;
             
-            if (gainConfig.Muted)
+
+            if (IS_MIXER)
             {
-                sliderPB.Cursor = Cursors.No;
-                toolTip1.SetToolTip(sliderPB, "Muted"); 
-                
+                if (PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].crosspoints[CH_INDEX][GAIN_INDEX].Muted)
+                {
+                    sliderPB.Cursor = Cursors.No;
+                    toolTip1.SetToolTip(sliderPB, "Muted");
+                    chkMuted.Checked = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].crosspoints[CH_INDEX][GAIN_INDEX].Muted;
+
+                }
+                else
+                {
+                    sliderPB.Cursor = Cursors.Hand;
+                    toolTip1.SetToolTip(sliderPB, null);
+                    
+                }
             }
             else
             {
-                sliderPB.Cursor = Cursors.Hand;
-                toolTip1.SetToolTip(sliderPB, null);
+                if (PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].gains[CH_INDEX][GAIN_INDEX].Muted)
+                {
+                    sliderPB.Cursor = Cursors.No;
+                    toolTip1.SetToolTip(sliderPB, "Muted");
+
+                }
+                else
+                {
+                    sliderPB.Cursor = Cursors.Hand;
+                    toolTip1.SetToolTip(sliderPB, null);
+                    chkMuted.Checked = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].gains[CH_INDEX][GAIN_INDEX].Muted;
+                }
             }
+            
 
             
 
@@ -193,11 +231,20 @@ namespace SA_Resources
 
                 int yVal = Math.Min(Math.Max(thisPB.Location.Y - (oldY - e.Y), 5), 236);
 
+
+                if (IS_MIXER)
+                {
+                    PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].crosspoints[CH_INDEX][GAIN_INDEX].Gain = Math.Max(-100.0, yVal_to_gain((double)yVal));
+
+                    lblGain.Text = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].crosspoints[CH_INDEX][GAIN_INDEX].Gain.ToString("N1") + "dB";
+                }
+                else
+                {
+                    PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].gains[CH_INDEX][GAIN_INDEX].Gain = Math.Max(-100.0, yVal_to_gain((double)yVal));
+
+                    lblGain.Text = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].gains[CH_INDEX][GAIN_INDEX].Gain.ToString("N1") + "dB";
+                }
                 
-
-                gainConfig.Gain = Math.Max(-100.0, yVal_to_gain((double) yVal));
-
-                lblGain.Text = gainConfig.Gain.ToString("N1") + "dB";
 
                 thisPB.Location = new Point(oldX, yVal);
                 this.Refresh();
@@ -236,7 +283,15 @@ namespace SA_Resources
 
         private void GainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            gainConfig.Muted = chkMuted.Checked;
+            if (IS_MIXER)
+            {
+                PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].crosspoints[CH_INDEX][GAIN_INDEX].Muted = chkMuted.Checked;
+            }
+            else
+            {
+                PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].gains[CH_INDEX][GAIN_INDEX].Muted = chkMuted.Checked;
+            }
+            
         }
 
         private void chkMuted_CheckedChanged(object sender, EventArgs e)
@@ -267,7 +322,15 @@ namespace SA_Resources
                 lblGain.Invalidate();
             }
 
-            gainConfig.Gain = 0;
+            if (IS_MIXER)
+            {
+                PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].crosspoints[CH_INDEX][GAIN_INDEX].Gain = 0;
+            }
+            else
+            {
+                PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].gains[CH_INDEX][GAIN_INDEX].Gain = 0;
+            }
+            
 
             sliderPB.Location = new Point(18, (int)gain_to_yval(0));
             sliderPB.Refresh();

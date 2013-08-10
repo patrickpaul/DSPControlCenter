@@ -7,7 +7,8 @@ using System.Linq;
 using System.Media;
 using System.Text;
 using System.Windows.Forms;
-using Controls;
+using SA_Resources;
+using SA_Resources.Forms;
 
 namespace SA_Resources
 {
@@ -16,22 +17,25 @@ namespace SA_Resources
 
         private bool form_loaded = false;
 
-        private InputConfig config;
+        private MainForm_Template PARENT_FORM;
+        private int CH_NUMBER;
 
-        public InputConfiguration(InputConfig _inputConfig, int channel, bool show_phantom = true)
+
+        public InputConfiguration(MainForm_Template _parentForm, int _channelNumber, bool show_phantom = true)
         {
             InitializeComponent();
 
-            config = _inputConfig;
+            PARENT_FORM = _parentForm;
+            CH_NUMBER = _channelNumber;
 
-            this.Text = "CH " + channel.ToString("N0") + " - Input Configuration";
+            this.Text = "CH " + CH_NUMBER.ToString("N0") + " - Input Configuration";
 
-            txtDisplayName.Text = config.Name;
+            txtDisplayName.Text = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].inputs[CH_NUMBER-1].Name;
 
-            chkPhantomPower.Checked = config.PhantomPower;
+            chkPhantomPower.Checked = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].inputs[CH_NUMBER - 1].PhantomPower;
             chkPhantomPower.Invalidate();
 
-            if(config.Type == InputType.Line)
+            if (PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].inputs[CH_NUMBER - 1].Type == InputType.Line)
             {
                 dropInputType.SelectedIndex = 0;
             } else
@@ -81,10 +85,10 @@ namespace SA_Resources
 
             if(dropInputType.SelectedIndex == 0)
             {
-                config.Type = InputType.Line;
+                PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].inputs[CH_NUMBER - 1].Type = InputType.Line;
             } else
             {
-                config.Type = InputType.Microphone;
+                PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].inputs[CH_NUMBER - 1].Type = InputType.Microphone;
             }
         }
 
@@ -100,7 +104,7 @@ namespace SA_Resources
                 chkPhantomPower.Checked = false;
             }
 
-            config.PhantomPower = chkPhantomPower.Checked;
+            PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].inputs[CH_NUMBER - 1].PhantomPower = chkPhantomPower.Checked;
 
         }
 
@@ -110,7 +114,7 @@ namespace SA_Resources
             {
                 e.Handled = true;
 
-                config.Name = txtDisplayName.Text;
+                PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].inputs[CH_NUMBER - 1].Name = txtDisplayName.Text;
                 return;
                 /*
                 SaveRoutine();
@@ -147,7 +151,7 @@ namespace SA_Resources
 
         private void InputConfiguration_FormClosing(object sender, FormClosingEventArgs e)
         {
-            config.Name = txtDisplayName.Text;
+            PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].inputs[CH_NUMBER - 1].Name = txtDisplayName.Text;
         }
 
     }

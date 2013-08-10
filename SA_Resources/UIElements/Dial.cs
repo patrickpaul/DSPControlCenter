@@ -85,7 +85,7 @@ namespace SA_Resources
                     OnChange(this, e);
                 } catch (Exception ex)
                 {
-                    //
+                    Console.WriteLine("Exception in Dial.OnChangeEvent: " + ex.Message);
                 }
             }
         } 
@@ -211,38 +211,7 @@ namespace SA_Resources
         {
             get
             {
-                if (Rotations == 0)
-                {
-                    return Dial_Ticks[0];
-                }
-                else if ((Rotations > 0) && (Rotations <= 42))
-                {
-                    return ((Rotations / 42.00) * (Dial_Ticks[1] - Dial_Ticks[0])) + Dial_Ticks[0];
-                }
-                else if ((Rotations > 42) && (Rotations <= 84))
-                {
-                    return (((Rotations - 42.00) / 42.00) * (Dial_Ticks[2] - Dial_Ticks[1])) + Dial_Ticks[1];
-                }
-                else if ((Rotations > 84) && (Rotations <= 125))
-                {
-                    return (((Rotations - 84.00) / 42.00) * (Dial_Ticks[3] - Dial_Ticks[2])) + Dial_Ticks[2];
-                }
-                else if ((Rotations > 125) && (Rotations <= 167))
-                {
-                    return (((Rotations - 125.00) / 42.00) * (Dial_Ticks[4] - Dial_Ticks[3])) + Dial_Ticks[3];
-                }
-                else if ((Rotations > 167) && (Rotations <= 209))
-                {
-                    return (((Rotations - 167.00) / 42.00) * (Dial_Ticks[5] - Dial_Ticks[4])) + Dial_Ticks[4];
-                }
-                else if ((Rotations > 209) && (Rotations < 250))
-                {
-                    return (((Rotations - 209.00) / 42.00) * (Dial_Ticks[6] - Dial_Ticks[5])) + Dial_Ticks[5];
-                }
-                else
-                {
-                    return Dial_Ticks[6];
-                }
+                return ValueFromString(Textbox.Text);
             }
 
             set
@@ -253,31 +222,40 @@ namespace SA_Resources
             }
         }
 
-        public void ValueFromString(string in_string)
+        public double ValueFromString(string in_string)
         {
             if (in_string.Contains("kHz"))
             {
-                Value = (Double.Parse(in_string.Replace("kHz", "")) * 1000.0);
+                return (Double.Parse(in_string.Replace("kHz", "")) * 1000.0);
             }
             else if (in_string.Contains("Hz"))
             {
-                Value = Double.Parse(in_string.Replace("Hz", ""));
+                return Double.Parse(in_string.Replace("Hz", ""));
             }
             else if (in_string.Contains("ms"))
             {
-                Value = (Double.Parse(in_string.Replace("ms", "")) / 1000.0);
+                return (Double.Parse(in_string.Replace("ms", "")) / 1000.0);
             }
+            else if (in_string.Contains("ft"))
+            {
+                return (Double.Parse(in_string.Replace("ft", "")));
+            }
+            else if (in_string.Contains("m"))
+            {
+                return (Double.Parse(in_string.Replace("m", "")));
+            }
+
             else if (in_string.Contains("s"))
             {
-                Value = Double.Parse(in_string.Replace("s", ""));
+                return Double.Parse(in_string.Replace("s", ""));
             }
             else if (in_string.Contains("dB"))
             {
-                Value = Double.Parse(in_string.Replace("dB", ""));
+                return Double.Parse(in_string.Replace("dB", ""));
             }
             else
             {
-                Value = Double.Parse(in_string);
+                return Double.Parse(in_string);
             }
         }
     }

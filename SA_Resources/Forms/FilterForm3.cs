@@ -8,7 +8,6 @@ using System.Threading;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 using SA_Resources;
-using Controls;
 using SA_Resources.Filters;
 using SA_Resources.Forms;
 
@@ -77,6 +76,9 @@ namespace SA_Resources
 
         private bool show_all_filters = true;
 
+        private MainForm_Template PARENT_FORM;
+        private int CH_NUMBER = 0;
+
         /* Dial Settings */
 
         private delegate void SetTextCallback(TextBox tbControl, string text);
@@ -103,8 +105,10 @@ namespace SA_Resources
 
         #region Constructor and Load
 
-        public FilterForm3(FilterConfig[] in_filters, int chan_number = 1)
+        public FilterForm3(MainForm_Template _parentForm, FilterConfig[] in_filters, int chan_number = 1)
         {
+            CH_NUMBER = chan_number;
+            PARENT_FORM = _parentForm;
 
             InitializeComponent();
 
@@ -183,9 +187,9 @@ namespace SA_Resources
 
                 filterChart.ChartAreas[0].RecalculateAxesScale();
 
-                var backImage = new NamedImage("FilterBackground", GlobalResources.FilterGraph_BG_Blue);
+                var backImage = new NamedImage("FilterGraph_BG_Blue_Modified", GlobalResources.FilterGraph_BG_Blue_Modified);
                 filterChart.Images.Add(backImage);
-                filterChart.ChartAreas[0].BackImage = "FilterBackground";
+                filterChart.ChartAreas[0].BackImage = "FilterGraph_BG_Blue_Modified";
 
                 dropFilter0.BackColor = Helpers.Lighten(filterColors[0], 0.30);
                 dropFilter1.BackColor = Helpers.Lighten(filterColors[1], 0.30);
@@ -196,6 +200,15 @@ namespace SA_Resources
 
 
                 dropAction.SelectedIndex = 0;
+                dropAction.Invalidate();
+
+
+                chkBypass0.Checked = in_filters[0].Bypassed;
+                chkBypass0.Invalidate();
+                chkBypass1.Checked = in_filters[1].Bypassed;
+                chkBypass1.Invalidate(); 
+                chkBypass2.Checked = in_filters[2].Bypassed;
+                chkBypass2.Invalidate();
 
                 graph_loaded = true;
 
@@ -1307,7 +1320,7 @@ namespace SA_Resources
 
         private void btnGo_Click(object sender, EventArgs e)
         {
-            using (CopyForm copyForm = new CopyForm())
+            using (CopyForm copyForm = new CopyForm(PARENT_FORM,CH_NUMBER,CopyFormType.Filter3))
             {
                 // passing this in ShowDialog will set the .Owner 
                 // property of the child form

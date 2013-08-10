@@ -8,7 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using SA_Resources;
 
-namespace Controls
+namespace SA_Resources
 {
 
 

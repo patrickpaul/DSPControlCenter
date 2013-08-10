@@ -851,7 +851,7 @@ namespace FLX80_4
         {
             int index = int.Parse(((PictureButton)sender).Name.Substring(5, 1));
 
-            using (DelayForm delayForm = new DelayForm(index, delays[index-1]))
+            using (DelayForm delayForm = new DelayForm(index, delays[index-1], delays))
             {
 
                 delayForm.OnChange += new ConfigChangeEventHandler(this.Config_Changed);
@@ -859,7 +859,6 @@ namespace FLX80_4
 
                 PictureButton delay_button = (PictureButton)sender;
 
-                delay_button.Overlay1Visible = delays[index - 1].Bypassed;
                 toolTip1.SetToolTip(delay_button, delays[index - 1].Delay.ToString("N1") + "ms");
 
             }

@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
+using SA_Resources.Forms;
 
 namespace SA_Resources
 {
     public partial class CompressorForm : Form
     {
-
         private bool dragging_threshold = false;
         private double stored_threshold = -20;
 
@@ -14,35 +14,55 @@ namespace SA_Resources
         private double stored_ratio = 100;
 
         private bool is_limiter = false;
-        private bool bypassed = false;
 
         private Series FixedLine = null;
         private Series StraightResponseLine = null;
         private Series MarkerLine = null;
         private Series KneedResponseLine = null;
 
-        private CompressorConfig config;
-
         private Dial ReleaseDial, AttackDial;
 
-        public CompressorForm(int channel, CompressorConfig in_config)
-        {
+        private MainForm_Template PARENT_FORM;
+        private int CH_NUMBER;
 
-            config = in_config;
+        private int COMP_INDEX = 0; // 0 = compressor, 1 = limiter
+
+        public CompressorForm(MainForm_Template _parentForm, int channel, CompressorType compType = CompressorType.Compressor)
+        {
+            InitializeComponent();
+
+            dropAction.SelectedIndex = 0;
+            dropAction.Invalidate();
+
+            PARENT_FORM = _parentForm;
+            CH_NUMBER = channel;
+
+            if (compType == CompressorType.Compressor)
+            {
+                is_limiter = false;
+                COMP_INDEX = 0;
+            }
+            else
+            {
+                is_limiter = true;
+                COMP_INDEX = 1;
+            }
 
             try
             {
-                InitializeComponent(); 
+                
                 
                 FixedLine = dynChart.Series[0];
                 MarkerLine = dynChart.Series[1];
                 StraightResponseLine = dynChart.Series[2];
                 KneedResponseLine = dynChart.Series[3];
 
-                nudCompThreshold.Value = (decimal)config.Threshold;
-                nudCompRatio.Value = (decimal)(Math.Min(100.0,config.Ratio));
 
-                if (config.Type == CompressorType.Limiter)
+
+                nudCompThreshold.Value = (decimal)PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].compressors[CH_NUMBER - 1][COMP_INDEX].Threshold;
+                nudCompRatio.Value = (decimal)(Math.Min(100.0, PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].compressors[CH_NUMBER - 1][COMP_INDEX].Ratio));
+
+                if (compType == CompressorType.Limiter)
                 {
                     lblRatio.Visible = false;
                     lblRatioSuffix.Visible = false;
@@ -51,7 +71,6 @@ namespace SA_Resources
                     MarkerLine.Points[2].MarkerSize = 0;
 
                     dynChart.Invalidate();
-                    is_limiter = true;
 
                     this.Text = "Limiter - CH" + channel.ToString();
                 }
@@ -64,12 +83,12 @@ namespace SA_Resources
                 AttackDial = new Dial(TextCompAttack, DialCompAttack, new double[] {0.001, 0.003, 0.01, 0.03, 0.08, 0.3, 1.0},
                          DialHelpers.Format_String_Comp_Attack, Images.knob_blue_bg, Images.knob_blue_line);
 
-                AttackDial.Value = config.Attack;
+                AttackDial.Value = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].compressors[CH_NUMBER - 1][COMP_INDEX].Attack;
                 AttackDial.OnChange += new DialEventHandler(this.AttackDial_OnChange);
 
                 ReleaseDial = new Dial(TextCompRelease, DialCompRelease, new double[] {0.010, 0.038, 0.150, 0.530, 1.250, 7.0, 30.0},
                          DialHelpers.Format_String_Comp_Release, Images.knob_orange_bg, Images.knob_orange_line);
-                ReleaseDial.Value = config.Release;
+                ReleaseDial.Value = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].compressors[CH_NUMBER - 1][COMP_INDEX].Release;
                 ReleaseDial.OnChange += new DialEventHandler(this.ReleaseDial_OnChange);
 
 
@@ -81,7 +100,7 @@ namespace SA_Resources
 
                 update_soft_knee();
 
-                chkSoftKnee.Checked = config.SoftKnee;
+                chkSoftKnee.Checked = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].compressors[CH_NUMBER - 1][COMP_INDEX].SoftKnee;
 
                 
                 if (chkSoftKnee.Checked)
@@ -96,7 +115,7 @@ namespace SA_Resources
                 }
 
 
-                chkBypass.Checked = config.Bypassed;
+                chkBypass.Checked = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].compressors[CH_NUMBER - 1][COMP_INDEX].Bypassed;
 
 
             } catch (Exception ex)
@@ -110,13 +129,13 @@ namespace SA_Resources
         private void ReleaseDial_OnChange(object sender, DialEventArgs e)
         {
 
-            config.Release = ReleaseDial.Value;
+            PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].compressors[CH_NUMBER - 1][COMP_INDEX].Release = ReleaseDial.Value;
         }
 
         private void AttackDial_OnChange(object sender, DialEventArgs e)
         {
 
-            config.Attack = AttackDial.Value;
+            PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].compressors[CH_NUMBER - 1][COMP_INDEX].Attack = AttackDial.Value;
         }
 
         private void dynChart_MouseMove(object sender, MouseEventArgs e)
@@ -161,7 +180,7 @@ namespace SA_Resources
                         StraightResponseLine.Points[2].SetValueXY(10, ((10 - threshold) / stored_ratio) + threshold);
                     }
 
-                    config.Threshold = threshold;
+                    PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].compressors[CH_NUMBER - 1][COMP_INDEX].Threshold = threshold;
 
 
                     update_soft_knee();
@@ -195,7 +214,7 @@ namespace SA_Resources
                         ratio = Math.Min(100.0, ((10 - threshold)/(yVal - threshold)));
                     }
 
-                    config.Ratio = ratio;
+                    PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].compressors[CH_NUMBER - 1][COMP_INDEX].Ratio = ratio;
 
                     stored_ratio = ratio;
 
@@ -315,7 +334,7 @@ namespace SA_Resources
 
             dynChart.Invalidate();
 
-            config.Threshold = threshold;
+            PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].compressors[CH_NUMBER - 1][COMP_INDEX].Threshold = threshold;
         }
 
         private void nudCompRatio_ValueChanged(object sender, EventArgs e)
@@ -329,7 +348,7 @@ namespace SA_Resources
 
             stored_ratio = ratio;
 
-            config.Ratio = ratio;
+            PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].compressors[CH_NUMBER - 1][COMP_INDEX].Ratio = ratio;
 
             update_soft_knee();
 
@@ -374,14 +393,31 @@ namespace SA_Resources
                 StraightResponseLine.Enabled = true;
             }
 
-            config.SoftKnee = chkSoftKnee.Checked;
+            PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].compressors[CH_NUMBER - 1][COMP_INDEX].SoftKnee = chkSoftKnee.Checked;
         }
 
         private void chkBypass_CheckedChanged(object sender, EventArgs e)
         {
             StraightResponseLine.BorderDashStyle = ChartDashStyle.Solid;
 
-            config.Bypassed = chkBypass.Checked;
+            PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].compressors[CH_NUMBER - 1][COMP_INDEX].Bypassed = chkBypass.Checked;
+        }
+
+        private void btnGo_Click(object sender, EventArgs e)
+        {
+            CopyFormType copyType = CopyFormType.Compressor;
+            if (dropAction.SelectedIndex == 0)
+            {
+                if (is_limiter)
+                {
+                    copyType = CopyFormType.Limiter;
+                }
+
+                using (CopyForm copyForm = new CopyForm(PARENT_FORM, CH_NUMBER, copyType))
+                {
+                    copyForm.ShowDialog(this);
+                }
+            }
         }
 
     }

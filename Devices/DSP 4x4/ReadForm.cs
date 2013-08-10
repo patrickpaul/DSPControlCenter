@@ -22,6 +22,8 @@ namespace DSP_4x4
 
         bool debug_mode = true;
 
+        bool demo_mode = true;
+
         private PIC_Bridge _PIC_Conn;
         private MainForm _parentForm;
 
@@ -55,7 +57,9 @@ namespace DSP_4x4
 
             BackgroundWorker worker = sender as BackgroundWorker;
 
-            double total = _parentForm._settings.Count;
+            //TODO CHANGE ME
+            double total = _parentForm._settings[0].Count;
+
             double current = 0;
             AddDebugTextToLog("Clearing out serial data buffer... ");
 
@@ -83,8 +87,8 @@ namespace DSP_4x4
             for(int x = 0; x < 4; x++)
             {
                 // TODO - make this zero-based
-                _parentForm.inputs[x].Name = _PIC_Conn.ReadChannelName(x + 1); // Must increment by 1
-                AddDebugTextToLog("Read " + _parentForm.inputs[x].Name + System.Environment.NewLine);
+                _parentForm.PROGRAMS[_parentForm.CURRENT_PROGRAM].inputs[x].Name = _PIC_Conn.ReadChannelName(x + 1); // Must increment by 1
+                AddDebugTextToLog("Read " + _parentForm.PROGRAMS[_parentForm.CURRENT_PROGRAM].inputs[x].Name + System.Environment.NewLine);
                 Thread.Sleep(100);
             }
 
@@ -93,21 +97,22 @@ namespace DSP_4x4
             for (int x = 0; x < 4; x++)
             {
                 // TODO - make this zero-based
-                _parentForm.outputs[x].Name = _PIC_Conn.ReadChannelName(x + 1, true); // Must increment by 1
-                AddDebugTextToLog("Read " + _parentForm.outputs[x].Name + System.Environment.NewLine);
+                _parentForm.PROGRAMS[_parentForm.CURRENT_PROGRAM].outputs[x].Name = _PIC_Conn.ReadChannelName(x + 1, true); // Must increment by 1
+                AddDebugTextToLog("Read " + _parentForm.PROGRAMS[_parentForm.CURRENT_PROGRAM].outputs[x].Name + System.Environment.NewLine);
                 Thread.Sleep(100);
             } 
             
             for (int x = 0; x < 4; x++)
             {
-                _parentForm.inputs[x].PhantomPower = _PIC_Conn.ReadPhantomPower(x);
-                AddDebugTextToLog("Phantom Power on CH" + (x + 1) + " " + _parentForm.inputs[x].PhantomPower.ToString() + System.Environment.NewLine);
+                _parentForm.PROGRAMS[_parentForm.CURRENT_PROGRAM].inputs[x].PhantomPower = _PIC_Conn.ReadPhantomPower(x);
+                AddDebugTextToLog("Phantom Power on CH" + (x + 1) + " " + _parentForm.PROGRAMS[_parentForm.CURRENT_PROGRAM].inputs[x].PhantomPower.ToString() + System.Environment.NewLine);
                 Thread.Sleep(10);
             }
 
             UInt32 read_value = 0x00000000;
             int count = 0;
-            foreach (DSP_Setting single_setting in _parentForm._settings)
+            /*
+             * foreach (DSP_Setting single_setting in _parentForm._settings)
             {
 
 
@@ -140,6 +145,7 @@ namespace DSP_4x4
 
             }
             
+             * */
             AddTextToLog("Done." + System.Environment.NewLine);
 
             worker.ReportProgress(92);
@@ -212,7 +218,7 @@ namespace DSP_4x4
         private void WorkComplete(object sender, RunWorkerCompletedEventArgs e)
         {
             progressBar1.Value = 100;
-           timer1.Enabled = true;
+           //timer1.Enabled = true;
 
         }
         private void ProgressChanged(object sender, ProgressChangedEventArgs e)
@@ -224,6 +230,11 @@ namespace DSP_4x4
         private void timer1_Tick(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            timer1.Enabled = true;
         }
 
     }

@@ -8,7 +8,6 @@ namespace SA_Resources
     public class PIC_Bridge
     {
         private SerialPort serialPort;
-        private int ReadDelayMS = 5;
         public bool isOpen = false; 
 
         uint last_address1, last_address2;
@@ -58,6 +57,7 @@ namespace SA_Resources
             }
             catch (Exception ex)
             {
+                Console.WriteLine("Exception in PIC_Bridge.Open: " + ex.Message);
                 return false;
                 // throw new Exception("Unable to open port " + portName + ". Error encountered: " + ex.Message);
             }
@@ -167,8 +167,6 @@ namespace SA_Resources
             serialPort.Write(buff, 0, 3);
 
             int bytesToRead = 0;
-
-            serialPort.Write(buff, 0, 3);
 
             for (int count = 0; count <= 5; count++)
             {
@@ -560,6 +558,11 @@ namespace SA_Resources
                 serialPort.Write(buff, 0, 3);
                 Thread.Sleep(delay_value);
 
+                while (serialPort.BytesToRead == 0)
+                {
+                    Thread.Sleep(10);
+                }
+
                 if (serialPort.BytesToRead == 3)
                 {
                     Byte[] bytes = new Byte[serialPort.BytesToRead];
@@ -655,7 +658,6 @@ namespace SA_Resources
 
             buff[byte_counter] = 0x03;
 
-            int buff_counter = 0;
 
             for (int i = 0; i <= byte_counter; i++)
             {

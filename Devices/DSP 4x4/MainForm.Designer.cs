@@ -42,6 +42,9 @@ namespace DSP_4x4
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deviceToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.connectToDeviceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveToDeviceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.readFromDeviceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.viewHelpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.checkForUpdatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -105,7 +108,6 @@ namespace DSP_4x4
             this.btnCH1PreFilters = new SA_Resources.PictureButton();
             this.btnCH1Compressor = new SA_Resources.PictureButton();
             this.btnCH1PreGain2 = new SA_Resources.PictureButton();
-            this.btnPrintConfiguration = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.dropProgramSelection = new System.Windows.Forms.ComboBox();
@@ -115,11 +117,9 @@ namespace DSP_4x4
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.pictureBox5 = new System.Windows.Forms.PictureBox();
             this.pictureBox6 = new System.Windows.Forms.PictureBox();
-            this.button1 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.saveProgramDialog = new System.Windows.Forms.SaveFileDialog();
             this.openProgramDialog = new System.Windows.Forms.OpenFileDialog();
-            this.button2 = new System.Windows.Forms.Button();
             this.btnMatrixMixer = new SA_Resources.PictureButton();
             this.pbtnLoadConfiguration = new SA_Resources.PictureButton();
             this.pbtnSaveConfiguration = new SA_Resources.PictureButton();
@@ -213,9 +213,11 @@ namespace DSP_4x4
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(223, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // editToolStripMenuItem
             // 
+            this.editToolStripMenuItem.Enabled = false;
             this.editToolStripMenuItem.ForeColor = System.Drawing.Color.Gainsboro;
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
             this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
@@ -223,10 +225,33 @@ namespace DSP_4x4
             // 
             // deviceToolStripMenuItem1
             // 
+            this.deviceToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.connectToDeviceToolStripMenuItem,
+            this.saveToDeviceToolStripMenuItem,
+            this.readFromDeviceToolStripMenuItem});
+            this.deviceToolStripMenuItem1.Enabled = false;
             this.deviceToolStripMenuItem1.ForeColor = System.Drawing.Color.Gainsboro;
             this.deviceToolStripMenuItem1.Name = "deviceToolStripMenuItem1";
             this.deviceToolStripMenuItem1.Size = new System.Drawing.Size(54, 20);
             this.deviceToolStripMenuItem1.Text = "Device";
+            // 
+            // connectToDeviceToolStripMenuItem
+            // 
+            this.connectToDeviceToolStripMenuItem.Name = "connectToDeviceToolStripMenuItem";
+            this.connectToDeviceToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
+            this.connectToDeviceToolStripMenuItem.Text = "Connect to Device";
+            // 
+            // saveToDeviceToolStripMenuItem
+            // 
+            this.saveToDeviceToolStripMenuItem.Name = "saveToDeviceToolStripMenuItem";
+            this.saveToDeviceToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
+            this.saveToDeviceToolStripMenuItem.Text = "Save to Device";
+            // 
+            // readFromDeviceToolStripMenuItem
+            // 
+            this.readFromDeviceToolStripMenuItem.Name = "readFromDeviceToolStripMenuItem";
+            this.readFromDeviceToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
+            this.readFromDeviceToolStripMenuItem.Text = "Read From Device";
             // 
             // helpToolStripMenuItem1
             // 
@@ -235,13 +260,11 @@ namespace DSP_4x4
             this.checkForUpdatesToolStripMenuItem,
             this.toolStripMenuItem2,
             this.aboutDSPControlCenterToolStripMenuItem});
+            this.helpToolStripMenuItem1.Enabled = false;
             this.helpToolStripMenuItem1.ForeColor = System.Drawing.Color.Gainsboro;
             this.helpToolStripMenuItem1.Name = "helpToolStripMenuItem1";
             this.helpToolStripMenuItem1.Size = new System.Drawing.Size(44, 20);
             this.helpToolStripMenuItem1.Text = "Help";
-            this.helpToolStripMenuItem1.ForeColorChanged += new System.EventHandler(this.helpToolStripMenuItem1_ForeColorChanged);
-            this.helpToolStripMenuItem1.MouseEnter += new System.EventHandler(this.helpToolStripMenuItem1_MouseEnter);
-            this.helpToolStripMenuItem1.MouseLeave += new System.EventHandler(this.helpToolStripMenuItem1_MouseLeave);
             // 
             // viewHelpToolStripMenuItem
             // 
@@ -454,7 +477,7 @@ namespace DSP_4x4
             this.btnCH4Delay.Name = "btnCH4Delay";
             this.btnCH4Delay.OverImage = null;
             this.btnCH4Delay.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnCH4Delay.Overlay1Image")));
-            this.btnCH4Delay.Overlay1Visible = true;
+            this.btnCH4Delay.Overlay1Visible = false;
             this.btnCH4Delay.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnCH4Delay.Overlay2Image")));
             this.btnCH4Delay.Overlay2Visible = false;
             this.btnCH4Delay.Overlay3Image = null;
@@ -567,7 +590,7 @@ namespace DSP_4x4
             this.btnCH3Delay.Name = "btnCH3Delay";
             this.btnCH3Delay.OverImage = null;
             this.btnCH3Delay.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnCH3Delay.Overlay1Image")));
-            this.btnCH3Delay.Overlay1Visible = true;
+            this.btnCH3Delay.Overlay1Visible = false;
             this.btnCH3Delay.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnCH3Delay.Overlay2Image")));
             this.btnCH3Delay.Overlay2Visible = false;
             this.btnCH3Delay.Overlay3Image = null;
@@ -680,7 +703,7 @@ namespace DSP_4x4
             this.btnCH2Delay.Name = "btnCH2Delay";
             this.btnCH2Delay.OverImage = null;
             this.btnCH2Delay.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnCH2Delay.Overlay1Image")));
-            this.btnCH2Delay.Overlay1Visible = true;
+            this.btnCH2Delay.Overlay1Visible = false;
             this.btnCH2Delay.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnCH2Delay.Overlay2Image")));
             this.btnCH2Delay.Overlay2Visible = false;
             this.btnCH2Delay.Overlay3Image = null;
@@ -764,7 +787,7 @@ namespace DSP_4x4
             // pictureBox37
             // 
             this.pictureBox37.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox37.Image")));
-            this.pictureBox37.Location = new System.Drawing.Point(646, 293);
+            this.pictureBox37.Location = new System.Drawing.Point(644, 296);
             this.pictureBox37.Name = "pictureBox37";
             this.pictureBox37.Size = new System.Drawing.Size(248, 63);
             this.pictureBox37.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -813,7 +836,7 @@ namespace DSP_4x4
             this.btnCH1Delay.Name = "btnCH1Delay";
             this.btnCH1Delay.OverImage = null;
             this.btnCH1Delay.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnCH1Delay.Overlay1Image")));
-            this.btnCH1Delay.Overlay1Visible = true;
+            this.btnCH1Delay.Overlay1Visible = false;
             this.btnCH1Delay.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnCH1Delay.Overlay2Image")));
             this.btnCH1Delay.Overlay2Visible = false;
             this.btnCH1Delay.Overlay3Image = null;
@@ -1252,17 +1275,6 @@ namespace DSP_4x4
             this.btnCH1PreGain2.ToolTipText = "";
             this.btnCH1PreGain2.Click += new System.EventHandler(this.btnPreGain2_Click);
             // 
-            // btnPrintConfiguration
-            // 
-            this.btnPrintConfiguration.Location = new System.Drawing.Point(15, 333);
-            this.btnPrintConfiguration.Name = "btnPrintConfiguration";
-            this.btnPrintConfiguration.Size = new System.Drawing.Size(113, 23);
-            this.btnPrintConfiguration.TabIndex = 30;
-            this.btnPrintConfiguration.Text = "Print Configuration";
-            this.btnPrintConfiguration.UseVisualStyleBackColor = true;
-            this.btnPrintConfiguration.Visible = false;
-            this.btnPrintConfiguration.Click += new System.EventHandler(this.btnPrintConfiguration_Click);
-            // 
             // pictureBox2
             // 
             this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
@@ -1271,7 +1283,6 @@ namespace DSP_4x4
             this.pictureBox2.Size = new System.Drawing.Size(155, 37);
             this.pictureBox2.TabIndex = 32;
             this.pictureBox2.TabStop = false;
-            this.pictureBox2.Visible = false;
             // 
             // dropProgramSelection
             // 
@@ -1284,7 +1295,7 @@ namespace DSP_4x4
             this.dropProgramSelection.Name = "dropProgramSelection";
             this.dropProgramSelection.Size = new System.Drawing.Size(131, 21);
             this.dropProgramSelection.TabIndex = 33;
-            this.dropProgramSelection.Visible = false;
+            this.dropProgramSelection.SelectedIndexChanged += new System.EventHandler(this.dropProgramSelection_SelectedIndexChanged);
             // 
             // timer1
             // 
@@ -1334,27 +1345,16 @@ namespace DSP_4x4
             this.pictureBox6.TabStop = false;
             this.pictureBox6.Visible = false;
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(15, 293);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 38;
-            this.button1.Text = "Live Mode";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Visible = false;
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.Gainsboro;
-            this.label1.Location = new System.Drawing.Point(257, 314);
+            this.label1.Location = new System.Drawing.Point(12, 335);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(338, 24);
             this.label1.TabIndex = 39;
             this.label1.Text = "FOR EVALUATION PURPOSES ONLY";
-            this.label1.Visible = false;
             // 
             // saveProgramDialog
             // 
@@ -1365,16 +1365,6 @@ namespace DSP_4x4
             // 
             this.openProgramDialog.Filter = "Configuration Files (*.scfg)|*.scfg";
             this.openProgramDialog.Title = "Open Configuration File";
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(235, 288);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 40;
-            this.button2.Text = "button2";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // btnMatrixMixer
             // 
@@ -1482,9 +1472,7 @@ namespace DSP_4x4
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(82)))), ((int)(((byte)(82)))));
             this.ClientSize = new System.Drawing.Size(906, 394);
-            this.Controls.Add(this.button2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.pictureBox6);
             this.Controls.Add(this.pictureBox5);
             this.Controls.Add(this.pictureBox4);
@@ -1492,7 +1480,6 @@ namespace DSP_4x4
             this.Controls.Add(this.dropProgramSelection);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.btnMatrixMixer);
-            this.Controls.Add(this.btnPrintConfiguration);
             this.Controls.Add(this.pbtnLoadConfiguration);
             this.Controls.Add(this.pbtnSaveConfiguration);
             this.Controls.Add(this.pbtnReadDevice);
@@ -1620,7 +1607,6 @@ namespace DSP_4x4
         private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deviceToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem1;
-        private System.Windows.Forms.Button btnPrintConfiguration;
         private System.Windows.Forms.ToolTip toolTip1;
         private PictureButton btnMatrixMixer;
         private System.Windows.Forms.PictureBox pictureBox2;
@@ -1631,11 +1617,9 @@ namespace DSP_4x4
         private System.Windows.Forms.PictureBox pictureBox4;
         private System.Windows.Forms.PictureBox pictureBox5;
         private System.Windows.Forms.PictureBox pictureBox6;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.SaveFileDialog saveProgramDialog;
         private System.Windows.Forms.OpenFileDialog openProgramDialog;
-        private System.Windows.Forms.Button button2;
         private System.Windows.Forms.ToolStripMenuItem openConfigurationToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveConfigurationToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator exitApplicationToolStripMenuItem;
@@ -1645,5 +1629,8 @@ namespace DSP_4x4
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem aboutDSPControlCenterToolStripMenuItem;
         private System.Windows.Forms.ToolStripStatusLabel tsStatusLabel;
+        private System.Windows.Forms.ToolStripMenuItem connectToDeviceToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saveToDeviceToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem readFromDeviceToolStripMenuItem;
     }
 }

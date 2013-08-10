@@ -343,7 +343,7 @@ namespace SA_Resources
         public static string Format_String_Delay_MS(double delay)
         {
 
-            return delay.ToString("F1") + "ms";
+            return (delay*1000).ToString("F1") + "ms";
         }
 
         public static string Format_String_Delay_FT(double delay)

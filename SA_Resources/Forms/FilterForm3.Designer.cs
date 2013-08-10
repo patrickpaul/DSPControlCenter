@@ -87,9 +87,9 @@
             this.btnGo = new SA_Resources.PictureButton();
             this.btnCancel = new SA_Resources.PictureButton();
             this.btnSave = new SA_Resources.PictureButton();
-            this.chkBypass2 = new Controls.PictureCheckbox();
-            this.chkBypass1 = new Controls.PictureCheckbox();
-            this.chkBypass0 = new Controls.PictureCheckbox();
+            this.chkBypass2 = new SA_Resources.PictureCheckbox();
+            this.chkBypass1 = new SA_Resources.PictureCheckbox();
+            this.chkBypass0 = new SA_Resources.PictureCheckbox();
             ((System.ComponentModel.ISupportInitialize)(this.filterChart)).BeginInit();
             this.SuspendLayout();
             // 
@@ -137,6 +137,7 @@
             chartArea1.AxisY.MinorGrid.Enabled = true;
             chartArea1.AxisY.MinorGrid.Interval = 5D;
             chartArea1.BackColor = System.Drawing.Color.White;
+            chartArea1.BackImageWrapMode = System.Windows.Forms.DataVisualization.Charting.ChartImageWrapMode.Scaled;
             chartArea1.Name = "ChartArea1";
             this.filterChart.ChartAreas.Add(chartArea1);
             this.filterChart.Location = new System.Drawing.Point(-29, -1);
@@ -653,7 +654,6 @@
             this.dropAction.FormattingEnabled = true;
             this.dropAction.Items.AddRange(new object[] {
             "Copy configuration to...",
-            "Copy configuration from...",
             "Reset to Defaults"});
             this.dropAction.Location = new System.Drawing.Point(63, 440);
             this.dropAction.Name = "dropAction";
@@ -854,9 +854,9 @@
         private System.Windows.Forms.Label lblSlope2;
         private System.Windows.Forms.ComboBox dropSlope2;
         private System.Windows.Forms.Label label2;
-        private Controls.PictureCheckbox chkBypass0;
-        private Controls.PictureCheckbox chkBypass1;
-        private Controls.PictureCheckbox chkBypass2;
+        private SA_Resources.PictureCheckbox chkBypass0;
+        private SA_Resources.PictureCheckbox chkBypass1;
+        private SA_Resources.PictureCheckbox chkBypass2;
         private System.Windows.Forms.TextBox txtFreq0;
         private System.Windows.Forms.TextBox txtGain0;
         private System.Windows.Forms.TextBox txtQval0;

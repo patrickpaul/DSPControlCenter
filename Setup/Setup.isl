@@ -1939,7 +1939,6 @@
 		<row><td>dpinst_amd64.exe</td><td>dpinst_amd64.exe</td><td>DPINST~1.EXE|dpinst-amd64.exe</td><td>0</td><td/><td/><td/><td>1</td><td>C:\SOURCE\DSPControlCenter\Drivers\dpinst-amd64.exe</td><td>1</td><td/></row>
 		<row><td>dpinst_x86.exe</td><td>dpinst_x86.exe</td><td>DPINST~1.EXE|dpinst-x86.exe</td><td>0</td><td/><td/><td/><td>1</td><td>C:\SOURCE\DSPControlCenter\Drivers\dpinst-x86.exe</td><td>1</td><td/></row>
 		<row><td>dsp_4x4.sadev</td><td>ISX_DEFAULTCOMPONENT</td><td>DSP_4X~1.SAD|DSP_4x4.sadev</td><td>0</td><td/><td/><td/><td>1</td><td>C:\SOURCE\DSPControlCenter\Stewart Audio Control Center\bin\Debug\Devices\DSP_4x4.sadev</td><td>1</td><td/></row>
-		<row><td>flx80_4.sadev</td><td>ISX_DEFAULTCOMPONENT</td><td>FLX80_~1.SAD|FLX80_4.sadev</td><td>0</td><td/><td/><td/><td>1</td><td>C:\SOURCE\DSPControlCenter\Stewart Audio Control Center\bin\Debug\Devices\FLX80_4.sadev</td><td>1</td><td/></row>
 		<row><td>ftbusui.dll</td><td>ftbusui.dll</td><td>ftbusui.dll</td><td>0</td><td/><td/><td/><td>1</td><td>C:\SOURCE\DSPControlCenter\Drivers\amd64\ftbusui.dll</td><td>1</td><td/></row>
 		<row><td>ftbusui.dll1</td><td>ftbusui.dll1</td><td>ftbusui.dll</td><td>0</td><td/><td/><td/><td>1</td><td>C:\SOURCE\DSPControlCenter\Drivers\i386\ftbusui.dll</td><td>1</td><td/></row>
 		<row><td>ftcserco.dll</td><td>ftcserco.dll</td><td>ftcserco.dll</td><td>0</td><td/><td/><td/><td>1</td><td>C:\SOURCE\DSPControlCenter\Drivers\amd64\ftcserco.dll</td><td>1</td><td/></row>
@@ -2877,7 +2876,7 @@
 		<col def="I2">Encoded</col>
 		<col def="S0">Comment</col>
 		<col def="I4">TimeStamp</col>
-		<row><td>COMPANY_NAME</td><td>1033</td><td>Stewart Audio</td><td>0</td><td/><td>-207521041</td></row>
+		<row><td>COMPANY_NAME</td><td>1033</td><td>Stewart Audio</td><td>0</td><td/><td>874583308</td></row>
 		<row><td>DN_AlwaysInstall</td><td>1033</td><td>Always Install</td><td>0</td><td/><td>-341734801</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_COLOR</td><td>1033</td><td>The color settings of your system are not adequate for running [ProductName].</td><td>0</td><td/><td>-341734801</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_DOTNETVERSION40CLIENT</td><td>1033</td><td>Microsoft .NET Framework 4.0 Client Package or greater needs to be installed for this installation to continue.</td><td>0</td><td/><td>-341765489</td></row>
@@ -3985,8 +3984,8 @@
 		<row><td>IDS__TargetReq_DESC_RAM</td><td>1033</td><td>The amount of RAM is not adequate for running [ProductName].</td><td>0</td><td/><td>-341734801</td></row>
 		<row><td>IDS__TargetReq_DESC_RESOLUTION</td><td>1033</td><td>The screen resolution is not adequate for running [ProductName].</td><td>0</td><td/><td>-341734801</td></row>
 		<row><td>ID_STRING1</td><td>1033</td><td/><td>0</td><td/><td>-341734801</td></row>
-		<row><td>ID_STRING2</td><td>1033</td><td>http://www.StewartAudio.com</td><td>0</td><td/><td>-207521041</td></row>
-		<row><td>ID_STRING3</td><td>1033</td><td>Stewart Audio</td><td>0</td><td/><td>-207521041</td></row>
+		<row><td>ID_STRING2</td><td>1033</td><td>http://www.StewartAudio.com</td><td>0</td><td/><td>874583308</td></row>
+		<row><td>ID_STRING3</td><td>1033</td><td>Stewart Audio</td><td>0</td><td/><td>874583308</td></row>
 		<row><td>ID_STRING4</td><td>1033</td><td>DSP Control Center</td><td>0</td><td/><td>-341718321</td></row>
 		<row><td>IIDS_UITEXT_FeatureUninstalled</td><td>1033</td><td>This feature will remain uninstalled.</td><td>0</td><td/><td>-341734801</td></row>
 		<row><td>NEW_STRING1</td><td>1033</td><td>scfg</td><td>0</td><td/><td>-341721681</td></row>

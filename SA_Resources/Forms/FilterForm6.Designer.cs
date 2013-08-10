@@ -115,14 +115,17 @@
             this.dropFilter3 = new System.Windows.Forms.ComboBox();
             this.dropSlope3 = new System.Windows.Forms.ComboBox();
             this.lblFilterSelector5 = new System.Windows.Forms.Label();
-            this.chkBypass5 = new Controls.PictureCheckbox();
-            this.chkBypass4 = new Controls.PictureCheckbox();
-            this.chkBypass3 = new Controls.PictureCheckbox();
+            this.chkBypass5 = new SA_Resources.PictureCheckbox();
+            this.chkBypass4 = new SA_Resources.PictureCheckbox();
+            this.chkBypass3 = new SA_Resources.PictureCheckbox();
             this.btnCancel = new SA_Resources.PictureButton();
             this.btnSave = new SA_Resources.PictureButton();
-            this.chkBypass2 = new Controls.PictureCheckbox();
-            this.chkBypass1 = new Controls.PictureCheckbox();
-            this.chkBypass0 = new Controls.PictureCheckbox();
+            this.chkBypass2 = new SA_Resources.PictureCheckbox();
+            this.chkBypass1 = new SA_Resources.PictureCheckbox();
+            this.chkBypass0 = new SA_Resources.PictureCheckbox();
+            this.btnGo = new SA_Resources.PictureButton();
+            this.dropAction = new System.Windows.Forms.ComboBox();
+            this.lblAction = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.filterChart)).BeginInit();
             this.SuspendLayout();
             // 
@@ -170,6 +173,7 @@
             chartArea1.AxisY.MinorGrid.Enabled = true;
             chartArea1.AxisY.MinorGrid.Interval = 5D;
             chartArea1.BackColor = System.Drawing.Color.White;
+            chartArea1.BackImageWrapMode = System.Windows.Forms.DataVisualization.Charting.ChartImageWrapMode.Scaled;
             chartArea1.Name = "ChartArea1";
             this.filterChart.ChartAreas.Add(chartArea1);
             this.filterChart.Location = new System.Drawing.Point(-29, -1);
@@ -1169,12 +1173,57 @@
             this.chkBypass0.UseVisualStyleBackColor = true;
             this.chkBypass0.CheckedChanged += new System.EventHandler(this.chkBypass_CheckedChanged);
             // 
+            // btnGo
+            // 
+            this.btnGo.AutoResize = true;
+            this.btnGo.BackgroundImage = global::SA_Resources.GlobalResources.ui_btn_go;
+            this.btnGo.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnGo.Location = new System.Drawing.Point(204, 529);
+            this.btnGo.Name = "btnGo";
+            this.btnGo.OverImage = null;
+            this.btnGo.Overlay1Image = null;
+            this.btnGo.Overlay1Visible = false;
+            this.btnGo.Overlay2Image = null;
+            this.btnGo.Overlay2Visible = false;
+            this.btnGo.Overlay3Image = null;
+            this.btnGo.Overlay3Visible = false;
+            this.btnGo.PressedImage = null;
+            this.btnGo.Size = new System.Drawing.Size(49, 23);
+            this.btnGo.TabIndex = 135;
+            this.btnGo.ToolTipText = "";
+            this.btnGo.Click += new System.EventHandler(this.btnGo_Click);
+            // 
+            // dropAction
+            // 
+            this.dropAction.FormattingEnabled = true;
+            this.dropAction.Items.AddRange(new object[] {
+            "Copy configuration to...",
+            "Reset to Defaults"});
+            this.dropAction.Location = new System.Drawing.Point(63, 529);
+            this.dropAction.Name = "dropAction";
+            this.dropAction.Size = new System.Drawing.Size(133, 21);
+            this.dropAction.TabIndex = 134;
+            // 
+            // lblAction
+            // 
+            this.lblAction.AutoSize = true;
+            this.lblAction.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAction.ForeColor = System.Drawing.Color.Gainsboro;
+            this.lblAction.Location = new System.Drawing.Point(13, 532);
+            this.lblAction.Name = "lblAction";
+            this.lblAction.Size = new System.Drawing.Size(44, 13);
+            this.lblAction.TabIndex = 133;
+            this.lblAction.Text = "Action:";
+            // 
             // FilterForm6
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(82)))), ((int)(((byte)(82)))));
-            this.ClientSize = new System.Drawing.Size(853, 592);
+            this.ClientSize = new System.Drawing.Size(853, 563);
+            this.Controls.Add(this.btnGo);
+            this.Controls.Add(this.dropAction);
+            this.Controls.Add(this.lblAction);
             this.Controls.Add(this.lblFilterSelector5);
             this.Controls.Add(this.lblFilterSelector4);
             this.Controls.Add(this.lblFilterSelector3);
@@ -1300,9 +1349,9 @@
         private System.Windows.Forms.Label lblSlope2;
         private System.Windows.Forms.ComboBox dropSlope2;
         private System.Windows.Forms.Label label2;
-        private Controls.PictureCheckbox chkBypass0;
-        private Controls.PictureCheckbox chkBypass1;
-        private Controls.PictureCheckbox chkBypass2;
+        private SA_Resources.PictureCheckbox chkBypass0;
+        private SA_Resources.PictureCheckbox chkBypass1;
+        private SA_Resources.PictureCheckbox chkBypass2;
         private System.Windows.Forms.TextBox txtFreq0;
         private System.Windows.Forms.TextBox txtGain0;
         private System.Windows.Forms.TextBox txtQval0;
@@ -1323,11 +1372,11 @@
         private System.Windows.Forms.TextBox txtQval3;
         private System.Windows.Forms.TextBox txtGain3;
         private System.Windows.Forms.TextBox txtFreq3;
-        private Controls.PictureCheckbox chkBypass5;
-        private Controls.PictureCheckbox chkBypass4;
+        private SA_Resources.PictureCheckbox chkBypass5;
+        private SA_Resources.PictureCheckbox chkBypass4;
         private System.Windows.Forms.Label lblSlope4;
         private System.Windows.Forms.Label lblSlope5;
-        private Controls.PictureCheckbox chkBypass3;
+        private SA_Resources.PictureCheckbox chkBypass3;
         private System.Windows.Forms.Label lblQ4;
         private System.Windows.Forms.Label lblGain4;
         private System.Windows.Forms.Label lblSlope3;
@@ -1350,6 +1399,9 @@
         private System.Windows.Forms.Label lblFilterSelector5;
         private System.Windows.Forms.Label lblFilterSelector4;
         private System.Windows.Forms.Label lblFilterSelector3;
+        private PictureButton btnGo;
+        private System.Windows.Forms.ComboBox dropAction;
+        private System.Windows.Forms.Label lblAction;
     }
 }
 

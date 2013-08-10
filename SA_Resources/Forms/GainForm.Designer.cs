@@ -32,7 +32,7 @@
             this.lblGain = new System.Windows.Forms.Label();
             this.btnCancel = new SA_Resources.PictureButton();
             this.btnSave = new SA_Resources.PictureButton();
-            this.chkMuted = new Controls.PictureCheckbox();
+            this.chkMuted = new SA_Resources.PictureCheckbox();
             this.sliderPB = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.sliderPB)).BeginInit();
@@ -158,7 +158,7 @@
         private System.Windows.Forms.Label lblGain;
         private PictureButton btnCancel;
         private PictureButton btnSave;
-        private Controls.PictureCheckbox chkMuted;
+        private SA_Resources.PictureCheckbox chkMuted;
         private System.Windows.Forms.PictureBox sliderPB;
         private System.Windows.Forms.Panel panel1;
     }

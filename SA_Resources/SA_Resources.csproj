@@ -61,18 +61,27 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\COMPortInfo.cs" />
-    <Compile Include="Enum.cs" />
-    <Compile Include="Forms\Configurations\CompressorConfig.cs" />
     <Compile Include="Classes\Line.cs" />
-    <Compile Include="Forms\Configurations\DelayConfig.cs" />
-    <Compile Include="Forms\Configurations\GainConfig.cs" />
-    <Compile Include="Forms\Configurations\InputConfig.cs" />
-    <Compile Include="Forms\Configurations\OutputConfig.cs" />
+    <Compile Include="Configurations\CompressorConfig.cs" />
+    <Compile Include="Configurations\CopyFormType.cs" />
+    <Compile Include="Configurations\DelayConfig.cs" />
+    <Compile Include="Configurations\Enum.cs" />
+    <Compile Include="Configurations\FilterConfig.cs" />
+    <Compile Include="Configurations\GainConfig.cs" />
+    <Compile Include="Configurations\InputConfig.cs" />
+    <Compile Include="Configurations\OutputConfig.cs" />
+    <Compile Include="Configurations\ProgramConfig.cs" />
     <Compile Include="Forms\CopyForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\CopyForm.Designer.cs">
       <DependentUpon>CopyForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\MainForm_Template.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\MainForm_Template.Designer.cs">
+      <DependentUpon>MainForm_Template.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\OutputConfiguration.cs">
       <SubType>Form</SubType>
@@ -89,7 +98,6 @@
     <Compile Include="Resource Classes\Buttons.cs" />
     <Compile Include="Classes\ConfigChangeEventArgs.cs" />
     <Compile Include="Resource Classes\ControlIcons.cs" />
-    <Compile Include="Forms\Configurations\FilterConfig.cs" />
     <Compile Include="Resource Classes\Icons.cs" />
     <Compile Include="UIElements\UI_Helpers.cs" />
     <Compile Include="UIElements\Controls\OrientedTextLabel.cs">
@@ -459,10 +467,16 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FilterGraph-BG-Blue_Modified.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ui_btn_copy.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_UseGlobalSettings="True" BuildVersion_AssemblyInfoFilename="Properties\AssemblyInfo.cs" BuildVersion_UpdateFileVersion="True" BuildVersion_UpdateAssemblyVersion="True" />
+      <UserProperties BuildVersion_UpdateAssemblyVersion="True" BuildVersion_UpdateFileVersion="True" BuildVersion_AssemblyInfoFilename="Properties\AssemblyInfo.cs" BuildVersion_UseGlobalSettings="True" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

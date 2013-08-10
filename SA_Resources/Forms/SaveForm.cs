@@ -5,16 +5,14 @@ using System.Diagnostics;
 using System.Windows.Forms;
 using System.IO.Ports;
 using System.Threading;
+using SA_Resources.Forms;
 
 namespace SA_Resources
 {
     public partial class SaveForm : Form
     {
-        private List<DSP_Setting> settings;
-            
+           
         delegate void AddTextCallback(string text);
-
-        int delay_ms = 30;
 
         byte command_RTS = 0x01;
         byte command_SaveEEPROM = 0x02;
@@ -24,30 +22,25 @@ namespace SA_Resources
         byte command_DisableTimers = 0x05;
         byte command_EnableTimers = 0x06;
 
-        bool debug_mode = true;
+        byte command_SwitchPreset1_Operation = 0x10; 
+        
+        byte command_SwitchPreset1 = 0x20;
+        byte command_SwitchPreset2 = 0x21;
+        byte command_SwitchPreset3 = 0x22;
 
-        private PIC_Bridge _PIC_Conn;
+        bool debug_mode = true;
 
         bool disable_comms = true;
 
-        private int _amp_mode = 1;
+        private MainForm_Template PARENT_FORM;
 
-        private InputConfig[] input_configs = new InputConfig[4];
-        private OutputConfig[] output_configs = new OutputConfig[4];
-
-        public SaveForm(List<DSP_Setting> in_settings, InputConfig[] in_inputs, OutputConfig[] in_outputs, PIC_Bridge PIC_Conn, bool param_disable_comms)
+        public SaveForm(MainForm_Template _parentForm, bool param_disable_comms)
         {
             InitializeComponent();
 
-            settings = in_settings;
-            _PIC_Conn = PIC_Conn;
-
-            input_configs = in_inputs;
-            output_configs = in_outputs;
-            //_amp_mode = amp_mode;
+            PARENT_FORM = _parentForm;
 
             disable_comms = param_disable_comms;
-            //debug_mode = param_debug_mode;
         }
 
         private void SaveForm_Load(object sender, EventArgs e)
@@ -58,7 +51,7 @@ namespace SA_Resources
             worker.DoWork += SaveToDevice;
             worker.RunWorkerCompleted += WorkComplete;
 
-            worker.RunWorkerAsync(settings);
+            worker.RunWorkerAsync(PARENT_FORM._settings);
         }
 
         private void SaveToDevice(object sender, DoWorkEventArgs doWorkEventArgs)
@@ -69,94 +62,123 @@ namespace SA_Resources
             //Code
 
             bool send_ackd = false;
-            int last_command_result = 0;
 
             bool rts_status;
 
             BackgroundWorker worker = sender as BackgroundWorker;
 
-            List<DSP_Setting> received_settings_list = doWorkEventArgs.Argument as List<DSP_Setting>;
+            //List<DSP_Setting> received_settings_list = doWorkEventArgs.Argument as List<DSP_Setting>;
 
-            double total = received_settings_list.Count;
+            //double total = received_settings_list.Count;
+
             double count = 0;
 
             AddTextToLog("Preparing device...");
-            //AddDebugTextToLog("Clearing out serial data buffer... ");
+            AddDebugTextToLog("Clearing out serial data buffer... ");
 
-            _PIC_Conn.FlushBuffer();
-            //AddDebugTextToLog("Done." + System.Environment.NewLine);
+            PARENT_FORM._PIC_Conn.FlushBuffer();
+            AddDebugTextToLog("Done." + System.Environment.NewLine);
 
 
             AddTextToLog("Temporarily disabling RVC and Sleep Timers... ");
 
-            if (_PIC_Conn.sendAckdCommand(command_DisableTimers))
+            if (PARENT_FORM._PIC_Conn.sendAckdCommand(command_DisableTimers))
             {
-                //AddTextToLog("Done." + System.Environment.NewLine);
+                AddTextToLog("Done." + System.Environment.NewLine);
 
             }
             else
             {
-                //AddTextToLog("[ERROR] Unable to disable timers. Save may fail." + System.Environment.NewLine);
+                AddTextToLog("[ERROR] Unable to disable timers. Save may fail." + System.Environment.NewLine);
             }
 
 
-            AddTextToLog("Saving values to device... ");
+            AddTextToLog("Saving values to device... \n");
 
-            //goto InputStuff;
-            foreach (DSP_Setting single_setting in received_settings_list)
+
+            for (int program_index = 0; program_index < PARENT_FORM.NUM_PROGRAMS; program_index++)
             {
-
-                count++;
-
-                if (single_setting.Index > 271 && single_setting.Index < 300)
+                AddTextToLog("Saving configuration for Program " + (program_index+1) + "\n");
+                
+                foreach (DSP_Setting single_setting in PARENT_FORM._settings[program_index])
                 {
-                    AddDebugTextToLog("SKIPPING " + count + System.Environment.NewLine);
-                    continue;
-                }
 
-                AddDebugTextToLog("Sending " + single_setting.Name + " [" + single_setting.Value.ToString("X8") + "] ...");
-                rts_status = _PIC_Conn.sendAckdCommand(command_RTS);
-                if (rts_status == true)
-                {
-                    //Thread.Sleep(delay_ms);
-                    send_ackd = _PIC_Conn.SetDSPValue(single_setting.Index, single_setting.Value);
+                    count++;
 
-                    if (!send_ackd)
+                    if (single_setting.Index > 271 && single_setting.Index < 300)
+                    //if (single_setting.Index > 30)
                     {
-                        //AddDebugTextToLog("FAILED. Exiting." + System.Environment.NewLine);
-                        return;
+                        AddDebugTextToLog("SKIPPING " + count + System.Environment.NewLine);
+                        continue;
                     }
-                    else
-                    {
-                        AddDebugTextToLog("SENT. Verifying...");
 
-                        if (_PIC_Conn.verifyLastCommand())
+                    AddDebugTextToLog("Sending " + single_setting.Name + " [" + single_setting.Value.ToString("X8") + "] ...");
+
+                    rts_status = PARENT_FORM._PIC_Conn.sendAckdCommand(command_RTS);
+
+                    if (rts_status == true)
+                    {
+                        send_ackd = PARENT_FORM._PIC_Conn.SetDSPValue(single_setting.Index, single_setting.Value);
+
+                        if (!send_ackd)
                         {
-                            //AddDebugTextToLog("SUCCESS" + System.Environment.NewLine);
+                            AddDebugTextToLog("FAILED. Exiting." + System.Environment.NewLine);
+                            return;
                         }
                         else
                         {
-                            //AddDebugTextToLog("FAILED - " + last_command_result + System.Environment.NewLine);
-                        }
+                            AddDebugTextToLog("SENT. Verifying...");
 
+                            if (PARENT_FORM._PIC_Conn.verifyLastCommand())
+                            {
+                                AddDebugTextToLog("SUCCESS" + System.Environment.NewLine);
+                            }
+                            else
+                            {
+                                AddDebugTextToLog("FAILED" + System.Environment.NewLine);
+                            }
+
+                        }
                     }
+                    else
+                    {
+                        AddDebugTextToLog("No RTS. FAILED." + System.Environment.NewLine);
+                        return;
+                    }
+
+                    worker.ReportProgress((int)((count / (PARENT_FORM._settings[0].Count*3)) * 80.0));
+
+                }
+
+
+                AddDebugTextToLog("Saving EEPROM and switching to next Program... ");
+
+                byte switch_command = 0x00;
+
+                if (program_index == 0)
+                {
+                    switch_command = command_SwitchPreset2;
                 }
                 else
                 {
-                    //AddDebugTextToLog("No RTS. FAILED." + System.Environment.NewLine);
-                    return;
+                    switch_command = command_SwitchPreset3;
                 }
 
+                if (PARENT_FORM._PIC_Conn.sendAckdCommand(switch_command, 8000))
+                {
+                    AddDebugTextToLog("Done." + System.Environment.NewLine);
 
-                
-
-                worker.ReportProgress((int)((count / total) * 80.0));
+                }
+                else
+                {
+                    AddDebugTextToLog("[ERROR] Unable to save Program to EEPROM" + System.Environment.NewLine);
+                }
 
             }
-
+            
             //AddTextToLog("Done." + System.Environment.NewLine);
 ;
-
+            /*
             AddTextToLog("Setting phantom power modes... ");
 
             bool last_response = false;
@@ -179,11 +201,9 @@ namespace SA_Resources
 
             worker.ReportProgress(82);
 
-            InputStuff:
             AddTextToLog("Saving Input Configuration... "+ System.Environment.NewLine);
 
             // TODO change this to use a channel count
-            int retry_count = 0;
             int max_retries = 5;
             
             
@@ -231,43 +251,47 @@ namespace SA_Resources
 
             worker.ReportProgress(88);
 
+            */
+
             
-            AddTextToLog("Saving to device memory. This may take a moment... ");
-
-            if (_PIC_Conn.sendAckdCommand(command_SaveEEPROM, 6000))
-            {
-                //AddTextToLog("Done." + System.Environment.NewLine);
-
-            }
-            else
-            {
-                //AddTextToLog("[ERROR] Unable to save to EEPROM" + System.Environment.NewLine);
-            }
 
             worker.ReportProgress(98); 
 
-            //AddTextToLog("Re-enabling RVC and Sleep Timers... ");
+            AddTextToLog("Re-enabling RVC and Sleep Timers... ");
 
-            if (_PIC_Conn.sendAckdCommand(command_EnableTimers))
+            if (PARENT_FORM._PIC_Conn.sendAckdCommand(command_EnableTimers))
             {
-                //AddTextToLog("Done." + System.Environment.NewLine);
+                AddTextToLog("Done." + System.Environment.NewLine);
 
             }
             else
             {
-                //AddTextToLog("[ERROR] Unable to re-enable timers. This can be fixed by rebooting the amplifier." + System.Environment.NewLine);
+                AddTextToLog("[ERROR] Unable to re-enable timers. This can be fixed by rebooting the amplifier." + System.Environment.NewLine);
             }
+
+            AddTextToLog("Switching back to Program 1... ");
+
+            if (PARENT_FORM._PIC_Conn.sendAckdCommand(command_SwitchPreset1_Operation))
+            {
+                AddTextToLog("Done." + System.Environment.NewLine);
+
+            }
+            else
+            {
+                AddTextToLog("[ERROR] Unable to switch to program 1" + System.Environment.NewLine);
+            }
+
 
             AddTextToLog("Rebooting amplifier... ");
 
-            if (_PIC_Conn.sendAckdCommand(command_RebootDevice,5000))
+            if (PARENT_FORM._PIC_Conn.sendAckdCommand(command_RebootDevice, 5000))
             {
-                //AddTextToLog("Done." + System.Environment.NewLine);
+                AddTextToLog("Done." + System.Environment.NewLine);
 
             }
             else
             {
-                //AddTextToLog("[ERROR] Unable to reboot device." + System.Environment.NewLine);
+                AddTextToLog("[ERROR] Unable to reboot device." + System.Environment.NewLine);
             }
 
             AddTextToLog("Done!");

@@ -84,12 +84,6 @@
     <EmbeddedResource Include="ReadForm.resx">
       <DependentUpon>ReadForm.cs</DependentUpon>
     </EmbeddedResource>
-    <Compile Include="ConfigurationPrintout.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ConfigurationPrintout.Designer.cs">
-      <DependentUpon>ConfigurationPrintout.cs</DependentUpon>
-    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -97,9 +91,6 @@
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="ConfigurationPrintout.resx">
-      <DependentUpon>ConfigurationPrintout.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -164,7 +155,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_UseGlobalSettings="True" BuildVersion_AssemblyInfoFilename="Properties\AssemblyInfo.cs" BuildVersion_UpdateFileVersion="True" BuildVersion_UpdateAssemblyVersion="True" />
+      <UserProperties BuildVersion_UseGlobalSettings="True" BuildVersion_AssemblyInfoFilename="Properties\AssemblyInfo.cs" BuildVersion_UpdateFileVersion="True" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_BuildVersioningStyle="None.None.Increment.TimeStamp" BuildVersion_IncrementBeforeBuild="True" BuildVersion_DetectChanges="True" />
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>

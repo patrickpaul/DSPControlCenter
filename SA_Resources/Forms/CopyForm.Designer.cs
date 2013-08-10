@@ -29,87 +29,200 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CopyForm));
-            this.label1 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.checkBox4 = new System.Windows.Forms.CheckBox();
+            this.lblDestinationChannel = new System.Windows.Forms.Label();
+            this.lblCopyFollowing = new System.Windows.Forms.Label();
+            this.pchkItem6 = new SA_Resources.PictureCheckbox();
+            this.pchkItem5 = new SA_Resources.PictureCheckbox();
+            this.pchkItem4 = new SA_Resources.PictureCheckbox();
+            this.pchkItem3 = new SA_Resources.PictureCheckbox();
+            this.pchkItem2 = new SA_Resources.PictureCheckbox();
+            this.pchkItem1 = new SA_Resources.PictureCheckbox();
+            this.pchkChannel4 = new SA_Resources.PictureCheckbox();
+            this.pchkChannel3 = new SA_Resources.PictureCheckbox();
+            this.pchkChannel2 = new SA_Resources.PictureCheckbox();
+            this.pchkChannel1 = new SA_Resources.PictureCheckbox();
             this.btnCancel = new SA_Resources.PictureButton();
-            this.btnSave = new SA_Resources.PictureButton();
+            this.btnCopy = new SA_Resources.PictureButton();
             this.SuspendLayout();
             // 
-            // label1
+            // lblDestinationChannel
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.Gainsboro;
-            this.label1.Location = new System.Drawing.Point(13, 20);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(116, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Destination Channel:";
+            this.lblDestinationChannel.AutoSize = true;
+            this.lblDestinationChannel.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDestinationChannel.ForeColor = System.Drawing.Color.Gainsboro;
+            this.lblDestinationChannel.Location = new System.Drawing.Point(219, 15);
+            this.lblDestinationChannel.Name = "lblDestinationChannel";
+            this.lblDestinationChannel.Size = new System.Drawing.Size(145, 13);
+            this.lblDestinationChannel.TabIndex = 0;
+            this.lblDestinationChannel.Text = "To the following channels:";
             // 
-            // comboBox1
+            // lblCopyFollowing
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "1",
-            "2",
-            "3",
-            "4"});
-            this.comboBox1.Location = new System.Drawing.Point(135, 17);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(60, 21);
-            this.comboBox1.TabIndex = 1;
+            this.lblCopyFollowing.AutoSize = true;
+            this.lblCopyFollowing.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCopyFollowing.ForeColor = System.Drawing.Color.Gainsboro;
+            this.lblCopyFollowing.Location = new System.Drawing.Point(12, 15);
+            this.lblCopyFollowing.Name = "lblCopyFollowing";
+            this.lblCopyFollowing.Size = new System.Drawing.Size(141, 13);
+            this.lblCopyFollowing.TabIndex = 34;
+            this.lblCopyFollowing.Text = "Copy the following items:";
             // 
-            // checkBox1
+            // pchkItem6
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Checked = true;
-            this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox1.ForeColor = System.Drawing.Color.Gainsboro;
-            this.checkBox1.Location = new System.Drawing.Point(15, 55);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(162, 17);
-            this.checkBox1.TabIndex = 2;
-            this.checkBox1.Text = "Filter 1 - High Pass at 40Hz";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.pchkItem6.AutoSize = true;
+            this.pchkItem6.CheckedImage = null;
+            this.pchkItem6.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pchkItem6.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pchkItem6.ForeColor = System.Drawing.Color.Gainsboro;
+            this.pchkItem6.Location = new System.Drawing.Point(15, 157);
+            this.pchkItem6.Name = "pchkItem6";
+            this.pchkItem6.Size = new System.Drawing.Size(122, 17);
+            this.pchkItem6.TabIndex = 48;
+            this.pchkItem6.Text = " Filter 6 - Not Used";
+            this.pchkItem6.UncheckedImage = null;
+            this.pchkItem6.UseVisualStyleBackColor = true;
             // 
-            // checkBox2
+            // pchkItem5
             // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Checked = true;
-            this.checkBox2.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox2.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox2.ForeColor = System.Drawing.Color.Gainsboro;
-            this.checkBox2.Location = new System.Drawing.Point(15, 78);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(145, 17);
-            this.checkBox2.TabIndex = 3;
-            this.checkBox2.Text = "Filter 2 - PEQ at 1500Hz";
-            this.checkBox2.UseVisualStyleBackColor = true;
+            this.pchkItem5.AutoSize = true;
+            this.pchkItem5.CheckedImage = null;
+            this.pchkItem5.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pchkItem5.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pchkItem5.ForeColor = System.Drawing.Color.Gainsboro;
+            this.pchkItem5.Location = new System.Drawing.Point(15, 134);
+            this.pchkItem5.Name = "pchkItem5";
+            this.pchkItem5.Size = new System.Drawing.Size(122, 17);
+            this.pchkItem5.TabIndex = 47;
+            this.pchkItem5.Text = " Filter 5 - Not Used";
+            this.pchkItem5.UncheckedImage = null;
+            this.pchkItem5.UseVisualStyleBackColor = true;
             // 
-            // checkBox4
+            // pchkItem4
             // 
-            this.checkBox4.AutoSize = true;
-            this.checkBox4.Checked = true;
-            this.checkBox4.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox4.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox4.ForeColor = System.Drawing.Color.Gainsboro;
-            this.checkBox4.Location = new System.Drawing.Point(15, 101);
-            this.checkBox4.Name = "checkBox4";
-            this.checkBox4.Size = new System.Drawing.Size(119, 17);
-            this.checkBox4.TabIndex = 4;
-            this.checkBox4.Text = "Filter 3 - Not Used";
-            this.checkBox4.UseVisualStyleBackColor = true;
+            this.pchkItem4.AutoSize = true;
+            this.pchkItem4.CheckedImage = null;
+            this.pchkItem4.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pchkItem4.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pchkItem4.ForeColor = System.Drawing.Color.Gainsboro;
+            this.pchkItem4.Location = new System.Drawing.Point(15, 111);
+            this.pchkItem4.Name = "pchkItem4";
+            this.pchkItem4.Size = new System.Drawing.Size(122, 17);
+            this.pchkItem4.TabIndex = 46;
+            this.pchkItem4.Text = " Filter 4 - Not Used";
+            this.pchkItem4.UncheckedImage = null;
+            this.pchkItem4.UseVisualStyleBackColor = true;
+            // 
+            // pchkItem3
+            // 
+            this.pchkItem3.AutoSize = true;
+            this.pchkItem3.CheckedImage = null;
+            this.pchkItem3.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pchkItem3.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pchkItem3.ForeColor = System.Drawing.Color.Gainsboro;
+            this.pchkItem3.Location = new System.Drawing.Point(15, 88);
+            this.pchkItem3.Name = "pchkItem3";
+            this.pchkItem3.Size = new System.Drawing.Size(180, 17);
+            this.pchkItem3.TabIndex = 45;
+            this.pchkItem3.Text = " Filter 3 - High Pass at 1.25kHz";
+            this.pchkItem3.UncheckedImage = null;
+            this.pchkItem3.UseVisualStyleBackColor = true;
+            // 
+            // pchkItem2
+            // 
+            this.pchkItem2.AutoSize = true;
+            this.pchkItem2.CheckedImage = null;
+            this.pchkItem2.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pchkItem2.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pchkItem2.ForeColor = System.Drawing.Color.Gainsboro;
+            this.pchkItem2.Location = new System.Drawing.Point(15, 65);
+            this.pchkItem2.Name = "pchkItem2";
+            this.pchkItem2.Size = new System.Drawing.Size(180, 17);
+            this.pchkItem2.TabIndex = 44;
+            this.pchkItem2.Text = " Filter 2 - High Pass at 1.25kHz";
+            this.pchkItem2.UncheckedImage = null;
+            this.pchkItem2.UseVisualStyleBackColor = true;
+            // 
+            // pchkItem1
+            // 
+            this.pchkItem1.AutoSize = true;
+            this.pchkItem1.CheckedImage = null;
+            this.pchkItem1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pchkItem1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pchkItem1.ForeColor = System.Drawing.Color.Gainsboro;
+            this.pchkItem1.Location = new System.Drawing.Point(15, 42);
+            this.pchkItem1.Name = "pchkItem1";
+            this.pchkItem1.Size = new System.Drawing.Size(180, 17);
+            this.pchkItem1.TabIndex = 43;
+            this.pchkItem1.Text = " Filter 1 - High Pass at 1.25kHz";
+            this.pchkItem1.UncheckedImage = null;
+            this.pchkItem1.UseVisualStyleBackColor = true;
+            // 
+            // pchkChannel4
+            // 
+            this.pchkChannel4.AutoSize = true;
+            this.pchkChannel4.CheckedImage = null;
+            this.pchkChannel4.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pchkChannel4.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pchkChannel4.ForeColor = System.Drawing.Color.Gainsboro;
+            this.pchkChannel4.Location = new System.Drawing.Point(236, 111);
+            this.pchkChannel4.Name = "pchkChannel4";
+            this.pchkChannel4.Size = new System.Drawing.Size(107, 17);
+            this.pchkChannel4.TabIndex = 42;
+            this.pchkChannel4.Text = " CH 4 - Input #4";
+            this.pchkChannel4.UncheckedImage = null;
+            this.pchkChannel4.UseVisualStyleBackColor = true;
+            // 
+            // pchkChannel3
+            // 
+            this.pchkChannel3.AutoSize = true;
+            this.pchkChannel3.CheckedImage = null;
+            this.pchkChannel3.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pchkChannel3.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pchkChannel3.ForeColor = System.Drawing.Color.Gainsboro;
+            this.pchkChannel3.Location = new System.Drawing.Point(236, 88);
+            this.pchkChannel3.Name = "pchkChannel3";
+            this.pchkChannel3.Size = new System.Drawing.Size(107, 17);
+            this.pchkChannel3.TabIndex = 41;
+            this.pchkChannel3.Text = " CH 3 - Input #3";
+            this.pchkChannel3.UncheckedImage = null;
+            this.pchkChannel3.UseVisualStyleBackColor = true;
+            // 
+            // pchkChannel2
+            // 
+            this.pchkChannel2.AutoSize = true;
+            this.pchkChannel2.CheckedImage = null;
+            this.pchkChannel2.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pchkChannel2.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pchkChannel2.ForeColor = System.Drawing.Color.Gainsboro;
+            this.pchkChannel2.Location = new System.Drawing.Point(236, 65);
+            this.pchkChannel2.Name = "pchkChannel2";
+            this.pchkChannel2.Size = new System.Drawing.Size(107, 17);
+            this.pchkChannel2.TabIndex = 40;
+            this.pchkChannel2.Text = " CH 2 - Input #2";
+            this.pchkChannel2.UncheckedImage = null;
+            this.pchkChannel2.UseVisualStyleBackColor = true;
+            // 
+            // pchkChannel1
+            // 
+            this.pchkChannel1.AutoSize = true;
+            this.pchkChannel1.CheckedImage = null;
+            this.pchkChannel1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pchkChannel1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pchkChannel1.ForeColor = System.Drawing.Color.Gainsboro;
+            this.pchkChannel1.Location = new System.Drawing.Point(236, 42);
+            this.pchkChannel1.Name = "pchkChannel1";
+            this.pchkChannel1.Size = new System.Drawing.Size(107, 17);
+            this.pchkChannel1.TabIndex = 39;
+            this.pchkChannel1.Text = " CH 1 - Input #1";
+            this.pchkChannel1.UncheckedImage = null;
+            this.pchkChannel1.UseVisualStyleBackColor = true;
             // 
             // btnCancel
             // 
             this.btnCancel.AutoResize = true;
             this.btnCancel.BackgroundImage = global::SA_Resources.GlobalResources.ui_btn_cancel;
             this.btnCancel.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCancel.Location = new System.Drawing.Point(108, 134);
+            this.btnCancel.Location = new System.Drawing.Point(292, 149);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.OverImage = null;
             this.btnCancel.Overlay1Image = null;
@@ -124,39 +237,46 @@
             this.btnCancel.ToolTipText = "";
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
-            // btnSave
+            // btnCopy
             // 
-            this.btnSave.AutoResize = true;
-            this.btnSave.BackgroundImage = global::SA_Resources.GlobalResources.ui_btn_save;
-            this.btnSave.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnSave.Location = new System.Drawing.Point(52, 134);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.OverImage = null;
-            this.btnSave.Overlay1Image = null;
-            this.btnSave.Overlay1Visible = false;
-            this.btnSave.Overlay2Image = null;
-            this.btnSave.Overlay2Visible = false;
-            this.btnSave.Overlay3Image = null;
-            this.btnSave.Overlay3Visible = false;
-            this.btnSave.PressedImage = null;
-            this.btnSave.Size = new System.Drawing.Size(49, 23);
-            this.btnSave.TabIndex = 32;
-            this.btnSave.ToolTipText = "";
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            this.btnCopy.AutoResize = true;
+            this.btnCopy.BackgroundImage = global::SA_Resources.GlobalResources.ui_btn_copy;
+            this.btnCopy.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnCopy.Location = new System.Drawing.Point(236, 149);
+            this.btnCopy.Name = "btnCopy";
+            this.btnCopy.OverImage = null;
+            this.btnCopy.Overlay1Image = null;
+            this.btnCopy.Overlay1Visible = false;
+            this.btnCopy.Overlay2Image = null;
+            this.btnCopy.Overlay2Visible = false;
+            this.btnCopy.Overlay3Image = null;
+            this.btnCopy.Overlay3Visible = false;
+            this.btnCopy.PressedImage = null;
+            this.btnCopy.Size = new System.Drawing.Size(49, 23);
+            this.btnCopy.TabIndex = 32;
+            this.btnCopy.ToolTipText = "";
+            this.btnCopy.Click += new System.EventHandler(this.btnCopy_Click);
             // 
             // CopyForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(82)))), ((int)(((byte)(82)))));
-            this.ClientSize = new System.Drawing.Size(209, 165);
+            this.ClientSize = new System.Drawing.Size(377, 185);
+            this.Controls.Add(this.pchkItem6);
+            this.Controls.Add(this.pchkItem5);
+            this.Controls.Add(this.pchkItem4);
+            this.Controls.Add(this.pchkItem3);
+            this.Controls.Add(this.pchkItem2);
+            this.Controls.Add(this.pchkItem1);
+            this.Controls.Add(this.pchkChannel4);
+            this.Controls.Add(this.pchkChannel3);
+            this.Controls.Add(this.pchkChannel2);
+            this.Controls.Add(this.pchkChannel1);
+            this.Controls.Add(this.lblCopyFollowing);
             this.Controls.Add(this.btnCancel);
-            this.Controls.Add(this.btnSave);
-            this.Controls.Add(this.checkBox4);
-            this.Controls.Add(this.checkBox2);
-            this.Controls.Add(this.checkBox1);
-            this.Controls.Add(this.comboBox1);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.btnCopy);
+            this.Controls.Add(this.lblDestinationChannel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "CopyForm";
@@ -169,12 +289,19 @@
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.CheckBox checkBox2;
-        private System.Windows.Forms.CheckBox checkBox4;
+        private System.Windows.Forms.Label lblDestinationChannel;
         private PictureButton btnCancel;
-        private PictureButton btnSave;
+        private PictureButton btnCopy;
+        private System.Windows.Forms.Label lblCopyFollowing;
+        private SA_Resources.PictureCheckbox pchkChannel1;
+        private SA_Resources.PictureCheckbox pchkChannel2;
+        private SA_Resources.PictureCheckbox pchkChannel4;
+        private SA_Resources.PictureCheckbox pchkChannel3;
+        private SA_Resources.PictureCheckbox pchkItem4;
+        private SA_Resources.PictureCheckbox pchkItem3;
+        private SA_Resources.PictureCheckbox pchkItem2;
+        private SA_Resources.PictureCheckbox pchkItem1;
+        private SA_Resources.PictureCheckbox pchkItem6;
+        private SA_Resources.PictureCheckbox pchkItem5;
     }
 }
