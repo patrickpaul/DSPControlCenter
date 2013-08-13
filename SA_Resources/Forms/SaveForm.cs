@@ -79,7 +79,7 @@ namespace SA_Resources
             PARENT_FORM._PIC_Conn.FlushBuffer();
             AddDebugTextToLog("Done." + System.Environment.NewLine);
 
-
+            /*
             AddTextToLog("Temporarily disabling RVC and Sleep Timers... ");
 
             if (PARENT_FORM._PIC_Conn.sendAckdCommand(command_DisableTimers))
@@ -91,24 +91,51 @@ namespace SA_Resources
             {
                 AddTextToLog("[ERROR] Unable to disable timers. Save may fail." + System.Environment.NewLine);
             }
+            */
 
+            AddTextToLog("Switching back to Program 1... ");
+
+            if (PARENT_FORM._PIC_Conn.sendAckdCommand(command_SwitchPreset1))
+            {
+                AddTextToLog("Done." + System.Environment.NewLine);
+
+            }
+            else
+            {
+                AddTextToLog("[ERROR] Unable to switch to program 1" + System.Environment.NewLine);
+            }
 
             AddTextToLog("Saving values to device... \n");
 
-
+            int index_counter = 0;
             for (int program_index = 0; program_index < PARENT_FORM.NUM_PROGRAMS; program_index++)
             {
                 AddTextToLog("Saving configuration for Program " + (program_index+1) + "\n");
                 
+                index_counter = 0;
                 foreach (DSP_Setting single_setting in PARENT_FORM._settings[program_index])
                 {
-
+                    
                     count++;
+
+                    if (single_setting.Value == PARENT_FORM._cached_settings[program_index][index_counter].Value)
+                    {
+                        /*if (index_counter == 20)
+                        {
+                            Console.WriteLine("Sine value is 0x" + single_setting.Value.ToString("X8"));
+                        }
+                        AddDebugTextToLog("UNCHANGED " + count + System.Environment.NewLine);
+                         * */
+                        index_counter++;
+                        continue;
+                    }
+
+                    index_counter++;
 
                     if (single_setting.Index > 271 && single_setting.Index < 300)
                     //if (single_setting.Index > 30)
                     {
-                        AddDebugTextToLog("SKIPPING " + count + System.Environment.NewLine);
+                        //AddDebugTextToLog("SKIPPING " + count + System.Environment.NewLine);
                         continue;
                     }
 
@@ -146,12 +173,82 @@ namespace SA_Resources
                         return;
                     }
 
-                    worker.ReportProgress((int)((count / (PARENT_FORM._settings[0].Count*3)) * 80.0));
+                    worker.ReportProgress((int)((count / (PARENT_FORM._settings[0].Count*3)) * 90.0));
 
                 }
+   
+                //AddTextToLog("Setting phantom power modes... ");
+
+                bool last_response = false;
+
+                // TODO - change this to use num phantom
+                for(int i = 0; i < 4; i++)
+                {
+                    last_response = PARENT_FORM._PIC_Conn.sendAckdData(command_SetPhantomPower, (byte)i, 100, Convert.ToByte(PARENT_FORM.PROGRAMS[program_index].inputs[i].PhantomPower));
+                }
+
+                if (last_response)
+                {
+                    //AddTextToLog("Done." + System.Environment.NewLine);
+
+                }
+                else
+                {
+                    //AddTextToLog("[ERROR] Unable to set phantom power" + System.Environment.NewLine);
+                }
+
+                //worker.ReportProgress(82);
+
+                //AddTextToLog("Saving Input Configuration... "+ System.Environment.NewLine);
+
+                // TODO change this to use a channel count
+                int max_retries = 5;
+            
+            
+                for (int i = 0; i < 4; i++)
+                {
+                    //AddTextToLog("CH " + (i+1) + "... ");
+                    for(int j = 0; j < max_retries; j++)
+                    {
+                        if(PARENT_FORM._PIC_Conn.SendChannelName(i+1,PARENT_FORM.PROGRAMS[program_index].inputs[i].Name))
+                        {
+                            //AddTextToLog("Completed after " + (j+1) + " attempts." + System.Environment.NewLine);
+                            break;
+                        }
+
+                        if(j == (max_retries-1))
+                        {
+                            //AddTextToLog("Failed after " + (j + 1) + " attempts." + System.Environment.NewLine);
+                            break;
+                        }
+                    }
+                }
+
+                //worker.ReportProgress(84);
+                //AddTextToLog("Saving Output Configuration... " + System.Environment.NewLine);
 
 
-                AddDebugTextToLog("Saving EEPROM and switching to next Program... ");
+                for (int i = 0; i < 4; i++)
+                {
+                    //AddTextToLog("CH " + (i + 1) + "... ");
+                    for (int j = 0; j < max_retries; j++)
+                    {
+                    
+                        if (PARENT_FORM._PIC_Conn.SendChannelName(i + 1, PARENT_FORM.PROGRAMS[program_index].outputs[i].Name,true))
+                        {
+                            //AddTextToLog("Completed after " + (j + 1) + " attempts." + System.Environment.NewLine);
+                            break;
+                        }
+
+                        if (j == (max_retries - 1))
+                        {
+                            //AddTextToLog("Failed after " + (j + 1) + " attempts." + System.Environment.NewLine);
+                            break;
+                        }
+                    }
+                }
+
+                AddTextToLog("Saving and switching to next Program... ");
 
                 byte switch_command = 0x00;
 
@@ -175,99 +272,6 @@ namespace SA_Resources
                 }
 
             }
-            
-            //AddTextToLog("Done." + System.Environment.NewLine);
-;
-            /*
-            AddTextToLog("Setting phantom power modes... ");
-
-            bool last_response = false;
-
-            // TODO - change this to use num phantom
-            for(int i = 0; i < 4; i++)
-            {
-                last_response = _PIC_Conn.sendAckdData(command_SetPhantomPower, (byte)i, 100, Convert.ToByte(input_configs[i].PhantomPower));
-            }
-
-            if (last_response)
-            {
-                //AddTextToLog("Done." + System.Environment.NewLine);
-
-            }
-            else
-            {
-                //AddTextToLog("[ERROR] Unable to set phantom power" + System.Environment.NewLine);
-            }
-
-            worker.ReportProgress(82);
-
-            AddTextToLog("Saving Input Configuration... "+ System.Environment.NewLine);
-
-            // TODO change this to use a channel count
-            int max_retries = 5;
-            
-            
-            for (int i = 0; i < 4; i++)
-            {
-                //AddTextToLog("CH " + (i+1) + "... ");
-                for(int j = 0; j < max_retries; j++)
-                {
-                    if(_PIC_Conn.SendChannelName(i+1,input_configs[i].Name))
-                    {
-                        //AddTextToLog("Completed after " + (j+1) + " attempts." + System.Environment.NewLine);
-                        break;
-                    }
-
-                    if(j == (max_retries-1))
-                    {
-                        //AddTextToLog("Failed after " + (j + 1) + " attempts." + System.Environment.NewLine);
-                        break;
-                    }
-                }
-            }
-
-            worker.ReportProgress(84);
-            AddTextToLog("Saving Output Configuration... " + System.Environment.NewLine);
-
-
-            for (int i = 0; i < 4; i++)
-            {
-                //AddTextToLog("CH " + (i + 1) + "... ");
-                for (int j = 0; j < max_retries; j++)
-                {
-                    if (_PIC_Conn.SendChannelName(i + 1, output_configs[i].Name,true))
-                    {
-                        //AddTextToLog("Completed after " + (j + 1) + " attempts." + System.Environment.NewLine);
-                        break;
-                    }
-
-                    if (j == (max_retries - 1))
-                    {
-                        //AddTextToLog("Failed after " + (j + 1) + " attempts." + System.Environment.NewLine);
-                        break;
-                    }
-                }
-            }
-
-            worker.ReportProgress(88);
-
-            */
-
-            
-
-            worker.ReportProgress(98); 
-
-            AddTextToLog("Re-enabling RVC and Sleep Timers... ");
-
-            if (PARENT_FORM._PIC_Conn.sendAckdCommand(command_EnableTimers))
-            {
-                AddTextToLog("Done." + System.Environment.NewLine);
-
-            }
-            else
-            {
-                AddTextToLog("[ERROR] Unable to re-enable timers. This can be fixed by rebooting the amplifier." + System.Environment.NewLine);
-            }
 
             AddTextToLog("Switching back to Program 1... ");
 
@@ -281,6 +285,7 @@ namespace SA_Resources
                 AddTextToLog("[ERROR] Unable to switch to program 1" + System.Environment.NewLine);
             }
 
+            worker.ReportProgress(95);
 
             AddTextToLog("Rebooting amplifier... ");
 
@@ -293,6 +298,8 @@ namespace SA_Resources
             {
                 AddTextToLog("[ERROR] Unable to reboot device." + System.Environment.NewLine);
             }
+
+            worker.ReportProgress(100);
 
             AddTextToLog("Done!");
             stopWatch.Stop();

@@ -52,13 +52,28 @@ namespace DSP_4x4
             }
         }
 
+        private void MainForm_Shown(object sender, EventArgs e)
+        {
+            if (_PIC_Conn.isOpen)
+            {
+                ReadForm readForm = new ReadForm(this, _PIC_Conn);
+
+                readForm.ShowDialog();
+
+                LoadSettingsToProgramConfig();
+
+                UpdateTooltips();
+            }  
+        }
+
         private void MainForm_Load(object sender, EventArgs e)
         {
             try
             {
-                
-
                 DefaultSettings();
+
+
+                              
 
                 if (CONFIGFILE != "")
                 {
@@ -164,6 +179,11 @@ namespace DSP_4x4
                     ((PictureButton)Controls.Find("btnCH" + (n + 1).ToString() + "Limiter", true).First()).Invalidate();
                 }
 
+                for (int o = 0; o < 4; o++)
+                {
+                    PROGRAMS[program_index].delays[o].Delay = DSP_Math.MN_to_double_signed(_settings[program_index][counter++].Value, 16,16);
+                }
+
                 if (!form_loaded)
                 {
                     return;
@@ -211,6 +231,11 @@ namespace DSP_4x4
                 {
                     for (int j = 0; j < 4; j++)
                     {
+
+                        if (counter == 20)
+                        {
+                            Console.WriteLine("BEFORE modification. _settings = " + _settings[program_index][counter].Value + ", Cached = " + _cached_settings[program_index][counter].Value);
+                        }
                         if (PROGRAMS[program_index].crosspoints[i][j].Muted == true)
                         {
                             _settings[program_index][counter].Value = 0x0000000;
@@ -218,6 +243,12 @@ namespace DSP_4x4
                         else
                         {
                             _settings[program_index][counter].Value = DSP_Math.double_to_MN(DSP_Math.decibels_to_voltage_gain(PROGRAMS[program_index].crosspoints[i][j].Gain), 3, 29);
+                        
+                        }
+
+                        if (counter == 20)
+                        {
+                            Console.WriteLine("AFTER modification. _settings = " + _settings[program_index][counter].Value + ", Cached = " + _cached_settings[program_index][counter].Value);
                         }
 
                         counter++;
@@ -376,6 +407,10 @@ namespace DSP_4x4
             _settings[1] = new List<DSP_Setting>();
             _settings[2] = new List<DSP_Setting>();
 
+            _cached_settings[0] = new List<DSP_Setting>();
+            _cached_settings[1] = new List<DSP_Setting>();
+            _cached_settings[2] = new List<DSP_Setting>();
+
             for (int x = 0; x < 3; x++)
             {
                 _settings[x].Add(new DSP_Setting(0, "Gain CH1", 0x20000000));
@@ -478,7 +513,7 @@ namespace DSP_4x4
                 _settings[x].Add(new DSP_Setting(counter++, "DELAY CH3", 0x00000000));
                 _settings[x].Add(new DSP_Setting(counter++, "DELAY CH4", 0x00000000));
 
-
+                Console.WriteLine("The counter after DELAY is " + counter + System.Environment.NewLine);
 
                 while (counter < 300)
                 {
@@ -501,6 +536,12 @@ namespace DSP_4x4
                         _settings[x].Add(new DSP_Setting(counter++, "OUT FILTER " + i + " - " + j + " Q", 0x00000000));
                     }
                 }
+
+                foreach (DSP_Setting single_setting in _settings[x])
+                {
+                    _cached_settings[x].Add(new DSP_Setting(single_setting.Index, single_setting.Name, single_setting.Value));
+                }
+                
             }
 
         }
@@ -953,6 +994,8 @@ namespace DSP_4x4
             readForm.ShowDialog();
 
             LoadSettingsToProgramConfig();
+
+            UpdateTooltips();
         }
 
         #endregion
@@ -1269,6 +1312,8 @@ namespace DSP_4x4
         {
 
         }
+
+        
 
     }
 

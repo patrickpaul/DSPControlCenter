@@ -560,7 +560,7 @@ namespace SA_Resources
 
                 while (serialPort.BytesToRead == 0)
                 {
-                    Thread.Sleep(10);
+                    Thread.Sleep(50);
                 }
 
                 if (serialPort.BytesToRead == 3)
@@ -582,6 +582,10 @@ namespace SA_Resources
                 }
                 else
                 {
+                    if (delay_value == 8000)
+                    {
+                        Console.WriteLine("Trying again in saving EEPROM");
+                    }
                     FlushBuffer();
                 }
             }
@@ -635,7 +639,7 @@ namespace SA_Resources
             FlushBuffer();
 
             bool error = false;
-            byte[] outbuff = new byte[10];
+            byte[] outbuff = new byte[20];
             byte[] buff = new byte[(name.Length)+4];
 
             int byte_counter = 3;

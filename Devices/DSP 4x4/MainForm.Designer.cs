@@ -1513,6 +1513,7 @@ namespace DSP_4x4
             this.Name = "MainForm";
             this.Text = "DSP 4x4";
             this.Load += new System.EventHandler(this.MainForm_Load);
+            this.Shown += new System.EventHandler(this.MainForm_Shown);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
