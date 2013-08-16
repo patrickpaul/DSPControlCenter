@@ -17,14 +17,18 @@ namespace SA_Resources
 
         private ToolTip toolTip1;
         private int oldX, oldY;
-
+        private double cur_gain;
         private MainForm_Template PARENT_FORM;
         private int CH_INDEX = 0; // NOTE - THIS IS ZERO BASED
         private int GAIN_INDEX = 0;
-
+        private int SETTINGS_INDEX = 0;
         private bool IS_MIXER = false;
 
-        public GainForm(MainForm_Template _parentForm, int _ch_index, int _gain_index, bool _is_mixer = false, string formTitle = "CH1 Gain")
+        private double read_gain_value = 0;
+        private double test_read_value = 35;
+        private int meter_value = 10;
+
+        public GainForm(MainForm_Template _parentForm, int _ch_index, int _gain_index, int _settings_index, bool _is_mixer = false, string formTitle = "CH1 Gain")
         {
             InitializeComponent();
 
@@ -32,17 +36,33 @@ namespace SA_Resources
             CH_INDEX = _ch_index;
             GAIN_INDEX = _gain_index;
             IS_MIXER = _is_mixer;
+            SETTINGS_INDEX = _settings_index;
+
+            // TODO - Add in premix meter when DSP flash is updated
+            if (_gain_index == 1)
+            {
+                pbMeter.Visible = false;
+                signalTimer.Enabled = false;
+            }
 
             if (IS_MIXER)
             {
+                cur_gain = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].crosspoints[CH_INDEX][GAIN_INDEX].Gain;
                 lblGain.Text = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].crosspoints[CH_INDEX][GAIN_INDEX].Gain.ToString("N1") + "dB";
                 sliderPB.Location = new Point(18, (int)gain_to_yval(PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].crosspoints[CH_INDEX][GAIN_INDEX].Gain));
             }
             else
             {
+                cur_gain = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].gains[CH_INDEX][GAIN_INDEX].Gain;
                 lblGain.Text = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].gains[CH_INDEX][GAIN_INDEX].Gain.ToString("N1") + "dB";
                 sliderPB.Location = new Point(18, (int)gain_to_yval(PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].gains[CH_INDEX][GAIN_INDEX].Gain));
             }
+
+            if (cur_gain <= -90)
+            {
+
+            }
+            
             
 
             this.Text = formTitle;
@@ -71,7 +91,7 @@ namespace SA_Resources
                 {
                     sliderPB.Cursor = Cursors.No;
                     toolTip1.SetToolTip(sliderPB, "Muted");
-                    chkMuted.Checked = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].crosspoints[CH_INDEX][GAIN_INDEX].Muted;
+                    
 
                 }
                 else
@@ -80,6 +100,8 @@ namespace SA_Resources
                     toolTip1.SetToolTip(sliderPB, null);
                     
                 }
+
+                chkMuted.Checked = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].crosspoints[CH_INDEX][GAIN_INDEX].Muted;
             }
             else
             {
@@ -93,8 +115,10 @@ namespace SA_Resources
                 {
                     sliderPB.Cursor = Cursors.Hand;
                     toolTip1.SetToolTip(sliderPB, null);
-                    chkMuted.Checked = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].gains[CH_INDEX][GAIN_INDEX].Muted;
+                    
                 }
+
+                chkMuted.Checked = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].gains[CH_INDEX][GAIN_INDEX].Muted;
             }
             
 
@@ -231,16 +255,18 @@ namespace SA_Resources
 
                 int yVal = Math.Min(Math.Max(thisPB.Location.Y - (oldY - e.Y), 5), 236);
 
+                cur_gain = Math.Max(-100.0, yVal_to_gain((double)yVal));
 
                 if (IS_MIXER)
                 {
-                    PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].crosspoints[CH_INDEX][GAIN_INDEX].Gain = Math.Max(-100.0, yVal_to_gain((double)yVal));
+
+                    PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].crosspoints[CH_INDEX][GAIN_INDEX].Gain = cur_gain;
 
                     lblGain.Text = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].crosspoints[CH_INDEX][GAIN_INDEX].Gain.ToString("N1") + "dB";
                 }
                 else
                 {
-                    PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].gains[CH_INDEX][GAIN_INDEX].Gain = Math.Max(-100.0, yVal_to_gain((double)yVal));
+                    PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].gains[CH_INDEX][GAIN_INDEX].Gain = cur_gain;
 
                     lblGain.Text = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].gains[CH_INDEX][GAIN_INDEX].Gain.ToString("N1") + "dB";
                 }
@@ -253,9 +279,16 @@ namespace SA_Resources
             }
         }
 
+        private void LiveGainUpdate()
+        {
+            UInt32 new_val = DSP_Math.double_to_MN(DSP_Math.decibels_to_voltage_gain(cur_gain), 3, 29); ;
+
+            PARENT_FORM.AddItemToQueue(new LiveQueueItem(SETTINGS_INDEX, new_val));
+        }
 
         private void pic_MouseUp(object sender, MouseEventArgs e)
         {
+            LiveGainUpdate();            
 
             mouseDown = false;
 
@@ -298,11 +331,12 @@ namespace SA_Resources
         {
             if(chkMuted.Checked)
             {
-
+                cur_gain = -100;
                 toolTip1.SetToolTip(sliderPB, "Muted");
                 lblGain.ForeColor = Color.PaleVioletRed;
             } else
             {
+                cur_gain = 0; 
                 toolTip1.SetToolTip(sliderPB, null);
                 lblGain.ForeColor = Color.White; 
             }
@@ -330,10 +364,109 @@ namespace SA_Resources
             {
                 PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].gains[CH_INDEX][GAIN_INDEX].Gain = 0;
             }
-            
+
+            //cur_gain = 0;
+            LiveGainUpdate();
 
             sliderPB.Location = new Point(18, (int)gain_to_yval(0));
             sliderPB.Refresh();
+        }
+
+        private void signalTimer_Tick(object sender, EventArgs e)
+        {
+            UInt32 read_address = 0x00000000;
+            read_address = PARENT_FORM._gain_meters[CH_INDEX][GAIN_INDEX];
+
+            double gain_value = 0;
+            double offset = 20 + 10 * Math.Log10(2) + 20 * Math.Log10(16);
+            UInt32 read_value = PARENT_FORM._PIC_Conn.Read_Live_DSP_Value(read_address);
+            double converted_value = DSP_Math.MN_to_double_signed(read_value, 1, 31);
+            if (converted_value > (0.000001 * 0.000001))
+            {
+                read_gain_value = offset + 10 * Math.Log10(converted_value);
+            }
+            else
+            {
+                read_gain_value = -100;
+            }
+
+            pbMeter.Invalidate();
+        }
+
+        private int scale_between(double value, double upper, double lower, int pixel_upper, int pixel_lower)
+        {
+            int pixel_diff = Math.Abs(pixel_lower - pixel_upper);
+
+            double percentage = Math.Abs(value - upper) / Math.Abs(upper - lower);
+
+            return (int)(percentage * pixel_diff) + pixel_upper;
+
+        }
+
+        private int gain_to_meter()
+        {
+            if (read_gain_value <= -35)
+            {
+                return 214;
+            }
+            else if (read_gain_value <= -25)
+            {
+                return scale_between(read_gain_value, -25.0, -35.0, 192, 214);
+            }
+            else if (read_gain_value <= -15)
+            {
+                return scale_between(read_gain_value, -15.0, -25.0, 170, 192);
+            }
+            else if (read_gain_value <= -10)
+            {
+                return scale_between(read_gain_value, -10.0, -15.0, 149, 170);
+            }
+            else if (read_gain_value <= -6)
+            {
+                return scale_between(read_gain_value, -6.0, -10.0, 127, 149);
+            }
+            else if (read_gain_value <= -2)
+            {
+                return scale_between(read_gain_value, -2.0, -6.0, 106, 127);
+            }
+            else if (read_gain_value <= 0)
+            {
+                return scale_between(read_gain_value, 0.0, -2.0, 84, 106);
+            }
+            else if (read_gain_value <= 4)
+            {
+                return scale_between(read_gain_value, 4.0, 0.0, 63, 84);
+            }
+            else if (read_gain_value <= 10)
+            {
+                return scale_between(read_gain_value, 10, 4.0, 41, 63);
+            }
+            else if (read_gain_value <= 20)
+            {
+                return scale_between(read_gain_value, 20.0, 10.0, 20, 41);
+            }
+            else if (read_gain_value <= 35)
+            {
+                return scale_between(read_gain_value, 35.0, 20.0, 0, 20);
+            }
+
+            return 214;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            //test_read_value -= 1;
+            //Console.WriteLine("Updating meter for " + test_read_value + " dB");
+            //pbMeter.Invalidate();
+        }
+
+        private void pbMeter_Paint(object sender, PaintEventArgs e)
+        {
+            Rectangle ee = new Rectangle(26, 7, 13, gain_to_meter());
+            using (SolidBrush myBrush = new SolidBrush(Color.FromArgb(80,80,80)))
+            {
+                e.Graphics.FillRectangle(myBrush, ee);
+            }
         }
     }
 }

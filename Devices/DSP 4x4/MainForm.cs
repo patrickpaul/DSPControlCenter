@@ -8,6 +8,8 @@ using System.Linq;
 using System.Globalization;
 using System.IO;
 using SA_Resources.Forms;
+using System.ComponentModel;
+using System.Collections;
 
 /* DEVICE NAME = DSP 4x4 */
 namespace DSP_4x4
@@ -18,7 +20,12 @@ namespace DSP_4x4
         #region Variables
 
         private bool demo_mode = false;
-        
+        private bool disable_read = true;
+
+        public Queue UPDATE_QUEUE = new Queue();
+        public object _locker = new Object();
+
+        public bool LIVE_MODE;
 
         #endregion
 
@@ -28,6 +35,7 @@ namespace DSP_4x4
         {
             InitializeComponent();
 
+            LIVE_MODE = false;
             SERIALNUM = serialNumber;
             _PIC_Conn = PIC_Conn;
 
@@ -50,16 +58,19 @@ namespace DSP_4x4
                 CONFIGFILE = configFile;
                 
             }
+
         }
 
         private void MainForm_Shown(object sender, EventArgs e)
         {
             if (_PIC_Conn.isOpen)
             {
-                ReadForm readForm = new ReadForm(this, _PIC_Conn);
+                if (!disable_read)
+                {
+                    ReadForm readForm = new ReadForm(this, _PIC_Conn);
 
-                readForm.ShowDialog();
-
+                    readForm.ShowDialog();
+                }
                 LoadSettingsToProgramConfig();
 
                 UpdateTooltips();
@@ -93,6 +104,14 @@ namespace DSP_4x4
             }
         }
 
+        public void AddToQueue(DSP_Setting in_setting)
+        {
+            lock (_locker)
+            {
+                UPDATE_QUEUE.Enqueue(in_setting);
+            }
+        }
+
         #endregion
 
         #region _settings Read/Load
@@ -111,21 +130,32 @@ namespace DSP_4x4
                 for (i = 0; i < 4; i++)
                 {
                     PROGRAMS[program_index].gains[i][0].Gain = DSP_Math.value_to_gain(_settings[program_index][counter++].Value);
+
+                    if (PROGRAMS[program_index].gains[i][0].Gain < -90)
+                    {
+                        PROGRAMS[program_index].gains[i][0].Gain = 0;
+                        PROGRAMS[program_index].gains[i][0].Muted = true;
+                    }
+                    else
+                    {
+                        PROGRAMS[program_index].gains[i][0].Muted = false;
+                    }
+
                 }
 
                 for (i = 0; i < 6; i++)
                 {
                     for (j = 0; j < 4; j++)
                     {
-                        if (_settings[program_index][counter].Value == 0x0000000)
+                        // Note we use -90 because in live mode it will often not set gain to a true -100
+                        if (PROGRAMS[program_index].crosspoints[i][j].Gain < -90)
                         {
-                            PROGRAMS[program_index].crosspoints[i][j].Muted = true;
                             PROGRAMS[program_index].crosspoints[i][j].Gain = 0;
+                            PROGRAMS[program_index].crosspoints[i][j].Muted = true;
                         }
                         else
                         {
                             PROGRAMS[program_index].crosspoints[i][j].Muted = false;
-                            PROGRAMS[program_index].crosspoints[i][j].Gain = DSP_Math.value_to_gain(_settings[program_index][counter].Value);
                         }
 
                         counter++;
@@ -138,6 +168,16 @@ namespace DSP_4x4
                     for (j = 0; j < 4; j++)
                     {
                         PROGRAMS[program_index].gains[j][i].Gain = DSP_Math.value_to_gain(_settings[program_index][counter++].Value);
+
+                        if (PROGRAMS[program_index].gains[j][i].Gain < -90)
+                        {
+                            PROGRAMS[program_index].gains[j][i].Gain = 0;
+                            PROGRAMS[program_index].gains[j][i].Muted = true;
+                        }
+                        else
+                        {
+                            PROGRAMS[program_index].gains[j][i].Muted = false;
+                        }
                     }
 
 
@@ -232,10 +272,6 @@ namespace DSP_4x4
                     for (int j = 0; j < 4; j++)
                     {
 
-                        if (counter == 20)
-                        {
-                            Console.WriteLine("BEFORE modification. _settings = " + _settings[program_index][counter].Value + ", Cached = " + _cached_settings[program_index][counter].Value);
-                        }
                         if (PROGRAMS[program_index].crosspoints[i][j].Muted == true)
                         {
                             _settings[program_index][counter].Value = 0x0000000;
@@ -244,11 +280,6 @@ namespace DSP_4x4
                         {
                             _settings[program_index][counter].Value = DSP_Math.double_to_MN(DSP_Math.decibels_to_voltage_gain(PROGRAMS[program_index].crosspoints[i][j].Gain), 3, 29);
                         
-                        }
-
-                        if (counter == 20)
-                        {
-                            Console.WriteLine("AFTER modification. _settings = " + _settings[program_index][counter].Value + ", Cached = " + _cached_settings[program_index][counter].Value);
                         }
 
                         counter++;
@@ -513,7 +544,6 @@ namespace DSP_4x4
                 _settings[x].Add(new DSP_Setting(counter++, "DELAY CH3", 0x00000000));
                 _settings[x].Add(new DSP_Setting(counter++, "DELAY CH4", 0x00000000));
 
-                Console.WriteLine("The counter after DELAY is " + counter + System.Environment.NewLine);
 
                 while (counter < 300)
                 {
@@ -543,6 +573,48 @@ namespace DSP_4x4
                 }
                 
             }
+
+            // CH1 METERS
+            _gain_meters[0] = new List<UInt32>();
+            _gain_meters[0].Add(0xF0C00005);
+            _gain_meters[0].Add(0x00000000);
+            _gain_meters[0].Add(0xF6C00004);
+            _gain_meters[0].Add(0xFAC00004);
+
+            // CH2 METERS
+            _gain_meters[1] = new List<UInt32>();
+            _gain_meters[1].Add(0xF0C00009);
+            _gain_meters[1].Add(0x00000000);
+            _gain_meters[1].Add(0xF6C00008);
+            _gain_meters[1].Add(0xFAC00008);
+
+            // CH3 METERS
+            _gain_meters[2] = new List<UInt32>();
+            _gain_meters[2].Add(0xF0C0000D);
+            _gain_meters[2].Add(0x00000000);
+            _gain_meters[2].Add(0xF6C0000C);
+            _gain_meters[2].Add(0xFAC0000C);
+
+            // CH4 METERS
+            _gain_meters[3] = new List<UInt32>();
+            _gain_meters[3].Add(0xF0C00011);
+            _gain_meters[3].Add(0x00000000);
+            _gain_meters[3].Add(0xF6C00010);
+            _gain_meters[3].Add(0xFAC00010);
+
+            // COMPRESSORS
+            _comp_meters[0] = new List<UInt32>();
+            _comp_meters[0].Add(0xF3C00004);
+            _comp_meters[0].Add(0xF3C00008);
+            _comp_meters[0].Add(0xF3C0000C);
+            _comp_meters[0].Add(0xF3C00010);
+
+            // LIMITERS
+            _comp_meters[1] = new List<UInt32>();
+            _comp_meters[1].Add(0xF8C00004);
+            _comp_meters[1].Add(0xF8C00008);
+            _comp_meters[1].Add(0xF8C0000C);
+            _comp_meters[1].Add(0xF8C00010);
 
         }
 
@@ -751,7 +823,7 @@ namespace DSP_4x4
             int ch_num = int.Parse(((PictureButton)sender).Name.Substring(5, 1));
 
 
-            using (GainForm gainForm = new GainForm(this, ch_num-1, 0, false, "CH" + ch_num.ToString() + " - Input Gain"))
+            using (GainForm gainForm = new GainForm(this, ch_num-1, 0, (0+ch_num-1), false, "CH" + ch_num.ToString() + " - Input Gain"))
             {
                 // passing this in ShowDialog will set the .Owner 
                 // property of the child form
@@ -777,7 +849,7 @@ namespace DSP_4x4
             int ch_num = int.Parse(((PictureButton)sender).Name.Substring(5, 1));
 
 
-            using (GainForm gainForm = new GainForm(this, ch_num - 1, 1, false, "CH" + ch_num.ToString() + " - Premix Gain"))
+            using (GainForm gainForm = new GainForm(this, ch_num - 1, 1, (28+ch_num-1), false, "CH" + ch_num.ToString() + " - Premix Gain"))
             {
                 // passing this in ShowDialog will set the .Owner 
                 // property of the child form
@@ -803,7 +875,8 @@ namespace DSP_4x4
         {
             int ch_num = int.Parse(((PictureButton)sender).Name.Substring(5, 1));
 
-            using (CompressorForm compressorForm = new CompressorForm(this, ch_num))
+            int settings_offset = 220 + (6 * (ch_num - 1));
+            using (CompressorForm compressorForm = new CompressorForm(this, ch_num, settings_offset))
             {
                 // passing this in ShowDialog will set the .Owner 
                 // property of the child form
@@ -820,7 +893,7 @@ namespace DSP_4x4
             int ch_num = int.Parse(((PictureButton)sender).Name.Substring(5, 1));
 
 
-            using (GainForm gainForm = new GainForm(this, ch_num - 1, 2, false, "CH" + ch_num.ToString() + " - Trim"))
+            using (GainForm gainForm = new GainForm(this, ch_num - 1, 2, (32+ch_num-1), false, "CH" + ch_num.ToString() + " - Trim"))
             {
                 // passing this in ShowDialog will set the .Owner 
                 // property of the child form
@@ -857,7 +930,9 @@ namespace DSP_4x4
         {
             int ch_num = int.Parse(((PictureButton)sender).Name.Substring(5, 1));
 
-            using (CompressorForm compressorForm = new CompressorForm(this, ch_num,CompressorType.Limiter))
+            int settings_offset = 244 + (6 * (ch_num - 1));
+
+            using (CompressorForm compressorForm = new CompressorForm(this, ch_num, settings_offset,CompressorType.Limiter))
             {
                 // passing this in ShowDialog will set the .Owner 
                 // property of the child form
@@ -873,7 +948,7 @@ namespace DSP_4x4
         {
             int ch_num = int.Parse(((PictureButton)sender).Name.Substring(5, 1));
 
-            using (DelayForm delayForm = new DelayForm(this, ch_num))
+            using (DelayForm delayForm = new DelayForm(this, ch_num,268+(ch_num-1)))
             {
 
                 delayForm.OnChange += new ConfigChangeEventHandler(this.Config_Changed);
@@ -894,7 +969,7 @@ namespace DSP_4x4
             int ch_num = int.Parse(((PictureButton)sender).Name.Substring(5, 1));
 
 
-            using (GainForm gainForm = new GainForm(this, ch_num - 1, 3, false, "CH" + ch_num.ToString() + " - Output Gain"))
+            using (GainForm gainForm = new GainForm(this, ch_num - 1, 3, (36+ch_num-1),false, "CH" + ch_num.ToString() + " - Output Gain"))
             {
                 // passing this in ShowDialog will set the .Owner 
                 // property of the child form
@@ -1159,91 +1234,6 @@ namespace DSP_4x4
 
         #endregion
 
-        #region Metering Demo
-
-        private Bitmap meter_image(int index)
-        {
-            switch (index)
-            {
-                case 1:
-                    return GlobalResources.meter_1;
-                case 2:
-                    return GlobalResources.meter_2;
-                case 3:
-                    return GlobalResources.meter_3;
-                case 4:
-                    return GlobalResources.meter_4;
-                case 5:
-                    return GlobalResources.meter_5;
-                case 6:
-                    return GlobalResources.meter_6;
-                case 7:
-                    return GlobalResources.meter_7;
-                case 8:
-                    return GlobalResources.meter_8;
-                case 9:
-                    return GlobalResources.meter_9;
-                case 10:
-                    return GlobalResources.meter_10;
-                case 11:
-                    return GlobalResources.meter_11;
-                default :
-                    return GlobalResources.meter_0;
-            }
-        }
-
-        public void MeterDemo(object param)
-        {
-            MethodInvoker action1, action2, action3, action4;
-
-            int meter_level = (int)param;
-            Random rand_gen = new Random();
-            while (true)
-            {
-                try
-                {
-                    action1 = delegate
-                    {
-                        pictureBox3.Image = meter_image(rand_gen.Next(0, 12));
-                        pictureBox3.Update();
-                    };
-                    pictureBox3.BeginInvoke(action1);
-
-                    action2 = delegate
-                    {
-                        pictureBox4.Image = meter_image(rand_gen.Next(0, 12));
-                        pictureBox4.Update();
-                    };
-                    pictureBox4.BeginInvoke(action2);
-
-                    action3 = delegate
-                    {
-                        pictureBox5.Image = meter_image(rand_gen.Next(0, 12));
-                        pictureBox5.Update();
-                    };
-                    pictureBox5.BeginInvoke(action3);
-
-
-                    action4 = delegate
-                    {
-                        pictureBox6.Image = meter_image(rand_gen.Next(0, 12));
-                        pictureBox6.Update();
-                    };
-                    pictureBox6.BeginInvoke(action4);
-
-
-                    Thread.Sleep(150);
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("Exception in UpdateUIToVals: " + ex.Message);
-                }
-            }
-
-        }
-
-        #endregion
-
         #region Toolstrip
         private void saveConfigurationToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -1308,10 +1298,138 @@ namespace DSP_4x4
 
         #endregion
 
-        private void button2_Click(object sender, EventArgs e)
+        private void btnStartBackgroundWorker_Click(object sender, EventArgs e)
+        {
+            if (LIVE_MODE)
+            {
+                // STOPPING
+
+                if (Queue_Thread.WorkerSupportsCancellation == true)
+                {
+                    // Cancel the asynchronous operation.
+                    Queue_Thread.CancelAsync();
+                    Console.WriteLine("STOPPING live mode");
+                }
+
+                btnStartBackgroundWorker.BackColor = Color.Transparent;
+                btnStartBackgroundWorker.Text = "Start Live Mode";
+                btnStartBackgroundWorker.Invalidate();
+            }
+            else
+            {
+                // STARTING
+                if (Queue_Thread.IsBusy != true)
+                {
+                    // Start the asynchronous operation.
+                    Queue_Thread.RunWorkerAsync();
+                }
+
+                btnStartBackgroundWorker.BackColor = Color.Lime;
+                btnStartBackgroundWorker.Text = "Stop Live Mode";
+                btnStartBackgroundWorker.Invalidate();
+
+                Console.WriteLine("STARTING live mode");
+
+                LIVE_MODE = true;
+            }
+            
+        }
+
+
+        private void Queue_Thread_DoWork(object sender, DoWorkEventArgs e)
+        {
+            BackgroundWorker worker = sender as BackgroundWorker;
+
+            while(true)
+            {
+                if (worker.CancellationPending == true)
+                {
+                    e.Cancel = true;
+                    Console.WriteLine("Cancellation Pending...");
+                    break;
+                }
+                else
+                {
+                    // Perform a time consuming operation and report progress.
+                    System.Threading.Thread.Sleep(500);
+                    lock (_locker)
+                    {
+                        if (UPDATE_QUEUE.Count > 0)
+                        {
+                            LiveQueueItem read_setting = (LiveQueueItem)UPDATE_QUEUE.Dequeue();
+
+                            //lock ()
+                            //{
+                                if (_PIC_Conn.getRTS())
+                                {
+                                    if (_PIC_Conn.SetLiveDSPValue((uint)read_setting.Index, read_setting.Value))
+                                    {
+                                        Console.WriteLine("Successfully sent queued DSP setting: " + read_setting.Index + " - " + read_setting.Value.ToString("X8"));
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("ERROR sending queued DSP Setting");
+                                    }
+
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Couldn't get RTS from BW");
+                                }
+                            //}
+                            //Console.WriteLine("Dequeued DSP setting: " + read_setting.Index + " - " + read_setting.Value.ToString("X8"));
+                            //Console.WriteLine("There are now " + UPDATE_QUEUE.Count + " items in the queue.");
+                        }
+                        else
+                        {
+
+                            Console.WriteLine("There are no items in the queue.");
+                        }
+                    }
+                }
+            }
+        }
+
+        private void btnStopBackgroundWorker_Click(object sender, EventArgs e)
+        {
+            if (Queue_Thread.WorkerSupportsCancellation == true)
+            {
+                // Cancel the asynchronous operation.
+                Queue_Thread.CancelAsync();
+                Console.WriteLine("Requested Background worker stop.");
+            }
+        }
+
+        private void Queue_Thread_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            Console.WriteLine("BW reported work is complete.");
+        }
+
+        public override void AddItemToQueue(LiveQueueItem itemToAdd)
         {
 
+            if (!LIVE_MODE)
+            {
+                return;
+            }
+
+            Console.WriteLine("Added item to queue: " + itemToAdd.Index + " - " + itemToAdd.Value.ToString("X8"));
+            lock (_locker)
+            {
+                UPDATE_QUEUE.Enqueue(itemToAdd);
+            }
         }
+
+
+        private void btnAddItemToQueue_Click(object sender, EventArgs e)
+        {
+
+            lock (_locker)
+            {
+                UPDATE_QUEUE.Enqueue(new DSP_Setting(1, "Test", 0x20000000));
+            }
+        }
+
 
         
 

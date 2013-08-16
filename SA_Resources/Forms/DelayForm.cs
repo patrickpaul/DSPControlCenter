@@ -20,13 +20,17 @@ namespace SA_Resources
         private Dial delayMS, delayFT, delayM;
 
         private MainForm_Template PARENT_FORM;
+        private int SETTINGS_INDEX;
 
-        public DelayForm(MainForm_Template _parent, int chan_num)
+        public DelayForm(MainForm_Template _parent, int chan_num, int _settings_offset)
         {
 
+            InitializeComponent(); 
+            
+            SETTINGS_INDEX = _settings_offset;
             PARENT_FORM = _parent;
 
-            InitializeComponent();
+            
 
             CH_NUMBER = chan_num;
 
@@ -66,6 +70,9 @@ namespace SA_Resources
 
             PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].delays[CH_NUMBER - 1].Delay = delayMS.Value;
 
+            // DSP_Math.double_to_MN(PROGRAMS[program_index].delays[0].Delay, 16, 16);
+
+            PARENT_FORM.AddItemToQueue(new LiveQueueItem(SETTINGS_INDEX, DSP_Math.double_to_MN(delayMS.Value, 16, 16)));
             this.OnChange(this, new ConfigChangeEventArgs(ConfigType.DELAY_MS, delayMS.Value, CH_NUMBER));
         }
 

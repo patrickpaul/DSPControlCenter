@@ -346,4 +346,7 @@
   <data name="ui_btn_copy" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\ui_btn_copy.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="ui_meter_base" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\meter.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

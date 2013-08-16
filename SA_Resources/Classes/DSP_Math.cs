@@ -212,9 +212,15 @@ namespace SA_Resources
 
         #region Compressor Release - Needs verification of 1302 vs 48000
 
-        public static UInt32 comp_release_to_value(double attack)
+        // TODO - REVERSE ME!
+        public static UInt32 comp_release_to_value(double release)
         {
-            return (UInt32)((1.0 - Math.Exp(-1.0 / (attack * 1302.88343))) * Math.Pow(2.0, 31.0));
+            //3000 = BLOCK_RATE
+            UInt32 method1 = (UInt32)((1.0 - Math.Exp(-1.0 / (release * 1302.88343))) * Math.Pow(2.0, 31.0));
+            //dsp_release = 1 - pow(10, (-1 / ( release * block_rate )) )
+            UInt32 method2 = (UInt32)((1.0 - Math.Pow(10.0,(-1 / (release * 3000)))) * Math.Pow(2.0, 31.0));
+
+            return (UInt32)((1.0 - Math.Exp(-1.0 / (release * 1302.88343))) * Math.Pow(2.0, 31.0));
         }
 
 

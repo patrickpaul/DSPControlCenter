@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,7 +16,12 @@ namespace SA_Resources.Forms
         public List<DSP_Setting>[] _settings = new List<DSP_Setting>[3];
         public List<DSP_Setting>[] _cached_settings = new List<DSP_Setting>[3];
 
+        public List<UInt32>[] _gain_meters = new List<UInt32>[4];
+        public List<UInt32>[] _comp_meters = new List<UInt32>[2];
+
         public ProgramConfig[] PROGRAMS = new ProgramConfig[3];
+
+        
 
         /* Settings to put into demo modes */
         public bool DisableComms = false;
@@ -31,7 +37,7 @@ namespace SA_Resources.Forms
         public PIC_Bridge _PIC_Conn;
 
         public int CURRENT_PROGRAM = 0;
-        public int NUM_PROGRAMS = 3;
+        public int NUM_PROGRAMS = 1;
 
 
 
@@ -63,6 +69,10 @@ namespace SA_Resources.Forms
 
             
 
+        }
+
+        public virtual void AddItemToQueue(LiveQueueItem itemToAdd)
+        {
         }
     }
 }

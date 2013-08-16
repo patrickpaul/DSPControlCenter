@@ -120,12 +120,7 @@ namespace SA_Resources
 
                     if (single_setting.Value == PARENT_FORM._cached_settings[program_index][index_counter].Value)
                     {
-                        /*if (index_counter == 20)
-                        {
-                            Console.WriteLine("Sine value is 0x" + single_setting.Value.ToString("X8"));
-                        }
                         AddDebugTextToLog("UNCHANGED " + count + System.Environment.NewLine);
-                         * */
                         index_counter++;
                         continue;
                     }
@@ -135,7 +130,7 @@ namespace SA_Resources
                     if (single_setting.Index > 271 && single_setting.Index < 300)
                     //if (single_setting.Index > 30)
                     {
-                        //AddDebugTextToLog("SKIPPING " + count + System.Environment.NewLine);
+                        AddDebugTextToLog("SKIPPING " + count + System.Environment.NewLine);
                         continue;
                     }
 

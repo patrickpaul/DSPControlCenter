@@ -113,10 +113,6 @@ namespace DSP_4x4
             this.dropProgramSelection = new System.Windows.Forms.ComboBox();
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.pictureBox4 = new System.Windows.Forms.PictureBox();
-            this.pictureBox5 = new System.Windows.Forms.PictureBox();
-            this.pictureBox6 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.saveProgramDialog = new System.Windows.Forms.SaveFileDialog();
             this.openProgramDialog = new System.Windows.Forms.OpenFileDialog();
@@ -125,6 +121,8 @@ namespace DSP_4x4
             this.pbtnSaveConfiguration = new SA_Resources.PictureButton();
             this.pbtnReadDevice = new SA_Resources.PictureButton();
             this.pbtnProgramDevice = new SA_Resources.PictureButton();
+            this.btnStartBackgroundWorker = new System.Windows.Forms.Button();
+            this.Queue_Thread = new System.ComponentModel.BackgroundWorker();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.pnlCH4PostMixer.SuspendLayout();
@@ -138,10 +136,6 @@ namespace DSP_4x4
             this.pnlCH2PreMixer.SuspendLayout();
             this.pnlCH1PreMixer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).BeginInit();
             this.SuspendLayout();
             // 
             // statusStrip1
@@ -1301,50 +1295,6 @@ namespace DSP_4x4
             // 
             this.timer1.Interval = 75;
             // 
-            // pictureBox3
-            // 
-            this.pictureBox3.BackColor = System.Drawing.Color.Black;
-            this.pictureBox3.Location = new System.Drawing.Point(129, 267);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Padding = new System.Windows.Forms.Padding(1);
-            this.pictureBox3.Size = new System.Drawing.Size(14, 102);
-            this.pictureBox3.TabIndex = 34;
-            this.pictureBox3.TabStop = false;
-            this.pictureBox3.Visible = false;
-            // 
-            // pictureBox4
-            // 
-            this.pictureBox4.BackColor = System.Drawing.Color.Black;
-            this.pictureBox4.Location = new System.Drawing.Point(149, 267);
-            this.pictureBox4.Name = "pictureBox4";
-            this.pictureBox4.Padding = new System.Windows.Forms.Padding(1);
-            this.pictureBox4.Size = new System.Drawing.Size(14, 102);
-            this.pictureBox4.TabIndex = 35;
-            this.pictureBox4.TabStop = false;
-            this.pictureBox4.Visible = false;
-            // 
-            // pictureBox5
-            // 
-            this.pictureBox5.BackColor = System.Drawing.Color.Black;
-            this.pictureBox5.Location = new System.Drawing.Point(169, 267);
-            this.pictureBox5.Name = "pictureBox5";
-            this.pictureBox5.Padding = new System.Windows.Forms.Padding(1);
-            this.pictureBox5.Size = new System.Drawing.Size(14, 102);
-            this.pictureBox5.TabIndex = 36;
-            this.pictureBox5.TabStop = false;
-            this.pictureBox5.Visible = false;
-            // 
-            // pictureBox6
-            // 
-            this.pictureBox6.BackColor = System.Drawing.Color.Black;
-            this.pictureBox6.Location = new System.Drawing.Point(189, 267);
-            this.pictureBox6.Name = "pictureBox6";
-            this.pictureBox6.Padding = new System.Windows.Forms.Padding(1);
-            this.pictureBox6.Size = new System.Drawing.Size(14, 102);
-            this.pictureBox6.TabIndex = 37;
-            this.pictureBox6.TabStop = false;
-            this.pictureBox6.Visible = false;
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -1466,17 +1416,31 @@ namespace DSP_4x4
             this.pbtnProgramDevice.ToolTipText = "";
             this.pbtnProgramDevice.Click += new System.EventHandler(this.pbtnProgramDevice_Click);
             // 
+            // btnStartBackgroundWorker
+            // 
+            this.btnStartBackgroundWorker.BackColor = System.Drawing.Color.Transparent;
+            this.btnStartBackgroundWorker.Location = new System.Drawing.Point(16, 296);
+            this.btnStartBackgroundWorker.Name = "btnStartBackgroundWorker";
+            this.btnStartBackgroundWorker.Size = new System.Drawing.Size(112, 23);
+            this.btnStartBackgroundWorker.TabIndex = 40;
+            this.btnStartBackgroundWorker.Text = "Start Live Mode";
+            this.btnStartBackgroundWorker.UseVisualStyleBackColor = false;
+            this.btnStartBackgroundWorker.Click += new System.EventHandler(this.btnStartBackgroundWorker_Click);
+            // 
+            // Queue_Thread
+            // 
+            this.Queue_Thread.WorkerSupportsCancellation = true;
+            this.Queue_Thread.DoWork += new System.ComponentModel.DoWorkEventHandler(this.Queue_Thread_DoWork);
+            this.Queue_Thread.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.Queue_Thread_RunWorkerCompleted);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(82)))), ((int)(((byte)(82)))));
             this.ClientSize = new System.Drawing.Size(906, 394);
+            this.Controls.Add(this.btnStartBackgroundWorker);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.pictureBox6);
-            this.Controls.Add(this.pictureBox5);
-            this.Controls.Add(this.pictureBox4);
-            this.Controls.Add(this.pictureBox3);
             this.Controls.Add(this.dropProgramSelection);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.btnMatrixMixer);
@@ -1529,10 +1493,6 @@ namespace DSP_4x4
             this.pnlCH2PreMixer.ResumeLayout(false);
             this.pnlCH1PreMixer.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox6)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1614,10 +1574,6 @@ namespace DSP_4x4
         private System.Windows.Forms.ComboBox dropProgramSelection;
         private System.IO.Ports.SerialPort serialPort1;
         private System.Windows.Forms.Timer timer1;
-        private System.Windows.Forms.PictureBox pictureBox3;
-        private System.Windows.Forms.PictureBox pictureBox4;
-        private System.Windows.Forms.PictureBox pictureBox5;
-        private System.Windows.Forms.PictureBox pictureBox6;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.SaveFileDialog saveProgramDialog;
         private System.Windows.Forms.OpenFileDialog openProgramDialog;
@@ -1633,5 +1589,7 @@ namespace DSP_4x4
         private System.Windows.Forms.ToolStripMenuItem connectToDeviceToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveToDeviceToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem readFromDeviceToolStripMenuItem;
+        private System.Windows.Forms.Button btnStartBackgroundWorker;
+        private System.ComponentModel.BackgroundWorker Queue_Thread;
     }
 }

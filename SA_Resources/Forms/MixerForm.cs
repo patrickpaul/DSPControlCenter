@@ -71,7 +71,7 @@ namespace SA_Resources
             int index_in = int.Parse(((PictureButton)sender).Name.Substring(9, 1));
             int index_out = int.Parse(((PictureButton)sender).Name.Substring(11, 1));
 
-            using (GainForm gainForm = new GainForm(PARENT_FORM, index_in-1, index_out-1,true))
+            using (GainForm gainForm = new GainForm(PARENT_FORM, index_in - 1, index_out - 1, (index_in * 4) + (index_out-1), true))
             {
                 gainForm.ShowDialog(this);
 

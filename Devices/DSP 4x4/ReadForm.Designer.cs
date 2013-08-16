@@ -69,7 +69,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(82)))), ((int)(((byte)(82)))));
-            this.ClientSize = new System.Drawing.Size(431, 48);
+            this.ClientSize = new System.Drawing.Size(431, 209);
             this.ControlBox = false;
             this.Controls.Add(this.lblStatus);
             this.Controls.Add(this.textLog);

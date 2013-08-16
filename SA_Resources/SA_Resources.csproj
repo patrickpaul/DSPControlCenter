@@ -62,6 +62,7 @@
   <ItemGroup>
     <Compile Include="Classes\COMPortInfo.cs" />
     <Compile Include="Classes\Line.cs" />
+    <Compile Include="Classes\LiveQueueItem.cs" />
     <Compile Include="Configurations\CompressorConfig.cs" />
     <Compile Include="Configurations\CopyFormType.cs" />
     <Compile Include="Configurations\DelayConfig.cs" />
@@ -473,10 +474,13 @@
   <ItemGroup>
     <None Include="Resources\ui_btn_copy.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\meter.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_UpdateAssemblyVersion="True" BuildVersion_UpdateFileVersion="True" BuildVersion_AssemblyInfoFilename="Properties\AssemblyInfo.cs" BuildVersion_UseGlobalSettings="True" />
+      <UserProperties BuildVersion_UseGlobalSettings="True" BuildVersion_AssemblyInfoFilename="Properties\AssemblyInfo.cs" BuildVersion_UpdateFileVersion="True" BuildVersion_UpdateAssemblyVersion="True" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

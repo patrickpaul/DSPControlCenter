@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 using SA_Resources.Forms;
@@ -27,9 +28,25 @@ namespace SA_Resources
 
         private int COMP_INDEX = 0; // 0 = compressor, 1 = limiter
 
-        public CompressorForm(MainForm_Template _parentForm, int channel, CompressorType compType = CompressorType.Compressor)
+        double read_gain_value;
+
+        private int ADDR_THRESHOLD;
+        private int ADDR_KNEE;
+        private int ADDR_RATIO;
+        private int ADDR_ATTACK;
+        private int ADDR_RELEASE;
+        private int ADDR_BYPASS;
+
+        public CompressorForm(MainForm_Template _parentForm, int channel, int _settings_offset, CompressorType compType = CompressorType.Compressor)
         {
             InitializeComponent();
+
+            ADDR_THRESHOLD = _settings_offset;
+            ADDR_KNEE = _settings_offset+1;
+            ADDR_RATIO = _settings_offset+2;
+            ADDR_ATTACK = _settings_offset+3;
+            ADDR_RELEASE = _settings_offset+4;
+            ADDR_BYPASS = _settings_offset+5;
 
             dropAction.SelectedIndex = 0;
             dropAction.Invalidate();
@@ -130,12 +147,14 @@ namespace SA_Resources
         {
 
             PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].compressors[CH_NUMBER - 1][COMP_INDEX].Release = ReleaseDial.Value;
+            PARENT_FORM.AddItemToQueue(new LiveQueueItem(ADDR_RELEASE, DSP_Math.comp_release_to_value(ReleaseDial.Value))); 
         }
 
         private void AttackDial_OnChange(object sender, DialEventArgs e)
         {
 
             PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].compressors[CH_NUMBER - 1][COMP_INDEX].Attack = AttackDial.Value;
+            PARENT_FORM.AddItemToQueue(new LiveQueueItem(ADDR_ATTACK, DSP_Math.comp_attack_to_value(AttackDial.Value))); 
         }
 
         private void dynChart_MouseMove(object sender, MouseEventArgs e)
@@ -300,6 +319,18 @@ namespace SA_Resources
 
         private void dynChart_MouseUp(object sender, MouseEventArgs e)
         {
+            if (dragging_threshold)
+            {
+
+                PARENT_FORM.AddItemToQueue(new LiveQueueItem(ADDR_THRESHOLD, DSP_Math.double_to_MN((double)nudCompThreshold.Value, 9, 23)));
+            }
+
+            if (dragging_ratio)
+            {
+                PARENT_FORM.AddItemToQueue(new LiveQueueItem(ADDR_RATIO, DSP_Math.comp_ratio_to_value((double)nudCompRatio.Value)));
+            }
+
+
             dragging_threshold = false;
             dragging_ratio = false;
             dynChart.Cursor = Cursors.Default;
@@ -334,7 +365,7 @@ namespace SA_Resources
 
             dynChart.Invalidate();
 
-            PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].compressors[CH_NUMBER - 1][COMP_INDEX].Threshold = threshold;
+            PARENT_FORM.AddItemToQueue(new LiveQueueItem(ADDR_THRESHOLD, DSP_Math.double_to_MN((double)nudCompThreshold.Value, 9, 23)));
         }
 
         private void nudCompRatio_ValueChanged(object sender, EventArgs e)
@@ -368,6 +399,8 @@ namespace SA_Resources
                 nudCompRatio.Increment = (decimal)5.0;
             }
 
+            PARENT_FORM.AddItemToQueue(new LiveQueueItem(ADDR_RATIO, DSP_Math.comp_ratio_to_value((double)nudCompRatio.Value)));
+
 
         }
 
@@ -394,6 +427,15 @@ namespace SA_Resources
             }
 
             PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].compressors[CH_NUMBER - 1][COMP_INDEX].SoftKnee = chkSoftKnee.Checked;
+
+            if (chkSoftKnee.Checked)
+            {
+                PARENT_FORM.AddItemToQueue(new LiveQueueItem(ADDR_KNEE, 0x03000000));
+            }
+            else
+            {
+                PARENT_FORM.AddItemToQueue(new LiveQueueItem(ADDR_KNEE, 0x00000000));
+            }
         }
 
         private void chkBypass_CheckedChanged(object sender, EventArgs e)
@@ -401,6 +443,16 @@ namespace SA_Resources
             StraightResponseLine.BorderDashStyle = ChartDashStyle.Solid;
 
             PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].compressors[CH_NUMBER - 1][COMP_INDEX].Bypassed = chkBypass.Checked;
+
+            if (chkBypass.Checked)
+            {
+                PARENT_FORM.AddItemToQueue(new LiveQueueItem(ADDR_BYPASS, 0x00000001)); 
+            }
+            else
+            {
+                PARENT_FORM.AddItemToQueue(new LiveQueueItem(ADDR_BYPASS, 0x00000000)); 
+            }
+            
         }
 
         private void btnGo_Click(object sender, EventArgs e)
@@ -419,6 +471,102 @@ namespace SA_Resources
                 }
             }
         }
+
+        private void signalTimer_Tick(object sender, EventArgs e)
+        {
+            UInt32 read_address = 0x00000000;
+
+            read_address = PARENT_FORM._comp_meters[COMP_INDEX][CH_NUMBER - 1];
+  
+
+            double gain_value = 0;
+            double offset = 20 + 10 * Math.Log10(2) + 20 * Math.Log10(16);
+            UInt32 read_value = PARENT_FORM._PIC_Conn.Read_Live_DSP_Value(read_address);
+            double converted_value = DSP_Math.MN_to_double_signed(read_value, 1, 31);
+            if (converted_value > (0.000001 * 0.000001))
+            {
+                read_gain_value = offset + 10 * Math.Log10(converted_value);
+            }
+            else
+            {
+                read_gain_value = -100;
+            }
+
+            pbMeter.Invalidate();
+
+            //Console.WriteLine("Read " + read_gain_value + " from " + read_address.ToString("X8"));
+        }
+
+        private int scale_between(double value, double upper, double lower, int pixel_upper, int pixel_lower)
+        {
+            int pixel_diff = Math.Abs(pixel_lower - pixel_upper);
+
+            double percentage = Math.Abs(value - upper) / Math.Abs(upper - lower);
+
+            return (int)(percentage * pixel_diff) + pixel_upper;
+
+        }
+
+        private int gain_to_meter()
+        {
+            if (read_gain_value <= -35)
+            {
+                return 214;
+            }
+            else if (read_gain_value <= -25)
+            {
+                return scale_between(read_gain_value, -25.0, -35.0, 192, 214);
+            }
+            else if (read_gain_value <= -15)
+            {
+                return scale_between(read_gain_value, -15.0, -25.0, 170, 192);
+            }
+            else if (read_gain_value <= -10)
+            {
+                return scale_between(read_gain_value, -10.0, -15.0, 149, 170);
+            }
+            else if (read_gain_value <= -6)
+            {
+                return scale_between(read_gain_value, -6.0, -10.0, 127, 149);
+            }
+            else if (read_gain_value <= -2)
+            {
+                return scale_between(read_gain_value, -2.0, -6.0, 106, 127);
+            }
+            else if (read_gain_value <= 0)
+            {
+                return scale_between(read_gain_value, 0.0, -2.0, 84, 106);
+            }
+            else if (read_gain_value <= 4)
+            {
+                return scale_between(read_gain_value, 4.0, 0.0, 63, 84);
+            }
+            else if (read_gain_value <= 10)
+            {
+                return scale_between(read_gain_value, 10, 4.0, 41, 63);
+            }
+            else if (read_gain_value <= 20)
+            {
+                return scale_between(read_gain_value, 20.0, 10.0, 20, 41);
+            }
+            else if (read_gain_value <= 35)
+            {
+                return scale_between(read_gain_value, 35.0, 20.0, 0, 20);
+            }
+
+            return 214;
+        }
+
+
+        private void pbMeter_Paint(object sender, PaintEventArgs e)
+        {
+            Rectangle ee = new Rectangle(26, 7, 13, gain_to_meter());
+            using (SolidBrush myBrush = new SolidBrush(Color.FromArgb(80, 80, 80)))
+            {
+                e.Graphics.FillRectangle(myBrush, ee);
+            }
+        }
+
 
     }
 }

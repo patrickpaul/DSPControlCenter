@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.DataPoint dataPoint1 = new System.Windows.Forms.DataVisualization.Charting.DataPoint(-60D, -60D);
@@ -61,18 +62,21 @@
             this.TextCompRelease = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.DialCompRelease = new System.Windows.Forms.PictureBox();
+            this.dropAction = new System.Windows.Forms.ComboBox();
+            this.lblAction = new System.Windows.Forms.Label();
+            this.pbMeter = new System.Windows.Forms.PictureBox();
+            this.signalTimer = new System.Windows.Forms.Timer(this.components);
+            this.btnGo = new SA_Resources.PictureButton();
             this.chkSoftKnee = new SA_Resources.PictureCheckbox();
             this.chkBypass = new SA_Resources.PictureCheckbox();
             this.btnCancel = new SA_Resources.PictureButton();
             this.btnSave = new SA_Resources.PictureButton();
-            this.btnGo = new SA_Resources.PictureButton();
-            this.dropAction = new System.Windows.Forms.ComboBox();
-            this.lblAction = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dynChart)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudCompRatio)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudCompThreshold)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DialCompAttack)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DialCompRelease)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMeter)).BeginInit();
             this.SuspendLayout();
             // 
             // dynChart
@@ -187,7 +191,7 @@
             0,
             0,
             0});
-            this.nudCompRatio.Location = new System.Drawing.Point(76, 342);
+            this.nudCompRatio.Location = new System.Drawing.Point(74, 343);
             this.nudCompRatio.Minimum = new decimal(new int[] {
             1,
             0,
@@ -208,7 +212,7 @@
             this.lblRatio.AutoSize = true;
             this.lblRatio.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.lblRatio.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.lblRatio.Location = new System.Drawing.Point(14, 346);
+            this.lblRatio.Location = new System.Drawing.Point(12, 347);
             this.lblRatio.Name = "lblRatio";
             this.lblRatio.Size = new System.Drawing.Size(34, 13);
             this.lblRatio.TabIndex = 8;
@@ -219,7 +223,7 @@
             this.lblRatioSuffix.AutoSize = true;
             this.lblRatioSuffix.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.lblRatioSuffix.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.lblRatioSuffix.Location = new System.Drawing.Point(131, 344);
+            this.lblRatioSuffix.Location = new System.Drawing.Point(129, 345);
             this.lblRatioSuffix.Name = "lblRatioSuffix";
             this.lblRatioSuffix.Size = new System.Drawing.Size(16, 13);
             this.lblRatioSuffix.TabIndex = 9;
@@ -230,7 +234,7 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.label2.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.label2.Location = new System.Drawing.Point(129, 320);
+            this.label2.Location = new System.Drawing.Point(127, 321);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(21, 13);
             this.label2.TabIndex = 12;
@@ -241,7 +245,7 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.label3.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.label3.Location = new System.Drawing.Point(14, 320);
+            this.label3.Location = new System.Drawing.Point(12, 321);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(58, 13);
             this.label3.TabIndex = 11;
@@ -250,7 +254,7 @@
             // nudCompThreshold
             // 
             this.nudCompThreshold.DecimalPlaces = 1;
-            this.nudCompThreshold.Location = new System.Drawing.Point(76, 316);
+            this.nudCompThreshold.Location = new System.Drawing.Point(74, 317);
             this.nudCompThreshold.Maximum = new decimal(new int[] {
             0,
             0,
@@ -277,7 +281,7 @@
             this.DialCompAttack.Cursor = System.Windows.Forms.Cursors.Hand;
             this.DialCompAttack.Image = global::SA_Resources.GlobalResources.knob_blue_line;
             this.DialCompAttack.InitialImage = null;
-            this.DialCompAttack.Location = new System.Drawing.Point(168, 383);
+            this.DialCompAttack.Location = new System.Drawing.Point(69, 424);
             this.DialCompAttack.Name = "DialCompAttack";
             this.DialCompAttack.Size = new System.Drawing.Size(40, 40);
             this.DialCompAttack.TabIndex = 17;
@@ -287,7 +291,7 @@
             // 
             this.TextCompAttack.Cursor = System.Windows.Forms.Cursors.Hand;
             this.TextCompAttack.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TextCompAttack.Location = new System.Drawing.Point(163, 358);
+            this.TextCompAttack.Location = new System.Drawing.Point(64, 399);
             this.TextCompAttack.MaxLength = 10;
             this.TextCompAttack.Name = "TextCompAttack";
             this.TextCompAttack.Size = new System.Drawing.Size(50, 22);
@@ -300,7 +304,7 @@
             this.label36.AutoSize = true;
             this.label36.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label36.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.label36.Location = new System.Drawing.Point(169, 342);
+            this.label36.Location = new System.Drawing.Point(70, 383);
             this.label36.Name = "label36";
             this.label36.Size = new System.Drawing.Size(39, 13);
             this.label36.TabIndex = 23;
@@ -310,7 +314,7 @@
             // 
             this.TextCompRelease.Cursor = System.Windows.Forms.Cursors.Hand;
             this.TextCompRelease.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TextCompRelease.Location = new System.Drawing.Point(235, 358);
+            this.TextCompRelease.Location = new System.Drawing.Point(156, 400);
             this.TextCompRelease.MaxLength = 10;
             this.TextCompRelease.Name = "TextCompRelease";
             this.TextCompRelease.Size = new System.Drawing.Size(50, 22);
@@ -323,7 +327,7 @@
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.label4.Location = new System.Drawing.Point(241, 342);
+            this.label4.Location = new System.Drawing.Point(159, 383);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(46, 13);
             this.label4.TabIndex = 26;
@@ -335,11 +339,68 @@
             this.DialCompRelease.Cursor = System.Windows.Forms.Cursors.Hand;
             this.DialCompRelease.Image = global::SA_Resources.GlobalResources.knob_orange_line;
             this.DialCompRelease.InitialImage = null;
-            this.DialCompRelease.Location = new System.Drawing.Point(240, 383);
+            this.DialCompRelease.Location = new System.Drawing.Point(161, 425);
             this.DialCompRelease.Name = "DialCompRelease";
             this.DialCompRelease.Size = new System.Drawing.Size(40, 40);
             this.DialCompRelease.TabIndex = 25;
             this.DialCompRelease.TabStop = false;
+            // 
+            // dropAction
+            // 
+            this.dropAction.FormattingEnabled = true;
+            this.dropAction.Items.AddRange(new object[] {
+            "Copy configuration to...",
+            "Reset to Defaults"});
+            this.dropAction.Location = new System.Drawing.Point(58, 516);
+            this.dropAction.Name = "dropAction";
+            this.dropAction.Size = new System.Drawing.Size(133, 21);
+            this.dropAction.TabIndex = 104;
+            // 
+            // lblAction
+            // 
+            this.lblAction.AutoSize = true;
+            this.lblAction.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAction.ForeColor = System.Drawing.Color.Gainsboro;
+            this.lblAction.Location = new System.Drawing.Point(8, 519);
+            this.lblAction.Name = "lblAction";
+            this.lblAction.Size = new System.Drawing.Size(44, 13);
+            this.lblAction.TabIndex = 103;
+            this.lblAction.Text = "Action:";
+            // 
+            // pbMeter
+            // 
+            this.pbMeter.BackgroundImage = global::SA_Resources.GlobalResources.ui_meter_base;
+            this.pbMeter.Location = new System.Drawing.Point(261, 312);
+            this.pbMeter.Name = "pbMeter";
+            this.pbMeter.Size = new System.Drawing.Size(43, 225);
+            this.pbMeter.TabIndex = 106;
+            this.pbMeter.TabStop = false;
+            this.pbMeter.Paint += new System.Windows.Forms.PaintEventHandler(this.pbMeter_Paint);
+            // 
+            // signalTimer
+            // 
+            this.signalTimer.Enabled = true;
+            this.signalTimer.Tick += new System.EventHandler(this.signalTimer_Tick);
+            // 
+            // btnGo
+            // 
+            this.btnGo.AutoResize = true;
+            this.btnGo.BackgroundImage = global::SA_Resources.GlobalResources.ui_btn_go;
+            this.btnGo.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnGo.Location = new System.Drawing.Point(199, 516);
+            this.btnGo.Name = "btnGo";
+            this.btnGo.OverImage = null;
+            this.btnGo.Overlay1Image = null;
+            this.btnGo.Overlay1Visible = false;
+            this.btnGo.Overlay2Image = null;
+            this.btnGo.Overlay2Visible = false;
+            this.btnGo.Overlay3Image = null;
+            this.btnGo.Overlay3Visible = false;
+            this.btnGo.PressedImage = null;
+            this.btnGo.Size = new System.Drawing.Size(49, 23);
+            this.btnGo.TabIndex = 105;
+            this.btnGo.ToolTipText = "";
+            this.btnGo.Click += new System.EventHandler(this.btnGo_Click);
             // 
             // chkSoftKnee
             // 
@@ -348,11 +409,11 @@
             this.chkSoftKnee.Cursor = System.Windows.Forms.Cursors.Hand;
             this.chkSoftKnee.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.chkSoftKnee.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.chkSoftKnee.Location = new System.Drawing.Point(179, 317);
+            this.chkSoftKnee.Location = new System.Drawing.Point(166, 353);
             this.chkSoftKnee.Name = "chkSoftKnee";
-            this.chkSoftKnee.Size = new System.Drawing.Size(107, 17);
+            this.chkSoftKnee.Size = new System.Drawing.Size(78, 17);
             this.chkSoftKnee.TabIndex = 32;
-            this.chkSoftKnee.Text = " 20dB Soft Knee";
+            this.chkSoftKnee.Text = " Soft Knee";
             this.chkSoftKnee.UncheckedImage = null;
             this.chkSoftKnee.UseVisualStyleBackColor = true;
             this.chkSoftKnee.CheckedChanged += new System.EventHandler(this.chkSoftKnee_CheckedChanged);
@@ -363,7 +424,7 @@
             this.chkBypass.CheckedImage = global::SA_Resources.GlobalResources.ui_btn_bypass_red;
             this.chkBypass.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkBypass.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.chkBypass.Location = new System.Drawing.Point(17, 400);
+            this.chkBypass.Location = new System.Drawing.Point(172, 315);
             this.chkBypass.Name = "chkBypass";
             this.chkBypass.Size = new System.Drawing.Size(61, 23);
             this.chkBypass.TabIndex = 30;
@@ -376,7 +437,7 @@
             this.btnCancel.AutoResize = true;
             this.btnCancel.BackgroundImage = global::SA_Resources.GlobalResources.ui_btn_cancel;
             this.btnCancel.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCancel.Location = new System.Drawing.Point(154, 444);
+            this.btnCancel.Location = new System.Drawing.Point(136, 478);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.OverImage = null;
             this.btnCancel.Overlay1Image = null;
@@ -396,7 +457,7 @@
             this.btnSave.AutoResize = true;
             this.btnSave.BackgroundImage = global::SA_Resources.GlobalResources.ui_btn_save;
             this.btnSave.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnSave.Location = new System.Drawing.Point(98, 444);
+            this.btnSave.Location = new System.Drawing.Point(80, 478);
             this.btnSave.Name = "btnSave";
             this.btnSave.OverImage = null;
             this.btnSave.Overlay1Image = null;
@@ -411,54 +472,13 @@
             this.btnSave.ToolTipText = "";
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
-            // btnGo
-            // 
-            this.btnGo.AutoResize = true;
-            this.btnGo.BackgroundImage = global::SA_Resources.GlobalResources.ui_btn_go;
-            this.btnGo.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnGo.Location = new System.Drawing.Point(221, 490);
-            this.btnGo.Name = "btnGo";
-            this.btnGo.OverImage = null;
-            this.btnGo.Overlay1Image = null;
-            this.btnGo.Overlay1Visible = false;
-            this.btnGo.Overlay2Image = null;
-            this.btnGo.Overlay2Visible = false;
-            this.btnGo.Overlay3Image = null;
-            this.btnGo.Overlay3Visible = false;
-            this.btnGo.PressedImage = null;
-            this.btnGo.Size = new System.Drawing.Size(49, 23);
-            this.btnGo.TabIndex = 105;
-            this.btnGo.ToolTipText = "";
-            this.btnGo.Click += new System.EventHandler(this.btnGo_Click);
-            // 
-            // dropAction
-            // 
-            this.dropAction.FormattingEnabled = true;
-            this.dropAction.Items.AddRange(new object[] {
-            "Copy configuration to...",
-            "Reset to Defaults"});
-            this.dropAction.Location = new System.Drawing.Point(80, 490);
-            this.dropAction.Name = "dropAction";
-            this.dropAction.Size = new System.Drawing.Size(133, 21);
-            this.dropAction.TabIndex = 104;
-            // 
-            // lblAction
-            // 
-            this.lblAction.AutoSize = true;
-            this.lblAction.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAction.ForeColor = System.Drawing.Color.Gainsboro;
-            this.lblAction.Location = new System.Drawing.Point(30, 493);
-            this.lblAction.Name = "lblAction";
-            this.lblAction.Size = new System.Drawing.Size(44, 13);
-            this.lblAction.TabIndex = 103;
-            this.lblAction.Text = "Action:";
-            // 
             // CompressorForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(82)))), ((int)(((byte)(82)))));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.ClientSize = new System.Drawing.Size(300, 523);
+            this.ClientSize = new System.Drawing.Size(306, 546);
+            this.Controls.Add(this.pbMeter);
             this.Controls.Add(this.btnGo);
             this.Controls.Add(this.dropAction);
             this.Controls.Add(this.lblAction);
@@ -490,6 +510,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudCompThreshold)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DialCompAttack)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DialCompRelease)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMeter)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -517,5 +538,7 @@
         private PictureButton btnGo;
         private System.Windows.Forms.ComboBox dropAction;
         private System.Windows.Forms.Label lblAction;
+        private System.Windows.Forms.PictureBox pbMeter;
+        private System.Windows.Forms.Timer signalTimer;
     }
 }

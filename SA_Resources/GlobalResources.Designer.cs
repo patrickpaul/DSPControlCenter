@@ -793,6 +793,16 @@ namespace SA_Resources {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap ui_meter_base {
+            get {
+                object obj = ResourceManager.GetObject("ui_meter_base", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap ui_mute_grey {
             get {
                 object obj = ResourceManager.GetObject("ui_mute_grey", resourceCulture);
