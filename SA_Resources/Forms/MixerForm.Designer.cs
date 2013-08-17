@@ -65,6 +65,18 @@
             this.btnRouter5_1 = new SA_Resources.PictureButton();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
+            this.pbMeter1 = new System.Windows.Forms.PictureBox();
+            this.pbMeter2 = new System.Windows.Forms.PictureBox();
+            this.pbMeter3 = new System.Windows.Forms.PictureBox();
+            this.pbMeter4 = new System.Windows.Forms.PictureBox();
+            this.lblOutput1 = new System.Windows.Forms.Label();
+            this.lblOutput2 = new System.Windows.Forms.Label();
+            this.lblOutput3 = new System.Windows.Forms.Label();
+            this.lblOutput4 = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMeter1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMeter2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMeter3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMeter4)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -172,7 +184,7 @@
             this.btnCancel.AutoResize = true;
             this.btnCancel.BackgroundImage = global::SA_Resources.GlobalResources.ui_btn_cancel;
             this.btnCancel.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCancel.Location = new System.Drawing.Point(121, 242);
+            this.btnCancel.Location = new System.Drawing.Point(126, 248);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.OverImage = null;
             this.btnCancel.Overlay1Image = null;
@@ -192,7 +204,7 @@
             this.btnSave.AutoResize = true;
             this.btnSave.BackgroundImage = global::SA_Resources.GlobalResources.ui_btn_save;
             this.btnSave.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnSave.Location = new System.Drawing.Point(65, 242);
+            this.btnSave.Location = new System.Drawing.Point(60, 248);
             this.btnSave.Name = "btnSave";
             this.btnSave.OverImage = null;
             this.btnSave.Overlay1Image = null;
@@ -711,11 +723,103 @@
             this.label6.Text = "Sine Wave";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // pbMeter1
+            // 
+            this.pbMeter1.BackgroundImage = global::SA_Resources.GlobalResources.ui_meter_base;
+            this.pbMeter1.Location = new System.Drawing.Point(235, 19);
+            this.pbMeter1.Name = "pbMeter1";
+            this.pbMeter1.Size = new System.Drawing.Size(43, 225);
+            this.pbMeter1.TabIndex = 67;
+            this.pbMeter1.TabStop = false;
+            // 
+            // pbMeter2
+            // 
+            this.pbMeter2.BackgroundImage = global::SA_Resources.GlobalResources.ui_meter_base;
+            this.pbMeter2.Location = new System.Drawing.Point(296, 20);
+            this.pbMeter2.Name = "pbMeter2";
+            this.pbMeter2.Size = new System.Drawing.Size(43, 225);
+            this.pbMeter2.TabIndex = 68;
+            this.pbMeter2.TabStop = false;
+            // 
+            // pbMeter3
+            // 
+            this.pbMeter3.BackgroundImage = global::SA_Resources.GlobalResources.ui_meter_base;
+            this.pbMeter3.Location = new System.Drawing.Point(357, 20);
+            this.pbMeter3.Name = "pbMeter3";
+            this.pbMeter3.Size = new System.Drawing.Size(43, 225);
+            this.pbMeter3.TabIndex = 69;
+            this.pbMeter3.TabStop = false;
+            // 
+            // pbMeter4
+            // 
+            this.pbMeter4.BackgroundImage = global::SA_Resources.GlobalResources.ui_meter_base;
+            this.pbMeter4.Location = new System.Drawing.Point(418, 20);
+            this.pbMeter4.Name = "pbMeter4";
+            this.pbMeter4.Size = new System.Drawing.Size(43, 225);
+            this.pbMeter4.TabIndex = 70;
+            this.pbMeter4.TabStop = false;
+            // 
+            // lblOutput1
+            // 
+            this.lblOutput1.AutoSize = true;
+            this.lblOutput1.Font = new System.Drawing.Font("Segoe UI", 8.25F);
+            this.lblOutput1.ForeColor = System.Drawing.Color.Gainsboro;
+            this.lblOutput1.Location = new System.Drawing.Point(230, 251);
+            this.lblOutput1.Name = "lblOutput1";
+            this.lblOutput1.Size = new System.Drawing.Size(57, 13);
+            this.lblOutput1.TabIndex = 71;
+            this.lblOutput1.Text = "Output 1 ";
+            this.lblOutput1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblOutput2
+            // 
+            this.lblOutput2.AutoSize = true;
+            this.lblOutput2.Font = new System.Drawing.Font("Segoe UI", 8.25F);
+            this.lblOutput2.ForeColor = System.Drawing.Color.Gainsboro;
+            this.lblOutput2.Location = new System.Drawing.Point(291, 250);
+            this.lblOutput2.Name = "lblOutput2";
+            this.lblOutput2.Size = new System.Drawing.Size(57, 13);
+            this.lblOutput2.TabIndex = 72;
+            this.lblOutput2.Text = "Output 2 ";
+            this.lblOutput2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblOutput3
+            // 
+            this.lblOutput3.AutoSize = true;
+            this.lblOutput3.Font = new System.Drawing.Font("Segoe UI", 8.25F);
+            this.lblOutput3.ForeColor = System.Drawing.Color.Gainsboro;
+            this.lblOutput3.Location = new System.Drawing.Point(352, 250);
+            this.lblOutput3.Name = "lblOutput3";
+            this.lblOutput3.Size = new System.Drawing.Size(57, 13);
+            this.lblOutput3.TabIndex = 73;
+            this.lblOutput3.Text = "Output 3 ";
+            this.lblOutput3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblOutput4
+            // 
+            this.lblOutput4.AutoSize = true;
+            this.lblOutput4.Font = new System.Drawing.Font("Segoe UI", 8.25F);
+            this.lblOutput4.ForeColor = System.Drawing.Color.Gainsboro;
+            this.lblOutput4.Location = new System.Drawing.Point(413, 249);
+            this.lblOutput4.Name = "lblOutput4";
+            this.lblOutput4.Size = new System.Drawing.Size(57, 13);
+            this.lblOutput4.TabIndex = 74;
+            this.lblOutput4.Text = "Output 4 ";
+            this.lblOutput4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // MixerForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(82)))), ((int)(((byte)(82)))));
-            this.ClientSize = new System.Drawing.Size(234, 305);
+            this.ClientSize = new System.Drawing.Size(477, 283);
+            this.Controls.Add(this.lblOutput4);
+            this.Controls.Add(this.lblOutput3);
+            this.Controls.Add(this.lblOutput2);
+            this.Controls.Add(this.lblOutput1);
+            this.Controls.Add(this.pbMeter4);
+            this.Controls.Add(this.pbMeter3);
+            this.Controls.Add(this.pbMeter2);
+            this.Controls.Add(this.pbMeter1);
             this.Controls.Add(this.btnRouter6_4);
             this.Controls.Add(this.btnRouter5_4);
             this.Controls.Add(this.btnRouter6_3);
@@ -757,6 +861,10 @@
             this.Name = "MixerForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Matrix Mixer";
+            ((System.ComponentModel.ISupportInitialize)(this.pbMeter1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMeter2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMeter3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbMeter4)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -800,5 +908,13 @@
         private PictureButton btnRouter5_1;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.PictureBox pbMeter1;
+        private System.Windows.Forms.PictureBox pbMeter2;
+        private System.Windows.Forms.PictureBox pbMeter3;
+        private System.Windows.Forms.PictureBox pbMeter4;
+        private System.Windows.Forms.Label lblOutput1;
+        private System.Windows.Forms.Label lblOutput2;
+        private System.Windows.Forms.Label lblOutput3;
+        private System.Windows.Forms.Label lblOutput4;
     }
 }

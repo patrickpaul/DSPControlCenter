@@ -106,6 +106,16 @@ namespace SA_Resources
 
             PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].inputs[CH_NUMBER - 1].PhantomPower = chkPhantomPower.Checked;
 
+            if (chkPhantomPower.Checked)
+            {
+                PARENT_FORM.AddItemToQueue(new LiveQueueItem(1000 + (CH_NUMBER - 1), 1));
+            }
+            else
+            {
+                PARENT_FORM.AddItemToQueue(new LiveQueueItem(1000 + (CH_NUMBER - 1), 0));
+            }
+                    
+
         }
 
         private void txtDisplayName_KeyPress(object sender, KeyPressEventArgs e)

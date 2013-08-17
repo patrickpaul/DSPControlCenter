@@ -597,6 +597,57 @@ namespace SA_Resources
 
         }
 
+        public bool SetLivePhantomPower(uint ch_number, int on_off)
+        {
+
+            lock (PIC_LOCK)
+            {
+                FlushBuffer();
+                if (!serialPort.IsOpen) return false;
+
+                byte[] buff = new byte[5];
+
+                buff[0] = 0x09; 
+                buff[1] = 0x19;
+                buff[2] = (byte)ch_number;
+                buff[3] = (byte)on_off;
+                buff[4] = 0x03;
+
+
+                for (int retry_count = 0; retry_count < 3; retry_count++)
+                {
+                    serialPort.Write(buff, 0, 5);
+                    Thread.Sleep(70);
+
+                    if (serialPort.BytesToRead > 2)
+                    {
+
+                        Byte[] bytes = new Byte[serialPort.BytesToRead + 5];
+
+                        serialPort.Read(bytes, 0, serialPort.BytesToRead);
+
+                        if (bytes[0] == 0x06 && bytes[1] == 0x05 && bytes[2] == 0x19 && bytes[3] == 0x02)
+                        {
+                            return true;
+                        }
+
+                        if (bytes[0] == 0x15)
+                        {
+                            print_error(bytes[1]);
+                        }
+
+                    }
+                    else
+                    {
+                        FlushBuffer();
+                    }
+                }
+
+                return false;
+            }
+
+        }
+
         public bool sendAckdData(byte commandAddr, byte commandData, int delay_value = 50, byte extra_byte = 0xFF)
         {
 

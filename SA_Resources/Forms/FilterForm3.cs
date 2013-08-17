@@ -1102,6 +1102,50 @@ namespace SA_Resources
             }
             dragging_crosshairs = false;
 
+            
+            //TODO - MAKE THIS ACTUALLY UPDATE ALL FILTERS
+
+            UInt32 B0 = 0x20000000;
+            UInt32 B1 = 0x00000000;
+            UInt32 B2 = 0x00000000;
+            UInt32 A1 = 0x00000000;
+            UInt32 A2 = 0x00000000;
+
+            UInt32 PACKAGE = 0x00000000;
+            UInt32 PACKAGE_GAIN = 0x00000000;
+            UInt32 PACKAGE_Q = 0x00000000;
+            try
+            {
+                B0 = DSP_Math.double_to_MN(filters[active_filter].Filter.B0, 3, 29);
+                B1 = DSP_Math.double_to_MN(filters[active_filter].Filter.B1, 3, 29);
+                B2 = DSP_Math.double_to_MN(filters[active_filter].Filter.B2, 3, 29);
+                A1 = DSP_Math.double_to_MN(filters[active_filter].Filter.A1 * -1, 2, 30);
+                A2 = DSP_Math.double_to_MN(filters[active_filter].Filter.A2 * -1, 2, 30);
+
+                PACKAGE = DSP_Math.filter_to_package(filters[active_filter]);
+                PACKAGE_GAIN = DSP_Math.double_to_MN(filters[active_filter].Filter.Gain, 8, 24);
+                PACKAGE_Q = DSP_Math.double_to_MN(filters[active_filter].Filter.QValue, 8, 24);
+
+                PARENT_FORM.AddItemToQueue(new LiveQueueItem(85, B0));
+                PARENT_FORM.AddItemToQueue(new LiveQueueItem(86, B1));
+                PARENT_FORM.AddItemToQueue(new LiveQueueItem(87, B2));
+                PARENT_FORM.AddItemToQueue(new LiveQueueItem(88, A1));
+                PARENT_FORM.AddItemToQueue(new LiveQueueItem(89, A2));
+
+                PARENT_FORM.AddItemToQueue(new LiveQueueItem(327, PACKAGE));
+                PARENT_FORM.AddItemToQueue(new LiveQueueItem(328, PACKAGE_GAIN));
+                PARENT_FORM.AddItemToQueue(new LiveQueueItem(329, PACKAGE_Q));
+
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+            
+
+
+            //Console.WriteLine("Update here - MouseUp");
             // TODO - FIX NOTIFYME
             // parent.NotifyParent(active_filter, filters[active_filter]);
         }
@@ -1309,7 +1353,7 @@ namespace SA_Resources
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            Console.WriteLine(filters);
+            //Console.WriteLine(filters);
             this.Close();
         }
 

@@ -45,6 +45,17 @@ namespace SA_Resources
                 signalTimer.Enabled = false;
             }
 
+            if (PARENT_FORM.LIVE_MODE)
+            {
+                pbMeter.Visible = true;
+                signalTimer.Enabled = true;
+            }
+            else
+            {
+                pbMeter.Visible = false;
+                signalTimer.Enabled = false;
+            }
+
             if (IS_MIXER)
             {
                 cur_gain = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].crosspoints[CH_INDEX][GAIN_INDEX].Gain;

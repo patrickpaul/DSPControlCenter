@@ -47,6 +47,8 @@ namespace SA_Resources.Forms
 
         public string CONFIGFILE = "";
 
+        public bool LIVE_MODE;
+
 
         public MainForm_Template()
         {

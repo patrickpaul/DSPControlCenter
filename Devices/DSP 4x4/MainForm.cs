@@ -20,12 +20,12 @@ namespace DSP_4x4
         #region Variables
 
         private bool demo_mode = false;
-        private bool disable_read = true;
+        private bool disable_read = false;
 
         public Queue UPDATE_QUEUE = new Queue();
         public object _locker = new Object();
 
-        public bool LIVE_MODE;
+        
 
         #endregion
 
@@ -811,6 +811,15 @@ namespace DSP_4x4
             using (MixerForm mixerForm = new MixerForm(this))
             {
 
+                if (LIVE_MODE)
+                {
+                    mixerForm.Width = 496;
+                }
+                else
+                {
+                    mixerForm.Width = 187;
+                }
+
                 // passing this in ShowDialog will set the .Owner 
                 // property of the child form
                 mixerForm.ShowDialog(this);
@@ -825,6 +834,18 @@ namespace DSP_4x4
 
             using (GainForm gainForm = new GainForm(this, ch_num-1, 0, (0+ch_num-1), false, "CH" + ch_num.ToString() + " - Input Gain"))
             {
+
+                if (!LIVE_MODE)
+                {
+                    gainForm.Width = 132;
+                }
+                else
+                {
+                    gainForm.Width = 187;
+                }
+
+                gainForm.Height = 414;
+
                 // passing this in ShowDialog will set the .Owner 
                 // property of the child form
                 gainForm.ShowDialog(this);
@@ -851,6 +872,10 @@ namespace DSP_4x4
 
             using (GainForm gainForm = new GainForm(this, ch_num - 1, 1, (28+ch_num-1), false, "CH" + ch_num.ToString() + " - Premix Gain"))
             {
+                gainForm.Width = 132;
+
+                gainForm.Height = 414;
+
                 // passing this in ShowDialog will set the .Owner 
                 // property of the child form
                 gainForm.ShowDialog(this);
@@ -895,6 +920,18 @@ namespace DSP_4x4
 
             using (GainForm gainForm = new GainForm(this, ch_num - 1, 2, (32+ch_num-1), false, "CH" + ch_num.ToString() + " - Trim"))
             {
+
+                if (!LIVE_MODE)
+                {
+                    gainForm.Width = 132;
+                }
+                else
+                {
+                    gainForm.Width = 187;
+                }
+
+                gainForm.Height = 414;
+
                 // passing this in ShowDialog will set the .Owner 
                 // property of the child form
                 gainForm.ShowDialog(this);
@@ -971,6 +1008,18 @@ namespace DSP_4x4
 
             using (GainForm gainForm = new GainForm(this, ch_num - 1, 3, (36+ch_num-1),false, "CH" + ch_num.ToString() + " - Output Gain"))
             {
+
+                if (!LIVE_MODE)
+                {
+                    gainForm.Width = 132;
+                    
+                }
+                else
+                {
+                    gainForm.Width = 187;
+                }
+
+                gainForm.Height = 414;
                 // passing this in ShowDialog will set the .Owner 
                 // property of the child form
                 gainForm.ShowDialog(this);
@@ -1294,6 +1343,33 @@ namespace DSP_4x4
         {
             CURRENT_PROGRAM = dropProgramSelection.SelectedIndex;
             UpdateTooltips();
+
+            Console.WriteLine("Switching to program " + (dropProgramSelection.SelectedIndex + 1));
+            byte switch_command = 0x00;
+
+            if (dropProgramSelection.SelectedIndex == 0)
+            {
+                switch_command = 0x10;
+            }
+            else if (dropProgramSelection.SelectedIndex == 1)
+            {
+                switch_command = 0x11;
+            }
+            else
+            {
+                switch_command = 0x12;
+            }
+
+            if (_PIC_Conn.sendAckdCommand(switch_command, 3000))
+            {
+                Console.WriteLine("Successfully switched.");
+
+            }
+            else
+            {
+                Console.WriteLine("[ERROR] Unable to switch program");
+            }
+
         }
 
         #endregion
@@ -1314,6 +1390,8 @@ namespace DSP_4x4
                 btnStartBackgroundWorker.BackColor = Color.Transparent;
                 btnStartBackgroundWorker.Text = "Start Live Mode";
                 btnStartBackgroundWorker.Invalidate();
+
+                LIVE_MODE = false;
             }
             else
             {
@@ -1362,13 +1440,31 @@ namespace DSP_4x4
                             //{
                                 if (_PIC_Conn.getRTS())
                                 {
-                                    if (_PIC_Conn.SetLiveDSPValue((uint)read_setting.Index, read_setting.Value))
+                                    if (read_setting.Index < 1000)
                                     {
-                                        Console.WriteLine("Successfully sent queued DSP setting: " + read_setting.Index + " - " + read_setting.Value.ToString("X8"));
+                                        if (_PIC_Conn.SetLiveDSPValue((uint)read_setting.Index, read_setting.Value))
+                                        {
+                                            Console.WriteLine("Successfully sent queued DSP setting: " + read_setting.Index + " - " + read_setting.Value.ToString("X8"));
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine("ERROR sending queued DSP Setting");
+                                        }
                                     }
                                     else
                                     {
-                                        Console.WriteLine("ERROR sending queued DSP Setting");
+                                        // THIS IS A UTILITY SUCH AS PHANTOM POWER OR INPUT/OUTPUT NAME
+
+                                        if (read_setting.Value == 0x01)
+                                        {
+                                            _PIC_Conn.SetLivePhantomPower((uint)read_setting.Index - 1000, 1);
+                                        }
+                                        else
+                                        {
+                                            _PIC_Conn.SetLivePhantomPower((uint)read_setting.Index - 1000, 0);
+                                        }
+                                        
+                                        
                                     }
 
                                 }
