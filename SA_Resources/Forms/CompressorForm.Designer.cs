@@ -379,7 +379,6 @@
             // 
             // signalTimer
             // 
-            this.signalTimer.Enabled = true;
             this.signalTimer.Tick += new System.EventHandler(this.signalTimer_Tick);
             // 
             // btnGo

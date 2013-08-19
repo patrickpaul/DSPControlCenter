@@ -20,7 +20,7 @@ namespace DSP_4x4
         #region Variables
 
         private bool demo_mode = false;
-        private bool disable_read = false;
+        private bool disable_read = true;
 
         public Queue UPDATE_QUEUE = new Queue();
         public object _locker = new Object();
@@ -38,6 +38,11 @@ namespace DSP_4x4
             LIVE_MODE = false;
             SERIALNUM = serialNumber;
             _PIC_Conn = PIC_Conn;
+
+            if (!_PIC_Conn.isOpen)
+            {
+                btnStartBackgroundWorker.Visible = false;
+            }
 
             /* INITIALIZE THE SETTINGS TO DEFAULTS */
 
@@ -147,6 +152,9 @@ namespace DSP_4x4
                 {
                     for (j = 0; j < 4; j++)
                     {
+
+                        PROGRAMS[program_index].crosspoints[i][j].Gain = DSP_Math.value_to_gain(_settings[program_index][counter++].Value);
+
                         // Note we use -90 because in live mode it will often not set gain to a true -100
                         if (PROGRAMS[program_index].crosspoints[i][j].Gain < -90)
                         {
@@ -158,7 +166,7 @@ namespace DSP_4x4
                             PROGRAMS[program_index].crosspoints[i][j].Muted = false;
                         }
 
-                        counter++;
+                        //counter++;
                     }
                 }
 
@@ -223,6 +231,8 @@ namespace DSP_4x4
                 {
                     PROGRAMS[program_index].delays[o].Delay = DSP_Math.MN_to_double_signed(_settings[program_index][counter++].Value, 16,16);
                 }
+
+                counter = 0;
 
                 if (!form_loaded)
                 {
@@ -817,7 +827,7 @@ namespace DSP_4x4
                 }
                 else
                 {
-                    mixerForm.Width = 187;
+                    mixerForm.Width = 247;
                 }
 
                 // passing this in ShowDialog will set the .Owner 
@@ -1341,35 +1351,46 @@ namespace DSP_4x4
 
         private void dropProgramSelection_SelectedIndexChanged(object sender, EventArgs e)
         {
+
+            
             CURRENT_PROGRAM = dropProgramSelection.SelectedIndex;
+
+
             UpdateTooltips();
-
-            Console.WriteLine("Switching to program " + (dropProgramSelection.SelectedIndex + 1));
-            byte switch_command = 0x00;
-
-            if (dropProgramSelection.SelectedIndex == 0)
+            if (LIVE_MODE)
             {
-                switch_command = 0x10;
-            }
-            else if (dropProgramSelection.SelectedIndex == 1)
-            {
-                switch_command = 0x11;
-            }
-            else
-            {
-                switch_command = 0x12;
+
+                Console.WriteLine("Switching to program " + (dropProgramSelection.SelectedIndex + 1));
+                byte switch_command = 0x00;
+
+                if (dropProgramSelection.SelectedIndex == 0)
+                {
+                    switch_command = 0x10;
+                }
+                else if (dropProgramSelection.SelectedIndex == 1)
+                {
+                    switch_command = 0x11;
+                }
+                else
+                {
+                    switch_command = 0x12;
+                }
+
+                SwitchProgramForm switchForm = new SwitchProgramForm(this, switch_command);
+
+                DialogResult switchResult = switchForm.ShowDialog();
+
+                if (switchResult == DialogResult.No)
+                {
+                    Console.WriteLine("Unable to switch program. Switch command responded with an error.");
+                }
+                else if (switchResult == DialogResult.Abort)
+                {
+                    Console.WriteLine("Unable to switch program. No RTS");
+                }
             }
 
-            if (_PIC_Conn.sendAckdCommand(switch_command, 3000))
-            {
-                Console.WriteLine("Successfully switched.");
-
-            }
-            else
-            {
-                Console.WriteLine("[ERROR] Unable to switch program");
-            }
-
+            
         }
 
         #endregion
@@ -1479,7 +1500,7 @@ namespace DSP_4x4
                         else
                         {
 
-                            Console.WriteLine("There are no items in the queue.");
+                            //Console.WriteLine("There are no items in the queue.");
                         }
                     }
                 }

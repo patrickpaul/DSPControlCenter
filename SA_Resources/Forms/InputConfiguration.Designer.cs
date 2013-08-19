@@ -68,7 +68,7 @@
             this.lblPhantomPower.AutoSize = true;
             this.lblPhantomPower.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.lblPhantomPower.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.lblPhantomPower.Location = new System.Drawing.Point(13, 91);
+            this.lblPhantomPower.Location = new System.Drawing.Point(13, 56);
             this.lblPhantomPower.Name = "lblPhantomPower";
             this.lblPhantomPower.Size = new System.Drawing.Size(91, 13);
             this.lblPhantomPower.TabIndex = 2;
@@ -79,7 +79,7 @@
             // 
             this.chkPhantomPower.CheckedImage = null;
             this.chkPhantomPower.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.chkPhantomPower.Location = new System.Drawing.Point(114, 90);
+            this.chkPhantomPower.Location = new System.Drawing.Point(114, 55);
             this.chkPhantomPower.Name = "chkPhantomPower";
             this.chkPhantomPower.Size = new System.Drawing.Size(16, 16);
             this.chkPhantomPower.TabIndex = 3;
@@ -90,7 +90,7 @@
             // btnCancel
             // 
             this.btnCancel.Image = ((System.Drawing.Image)(resources.GetObject("btnCancel.Image")));
-            this.btnCancel.Location = new System.Drawing.Point(134, 125);
+            this.btnCancel.Location = new System.Drawing.Point(134, 90);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(49, 23);
             this.btnCancel.TabIndex = 7;
@@ -101,7 +101,7 @@
             // 
             this.btnSave.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSave.Image = ((System.Drawing.Image)(resources.GetObject("btnSave.Image")));
-            this.btnSave.Location = new System.Drawing.Point(76, 125);
+            this.btnSave.Location = new System.Drawing.Point(76, 90);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(49, 23);
             this.btnSave.TabIndex = 6;
@@ -119,6 +119,7 @@
             this.label3.TabIndex = 11;
             this.label3.Text = "Input Type:";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label3.Visible = false;
             // 
             // dropInputType
             // 
@@ -130,6 +131,7 @@
             this.dropInputType.Name = "dropInputType";
             this.dropInputType.Size = new System.Drawing.Size(133, 21);
             this.dropInputType.TabIndex = 12;
+            this.dropInputType.Visible = false;
             this.dropInputType.SelectedIndexChanged += new System.EventHandler(this.dropInputType_SelectedIndexChanged);
             // 
             // InputConfiguration
@@ -137,7 +139,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(82)))), ((int)(((byte)(82)))));
-            this.ClientSize = new System.Drawing.Size(258, 163);
+            this.ClientSize = new System.Drawing.Size(258, 130);
             this.Controls.Add(this.dropInputType);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.btnCancel);

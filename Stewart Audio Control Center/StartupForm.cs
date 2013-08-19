@@ -343,10 +343,6 @@ namespace SA_Resources
             }
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            Console.WriteLine(DSP_Math.comp_release_to_value(1.25));
-        }
 
         
     }

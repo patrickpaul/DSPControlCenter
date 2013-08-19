@@ -316,9 +316,9 @@ namespace SA_Resources
                 for (int retry_count = 0; retry_count < 3; retry_count++)
                 {
                     serialPort.Write(buff, 0, 6);
-                    Thread.Sleep(50);
+                    Thread.Sleep(60);
 
-                    if (serialPort.BytesToRead > 2)
+                    if (serialPort.BytesToRead > 3)
                     {
                         Byte[] bytes = new Byte[serialPort.BytesToRead];
 

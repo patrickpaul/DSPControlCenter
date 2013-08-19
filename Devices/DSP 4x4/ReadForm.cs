@@ -95,6 +95,8 @@ namespace DSP_4x4
                     switch_command = 0x32;
                 }
 
+                AddTextToLog("Switching to program " + (cur_program+1) + System.Environment.NewLine);
+
                 if (_parentForm._PIC_Conn.sendAckdCommand(switch_command, 3000))
                 {
                     AddTextToLog("Done." + System.Environment.NewLine);

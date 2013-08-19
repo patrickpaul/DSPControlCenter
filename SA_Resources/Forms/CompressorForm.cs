@@ -135,6 +135,11 @@ namespace SA_Resources
                 chkBypass.Checked = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].compressors[CH_NUMBER - 1][COMP_INDEX].Bypassed;
 
 
+                if (_parentForm.LIVE_MODE && _parentForm._PIC_Conn.isOpen)
+                {
+                    signalTimer.Enabled = true;
+                }
+
             } catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
@@ -474,6 +479,13 @@ namespace SA_Resources
 
         private void signalTimer_Tick(object sender, EventArgs e)
         {
+
+            if (!PARENT_FORM._PIC_Conn.isOpen || !PARENT_FORM.LIVE_MODE)
+            {
+                signalTimer.Enabled = false;
+                return;
+            }
+
             UInt32 read_address = 0x00000000;
 
             read_address = PARENT_FORM._comp_meters[COMP_INDEX][CH_NUMBER - 1];

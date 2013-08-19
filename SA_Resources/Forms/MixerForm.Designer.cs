@@ -811,7 +811,7 @@
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(82)))), ((int)(((byte)(82)))));
-            this.ClientSize = new System.Drawing.Size(477, 283);
+            this.ClientSize = new System.Drawing.Size(231, 283);
             this.Controls.Add(this.lblOutput4);
             this.Controls.Add(this.lblOutput3);
             this.Controls.Add(this.lblOutput2);

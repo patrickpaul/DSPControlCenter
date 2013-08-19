@@ -37,7 +37,7 @@ namespace SA_Resources.Forms
         public PIC_Bridge _PIC_Conn;
 
         public int CURRENT_PROGRAM = 0;
-        public int NUM_PROGRAMS = 1;
+        public int NUM_PROGRAMS = 3;
 
 
 

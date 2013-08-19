@@ -113,7 +113,6 @@ namespace DSP_4x4
             this.dropProgramSelection = new System.Windows.Forms.ComboBox();
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.label1 = new System.Windows.Forms.Label();
             this.saveProgramDialog = new System.Windows.Forms.SaveFileDialog();
             this.openProgramDialog = new System.Windows.Forms.OpenFileDialog();
             this.btnMatrixMixer = new SA_Resources.PictureButton();
@@ -1272,11 +1271,12 @@ namespace DSP_4x4
             // pictureBox2
             // 
             this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-            this.pictureBox2.Location = new System.Drawing.Point(613, 24);
+            this.pictureBox2.Location = new System.Drawing.Point(4, 332);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(155, 37);
             this.pictureBox2.TabIndex = 32;
             this.pictureBox2.TabStop = false;
+            this.pictureBox2.Visible = false;
             // 
             // dropProgramSelection
             // 
@@ -1285,7 +1285,7 @@ namespace DSP_4x4
             "Program 1 (Default)",
             "Program 2",
             "Program 3"});
-            this.dropProgramSelection.Location = new System.Drawing.Point(765, 31);
+            this.dropProgramSelection.Location = new System.Drawing.Point(761, 30);
             this.dropProgramSelection.Name = "dropProgramSelection";
             this.dropProgramSelection.Size = new System.Drawing.Size(131, 21);
             this.dropProgramSelection.TabIndex = 33;
@@ -1294,17 +1294,6 @@ namespace DSP_4x4
             // timer1
             // 
             this.timer1.Interval = 75;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.Gainsboro;
-            this.label1.Location = new System.Drawing.Point(12, 335);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(338, 24);
-            this.label1.TabIndex = 39;
-            this.label1.Text = "FOR EVALUATION PURPOSES ONLY";
             // 
             // saveProgramDialog
             // 
@@ -1419,7 +1408,7 @@ namespace DSP_4x4
             // btnStartBackgroundWorker
             // 
             this.btnStartBackgroundWorker.BackColor = System.Drawing.Color.Transparent;
-            this.btnStartBackgroundWorker.Location = new System.Drawing.Point(16, 296);
+            this.btnStartBackgroundWorker.Location = new System.Drawing.Point(591, 31);
             this.btnStartBackgroundWorker.Name = "btnStartBackgroundWorker";
             this.btnStartBackgroundWorker.Size = new System.Drawing.Size(112, 23);
             this.btnStartBackgroundWorker.TabIndex = 40;
@@ -1440,7 +1429,6 @@ namespace DSP_4x4
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(82)))), ((int)(((byte)(82)))));
             this.ClientSize = new System.Drawing.Size(906, 394);
             this.Controls.Add(this.btnStartBackgroundWorker);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.dropProgramSelection);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.btnMatrixMixer);
@@ -1574,7 +1562,6 @@ namespace DSP_4x4
         private System.Windows.Forms.ComboBox dropProgramSelection;
         private System.IO.Ports.SerialPort serialPort1;
         private System.Windows.Forms.Timer timer1;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.SaveFileDialog saveProgramDialog;
         private System.Windows.Forms.OpenFileDialog openProgramDialog;
         private System.Windows.Forms.ToolStripMenuItem openConfigurationToolStripMenuItem;
