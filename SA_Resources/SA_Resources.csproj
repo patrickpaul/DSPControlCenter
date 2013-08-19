@@ -106,6 +106,12 @@
     <Compile Include="Classes\ConfigChangeEventArgs.cs" />
     <Compile Include="Resource Classes\ControlIcons.cs" />
     <Compile Include="Resource Classes\Icons.cs" />
+    <Compile Include="UIElements\Controls\SignalMeter.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UIElements\Controls\SignalMeter.Designer.cs">
+      <DependentUpon>SignalMeter.cs</DependentUpon>
+    </Compile>
     <Compile Include="UIElements\UI_Helpers.cs" />
     <Compile Include="UIElements\Controls\OrientedTextLabel.cs">
       <SubType>Component</SubType>
@@ -492,6 +498,10 @@
       <UserProperties BuildVersion_UpdateAssemblyVersion="True" BuildVersion_UpdateFileVersion="True" BuildVersion_AssemblyInfoFilename="Properties\AssemblyInfo.cs" BuildVersion_UseGlobalSettings="True" />
     </VisualStudio>
   </ProjectExtensions>
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

@@ -36,10 +36,6 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.pbMeter1 = new System.Windows.Forms.PictureBox();
-            this.pbMeter2 = new System.Windows.Forms.PictureBox();
-            this.pbMeter3 = new System.Windows.Forms.PictureBox();
-            this.pbMeter4 = new System.Windows.Forms.PictureBox();
             this.lblOutput1 = new System.Windows.Forms.Label();
             this.lblOutput2 = new System.Windows.Forms.Label();
             this.lblOutput3 = new System.Windows.Forms.Label();
@@ -75,10 +71,14 @@
             this.orientedTextLabel3 = new SA_Resources.OrientedTextLabel();
             this.orientedTextLabel2 = new SA_Resources.OrientedTextLabel();
             this.orientedTextLabel1 = new SA_Resources.OrientedTextLabel();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMeter1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMeter2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMeter3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMeter4)).BeginInit();
+            this.gainMeter1 = new SA_Resources.SignalMeter();
+            this.gainMeter2 = new SA_Resources.SignalMeter();
+            this.gainMeter3 = new SA_Resources.SignalMeter();
+            this.gainMeter4 = new SA_Resources.SignalMeter();
+            ((System.ComponentModel.ISupportInitialize)(this.gainMeter1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gainMeter2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gainMeter3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gainMeter4)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -152,46 +152,6 @@
             this.label6.TabIndex = 57;
             this.label6.Text = "Sine Wave";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // pbMeter1
-            // 
-            this.pbMeter1.BackgroundImage = global::SA_Resources.GlobalResources.ui_meter_base;
-            this.pbMeter1.Location = new System.Drawing.Point(235, 19);
-            this.pbMeter1.Name = "pbMeter1";
-            this.pbMeter1.Size = new System.Drawing.Size(43, 225);
-            this.pbMeter1.TabIndex = 67;
-            this.pbMeter1.TabStop = false;
-            this.pbMeter1.Paint += new System.Windows.Forms.PaintEventHandler(this.pbMeter_Paint);
-            // 
-            // pbMeter2
-            // 
-            this.pbMeter2.BackgroundImage = global::SA_Resources.GlobalResources.ui_meter_base;
-            this.pbMeter2.Location = new System.Drawing.Point(296, 20);
-            this.pbMeter2.Name = "pbMeter2";
-            this.pbMeter2.Size = new System.Drawing.Size(43, 225);
-            this.pbMeter2.TabIndex = 68;
-            this.pbMeter2.TabStop = false;
-            this.pbMeter2.Paint += new System.Windows.Forms.PaintEventHandler(this.pbMeter_Paint);
-            // 
-            // pbMeter3
-            // 
-            this.pbMeter3.BackgroundImage = global::SA_Resources.GlobalResources.ui_meter_base;
-            this.pbMeter3.Location = new System.Drawing.Point(357, 20);
-            this.pbMeter3.Name = "pbMeter3";
-            this.pbMeter3.Size = new System.Drawing.Size(43, 225);
-            this.pbMeter3.TabIndex = 69;
-            this.pbMeter3.TabStop = false;
-            this.pbMeter3.Paint += new System.Windows.Forms.PaintEventHandler(this.pbMeter_Paint);
-            // 
-            // pbMeter4
-            // 
-            this.pbMeter4.BackgroundImage = global::SA_Resources.GlobalResources.ui_meter_base;
-            this.pbMeter4.Location = new System.Drawing.Point(418, 20);
-            this.pbMeter4.Name = "pbMeter4";
-            this.pbMeter4.Size = new System.Drawing.Size(43, 225);
-            this.pbMeter4.TabIndex = 70;
-            this.pbMeter4.TabStop = false;
-            this.pbMeter4.Paint += new System.Windows.Forms.PaintEventHandler(this.pbMeter_Paint);
             // 
             // lblOutput1
             // 
@@ -819,19 +779,59 @@
             this.orientedTextLabel1.TextDirection = SA_Resources.Direction.Clockwise;
             this.orientedTextLabel1.TextOrientation = SA_Resources.Orientation.Rotate;
             // 
+            // gainMeter1
+            // 
+            this.gainMeter1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("gainMeter1.BackgroundImage")));
+            this.gainMeter1.DB = -35D;
+            this.gainMeter1.Location = new System.Drawing.Point(235, 19);
+            this.gainMeter1.Name = "gainMeter1";
+            this.gainMeter1.Size = new System.Drawing.Size(43, 225);
+            this.gainMeter1.TabIndex = 75;
+            this.gainMeter1.TabStop = false;
+            // 
+            // gainMeter2
+            // 
+            this.gainMeter2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("gainMeter2.BackgroundImage")));
+            this.gainMeter2.DB = -35D;
+            this.gainMeter2.Location = new System.Drawing.Point(296, 19);
+            this.gainMeter2.Name = "gainMeter2";
+            this.gainMeter2.Size = new System.Drawing.Size(43, 225);
+            this.gainMeter2.TabIndex = 76;
+            this.gainMeter2.TabStop = false;
+            // 
+            // gainMeter3
+            // 
+            this.gainMeter3.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("gainMeter3.BackgroundImage")));
+            this.gainMeter3.DB = -35D;
+            this.gainMeter3.Location = new System.Drawing.Point(357, 19);
+            this.gainMeter3.Name = "gainMeter3";
+            this.gainMeter3.Size = new System.Drawing.Size(43, 225);
+            this.gainMeter3.TabIndex = 77;
+            this.gainMeter3.TabStop = false;
+            // 
+            // gainMeter4
+            // 
+            this.gainMeter4.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("gainMeter4.BackgroundImage")));
+            this.gainMeter4.DB = -35D;
+            this.gainMeter4.Location = new System.Drawing.Point(418, 19);
+            this.gainMeter4.Name = "gainMeter4";
+            this.gainMeter4.Size = new System.Drawing.Size(43, 225);
+            this.gainMeter4.TabIndex = 78;
+            this.gainMeter4.TabStop = false;
+            // 
             // MixerForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(82)))), ((int)(((byte)(82)))));
             this.ClientSize = new System.Drawing.Size(483, 283);
+            this.Controls.Add(this.gainMeter4);
+            this.Controls.Add(this.gainMeter3);
+            this.Controls.Add(this.gainMeter2);
+            this.Controls.Add(this.gainMeter1);
             this.Controls.Add(this.lblOutput4);
             this.Controls.Add(this.lblOutput3);
             this.Controls.Add(this.lblOutput2);
             this.Controls.Add(this.lblOutput1);
-            this.Controls.Add(this.pbMeter4);
-            this.Controls.Add(this.pbMeter3);
-            this.Controls.Add(this.pbMeter2);
-            this.Controls.Add(this.pbMeter1);
             this.Controls.Add(this.btnRouter6_4);
             this.Controls.Add(this.btnRouter5_4);
             this.Controls.Add(this.btnRouter6_3);
@@ -873,10 +873,10 @@
             this.Name = "MixerForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Matrix Mixer";
-            ((System.ComponentModel.ISupportInitialize)(this.pbMeter1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMeter2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMeter3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMeter4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gainMeter1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gainMeter2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gainMeter3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gainMeter4)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -920,14 +920,14 @@
         private PictureButton btnRouter5_1;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.PictureBox pbMeter1;
-        private System.Windows.Forms.PictureBox pbMeter2;
-        private System.Windows.Forms.PictureBox pbMeter3;
-        private System.Windows.Forms.PictureBox pbMeter4;
         private System.Windows.Forms.Label lblOutput1;
         private System.Windows.Forms.Label lblOutput2;
         private System.Windows.Forms.Label lblOutput3;
         private System.Windows.Forms.Label lblOutput4;
         private System.Windows.Forms.Timer signalTimer;
+        private SignalMeter gainMeter1;
+        private SignalMeter gainMeter2;
+        private SignalMeter gainMeter3;
+        private SignalMeter gainMeter4;
     }
 }

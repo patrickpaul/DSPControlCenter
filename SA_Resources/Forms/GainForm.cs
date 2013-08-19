@@ -41,18 +41,18 @@ namespace SA_Resources
             // TODO - Add in premix meter when DSP flash is updated
             if (_gain_index == 1)
             {
-                pbMeter.Visible = false;
+                gainMeter.Visible = false;
                 signalTimer.Enabled = false;
             }
 
             if (PARENT_FORM.LIVE_MODE)
             {
-                pbMeter.Visible = true;
+                gainMeter.Visible = true;
                 signalTimer.Enabled = true;
             }
             else
             {
-                pbMeter.Visible = false;
+                gainMeter.Visible = false;
                 signalTimer.Enabled = false;
             }
 
@@ -401,85 +401,7 @@ namespace SA_Resources
                 read_gain_value = -100;
             }
 
-            //Console.WriteLine("Read value of " + read_gain_value + "dB");
-
-            pbMeter.Invalidate();
-        }
-
-        private int scale_between(double value, double upper, double lower, int pixel_upper, int pixel_lower)
-        {
-            int pixel_diff = Math.Abs(pixel_lower - pixel_upper);
-
-            double percentage = Math.Abs(value - upper) / Math.Abs(upper - lower);
-
-            return (int)(percentage * pixel_diff) + pixel_upper;
-
-        }
-
-        private int gain_to_meter()
-        {
-            if (read_gain_value <= -35)
-            {
-                return 214;
-            }
-            else if (read_gain_value <= -25)
-            {
-                return scale_between(read_gain_value, -25.0, -35.0, 192, 214);
-            }
-            else if (read_gain_value <= -15)
-            {
-                return scale_between(read_gain_value, -15.0, -25.0, 170, 192);
-            }
-            else if (read_gain_value <= -10)
-            {
-                return scale_between(read_gain_value, -10.0, -15.0, 149, 170);
-            }
-            else if (read_gain_value <= -6)
-            {
-                return scale_between(read_gain_value, -6.0, -10.0, 127, 149);
-            }
-            else if (read_gain_value <= -2)
-            {
-                return scale_between(read_gain_value, -2.0, -6.0, 106, 127);
-            }
-            else if (read_gain_value <= 0)
-            {
-                return scale_between(read_gain_value, 0.0, -2.0, 84, 106);
-            }
-            else if (read_gain_value <= 4)
-            {
-                return scale_between(read_gain_value, 4.0, 0.0, 63, 84);
-            }
-            else if (read_gain_value <= 10)
-            {
-                return scale_between(read_gain_value, 10, 4.0, 41, 63);
-            }
-            else if (read_gain_value <= 20)
-            {
-                return scale_between(read_gain_value, 20.0, 10.0, 20, 41);
-            }
-            else if (read_gain_value <= 35)
-            {
-                return scale_between(read_gain_value, 35.0, 20.0, 0, 20);
-            }
-
-            return 214;
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            //test_read_value -= 1;
-            //Console.WriteLine("Updating meter for " + test_read_value + " dB");
-            //pbMeter.Invalidate();
-        }
-
-        private void pbMeter_Paint(object sender, PaintEventArgs e)
-        {
-            Rectangle ee = new Rectangle(26, 7, 13, gain_to_meter());
-            using (SolidBrush myBrush = new SolidBrush(Color.FromArgb(80,80,80)))
-            {
-                e.Graphics.FillRectangle(myBrush, ee);
-            }
+            gainMeter.DB = read_gain_value;
         }
     }
 }

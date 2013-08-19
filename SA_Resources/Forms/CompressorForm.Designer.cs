@@ -64,19 +64,19 @@
             this.DialCompRelease = new System.Windows.Forms.PictureBox();
             this.dropAction = new System.Windows.Forms.ComboBox();
             this.lblAction = new System.Windows.Forms.Label();
-            this.pbMeter = new System.Windows.Forms.PictureBox();
             this.signalTimer = new System.Windows.Forms.Timer(this.components);
             this.btnGo = new SA_Resources.PictureButton();
             this.chkSoftKnee = new SA_Resources.PictureCheckbox();
             this.chkBypass = new SA_Resources.PictureCheckbox();
             this.btnCancel = new SA_Resources.PictureButton();
             this.btnSave = new SA_Resources.PictureButton();
+            this.gainMeter = new SA_Resources.SignalMeter();
             ((System.ComponentModel.ISupportInitialize)(this.dynChart)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudCompRatio)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudCompThreshold)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DialCompAttack)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DialCompRelease)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMeter)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gainMeter)).BeginInit();
             this.SuspendLayout();
             // 
             // dynChart
@@ -367,16 +367,6 @@
             this.lblAction.TabIndex = 103;
             this.lblAction.Text = "Action:";
             // 
-            // pbMeter
-            // 
-            this.pbMeter.BackgroundImage = global::SA_Resources.GlobalResources.ui_meter_base;
-            this.pbMeter.Location = new System.Drawing.Point(261, 312);
-            this.pbMeter.Name = "pbMeter";
-            this.pbMeter.Size = new System.Drawing.Size(43, 225);
-            this.pbMeter.TabIndex = 106;
-            this.pbMeter.TabStop = false;
-            this.pbMeter.Paint += new System.Windows.Forms.PaintEventHandler(this.pbMeter_Paint);
-            // 
             // signalTimer
             // 
             this.signalTimer.Tick += new System.EventHandler(this.signalTimer_Tick);
@@ -471,13 +461,23 @@
             this.btnSave.ToolTipText = "";
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
+            // gainMeter
+            // 
+            this.gainMeter.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("gainMeter.BackgroundImage")));
+            this.gainMeter.DB = -35D;
+            this.gainMeter.Location = new System.Drawing.Point(254, 312);
+            this.gainMeter.Name = "gainMeter";
+            this.gainMeter.Size = new System.Drawing.Size(43, 225);
+            this.gainMeter.TabIndex = 106;
+            this.gainMeter.TabStop = false;
+            // 
             // CompressorForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(82)))), ((int)(((byte)(82)))));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(306, 546);
-            this.Controls.Add(this.pbMeter);
+            this.Controls.Add(this.gainMeter);
             this.Controls.Add(this.btnGo);
             this.Controls.Add(this.dropAction);
             this.Controls.Add(this.lblAction);
@@ -509,7 +509,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudCompThreshold)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DialCompAttack)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DialCompRelease)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMeter)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gainMeter)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -537,7 +537,7 @@
         private PictureButton btnGo;
         private System.Windows.Forms.ComboBox dropAction;
         private System.Windows.Forms.Label lblAction;
-        private System.Windows.Forms.PictureBox pbMeter;
         private System.Windows.Forms.Timer signalTimer;
+        private SignalMeter gainMeter;
     }
 }

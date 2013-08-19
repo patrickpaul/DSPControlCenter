@@ -34,13 +34,13 @@
             this.sliderPB = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.signalTimer = new System.Windows.Forms.Timer(this.components);
-            this.pbMeter = new System.Windows.Forms.PictureBox();
             this.chkMuted = new SA_Resources.PictureCheckbox();
             this.btnCancel = new SA_Resources.PictureButton();
             this.btnSave = new SA_Resources.PictureButton();
+            this.gainMeter = new SA_Resources.SignalMeter();
             ((System.ComponentModel.ISupportInitialize)(this.sliderPB)).BeginInit();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbMeter)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gainMeter)).BeginInit();
             this.SuspendLayout();
             // 
             // lblGain
@@ -70,7 +70,7 @@
             // 
             // panel1
             // 
-            this.panel1.BackgroundImage = global::SA_Resources.GlobalResources.ui_fader_bg_12toinfinite;
+            this.panel1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panel1.BackgroundImage")));
             this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.panel1.Controls.Add(this.sliderPB);
             this.panel1.Location = new System.Drawing.Point(24, 37);
@@ -82,32 +82,22 @@
             // 
             this.signalTimer.Tick += new System.EventHandler(this.signalTimer_Tick);
             // 
-            // pbMeter
-            // 
-            this.pbMeter.BackgroundImage = global::SA_Resources.GlobalResources.ui_meter_base;
-            this.pbMeter.Location = new System.Drawing.Point(116, 69);
-            this.pbMeter.Name = "pbMeter";
-            this.pbMeter.Size = new System.Drawing.Size(43, 225);
-            this.pbMeter.TabIndex = 33;
-            this.pbMeter.TabStop = false;
-            this.pbMeter.Paint += new System.Windows.Forms.PaintEventHandler(this.pbMeter_Paint);
-            // 
             // chkMuted
             // 
-            this.chkMuted.CheckedImage = global::SA_Resources.GlobalResources.ui_mute_red;
+            this.chkMuted.CheckedImage = ((System.Drawing.Image)(resources.GetObject("chkMuted.CheckedImage")));
             this.chkMuted.Cursor = System.Windows.Forms.Cursors.Hand;
             this.chkMuted.Location = new System.Drawing.Point(26, 8);
             this.chkMuted.Name = "chkMuted";
             this.chkMuted.Size = new System.Drawing.Size(61, 23);
             this.chkMuted.TabIndex = 32;
-            this.chkMuted.UncheckedImage = global::SA_Resources.GlobalResources.ui_mute_grey;
+            this.chkMuted.UncheckedImage = ((System.Drawing.Image)(resources.GetObject("chkMuted.UncheckedImage")));
             this.chkMuted.UseVisualStyleBackColor = true;
             this.chkMuted.CheckedChanged += new System.EventHandler(this.chkMuted_CheckedChanged);
             // 
             // btnCancel
             // 
             this.btnCancel.AutoResize = true;
-            this.btnCancel.BackgroundImage = global::SA_Resources.GlobalResources.ui_btn_cancel;
+            this.btnCancel.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnCancel.BackgroundImage")));
             this.btnCancel.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnCancel.Location = new System.Drawing.Point(64, 351);
             this.btnCancel.Name = "btnCancel";
@@ -127,7 +117,7 @@
             // btnSave
             // 
             this.btnSave.AutoResize = true;
-            this.btnSave.BackgroundImage = global::SA_Resources.GlobalResources.ui_btn_save;
+            this.btnSave.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnSave.BackgroundImage")));
             this.btnSave.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSave.Location = new System.Drawing.Point(8, 351);
             this.btnSave.Name = "btnSave";
@@ -144,13 +134,23 @@
             this.btnSave.ToolTipText = "";
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
+            // gainMeter
+            // 
+            this.gainMeter.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("gainMeter.BackgroundImage")));
+            this.gainMeter.DB = -35D;
+            this.gainMeter.Location = new System.Drawing.Point(116, 69);
+            this.gainMeter.Name = "gainMeter";
+            this.gainMeter.Size = new System.Drawing.Size(43, 225);
+            this.gainMeter.TabIndex = 34;
+            this.gainMeter.TabStop = false;
+            // 
             // GainForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(82)))), ((int)(((byte)(82)))));
-            this.ClientSize = new System.Drawing.Size(171, 380);
+            this.ClientSize = new System.Drawing.Size(179, 380);
             this.ControlBox = false;
-            this.Controls.Add(this.pbMeter);
+            this.Controls.Add(this.gainMeter);
             this.Controls.Add(this.chkMuted);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSave);
@@ -168,7 +168,7 @@
             this.Load += new System.EventHandler(this.GainForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.sliderPB)).EndInit();
             this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pbMeter)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gainMeter)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -182,6 +182,6 @@
         private System.Windows.Forms.PictureBox sliderPB;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Timer signalTimer;
-        private System.Windows.Forms.PictureBox pbMeter;
+        private SignalMeter gainMeter;
     }
 }

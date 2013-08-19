@@ -61,8 +61,6 @@ namespace SA_Resources
                 CONFIGFILE = args[1];
 
             }
-
-            CONFIGFILE = @"C:\Users\Patrick\Desktop\PRESETPEAKS.scfg";
         }
 
 
