@@ -17,6 +17,7 @@ namespace SA_Resources.Forms
         public List<DSP_Setting>[] _cached_settings = new List<DSP_Setting>[3];
 
         public List<UInt32>[] _gain_meters = new List<UInt32>[4];
+        public List<UInt32> _mix_meters = new List<UInt32>(); 
         public List<UInt32>[] _comp_meters = new List<UInt32>[2];
 
         public ProgramConfig[] PROGRAMS = new ProgramConfig[3];

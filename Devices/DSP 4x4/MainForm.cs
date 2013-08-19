@@ -21,6 +21,7 @@ namespace DSP_4x4
 
         private bool demo_mode = false;
         private bool disable_read = true;
+        private bool debug_mode = true;
 
         public Queue UPDATE_QUEUE = new Queue();
         public object _locker = new Object();
@@ -33,6 +34,8 @@ namespace DSP_4x4
 
         public MainForm(PIC_Bridge PIC_Conn, string serialNumber, string configFile)
         {
+
+            
             InitializeComponent();
 
             LIVE_MODE = false;
@@ -68,15 +71,26 @@ namespace DSP_4x4
 
         private void MainForm_Shown(object sender, EventArgs e)
         {
+
             if (_PIC_Conn.isOpen)
             {
-                if (!disable_read)
+                if (!disable_read && (CONFIGFILE == ""))
                 {
                     ReadForm readForm = new ReadForm(this, _PIC_Conn);
 
+                    if (debug_mode == true)
+                    {
+                        readForm.Height = 243;
+                    }
+                    else
+                    {
+                        readForm.Height = 84;
+                    }
                     readForm.ShowDialog();
+
+                    LoadSettingsToProgramConfig();
                 }
-                LoadSettingsToProgramConfig();
+                
 
                 UpdateTooltips();
             }  
@@ -88,12 +102,10 @@ namespace DSP_4x4
             {
                 DefaultSettings();
 
-
-                              
-
                 if (CONFIGFILE != "")
                 {
                     LoadFromFile(CONFIGFILE);
+                    MessageBox.Show("Loaded settings from " + CONFIGFILE);
                 }
 
                 LoadSettingsToProgramConfig();
@@ -234,7 +246,7 @@ namespace DSP_4x4
 
                 counter = 0;
 
-                if (!form_loaded)
+                if (!form_loaded && CONFIGFILE == "")
                 {
                     return;
                 }
@@ -626,6 +638,13 @@ namespace DSP_4x4
             _comp_meters[1].Add(0xF8C0000C);
             _comp_meters[1].Add(0xF8C00010);
 
+            // MIXERS
+            _mix_meters = new List<UInt32>();
+            _mix_meters.Add(0xF5C00022);
+            _mix_meters.Add(0xF5C00026);
+            _mix_meters.Add(0xF5C0002A);
+            _mix_meters.Add(0xF5C0002E);
+
         }
 
 
@@ -829,6 +848,8 @@ namespace DSP_4x4
                 {
                     mixerForm.Width = 247;
                 }
+
+                //mixerForm.Width = 247;
 
                 // passing this in ShowDialog will set the .Owner 
                 // property of the child form
@@ -1108,9 +1129,20 @@ namespace DSP_4x4
                 MessageBox.Show("This feature has been disabled in evaluation mode.","Feature Disabled",MessageBoxButtons.OK,MessageBoxIcon.Information);
                 return;
             }
+
             
             LoadProgramConfigToSettings();
             SaveForm saveForm = new SaveForm(this, DisableComms);
+
+            if (debug_mode == true)
+            {
+                saveForm.Height = 347;
+            }
+            else
+            {
+                saveForm.Height = 87;
+            }
+
 
             saveForm.ShowDialog();
         }
@@ -1124,6 +1156,15 @@ namespace DSP_4x4
             }
 
             ReadForm readForm = new ReadForm(this, _PIC_Conn);
+
+            if (debug_mode == true)
+            {
+                readForm.Height = 243;
+            }
+            else
+            {
+                readForm.Height = 84;
+            }
 
             readForm.ShowDialog();
 

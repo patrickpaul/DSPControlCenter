@@ -53,7 +53,7 @@ namespace SA_Resources
             if (!_vsDebug)
             {
                 // Do stuff
-                //Directory.SetCurrentDirectory(InstallPath);
+                Directory.SetCurrentDirectory(InstallPath);
             }
 
             if ((args.Length > 1) && args[1].Contains(".scfg"))
@@ -61,6 +61,8 @@ namespace SA_Resources
                 CONFIGFILE = args[1];
 
             }
+
+            CONFIGFILE = @"C:\Users\Patrick\Desktop\PRESETPEAKS.scfg";
         }
 
 

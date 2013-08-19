@@ -14,6 +14,9 @@ namespace SA_Resources
         private bool dragging_ratio = false;
         private double stored_ratio = 100;
 
+        private double max_threshold = 10;
+        private double min_threshold = -60;
+
         private bool is_limiter = false;
 
         private Series FixedLine = null;
@@ -183,7 +186,7 @@ namespace SA_Resources
                     // Fixed ratio
 
                     // New threshold
-                    var threshold = Math.Round(Math.Min(0, Math.Max(-60, dynChart.ChartAreas[0].AxisX.PixelPositionToValue(e.X))),1);
+                    var threshold = Math.Round(Math.Min(max_threshold, Math.Max(min_threshold, dynChart.ChartAreas[0].AxisX.PixelPositionToValue(e.X))), 1);
 
                     stored_threshold = threshold;
                     /* Update the threshold point.. this is always (threshold,threshold) */

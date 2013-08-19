@@ -256,7 +256,7 @@
             this.nudCompThreshold.DecimalPlaces = 1;
             this.nudCompThreshold.Location = new System.Drawing.Point(74, 317);
             this.nudCompThreshold.Maximum = new decimal(new int[] {
-            0,
+            10,
             0,
             0,
             0});

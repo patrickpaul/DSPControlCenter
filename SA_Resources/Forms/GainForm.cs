@@ -401,6 +401,8 @@ namespace SA_Resources
                 read_gain_value = -100;
             }
 
+            //Console.WriteLine("Read value of " + read_gain_value + "dB");
+
             pbMeter.Invalidate();
         }
 
