@@ -25,8 +25,6 @@ namespace SA_Resources
         private bool IS_MIXER = false;
 
         private double read_gain_value = 0;
-        private double test_read_value = 35;
-        private int meter_value = 10;
 
         public GainForm(MainForm_Template _parentForm, int _ch_index, int _gain_index, int _settings_index, bool _is_mixer = false, string formTitle = "CH1 Gain")
         {
@@ -385,10 +383,8 @@ namespace SA_Resources
 
         private void signalTimer_Tick(object sender, EventArgs e)
         {
-            UInt32 read_address = 0x00000000;
-            read_address = PARENT_FORM._gain_meters[CH_INDEX][GAIN_INDEX];
+            UInt32 read_address = PARENT_FORM._gain_meters[CH_INDEX][GAIN_INDEX];
 
-            double gain_value = 0;
             double offset = 20 + 10 * Math.Log10(2) + 20 * Math.Log10(16);
             UInt32 read_value = PARENT_FORM._PIC_Conn.Read_Live_DSP_Value(read_address);
             double converted_value = DSP_Math.MN_to_double_signed(read_value, 1, 31);

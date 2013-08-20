@@ -198,6 +198,11 @@ namespace SA_Resources
 
         #region Compressor Attack - Needs verification of 3000 vs 48000
 
+        /// <summary>
+        /// Generates 32-bit DSP value for Compressor Attack
+        /// </summary>
+        /// <param name="attack">Attack time in seconds</param>
+        /// <returns>32-bit DSP value</returns>
         public static UInt32 comp_attack_to_value(double attack)
         {
             return (UInt32)((1.0 - Math.Exp(-1.0 / (attack * (48000.0/16.0)))) * Math.Pow(2.0, 31.0));

@@ -127,7 +127,6 @@ namespace SA_Resources
         private void signalTimer_Tick(object sender, EventArgs e)
         {
             UInt32 read_address = 0x00000000;
-            double gain_value = 0;
             double offset = 20 + 10 * Math.Log10(2) + 20 * Math.Log10(16);
             UInt32 read_value = 0x00000000;
             double converted_value = 0;

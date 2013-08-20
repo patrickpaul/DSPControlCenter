@@ -494,7 +494,6 @@ namespace SA_Resources
             read_address = PARENT_FORM._comp_meters[COMP_INDEX][CH_NUMBER - 1];
   
 
-            double gain_value = 0;
             double offset = 20 + 10 * Math.Log10(2) + 20 * Math.Log10(16);
             UInt32 read_value = PARENT_FORM._PIC_Conn.Read_Live_DSP_Value(read_address);
             double converted_value = DSP_Math.MN_to_double_signed(read_value, 1, 31);
@@ -509,7 +508,6 @@ namespace SA_Resources
 
             gainMeter.DB = read_gain_value;
 
-            //Console.WriteLine("Read " + read_gain_value + " from " + read_address.ToString("X8"));
         }
 
 

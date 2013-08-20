@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace SA_Resources
+namespace SA_Resources.Forms
 {
     public partial class AboutForm : Form
     {

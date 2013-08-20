@@ -17,12 +17,12 @@ namespace DSP_4x4
 
         byte command_RTS = 0x01;
 
-        byte command_DisableTimers = 0x05;
-        byte command_EnableTimers = 0x06;
+        //byte command_DisableTimers = 0x05;
+        //byte command_EnableTimers = 0x06;
 
         bool debug_mode = true;
 
-        bool demo_mode = true;
+        //bool demo_mode = true;
 
         private PIC_Bridge _PIC_Conn;
         private MainForm _parentForm;

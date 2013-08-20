@@ -15,12 +15,12 @@ namespace SA_Resources
         delegate void AddTextCallback(string text);
 
         byte command_RTS = 0x01;
-        byte command_SaveEEPROM = 0x02;
+        //byte command_SaveEEPROM = 0x02;
         byte command_SetPhantomPower = 0x09;
         byte command_RebootDevice = 0x07;
 
-        byte command_DisableTimers = 0x05;
-        byte command_EnableTimers = 0x06;
+        //byte command_DisableTimers = 0x05;
+        //byte command_EnableTimers = 0x06;
 
         byte command_SwitchPreset1_Operation = 0x10; 
         

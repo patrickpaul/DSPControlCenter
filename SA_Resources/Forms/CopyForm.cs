@@ -188,8 +188,7 @@ namespace SA_Resources.Forms
 
             if (FORM_TYPE == CopyFormType.Filter3)
             {
-                int i, j, k;
-                FilterConfig copy_value;
+                int i, j;
                 //double copy_value = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].delays[CH_NUMBER - 1].Delay;
                 for (i = 0; i < 3; i++)
                 {
@@ -213,8 +212,7 @@ namespace SA_Resources.Forms
 
             if (FORM_TYPE == CopyFormType.Filter6)
             {
-                int i, j, k;
-                FilterConfig copy_value;
+                int i, j;
                 //double copy_value = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].delays[CH_NUMBER - 1].Delay;
                 for (i = 3; i < 9; i++)
                 {

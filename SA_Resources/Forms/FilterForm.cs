@@ -13,51 +13,58 @@ using SA_Resources.Forms;
 
 namespace SA_Resources
 {
-    public partial class FilterForm6 : Form
+    public partial class FilterForm : Form
     {
 
         #region Variables
 
+        public bool graph_loaded = false;
+        private MainForm_Template PARENT_FORM;
+        private int CH_NUMBER = 0;
+        private static Thread UIThread;
+
+        public object _threadlock;
+        public bool uithread_abort = false;
+
+
+        /* FILTER TYPES */
         private const int NOT_USED = 0;
         private const int LOW_PASS = 1;
         private const int HIGH_PASS = 2;
         private const int LOW_SHELF = 3;
         private const int HIGH_SHELF = 4;
         private const int PEAK = 5;
-        private const int NOTCH = 6; 
-        
-        private FilterConfig[] filters = new FilterConfig[9];
+        private const int NOTCH = 6;
 
-        private Color[] filterColors = new Color[10];
-
+        /* Caches */
 
         private List<double> center_frequencies = new List<double>();
 
-        private bool draw_grabber_points = true;
-
-        public bool graph_loaded = false;
-
-        public bool dragging_lowcutoff, dragging_center, dragging_highcutoff, dragging_crosshairs;
-
+        /* Colors and Display */
+        private Color[] filterColors = new Color[10];
         private double filterSelectorFade = 0.3;
+
+        /* Dragging */
+        public bool dragging_lowcutoff, dragging_center, dragging_highcutoff, dragging_crosshairs;
         private double grabberPrecision = 1.02;
         private double minimumQ = 0.707;
+        private bool draw_grabber_points = true;
 
-        private double singleFilterStep = 1.04;
-        private double masterFilterStep = 1.02;
-
-        private const double max_filters = 6;
-
+        /* Configuration */
         private double minFreq = 10;
         private double maxFreq = 20000;
-
-        private double last_dragging_x = 0;
-        private double last_dragging_y = 0;
-
         private int total_filters = 6;
         private int starting_filter = 3;
+        private int active_global_filter_index = 3;
 
-        private int active_filter = 3;
+        private bool show_all_filters = true; // Whether or not to show just active filter and master or all filters and master
+
+
+        /* Chart Area */
+        private double singleFilterStep = 1.04;
+        private double masterFilterStep = 1.02;
+        private double last_dragging_x = 0;
+        private double last_dragging_y = 0;
 
         private Series MasterResponseLine;
         private Series MasterMarkerLine;
@@ -70,16 +77,7 @@ namespace SA_Resources
         private bool editing_textbox = false;
         private string starting_text_value = "";
 
-        private object parent = null;
-
-        private static Thread UIThread;
-
-        private bool show_all_filters = true;
-
-        private MainForm_Template PARENT_FORM;
-        private int CH_NUMBER = 0;
-        
-        /* Dial Settings */
+        /* Dial Delegates */
 
         private delegate void SetTextCallback(TextBox tbControl, string text);
 
@@ -105,15 +103,40 @@ namespace SA_Resources
 
         #region Constructor and Load
 
-        public FilterForm6(MainForm_Template _parentForm, FilterConfig[] in_filters, int chan_number = 1)
+        public FilterForm(MainForm_Template _parentForm, int chan_number = 1, bool is_six = false)
         {
             CH_NUMBER = chan_number;
             PARENT_FORM = _parentForm;
 
             InitializeComponent();
 
+            _threadlock = new Object();
+
             MasterResponseLine = filterChart.Series[6];
             MasterMarkerLine = filterChart.Series[7];
+
+            if (is_six)
+            {
+                total_filters = 6;
+                starting_filter = 3;
+                active_global_filter_index = 3;
+                pnlSecondRowFilters.Visible = true;
+                pnlButtons.Location = new Point(18, 511);
+                
+            }
+            else
+            {
+                total_filters = 3;
+                starting_filter = 0;
+                active_global_filter_index = 0;
+                pnlSecondRowFilters.Visible = false;
+
+                lblFilterSelector3.Visible = false;
+                lblFilterSelector4.Visible = false;
+                lblFilterSelector5.Visible = false;
+
+                pnlButtons.Location = new Point(18, 407);
+            }
 
             try
             {
@@ -123,19 +146,22 @@ namespace SA_Resources
                 filterColors[3] = Color.Chocolate;
                 filterColors[4] = Color.Chartreuse;
                 filterColors[5] = Color.DarkMagenta;
+                filterColors[6] = Color.Chocolate;
+                filterColors[7] = Color.Chartreuse;
+                filterColors[8] = Color.DarkMagenta;
 
                 this.Text = "Filter Designer - CH " + chan_number.ToString();
                 this.DoubleBuffered = true;
 
-                filters = in_filters;
+                bool first_active_selected = false;
 
                 for (int i = starting_filter; i < starting_filter + total_filters; i++)
                 {
                     int localized_starting_filter = i - starting_filter;
-                    if (filters[i] == null || filters[i].Type == FilterType.None)
+                    if (PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][i] == null || PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][i].Type == FilterType.None)
                     {
                         // We don't care. Let's reinstantiate even the FilterType.None's
-                        filters[i] = new FilterConfig(FilterType.None, false);
+                        PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][i] = new FilterConfig(FilterType.None, false);
 
                         ((ComboBox)Controls.Find("dropFilter" + (localized_starting_filter).ToString(), true)[0]).SelectedIndex = 0;
 
@@ -143,14 +169,23 @@ namespace SA_Resources
                     }
                     else
                     {
-
-                        ((TextBox)Controls.Find("txtGain" + localized_starting_filter.ToString(), true)[0]).Text = filters[i].Filter.Gain.ToString("#.##");
-                        ((TextBox)Controls.Find("txtFreq" + localized_starting_filter.ToString(), true)[0]).Text = filters[i].Filter.CenterFrequency.ToString("#.");
-                        ((TextBox)Controls.Find("txtQval" + localized_starting_filter.ToString(), true)[0]).Text = filters[i].Filter.QValue.ToString("#.###");
-
-                        if (((int)filters[i].Filter.FilterType == 6) || ((int)filters[i].Filter.FilterType == 7))
+                        if (!first_active_selected)
                         {
-                            if ((int)filters[i].Filter.FilterType == 6)
+                            active_global_filter_index = i;
+                            
+                            first_active_selected = true;
+                        }
+
+                        ((PictureCheckbox)Controls.Find("chkBypass" + localized_starting_filter.ToString(), true)[0]).Checked = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][i].Bypassed;
+                        ((PictureCheckbox)Controls.Find("chkBypass" + localized_starting_filter.ToString(), true)[0]).Invalidate();
+
+                        ((TextBox)Controls.Find("txtGain" + localized_starting_filter.ToString(), true)[0]).Text = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][i].Filter.Gain.ToString("#.##");
+                        ((TextBox)Controls.Find("txtFreq" + localized_starting_filter.ToString(), true)[0]).Text = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][i].Filter.CenterFrequency.ToString("#.");
+                        ((TextBox)Controls.Find("txtQval" + localized_starting_filter.ToString(), true)[0]).Text = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][i].Filter.QValue.ToString("#.###");
+
+                        if (((int)PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][i].Filter.FilterType == 6) || ((int)PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][i].Filter.FilterType == 7))
+                        {
+                            if ((int)PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][i].Filter.FilterType == 6)
                             {
                                 //LP 2nd order
                                 ((ComboBox)Controls.Find("dropSlope" + localized_starting_filter.ToString(), true)[0]).SelectedIndex = 1;
@@ -174,17 +209,22 @@ namespace SA_Resources
                             ((ComboBox)Controls.Find("dropSlope" + localized_starting_filter.ToString(), true)[0]).SelectedIndex = 0;
                             ((ComboBox)Controls.Find("dropSlope" + localized_starting_filter.ToString(), true)[0]).Invalidate();
 
-                            ((ComboBox)Controls.Find("dropFilter" + localized_starting_filter.ToString(), true)[0]).SelectedIndex = (int)filters[i].Filter.FilterType + 1;
+                            ((ComboBox)Controls.Find("dropFilter" + localized_starting_filter.ToString(), true)[0]).SelectedIndex = (int)PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][i].Filter.FilterType + 1;
                         }
 
                         filterColors[localized_starting_filter] = filterColors[localized_starting_filter];
 
                         filterChart.Series[localized_starting_filter].Enabled = true;
+
+                        
                     }
 
                 }
 
-                RefreshAllPoints();
+                
+
+
+                RefreshAllFilters();
 
                 filterChart.ChartAreas[0].RecalculateAxesScale();
 
@@ -206,8 +246,10 @@ namespace SA_Resources
                 lblFilterSelector4.BackColor = Helpers.Darken(filterColors[4], filterSelectorFade);
 
                 dropAction.SelectedIndex = 0;
-                dropAction.Invalidate(); 
-                
+                dropAction.Invalidate();
+
+                UpdateActiveFilter();
+
                 graph_loaded = true;
 
             } catch (Exception ex)
@@ -216,48 +258,44 @@ namespace SA_Resources
             }
         }
 
-        private void FilterForm3_Load(object sender, EventArgs e)
-        {
-            parent = this.Owner;
-        }
-
-
         #endregion
 
 
         #region Point Drawing
 
 
-        private void RefreshAllPoints()
+        private void RefreshAllFilters()
         {
             for (int i = starting_filter; i < starting_filter + total_filters; i++)
             {
                 // Do not check for FilterType.None here because we want RefreshPointsInSingleFilter() to clear the points
-                if (filters[i] == null)
+                if (PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][i] == null)
                 {
                     continue;
                 }
 
-                RefreshPointsInSingleFilter(i);
+                RefreshSingleFilter(i);
             }
 
-            RefreshMasterPoints();
+            RefreshMasterFilter();
 
         }
 
         // If the type is FilterType.None then we will have ZERO POINTS when we're done.
         // NOTE - THIS INDEX HAS ALREADY BEEN CORRECTED FOR THE STARTING_FILTER
-        private void RefreshPointsInSingleFilter(int filter_index)
-        {
-            int localized_starting_filter = filter_index - starting_filter;
 
-            Series filterSeries = filterChart.Series[localized_starting_filter];
-            BiquadFilter singleFilter = filters[filter_index].Filter;
+        private void RefreshSingleFilter(int global_filter_index)
+        {
+            int local_filter_index = global_filter_index - starting_filter;
+
+            Series filterSeries = filterChart.Series[local_filter_index];
+
+            BiquadFilter singleFilter = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][global_filter_index].Filter;
 
             filterSeries.Points.Clear();
 
             // Check if there are no points due to no filter
-            if (filters[filter_index] == null || filters[filter_index].Type == FilterType.None)
+            if (PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][global_filter_index] == null || PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][global_filter_index].Type == FilterType.None)
             {
                 filterChart.Refresh();
                 return;
@@ -287,13 +325,28 @@ namespace SA_Resources
             }
 
             // Add a point to the center index which was saved when we force added it
-            filterSeries.Points[singleFilter.CenterIndex].MarkerColor = filterColors[localized_starting_filter];
+            filterSeries.Points[singleFilter.CenterIndex].MarkerColor = filterColors[local_filter_index];
             filterSeries.Points[singleFilter.CenterIndex].MarkerStyle = MarkerStyle.Circle;
             filterSeries.Points[singleFilter.CenterIndex].MarkerSize = 8;
 
 
-            filterSeries.Color = filterColors[localized_starting_filter];
-            filterSeries.BorderColor = filterColors[localized_starting_filter];
+            if (PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][global_filter_index].Bypassed)
+            {
+                filterSeries.BorderWidth = 2;
+                filterSeries.BorderDashStyle = ChartDashStyle.Dot;
+                //filterChart.Invalidate();
+            }
+            else
+            {
+                filterSeries.BorderWidth = 2;
+                filterChart.Series[local_filter_index].BorderDashStyle = ChartDashStyle.Solid;
+                //filterChart.Invalidate();
+            }
+
+
+
+            filterSeries.Color = filterColors[local_filter_index];
+            filterSeries.BorderColor = filterColors[local_filter_index];
             filterChart.Refresh();
 
         }
@@ -304,26 +357,26 @@ namespace SA_Resources
 
             for (int i = starting_filter; i < starting_filter + total_filters; i++)
             {
-                if (filters[i] == null || filters[i].Type == FilterType.None || filters[i].Bypassed == true)
+                if (PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][i] == null || PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][i].Type == FilterType.None || PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][i].Bypassed == true)
                 {
                     continue;
                 }
 
-                return_value += filters[i].Filter.LogValueAt(f);
+                return_value += PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][i].Filter.LogValueAt(f);
             }
 
             return Math.Max(-24, Math.Min(return_value, 24));
 
         }
 
-        private void RefreshMasterPoints()
+        private void RefreshMasterFilter()
         {
 
-            int localized_active_filter = active_filter - starting_filter;
+            int active_local_filter_index = active_global_filter_index - starting_filter;
             // First step is to paint just the markers...
             MasterMarkerLine.Points.Clear();
 
-            if (filters[active_filter] == null || filters[active_filter].Type == FilterType.None)
+            if (PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][active_global_filter_index] == null || PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][active_global_filter_index].Type == FilterType.None)
             {
                 // We should never get here except for if we sloppily code the form loading.. 
 
@@ -331,7 +384,7 @@ namespace SA_Resources
             }
             else
             {
-                BiquadFilter activeFilter = filters[active_filter].Filter;
+                BiquadFilter activeFilter = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][active_global_filter_index].Filter;
 
                 if (activeFilter is NotchFilter)
                 {
@@ -343,7 +396,7 @@ namespace SA_Resources
                 }
 
 
-                MasterMarkerLine.Points[MasterMarkerLine.Points.Count() - 1].MarkerColor = filterColors[localized_active_filter];
+                MasterMarkerLine.Points[MasterMarkerLine.Points.Count() - 1].MarkerColor = filterColors[active_local_filter_index];
                 MasterMarkerLine.Points[MasterMarkerLine.Points.Count() - 1].MarkerStyle = MarkerStyle.Circle;
                 MasterMarkerLine.Points[MasterMarkerLine.Points.Count() - 1].MarkerSize = 10;
                 MasterMarkerLine.Points[MasterMarkerLine.Points.Count() - 1].MarkerBorderColor = Color.White;
@@ -351,13 +404,13 @@ namespace SA_Resources
                 if ((activeFilter is PeakFilter || activeFilter is LowShelfFilter || activeFilter is HighShelfFilter || activeFilter is NotchFilter) && draw_grabber_points)
                 {
                     MasterMarkerLine.Points.AddXY(activeFilter.LowerCutoffFrequency, activeFilter.LogValueAt(activeFilter.LowerCutoffFrequency));
-                    MasterMarkerLine.Points[MasterMarkerLine.Points.Count() - 1].MarkerColor = filterColors[localized_active_filter];
+                    MasterMarkerLine.Points[MasterMarkerLine.Points.Count() - 1].MarkerColor = filterColors[active_local_filter_index];
                     MasterMarkerLine.Points[MasterMarkerLine.Points.Count() - 1].MarkerStyle = MarkerStyle.Circle;
                     MasterMarkerLine.Points[MasterMarkerLine.Points.Count() - 1].MarkerSize = 7;
                     MasterMarkerLine.Points[MasterMarkerLine.Points.Count() - 1].MarkerBorderColor = Color.White;
 
                     MasterMarkerLine.Points.AddXY(activeFilter.UpperCutoffFrequency, activeFilter.LogValueAt(activeFilter.UpperCutoffFrequency));
-                    MasterMarkerLine.Points[MasterMarkerLine.Points.Count() - 1].MarkerColor = filterColors[localized_active_filter];
+                    MasterMarkerLine.Points[MasterMarkerLine.Points.Count() - 1].MarkerColor = filterColors[active_local_filter_index];
                     MasterMarkerLine.Points[MasterMarkerLine.Points.Count() - 1].MarkerStyle = MarkerStyle.Circle;
                     MasterMarkerLine.Points[MasterMarkerLine.Points.Count() - 1].MarkerSize = 7;
                     MasterMarkerLine.Points[MasterMarkerLine.Points.Count() - 1].MarkerBorderColor = Color.White;
@@ -381,17 +434,17 @@ namespace SA_Resources
                 for (int j = starting_filter; j < starting_filter + total_filters; j++)
                 {
 
-                    if (filters[j] == null || filters[j].Type == FilterType.None || filters[j].Bypassed == true)
+                    if (PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][j] == null || PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][j].Type == FilterType.None || PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][j].Bypassed == true)
                     {
                         continue;
 
                     }
 
-                    if (i < filters[j].Filter.CenterFrequency && filters[j].Filter.CenterFrequency < (i * masterFilterStep))
+                    if (i < PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][j].Filter.CenterFrequency && PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][j].Filter.CenterFrequency < (i * masterFilterStep))
                     {
 
-                        MasterResponseLine.Points.AddXY(filters[j].Filter.CenterFrequency,
-                                                           MasterFilterLogValue(filters[j].Filter.CenterFrequency));
+                        MasterResponseLine.Points.AddXY(PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][j].Filter.CenterFrequency,
+                                                           MasterFilterLogValue(PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][j].Filter.CenterFrequency));
 
                     }
                 }
@@ -400,6 +453,10 @@ namespace SA_Resources
             filterChart.Refresh();
         }
 
+        /// <summary>
+        /// Adds crosshair marker (red x) at given frequency on master response curve
+        /// </summary>
+        /// <param name="f">Frequency (in Hz) of location for crosshair markers</param>
         private void AddCrosshairMarker(double f)
         {
             int lastPoint = MasterMarkerLine.Points.Count - 1;
@@ -422,14 +479,17 @@ namespace SA_Resources
 
         #region Form Events (Everything but Chart)
 
-        
+        /// <summary>
+        /// Enables grabber handles and highlights filter selector to current active_global_filter_index 
+        /// </summary>
         private void UpdateActiveFilter()
         {
+
             for (int i = starting_filter; i < starting_filter + total_filters; i++)
             {
                 Label filterLabel = ((Label)(Controls.Find("lblFilterSelector" + (i-starting_filter).ToString(), true)[0]));
 
-                if (i == active_filter)
+                if (i == active_global_filter_index)
                 {
                     if(!show_all_filters)
                     {
@@ -451,7 +511,7 @@ namespace SA_Resources
                 }
             }
 
-            RefreshMasterPoints();
+            RefreshMasterFilter();
         }
 
         private void dropFilter_SelectedIndexChanged(object sender, EventArgs e)
@@ -461,25 +521,27 @@ namespace SA_Resources
                 lblFilterSelector0.Focus(); 
             }
             
-            int localized_filter_id = int.Parse(((ComboBox) sender).Name.Substring(10));
-            int filter_id = localized_filter_id + starting_filter;
+            int local_filter_index = int.Parse(((ComboBox) sender).Name.Substring(10));
+            int global_filter_index = local_filter_index + starting_filter;
             // Change the handles to be on the one selected
 
+            bool removing_filter = false; // Will be set to true so we can select new active filter if this one is going to FilterType.None
 
-            Label filterSelector = (Label)(Controls.Find("lblFilterSelector" + localized_filter_id.ToString(), true)[0]);
+            bool bypass_value = ((PictureCheckbox)Controls.Find("chkBypass" + local_filter_index, true).First()).Checked;
+            Label filterSelector = (Label)(Controls.Find("lblFilterSelector" + local_filter_index.ToString(), true)[0]);
 
-            ComboBox dropSlope = (ComboBox)(Controls.Find("dropSlope" + localized_filter_id.ToString(), true)[0]);
+            ComboBox dropSlope = (ComboBox)(Controls.Find("dropSlope" + local_filter_index.ToString(), true)[0]);
 
-            TextBox txtFreq = (TextBox)(Controls.Find("txtFreq" + localized_filter_id.ToString(), true)[0]);
-            TextBox txtGain = (TextBox)(Controls.Find("txtGain" + localized_filter_id.ToString(), true)[0]);
-            TextBox txtQval = (TextBox)(Controls.Find("txtQval" + localized_filter_id.ToString(), true)[0]);
+            TextBox txtFreq = (TextBox)(Controls.Find("txtFreq" + local_filter_index.ToString(), true)[0]);
+            TextBox txtGain = (TextBox)(Controls.Find("txtGain" + local_filter_index.ToString(), true)[0]);
+            TextBox txtQval = (TextBox)(Controls.Find("txtQval" + local_filter_index.ToString(), true)[0]);
 
-            Label lblFreq = (Label)(Controls.Find("lblFreq" + localized_filter_id.ToString(), true)[0]);
-            Label lblGain = (Label)(Controls.Find("lblGain" + localized_filter_id.ToString(), true)[0]);
-            Label lblQ = (Label)(Controls.Find("lblQ" + localized_filter_id.ToString(), true)[0]);
-            Label lblSlope = (Label)(Controls.Find("lblSlope" + localized_filter_id.ToString(), true)[0]);
+            Label lblFreq = (Label)(Controls.Find("lblFreq" + local_filter_index.ToString(), true)[0]);
+            Label lblGain = (Label)(Controls.Find("lblGain" + local_filter_index.ToString(), true)[0]);
+            Label lblQ = (Label)(Controls.Find("lblQ" + local_filter_index.ToString(), true)[0]);
+            Label lblSlope = (Label)(Controls.Find("lblSlope" + local_filter_index.ToString(), true)[0]);
 
-            Label lblFilterSelector = (Label)(Controls.Find("lblFilterSelector" + localized_filter_id.ToString(), true)[0]);
+            Label lblFilterSelector = (Label)(Controls.Find("lblFilterSelector" + local_filter_index.ToString(), true)[0]);
 
 
             filterSelector.Visible = true;
@@ -494,16 +556,16 @@ namespace SA_Resources
                     {
                         if (dropSlope.SelectedIndex == 0)
                         {
-                            filters[filter_id] = new FilterConfig(FilterType.FirstOrderLowPass, false);
-                            filters[filter_id].Filter = new FirstOrderLowPassFilter(toolFilter.SuggestedFrequency(txtFreq.Text), toolFilter.SuggestedGain(txtGain.Text), toolFilter.SuggestedQ(txtQval.Text));
+                            PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][global_filter_index] = new FilterConfig(FilterType.FirstOrderLowPass, bypass_value);
+                            PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][global_filter_index].Filter = new FirstOrderLowPassFilter(toolFilter.SuggestedFrequency(txtFreq.Text), toolFilter.SuggestedGain(txtGain.Text), toolFilter.SuggestedQ(txtQval.Text));
                         }
                         else
                         {
-                            filters[filter_id] = new FilterConfig(FilterType.SecondOrderLowPass, false);
-                            filters[filter_id].Filter = new SecondOrderLowPassFilter(toolFilter.SuggestedFrequency(txtFreq.Text), toolFilter.SuggestedGain(txtGain.Text), toolFilter.SuggestedQ(txtQval.Text));
+                            PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][global_filter_index] = new FilterConfig(FilterType.SecondOrderLowPass, bypass_value);
+                            PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][global_filter_index].Filter = new SecondOrderLowPassFilter(toolFilter.SuggestedFrequency(txtFreq.Text), toolFilter.SuggestedGain(txtGain.Text), toolFilter.SuggestedQ(txtQval.Text));
                         }
                     }
-                    filterChart.Series[localized_filter_id].Enabled = true;
+                    filterChart.Series[local_filter_index].Enabled = true;
 
                     lblFreq.Visible = true;
                     txtFreq.Visible = true;
@@ -531,17 +593,17 @@ namespace SA_Resources
                     {
                         if (dropSlope.SelectedIndex == 0)
                         {
-                            filters[filter_id] = new FilterConfig(FilterType.FirstOrderHighPass, false);
-                            filters[filter_id].Filter = new FirstOrderHighPassFilter(toolFilter.SuggestedFrequency(txtFreq.Text), toolFilter.SuggestedGain(txtGain.Text), toolFilter.SuggestedQ(txtQval.Text));
+                            PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][global_filter_index] = new FilterConfig(FilterType.FirstOrderHighPass, bypass_value);
+                            PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][global_filter_index].Filter = new FirstOrderHighPassFilter(toolFilter.SuggestedFrequency(txtFreq.Text), toolFilter.SuggestedGain(txtGain.Text), toolFilter.SuggestedQ(txtQval.Text));
                         }
                         else
                         {
-                            filters[filter_id] = new FilterConfig(FilterType.SecondOrderHighPass, false);
-                            filters[filter_id].Filter = new SecondOrderHighPassFilter(toolFilter.SuggestedFrequency(txtFreq.Text), toolFilter.SuggestedGain(txtGain.Text), toolFilter.SuggestedQ(txtQval.Text));
+                            PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][global_filter_index] = new FilterConfig(FilterType.SecondOrderHighPass, bypass_value);
+                            PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][global_filter_index].Filter = new SecondOrderHighPassFilter(toolFilter.SuggestedFrequency(txtFreq.Text), toolFilter.SuggestedGain(txtGain.Text), toolFilter.SuggestedQ(txtQval.Text));
                         }
                     }
                     
-                    filterChart.Series[localized_filter_id].Enabled = true;
+                    filterChart.Series[local_filter_index].Enabled = true;
 
                     lblFreq.Visible = true;
                     txtFreq.Visible = true;
@@ -564,10 +626,10 @@ namespace SA_Resources
                     break;
 
                 case LOW_SHELF:
-                    filters[filter_id] = new FilterConfig(FilterType.LowShelf, false);
-                    filters[filter_id].Filter = new LowShelfFilter(toolFilter.SuggestedFrequency(txtFreq.Text), toolFilter.SuggestedGain(txtGain.Text), toolFilter.SuggestedQ(txtQval.Text));
+                    PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][global_filter_index] = new FilterConfig(FilterType.LowShelf, bypass_value);
+                    PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][global_filter_index].Filter = new LowShelfFilter(toolFilter.SuggestedFrequency(txtFreq.Text), toolFilter.SuggestedGain(txtGain.Text), toolFilter.SuggestedQ(txtQval.Text));
 
-                    filterChart.Series[localized_filter_id].Enabled = true;
+                    filterChart.Series[local_filter_index].Enabled = true;
 
                     lblFreq.Visible = true;
                     txtFreq.Visible = true;
@@ -584,10 +646,10 @@ namespace SA_Resources
                     break;
 
                 case HIGH_SHELF:
-                    filters[filter_id] = new FilterConfig(FilterType.HighShelf, false);
-                    filters[filter_id].Filter = new HighShelfFilter(toolFilter.SuggestedFrequency(txtFreq.Text), toolFilter.SuggestedGain(txtGain.Text), toolFilter.SuggestedQ(txtQval.Text));
+                    PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][global_filter_index] = new FilterConfig(FilterType.HighShelf, bypass_value);
+                    PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][global_filter_index].Filter = new HighShelfFilter(toolFilter.SuggestedFrequency(txtFreq.Text), toolFilter.SuggestedGain(txtGain.Text), toolFilter.SuggestedQ(txtQval.Text));
 
-                    filterChart.Series[localized_filter_id].Enabled = true;
+                    filterChart.Series[local_filter_index].Enabled = true;
 
                     lblFreq.Visible = true;
                     txtFreq.Visible = true;
@@ -604,10 +666,10 @@ namespace SA_Resources
                     break;
 
                 case PEAK:
-                    filters[filter_id] = new FilterConfig(FilterType.Peak, false);
-                    filters[filter_id].Filter = new PeakFilter(toolFilter.SuggestedFrequency(txtFreq.Text), toolFilter.SuggestedGain(txtGain.Text), toolFilter.SuggestedQ(txtQval.Text));
+                    PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][global_filter_index] = new FilterConfig(FilterType.Peak, bypass_value);
+                    PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][global_filter_index].Filter = new PeakFilter(toolFilter.SuggestedFrequency(txtFreq.Text), toolFilter.SuggestedGain(txtGain.Text), toolFilter.SuggestedQ(txtQval.Text));
 
-                    filterChart.Series[localized_filter_id].Enabled = true;
+                    filterChart.Series[local_filter_index].Enabled = true;
 
                     lblFreq.Visible = true;
                     txtFreq.Visible = true;
@@ -624,10 +686,10 @@ namespace SA_Resources
                     break;
 
                 case NOTCH:
-                    filters[filter_id] = new FilterConfig(FilterType.Notch, false);
-                    filters[filter_id].Filter = new NotchFilter(toolFilter.SuggestedFrequency(txtFreq.Text), toolFilter.SuggestedGain(txtGain.Text), toolFilter.SuggestedQ(txtQval.Text));
+                    PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][global_filter_index] = new FilterConfig(FilterType.Notch, bypass_value);
+                    PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][global_filter_index].Filter = new NotchFilter(toolFilter.SuggestedFrequency(txtFreq.Text), toolFilter.SuggestedGain(txtGain.Text), toolFilter.SuggestedQ(txtQval.Text));
 
-                    filterChart.Series[localized_filter_id].Enabled = true;
+                    filterChart.Series[local_filter_index].Enabled = true;
 
                     lblFreq.Visible = true;
                     txtFreq.Visible = true;
@@ -644,9 +706,9 @@ namespace SA_Resources
                     break;
 
                 default:
-                    filters[filter_id] = new FilterConfig(FilterType.None, false);
+                    PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][global_filter_index] = new FilterConfig(FilterType.None, bypass_value);
 
-                    filterChart.Series[localized_filter_id].Enabled = false;
+                    filterChart.Series[local_filter_index].Enabled = false;
 
                     lblFreq.Visible = false;
                     txtFreq.Visible = false;
@@ -661,42 +723,62 @@ namespace SA_Resources
                     dropSlope.Visible = false;
 
                     filterSelector.Visible = false;
+
+                    removing_filter = true;
                     break;
 
             }
 
             if (graph_loaded)
             {
-                active_filter = filter_id;
+                if (!removing_filter)
+                {
+                    active_global_filter_index = global_filter_index;
+                }
+                else
+                {
+                    
+                    for (int j = starting_filter; j < starting_filter + total_filters; j++)
+                    {
+                        if ((PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][j] != null))
+                        {
+                            if(PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][j].Type != FilterType.None)
+                            {
+                                active_global_filter_index = j;
+                                break;
+                            }
+                        }
+                    }
+
+                }
                 UpdateActiveFilter();
 
-                RefreshPointsInSingleFilter(filter_id);
-                RefreshMasterPoints();
+                RefreshSingleFilter(global_filter_index);
+                RefreshMasterFilter();
             }
         }
 
         private void lblFilterSelector_Click(object sender, EventArgs e)
         {
-            // lblFilterSelector5
-            int localized_filter_id = int.Parse(((Label)sender).Name.Substring(17));
-            int filter_id = localized_filter_id + starting_filter;
+            int local_filter_index = int.Parse(((Label)sender).Name.Substring(17));
+            int global_filter_index = local_filter_index + starting_filter;
 
-            if (filters[filter_id] == null)
+            if (PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][global_filter_index] == null)
             {
                 return;
             }
 
-            active_filter = filter_id;
+            active_global_filter_index = global_filter_index;
 
             UpdateActiveFilter();
         }
 
         private void lblFilterSelector_Paint(object sender, PaintEventArgs e)
         {
-            int localized_filter_id = int.Parse(((Label) sender).Name.Substring(17));
-            int filter_id = localized_filter_id + starting_filter;
+            int local_filter_index = int.Parse(((Label) sender).Name.Substring(17));
+            int global_filter_index = local_filter_index + starting_filter;
 
-            if (active_filter == filter_id)
+            if (active_global_filter_index == global_filter_index)
             {
                 ControlPaint.DrawBorder(e.Graphics, e.ClipRectangle, Color.White, ButtonBorderStyle.Solid);
             }
@@ -709,28 +791,28 @@ namespace SA_Resources
                 return;
             }
 
-            int localized_filter_id = int.Parse(((ComboBox)sender).Name.Substring(9));
-            int filter_id = localized_filter_id + starting_filter;
+            int local_filter_index = int.Parse(((ComboBox)sender).Name.Substring(9));
+            int global_filter_index = local_filter_index + starting_filter;
 
 
             BandPassFilter toolFilter = new BandPassFilter(0, 0, 0);
 
 
-            TextBox txtFreq = (TextBox)(Controls.Find("txtFreq" + localized_filter_id.ToString(), true)[0]);
+            TextBox txtFreq = (TextBox)(Controls.Find("txtFreq" + local_filter_index.ToString(), true)[0]);
 
-            ComboBox dropFilter = (ComboBox)(Controls.Find("dropFilter" + localized_filter_id.ToString(), true)[0]);
+            ComboBox dropFilter = (ComboBox)(Controls.Find("dropFilter" + local_filter_index.ToString(), true)[0]);
 
             if (((ComboBox)sender).SelectedIndex == 0)
             {
                 if (dropFilter.SelectedIndex == 1)
                 {
-                    filters[filter_id].Filter = new FirstOrderLowPassFilter(toolFilter.SuggestedFrequency(txtFreq.Text), 0.0, 0.0);
-                    filters[filter_id].Type = FilterType.FirstOrderLowPass;
+                    PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][global_filter_index].Filter = new FirstOrderLowPassFilter(toolFilter.SuggestedFrequency(txtFreq.Text), 0.0, 0.0);
+                    PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][global_filter_index].Type = FilterType.FirstOrderLowPass;
                 }
                 else
                 {
-                    filters[filter_id].Filter = new FirstOrderHighPassFilter(toolFilter.SuggestedFrequency(txtFreq.Text), 0.0, 0.0);
-                    filters[filter_id].Type = FilterType.FirstOrderHighPass;
+                    PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][global_filter_index].Filter = new FirstOrderHighPassFilter(toolFilter.SuggestedFrequency(txtFreq.Text), 0.0, 0.0);
+                    PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][global_filter_index].Type = FilterType.FirstOrderHighPass;
                 }
 
             }
@@ -738,19 +820,19 @@ namespace SA_Resources
             {
                 if (dropFilter.SelectedIndex == 1)
                 {
-                    filters[filter_id].Filter = new SecondOrderLowPassFilter(toolFilter.SuggestedFrequency(txtFreq.Text), 0.0, 0.0);
-                    filters[filter_id].Type = FilterType.SecondOrderLowPass;
+                    PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][global_filter_index].Filter = new SecondOrderLowPassFilter(toolFilter.SuggestedFrequency(txtFreq.Text), 0.0, 0.0);
+                    PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][global_filter_index].Type = FilterType.SecondOrderLowPass;
                 }
                 else
                 {
-                    filters[filter_id].Filter = new SecondOrderHighPassFilter(toolFilter.SuggestedFrequency(txtFreq.Text), 0.0, 0.0);
-                    filters[filter_id].Type = FilterType.SecondOrderHighPass;
+                    PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][global_filter_index].Filter = new SecondOrderHighPassFilter(toolFilter.SuggestedFrequency(txtFreq.Text), 0.0, 0.0);
+                    PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][global_filter_index].Type = FilterType.SecondOrderHighPass;
                 }
             }
 
             lblFilterSelector0.Focus();
 
-            RefreshAllPoints();
+            RefreshAllFilters();
         }
 
         #endregion
@@ -762,13 +844,13 @@ namespace SA_Resources
         {
             MethodInvoker action1, action2, action3;
 
-            int filter_index = (int)param;
+            int global_filter_index = (int)param;
 
-            int localized_starting_filter = filter_index - starting_filter;
+            int local_filter_index = global_filter_index - starting_filter;
 
-            TextBox freqTextbox = (TextBox)(Controls.Find("txtFreq" + localized_starting_filter.ToString(), true)[0]);
-            TextBox gainTextbox = (TextBox)(Controls.Find("txtGain" + localized_starting_filter.ToString(), true)[0]);
-            TextBox qvalTextbox = (TextBox)(Controls.Find("txtQval" + localized_starting_filter.ToString(), true)[0]); 
+            TextBox freqTextbox = (TextBox)(Controls.Find("txtFreq" + local_filter_index.ToString(), true)[0]);
+            TextBox gainTextbox = (TextBox)(Controls.Find("txtGain" + local_filter_index.ToString(), true)[0]);
+            TextBox qvalTextbox = (TextBox)(Controls.Find("txtQval" + local_filter_index.ToString(), true)[0]); 
 
             while (true)
             {
@@ -776,29 +858,42 @@ namespace SA_Resources
                 {
                     action1 = delegate
                                   {
-                                      freqTextbox.Text = filters[filter_index].Filter.CenterFrequency.ToString("0");
+                                      freqTextbox.Text = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][global_filter_index].Filter.CenterFrequency.ToString("0");
                                       freqTextbox.Update();
                                   };
                     freqTextbox.BeginInvoke(action1);
 
                     action2 = delegate
                                   {
-                                      gainTextbox.Text = filters[filter_index].Filter.Gain.ToString("0.00");
+                                      gainTextbox.Text = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][global_filter_index].Filter.Gain.ToString("0.00");
                                       gainTextbox.Update();
                                   };
                     gainTextbox.BeginInvoke(action2);
 
                     action3 = delegate
                                   {
-                                      qvalTextbox.Text = filters[filter_index].Filter.QValue.ToString("0.000");
+                                      qvalTextbox.Text = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][global_filter_index].Filter.QValue.ToString("0.000");
                                       qvalTextbox.Update();
                                   };
                     qvalTextbox.BeginInvoke(action3);
 
                     Thread.Sleep(5);
+
+                    
                 } catch (Exception ex)
                 {
                     Console.WriteLine("Exception in UpdateUIToVals: " + ex.Message);
+                }
+
+                lock (_threadlock)
+                {
+                    if (uithread_abort == true)
+                    {
+                        uithread_abort = false;
+                        break;
+                    }
+
+
                 }
             }
 
@@ -815,8 +910,8 @@ namespace SA_Resources
 
                 int point_index = filterChart.HitTest(e.X, e.Y).PointIndex;
 
-                if (filters[active_filter].Filter is PeakFilter || filters[active_filter].Filter is LowShelfFilter || filters[active_filter].Filter is HighShelfFilter || 
-                    filters[active_filter].Filter is NotchFilter)
+                if (PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][active_global_filter_index].Filter is PeakFilter || PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][active_global_filter_index].Filter is LowShelfFilter || PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][active_global_filter_index].Filter is HighShelfFilter || 
+                    PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][active_global_filter_index].Filter is NotchFilter)
                 {
                     dragging_lowcutoff = false;
                     dragging_center = false;
@@ -840,10 +935,10 @@ namespace SA_Resources
 
                     
                 }
-                else if (filters[active_filter].Filter is FirstOrderLowPassFilter ||
-                         filters[active_filter].Filter is SecondOrderLowPassFilter ||
-                         filters[active_filter].Filter is FirstOrderHighPassFilter ||
-                         filters[active_filter].Filter is SecondOrderHighPassFilter)
+                else if (PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][active_global_filter_index].Filter is FirstOrderLowPassFilter ||
+                         PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][active_global_filter_index].Filter is SecondOrderLowPassFilter ||
+                         PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][active_global_filter_index].Filter is FirstOrderHighPassFilter ||
+                         PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][active_global_filter_index].Filter is SecondOrderHighPassFilter)
                 {
                     dragging_center = true;
 
@@ -853,8 +948,9 @@ namespace SA_Resources
                 }
 
                 UIThread = new Thread(UpdateUIToVals);
+                UIThread.Name = "UIThread";
                 UIThread.IsBackground = true;
-                UIThread.Start(active_filter);
+                UIThread.Start(active_global_filter_index);
 
 
 
@@ -924,50 +1020,50 @@ namespace SA_Resources
                     // Store the y val before its re-filtered
 
 
-                    yVal = Math.Max(filters[active_filter].Filter.GainMin, Math.Min(yVal, filters[active_filter].Filter.GainMax));
+                    yVal = Math.Max(PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][active_global_filter_index].Filter.GainMin, Math.Min(yVal, PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][active_global_filter_index].Filter.GainMax));
 
 
                     if (dragging_lowcutoff)
                     {
-                        if (xVal > filters[active_filter].Filter.CenterFrequency/grabberPrecision)
+                        if (xVal > PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][active_global_filter_index].Filter.CenterFrequency/grabberPrecision)
                         {
                             return;
                         }
 
-                        lock (filters)
+                        lock (PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1])
                         {
-                            filters[active_filter].Filter.QValue = Math.Max(minimumQ,
-                                                                            filters[active_filter].Filter.CenterFrequency/
-                                                                            ((filters[active_filter].Filter.CenterFrequency - xVal)*2));
+                            PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][active_global_filter_index].Filter.QValue = Math.Max(minimumQ,
+                                                                            PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][active_global_filter_index].Filter.CenterFrequency/
+                                                                            ((PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][active_global_filter_index].Filter.CenterFrequency - xVal)*2));
                         }
                     }
                     else if (dragging_highcutoff)
                     {
-                        if (xVal < filters[active_filter].Filter.CenterFrequency*grabberPrecision)
+                        if (xVal < PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][active_global_filter_index].Filter.CenterFrequency*grabberPrecision)
                         {
                             return;
                         }
 
 
-                        lock (filters)
+                        lock (PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1])
                         {
-                            filters[active_filter].Filter.QValue = Math.Max(minimumQ,
-                                                                            filters[active_filter].Filter.CenterFrequency/
-                                                                            ((xVal - filters[active_filter].Filter.CenterFrequency)*2));
+                            PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][active_global_filter_index].Filter.QValue = Math.Max(minimumQ,
+                                                                            PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][active_global_filter_index].Filter.CenterFrequency/
+                                                                            ((xVal - PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][active_global_filter_index].Filter.CenterFrequency)*2));
                         }
                     }
 
                     else
                     {
-                        lock (filters)
+                        lock (PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1])
                         {
-                            filters[active_filter].Filter.CenterFrequency = xVal;
-                            filters[active_filter].Filter.Gain = yVal;
+                            PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][active_global_filter_index].Filter.CenterFrequency = xVal;
+                            PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][active_global_filter_index].Filter.Gain = yVal;
                         }
                     }
 
-                    RefreshPointsInSingleFilter(active_filter);
-                    RefreshMasterPoints();
+                    RefreshSingleFilter(active_global_filter_index);
+                    RefreshMasterFilter();
 
 
                 }
@@ -1049,7 +1145,10 @@ namespace SA_Resources
 
             try
             {
-                UIThread.Abort();
+                lock (_threadlock)
+                {
+                    uithread_abort = true;
+                }
             } catch
             {
             }
@@ -1062,7 +1161,7 @@ namespace SA_Resources
             dragging_crosshairs = false;
 
             // TODO - FIX NOTIFYME
-            // parent.NotifyParent(active_filter, filters[active_filter]);
+            // parent.NotifyParent(active_filter, PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][active_filter]);
         }
 
 
@@ -1070,51 +1169,27 @@ namespace SA_Resources
 
         private void chkBypass_CheckedChanged(object sender, EventArgs e)
         {
-            int localized_starting_filter = int.Parse(((PictureCheckbox)sender).Name.Substring(9));
-            int filterIndex = localized_starting_filter + starting_filter;
 
-            Series active_filter_series = filterChart.Series[localized_starting_filter];
-            filters[filterIndex].Bypassed = ((PictureCheckbox)sender).Checked;
-
-            if(filters[filterIndex].Bypassed)
-            {
-                active_filter_series.BorderWidth = 2;
-                active_filter_series.BorderDashStyle = ChartDashStyle.Dot;
-                filterChart.Invalidate();
-            } else
-            {
-                active_filter_series.BorderWidth = 2; 
-                filterChart.Series[localized_starting_filter].BorderDashStyle = ChartDashStyle.Solid;
-                filterChart.Invalidate();
-            }
-            RefreshAllPoints();
-        }
-
-        /*private void nudFreq_ValueChanged(object sender, EventArgs e)
-        {
-            if (dragging_lowcutoff || dragging_center || dragging_highcutoff)
+            if (!graph_loaded)
             {
                 return;
             }
 
-            int filterIndex = int.Parse(((NumericUpDown)sender).Name.Substring(7));
 
-            filters[filterIndex].Filter.CenterFrequency = (double) ((NumericUpDown) sender).Value;
+            int local_filter_index = int.Parse(((PictureCheckbox)sender).Name.Substring(9));
+            int global_filter_index = local_filter_index + starting_filter;
+            PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][global_filter_index].Bypassed = ((PictureCheckbox)sender).Checked;
 
-            RefreshAllPoints();
-
-
-
+            RefreshAllFilters();
         }
-        */
 
         private void Event_Textbox_KeyPress(object sender, KeyPressEventArgs e)
         {
 
             TextBox active_textbox = (TextBox) sender;
 
-            int localized_filter_id = int.Parse(active_textbox.Name.Substring(7));
-            int filter_id = localized_filter_id + starting_filter;
+            int local_filter_index = int.Parse(active_textbox.Name.Substring(7));
+            int global_filter_index = local_filter_index + starting_filter;
 
             bool is_freq = false;
             bool is_gain = false;
@@ -1181,8 +1256,8 @@ namespace SA_Resources
         {
             TextBox active_textbox = (TextBox)sender;
 
-            int localized_filter_id = int.Parse(active_textbox.Name.Substring(7));
-            int filter_id = localized_filter_id + starting_filter;
+            int local_filter_index = int.Parse(active_textbox.Name.Substring(7));
+            int global_filter_index = local_filter_index + starting_filter;
 
             starting_text_value = active_textbox.Text;
             active_textbox.SelectAll();
@@ -1195,8 +1270,8 @@ namespace SA_Resources
             {
                 TextBox active_textbox = (TextBox)sender;
 
-                int localized_filter_id = int.Parse(active_textbox.Name.Substring(7));
-                int filter_id = localized_filter_id + starting_filter;
+                int local_filter_index = int.Parse(active_textbox.Name.Substring(7));
+                int global_filter_index = local_filter_index + starting_filter;
 
                 editing_textbox = false;
                 active_textbox.Select(0, 0);
@@ -1208,8 +1283,8 @@ namespace SA_Resources
         private void UpdateFilterValuefromTextbox(TextBox active_textbox)
         {
 
-            int localized_filter_id = int.Parse(active_textbox.Name.Substring(7));
-            int filter_id = localized_filter_id + starting_filter;
+            int local_filter_index = int.Parse(active_textbox.Name.Substring(7));
+            int global_filter_index = local_filter_index + starting_filter;
 
             double parsed_value;
 
@@ -1222,11 +1297,11 @@ namespace SA_Resources
                     return;
                 } else
                 {
-                    active_textbox.Text = filters[filter_id].Filter.SuggestedFrequency(parsed_value).ToString();
-                    filters[filter_id].Filter.CenterFrequency = filters[filter_id].Filter.SuggestedFrequency(parsed_value);
+                    active_textbox.Text = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][global_filter_index].Filter.SuggestedFrequency(parsed_value).ToString();
+                    PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][global_filter_index].Filter.CenterFrequency = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][global_filter_index].Filter.SuggestedFrequency(parsed_value);
 
-                    RefreshPointsInSingleFilter(filter_id);
-                    RefreshMasterPoints();
+                    RefreshSingleFilter(global_filter_index);
+                    RefreshMasterFilter();
                 }
             }
 
@@ -1240,11 +1315,11 @@ namespace SA_Resources
                 }
                 else
                 {
-                    active_textbox.Text = filters[filter_id].Filter.SuggestedGain(parsed_value).ToString("##.#");
-                    filters[filter_id].Filter.Gain = filters[filter_id].Filter.SuggestedGain(parsed_value);
+                    active_textbox.Text = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][global_filter_index].Filter.SuggestedGain(parsed_value).ToString("##.#");
+                    PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][global_filter_index].Filter.Gain = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][global_filter_index].Filter.SuggestedGain(parsed_value);
 
-                    RefreshPointsInSingleFilter(filter_id);
-                    RefreshMasterPoints();
+                    RefreshSingleFilter(global_filter_index);
+                    RefreshMasterFilter();
                 }
             }
 
@@ -1259,11 +1334,14 @@ namespace SA_Resources
                 }
                 else
                 {
-                    active_textbox.Text = filters[filter_id].Filter.SuggestedQ(parsed_value).ToString("##.###");
-                    filters[filter_id].Filter.QValue = filters[filter_id].Filter.SuggestedQ(parsed_value);
+                    active_textbox.Text = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][global_filter_index].Filter.SuggestedQ(parsed_value).ToString("F3");
+                    //if(active_textbox.Text.Substring(0,1) == ".") {
+                    //    active_textbox.Text = "0" + active_textbox.Text;
+                    //}
+                    PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][global_filter_index].Filter.QValue = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][global_filter_index].Filter.SuggestedQ(parsed_value);
 
-                    RefreshPointsInSingleFilter(filter_id);
-                    RefreshMasterPoints();
+                    RefreshSingleFilter(global_filter_index);
+                    RefreshMasterFilter();
                 }
 
             }
@@ -1287,6 +1365,59 @@ namespace SA_Resources
                 // passing this in ShowDialog will set the .Owner 
                 // property of the child form
                 copyForm.ShowDialog(this);
+            }
+        }
+
+        private void filterControl_Enter(object sender, EventArgs e)
+        {
+            string controlName = ((Control)sender).Name;
+            int control_local_filter_index = 0;
+
+            if (controlName.Contains("dropFilter"))
+            {
+                control_local_filter_index = int.Parse(controlName.Substring(10, 1));
+            } else if(controlName.Contains("chkBypass")) {
+                control_local_filter_index = int.Parse(controlName.Substring(9, 1));
+            }
+            else if (controlName.Contains("txtFreq"))
+            {
+                control_local_filter_index = int.Parse(controlName.Substring(7, 1));
+            }
+            else if (controlName.Contains("txtGain"))
+            {
+                control_local_filter_index = int.Parse(controlName.Substring(7, 1));
+            }
+            else if (controlName.Contains("dropSlope"))
+            {
+                control_local_filter_index = int.Parse(controlName.Substring(9, 1));
+            }
+            else if (controlName.Contains("txtQval"))
+            {
+                control_local_filter_index = int.Parse(controlName.Substring(7, 1));
+            }
+
+
+            if (control_local_filter_index > total_filters)
+            {
+                // In case they somehow tab to filters that are hidden on input filters
+                return;
+            }
+
+            active_global_filter_index = control_local_filter_index + starting_filter;
+
+            UpdateActiveFilter();
+
+
+        }
+
+        private void FilterForm6_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            try
+            {
+                uithread_abort = true;
+            }
+            catch
+            {
             }
         }
 

@@ -70,8 +70,6 @@ namespace SA_Resources
         private bool editing_textbox = false;
         private string starting_text_value = "";
 
-        private object parent = null;
-
         private static Thread UIThread;
 
         private bool show_all_filters = true;
@@ -217,12 +215,6 @@ namespace SA_Resources
                 Console.WriteLine(ex);
             }
         }
-
-        private void FilterForm3_Load(object sender, EventArgs e)
-        {
-            parent = this.Owner;
-        }
-
 
         #endregion
 
@@ -1140,7 +1132,7 @@ namespace SA_Resources
             }
             catch (Exception ex)
             {
-
+                Console.WriteLine("Exception in FilterForm3.chart1_MouseUp: " + ex.Message);
             }
             
 
@@ -1174,24 +1166,6 @@ namespace SA_Resources
             }
             RefreshAllPoints();
         }
-
-        /*private void nudFreq_ValueChanged(object sender, EventArgs e)
-        {
-            if (dragging_lowcutoff || dragging_center || dragging_highcutoff)
-            {
-                return;
-            }
-
-            int filterIndex = int.Parse(((NumericUpDown)sender).Name.Substring(7));
-
-            filters[filterIndex].Filter.CenterFrequency = (double) ((NumericUpDown) sender).Value;
-
-            RefreshAllPoints();
-
-
-
-        }
-        */
 
         private void Event_Textbox_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -1370,6 +1344,11 @@ namespace SA_Resources
                 // property of the child form
                 copyForm.ShowDialog(this);
             }
+        }
+
+        private void filterControl_Enter(object sender, EventArgs e)
+        {
+            Console.WriteLine(sender.ToString() + "focused");
         }
 
 

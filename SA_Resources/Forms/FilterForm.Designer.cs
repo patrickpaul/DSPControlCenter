@@ -1,6 +1,6 @@
 ﻿namespace SA_Resources
 {
-    partial class FilterForm6
+    partial class FilterForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.CustomLabel customLabel1 = new System.Windows.Forms.DataVisualization.Charting.CustomLabel();
             System.Windows.Forms.DataVisualization.Charting.CustomLabel customLabel2 = new System.Windows.Forms.DataVisualization.Charting.CustomLabel();
@@ -41,15 +40,13 @@
             System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.Series series7 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.Series series8 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FilterForm6));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FilterForm));
             this.filterChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.dropFilter0 = new System.Windows.Forms.ComboBox();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.lblFilterSelector0 = new System.Windows.Forms.Label();
             this.lblFilterSelector1 = new System.Windows.Forms.Label();
             this.lblFilterSelector2 = new System.Windows.Forms.Label();
             this.lblStatus = new System.Windows.Forms.Label();
-            this.tooltipFilterSelector = new System.Windows.Forms.ToolTip(this.components);
             this.lblFilterSelector4 = new System.Windows.Forms.Label();
             this.lblFilterSelector3 = new System.Windows.Forms.Label();
             this.panel7 = new System.Windows.Forms.Panel();
@@ -73,7 +70,6 @@
             this.label9 = new System.Windows.Forms.Label();
             this.dropFilter2 = new System.Windows.Forms.ComboBox();
             this.dropSlope2 = new System.Windows.Forms.ComboBox();
-            this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.label2 = new System.Windows.Forms.Label();
             this.txtFreq0 = new System.Windows.Forms.TextBox();
             this.txtGain0 = new System.Windows.Forms.TextBox();
@@ -115,18 +111,22 @@
             this.dropFilter3 = new System.Windows.Forms.ComboBox();
             this.dropSlope3 = new System.Windows.Forms.ComboBox();
             this.lblFilterSelector5 = new System.Windows.Forms.Label();
+            this.dropAction = new System.Windows.Forms.ComboBox();
+            this.lblAction = new System.Windows.Forms.Label();
+            this.pnlButtons = new System.Windows.Forms.Panel();
+            this.pnlSecondRowFilters = new System.Windows.Forms.Panel();
             this.chkBypass5 = new SA_Resources.PictureCheckbox();
             this.chkBypass4 = new SA_Resources.PictureCheckbox();
             this.chkBypass3 = new SA_Resources.PictureCheckbox();
-            this.btnCancel = new SA_Resources.PictureButton();
             this.btnSave = new SA_Resources.PictureButton();
+            this.btnGo = new SA_Resources.PictureButton();
+            this.btnCancel = new SA_Resources.PictureButton();
             this.chkBypass2 = new SA_Resources.PictureCheckbox();
             this.chkBypass1 = new SA_Resources.PictureCheckbox();
             this.chkBypass0 = new SA_Resources.PictureCheckbox();
-            this.btnGo = new SA_Resources.PictureButton();
-            this.dropAction = new System.Windows.Forms.ComboBox();
-            this.lblAction = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.filterChart)).BeginInit();
+            this.pnlButtons.SuspendLayout();
+            this.pnlSecondRowFilters.SuspendLayout();
             this.SuspendLayout();
             // 
             // filterChart
@@ -261,10 +261,7 @@
             this.dropFilter0.Size = new System.Drawing.Size(121, 21);
             this.dropFilter0.TabIndex = 3;
             this.dropFilter0.SelectedIndexChanged += new System.EventHandler(this.dropFilter_SelectedIndexChanged);
-            // 
-            // timer1
-            // 
-            this.timer1.Interval = 1;
+            this.dropFilter0.Enter += new System.EventHandler(this.filterControl_Enter);
             // 
             // lblFilterSelector0
             // 
@@ -277,7 +274,6 @@
             this.lblFilterSelector0.TabIndex = 67;
             this.lblFilterSelector0.Text = "1";
             this.lblFilterSelector0.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.tooltipFilterSelector.SetToolTip(this.lblFilterSelector0, "PEQ Filter");
             this.lblFilterSelector0.Click += new System.EventHandler(this.lblFilterSelector_Click);
             this.lblFilterSelector0.Paint += new System.Windows.Forms.PaintEventHandler(this.lblFilterSelector_Paint);
             // 
@@ -292,7 +288,6 @@
             this.lblFilterSelector1.TabIndex = 68;
             this.lblFilterSelector1.Text = "2";
             this.lblFilterSelector1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.tooltipFilterSelector.SetToolTip(this.lblFilterSelector1, "Not Used");
             this.lblFilterSelector1.Click += new System.EventHandler(this.lblFilterSelector_Click);
             this.lblFilterSelector1.Paint += new System.Windows.Forms.PaintEventHandler(this.lblFilterSelector_Paint);
             // 
@@ -333,8 +328,8 @@
             this.lblFilterSelector4.TabIndex = 131;
             this.lblFilterSelector4.Text = "5";
             this.lblFilterSelector4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.tooltipFilterSelector.SetToolTip(this.lblFilterSelector4, "Not Used");
             this.lblFilterSelector4.Click += new System.EventHandler(this.lblFilterSelector_Click);
+            this.lblFilterSelector4.Paint += new System.Windows.Forms.PaintEventHandler(this.lblFilterSelector_Paint);
             // 
             // lblFilterSelector3
             // 
@@ -347,8 +342,8 @@
             this.lblFilterSelector3.TabIndex = 130;
             this.lblFilterSelector3.Text = "4";
             this.lblFilterSelector3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.tooltipFilterSelector.SetToolTip(this.lblFilterSelector3, "PEQ Filter");
             this.lblFilterSelector3.Click += new System.EventHandler(this.lblFilterSelector_Click);
+            this.lblFilterSelector3.Paint += new System.Windows.Forms.PaintEventHandler(this.lblFilterSelector_Paint);
             // 
             // panel7
             // 
@@ -425,6 +420,7 @@
             this.dropSlope0.Size = new System.Drawing.Size(90, 21);
             this.dropSlope0.TabIndex = 78;
             this.dropSlope0.SelectedIndexChanged += new System.EventHandler(this.dropSlope_SelectedIndexChanged);
+            this.dropSlope0.Enter += new System.EventHandler(this.filterControl_Enter);
             // 
             // lblSlope1
             // 
@@ -501,6 +497,7 @@
             this.dropFilter1.Size = new System.Drawing.Size(121, 21);
             this.dropFilter1.TabIndex = 3;
             this.dropFilter1.SelectedIndexChanged += new System.EventHandler(this.dropFilter_SelectedIndexChanged);
+            this.dropFilter1.Enter += new System.EventHandler(this.filterControl_Enter);
             // 
             // dropSlope1
             // 
@@ -513,6 +510,7 @@
             this.dropSlope1.Size = new System.Drawing.Size(90, 21);
             this.dropSlope1.TabIndex = 80;
             this.dropSlope1.SelectedIndexChanged += new System.EventHandler(this.dropSlope_SelectedIndexChanged);
+            this.dropSlope1.Enter += new System.EventHandler(this.filterControl_Enter);
             // 
             // lblSlope2
             // 
@@ -589,6 +587,7 @@
             this.dropFilter2.Size = new System.Drawing.Size(121, 21);
             this.dropFilter2.TabIndex = 3;
             this.dropFilter2.SelectedIndexChanged += new System.EventHandler(this.dropFilter_SelectedIndexChanged);
+            this.dropFilter2.Enter += new System.EventHandler(this.filterControl_Enter);
             // 
             // dropSlope2
             // 
@@ -601,6 +600,7 @@
             this.dropSlope2.Size = new System.Drawing.Size(90, 21);
             this.dropSlope2.TabIndex = 80;
             this.dropSlope2.SelectedIndexChanged += new System.EventHandler(this.dropSlope_SelectedIndexChanged);
+            this.dropSlope2.Enter += new System.EventHandler(this.filterControl_Enter);
             // 
             // label2
             // 
@@ -622,6 +622,7 @@
             this.txtFreq0.Size = new System.Drawing.Size(56, 20);
             this.txtFreq0.TabIndex = 86;
             this.txtFreq0.Text = "100";
+            this.txtFreq0.Enter += new System.EventHandler(this.filterControl_Enter);
             this.txtFreq0.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Event_Textbox_KeyPress);
             this.txtFreq0.Leave += new System.EventHandler(this.Event_Textbox_Leave);
             this.txtFreq0.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Event_Textbox_MouseUp);
@@ -634,6 +635,7 @@
             this.txtGain0.Size = new System.Drawing.Size(56, 20);
             this.txtGain0.TabIndex = 87;
             this.txtGain0.Text = "0";
+            this.txtGain0.Enter += new System.EventHandler(this.filterControl_Enter);
             this.txtGain0.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Event_Textbox_KeyPress);
             this.txtGain0.Leave += new System.EventHandler(this.Event_Textbox_Leave);
             this.txtGain0.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Event_Textbox_MouseUp);
@@ -646,7 +648,10 @@
             this.txtQval0.Size = new System.Drawing.Size(56, 20);
             this.txtQval0.TabIndex = 88;
             this.txtQval0.Text = "0.707";
+            this.txtQval0.Enter += new System.EventHandler(this.filterControl_Enter);
             this.txtQval0.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Event_Textbox_KeyPress);
+            this.txtQval0.Leave += new System.EventHandler(this.Event_Textbox_Leave);
+            this.txtQval0.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Event_Textbox_MouseUp);
             // 
             // txtFreq1
             // 
@@ -656,6 +661,10 @@
             this.txtFreq1.Size = new System.Drawing.Size(56, 20);
             this.txtFreq1.TabIndex = 89;
             this.txtFreq1.Text = "1000";
+            this.txtFreq1.Enter += new System.EventHandler(this.filterControl_Enter);
+            this.txtFreq1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Event_Textbox_KeyPress);
+            this.txtFreq1.Leave += new System.EventHandler(this.Event_Textbox_Leave);
+            this.txtFreq1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Event_Textbox_MouseUp);
             // 
             // txtFreq2
             // 
@@ -665,6 +674,10 @@
             this.txtFreq2.Size = new System.Drawing.Size(56, 20);
             this.txtFreq2.TabIndex = 90;
             this.txtFreq2.Text = "10000";
+            this.txtFreq2.Enter += new System.EventHandler(this.filterControl_Enter);
+            this.txtFreq2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Event_Textbox_KeyPress);
+            this.txtFreq2.Leave += new System.EventHandler(this.Event_Textbox_Leave);
+            this.txtFreq2.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Event_Textbox_MouseUp);
             // 
             // txtQval1
             // 
@@ -674,6 +687,10 @@
             this.txtQval1.Size = new System.Drawing.Size(56, 20);
             this.txtQval1.TabIndex = 92;
             this.txtQval1.Text = "0.707";
+            this.txtQval1.Enter += new System.EventHandler(this.filterControl_Enter);
+            this.txtQval1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Event_Textbox_KeyPress);
+            this.txtQval1.Leave += new System.EventHandler(this.Event_Textbox_Leave);
+            this.txtQval1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Event_Textbox_MouseUp);
             // 
             // txtGain1
             // 
@@ -683,6 +700,10 @@
             this.txtGain1.Size = new System.Drawing.Size(56, 20);
             this.txtGain1.TabIndex = 91;
             this.txtGain1.Text = "0.0";
+            this.txtGain1.Enter += new System.EventHandler(this.filterControl_Enter);
+            this.txtGain1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Event_Textbox_KeyPress);
+            this.txtGain1.Leave += new System.EventHandler(this.Event_Textbox_Leave);
+            this.txtGain1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Event_Textbox_MouseUp);
             // 
             // txtQval2
             // 
@@ -692,6 +713,10 @@
             this.txtQval2.Size = new System.Drawing.Size(56, 20);
             this.txtQval2.TabIndex = 94;
             this.txtQval2.Text = "0.707";
+            this.txtQval2.Enter += new System.EventHandler(this.filterControl_Enter);
+            this.txtQval2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Event_Textbox_KeyPress);
+            this.txtQval2.Leave += new System.EventHandler(this.Event_Textbox_Leave);
+            this.txtQval2.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Event_Textbox_MouseUp);
             // 
             // txtGain2
             // 
@@ -701,94 +726,134 @@
             this.txtGain2.Size = new System.Drawing.Size(56, 20);
             this.txtGain2.TabIndex = 93;
             this.txtGain2.Text = "0.0";
+            this.txtGain2.Enter += new System.EventHandler(this.filterControl_Enter);
+            this.txtGain2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Event_Textbox_KeyPress);
+            this.txtGain2.Leave += new System.EventHandler(this.Event_Textbox_Leave);
+            this.txtGain2.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Event_Textbox_MouseUp);
             // 
             // txtQval5
             // 
-            this.txtQval5.Location = new System.Drawing.Point(773, 477);
+            this.txtQval5.Location = new System.Drawing.Point(761, 47);
             this.txtQval5.MaxLength = 5;
             this.txtQval5.Name = "txtQval5";
             this.txtQval5.Size = new System.Drawing.Size(56, 20);
             this.txtQval5.TabIndex = 129;
             this.txtQval5.Text = "0.707";
+            this.txtQval5.Enter += new System.EventHandler(this.filterControl_Enter);
+            this.txtQval5.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Event_Textbox_KeyPress);
+            this.txtQval5.Leave += new System.EventHandler(this.Event_Textbox_Leave);
+            this.txtQval5.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Event_Textbox_MouseUp);
             // 
             // txtGain5
             // 
-            this.txtGain5.Location = new System.Drawing.Point(693, 477);
+            this.txtGain5.Location = new System.Drawing.Point(681, 47);
             this.txtGain5.MaxLength = 6;
             this.txtGain5.Name = "txtGain5";
             this.txtGain5.Size = new System.Drawing.Size(56, 20);
             this.txtGain5.TabIndex = 128;
             this.txtGain5.Text = "0.0";
+            this.txtGain5.Enter += new System.EventHandler(this.filterControl_Enter);
+            this.txtGain5.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Event_Textbox_KeyPress);
+            this.txtGain5.Leave += new System.EventHandler(this.Event_Textbox_Leave);
+            this.txtGain5.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Event_Textbox_MouseUp);
             // 
             // txtQval4
             // 
-            this.txtQval4.Location = new System.Drawing.Point(473, 477);
+            this.txtQval4.Location = new System.Drawing.Point(461, 47);
             this.txtQval4.MaxLength = 5;
             this.txtQval4.Name = "txtQval4";
             this.txtQval4.Size = new System.Drawing.Size(56, 20);
             this.txtQval4.TabIndex = 127;
             this.txtQval4.Text = "0.707";
+            this.txtQval4.Enter += new System.EventHandler(this.filterControl_Enter);
+            this.txtQval4.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Event_Textbox_KeyPress);
+            this.txtQval4.Leave += new System.EventHandler(this.Event_Textbox_Leave);
+            this.txtQval4.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Event_Textbox_MouseUp);
             // 
             // txtGain4
             // 
-            this.txtGain4.Location = new System.Drawing.Point(395, 477);
+            this.txtGain4.Location = new System.Drawing.Point(383, 47);
             this.txtGain4.MaxLength = 6;
             this.txtGain4.Name = "txtGain4";
             this.txtGain4.Size = new System.Drawing.Size(56, 20);
             this.txtGain4.TabIndex = 126;
             this.txtGain4.Text = "0.0";
+            this.txtGain4.Enter += new System.EventHandler(this.filterControl_Enter);
+            this.txtGain4.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Event_Textbox_KeyPress);
+            this.txtGain4.Leave += new System.EventHandler(this.Event_Textbox_Leave);
+            this.txtGain4.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Event_Textbox_MouseUp);
             // 
             // txtFreq5
             // 
-            this.txtFreq5.Location = new System.Drawing.Point(614, 477);
+            this.txtFreq5.Location = new System.Drawing.Point(602, 47);
             this.txtFreq5.MaxLength = 5;
             this.txtFreq5.Name = "txtFreq5";
             this.txtFreq5.Size = new System.Drawing.Size(56, 20);
             this.txtFreq5.TabIndex = 125;
             this.txtFreq5.Text = "10000";
+            this.txtFreq5.Enter += new System.EventHandler(this.filterControl_Enter);
+            this.txtFreq5.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Event_Textbox_KeyPress);
+            this.txtFreq5.Leave += new System.EventHandler(this.Event_Textbox_Leave);
+            this.txtFreq5.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Event_Textbox_MouseUp);
             // 
             // txtFreq4
             // 
-            this.txtFreq4.Location = new System.Drawing.Point(310, 477);
+            this.txtFreq4.Location = new System.Drawing.Point(298, 47);
             this.txtFreq4.MaxLength = 5;
             this.txtFreq4.Name = "txtFreq4";
             this.txtFreq4.Size = new System.Drawing.Size(56, 20);
             this.txtFreq4.TabIndex = 124;
             this.txtFreq4.Text = "1000";
+            this.txtFreq4.Enter += new System.EventHandler(this.filterControl_Enter);
+            this.txtFreq4.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Event_Textbox_KeyPress);
+            this.txtFreq4.Leave += new System.EventHandler(this.Event_Textbox_Leave);
+            this.txtFreq4.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Event_Textbox_MouseUp);
             // 
             // txtQval3
             // 
-            this.txtQval3.Location = new System.Drawing.Point(192, 477);
+            this.txtQval3.Location = new System.Drawing.Point(180, 47);
             this.txtQval3.MaxLength = 5;
             this.txtQval3.Name = "txtQval3";
             this.txtQval3.Size = new System.Drawing.Size(56, 20);
             this.txtQval3.TabIndex = 123;
             this.txtQval3.Text = "0.707";
+            this.txtQval3.Enter += new System.EventHandler(this.filterControl_Enter);
+            this.txtQval3.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Event_Textbox_KeyPress);
+            this.txtQval3.Leave += new System.EventHandler(this.Event_Textbox_Leave);
+            this.txtQval3.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Event_Textbox_MouseUp);
             // 
             // txtGain3
             // 
-            this.txtGain3.Location = new System.Drawing.Point(114, 477);
+            this.txtGain3.Location = new System.Drawing.Point(102, 47);
             this.txtGain3.MaxLength = 6;
             this.txtGain3.Name = "txtGain3";
             this.txtGain3.Size = new System.Drawing.Size(56, 20);
             this.txtGain3.TabIndex = 122;
             this.txtGain3.Text = "0";
+            this.txtGain3.Enter += new System.EventHandler(this.filterControl_Enter);
+            this.txtGain3.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Event_Textbox_KeyPress);
+            this.txtGain3.Leave += new System.EventHandler(this.Event_Textbox_Leave);
+            this.txtGain3.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Event_Textbox_MouseUp);
             // 
             // txtFreq3
             // 
-            this.txtFreq3.Location = new System.Drawing.Point(29, 477);
+            this.txtFreq3.Location = new System.Drawing.Point(17, 47);
             this.txtFreq3.MaxLength = 5;
             this.txtFreq3.Name = "txtFreq3";
             this.txtFreq3.Size = new System.Drawing.Size(56, 20);
             this.txtFreq3.TabIndex = 121;
             this.txtFreq3.Text = "100";
+            this.txtFreq3.Enter += new System.EventHandler(this.filterControl_Enter);
+            this.txtFreq3.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Event_Textbox_KeyPress);
+            this.txtFreq3.Leave += new System.EventHandler(this.Event_Textbox_Leave);
+            this.txtFreq3.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Event_Textbox_MouseUp);
             // 
             // lblSlope4
             // 
             this.lblSlope4.AutoSize = true;
             this.lblSlope4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSlope4.ForeColor = System.Drawing.Color.Gainsboro;
-            this.lblSlope4.Location = new System.Drawing.Point(442, 460);
+            this.lblSlope4.Location = new System.Drawing.Point(430, 30);
             this.lblSlope4.Name = "lblSlope4";
             this.lblSlope4.Size = new System.Drawing.Size(39, 13);
             this.lblSlope4.TabIndex = 117;
@@ -800,7 +865,7 @@
             this.lblSlope5.AutoSize = true;
             this.lblSlope5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSlope5.ForeColor = System.Drawing.Color.Gainsboro;
-            this.lblSlope5.Location = new System.Drawing.Point(738, 460);
+            this.lblSlope5.Location = new System.Drawing.Point(726, 30);
             this.lblSlope5.Name = "lblSlope5";
             this.lblSlope5.Size = new System.Drawing.Size(39, 13);
             this.lblSlope5.TabIndex = 118;
@@ -811,7 +876,7 @@
             // 
             this.lblQ4.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblQ4.ForeColor = System.Drawing.Color.Gainsboro;
-            this.lblQ4.Location = new System.Drawing.Point(465, 460);
+            this.lblQ4.Location = new System.Drawing.Point(453, 30);
             this.lblQ4.Name = "lblQ4";
             this.lblQ4.Size = new System.Drawing.Size(64, 13);
             this.lblQ4.TabIndex = 109;
@@ -822,7 +887,7 @@
             // 
             this.lblGain4.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblGain4.ForeColor = System.Drawing.Color.Gainsboro;
-            this.lblGain4.Location = new System.Drawing.Point(390, 460);
+            this.lblGain4.Location = new System.Drawing.Point(378, 30);
             this.lblGain4.Name = "lblGain4";
             this.lblGain4.Size = new System.Drawing.Size(58, 13);
             this.lblGain4.TabIndex = 108;
@@ -834,7 +899,7 @@
             this.lblSlope3.AutoSize = true;
             this.lblSlope3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSlope3.ForeColor = System.Drawing.Color.Gainsboro;
-            this.lblSlope3.Location = new System.Drawing.Point(157, 457);
+            this.lblSlope3.Location = new System.Drawing.Point(145, 27);
             this.lblSlope3.Name = "lblSlope3";
             this.lblSlope3.Size = new System.Drawing.Size(39, 13);
             this.lblSlope3.TabIndex = 113;
@@ -845,7 +910,7 @@
             // 
             this.lblFreq4.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblFreq4.ForeColor = System.Drawing.Color.Gainsboro;
-            this.lblFreq4.Location = new System.Drawing.Point(303, 460);
+            this.lblFreq4.Location = new System.Drawing.Point(291, 30);
             this.lblFreq4.Name = "lblFreq4";
             this.lblFreq4.Size = new System.Drawing.Size(71, 13);
             this.lblFreq4.TabIndex = 105;
@@ -857,7 +922,7 @@
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold);
             this.label11.ForeColor = System.Drawing.Color.Gainsboro;
-            this.label11.Location = new System.Drawing.Point(293, 433);
+            this.label11.Location = new System.Drawing.Point(281, 3);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(35, 13);
             this.label11.TabIndex = 100;
@@ -877,17 +942,18 @@
             "High Shelf",
             "Peak (PEQ)",
             "Notch"});
-            this.dropFilter4.Location = new System.Drawing.Point(333, 430);
+            this.dropFilter4.Location = new System.Drawing.Point(321, 0);
             this.dropFilter4.Name = "dropFilter4";
             this.dropFilter4.Size = new System.Drawing.Size(121, 21);
             this.dropFilter4.TabIndex = 97;
             this.dropFilter4.SelectedIndexChanged += new System.EventHandler(this.dropFilter_SelectedIndexChanged);
+            this.dropFilter4.Enter += new System.EventHandler(this.filterControl_Enter);
             // 
             // lblQ5
             // 
             this.lblQ5.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblQ5.ForeColor = System.Drawing.Color.Gainsboro;
-            this.lblQ5.Location = new System.Drawing.Point(765, 459);
+            this.lblQ5.Location = new System.Drawing.Point(753, 29);
             this.lblQ5.Name = "lblQ5";
             this.lblQ5.Size = new System.Drawing.Size(64, 13);
             this.lblQ5.TabIndex = 110;
@@ -900,17 +966,18 @@
             this.dropSlope4.Items.AddRange(new object[] {
             "6dB/Octave",
             "12dB/Octave"});
-            this.dropSlope4.Location = new System.Drawing.Point(416, 477);
+            this.dropSlope4.Location = new System.Drawing.Point(404, 47);
             this.dropSlope4.Name = "dropSlope4";
             this.dropSlope4.Size = new System.Drawing.Size(90, 21);
             this.dropSlope4.TabIndex = 115;
             this.dropSlope4.SelectedIndexChanged += new System.EventHandler(this.dropSlope_SelectedIndexChanged);
+            this.dropSlope4.Enter += new System.EventHandler(this.filterControl_Enter);
             // 
             // lblGain5
             // 
             this.lblGain5.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblGain5.ForeColor = System.Drawing.Color.Gainsboro;
-            this.lblGain5.Location = new System.Drawing.Point(690, 459);
+            this.lblGain5.Location = new System.Drawing.Point(678, 29);
             this.lblGain5.Name = "lblGain5";
             this.lblGain5.Size = new System.Drawing.Size(58, 13);
             this.lblGain5.TabIndex = 106;
@@ -921,7 +988,7 @@
             // 
             this.lblFreq5.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblFreq5.ForeColor = System.Drawing.Color.Gainsboro;
-            this.lblFreq5.Location = new System.Drawing.Point(603, 459);
+            this.lblFreq5.Location = new System.Drawing.Point(591, 29);
             this.lblFreq5.Name = "lblFreq5";
             this.lblFreq5.Size = new System.Drawing.Size(71, 13);
             this.lblFreq5.TabIndex = 103;
@@ -933,7 +1000,7 @@
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold);
             this.label15.ForeColor = System.Drawing.Color.Gainsboro;
-            this.label15.Location = new System.Drawing.Point(593, 432);
+            this.label15.Location = new System.Drawing.Point(581, 2);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(35, 13);
             this.label15.TabIndex = 102;
@@ -953,11 +1020,12 @@
             "High Shelf",
             "Peak (PEQ)",
             "Notch"});
-            this.dropFilter5.Location = new System.Drawing.Point(633, 429);
+            this.dropFilter5.Location = new System.Drawing.Point(621, -1);
             this.dropFilter5.Name = "dropFilter5";
             this.dropFilter5.Size = new System.Drawing.Size(121, 21);
             this.dropFilter5.TabIndex = 99;
             this.dropFilter5.SelectedIndexChanged += new System.EventHandler(this.dropFilter_SelectedIndexChanged);
+            this.dropFilter5.Enter += new System.EventHandler(this.filterControl_Enter);
             // 
             // dropSlope5
             // 
@@ -965,17 +1033,18 @@
             this.dropSlope5.Items.AddRange(new object[] {
             "6dB/Octave",
             "12dB/Octave"});
-            this.dropSlope5.Location = new System.Drawing.Point(712, 477);
+            this.dropSlope5.Location = new System.Drawing.Point(700, 47);
             this.dropSlope5.Name = "dropSlope5";
             this.dropSlope5.Size = new System.Drawing.Size(90, 21);
             this.dropSlope5.TabIndex = 114;
             this.dropSlope5.SelectedIndexChanged += new System.EventHandler(this.dropSlope_SelectedIndexChanged);
+            this.dropSlope5.Enter += new System.EventHandler(this.filterControl_Enter);
             // 
             // lblQ3
             // 
             this.lblQ3.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblQ3.ForeColor = System.Drawing.Color.Gainsboro;
-            this.lblQ3.Location = new System.Drawing.Point(184, 457);
+            this.lblQ3.Location = new System.Drawing.Point(172, 27);
             this.lblQ3.Name = "lblQ3";
             this.lblQ3.Size = new System.Drawing.Size(64, 13);
             this.lblQ3.TabIndex = 111;
@@ -986,7 +1055,7 @@
             // 
             this.lblGain3.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblGain3.ForeColor = System.Drawing.Color.Gainsboro;
-            this.lblGain3.Location = new System.Drawing.Point(109, 457);
+            this.lblGain3.Location = new System.Drawing.Point(97, 27);
             this.lblGain3.Name = "lblGain3";
             this.lblGain3.Size = new System.Drawing.Size(58, 13);
             this.lblGain3.TabIndex = 107;
@@ -997,7 +1066,7 @@
             // 
             this.lblFreq3.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblFreq3.ForeColor = System.Drawing.Color.Gainsboro;
-            this.lblFreq3.Location = new System.Drawing.Point(22, 457);
+            this.lblFreq3.Location = new System.Drawing.Point(10, 27);
             this.lblFreq3.Name = "lblFreq3";
             this.lblFreq3.Size = new System.Drawing.Size(71, 13);
             this.lblFreq3.TabIndex = 104;
@@ -1009,7 +1078,7 @@
             this.label19.AutoSize = true;
             this.label19.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label19.ForeColor = System.Drawing.Color.Gainsboro;
-            this.label19.Location = new System.Drawing.Point(12, 430);
+            this.label19.Location = new System.Drawing.Point(0, 0);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(35, 13);
             this.label19.TabIndex = 101;
@@ -1030,11 +1099,12 @@
             "High Shelf",
             "Peak (PEQ)",
             "Notch"});
-            this.dropFilter3.Location = new System.Drawing.Point(52, 427);
+            this.dropFilter3.Location = new System.Drawing.Point(40, -3);
             this.dropFilter3.Name = "dropFilter3";
             this.dropFilter3.Size = new System.Drawing.Size(121, 21);
             this.dropFilter3.TabIndex = 98;
             this.dropFilter3.SelectedIndexChanged += new System.EventHandler(this.dropFilter_SelectedIndexChanged);
+            this.dropFilter3.Enter += new System.EventHandler(this.filterControl_Enter);
             // 
             // dropSlope3
             // 
@@ -1042,11 +1112,12 @@
             this.dropSlope3.Items.AddRange(new object[] {
             "6dB/Octave",
             "12dB/Octave"});
-            this.dropSlope3.Location = new System.Drawing.Point(131, 477);
+            this.dropSlope3.Location = new System.Drawing.Point(119, 47);
             this.dropSlope3.Name = "dropSlope3";
             this.dropSlope3.Size = new System.Drawing.Size(90, 21);
             this.dropSlope3.TabIndex = 112;
             this.dropSlope3.SelectedIndexChanged += new System.EventHandler(this.dropSlope_SelectedIndexChanged);
+            this.dropSlope3.Enter += new System.EventHandler(this.filterControl_Enter);
             // 
             // lblFilterSelector5
             // 
@@ -1060,69 +1131,127 @@
             this.lblFilterSelector5.Text = "6";
             this.lblFilterSelector5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lblFilterSelector5.Click += new System.EventHandler(this.lblFilterSelector_Click);
+            this.lblFilterSelector5.Paint += new System.Windows.Forms.PaintEventHandler(this.lblFilterSelector_Paint);
+            // 
+            // dropAction
+            // 
+            this.dropAction.FormattingEnabled = true;
+            this.dropAction.Items.AddRange(new object[] {
+            "Copy configuration to...",
+            "Reset to Defaults"});
+            this.dropAction.Location = new System.Drawing.Point(55, 12);
+            this.dropAction.Name = "dropAction";
+            this.dropAction.Size = new System.Drawing.Size(133, 21);
+            this.dropAction.TabIndex = 134;
+            // 
+            // lblAction
+            // 
+            this.lblAction.AutoSize = true;
+            this.lblAction.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAction.ForeColor = System.Drawing.Color.Gainsboro;
+            this.lblAction.Location = new System.Drawing.Point(5, 15);
+            this.lblAction.Name = "lblAction";
+            this.lblAction.Size = new System.Drawing.Size(44, 13);
+            this.lblAction.TabIndex = 133;
+            this.lblAction.Text = "Action:";
+            // 
+            // pnlButtons
+            // 
+            this.pnlButtons.Controls.Add(this.btnSave);
+            this.pnlButtons.Controls.Add(this.btnGo);
+            this.pnlButtons.Controls.Add(this.btnCancel);
+            this.pnlButtons.Controls.Add(this.dropAction);
+            this.pnlButtons.Controls.Add(this.lblAction);
+            this.pnlButtons.Location = new System.Drawing.Point(18, 511);
+            this.pnlButtons.Name = "pnlButtons";
+            this.pnlButtons.Size = new System.Drawing.Size(817, 47);
+            this.pnlButtons.TabIndex = 136;
+            // 
+            // pnlSecondRowFilters
+            // 
+            this.pnlSecondRowFilters.Controls.Add(this.label19);
+            this.pnlSecondRowFilters.Controls.Add(this.dropSlope3);
+            this.pnlSecondRowFilters.Controls.Add(this.dropFilter3);
+            this.pnlSecondRowFilters.Controls.Add(this.lblFreq3);
+            this.pnlSecondRowFilters.Controls.Add(this.lblGain3);
+            this.pnlSecondRowFilters.Controls.Add(this.txtQval5);
+            this.pnlSecondRowFilters.Controls.Add(this.lblQ3);
+            this.pnlSecondRowFilters.Controls.Add(this.txtGain5);
+            this.pnlSecondRowFilters.Controls.Add(this.dropSlope5);
+            this.pnlSecondRowFilters.Controls.Add(this.txtQval4);
+            this.pnlSecondRowFilters.Controls.Add(this.dropFilter5);
+            this.pnlSecondRowFilters.Controls.Add(this.txtGain4);
+            this.pnlSecondRowFilters.Controls.Add(this.label15);
+            this.pnlSecondRowFilters.Controls.Add(this.txtFreq5);
+            this.pnlSecondRowFilters.Controls.Add(this.lblFreq5);
+            this.pnlSecondRowFilters.Controls.Add(this.txtFreq4);
+            this.pnlSecondRowFilters.Controls.Add(this.lblGain5);
+            this.pnlSecondRowFilters.Controls.Add(this.txtQval3);
+            this.pnlSecondRowFilters.Controls.Add(this.dropSlope4);
+            this.pnlSecondRowFilters.Controls.Add(this.txtGain3);
+            this.pnlSecondRowFilters.Controls.Add(this.lblQ5);
+            this.pnlSecondRowFilters.Controls.Add(this.txtFreq3);
+            this.pnlSecondRowFilters.Controls.Add(this.dropFilter4);
+            this.pnlSecondRowFilters.Controls.Add(this.chkBypass5);
+            this.pnlSecondRowFilters.Controls.Add(this.label11);
+            this.pnlSecondRowFilters.Controls.Add(this.chkBypass4);
+            this.pnlSecondRowFilters.Controls.Add(this.lblFreq4);
+            this.pnlSecondRowFilters.Controls.Add(this.lblSlope4);
+            this.pnlSecondRowFilters.Controls.Add(this.lblSlope3);
+            this.pnlSecondRowFilters.Controls.Add(this.lblSlope5);
+            this.pnlSecondRowFilters.Controls.Add(this.lblGain4);
+            this.pnlSecondRowFilters.Controls.Add(this.chkBypass3);
+            this.pnlSecondRowFilters.Controls.Add(this.lblQ4);
+            this.pnlSecondRowFilters.Location = new System.Drawing.Point(12, 421);
+            this.pnlSecondRowFilters.Name = "pnlSecondRowFilters";
+            this.pnlSecondRowFilters.Size = new System.Drawing.Size(828, 84);
+            this.pnlSecondRowFilters.TabIndex = 137;
             // 
             // chkBypass5
             // 
             this.chkBypass5.CheckedImage = global::SA_Resources.GlobalResources.ui_btn_bypass_red;
             this.chkBypass5.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.chkBypass5.Location = new System.Drawing.Point(773, 429);
+            this.chkBypass5.Location = new System.Drawing.Point(761, -1);
             this.chkBypass5.Name = "chkBypass5";
             this.chkBypass5.Size = new System.Drawing.Size(61, 23);
             this.chkBypass5.TabIndex = 120;
             this.chkBypass5.UncheckedImage = global::SA_Resources.GlobalResources.ui_btn_bypass;
             this.chkBypass5.UseVisualStyleBackColor = true;
             this.chkBypass5.CheckedChanged += new System.EventHandler(this.chkBypass_CheckedChanged);
+            this.chkBypass5.Enter += new System.EventHandler(this.filterControl_Enter);
             // 
             // chkBypass4
             // 
             this.chkBypass4.CheckedImage = global::SA_Resources.GlobalResources.ui_btn_bypass_red;
             this.chkBypass4.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.chkBypass4.Location = new System.Drawing.Point(473, 429);
+            this.chkBypass4.Location = new System.Drawing.Point(461, -1);
             this.chkBypass4.Name = "chkBypass4";
             this.chkBypass4.Size = new System.Drawing.Size(61, 23);
             this.chkBypass4.TabIndex = 119;
             this.chkBypass4.UncheckedImage = global::SA_Resources.GlobalResources.ui_btn_bypass;
             this.chkBypass4.UseVisualStyleBackColor = true;
             this.chkBypass4.CheckedChanged += new System.EventHandler(this.chkBypass_CheckedChanged);
+            this.chkBypass4.Enter += new System.EventHandler(this.filterControl_Enter);
             // 
             // chkBypass3
             // 
             this.chkBypass3.CheckedImage = global::SA_Resources.GlobalResources.ui_btn_bypass_red;
             this.chkBypass3.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.chkBypass3.Location = new System.Drawing.Point(192, 426);
+            this.chkBypass3.Location = new System.Drawing.Point(180, -4);
             this.chkBypass3.Name = "chkBypass3";
             this.chkBypass3.Size = new System.Drawing.Size(61, 23);
             this.chkBypass3.TabIndex = 116;
             this.chkBypass3.UncheckedImage = global::SA_Resources.GlobalResources.ui_btn_bypass;
             this.chkBypass3.UseVisualStyleBackColor = true;
             this.chkBypass3.CheckedChanged += new System.EventHandler(this.chkBypass_CheckedChanged);
-            // 
-            // btnCancel
-            // 
-            this.btnCancel.AutoResize = true;
-            this.btnCancel.BackgroundImage = global::SA_Resources.GlobalResources.ui_btn_cancel;
-            this.btnCancel.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCancel.Location = new System.Drawing.Point(430, 527);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.OverImage = null;
-            this.btnCancel.Overlay1Image = null;
-            this.btnCancel.Overlay1Visible = false;
-            this.btnCancel.Overlay2Image = null;
-            this.btnCancel.Overlay2Visible = false;
-            this.btnCancel.Overlay3Image = null;
-            this.btnCancel.Overlay3Visible = false;
-            this.btnCancel.PressedImage = null;
-            this.btnCancel.Size = new System.Drawing.Size(49, 23);
-            this.btnCancel.TabIndex = 96;
-            this.btnCancel.ToolTipText = "";
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            this.chkBypass3.Enter += new System.EventHandler(this.filterControl_Enter);
             // 
             // btnSave
             // 
             this.btnSave.AutoResize = true;
             this.btnSave.BackgroundImage = global::SA_Resources.GlobalResources.ui_btn_save;
             this.btnSave.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnSave.Location = new System.Drawing.Point(374, 527);
+            this.btnSave.Location = new System.Drawing.Point(351, 12);
             this.btnSave.Name = "btnSave";
             this.btnSave.OverImage = null;
             this.btnSave.Overlay1Image = null;
@@ -1137,48 +1266,12 @@
             this.btnSave.ToolTipText = "";
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
-            // chkBypass2
-            // 
-            this.chkBypass2.CheckedImage = global::SA_Resources.GlobalResources.ui_btn_bypass_red;
-            this.chkBypass2.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.chkBypass2.Location = new System.Drawing.Point(773, 327);
-            this.chkBypass2.Name = "chkBypass2";
-            this.chkBypass2.Size = new System.Drawing.Size(61, 23);
-            this.chkBypass2.TabIndex = 83;
-            this.chkBypass2.UncheckedImage = global::SA_Resources.GlobalResources.ui_btn_bypass;
-            this.chkBypass2.UseVisualStyleBackColor = true;
-            this.chkBypass2.CheckedChanged += new System.EventHandler(this.chkBypass_CheckedChanged);
-            // 
-            // chkBypass1
-            // 
-            this.chkBypass1.CheckedImage = global::SA_Resources.GlobalResources.ui_btn_bypass_red;
-            this.chkBypass1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.chkBypass1.Location = new System.Drawing.Point(473, 327);
-            this.chkBypass1.Name = "chkBypass1";
-            this.chkBypass1.Size = new System.Drawing.Size(61, 23);
-            this.chkBypass1.TabIndex = 82;
-            this.chkBypass1.UncheckedImage = global::SA_Resources.GlobalResources.ui_btn_bypass;
-            this.chkBypass1.UseVisualStyleBackColor = true;
-            this.chkBypass1.CheckedChanged += new System.EventHandler(this.chkBypass_CheckedChanged);
-            // 
-            // chkBypass0
-            // 
-            this.chkBypass0.CheckedImage = global::SA_Resources.GlobalResources.ui_btn_bypass_red;
-            this.chkBypass0.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.chkBypass0.Location = new System.Drawing.Point(192, 324);
-            this.chkBypass0.Name = "chkBypass0";
-            this.chkBypass0.Size = new System.Drawing.Size(61, 23);
-            this.chkBypass0.TabIndex = 80;
-            this.chkBypass0.UncheckedImage = global::SA_Resources.GlobalResources.ui_btn_bypass;
-            this.chkBypass0.UseVisualStyleBackColor = true;
-            this.chkBypass0.CheckedChanged += new System.EventHandler(this.chkBypass_CheckedChanged);
-            // 
             // btnGo
             // 
             this.btnGo.AutoResize = true;
             this.btnGo.BackgroundImage = global::SA_Resources.GlobalResources.ui_btn_go;
             this.btnGo.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnGo.Location = new System.Drawing.Point(204, 529);
+            this.btnGo.Location = new System.Drawing.Point(196, 12);
             this.btnGo.Name = "btnGo";
             this.btnGo.OverImage = null;
             this.btnGo.Overlay1Image = null;
@@ -1193,75 +1286,76 @@
             this.btnGo.ToolTipText = "";
             this.btnGo.Click += new System.EventHandler(this.btnGo_Click);
             // 
-            // dropAction
+            // btnCancel
             // 
-            this.dropAction.FormattingEnabled = true;
-            this.dropAction.Items.AddRange(new object[] {
-            "Copy configuration to...",
-            "Reset to Defaults"});
-            this.dropAction.Location = new System.Drawing.Point(63, 529);
-            this.dropAction.Name = "dropAction";
-            this.dropAction.Size = new System.Drawing.Size(133, 21);
-            this.dropAction.TabIndex = 134;
+            this.btnCancel.AutoResize = true;
+            this.btnCancel.BackgroundImage = global::SA_Resources.GlobalResources.ui_btn_cancel;
+            this.btnCancel.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnCancel.Location = new System.Drawing.Point(417, 12);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.OverImage = null;
+            this.btnCancel.Overlay1Image = null;
+            this.btnCancel.Overlay1Visible = false;
+            this.btnCancel.Overlay2Image = null;
+            this.btnCancel.Overlay2Visible = false;
+            this.btnCancel.Overlay3Image = null;
+            this.btnCancel.Overlay3Visible = false;
+            this.btnCancel.PressedImage = null;
+            this.btnCancel.Size = new System.Drawing.Size(49, 23);
+            this.btnCancel.TabIndex = 96;
+            this.btnCancel.ToolTipText = "";
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
-            // lblAction
+            // chkBypass2
             // 
-            this.lblAction.AutoSize = true;
-            this.lblAction.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAction.ForeColor = System.Drawing.Color.Gainsboro;
-            this.lblAction.Location = new System.Drawing.Point(13, 532);
-            this.lblAction.Name = "lblAction";
-            this.lblAction.Size = new System.Drawing.Size(44, 13);
-            this.lblAction.TabIndex = 133;
-            this.lblAction.Text = "Action:";
+            this.chkBypass2.CheckedImage = global::SA_Resources.GlobalResources.ui_btn_bypass_red;
+            this.chkBypass2.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.chkBypass2.Location = new System.Drawing.Point(773, 327);
+            this.chkBypass2.Name = "chkBypass2";
+            this.chkBypass2.Size = new System.Drawing.Size(61, 23);
+            this.chkBypass2.TabIndex = 83;
+            this.chkBypass2.UncheckedImage = global::SA_Resources.GlobalResources.ui_btn_bypass;
+            this.chkBypass2.UseVisualStyleBackColor = true;
+            this.chkBypass2.CheckedChanged += new System.EventHandler(this.chkBypass_CheckedChanged);
+            this.chkBypass2.Enter += new System.EventHandler(this.filterControl_Enter);
             // 
-            // FilterForm6
+            // chkBypass1
+            // 
+            this.chkBypass1.CheckedImage = global::SA_Resources.GlobalResources.ui_btn_bypass_red;
+            this.chkBypass1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.chkBypass1.Location = new System.Drawing.Point(473, 327);
+            this.chkBypass1.Name = "chkBypass1";
+            this.chkBypass1.Size = new System.Drawing.Size(61, 23);
+            this.chkBypass1.TabIndex = 82;
+            this.chkBypass1.UncheckedImage = global::SA_Resources.GlobalResources.ui_btn_bypass;
+            this.chkBypass1.UseVisualStyleBackColor = true;
+            this.chkBypass1.CheckedChanged += new System.EventHandler(this.chkBypass_CheckedChanged);
+            this.chkBypass1.Enter += new System.EventHandler(this.filterControl_Enter);
+            // 
+            // chkBypass0
+            // 
+            this.chkBypass0.CheckedImage = global::SA_Resources.GlobalResources.ui_btn_bypass_red;
+            this.chkBypass0.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.chkBypass0.Location = new System.Drawing.Point(192, 324);
+            this.chkBypass0.Name = "chkBypass0";
+            this.chkBypass0.Size = new System.Drawing.Size(61, 23);
+            this.chkBypass0.TabIndex = 80;
+            this.chkBypass0.UncheckedImage = global::SA_Resources.GlobalResources.ui_btn_bypass;
+            this.chkBypass0.UseVisualStyleBackColor = true;
+            this.chkBypass0.CheckedChanged += new System.EventHandler(this.chkBypass_CheckedChanged);
+            this.chkBypass0.Enter += new System.EventHandler(this.filterControl_Enter);
+            // 
+            // FilterForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(82)))), ((int)(((byte)(82)))));
-            this.ClientSize = new System.Drawing.Size(853, 563);
-            this.Controls.Add(this.btnGo);
-            this.Controls.Add(this.dropAction);
-            this.Controls.Add(this.lblAction);
+            this.ClientSize = new System.Drawing.Size(853, 564);
+            this.Controls.Add(this.pnlSecondRowFilters);
+            this.Controls.Add(this.pnlButtons);
             this.Controls.Add(this.lblFilterSelector5);
             this.Controls.Add(this.lblFilterSelector4);
             this.Controls.Add(this.lblFilterSelector3);
-            this.Controls.Add(this.txtQval5);
-            this.Controls.Add(this.txtGain5);
-            this.Controls.Add(this.txtQval4);
-            this.Controls.Add(this.txtGain4);
-            this.Controls.Add(this.txtFreq5);
-            this.Controls.Add(this.txtFreq4);
-            this.Controls.Add(this.txtQval3);
-            this.Controls.Add(this.txtGain3);
-            this.Controls.Add(this.txtFreq3);
-            this.Controls.Add(this.chkBypass5);
-            this.Controls.Add(this.chkBypass4);
-            this.Controls.Add(this.lblSlope4);
-            this.Controls.Add(this.lblSlope5);
-            this.Controls.Add(this.chkBypass3);
-            this.Controls.Add(this.lblQ4);
-            this.Controls.Add(this.lblGain4);
-            this.Controls.Add(this.lblSlope3);
-            this.Controls.Add(this.lblFreq4);
-            this.Controls.Add(this.label11);
-            this.Controls.Add(this.dropFilter4);
-            this.Controls.Add(this.lblQ5);
-            this.Controls.Add(this.dropSlope4);
-            this.Controls.Add(this.lblGain5);
-            this.Controls.Add(this.lblFreq5);
-            this.Controls.Add(this.label15);
-            this.Controls.Add(this.dropFilter5);
-            this.Controls.Add(this.dropSlope5);
-            this.Controls.Add(this.lblQ3);
-            this.Controls.Add(this.lblGain3);
-            this.Controls.Add(this.lblFreq3);
-            this.Controls.Add(this.label19);
-            this.Controls.Add(this.dropFilter3);
-            this.Controls.Add(this.dropSlope3);
-            this.Controls.Add(this.btnCancel);
-            this.Controls.Add(this.btnSave);
             this.Controls.Add(this.txtQval2);
             this.Controls.Add(this.txtGain2);
             this.Controls.Add(this.txtQval1);
@@ -1306,11 +1400,15 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "FilterForm6";
+            this.Name = "FilterForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Filter Designer - CH 1";
-            this.Load += new System.EventHandler(this.FilterForm3_Load);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FilterForm6_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.filterChart)).EndInit();
+            this.pnlButtons.ResumeLayout(false);
+            this.pnlButtons.PerformLayout();
+            this.pnlSecondRowFilters.ResumeLayout(false);
+            this.pnlSecondRowFilters.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1320,12 +1418,10 @@
 
         private System.Windows.Forms.DataVisualization.Charting.Chart filterChart;
         private System.Windows.Forms.ComboBox dropFilter0;
-        private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Label lblFilterSelector0;
         private System.Windows.Forms.Label lblFilterSelector1;
         private System.Windows.Forms.Label lblFilterSelector2;
         private System.Windows.Forms.Label lblStatus;
-        private System.Windows.Forms.ToolTip tooltipFilterSelector;
         private System.Windows.Forms.Panel panel7;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lblQ0;
@@ -1341,7 +1437,6 @@
         private System.Windows.Forms.Label lblFreq2;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.ComboBox dropFilter2;
-        private System.Windows.Forms.Timer timer2;
         private System.Windows.Forms.ComboBox dropSlope0;
         private System.Windows.Forms.Label lblSlope0;
         private System.Windows.Forms.Label lblSlope1;
@@ -1402,6 +1497,8 @@
         private PictureButton btnGo;
         private System.Windows.Forms.ComboBox dropAction;
         private System.Windows.Forms.Label lblAction;
+        private System.Windows.Forms.Panel pnlButtons;
+        private System.Windows.Forms.Panel pnlSecondRowFilters;
     }
 }
 

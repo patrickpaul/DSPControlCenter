@@ -225,6 +225,7 @@
             this.dropFilter0.Size = new System.Drawing.Size(121, 21);
             this.dropFilter0.TabIndex = 3;
             this.dropFilter0.SelectedIndexChanged += new System.EventHandler(this.dropFilter_SelectedIndexChanged);
+            this.dropFilter0.Enter += new System.EventHandler(this.filterControl_Enter);
             // 
             // timer1
             // 
@@ -361,6 +362,7 @@
             this.dropSlope0.Size = new System.Drawing.Size(90, 21);
             this.dropSlope0.TabIndex = 78;
             this.dropSlope0.SelectedIndexChanged += new System.EventHandler(this.dropSlope_SelectedIndexChanged);
+            this.dropSlope0.Enter += new System.EventHandler(this.filterControl_Enter);
             // 
             // lblSlope1
             // 
@@ -437,6 +439,7 @@
             this.dropFilter1.Size = new System.Drawing.Size(121, 21);
             this.dropFilter1.TabIndex = 3;
             this.dropFilter1.SelectedIndexChanged += new System.EventHandler(this.dropFilter_SelectedIndexChanged);
+            this.dropFilter1.Enter += new System.EventHandler(this.filterControl_Enter);
             // 
             // dropSlope1
             // 
@@ -449,6 +452,7 @@
             this.dropSlope1.Size = new System.Drawing.Size(90, 21);
             this.dropSlope1.TabIndex = 80;
             this.dropSlope1.SelectedIndexChanged += new System.EventHandler(this.dropSlope_SelectedIndexChanged);
+            this.dropSlope1.Enter += new System.EventHandler(this.filterControl_Enter);
             // 
             // lblSlope2
             // 
@@ -525,6 +529,7 @@
             this.dropFilter2.Size = new System.Drawing.Size(121, 21);
             this.dropFilter2.TabIndex = 3;
             this.dropFilter2.SelectedIndexChanged += new System.EventHandler(this.dropFilter_SelectedIndexChanged);
+            this.dropFilter2.Enter += new System.EventHandler(this.filterControl_Enter);
             // 
             // dropSlope2
             // 
@@ -537,6 +542,7 @@
             this.dropSlope2.Size = new System.Drawing.Size(90, 21);
             this.dropSlope2.TabIndex = 80;
             this.dropSlope2.SelectedIndexChanged += new System.EventHandler(this.dropSlope_SelectedIndexChanged);
+            this.dropSlope2.Enter += new System.EventHandler(this.filterControl_Enter);
             // 
             // label2
             // 
@@ -558,6 +564,7 @@
             this.txtFreq0.Size = new System.Drawing.Size(56, 20);
             this.txtFreq0.TabIndex = 86;
             this.txtFreq0.Text = "100";
+            this.txtFreq0.Enter += new System.EventHandler(this.filterControl_Enter);
             this.txtFreq0.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Event_Textbox_KeyPress);
             this.txtFreq0.Leave += new System.EventHandler(this.Event_Textbox_Leave);
             this.txtFreq0.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Event_Textbox_MouseUp);
@@ -570,6 +577,7 @@
             this.txtGain0.Size = new System.Drawing.Size(56, 20);
             this.txtGain0.TabIndex = 87;
             this.txtGain0.Text = "0";
+            this.txtGain0.Enter += new System.EventHandler(this.filterControl_Enter);
             this.txtGain0.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Event_Textbox_KeyPress);
             this.txtGain0.Leave += new System.EventHandler(this.Event_Textbox_Leave);
             this.txtGain0.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Event_Textbox_MouseUp);
@@ -582,6 +590,7 @@
             this.txtQval0.Size = new System.Drawing.Size(56, 20);
             this.txtQval0.TabIndex = 88;
             this.txtQval0.Text = "0.707";
+            this.txtQval0.Enter += new System.EventHandler(this.filterControl_Enter);
             this.txtQval0.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Event_Textbox_KeyPress);
             // 
             // txtFreq1
@@ -592,6 +601,7 @@
             this.txtFreq1.Size = new System.Drawing.Size(56, 20);
             this.txtFreq1.TabIndex = 89;
             this.txtFreq1.Text = "1000";
+            this.txtFreq1.Enter += new System.EventHandler(this.filterControl_Enter);
             // 
             // txtFreq2
             // 
@@ -601,6 +611,7 @@
             this.txtFreq2.Size = new System.Drawing.Size(56, 20);
             this.txtFreq2.TabIndex = 90;
             this.txtFreq2.Text = "10000";
+            this.txtFreq2.Enter += new System.EventHandler(this.filterControl_Enter);
             // 
             // txtQval1
             // 
@@ -610,6 +621,7 @@
             this.txtQval1.Size = new System.Drawing.Size(56, 20);
             this.txtQval1.TabIndex = 92;
             this.txtQval1.Text = "0.707";
+            this.txtQval1.Enter += new System.EventHandler(this.filterControl_Enter);
             // 
             // txtGain1
             // 
@@ -619,6 +631,7 @@
             this.txtGain1.Size = new System.Drawing.Size(56, 20);
             this.txtGain1.TabIndex = 91;
             this.txtGain1.Text = "0.0";
+            this.txtGain1.Enter += new System.EventHandler(this.filterControl_Enter);
             // 
             // txtQval2
             // 
@@ -628,6 +641,7 @@
             this.txtQval2.Size = new System.Drawing.Size(56, 20);
             this.txtQval2.TabIndex = 94;
             this.txtQval2.Text = "0.707";
+            this.txtQval2.Enter += new System.EventHandler(this.filterControl_Enter);
             // 
             // txtGain2
             // 
@@ -637,6 +651,7 @@
             this.txtGain2.Size = new System.Drawing.Size(56, 20);
             this.txtGain2.TabIndex = 93;
             this.txtGain2.Text = "0.0";
+            this.txtGain2.Enter += new System.EventHandler(this.filterControl_Enter);
             // 
             // lblAction
             // 
@@ -731,6 +746,7 @@
             this.chkBypass2.UncheckedImage = global::SA_Resources.GlobalResources.ui_btn_bypass;
             this.chkBypass2.UseVisualStyleBackColor = true;
             this.chkBypass2.CheckedChanged += new System.EventHandler(this.chkBypass_CheckedChanged);
+            this.chkBypass2.Enter += new System.EventHandler(this.filterControl_Enter);
             // 
             // chkBypass1
             // 
@@ -743,6 +759,7 @@
             this.chkBypass1.UncheckedImage = global::SA_Resources.GlobalResources.ui_btn_bypass;
             this.chkBypass1.UseVisualStyleBackColor = true;
             this.chkBypass1.CheckedChanged += new System.EventHandler(this.chkBypass_CheckedChanged);
+            this.chkBypass1.Enter += new System.EventHandler(this.filterControl_Enter);
             // 
             // chkBypass0
             // 
@@ -755,6 +772,7 @@
             this.chkBypass0.UncheckedImage = global::SA_Resources.GlobalResources.ui_btn_bypass;
             this.chkBypass0.UseVisualStyleBackColor = true;
             this.chkBypass0.CheckedChanged += new System.EventHandler(this.chkBypass_CheckedChanged);
+            this.chkBypass0.Enter += new System.EventHandler(this.filterControl_Enter);
             // 
             // FilterForm3
             // 
@@ -814,7 +832,6 @@
             this.Name = "FilterForm3";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Filter Designer - CH 1";
-            this.Load += new System.EventHandler(this.FilterForm3_Load);
             ((System.ComponentModel.ISupportInitialize)(this.filterChart)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

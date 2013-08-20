@@ -105,7 +105,6 @@ namespace DSP_4x4
                 if (CONFIGFILE != "")
                 {
                     LoadFromFile(CONFIGFILE);
-                    MessageBox.Show("Loaded settings from " + CONFIGFILE);
                 }
 
                 LoadSettingsToProgramConfig();
@@ -813,26 +812,13 @@ namespace DSP_4x4
         {
             int channel = int.Parse(((PictureButton)sender).Name.Substring(5, 1));
 
-            using (FilterForm3 filterForm = new FilterForm3(this,PROGRAMS[CURRENT_PROGRAM].filters[channel - 1], channel))
+            using (FilterForm filterForm = new FilterForm(this,channel))
             {
+                filterForm.Height = 500;
                 // passing this in ShowDialog will set the .Owner 
                 // property of the child form
                 filterForm.ShowDialog(this);
-            }
-
-            for(int i = 0; i < 3; i ++)
-            {
-                if (PROGRAMS[CURRENT_PROGRAM].filters[channel - 1][i].Filter == null)
-                {
-                    Console.WriteLine("Not used");
-                }
-                else
-                {
-                    Console.WriteLine(PROGRAMS[CURRENT_PROGRAM].filters[channel - 1][i].Filter.FilterType);
-                }
-            }
-
-            
+            }            
         }
 
         private void btnMatrixMixer_Click(object sender, EventArgs e)
@@ -849,10 +835,6 @@ namespace DSP_4x4
                     mixerForm.Width = 247;
                 }
 
-                //mixerForm.Width = 247;
-
-                // passing this in ShowDialog will set the .Owner 
-                // property of the child form
                 mixerForm.ShowDialog(this);
             }
         }
@@ -985,7 +967,7 @@ namespace DSP_4x4
         {
             int channel = int.Parse(((PictureButton)sender).Name.Substring(5, 1));
 
-            using (FilterForm6 filterForm = new FilterForm6(this, PROGRAMS[CURRENT_PROGRAM].filters[channel - 1], channel))
+            using (FilterForm filterForm = new FilterForm(this, channel,true))
             {
                 // passing this in ShowDialog will set the .Owner 
                 // property of the child form
@@ -1491,15 +1473,13 @@ namespace DSP_4x4
                 else
                 {
                     // Perform a time consuming operation and report progress.
-                    System.Threading.Thread.Sleep(500);
+                    System.Threading.Thread.Sleep(100);
                     lock (_locker)
                     {
                         if (UPDATE_QUEUE.Count > 0)
                         {
                             LiveQueueItem read_setting = (LiveQueueItem)UPDATE_QUEUE.Dequeue();
 
-                            //lock ()
-                            //{
                                 if (_PIC_Conn.getRTS())
                                 {
                                     if (read_setting.Index < 1000)
@@ -1534,9 +1514,6 @@ namespace DSP_4x4
                                 {
                                     Console.WriteLine("Couldn't get RTS from BW");
                                 }
-                            //}
-                            //Console.WriteLine("Dequeued DSP setting: " + read_setting.Index + " - " + read_setting.Value.ToString("X8"));
-                            //Console.WriteLine("There are now " + UPDATE_QUEUE.Count + " items in the queue.");
                         }
                         else
                         {
@@ -1576,20 +1553,7 @@ namespace DSP_4x4
             {
                 UPDATE_QUEUE.Enqueue(itemToAdd);
             }
-        }
-
-
-        private void btnAddItemToQueue_Click(object sender, EventArgs e)
-        {
-
-            lock (_locker)
-            {
-                UPDATE_QUEUE.Enqueue(new DSP_Setting(1, "Test", 0x20000000));
-            }
-        }
-
-
-        
+        }       
 
     }
 
