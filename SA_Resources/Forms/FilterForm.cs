@@ -77,6 +77,8 @@ namespace SA_Resources
         private bool editing_textbox = false;
         private string starting_text_value = "";
 
+        private bool IS_SIX_CHANNEL = false;
+
         /* Dial Delegates */
 
         private delegate void SetTextCallback(TextBox tbControl, string text);
@@ -122,7 +124,8 @@ namespace SA_Resources
                 active_global_filter_index = 3;
                 pnlSecondRowFilters.Visible = true;
                 pnlButtons.Location = new Point(18, 511);
-                
+                IS_SIX_CHANNEL = true;
+
             }
             else
             {
@@ -143,12 +146,12 @@ namespace SA_Resources
                 filterColors[0] = Color.Chocolate;
                 filterColors[1] = Color.Chartreuse;
                 filterColors[2] = Color.DarkMagenta;
-                filterColors[3] = Color.Chocolate;
-                filterColors[4] = Color.Chartreuse;
-                filterColors[5] = Color.DarkMagenta;
-                filterColors[6] = Color.Chocolate;
-                filterColors[7] = Color.Chartreuse;
-                filterColors[8] = Color.DarkMagenta;
+                filterColors[3] = Color.SandyBrown;
+                filterColors[4] = Color.PaleGreen;
+                filterColors[5] = Color.Plum;
+                filterColors[6] = Color.SandyBrown;
+                filterColors[7] = Color.PaleGreen;
+                filterColors[8] = Color.Plum;
 
                 this.Text = "Filter Designer - CH " + chan_number.ToString();
                 this.DoubleBuffered = true;
@@ -179,9 +182,9 @@ namespace SA_Resources
                         ((PictureCheckbox)Controls.Find("chkBypass" + localized_starting_filter.ToString(), true)[0]).Checked = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][i].Bypassed;
                         ((PictureCheckbox)Controls.Find("chkBypass" + localized_starting_filter.ToString(), true)[0]).Invalidate();
 
-                        ((TextBox)Controls.Find("txtGain" + localized_starting_filter.ToString(), true)[0]).Text = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][i].Filter.Gain.ToString("#.##");
+                        ((TextBox)Controls.Find("txtGain" + localized_starting_filter.ToString(), true)[0]).Text = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][i].Filter.Gain.ToString("F1");
                         ((TextBox)Controls.Find("txtFreq" + localized_starting_filter.ToString(), true)[0]).Text = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][i].Filter.CenterFrequency.ToString("#.");
-                        ((TextBox)Controls.Find("txtQval" + localized_starting_filter.ToString(), true)[0]).Text = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][i].Filter.QValue.ToString("#.###");
+                        ((TextBox)Controls.Find("txtQval" + localized_starting_filter.ToString(), true)[0]).Text = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][i].Filter.QValue.ToString("F3");
 
                         if (((int)PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][i].Filter.FilterType == 6) || ((int)PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][i].Filter.FilterType == 7))
                         {
@@ -232,18 +235,20 @@ namespace SA_Resources
                 filterChart.Images.Add(backImage);
                 filterChart.ChartAreas[0].BackImage = "FilterGraph_BG_Blue_Modified";
 
-                dropFilter0.BackColor = Helpers.Lighten(filterColors[0], 0.30);
+                dropFilter0.BackColor = Helpers.Lighten(filterColors[0], 0.20);
                 dropFilter1.BackColor = Helpers.Lighten(filterColors[1], 0.30);
-                dropFilter2.BackColor = Helpers.Lighten(filterColors[2], 0.50);
-                dropFilter3.BackColor = Helpers.Lighten(filterColors[3], 0.30);
-                dropFilter4.BackColor = Helpers.Lighten(filterColors[4], 0.30);
-                dropFilter5.BackColor = Helpers.Lighten(filterColors[5], 0.50);
+                dropFilter2.BackColor = Helpers.Lighten(filterColors[2], 0.40);
+                dropFilter3.BackColor = Helpers.Lighten(filterColors[3], 0.10);
+                dropFilter4.BackColor = Helpers.Lighten(filterColors[4], 0.10);
+                dropFilter5.BackColor = Helpers.Lighten(filterColors[5], 0.10);
+
+                pnlSecondRowFilters.Invalidate();
 
                 lblFilterSelector1.BackColor = Helpers.Darken(filterColors[1], filterSelectorFade);
                 lblFilterSelector2.BackColor = Helpers.Darken(filterColors[2], filterSelectorFade);
                 lblFilterSelector3.BackColor = Helpers.Darken(filterColors[2], filterSelectorFade);
                 lblFilterSelector4.BackColor = Helpers.Darken(filterColors[3], filterSelectorFade);
-                lblFilterSelector4.BackColor = Helpers.Darken(filterColors[4], filterSelectorFade);
+                lblFilterSelector5.BackColor = Helpers.Darken(filterColors[4], filterSelectorFade);
 
                 dropAction.SelectedIndex = 0;
                 dropAction.Invalidate();
@@ -755,6 +760,12 @@ namespace SA_Resources
 
                 RefreshSingleFilter(global_filter_index);
                 RefreshMasterFilter();
+
+
+                if (graph_loaded)
+                {
+                    SendFilterToParent(global_filter_index);
+                }
             }
         }
 
@@ -833,6 +844,8 @@ namespace SA_Resources
             lblFilterSelector0.Focus();
 
             RefreshAllFilters();
+
+            SendFilterToParent(active_global_filter_index);
         }
 
         #endregion
@@ -1153,6 +1166,7 @@ namespace SA_Resources
             {
             }
 
+            
             if(dragging_crosshairs)
             {
                 int lastPoint = MasterMarkerLine.Points.Count - 1;
@@ -1161,7 +1175,7 @@ namespace SA_Resources
             dragging_crosshairs = false;
 
             // TODO - FIX NOTIFYME
-            // parent.NotifyParent(active_filter, PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][active_filter]);
+            SendFilterToParent(active_global_filter_index);
         }
 
 
@@ -1181,6 +1195,8 @@ namespace SA_Resources
             PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][global_filter_index].Bypassed = ((PictureCheckbox)sender).Checked;
 
             RefreshAllFilters();
+
+            SendFilterToParent(active_global_filter_index);
         }
 
         private void Event_Textbox_KeyPress(object sender, KeyPressEventArgs e)
@@ -1217,6 +1233,7 @@ namespace SA_Resources
                 active_textbox.Select(0, 0);
 
                 UpdateFilterValuefromTextbox(active_textbox);
+
             }
 
 
@@ -1276,6 +1293,13 @@ namespace SA_Resources
                 editing_textbox = false;
                 active_textbox.Select(0, 0);
                 UpdateFilterValuefromTextbox(active_textbox);
+
+                /*if(text_has_changed)
+                {
+                    SendFilterToParent(active_global_filter_index);
+                    text_has_changed = false;
+                }*/
+                
 
             }
         }
@@ -1346,6 +1370,8 @@ namespace SA_Resources
 
             }
 
+            SendFilterToParent(active_global_filter_index);
+
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -1360,7 +1386,12 @@ namespace SA_Resources
 
         private void btnGo_Click(object sender, EventArgs e)
         {
-            using (CopyForm copyForm = new CopyForm(PARENT_FORM, CH_NUMBER, CopyFormType.Filter6))
+            CopyFormType copyType = CopyFormType.Filter3;
+            if (IS_SIX_CHANNEL)
+            {
+                copyType = CopyFormType.Filter6;
+            }
+            using (CopyForm copyForm = new CopyForm(PARENT_FORM, CH_NUMBER, copyType))
             {
                 // passing this in ShowDialog will set the .Owner 
                 // property of the child form
@@ -1419,6 +1450,103 @@ namespace SA_Resources
             catch
             {
             }
+        }
+
+        private void SendFilterToParent(int global_filter_index)
+        {
+            UInt32 B0 = 0x20000000;
+            UInt32 B1 = 0x00000000;
+            UInt32 B2 = 0x00000000;
+            UInt32 A1 = 0x00000000;
+            UInt32 A2 = 0x00000000;
+
+            UInt32 PACKAGE = 0x00000000;
+            UInt32 PACKAGE_GAIN = 0x00000000;
+            UInt32 PACKAGE_Q = 0x00000000;
+            try
+            {
+
+                if(PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER-1][global_filter_index] == null)
+                {
+                    B0 = 0x20000000;
+                    B1 = 0x00000000;
+                    B2 = 0x00000000;
+                    A1 = 0x00000000;
+                    A2 = 0x00000000;
+
+                    PACKAGE = 0x00000000;
+                    PACKAGE_GAIN = 0x00000000;
+                    PACKAGE_Q = 0x00000000;
+                } else
+                {
+                    if(PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER-1][global_filter_index].Type == FilterType.None)
+                    {
+                        B0 = 0x20000000;
+                        B1 = 0x00000000;
+                        B2 = 0x00000000;
+                        A1 = 0x00000000;
+                        A2 = 0x00000000;
+
+                        PACKAGE = 0x00000000;
+                        PACKAGE_GAIN = 0x00000000;
+                        PACKAGE_Q = 0x00000000;
+
+                    } else
+                    {
+                        if (PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][global_filter_index].Bypassed)
+                        {
+                            B0 = 0x20000000;
+                            B1 = 0x00000000;
+                            B2 = 0x00000000;
+                            A1 = 0x00000000;
+                            A2 = 0x00000000;
+                        }
+                        else
+                        {
+                            B0 = DSP_Math.double_to_MN(PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][global_filter_index].Filter.B0, 3, 29);
+                            B1 = DSP_Math.double_to_MN(PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][global_filter_index].Filter.B1, 3, 29);
+                            B2 = DSP_Math.double_to_MN(PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][global_filter_index].Filter.B2, 3, 29);
+                            A1 = DSP_Math.double_to_MN(PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][global_filter_index].Filter.A1 * -1, 2, 30);
+                            A2 = DSP_Math.double_to_MN(PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][global_filter_index].Filter.A2 * -1, 2, 30);
+                        }
+                        PACKAGE = DSP_Math.filter_to_package(PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][global_filter_index]);
+                        PACKAGE_GAIN = DSP_Math.double_to_MN(PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][global_filter_index].Filter.Gain, 8, 24);
+                        PACKAGE_Q = DSP_Math.double_to_MN(PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][global_filter_index].Filter.QValue, 8, 24);
+
+                    }
+
+                    
+                }
+
+                int starting_index = (40) + ((CH_NUMBER - 1)*45) + (global_filter_index*5);
+
+                // Mute channel output...
+                PARENT_FORM.AddItemToQueue(new LiveQueueItem(36 + (CH_NUMBER-1), 0x00000000));
+
+                PARENT_FORM.AddItemToQueue(new LiveQueueItem(starting_index, B0));
+                PARENT_FORM.AddItemToQueue(new LiveQueueItem(starting_index+1, B1));
+                PARENT_FORM.AddItemToQueue(new LiveQueueItem(starting_index+2, B2));
+                PARENT_FORM.AddItemToQueue(new LiveQueueItem(starting_index+3, A1));
+                PARENT_FORM.AddItemToQueue(new LiveQueueItem(starting_index+4, A2));
+
+                // Unmute channel output...
+                // Recall old value
+                UInt32 gain_val = DSP_Math.double_to_MN(DSP_Math.decibels_to_voltage_gain(PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].gains[CH_NUMBER-1][3].Gain), 3, 29);
+                PARENT_FORM.AddItemToQueue(new LiveQueueItem(36 + (CH_NUMBER - 1), gain_val));
+
+                starting_index = (300) + ((CH_NUMBER - 1) * 27) + (global_filter_index * 3);
+
+                PARENT_FORM.AddItemToQueue(new LiveQueueItem(starting_index, PACKAGE));
+                PARENT_FORM.AddItemToQueue(new LiveQueueItem(starting_index+1, PACKAGE_GAIN));
+                PARENT_FORM.AddItemToQueue(new LiveQueueItem(starting_index+2, PACKAGE_Q));
+
+                
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception in FilterForm.SendFilterToParent: " + ex.Message);
+            }
+
         }
 
 

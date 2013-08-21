@@ -319,7 +319,7 @@
             // 
             // lblFilterSelector4
             // 
-            this.lblFilterSelector4.BackColor = System.Drawing.Color.Chartreuse;
+            this.lblFilterSelector4.BackColor = System.Drawing.Color.PaleGreen;
             this.lblFilterSelector4.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lblFilterSelector4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblFilterSelector4.Location = new System.Drawing.Point(202, 274);
@@ -333,7 +333,7 @@
             // 
             // lblFilterSelector3
             // 
-            this.lblFilterSelector3.BackColor = System.Drawing.Color.Chocolate;
+            this.lblFilterSelector3.BackColor = System.Drawing.Color.SandyBrown;
             this.lblFilterSelector3.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lblFilterSelector3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblFilterSelector3.Location = new System.Drawing.Point(176, 274);
@@ -634,7 +634,7 @@
             this.txtGain0.Name = "txtGain0";
             this.txtGain0.Size = new System.Drawing.Size(56, 20);
             this.txtGain0.TabIndex = 87;
-            this.txtGain0.Text = "0";
+            this.txtGain0.Text = "0.0";
             this.txtGain0.Enter += new System.EventHandler(this.filterControl_Enter);
             this.txtGain0.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Event_Textbox_KeyPress);
             this.txtGain0.Leave += new System.EventHandler(this.Event_Textbox_Leave);
@@ -733,7 +733,7 @@
             // 
             // txtQval5
             // 
-            this.txtQval5.Location = new System.Drawing.Point(761, 47);
+            this.txtQval5.Location = new System.Drawing.Point(761, 55);
             this.txtQval5.MaxLength = 5;
             this.txtQval5.Name = "txtQval5";
             this.txtQval5.Size = new System.Drawing.Size(56, 20);
@@ -746,7 +746,7 @@
             // 
             // txtGain5
             // 
-            this.txtGain5.Location = new System.Drawing.Point(681, 47);
+            this.txtGain5.Location = new System.Drawing.Point(681, 55);
             this.txtGain5.MaxLength = 6;
             this.txtGain5.Name = "txtGain5";
             this.txtGain5.Size = new System.Drawing.Size(56, 20);
@@ -759,7 +759,7 @@
             // 
             // txtQval4
             // 
-            this.txtQval4.Location = new System.Drawing.Point(461, 47);
+            this.txtQval4.Location = new System.Drawing.Point(461, 55);
             this.txtQval4.MaxLength = 5;
             this.txtQval4.Name = "txtQval4";
             this.txtQval4.Size = new System.Drawing.Size(56, 20);
@@ -772,7 +772,7 @@
             // 
             // txtGain4
             // 
-            this.txtGain4.Location = new System.Drawing.Point(383, 47);
+            this.txtGain4.Location = new System.Drawing.Point(383, 55);
             this.txtGain4.MaxLength = 6;
             this.txtGain4.Name = "txtGain4";
             this.txtGain4.Size = new System.Drawing.Size(56, 20);
@@ -785,7 +785,7 @@
             // 
             // txtFreq5
             // 
-            this.txtFreq5.Location = new System.Drawing.Point(602, 47);
+            this.txtFreq5.Location = new System.Drawing.Point(602, 55);
             this.txtFreq5.MaxLength = 5;
             this.txtFreq5.Name = "txtFreq5";
             this.txtFreq5.Size = new System.Drawing.Size(56, 20);
@@ -798,7 +798,7 @@
             // 
             // txtFreq4
             // 
-            this.txtFreq4.Location = new System.Drawing.Point(298, 47);
+            this.txtFreq4.Location = new System.Drawing.Point(298, 55);
             this.txtFreq4.MaxLength = 5;
             this.txtFreq4.Name = "txtFreq4";
             this.txtFreq4.Size = new System.Drawing.Size(56, 20);
@@ -811,7 +811,7 @@
             // 
             // txtQval3
             // 
-            this.txtQval3.Location = new System.Drawing.Point(180, 47);
+            this.txtQval3.Location = new System.Drawing.Point(180, 55);
             this.txtQval3.MaxLength = 5;
             this.txtQval3.Name = "txtQval3";
             this.txtQval3.Size = new System.Drawing.Size(56, 20);
@@ -824,12 +824,12 @@
             // 
             // txtGain3
             // 
-            this.txtGain3.Location = new System.Drawing.Point(102, 47);
+            this.txtGain3.Location = new System.Drawing.Point(102, 55);
             this.txtGain3.MaxLength = 6;
             this.txtGain3.Name = "txtGain3";
             this.txtGain3.Size = new System.Drawing.Size(56, 20);
             this.txtGain3.TabIndex = 122;
-            this.txtGain3.Text = "0";
+            this.txtGain3.Text = "0.0";
             this.txtGain3.Enter += new System.EventHandler(this.filterControl_Enter);
             this.txtGain3.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Event_Textbox_KeyPress);
             this.txtGain3.Leave += new System.EventHandler(this.Event_Textbox_Leave);
@@ -837,7 +837,7 @@
             // 
             // txtFreq3
             // 
-            this.txtFreq3.Location = new System.Drawing.Point(17, 47);
+            this.txtFreq3.Location = new System.Drawing.Point(17, 55);
             this.txtFreq3.MaxLength = 5;
             this.txtFreq3.Name = "txtFreq3";
             this.txtFreq3.Size = new System.Drawing.Size(56, 20);
@@ -853,7 +853,7 @@
             this.lblSlope4.AutoSize = true;
             this.lblSlope4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSlope4.ForeColor = System.Drawing.Color.Gainsboro;
-            this.lblSlope4.Location = new System.Drawing.Point(430, 30);
+            this.lblSlope4.Location = new System.Drawing.Point(430, 38);
             this.lblSlope4.Name = "lblSlope4";
             this.lblSlope4.Size = new System.Drawing.Size(39, 13);
             this.lblSlope4.TabIndex = 117;
@@ -865,7 +865,7 @@
             this.lblSlope5.AutoSize = true;
             this.lblSlope5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSlope5.ForeColor = System.Drawing.Color.Gainsboro;
-            this.lblSlope5.Location = new System.Drawing.Point(726, 30);
+            this.lblSlope5.Location = new System.Drawing.Point(726, 38);
             this.lblSlope5.Name = "lblSlope5";
             this.lblSlope5.Size = new System.Drawing.Size(39, 13);
             this.lblSlope5.TabIndex = 118;
@@ -876,7 +876,7 @@
             // 
             this.lblQ4.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblQ4.ForeColor = System.Drawing.Color.Gainsboro;
-            this.lblQ4.Location = new System.Drawing.Point(453, 30);
+            this.lblQ4.Location = new System.Drawing.Point(453, 38);
             this.lblQ4.Name = "lblQ4";
             this.lblQ4.Size = new System.Drawing.Size(64, 13);
             this.lblQ4.TabIndex = 109;
@@ -887,7 +887,7 @@
             // 
             this.lblGain4.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblGain4.ForeColor = System.Drawing.Color.Gainsboro;
-            this.lblGain4.Location = new System.Drawing.Point(378, 30);
+            this.lblGain4.Location = new System.Drawing.Point(378, 38);
             this.lblGain4.Name = "lblGain4";
             this.lblGain4.Size = new System.Drawing.Size(58, 13);
             this.lblGain4.TabIndex = 108;
@@ -899,7 +899,7 @@
             this.lblSlope3.AutoSize = true;
             this.lblSlope3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSlope3.ForeColor = System.Drawing.Color.Gainsboro;
-            this.lblSlope3.Location = new System.Drawing.Point(145, 27);
+            this.lblSlope3.Location = new System.Drawing.Point(145, 35);
             this.lblSlope3.Name = "lblSlope3";
             this.lblSlope3.Size = new System.Drawing.Size(39, 13);
             this.lblSlope3.TabIndex = 113;
@@ -910,7 +910,7 @@
             // 
             this.lblFreq4.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblFreq4.ForeColor = System.Drawing.Color.Gainsboro;
-            this.lblFreq4.Location = new System.Drawing.Point(291, 30);
+            this.lblFreq4.Location = new System.Drawing.Point(291, 38);
             this.lblFreq4.Name = "lblFreq4";
             this.lblFreq4.Size = new System.Drawing.Size(71, 13);
             this.lblFreq4.TabIndex = 105;
@@ -922,7 +922,7 @@
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold);
             this.label11.ForeColor = System.Drawing.Color.Gainsboro;
-            this.label11.Location = new System.Drawing.Point(281, 3);
+            this.label11.Location = new System.Drawing.Point(281, 11);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(35, 13);
             this.label11.TabIndex = 100;
@@ -942,7 +942,7 @@
             "High Shelf",
             "Peak (PEQ)",
             "Notch"});
-            this.dropFilter4.Location = new System.Drawing.Point(321, 0);
+            this.dropFilter4.Location = new System.Drawing.Point(321, 8);
             this.dropFilter4.Name = "dropFilter4";
             this.dropFilter4.Size = new System.Drawing.Size(121, 21);
             this.dropFilter4.TabIndex = 97;
@@ -953,7 +953,7 @@
             // 
             this.lblQ5.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblQ5.ForeColor = System.Drawing.Color.Gainsboro;
-            this.lblQ5.Location = new System.Drawing.Point(753, 29);
+            this.lblQ5.Location = new System.Drawing.Point(753, 37);
             this.lblQ5.Name = "lblQ5";
             this.lblQ5.Size = new System.Drawing.Size(64, 13);
             this.lblQ5.TabIndex = 110;
@@ -966,7 +966,7 @@
             this.dropSlope4.Items.AddRange(new object[] {
             "6dB/Octave",
             "12dB/Octave"});
-            this.dropSlope4.Location = new System.Drawing.Point(404, 47);
+            this.dropSlope4.Location = new System.Drawing.Point(404, 55);
             this.dropSlope4.Name = "dropSlope4";
             this.dropSlope4.Size = new System.Drawing.Size(90, 21);
             this.dropSlope4.TabIndex = 115;
@@ -977,7 +977,7 @@
             // 
             this.lblGain5.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblGain5.ForeColor = System.Drawing.Color.Gainsboro;
-            this.lblGain5.Location = new System.Drawing.Point(678, 29);
+            this.lblGain5.Location = new System.Drawing.Point(678, 37);
             this.lblGain5.Name = "lblGain5";
             this.lblGain5.Size = new System.Drawing.Size(58, 13);
             this.lblGain5.TabIndex = 106;
@@ -988,7 +988,7 @@
             // 
             this.lblFreq5.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblFreq5.ForeColor = System.Drawing.Color.Gainsboro;
-            this.lblFreq5.Location = new System.Drawing.Point(591, 29);
+            this.lblFreq5.Location = new System.Drawing.Point(591, 37);
             this.lblFreq5.Name = "lblFreq5";
             this.lblFreq5.Size = new System.Drawing.Size(71, 13);
             this.lblFreq5.TabIndex = 103;
@@ -1000,7 +1000,7 @@
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold);
             this.label15.ForeColor = System.Drawing.Color.Gainsboro;
-            this.label15.Location = new System.Drawing.Point(581, 2);
+            this.label15.Location = new System.Drawing.Point(581, 10);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(35, 13);
             this.label15.TabIndex = 102;
@@ -1020,7 +1020,7 @@
             "High Shelf",
             "Peak (PEQ)",
             "Notch"});
-            this.dropFilter5.Location = new System.Drawing.Point(621, -1);
+            this.dropFilter5.Location = new System.Drawing.Point(621, 7);
             this.dropFilter5.Name = "dropFilter5";
             this.dropFilter5.Size = new System.Drawing.Size(121, 21);
             this.dropFilter5.TabIndex = 99;
@@ -1033,7 +1033,7 @@
             this.dropSlope5.Items.AddRange(new object[] {
             "6dB/Octave",
             "12dB/Octave"});
-            this.dropSlope5.Location = new System.Drawing.Point(700, 47);
+            this.dropSlope5.Location = new System.Drawing.Point(700, 55);
             this.dropSlope5.Name = "dropSlope5";
             this.dropSlope5.Size = new System.Drawing.Size(90, 21);
             this.dropSlope5.TabIndex = 114;
@@ -1044,7 +1044,7 @@
             // 
             this.lblQ3.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblQ3.ForeColor = System.Drawing.Color.Gainsboro;
-            this.lblQ3.Location = new System.Drawing.Point(172, 27);
+            this.lblQ3.Location = new System.Drawing.Point(172, 35);
             this.lblQ3.Name = "lblQ3";
             this.lblQ3.Size = new System.Drawing.Size(64, 13);
             this.lblQ3.TabIndex = 111;
@@ -1055,7 +1055,7 @@
             // 
             this.lblGain3.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblGain3.ForeColor = System.Drawing.Color.Gainsboro;
-            this.lblGain3.Location = new System.Drawing.Point(97, 27);
+            this.lblGain3.Location = new System.Drawing.Point(97, 35);
             this.lblGain3.Name = "lblGain3";
             this.lblGain3.Size = new System.Drawing.Size(58, 13);
             this.lblGain3.TabIndex = 107;
@@ -1066,7 +1066,7 @@
             // 
             this.lblFreq3.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblFreq3.ForeColor = System.Drawing.Color.Gainsboro;
-            this.lblFreq3.Location = new System.Drawing.Point(10, 27);
+            this.lblFreq3.Location = new System.Drawing.Point(10, 35);
             this.lblFreq3.Name = "lblFreq3";
             this.lblFreq3.Size = new System.Drawing.Size(71, 13);
             this.lblFreq3.TabIndex = 104;
@@ -1078,7 +1078,7 @@
             this.label19.AutoSize = true;
             this.label19.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label19.ForeColor = System.Drawing.Color.Gainsboro;
-            this.label19.Location = new System.Drawing.Point(0, 0);
+            this.label19.Location = new System.Drawing.Point(0, 8);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(35, 13);
             this.label19.TabIndex = 101;
@@ -1099,7 +1099,7 @@
             "High Shelf",
             "Peak (PEQ)",
             "Notch"});
-            this.dropFilter3.Location = new System.Drawing.Point(40, -3);
+            this.dropFilter3.Location = new System.Drawing.Point(40, 5);
             this.dropFilter3.Name = "dropFilter3";
             this.dropFilter3.Size = new System.Drawing.Size(121, 21);
             this.dropFilter3.TabIndex = 98;
@@ -1112,7 +1112,7 @@
             this.dropSlope3.Items.AddRange(new object[] {
             "6dB/Octave",
             "12dB/Octave"});
-            this.dropSlope3.Location = new System.Drawing.Point(119, 47);
+            this.dropSlope3.Location = new System.Drawing.Point(119, 55);
             this.dropSlope3.Name = "dropSlope3";
             this.dropSlope3.Size = new System.Drawing.Size(90, 21);
             this.dropSlope3.TabIndex = 112;
@@ -1121,7 +1121,7 @@
             // 
             // lblFilterSelector5
             // 
-            this.lblFilterSelector5.BackColor = System.Drawing.Color.DarkMagenta;
+            this.lblFilterSelector5.BackColor = System.Drawing.Color.Plum;
             this.lblFilterSelector5.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lblFilterSelector5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblFilterSelector5.Location = new System.Drawing.Point(228, 274);
@@ -1211,7 +1211,7 @@
             // 
             this.chkBypass5.CheckedImage = global::SA_Resources.GlobalResources.ui_btn_bypass_red;
             this.chkBypass5.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.chkBypass5.Location = new System.Drawing.Point(761, -1);
+            this.chkBypass5.Location = new System.Drawing.Point(761, 7);
             this.chkBypass5.Name = "chkBypass5";
             this.chkBypass5.Size = new System.Drawing.Size(61, 23);
             this.chkBypass5.TabIndex = 120;
@@ -1224,7 +1224,7 @@
             // 
             this.chkBypass4.CheckedImage = global::SA_Resources.GlobalResources.ui_btn_bypass_red;
             this.chkBypass4.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.chkBypass4.Location = new System.Drawing.Point(461, -1);
+            this.chkBypass4.Location = new System.Drawing.Point(461, 7);
             this.chkBypass4.Name = "chkBypass4";
             this.chkBypass4.Size = new System.Drawing.Size(61, 23);
             this.chkBypass4.TabIndex = 119;
@@ -1237,7 +1237,7 @@
             // 
             this.chkBypass3.CheckedImage = global::SA_Resources.GlobalResources.ui_btn_bypass_red;
             this.chkBypass3.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.chkBypass3.Location = new System.Drawing.Point(180, -4);
+            this.chkBypass3.Location = new System.Drawing.Point(180, 4);
             this.chkBypass3.Name = "chkBypass3";
             this.chkBypass3.Size = new System.Drawing.Size(61, 23);
             this.chkBypass3.TabIndex = 116;

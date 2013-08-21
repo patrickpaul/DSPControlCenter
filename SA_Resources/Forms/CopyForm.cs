@@ -240,7 +240,7 @@ namespace SA_Resources.Forms
         private string FilterFrequencyString(double frequency)
         {
             if(frequency < 1000) {
-                return frequency + "Hz";
+                return frequency.ToString("F0") + "Hz";
             } else {
                 return (frequency/1000).ToString("F2") + "kHz";
             }

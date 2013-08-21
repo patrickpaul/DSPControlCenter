@@ -290,7 +290,7 @@ namespace SA_Resources
 
         private void LiveGainUpdate()
         {
-            UInt32 new_val = DSP_Math.double_to_MN(DSP_Math.decibels_to_voltage_gain(cur_gain), 3, 29); ;
+            UInt32 new_val = DSP_Math.double_to_MN(DSP_Math.decibels_to_voltage_gain(cur_gain), 3, 29);
 
             PARENT_FORM.AddItemToQueue(new LiveQueueItem(SETTINGS_INDEX, new_val));
         }

@@ -20,8 +20,8 @@ namespace DSP_4x4
         #region Variables
 
         private bool demo_mode = false;
-        private bool disable_read = true;
-        private bool debug_mode = true;
+        private bool disable_read = false;
+        private bool debug_mode = false;
 
         public Queue UPDATE_QUEUE = new Queue();
         public object _locker = new Object();
@@ -1473,7 +1473,7 @@ namespace DSP_4x4
                 else
                 {
                     // Perform a time consuming operation and report progress.
-                    System.Threading.Thread.Sleep(100);
+                    System.Threading.Thread.Sleep(50);
                     lock (_locker)
                     {
                         if (UPDATE_QUEUE.Count > 0)
