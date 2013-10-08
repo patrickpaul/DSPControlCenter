@@ -19,7 +19,7 @@ namespace SA_Resources
 
         private MainForm_Template PARENT_FORM;
         private int CH_NUMBER;
-
+        private double read_gain_value;
 
         public InputConfiguration(MainForm_Template _parentForm, int _channelNumber, bool show_phantom = true)
         {
@@ -38,9 +38,13 @@ namespace SA_Resources
             if (PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].inputs[CH_NUMBER - 1].Type == InputType.Line)
             {
                 dropInputType.SelectedIndex = 0;
-            } else
+            }
+            else if (PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].inputs[CH_NUMBER - 1].Type == InputType.Microphone20)
             {
                 dropInputType.SelectedIndex = 1;
+            } else
+            {
+                dropInputType.SelectedIndex = 2;
             }
 
             dropInputType.Invalidate();
@@ -49,6 +53,17 @@ namespace SA_Resources
             {
                 lblPhantomPower.Visible = false;
                 chkPhantomPower.Visible = false;
+            }
+
+            if (PARENT_FORM.LIVE_MODE)
+            {
+                gainMeter.Visible = true;
+                signalTimer.Enabled = true;
+            }
+            else
+            {
+                gainMeter.Visible = false;
+                signalTimer.Enabled = false;
             }
             
 
@@ -86,10 +101,29 @@ namespace SA_Resources
             if(dropInputType.SelectedIndex == 0)
             {
                 PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].inputs[CH_NUMBER - 1].Type = InputType.Line;
+                PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].pregains[CH_NUMBER - 1] = 0;
+            } else if(dropInputType.SelectedIndex == 1)
+            {
+                PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].inputs[CH_NUMBER - 1].Type = InputType.Microphone20;
+                PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].pregains[CH_NUMBER - 1] = 20;
+
             } else
             {
-                PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].inputs[CH_NUMBER - 1].Type = InputType.Microphone;
+                PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].inputs[CH_NUMBER - 1].Type = InputType.Microphone40;
+                PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].pregains[CH_NUMBER - 1] = 40;
             }
+
+            if (PARENT_FORM.LIVE_MODE)
+            {
+                UInt32 new_val =
+                    DSP_Math.double_to_MN(
+                        PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].pregains[CH_NUMBER - 1] +
+                        PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].gains[CH_NUMBER - 1][0].Gain, 9, 23);
+
+                PARENT_FORM.AddItemToQueue(new LiveQueueItem((0 + CH_NUMBER - 1), new_val));
+                PARENT_FORM.AddItemToQueue(new LiveQueueItem((412 + CH_NUMBER - 1), (uint) dropInputType.SelectedIndex));
+            }
+
         }
 
         private void chkPhantomPower_CheckedChanged(object sender, EventArgs e)
@@ -162,6 +196,30 @@ namespace SA_Resources
         private void InputConfiguration_FormClosing(object sender, FormClosingEventArgs e)
         {
             PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].inputs[CH_NUMBER - 1].Name = txtDisplayName.Text;
+        }
+
+        private void signalTimer_Tick(object sender, EventArgs e)
+        {
+            UInt32 read_address;
+
+            read_address = PARENT_FORM._gain_meters[CH_NUMBER - 1][0];
+
+            double offset = 20 + 10 * Math.Log10(2) + 20 * Math.Log10(16);
+            UInt32 read_value = PARENT_FORM._PIC_Conn.Read_Live_DSP_Value(read_address);
+            double converted_value = DSP_Math.MN_to_double_signed(read_value, 1, 31);
+
+            //Console.WriteLine("Read " + read_value.ToString("X8") + " from " + read_address.ToString("X8"));
+
+            if (converted_value > (0.000001 * 0.000001))
+            {
+                read_gain_value = offset + 10 * Math.Log10(converted_value);
+            }
+            else
+            {
+                read_gain_value = -100;
+            }
+
+            gainMeter.DB = read_gain_value;
         }
 
     }

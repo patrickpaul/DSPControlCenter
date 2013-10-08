@@ -304,42 +304,6 @@
   <data name="radio_checked_red" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\radio_checked_red.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="meter_0" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\meter_0.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="meter_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\meter_1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="meter_10" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\meter_10.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="meter_11" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\meter_11.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="meter_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\meter_2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="meter_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\meter_3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="meter_4" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\meter_4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="meter_5" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\meter_5.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="meter_6" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\meter_6.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="meter_7" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\meter_7.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="meter_8" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\meter_8.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="meter_9" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\meter_9.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="FilterGraph_BG_Blue_Modified" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\FilterGraph-BG-Blue_Modified.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -348,5 +312,29 @@
   </data>
   <data name="ui_meter_base" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\meter.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ui_meter_base_small" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\meter_small.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ui_btn_reset" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\ui_btn_reset.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="UI_thumbnail" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\UI_thumbnail.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="lblStatus_Blank" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\lblStatus_Blank.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="lblStatus_Connected" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\lblStatus_Connected.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="lblStatus_Disconnected" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\lblStatus_Disconnected.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ui_btn_blue_mute" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\ui_btn_blue_mute.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ui_btn_blue_unmute" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\ui_btn_blue_unmute.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

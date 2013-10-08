@@ -19,7 +19,8 @@ namespace SA_Resources
 
         private Dictionary<int, string> ERROR_LOOKUP;
 
-        public PIC_Bridge(SerialPort _serialPort)
+
+        public PIC_Bridge(SerialPort _serialPort = null)
         {
             ERROR_LOOKUP = new Dictionary<int, string>();
 
@@ -43,8 +44,14 @@ namespace SA_Resources
             isOpen = false;
         }
 
+        public void AssignSerialPort(SerialPort _serialPort)
+        {
+            serialPort = _serialPort;
+        }
+
         public bool Open(string portName)
         {
+
             lock (PIC_LOCK)
             {
 
@@ -99,8 +106,12 @@ namespace SA_Resources
             //TODO - GIVE THIS A TIMEOUT?
             while (serialPort.BytesToRead > 0)
             {
+                int bytes_to_read = serialPort.BytesToRead;
+                byte[] availableBytes = new byte[bytes_to_read];
 
-                Console.WriteLine("Cleared from serial buffer: " + serialPort.ReadExisting());
+                serialPort.Read(availableBytes, 0,bytes_to_read);
+
+                Console.WriteLine("Cleared from serial buffer: " + availableBytes.ToString());
             }
 
 
@@ -212,6 +223,60 @@ namespace SA_Resources
             }
         }
 
+
+        public double GetDeviceFirmwareVersion()
+        {
+
+            lock (PIC_LOCK)
+            {
+                if (!getRTS())
+                {
+                    throw new Exception("Device did not respond to RTS request");
+                }
+
+                byte[] buff = new byte[3];
+
+                buff[0] = 0x02;
+                buff[1] = 0X09;
+                buff[2] = 0x03;
+
+                serialPort.Write(buff, 0, 3);
+
+                int bytesToRead = 0;
+
+                for (int count = 0; count <= 5; count++)
+                {
+                    bytesToRead = serialPort.BytesToRead;
+
+                    if (bytesToRead == 4)
+                    {
+                        break;
+                    }
+
+                    Thread.Sleep(100);
+
+                    if (count == 5)
+                    {
+                        return 0x00;
+                    }
+
+                }
+
+                Byte[] bytes = new Byte[bytesToRead];
+
+                serialPort.Read(bytes, 0, bytesToRead);
+
+                if (bytes[0] == 0x06 && bytes[3] == 0x0A)
+                {
+                    return ((double)bytes[1]) + (((double)bytes[2])/10.0);
+                }
+                else
+                {
+                    return 0.0;
+                }
+            }
+        }
+
         public UInt32 Read_DSP_Value(uint address_index)
         {
 
@@ -240,7 +305,6 @@ namespace SA_Resources
                 buff[1] = (byte)address_index1;
                 buff[2] = (byte)address_index2;
                 buff[3] = 0x03;
-
 
                 for (int retry_count = 0; retry_count < 3; retry_count++)
                 {
@@ -562,13 +626,12 @@ namespace SA_Resources
                 last_byte3 = byte3;
                 last_byte4 = byte4;
 
-
                 for (int retry_count = 0; retry_count < 3; retry_count++)
                 {
                     serialPort.Write(buff, 0, 8);
-                    Thread.Sleep(70);
+                    Thread.Sleep(100);
 
-                    if (serialPort.BytesToRead > 3)
+                    if (serialPort.BytesToRead >= 3)
                     {
 
                         Byte[] bytes = new Byte[serialPort.BytesToRead + 5];
@@ -830,7 +893,7 @@ namespace SA_Resources
                     {
                         if (delay_value == 8000)
                         {
-                            Console.WriteLine("Trying again in saving EEPROM");
+                            //Console.WriteLine("Trying again in saving EEPROM");
                         }
                         FlushBuffer();
                     }
@@ -1069,5 +1132,207 @@ namespace SA_Resources
                 return false;
             }
         }
+
+        public bool ReadRS232Mute(int channel)
+        {
+
+            lock (PIC_LOCK)
+            {
+                FlushBuffer();
+
+                if (!serialPort.IsOpen) return false;
+
+                byte[] buff = new byte[4];
+
+                buff[0] = 0x12;
+                buff[1] = 0x01;
+                buff[2] = (byte)channel;
+                buff[3] = 0x03;
+
+
+                int bytes_read = 0;
+                for (int retry_count = 0; retry_count < 3; retry_count++)
+                {
+                    serialPort.Write(buff, 0, 4);
+                    Thread.Sleep(100);
+
+                    if (serialPort.BytesToRead > 2)
+                    {
+                        Byte[] bytes = new Byte[serialPort.BytesToRead];
+
+                        bytes_read = serialPort.BytesToRead;
+                        serialPort.Read(bytes, 0, serialPort.BytesToRead);
+
+                        if (bytes[1] == 0x01)
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+
+                    }
+                    else
+                    {
+                        FlushBuffer();
+                    }
+                }
+
+                return false;
+            }
+        }
+
+        public int ReadRS232Vol(int channel)
+        {
+
+            lock (PIC_LOCK)
+            {
+                FlushBuffer();
+
+                if (!serialPort.IsOpen) return -1;
+
+                byte[] buff = new byte[4];
+
+                buff[0] = 0x12;
+                buff[1] = 0x02;
+                buff[2] = (byte)channel;
+                buff[3] = 0x03;
+
+
+                int bytes_read = 0;
+                for (int retry_count = 0; retry_count < 3; retry_count++)
+                {
+                    serialPort.Write(buff, 0, 4);
+                    Thread.Sleep(100);
+
+                    if (serialPort.BytesToRead > 2)
+                    {
+                        Byte[] bytes = new Byte[serialPort.BytesToRead];
+
+                        bytes_read = serialPort.BytesToRead;
+                        serialPort.Read(bytes, 0, serialPort.BytesToRead);
+
+                        if (bytes[0] == 0x06 && bytes[1] >=0 && bytes[1] <= 100)
+                        {
+                            return bytes[1];
+                        }
+                        else
+                        {
+                            return -1;
+                        }
+
+                    }
+                    else
+                    {
+                        FlushBuffer();
+                    }
+                }
+
+                return -1;
+            }
+        }
+
+        public bool SetRS232Mute(int channel, int new_mute)
+        {
+
+            lock (PIC_LOCK)
+            {
+                FlushBuffer();
+
+                if (!serialPort.IsOpen) return false;
+
+                byte[] buff = new byte[4];
+
+                buff[0] = 0x13;
+
+                buff[1] = (byte)new_mute;
+                buff[2] = (byte)channel;
+                buff[3] = 0x03;
+
+
+                int bytes_read = 0;
+                for (int retry_count = 0; retry_count < 3; retry_count++)
+                {
+                    serialPort.Write(buff, 0, 4);
+                    Thread.Sleep(100);
+
+                    if (serialPort.BytesToRead > 2)
+                    {
+                        Byte[] bytes = new Byte[serialPort.BytesToRead];
+
+                        bytes_read = serialPort.BytesToRead;
+                        serialPort.Read(bytes, 0, serialPort.BytesToRead);
+
+                        if (bytes[1] == (byte)new_mute)
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+
+                    }
+                    else
+                    {
+                        FlushBuffer();
+                    }
+                }
+
+                return false;
+            }
+        }
+
+        public bool ResetRS232Volume(int channel)
+        {
+
+            lock (PIC_LOCK)
+            {
+                FlushBuffer();
+
+                if (!serialPort.IsOpen) return false;
+
+                byte[] buff = new byte[4];
+
+                buff[0] = 0x13;
+                buff[1] = 0x03; 
+                buff[2] = (byte)channel;
+                buff[3] = 0x03;
+
+
+                int bytes_read = 0;
+                for (int retry_count = 0; retry_count < 3; retry_count++)
+                {
+                    serialPort.Write(buff, 0, 4);
+                    Thread.Sleep(100);
+
+                    if (serialPort.BytesToRead > 2)
+                    {
+                        Byte[] bytes = new Byte[serialPort.BytesToRead];
+
+                        bytes_read = serialPort.BytesToRead;
+                        serialPort.Read(bytes, 0, serialPort.BytesToRead);
+
+                        if (bytes[1] == 0x03)
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+
+                    }
+                    else
+                    {
+                        FlushBuffer();
+                    }
+                }
+
+                return false;
+            }
+        }
+
     }
 }

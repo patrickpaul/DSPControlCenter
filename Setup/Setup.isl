@@ -366,6 +366,7 @@
 		<row><td>ftlang.dll1</td><td>{757CBAC6-8B9E-4BE4-A9BA-3623BE60C32F}</td><td>I386</td><td>2</td><td/><td>ftlang.dll1</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>ftserui2.dll</td><td>{7B25C63B-72FD-4273-939E-681523DE9975}</td><td>AMD64</td><td>2</td><td/><td>ftserui2.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>ftserui2.dll1</td><td>{2C15C89A-582A-4E1D-808B-1FAB76E1590C}</td><td>I386</td><td>2</td><td/><td>ftserui2.dll1</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>wyUpdate.exe</td><td>{DB4265D5-6F8A-4CC7-9004-0092D0480512}</td><td>INSTALLDIR</td><td>2</td><td/><td>wyupdate.exe</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 	</table>
 
 	<table name="Condition">
@@ -1075,7 +1076,6 @@
 	<table name="CreateFolder">
 		<col key="yes" def="s72">Directory_</col>
 		<col key="yes" def="s72">Component_</col>
-		<row><td>INSTALLDIR</td><td>ISX_DEFAULTCOMPONENT7</td></row>
 		<row><td>STATIC</td><td>ISX_DEFAULTCOMPONENT4</td></row>
 	</table>
 
@@ -1094,7 +1094,7 @@
 		<row><td>ISSelfRegisterFinalize</td><td>1</td><td>ISSELFREG.DLL</td><td>ISSelfRegisterFinalize</td><td/><td/></row>
 		<row><td>ISUnSelfRegisterFiles</td><td>3073</td><td>ISSELFREG.DLL</td><td>ISUnSelfRegisterFiles</td><td/><td/></row>
 		<row><td>LaunchProgramFileFromSetupCompleteSuccess</td><td>1</td><td>NewBinary19</td><td>LaunchProgram</td><td/><td/></row>
-		<row><td>NewCustomAction1</td><td>1042</td><td>dp_chooser.exe</td><td/><td/><td/></row>
+		<row><td>NewCustomAction1</td><td>3090</td><td>dp_chooser.exe</td><td/><td/><td/></row>
 		<row><td>SetARPINSTALLLOCATION</td><td>51</td><td>ARPINSTALLLOCATION</td><td>[INSTALLDIR]</td><td/><td/></row>
 		<row><td>SetAllUsersProfileNT</td><td>51</td><td>ALLUSERSPROFILE</td><td>[%SystemRoot]\Profiles\All Users</td><td/><td/></row>
 		<row><td>ShowMsiLog</td><td>226</td><td>SystemFolder</td><td>[SystemFolder]notepad.exe "[MsiLogFileLocation]"</td><td/><td>Shows Property-driven MSI Log</td></row>
@@ -1921,6 +1921,7 @@
 		<row><td>AlwaysInstall</td><td>ftlang.dll1</td></row>
 		<row><td>AlwaysInstall</td><td>ftserui2.dll</td></row>
 		<row><td>AlwaysInstall</td><td>ftserui2.dll1</td></row>
+		<row><td>AlwaysInstall</td><td>wyUpdate.exe</td></row>
 	</table>
 
 	<table name="File">
@@ -1935,6 +1936,7 @@
 		<col def="S255">ISBuildSourcePath</col>
 		<col def="I4">ISAttributes</col>
 		<col def="S72">ISComponentSubFolder_</col>
+		<row><td>client.wyc</td><td>ISX_DEFAULTCOMPONENT7</td><td>client.wyc</td><td>0</td><td/><td/><td/><td>1</td><td>C:\SOURCE\DSPControlCenter\Updater\wyUpdate\client.wyc</td><td>1</td><td/></row>
 		<row><td>dp_chooser.exe</td><td>dp_chooser.exe</td><td>DP-CHO~1.EXE|dp-chooser.exe</td><td>0</td><td/><td/><td/><td>1</td><td>C:\SOURCE\DSPControlCenter\Drivers\dp-chooser.exe</td><td>1</td><td/></row>
 		<row><td>dpinst_amd64.exe</td><td>dpinst_amd64.exe</td><td>DPINST~1.EXE|dpinst-amd64.exe</td><td>0</td><td/><td/><td/><td>1</td><td>C:\SOURCE\DSPControlCenter\Drivers\dpinst-amd64.exe</td><td>1</td><td/></row>
 		<row><td>dpinst_x86.exe</td><td>dpinst_x86.exe</td><td>DPINST~1.EXE|dpinst-x86.exe</td><td>0</td><td/><td/><td/><td>1</td><td>C:\SOURCE\DSPControlCenter\Drivers\dpinst-x86.exe</td><td>1</td><td/></row>
@@ -1964,6 +1966,7 @@
 		<row><td>ftserui2.dll1</td><td>ftserui2.dll1</td><td>ftserui2.dll</td><td>0</td><td/><td/><td/><td>1</td><td>C:\SOURCE\DSPControlCenter\Drivers\i386\ftserui2.dll</td><td>1</td><td/></row>
 		<row><td>sa_resources.primary_output</td><td>SA_Resources.Primary_output</td><td>SA_Resources.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;SA_Resources&gt;|Built</td><td>3</td><td/></row>
 		<row><td>stewart_audio_control_center</td><td>Stewart_Audio_Control_Center.Primary_output</td><td>Stewart Audio Control Center.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;Stewart Audio Control Center&gt;|Built</td><td>3</td><td/></row>
+		<row><td>wyupdate.exe</td><td>wyUpdate.exe</td><td>wyUpdate.exe</td><td>0</td><td/><td/><td/><td>1</td><td>C:\SOURCE\DSPControlCenter\Updater\wyUpdate\wyUpdate.exe</td><td>1</td><td/></row>
 	</table>
 
 	<table name="FileSFPCatalog">
@@ -2245,6 +2248,7 @@
 		<row><td>ftlang.dll1</td><td/><td/><td>_6ED9CD55_E86B_44E1_805A_C7645189CDC1_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>ftserui2.dll</td><td/><td/><td>_B90D2932_057E_46F4_9180_E69DE6AEFBE3_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>ftserui2.dll1</td><td/><td/><td>_0BF218D0_16B4_4ED3_AFB1_3002A434C5C8_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>wyUpdate.exe</td><td/><td/><td>_5C7BC5CE_795E_40D7_9689_E7A5216E5BFA_FILTER</td><td/><td/><td/><td/></row>
 	</table>
 
 	<table name="ISCustomActionReference">
@@ -2876,7 +2880,7 @@
 		<col def="I2">Encoded</col>
 		<col def="S0">Comment</col>
 		<col def="I4">TimeStamp</col>
-		<row><td>COMPANY_NAME</td><td>1033</td><td>Stewart Audio</td><td>0</td><td/><td>874583308</td></row>
+		<row><td>COMPANY_NAME</td><td>1033</td><td>Stewart Audio</td><td>0</td><td/><td>488711467</td></row>
 		<row><td>DN_AlwaysInstall</td><td>1033</td><td>Always Install</td><td>0</td><td/><td>-341734801</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_COLOR</td><td>1033</td><td>The color settings of your system are not adequate for running [ProductName].</td><td>0</td><td/><td>-341734801</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_DOTNETVERSION40CLIENT</td><td>1033</td><td>Microsoft .NET Framework 4.0 Client Package or greater needs to be installed for this installation to continue.</td><td>0</td><td/><td>-341765489</td></row>
@@ -3695,6 +3699,7 @@
 		<row><td>IDS_SHORTCUT_DISPLAY_NAME4</td><td>1033</td><td>LAUNCH~1.EXE|Launch dp-chooser.exe</td><td>0</td><td/><td>-341724497</td></row>
 		<row><td>IDS_SHORTCUT_DISPLAY_NAME5</td><td>1033</td><td>LAUNCH~1.EXE|Launch dpinst-amd64.exe</td><td>0</td><td/><td>-341724497</td></row>
 		<row><td>IDS_SHORTCUT_DISPLAY_NAME6</td><td>1033</td><td>LAUNCH~1.EXE|Launch dpinst-x86.exe</td><td>0</td><td/><td>-341724497</td></row>
+		<row><td>IDS_SHORTCUT_DISPLAY_NAME7</td><td>1033</td><td>LAUNCH~1.EXE|Launch wyUpdate.exe</td><td>0</td><td/><td>-727640818</td></row>
 		<row><td>IDS_SQLBROWSE_INTRO</td><td>1033</td><td>From the list of servers below, select the database server you would like to target.</td><td>0</td><td/><td>-341734801</td></row>
 		<row><td>IDS_SQLBROWSE_INTRO_DB</td><td>1033</td><td>From the list of catalog names below, select the database catalog you would like to target.</td><td>0</td><td/><td>-341734801</td></row>
 		<row><td>IDS_SQLBROWSE_INTRO_TEMPLATE</td><td>1033</td><td>[IS_SQLBROWSE_INTRO]</td><td>0</td><td/><td>-341734801</td></row>
@@ -3984,8 +3989,8 @@
 		<row><td>IDS__TargetReq_DESC_RAM</td><td>1033</td><td>The amount of RAM is not adequate for running [ProductName].</td><td>0</td><td/><td>-341734801</td></row>
 		<row><td>IDS__TargetReq_DESC_RESOLUTION</td><td>1033</td><td>The screen resolution is not adequate for running [ProductName].</td><td>0</td><td/><td>-341734801</td></row>
 		<row><td>ID_STRING1</td><td>1033</td><td/><td>0</td><td/><td>-341734801</td></row>
-		<row><td>ID_STRING2</td><td>1033</td><td>http://www.StewartAudio.com</td><td>0</td><td/><td>874583308</td></row>
-		<row><td>ID_STRING3</td><td>1033</td><td>Stewart Audio</td><td>0</td><td/><td>874583308</td></row>
+		<row><td>ID_STRING2</td><td>1033</td><td>http://www.StewartAudio.com</td><td>0</td><td/><td>488711467</td></row>
+		<row><td>ID_STRING3</td><td>1033</td><td>Stewart Audio</td><td>0</td><td/><td>488711467</td></row>
 		<row><td>ID_STRING4</td><td>1033</td><td>DSP Control Center</td><td>0</td><td/><td>-341718321</td></row>
 		<row><td>IIDS_UITEXT_FeatureUninstalled</td><td>1033</td><td>This feature will remain uninstalled.</td><td>0</td><td/><td>-341734801</td></row>
 		<row><td>NEW_STRING1</td><td>1033</td><td>scfg</td><td>0</td><td/><td>-341721681</td></row>
@@ -4100,8 +4105,8 @@
 		<row><td>ARPPRODUCTICON.exe</td><td/><td>C:\SOURCE\DSPControlCenter\DSP Control Center v4.ico</td><td>0</td></row>
 		<row><td>_56C34E30_E160_4BB1_97EA_988FB162CC80</td><td/><td>C:\SOURCE\DSPControlCenter\DSP Control Center v4.ico</td><td>0</td></row>
 		<row><td>_B4FC6954_DD33_422E_8857_87BB63F71AF0</td><td/><td>C:\SOURCE\DSPControlCenter\DSP Control Center v4.ico</td><td>0</td></row>
-		<row><td>_Built1_C48E196F73854B82BE4B3D2A523E0A1F.exe</td><td/><td>C:\SOURCE\DSPControlCenter\DSP Control Center v4.ico</td><td>0</td></row>
-		<row><td>_Built_DF81D4826ACD456B81F47F59235693B2.exe</td><td/><td>C:\SOURCE\DSPControlCenter\DSP Control Center v4.ico</td><td>0</td></row>
+		<row><td>_Built1_8D1DDD6CD30D4EA2B9B01E150B710B06.exe</td><td/><td>C:\SOURCE\DSPControlCenter\DSP Control Center v4.ico</td><td>0</td></row>
+		<row><td>_Built_42A7D775FC304CAD880CF309546C27EA.exe</td><td/><td>C:\SOURCE\DSPControlCenter\DSP Control Center v4.ico</td><td>0</td></row>
 		<row><td>_F7C68B79_B656_4B5E_BB31_330699E3125B</td><td/><td>C:\SOURCE\DSPControlCenter\DSP Control Center v4.ico</td><td>0</td></row>
 		<row><td>dp_chooser.exe_289AB4CFFC3942F69D9765AE57E643AC.exe</td><td/><td>&lt;ISProductFolder&gt;\redist\Language Independent\OS Independent\GenericExe.ico</td><td>0</td></row>
 		<row><td>dp_chooser.exe_DD6425703330491F88239C529AA06A2B.exe</td><td/><td>&lt;ISProductFolder&gt;\redist\Language Independent\OS Independent\GenericExe.ico</td><td>0</td></row>
@@ -4109,6 +4114,7 @@
 		<row><td>dpinst_amd64.exe_F03E77F9B1404C92BDD538E436B30F21.exe</td><td/><td>C:\SOURCE\DSPControlCenter\Drivers\dpinst-amd64.exe</td><td>0</td></row>
 		<row><td>dpinst_x86.exe_D7FAFFBA3E6E4F4A868239A089B80A55.exe</td><td/><td>C:\SOURCE\DSPControlCenter\Drivers\dpinst-x86.exe</td><td>0</td></row>
 		<row><td>dpinst_x86.exe_E00E4F80F97344F7A83F3D613950482A.exe</td><td/><td>C:\SOURCE\DSPControlCenter\Drivers\dpinst-x86.exe</td><td>0</td></row>
+		<row><td>wyUpdate.exe_9D034DAD32E54CE49A0370DE83CC2B47.exe</td><td/><td>C:\SOURCE\DSPControlCenter\Updater\wyUpdate\wyUpdate.exe</td><td>0</td></row>
 	</table>
 
 	<table name="IniFile">
@@ -4242,7 +4248,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>ISTheme</td><td>InstallShield Blue.theme</td></row>
 		<row><td>ISUSLock</td><td>{D8E2F9FF-1ABD-43FE-B1A2-D1254BE3A2C4}</td></row>
 		<row><td>ISUSSignature</td><td>{9E07B878-5CD4-41D4-90D5-838D58A26570}</td></row>
-		<row><td>ISVisitedViews</td><td>viewAssistant,viewCustomActions,viewISToday,viewUI,viewTextMessages,viewRelease,viewProject,viewRealSetupDesign,viewSetupDesign,viewSetupTypes,viewUpgradePaths,viewObjects,viewDependencies,viewFileExtensions,viewSystemSearch,viewShortcuts,viewRegistry,viewFeatureFiles,viewAppFiles,viewAppV</td></row>
+		<row><td>ISVisitedViews</td><td>viewAssistant,viewCustomActions,viewISToday,viewUI,viewTextMessages,viewRelease,viewProject,viewRealSetupDesign,viewSetupDesign,viewSetupTypes,viewUpgradePaths,viewObjects,viewDependencies,viewFileExtensions,viewSystemSearch,viewShortcuts,viewRegistry,viewFeatureFiles,viewAppFiles,viewAppV,viewXMLConfig,viewInstallScriptStd,viewComponentServices,viewUpdateService</td></row>
 		<row><td>Limited</td><td>1</td></row>
 		<row><td>LockPermissionMode</td><td>1</td></row>
 		<row><td>MsiExecCmdLineOptions</td><td/></row>
@@ -4710,6 +4716,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col def="s72">DirProperty</col>
 		<col def="i2">InstallMode</col>
 		<row><td>_Built</td><td>Stewart_Audio_Control_Center.Primary_output</td><td/><td>dspcon_1_dsp_control_center</td><td>2</td></row>
+		<row><td>wyUpdate.exe</td><td>wyUpdate.exe</td><td/><td>dspcon_1_dsp_control_center</td><td>2</td></row>
 	</table>
 
 	<table name="RemoveIniFile">
@@ -4795,8 +4802,9 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col def="S255">ISComments</col>
 		<col def="S255">ISShortcutName</col>
 		<col def="I4">ISAttributes</col>
-		<row><td>_Built</td><td>dspcon_1_dsp_control_center</td><td>##IDS_SHORTCUT_DISPLAY_NAME10##</td><td>Stewart_Audio_Control_Center.Primary_output</td><td>AlwaysInstall</td><td/><td/><td/><td>_Built_DF81D4826ACD456B81F47F59235693B2.exe</td><td>0</td><td>1</td><td>INSTALLDIR</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>_Built1</td><td>DesktopFolder</td><td>##IDS_SHORTCUT_DISPLAY_NAME10##</td><td>Stewart_Audio_Control_Center.Primary_output</td><td>AlwaysInstall</td><td/><td/><td/><td>_Built1_C48E196F73854B82BE4B3D2A523E0A1F.exe</td><td>0</td><td>1</td><td>INSTALLDIR</td><td/><td/><td/><td/><td/><td/><td/></row>
+		<row><td>_Built</td><td>dspcon_1_dsp_control_center</td><td>##IDS_SHORTCUT_DISPLAY_NAME10##</td><td>Stewart_Audio_Control_Center.Primary_output</td><td>AlwaysInstall</td><td/><td/><td/><td>_Built_42A7D775FC304CAD880CF309546C27EA.exe</td><td>0</td><td>1</td><td>INSTALLDIR</td><td/><td/><td/><td/><td/><td/><td/></row>
+		<row><td>_Built1</td><td>DesktopFolder</td><td>##IDS_SHORTCUT_DISPLAY_NAME10##</td><td>Stewart_Audio_Control_Center.Primary_output</td><td>AlwaysInstall</td><td/><td/><td/><td>_Built1_8D1DDD6CD30D4EA2B9B01E150B710B06.exe</td><td>0</td><td>1</td><td>INSTALLDIR</td><td/><td/><td/><td/><td/><td/><td/></row>
+		<row><td>wyUpdate.exe</td><td>dspcon_1_dsp_control_center</td><td>##IDS_SHORTCUT_DISPLAY_NAME7##</td><td>wyUpdate.exe</td><td>AlwaysInstall</td><td/><td/><td/><td>wyUpdate.exe_9D034DAD32E54CE49A0370DE83CC2B47.exe</td><td>1</td><td>1</td><td>INSTALLDIR</td><td/><td/><td/><td/><td/><td/><td/></row>
 	</table>
 
 	<table name="Signature">

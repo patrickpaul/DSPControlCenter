@@ -31,7 +31,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DelayForm));
             this.btnCancel = new System.Windows.Forms.PictureBox();
             this.btnSave = new System.Windows.Forms.PictureBox();
-            this.chkBypass = new SA_Resources.PictureCheckbox();
             this.TextDelayMS = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.DialDelayMS = new System.Windows.Forms.PictureBox();
@@ -41,9 +40,10 @@
             this.TextDelayM = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.DialDelayM = new System.Windows.Forms.PictureBox();
-            this.btnGo = new SA_Resources.PictureButton();
             this.dropAction = new System.Windows.Forms.ComboBox();
             this.lblAction = new System.Windows.Forms.Label();
+            this.btnGo = new SA_Resources.PictureButton();
+            this.chkBypass = new SA_Resources.PictureCheckbox();
             ((System.ComponentModel.ISupportInitialize)(this.btnCancel)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnSave)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DialDelayMS)).BeginInit();
@@ -54,7 +54,7 @@
             // btnCancel
             // 
             this.btnCancel.Image = ((System.Drawing.Image)(resources.GetObject("btnCancel.Image")));
-            this.btnCancel.Location = new System.Drawing.Point(135, 167);
+            this.btnCancel.Location = new System.Drawing.Point(135, 125);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(49, 23);
             this.btnCancel.TabIndex = 7;
@@ -65,31 +65,18 @@
             // 
             this.btnSave.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSave.Image = ((System.Drawing.Image)(resources.GetObject("btnSave.Image")));
-            this.btnSave.Location = new System.Drawing.Point(77, 167);
+            this.btnSave.Location = new System.Drawing.Point(77, 125);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(49, 23);
             this.btnSave.TabIndex = 6;
             this.btnSave.TabStop = false;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
-            // chkBypass
-            // 
-            this.chkBypass.CheckedImage = global::SA_Resources.GlobalResources.ui_btn_bypass_red;
-            this.chkBypass.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.chkBypass.Location = new System.Drawing.Point(184, 12);
-            this.chkBypass.Name = "chkBypass";
-            this.chkBypass.Size = new System.Drawing.Size(61, 23);
-            this.chkBypass.TabIndex = 31;
-            this.chkBypass.UncheckedImage = global::SA_Resources.GlobalResources.ui_btn_bypass;
-            this.chkBypass.UseVisualStyleBackColor = true;
-            this.chkBypass.Visible = false;
-            this.chkBypass.CheckedChanged += new System.EventHandler(this.chkBypass_CheckedChanged);
-            // 
             // TextDelayMS
             // 
             this.TextDelayMS.Cursor = System.Windows.Forms.Cursors.Hand;
             this.TextDelayMS.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TextDelayMS.Location = new System.Drawing.Point(21, 69);
+            this.TextDelayMS.Location = new System.Drawing.Point(21, 27);
             this.TextDelayMS.MaxLength = 10;
             this.TextDelayMS.Name = "TextDelayMS";
             this.TextDelayMS.Size = new System.Drawing.Size(50, 22);
@@ -102,7 +89,7 @@
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.label4.Location = new System.Drawing.Point(20, 53);
+            this.label4.Location = new System.Drawing.Point(20, 11);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(53, 13);
             this.label4.TabIndex = 33;
@@ -114,7 +101,7 @@
             this.DialDelayMS.Cursor = System.Windows.Forms.Cursors.Hand;
             this.DialDelayMS.Image = global::SA_Resources.GlobalResources.knob_red_line;
             this.DialDelayMS.InitialImage = null;
-            this.DialDelayMS.Location = new System.Drawing.Point(26, 94);
+            this.DialDelayMS.Location = new System.Drawing.Point(26, 52);
             this.DialDelayMS.Name = "DialDelayMS";
             this.DialDelayMS.Size = new System.Drawing.Size(40, 40);
             this.DialDelayMS.TabIndex = 32;
@@ -125,7 +112,7 @@
             // 
             this.TextDelayFT.Cursor = System.Windows.Forms.Cursors.Hand;
             this.TextDelayFT.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TextDelayFT.Location = new System.Drawing.Point(101, 69);
+            this.TextDelayFT.Location = new System.Drawing.Point(101, 27);
             this.TextDelayFT.MaxLength = 10;
             this.TextDelayFT.Name = "TextDelayFT";
             this.TextDelayFT.Size = new System.Drawing.Size(50, 22);
@@ -138,7 +125,7 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.label2.Location = new System.Drawing.Point(92, 53);
+            this.label2.Location = new System.Drawing.Point(92, 11);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(68, 13);
             this.label2.TabIndex = 36;
@@ -150,7 +137,7 @@
             this.DialDelayFT.Cursor = System.Windows.Forms.Cursors.Hand;
             this.DialDelayFT.Image = global::SA_Resources.GlobalResources.knob_blue_line;
             this.DialDelayFT.InitialImage = null;
-            this.DialDelayFT.Location = new System.Drawing.Point(106, 94);
+            this.DialDelayFT.Location = new System.Drawing.Point(106, 52);
             this.DialDelayFT.Name = "DialDelayFT";
             this.DialDelayFT.Size = new System.Drawing.Size(40, 40);
             this.DialDelayFT.TabIndex = 35;
@@ -160,7 +147,7 @@
             // 
             this.TextDelayM.Cursor = System.Windows.Forms.Cursors.Hand;
             this.TextDelayM.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TextDelayM.Location = new System.Drawing.Point(181, 69);
+            this.TextDelayM.Location = new System.Drawing.Point(181, 27);
             this.TextDelayM.MaxLength = 10;
             this.TextDelayM.Name = "TextDelayM";
             this.TextDelayM.Size = new System.Drawing.Size(50, 22);
@@ -173,7 +160,7 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.label3.Location = new System.Drawing.Point(172, 53);
+            this.label3.Location = new System.Drawing.Point(172, 11);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(69, 13);
             this.label3.TabIndex = 39;
@@ -185,11 +172,35 @@
             this.DialDelayM.Cursor = System.Windows.Forms.Cursors.Hand;
             this.DialDelayM.Image = global::SA_Resources.GlobalResources.knob_green_line;
             this.DialDelayM.InitialImage = null;
-            this.DialDelayM.Location = new System.Drawing.Point(186, 94);
+            this.DialDelayM.Location = new System.Drawing.Point(186, 52);
             this.DialDelayM.Name = "DialDelayM";
             this.DialDelayM.Size = new System.Drawing.Size(40, 40);
             this.DialDelayM.TabIndex = 38;
             this.DialDelayM.TabStop = false;
+            // 
+            // dropAction
+            // 
+            this.dropAction.FormattingEnabled = true;
+            this.dropAction.Items.AddRange(new object[] {
+            "Copy configuration to...",
+            "Reset to Defaults"});
+            this.dropAction.Location = new System.Drawing.Point(60, 208);
+            this.dropAction.Name = "dropAction";
+            this.dropAction.Size = new System.Drawing.Size(133, 21);
+            this.dropAction.TabIndex = 101;
+            this.dropAction.Visible = false;
+            // 
+            // lblAction
+            // 
+            this.lblAction.AutoSize = true;
+            this.lblAction.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAction.ForeColor = System.Drawing.Color.Gainsboro;
+            this.lblAction.Location = new System.Drawing.Point(10, 211);
+            this.lblAction.Name = "lblAction";
+            this.lblAction.Size = new System.Drawing.Size(44, 13);
+            this.lblAction.TabIndex = 100;
+            this.lblAction.Text = "Action:";
+            this.lblAction.Visible = false;
             // 
             // btnGo
             // 
@@ -209,36 +220,28 @@
             this.btnGo.Size = new System.Drawing.Size(49, 23);
             this.btnGo.TabIndex = 102;
             this.btnGo.ToolTipText = "";
+            this.btnGo.Visible = false;
             this.btnGo.Click += new System.EventHandler(this.btnGo_Click);
             // 
-            // dropAction
+            // chkBypass
             // 
-            this.dropAction.FormattingEnabled = true;
-            this.dropAction.Items.AddRange(new object[] {
-            "Copy configuration to...",
-            "Reset to Defaults"});
-            this.dropAction.Location = new System.Drawing.Point(60, 208);
-            this.dropAction.Name = "dropAction";
-            this.dropAction.Size = new System.Drawing.Size(133, 21);
-            this.dropAction.TabIndex = 101;
-            // 
-            // lblAction
-            // 
-            this.lblAction.AutoSize = true;
-            this.lblAction.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAction.ForeColor = System.Drawing.Color.Gainsboro;
-            this.lblAction.Location = new System.Drawing.Point(10, 211);
-            this.lblAction.Name = "lblAction";
-            this.lblAction.Size = new System.Drawing.Size(44, 13);
-            this.lblAction.TabIndex = 100;
-            this.lblAction.Text = "Action:";
+            this.chkBypass.CheckedImage = global::SA_Resources.GlobalResources.ui_btn_bypass_red;
+            this.chkBypass.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.chkBypass.Location = new System.Drawing.Point(184, 12);
+            this.chkBypass.Name = "chkBypass";
+            this.chkBypass.Size = new System.Drawing.Size(61, 23);
+            this.chkBypass.TabIndex = 31;
+            this.chkBypass.UncheckedImage = global::SA_Resources.GlobalResources.ui_btn_bypass;
+            this.chkBypass.UseVisualStyleBackColor = true;
+            this.chkBypass.Visible = false;
+            this.chkBypass.CheckedChanged += new System.EventHandler(this.chkBypass_CheckedChanged);
             // 
             // DelayForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(82)))), ((int)(((byte)(82)))));
-            this.ClientSize = new System.Drawing.Size(260, 240);
+            this.ClientSize = new System.Drawing.Size(260, 161);
             this.Controls.Add(this.btnGo);
             this.Controls.Add(this.dropAction);
             this.Controls.Add(this.lblAction);
@@ -256,6 +259,7 @@
             this.Controls.Add(this.btnSave);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "DelayForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "CH 1 - Delay";

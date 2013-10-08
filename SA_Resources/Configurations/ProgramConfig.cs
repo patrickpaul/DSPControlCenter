@@ -12,6 +12,9 @@ namespace SA_Resources
         public InputConfig[] inputs = new InputConfig[4];
         public OutputConfig[] outputs = new OutputConfig[4];
         public FilterConfig[][] filters = new FilterConfig[4][];
+
+        public int[] pregains = new int[4]; 
+
         public GainConfig[][] gains = new GainConfig[4][];
         public CompressorConfig[][] compressors = new CompressorConfig[4][];
         public DelayConfig[] delays = new DelayConfig[4];
@@ -64,10 +67,10 @@ namespace SA_Resources
                 }
             }
 
-            inputs[0].Name = "Local Input #1";
-            inputs[1].Name = "Local Input #2";
-            inputs[2].Name = "Local Input #3";
-            inputs[3].Name = "Local Input #4";
+            inputs[0].Name = "Input #1";
+            inputs[1].Name = "Input #2";
+            inputs[2].Name = "Input #3";
+            inputs[3].Name = "Input #4";
 
             outputs[0].Name = "Output #1";
             outputs[1].Name = "Output #2";

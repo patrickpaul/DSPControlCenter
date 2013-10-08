@@ -40,6 +40,8 @@ namespace SA_Resources
         private int ADDR_RELEASE;
         private int ADDR_BYPASS;
 
+        private bool comp_switcher;
+
         public CompressorForm(MainForm_Template _parentForm, int channel, int _settings_offset, CompressorType compType = CompressorType.Compressor)
         {
             InitializeComponent();
@@ -141,6 +143,19 @@ namespace SA_Resources
                 if (_parentForm.LIVE_MODE && _parentForm._PIC_Conn.isOpen)
                 {
                     signalTimer.Enabled = true;
+                    gainMeterIn.Visible = true;
+                    gainMeterOut.Visible = true;
+                    lblIn.Visible = true;
+                    lblOut.Visible = true;
+                    panel1.Location = new Point(35, 366);
+                } else
+                {
+                    signalTimer.Enabled = false;
+                    gainMeterIn.Visible = false;
+                    gainMeterOut.Visible = false;
+                    lblIn.Visible = false;
+                    lblOut.Visible = false;
+                    panel1.Location = new Point(78, 366);
                 }
 
             } catch (Exception ex)
@@ -489,14 +504,23 @@ namespace SA_Resources
                 return;
             }
 
+            UInt32 read_value;
+            double converted_value;
+            double offset = 20 + 10 * Math.Log10(2) + 20 * Math.Log10(16);
             UInt32 read_address = 0x00000000;
 
-            read_address = PARENT_FORM._comp_meters[COMP_INDEX][CH_NUMBER - 1];
-  
 
-            double offset = 20 + 10 * Math.Log10(2) + 20 * Math.Log10(16);
-            UInt32 read_value = PARENT_FORM._PIC_Conn.Read_Live_DSP_Value(read_address);
-            double converted_value = DSP_Math.MN_to_double_signed(read_value, 1, 31);
+            if (comp_switcher)
+            {
+                read_address = PARENT_FORM._comp_in_meters[COMP_INDEX][CH_NUMBER - 1];
+            } else
+            {
+                read_address = PARENT_FORM._comp_out_meters[COMP_INDEX][CH_NUMBER - 1];
+            }
+
+            read_value = PARENT_FORM._PIC_Conn.Read_Live_DSP_Value(read_address);
+            converted_value = DSP_Math.MN_to_double_signed(read_value, 1, 31);
+
             if (converted_value > (0.000001 * 0.000001))
             {
                 read_gain_value = offset + 10 * Math.Log10(converted_value);
@@ -506,7 +530,27 @@ namespace SA_Resources
                 read_gain_value = -100;
             }
 
-            gainMeter.DB = read_gain_value;
+            if (comp_switcher)
+            {
+                gainMeterIn.DB = read_gain_value;
+            }
+            else
+            {
+                gainMeterOut.DB = read_gain_value;
+            }
+
+            /*converted_value = 20*Math.Log10(DSP_Math.MN_to_double_signed(PARENT_FORM._PIC_Conn.Read_Live_DSP_Value(0xF3C00058), 1, 31));
+
+            Console.WriteLine("Reduction: " + converted_value);
+             * */
+            //converted_value = PARENT_FORM._PIC_Conn.Read_Live_DSP_Value(0xFAC0001E);
+
+            //Console.WriteLine("Clip Indicator: " + converted_value);
+            
+
+            comp_switcher = !comp_switcher;
+
+
 
         }
 

@@ -24,6 +24,15 @@ namespace SA_Resources
 
             PARENT_FORM = _parentForm;
 
+            lblInput0.Text = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].inputs[0].Name;
+            lblInput1.Text = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].inputs[1].Name;
+            lblInput2.Text = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].inputs[2].Name;
+            lblInput3.Text = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].inputs[3].Name;
+
+            lblOutput0.Text = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].outputs[0].Name;
+            lblOutput1.Text = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].outputs[1].Name;
+            lblOutput2.Text = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].outputs[2].Name;
+            lblOutput3.Text = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].outputs[3].Name;
 
             for (int i = 0; i < 6; i++)
             {
@@ -154,10 +163,13 @@ namespace SA_Resources
                 read_gain_value = -100;
             }
 
-            //Console.WriteLine("Read value of " + read_gain_value + "dB");
-
-
             curMeter.DB = read_gain_value;
+            curMeter.Refresh();
+        }
+
+        private void MixerForm_Load(object sender, EventArgs e)
+        {
+
         }
 
     }

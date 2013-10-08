@@ -1,4 +1,4 @@
-﻿namespace DSP_4x4
+﻿namespace SA_Resources
 {
     partial class ReadForm
     {
@@ -32,7 +32,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ReadForm));
             this.textLog = new System.Windows.Forms.TextBox();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.closeTimer = new System.Windows.Forms.Timer(this.components);
             this.lblStatus = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
@@ -52,9 +52,10 @@
             this.progressBar1.Size = new System.Drawing.Size(423, 15);
             this.progressBar1.TabIndex = 2;
             // 
-            // timer1
+            // closeTimer
             // 
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            this.closeTimer.Interval = 1000;
+            this.closeTimer.Tick += new System.EventHandler(this.closeTimer_Tick_1);
             // 
             // lblStatus
             // 
@@ -89,7 +90,7 @@
 
         private System.Windows.Forms.TextBox textLog;
         private System.Windows.Forms.ProgressBar progressBar1;
-        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Timer closeTimer;
         private System.Windows.Forms.Label lblStatus;
     }
 }

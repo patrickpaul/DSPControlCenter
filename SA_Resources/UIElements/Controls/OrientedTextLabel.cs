@@ -133,6 +133,7 @@ namespace SA_Resources
 			
 			//Getting the width and height of the text, which we are going to write
 			float width = graphics.MeasureString(text,this.Font).Width;
+            float width_difference = this.Height - width;
 			float height = graphics.MeasureString(text,this.Font).Height;
 
 			//The radius is set to 0.9 of the width or height, b'cos not to 
@@ -220,7 +221,7 @@ namespace SA_Resources
 						(ClientRectangle.Width+(float)(height*Math.Sin(angle))-(float)(width*Math.Cos(angle)))/2,
 						(ClientRectangle.Height-(float)(height*Math.Cos(angle))-(float)(width*Math.Sin(angle)))/2);
 					graphics.RotateTransform((float)rotationAngle);
-					graphics.DrawString(text,this.Font,textBrush,0,0);
+					graphics.DrawString(text,this.Font,textBrush,(-1*(width_difference/2)),0);
 					graphics.ResetTransform();
 
 					break;

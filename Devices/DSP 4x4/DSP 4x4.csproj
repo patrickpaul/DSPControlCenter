@@ -72,17 +72,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ReadForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ReadForm.Designer.cs">
-      <DependentUpon>ReadForm.cs</DependentUpon>
+    <Compile Include="..\..\SA_Resources\GlobalResources.Designer.cs">
+      <Link>GlobalResources.Designer.cs</Link>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GlobalResources.resx</DependentUpon>
     </Compile>
     <EmbeddedResource Include="..\..\SA_Resources\GlobalResources.resx">
       <Link>GlobalResources.resx</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ReadForm.resx">
-      <DependentUpon>ReadForm.cs</DependentUpon>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>GlobalResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
@@ -152,10 +151,13 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\devices_DSP4x4.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_UseGlobalSettings="True" BuildVersion_AssemblyInfoFilename="Properties\AssemblyInfo.cs" BuildVersion_UpdateFileVersion="True" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_BuildVersioningStyle="None.None.Increment.TimeStamp" BuildVersion_IncrementBeforeBuild="True" BuildVersion_DetectChanges="True" />
+      <UserProperties BuildVersion_DetectChanges="True" BuildVersion_IncrementBeforeBuild="True" BuildVersion_BuildVersioningStyle="None.None.Increment.TimeStamp" BuildVersion_UpdateAssemblyVersion="True" BuildVersion_UpdateFileVersion="True" BuildVersion_AssemblyInfoFilename="Properties\AssemblyInfo.cs" BuildVersion_UseGlobalSettings="True" />
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>

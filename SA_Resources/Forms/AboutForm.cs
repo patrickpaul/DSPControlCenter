@@ -12,7 +12,7 @@ namespace SA_Resources.Forms
             this.Text = formTitle;
             lblProductTitle.Text = longProductName;
 
-            lblVersion.Text = "Version " + currentVersion.Major + "." + currentVersion.Minor + " " + versionSuffix;
+            lblVersion.Text = "Version " + currentVersion.Major + "." + currentVersion.Minor + "." + currentVersion.Build + " " + versionSuffix;
 
             //pictureBox1.Image = Images.Company_Logo;
         }

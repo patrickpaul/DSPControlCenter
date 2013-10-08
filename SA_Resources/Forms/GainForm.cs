@@ -36,13 +36,6 @@ namespace SA_Resources
             IS_MIXER = _is_mixer;
             SETTINGS_INDEX = _settings_index;
 
-            // TODO - Add in premix meter when DSP flash is updated
-            if (_gain_index == 1)
-            {
-                gainMeter.Visible = false;
-                signalTimer.Enabled = false;
-            }
-
             if (PARENT_FORM.LIVE_MODE)
             {
                 gainMeter.Visible = true;
@@ -290,7 +283,21 @@ namespace SA_Resources
 
         private void LiveGainUpdate()
         {
-            UInt32 new_val = DSP_Math.double_to_MN(DSP_Math.decibels_to_voltage_gain(cur_gain), 3, 29);
+            UInt32 new_val = 0x00000000;
+
+            if (GAIN_INDEX == 0 && !IS_MIXER)
+            {
+                new_val = DSP_Math.double_to_MN(cur_gain + PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].pregains[CH_INDEX] , 9,23);
+
+                
+                PARENT_FORM.AddItemToQueue(new LiveQueueItem((416 + CH_INDEX), DSP_Math.double_to_MN(cur_gain, 6, 26)));
+            }
+            else
+            {
+                new_val = DSP_Math.double_to_MN(DSP_Math.decibels_to_voltage_gain(cur_gain), 3, 29);
+            }
+
+            //new_val = 0x00000000;
 
             PARENT_FORM.AddItemToQueue(new LiveQueueItem(SETTINGS_INDEX, new_val));
         }
@@ -383,11 +390,23 @@ namespace SA_Resources
 
         private void signalTimer_Tick(object sender, EventArgs e)
         {
-            UInt32 read_address = PARENT_FORM._gain_meters[CH_INDEX][GAIN_INDEX];
+            UInt32 read_address;
+            
+            if (IS_MIXER)
+            {
+                read_address = PARENT_FORM._mix_meters[GAIN_INDEX];
+            }
+            else
+            {
+                read_address = PARENT_FORM._gain_meters[CH_INDEX][GAIN_INDEX];
+            }
 
             double offset = 20 + 10 * Math.Log10(2) + 20 * Math.Log10(16);
             UInt32 read_value = PARENT_FORM._PIC_Conn.Read_Live_DSP_Value(read_address);
             double converted_value = DSP_Math.MN_to_double_signed(read_value, 1, 31);
+
+            //Console.WriteLine("Read " + read_value.ToString("X8") + " from " + read_address.ToString("X8"));
+
             if (converted_value > (0.000001 * 0.000001))
             {
                 read_gain_value = offset + 10 * Math.Log10(converted_value);

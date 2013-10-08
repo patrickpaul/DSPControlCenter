@@ -28,17 +28,21 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InputConfiguration));
             this.label1 = new System.Windows.Forms.Label();
             this.txtDisplayName = new System.Windows.Forms.TextBox();
             this.lblPhantomPower = new System.Windows.Forms.Label();
-            this.chkPhantomPower = new SA_Resources.PictureCheckbox();
             this.btnCancel = new System.Windows.Forms.PictureBox();
             this.btnSave = new System.Windows.Forms.PictureBox();
             this.label3 = new System.Windows.Forms.Label();
             this.dropInputType = new System.Windows.Forms.ComboBox();
+            this.signalTimer = new System.Windows.Forms.Timer(this.components);
+            this.gainMeter = new SA_Resources.SignalMeter_Small();
+            this.chkPhantomPower = new SA_Resources.PictureCheckbox();
             ((System.ComponentModel.ISupportInitialize)(this.btnCancel)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnSave)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gainMeter)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -68,29 +72,17 @@
             this.lblPhantomPower.AutoSize = true;
             this.lblPhantomPower.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.lblPhantomPower.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.lblPhantomPower.Location = new System.Drawing.Point(13, 56);
+            this.lblPhantomPower.Location = new System.Drawing.Point(13, 89);
             this.lblPhantomPower.Name = "lblPhantomPower";
             this.lblPhantomPower.Size = new System.Drawing.Size(91, 13);
             this.lblPhantomPower.TabIndex = 2;
             this.lblPhantomPower.Text = "Phantom Power:";
             this.lblPhantomPower.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // chkPhantomPower
-            // 
-            this.chkPhantomPower.CheckedImage = null;
-            this.chkPhantomPower.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.chkPhantomPower.Location = new System.Drawing.Point(114, 55);
-            this.chkPhantomPower.Name = "chkPhantomPower";
-            this.chkPhantomPower.Size = new System.Drawing.Size(16, 16);
-            this.chkPhantomPower.TabIndex = 3;
-            this.chkPhantomPower.UncheckedImage = null;
-            this.chkPhantomPower.UseVisualStyleBackColor = true;
-            this.chkPhantomPower.CheckedChanged += new System.EventHandler(this.chkPhantomPower_CheckedChanged);
-            // 
             // btnCancel
             // 
             this.btnCancel.Image = ((System.Drawing.Image)(resources.GetObject("btnCancel.Image")));
-            this.btnCancel.Location = new System.Drawing.Point(134, 90);
+            this.btnCancel.Location = new System.Drawing.Point(128, 146);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(49, 23);
             this.btnCancel.TabIndex = 7;
@@ -101,7 +93,7 @@
             // 
             this.btnSave.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSave.Image = ((System.Drawing.Image)(resources.GetObject("btnSave.Image")));
-            this.btnSave.Location = new System.Drawing.Point(76, 90);
+            this.btnSave.Location = new System.Drawing.Point(70, 146);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(49, 23);
             this.btnSave.TabIndex = 6;
@@ -119,27 +111,53 @@
             this.label3.TabIndex = 11;
             this.label3.Text = "Input Type:";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.label3.Visible = false;
             // 
             // dropInputType
             // 
             this.dropInputType.FormattingEnabled = true;
             this.dropInputType.Items.AddRange(new object[] {
-            "Line Level",
-            "Microphone"});
+            "Line Level +0dB",
+            "Microphone +20dB",
+            "Microphone +40dB"});
             this.dropInputType.Location = new System.Drawing.Point(113, 51);
             this.dropInputType.Name = "dropInputType";
             this.dropInputType.Size = new System.Drawing.Size(133, 21);
             this.dropInputType.TabIndex = 12;
-            this.dropInputType.Visible = false;
             this.dropInputType.SelectedIndexChanged += new System.EventHandler(this.dropInputType_SelectedIndexChanged);
+            // 
+            // signalTimer
+            // 
+            this.signalTimer.Tick += new System.EventHandler(this.signalTimer_Tick);
+            // 
+            // gainMeter
+            // 
+            this.gainMeter.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("gainMeter.BackgroundImage")));
+            this.gainMeter.DB = -35D;
+            this.gainMeter.Location = new System.Drawing.Point(264, 16);
+            this.gainMeter.Name = "gainMeter";
+            this.gainMeter.Size = new System.Drawing.Size(30, 157);
+            this.gainMeter.TabIndex = 13;
+            this.gainMeter.TabStop = false;
+            // 
+            // chkPhantomPower
+            // 
+            this.chkPhantomPower.CheckedImage = null;
+            this.chkPhantomPower.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.chkPhantomPower.Location = new System.Drawing.Point(114, 89);
+            this.chkPhantomPower.Name = "chkPhantomPower";
+            this.chkPhantomPower.Size = new System.Drawing.Size(16, 16);
+            this.chkPhantomPower.TabIndex = 3;
+            this.chkPhantomPower.UncheckedImage = null;
+            this.chkPhantomPower.UseVisualStyleBackColor = true;
+            this.chkPhantomPower.CheckedChanged += new System.EventHandler(this.chkPhantomPower_CheckedChanged);
             // 
             // InputConfiguration
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(82)))), ((int)(((byte)(82)))));
-            this.ClientSize = new System.Drawing.Size(258, 130);
+            this.ClientSize = new System.Drawing.Size(260, 187);
+            this.Controls.Add(this.gainMeter);
             this.Controls.Add(this.dropInputType);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.btnCancel);
@@ -150,6 +168,7 @@
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "InputConfiguration";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "CH 1 - Configure Input";
@@ -157,6 +176,7 @@
             this.Load += new System.EventHandler(this.InputConfiguration_Load);
             ((System.ComponentModel.ISupportInitialize)(this.btnCancel)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnSave)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gainMeter)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -172,5 +192,7 @@
         private System.Windows.Forms.PictureBox btnSave;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox dropInputType;
+        private System.Windows.Forms.Timer signalTimer;
+        private SignalMeter_Small gainMeter;
     }
 }

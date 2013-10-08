@@ -71,13 +71,14 @@ namespace SA_Resources
                             caption = captionObj.ToString();
                             if (caption.Contains("USB Serial Port (COM"))
                             {
+
                                     obj_as_string = obj.ToString();
                                     obj_string_length = obj_as_string.Length;
                                     last_index = obj_as_string.LastIndexOf("6015+");
 
                                     if ((last_index + 13) > obj_string_length)
                                     {
-                                        serialNumber = "";
+                                        serialNumber = "UNKNOWN";
                                     } else
                                     {
                                         serialNumber = obj_as_string.Substring(last_index + 5, 8);

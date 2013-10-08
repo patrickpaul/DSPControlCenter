@@ -22,6 +22,18 @@ namespace SA_Resources
                 Muted = in_muted;
             }
 
+
+            public override string ToString()
+            {
+                if (Muted == true)
+                {
+                    return "Muted";
+                }
+                else
+                {
+                    return Gain.ToString("N1") + "dB";
+                }
+            }
             public double Gain;
             public bool Muted;
 

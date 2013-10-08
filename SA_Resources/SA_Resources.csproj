@@ -65,6 +65,10 @@
     <Compile Include="Classes\COMPortInfo.cs" />
     <Compile Include="Classes\Line.cs" />
     <Compile Include="Classes\LiveQueueItem.cs" />
+    <Compile Include="Classes\SADevice.cs" />
+    <Compile Include="Classes\SADevicePlugin.cs" />
+    <Compile Include="Classes\SCFG_Manager.cs" />
+    <Compile Include="Classes\USBManager.cs" />
     <Compile Include="Configurations\CompressorConfig.cs" />
     <Compile Include="Configurations\CopyFormType.cs" />
     <Compile Include="Configurations\DelayConfig.cs" />
@@ -74,6 +78,18 @@
     <Compile Include="Configurations\InputConfig.cs" />
     <Compile Include="Configurations\OutputConfig.cs" />
     <Compile Include="Configurations\ProgramConfig.cs" />
+    <Compile Include="Forms\DeviceManagerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\DeviceManagerForm.Designer.cs">
+      <DependentUpon>DeviceManagerForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\DuckerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\DuckerForm.Designer.cs">
+      <DependentUpon>DuckerForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\CopyForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -98,6 +114,12 @@
     <Compile Include="Forms\FilterForm.Designer.cs">
       <DependentUpon>FilterForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\ReadForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ReadForm.Designer.cs">
+      <DependentUpon>ReadForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\SwitchProgramForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -108,6 +130,12 @@
     <Compile Include="Classes\ConfigChangeEventArgs.cs" />
     <Compile Include="Resource Classes\ControlIcons.cs" />
     <Compile Include="Resource Classes\Icons.cs" />
+    <Compile Include="UIElements\Controls\SignalMeter_Small.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UIElements\Controls\SignalMeter_Small.Designer.cs">
+      <DependentUpon>SignalMeter_Small.cs</DependentUpon>
+    </Compile>
     <Compile Include="UIElements\Controls\SignalMeter.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -241,17 +269,23 @@
     <None Include="Resources\knob_yellow_line.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\peq_curve_mockup.png" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Forms\AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\CompressorForm.resx">
       <DependentUpon>CompressorForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\DeviceManagerForm.resx">
+      <DependentUpon>DeviceManagerForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\DuckerForm.resx">
+      <DependentUpon>DuckerForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\CopyForm.resx">
       <DependentUpon>CopyForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\MainForm_Template.resx">
+      <DependentUpon>MainForm_Template.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\OutputConfiguration.resx">
       <DependentUpon>OutputConfiguration.cs</DependentUpon>
@@ -273,6 +307,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\MixerForm.resx">
       <DependentUpon>MixerForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ReadForm.resx">
+      <DependentUpon>ReadForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\SaveForm.resx">
       <DependentUpon>SaveForm.cs</DependentUpon>
@@ -428,42 +465,6 @@
     <None Include="Resources\radio_checked_red.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\meter_0.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\meter_1.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\meter_2.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\meter_3.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\meter_4.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\meter_5.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\meter_6.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\meter_7.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\meter_8.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\meter_9.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\meter_10.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\meter_11.png" />
-  </ItemGroup>
-  <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">
       <Visible>False</Visible>
       <ProductName>Microsoft .NET Framework 4 %28x86 and x64%29</ProductName>
@@ -494,10 +495,34 @@
   <ItemGroup>
     <None Include="Resources\meter.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\meter_small.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ui_btn_reset.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\UI_thumbnail.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\lblStatus_Connected.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\lblStatus_Disconnected.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\lblStatus_Blank.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ui_btn_blue_mute.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ui_btn_blue_unmute.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_UpdateAssemblyVersion="True" BuildVersion_UpdateFileVersion="True" BuildVersion_AssemblyInfoFilename="Properties\AssemblyInfo.cs" BuildVersion_UseGlobalSettings="True" />
+      <UserProperties BuildVersion_UseGlobalSettings="True" BuildVersion_AssemblyInfoFilename="Properties\AssemblyInfo.cs" BuildVersion_UpdateFileVersion="True" BuildVersion_UpdateAssemblyVersion="True" />
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>

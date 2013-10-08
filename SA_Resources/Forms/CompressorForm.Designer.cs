@@ -65,18 +65,24 @@
             this.dropAction = new System.Windows.Forms.ComboBox();
             this.lblAction = new System.Windows.Forms.Label();
             this.signalTimer = new System.Windows.Forms.Timer(this.components);
+            this.lblIn = new System.Windows.Forms.Label();
+            this.lblOut = new System.Windows.Forms.Label();
+            this.gainMeterOut = new SA_Resources.SignalMeter_Small();
+            this.gainMeterIn = new SA_Resources.SignalMeter_Small();
             this.btnGo = new SA_Resources.PictureButton();
             this.chkSoftKnee = new SA_Resources.PictureCheckbox();
             this.chkBypass = new SA_Resources.PictureCheckbox();
             this.btnCancel = new SA_Resources.PictureButton();
             this.btnSave = new SA_Resources.PictureButton();
-            this.gainMeter = new SA_Resources.SignalMeter();
+            this.panel1 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.dynChart)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudCompRatio)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudCompThreshold)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DialCompAttack)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DialCompRelease)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gainMeter)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gainMeterOut)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gainMeterIn)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // dynChart
@@ -121,7 +127,7 @@
             chartArea1.BackImageWrapMode = System.Windows.Forms.DataVisualization.Charting.ChartImageWrapMode.TileFlipX;
             chartArea1.Name = "ChartArea1";
             this.dynChart.ChartAreas.Add(chartArea1);
-            this.dynChart.Location = new System.Drawing.Point(-2, 0);
+            this.dynChart.Location = new System.Drawing.Point(-1, 1);
             this.dynChart.Name = "dynChart";
             series1.BorderColor = System.Drawing.Color.Tomato;
             series1.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dash;
@@ -191,7 +197,7 @@
             0,
             0,
             0});
-            this.nudCompRatio.Location = new System.Drawing.Point(74, 343);
+            this.nudCompRatio.Location = new System.Drawing.Point(71, 340);
             this.nudCompRatio.Minimum = new decimal(new int[] {
             1,
             0,
@@ -212,7 +218,7 @@
             this.lblRatio.AutoSize = true;
             this.lblRatio.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.lblRatio.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.lblRatio.Location = new System.Drawing.Point(12, 347);
+            this.lblRatio.Location = new System.Drawing.Point(9, 344);
             this.lblRatio.Name = "lblRatio";
             this.lblRatio.Size = new System.Drawing.Size(34, 13);
             this.lblRatio.TabIndex = 8;
@@ -223,7 +229,7 @@
             this.lblRatioSuffix.AutoSize = true;
             this.lblRatioSuffix.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.lblRatioSuffix.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.lblRatioSuffix.Location = new System.Drawing.Point(129, 345);
+            this.lblRatioSuffix.Location = new System.Drawing.Point(126, 342);
             this.lblRatioSuffix.Name = "lblRatioSuffix";
             this.lblRatioSuffix.Size = new System.Drawing.Size(16, 13);
             this.lblRatioSuffix.TabIndex = 9;
@@ -234,7 +240,7 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.label2.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.label2.Location = new System.Drawing.Point(127, 321);
+            this.label2.Location = new System.Drawing.Point(124, 318);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(21, 13);
             this.label2.TabIndex = 12;
@@ -245,7 +251,7 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.label3.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.label3.Location = new System.Drawing.Point(12, 321);
+            this.label3.Location = new System.Drawing.Point(9, 318);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(58, 13);
             this.label3.TabIndex = 11;
@@ -254,7 +260,7 @@
             // nudCompThreshold
             // 
             this.nudCompThreshold.DecimalPlaces = 1;
-            this.nudCompThreshold.Location = new System.Drawing.Point(74, 317);
+            this.nudCompThreshold.Location = new System.Drawing.Point(71, 314);
             this.nudCompThreshold.Maximum = new decimal(new int[] {
             10,
             0,
@@ -281,7 +287,7 @@
             this.DialCompAttack.Cursor = System.Windows.Forms.Cursors.Hand;
             this.DialCompAttack.Image = global::SA_Resources.GlobalResources.knob_blue_line;
             this.DialCompAttack.InitialImage = null;
-            this.DialCompAttack.Location = new System.Drawing.Point(69, 424);
+            this.DialCompAttack.Location = new System.Drawing.Point(18, 58);
             this.DialCompAttack.Name = "DialCompAttack";
             this.DialCompAttack.Size = new System.Drawing.Size(40, 40);
             this.DialCompAttack.TabIndex = 17;
@@ -291,7 +297,7 @@
             // 
             this.TextCompAttack.Cursor = System.Windows.Forms.Cursors.Hand;
             this.TextCompAttack.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TextCompAttack.Location = new System.Drawing.Point(64, 399);
+            this.TextCompAttack.Location = new System.Drawing.Point(13, 33);
             this.TextCompAttack.MaxLength = 10;
             this.TextCompAttack.Name = "TextCompAttack";
             this.TextCompAttack.Size = new System.Drawing.Size(50, 22);
@@ -304,7 +310,7 @@
             this.label36.AutoSize = true;
             this.label36.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label36.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.label36.Location = new System.Drawing.Point(70, 383);
+            this.label36.Location = new System.Drawing.Point(19, 17);
             this.label36.Name = "label36";
             this.label36.Size = new System.Drawing.Size(39, 13);
             this.label36.TabIndex = 23;
@@ -314,7 +320,7 @@
             // 
             this.TextCompRelease.Cursor = System.Windows.Forms.Cursors.Hand;
             this.TextCompRelease.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TextCompRelease.Location = new System.Drawing.Point(156, 400);
+            this.TextCompRelease.Location = new System.Drawing.Point(85, 33);
             this.TextCompRelease.MaxLength = 10;
             this.TextCompRelease.Name = "TextCompRelease";
             this.TextCompRelease.Size = new System.Drawing.Size(50, 22);
@@ -327,7 +333,7 @@
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.label4.Location = new System.Drawing.Point(159, 383);
+            this.label4.Location = new System.Drawing.Point(87, 17);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(46, 13);
             this.label4.TabIndex = 26;
@@ -339,7 +345,7 @@
             this.DialCompRelease.Cursor = System.Windows.Forms.Cursors.Hand;
             this.DialCompRelease.Image = global::SA_Resources.GlobalResources.knob_orange_line;
             this.DialCompRelease.InitialImage = null;
-            this.DialCompRelease.Location = new System.Drawing.Point(161, 425);
+            this.DialCompRelease.Location = new System.Drawing.Point(90, 58);
             this.DialCompRelease.Name = "DialCompRelease";
             this.DialCompRelease.Size = new System.Drawing.Size(40, 40);
             this.DialCompRelease.TabIndex = 25;
@@ -351,32 +357,76 @@
             this.dropAction.Items.AddRange(new object[] {
             "Copy configuration to...",
             "Reset to Defaults"});
-            this.dropAction.Location = new System.Drawing.Point(58, 516);
+            this.dropAction.Location = new System.Drawing.Point(59, 535);
             this.dropAction.Name = "dropAction";
             this.dropAction.Size = new System.Drawing.Size(133, 21);
             this.dropAction.TabIndex = 104;
+            this.dropAction.Visible = false;
             // 
             // lblAction
             // 
             this.lblAction.AutoSize = true;
             this.lblAction.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblAction.ForeColor = System.Drawing.Color.Gainsboro;
-            this.lblAction.Location = new System.Drawing.Point(8, 519);
+            this.lblAction.Location = new System.Drawing.Point(9, 538);
             this.lblAction.Name = "lblAction";
             this.lblAction.Size = new System.Drawing.Size(44, 13);
             this.lblAction.TabIndex = 103;
             this.lblAction.Text = "Action:";
+            this.lblAction.Visible = false;
             // 
             // signalTimer
             // 
             this.signalTimer.Tick += new System.EventHandler(this.signalTimer_Tick);
+            // 
+            // lblIn
+            // 
+            this.lblIn.AutoSize = true;
+            this.lblIn.Font = new System.Drawing.Font("Segoe UI", 8.25F);
+            this.lblIn.ForeColor = System.Drawing.Color.Gainsboro;
+            this.lblIn.Location = new System.Drawing.Point(232, 514);
+            this.lblIn.Name = "lblIn";
+            this.lblIn.Size = new System.Drawing.Size(17, 13);
+            this.lblIn.TabIndex = 108;
+            this.lblIn.Text = "In";
+            // 
+            // lblOut
+            // 
+            this.lblOut.AutoSize = true;
+            this.lblOut.Font = new System.Drawing.Font("Segoe UI", 8.25F);
+            this.lblOut.ForeColor = System.Drawing.Color.Gainsboro;
+            this.lblOut.Location = new System.Drawing.Point(269, 514);
+            this.lblOut.Name = "lblOut";
+            this.lblOut.Size = new System.Drawing.Size(27, 13);
+            this.lblOut.TabIndex = 109;
+            this.lblOut.Text = "Out";
+            // 
+            // gainMeterOut
+            // 
+            this.gainMeterOut.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("gainMeterOut.BackgroundImage")));
+            this.gainMeterOut.DB = -35D;
+            this.gainMeterOut.Location = new System.Drawing.Point(266, 354);
+            this.gainMeterOut.Name = "gainMeterOut";
+            this.gainMeterOut.Size = new System.Drawing.Size(30, 157);
+            this.gainMeterOut.TabIndex = 111;
+            this.gainMeterOut.TabStop = false;
+            // 
+            // gainMeterIn
+            // 
+            this.gainMeterIn.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("gainMeterIn.BackgroundImage")));
+            this.gainMeterIn.DB = -35D;
+            this.gainMeterIn.Location = new System.Drawing.Point(221, 354);
+            this.gainMeterIn.Name = "gainMeterIn";
+            this.gainMeterIn.Size = new System.Drawing.Size(30, 157);
+            this.gainMeterIn.TabIndex = 110;
+            this.gainMeterIn.TabStop = false;
             // 
             // btnGo
             // 
             this.btnGo.AutoResize = true;
             this.btnGo.BackgroundImage = global::SA_Resources.GlobalResources.ui_btn_go;
             this.btnGo.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnGo.Location = new System.Drawing.Point(199, 516);
+            this.btnGo.Location = new System.Drawing.Point(200, 535);
             this.btnGo.Name = "btnGo";
             this.btnGo.OverImage = null;
             this.btnGo.Overlay1Image = null;
@@ -389,6 +439,7 @@
             this.btnGo.Size = new System.Drawing.Size(49, 23);
             this.btnGo.TabIndex = 105;
             this.btnGo.ToolTipText = "";
+            this.btnGo.Visible = false;
             this.btnGo.Click += new System.EventHandler(this.btnGo_Click);
             // 
             // chkSoftKnee
@@ -398,7 +449,7 @@
             this.chkSoftKnee.Cursor = System.Windows.Forms.Cursors.Hand;
             this.chkSoftKnee.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.chkSoftKnee.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.chkSoftKnee.Location = new System.Drawing.Point(166, 353);
+            this.chkSoftKnee.Location = new System.Drawing.Point(151, 317);
             this.chkSoftKnee.Name = "chkSoftKnee";
             this.chkSoftKnee.Size = new System.Drawing.Size(78, 17);
             this.chkSoftKnee.TabIndex = 32;
@@ -413,7 +464,7 @@
             this.chkBypass.CheckedImage = global::SA_Resources.GlobalResources.ui_btn_bypass_red;
             this.chkBypass.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkBypass.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.chkBypass.Location = new System.Drawing.Point(172, 315);
+            this.chkBypass.Location = new System.Drawing.Point(235, 314);
             this.chkBypass.Name = "chkBypass";
             this.chkBypass.Size = new System.Drawing.Size(61, 23);
             this.chkBypass.TabIndex = 30;
@@ -426,7 +477,7 @@
             this.btnCancel.AutoResize = true;
             this.btnCancel.BackgroundImage = global::SA_Resources.GlobalResources.ui_btn_cancel;
             this.btnCancel.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCancel.Location = new System.Drawing.Point(136, 478);
+            this.btnCancel.Location = new System.Drawing.Point(76, 116);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.OverImage = null;
             this.btnCancel.Overlay1Image = null;
@@ -446,7 +497,7 @@
             this.btnSave.AutoResize = true;
             this.btnSave.BackgroundImage = global::SA_Resources.GlobalResources.ui_btn_save;
             this.btnSave.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnSave.Location = new System.Drawing.Point(80, 478);
+            this.btnSave.Location = new System.Drawing.Point(20, 116);
             this.btnSave.Name = "btnSave";
             this.btnSave.OverImage = null;
             this.btnSave.Overlay1Image = null;
@@ -461,36 +512,37 @@
             this.btnSave.ToolTipText = "";
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
-            // gainMeter
+            // panel1
             // 
-            this.gainMeter.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("gainMeter.BackgroundImage")));
-            this.gainMeter.DB = -35D;
-            this.gainMeter.Location = new System.Drawing.Point(254, 312);
-            this.gainMeter.Name = "gainMeter";
-            this.gainMeter.Size = new System.Drawing.Size(43, 225);
-            this.gainMeter.TabIndex = 106;
-            this.gainMeter.TabStop = false;
+            this.panel1.Controls.Add(this.label36);
+            this.panel1.Controls.Add(this.DialCompAttack);
+            this.panel1.Controls.Add(this.TextCompAttack);
+            this.panel1.Controls.Add(this.DialCompRelease);
+            this.panel1.Controls.Add(this.label4);
+            this.panel1.Controls.Add(this.TextCompRelease);
+            this.panel1.Controls.Add(this.btnSave);
+            this.panel1.Controls.Add(this.btnCancel);
+            this.panel1.Location = new System.Drawing.Point(76, 366);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(144, 145);
+            this.panel1.TabIndex = 112;
             // 
             // CompressorForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(82)))), ((int)(((byte)(82)))));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.ClientSize = new System.Drawing.Size(306, 546);
-            this.Controls.Add(this.gainMeter);
+            this.ClientSize = new System.Drawing.Size(305, 532);
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.gainMeterOut);
+            this.Controls.Add(this.gainMeterIn);
+            this.Controls.Add(this.lblOut);
+            this.Controls.Add(this.lblIn);
             this.Controls.Add(this.btnGo);
             this.Controls.Add(this.dropAction);
             this.Controls.Add(this.lblAction);
             this.Controls.Add(this.chkSoftKnee);
             this.Controls.Add(this.chkBypass);
-            this.Controls.Add(this.btnCancel);
-            this.Controls.Add(this.btnSave);
-            this.Controls.Add(this.TextCompRelease);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.DialCompRelease);
-            this.Controls.Add(this.TextCompAttack);
-            this.Controls.Add(this.label36);
-            this.Controls.Add(this.DialCompAttack);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.nudCompThreshold);
@@ -509,7 +561,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudCompThreshold)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DialCompAttack)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DialCompRelease)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gainMeter)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gainMeterOut)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gainMeterIn)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -538,6 +593,10 @@
         private System.Windows.Forms.ComboBox dropAction;
         private System.Windows.Forms.Label lblAction;
         private System.Windows.Forms.Timer signalTimer;
-        private SignalMeter gainMeter;
+        private System.Windows.Forms.Label lblIn;
+        private System.Windows.Forms.Label lblOut;
+        private SignalMeter_Small gainMeterIn;
+        private SignalMeter_Small gainMeterOut;
+        private System.Windows.Forms.Panel panel1;
     }
 }

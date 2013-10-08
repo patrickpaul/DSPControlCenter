@@ -34,10 +34,10 @@
             this.sliderPB = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.signalTimer = new System.Windows.Forms.Timer(this.components);
+            this.gainMeter = new SA_Resources.SignalMeter();
             this.chkMuted = new SA_Resources.PictureCheckbox();
             this.btnCancel = new SA_Resources.PictureButton();
             this.btnSave = new SA_Resources.PictureButton();
-            this.gainMeter = new SA_Resources.SignalMeter();
             ((System.ComponentModel.ISupportInitialize)(this.sliderPB)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gainMeter)).BeginInit();
@@ -81,6 +81,16 @@
             // signalTimer
             // 
             this.signalTimer.Tick += new System.EventHandler(this.signalTimer_Tick);
+            // 
+            // gainMeter
+            // 
+            this.gainMeter.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("gainMeter.BackgroundImage")));
+            this.gainMeter.DB = -35D;
+            this.gainMeter.Location = new System.Drawing.Point(116, 69);
+            this.gainMeter.Name = "gainMeter";
+            this.gainMeter.Size = new System.Drawing.Size(43, 225);
+            this.gainMeter.TabIndex = 34;
+            this.gainMeter.TabStop = false;
             // 
             // chkMuted
             // 
@@ -134,22 +144,11 @@
             this.btnSave.ToolTipText = "";
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
-            // gainMeter
-            // 
-            this.gainMeter.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("gainMeter.BackgroundImage")));
-            this.gainMeter.DB = -35D;
-            this.gainMeter.Location = new System.Drawing.Point(116, 69);
-            this.gainMeter.Name = "gainMeter";
-            this.gainMeter.Size = new System.Drawing.Size(43, 225);
-            this.gainMeter.TabIndex = 34;
-            this.gainMeter.TabStop = false;
-            // 
             // GainForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(82)))), ((int)(((byte)(82)))));
             this.ClientSize = new System.Drawing.Size(179, 380);
-            this.ControlBox = false;
             this.Controls.Add(this.gainMeter);
             this.Controls.Add(this.chkMuted);
             this.Controls.Add(this.btnCancel);
@@ -161,7 +160,6 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "GainForm";
-            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "CH 1 - Gain";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.GainForm_FormClosing);
