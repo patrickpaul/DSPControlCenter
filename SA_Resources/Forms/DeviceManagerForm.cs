@@ -230,7 +230,7 @@ namespace SA_Resources
             for(int i = 0; i < 100; i++)
             {
                 worker.ReportProgress(i);
-                Thread.Sleep(10);
+                Thread.Sleep(1);
             }
             
         }

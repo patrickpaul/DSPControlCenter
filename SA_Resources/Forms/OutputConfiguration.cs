@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
 using System.Media;
-using System.Text;
 using System.Windows.Forms;
 using SA_Resources.Forms;
 
@@ -32,10 +28,12 @@ namespace SA_Resources
             {
                 signalTimer.Enabled = true;
                 gainMeterOut.Visible = true;
+                panelRS232.Visible = true;
             }
             else
             {
                 gainMeterOut.Visible = false;
+                panelRS232.Visible = false;
             }
         }
 
@@ -130,25 +128,127 @@ namespace SA_Resources
             gainMeterOut.DB = read_gain_value;
         }
 
-        private void pbtnMute_Click(object sender, EventArgs e)
+        private void UpdateRS232Stats()
         {
-            PARENT_FORM._PIC_Conn.SetRS232Mute(CH_NUMBER,2);
+            BackgroundWorker worker = new BackgroundWorker();
+            worker.WorkerReportsProgress = true;
+
+            worker.DoWork += UpdateRS232Stats_DoWork;
+            worker.RunWorkerAsync();
+        }
+
+        private void UpdateRS232Stats_DoWork(object sender, DoWorkEventArgs doWorkEventArgs)
+        {
             bool mute_status = PARENT_FORM._PIC_Conn.ReadRS232Mute(CH_NUMBER);
 
-            if(mute_status == true)
+            if (mute_status == true)
             {
-                lblMuteStatus.Text = "Muted";
-                lblMuteStatus.Invalidate();
-                pbtnMute.Image = GlobalResources.ui_btn_blue_unmute;
-                pbtnMute.Invalidate();
-            } else
+
+                this.SetMuteLabel("Muted");
+                this.SetMuteImage(GlobalResources.ui_btn_blue_unmute);
+            }
+            else
             {
-                lblMuteStatus.Text = "Unmuted";
-                lblMuteStatus.Invalidate();
-                pbtnMute.Image = GlobalResources.ui_btn_blue_mute;
-                pbtnMute.Invalidate();
+                this.SetMuteLabel("Unmuted");
+                this.SetMuteImage(GlobalResources.ui_btn_blue_mute);
             }
 
+            double cur_volume = PARENT_FORM._PIC_Conn.ReadRS232Vol(CH_NUMBER);
+
+            this.SetVolumeLabel(cur_volume.ToString() + "%");
+        }
+
+
+        #region BackgroundWorker Helpers for UpdateRS232Stats
+
+        delegate void SetMuteImageCallback(Image newImage);
+
+        private void SetMuteImage(Image newImage)
+        {
+            // InvokeRequired required compares the thread ID of the
+            // calling thread to the thread ID of the creating thread.
+            // If these threads are different, it returns true.
+            if (txtRS232Vol.InvokeRequired)
+            {
+                SetMuteImageCallback d = new SetMuteImageCallback(SetMuteImage);
+                this.Invoke(d, new object[] { newImage });
+            }
+            else
+            {
+                this.pbtnMute.Image = newImage;
+            }
+        }
+        
+        
+        delegate void SetVolumeLabelCallback(string text);
+
+        private void SetVolumeLabel(string text)
+        {
+            // InvokeRequired required compares the thread ID of the
+            // calling thread to the thread ID of the creating thread.
+            // If these threads are different, it returns true.
+            if (txtRS232Vol.InvokeRequired)
+            {
+                SetVolumeLabelCallback d = new SetVolumeLabelCallback(SetVolumeLabel);
+                this.Invoke(d, new object[] { text });
+            }
+            else
+            {
+                this.txtRS232Vol.Text = text;
+            }
+        }
+
+        delegate void SetMuteLabelCallback(string text);
+
+        private void SetMuteLabel(string text)
+        {
+            // InvokeRequired required compares the thread ID of the
+            // calling thread to the thread ID of the creating thread.
+            // If these threads are different, it returns true.
+            if (txtRS232Vol.InvokeRequired)
+            {
+                SetMuteLabelCallback d = new SetMuteLabelCallback(SetMuteLabel);
+                this.Invoke(d, new object[] { text });
+            }
+            else
+            {
+                this.txtRS232Mute.Text = text;
+            }
+        }
+
+        #endregion
+
+
+        private void pbtnMute_Click(object sender, EventArgs e)
+        {
+            
+            
+            PARENT_FORM._PIC_Conn.SetRS232Mute(CH_NUMBER, 2);
+
+            UpdateRS232Stats();
+        }
+
+        private void pbtnReset_Click(object sender, EventArgs e)
+        {
+            PARENT_FORM._PIC_Conn.ResetRS232Volume(CH_NUMBER);
+
+            UpdateRS232Stats();
+        }
+
+        private void OutputConfiguration_Shown(object sender, EventArgs e)
+        {
+            if(PARENT_FORM.LIVE_MODE)
+            {
+                UpdateRS232Stats();
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (PARENT_FORM.LIVE_MODE)
+            {
+                UpdateRS232Stats();
+            }
         }
     }
 }
