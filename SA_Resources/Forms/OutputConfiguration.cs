@@ -9,6 +9,17 @@ namespace SA_Resources
 {
     public partial class OutputConfiguration : Form
     {
+
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams myCp = base.CreateParams;
+                myCp.ClassStyle = myCp.ClassStyle | 0x200;
+                return myCp;
+            }
+        } 
+
         private MainForm_Template PARENT_FORM;
         private int CH_NUMBER;
 
@@ -24,7 +35,7 @@ namespace SA_Resources
 
             txtDisplayName.Text = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].outputs[CH_NUMBER-1].Name;
 
-            if (_parentForm.LIVE_MODE && _parentForm._PIC_Conn.isOpen)
+            if (_parentForm.LIVE_MODE && _parentForm._PIC_Conn.isOpen && PARENT_FORM.FIRMWARE_VERSION > 2.5)
             {
                 signalTimer.Enabled = true;
                 gainMeterOut.Visible = true;
@@ -42,23 +53,6 @@ namespace SA_Resources
             txtDisplayName.SelectAll();
         }
 
-        private void SaveRoutine()
-        {
-
-            // Temporary...
-            this.Close();
-
-
-        }
-
-        private void CancelRoutine()
-        {
-            // Temporary
-            this.Close();
-
-        }
-
-
         private void btnSave_Click(object sender, EventArgs e)
         {
             SaveRoutine();
@@ -67,6 +61,20 @@ namespace SA_Resources
         private void btnCancel_Click(object sender, EventArgs e)
         {
             CancelRoutine();
+        }
+
+        private void SaveRoutine()
+        {
+            this.DialogResult = DialogResult.OK;
+            this.Close();
+
+        }
+
+        private void CancelRoutine()
+        {
+            this.DialogResult = DialogResult.Cancel;
+            this.Close();
+
         }
 
         private void txtDisplayName_KeyPress(object sender, KeyPressEventArgs e)
@@ -250,5 +258,6 @@ namespace SA_Resources
                 UpdateRS232Stats();
             }
         }
+
     }
 }

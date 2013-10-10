@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SA_Resources
 {
-    public class OutputConfig
+    public class OutputConfig : ICloneable
     {
         public string Name;
 
@@ -19,6 +19,11 @@ namespace SA_Resources
         public OutputConfig(string _name)
         {
             Name = _name;
+        }
+
+        public object Clone()
+        {
+            return this.MemberwiseClone();
         }
     }
 }

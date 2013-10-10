@@ -19,7 +19,7 @@ namespace SetupLauncher
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string DirectoryPath = @"C:\SOURCE\DSPControlCenter\Setup\Setup\Express\DVD-5\DiskImages\DISK1";
+            string DirectoryPath = @"C:\SOURCE\DSPControlCenter\Setup\Setup\Express\SingleImage\DiskImages\DISK1";
             using (ZipFile zip = new ZipFile())
             {
                 zip.AddDirectory(DirectoryPath, System.IO.Path.GetFileName(DirectoryPath));
@@ -30,12 +30,12 @@ namespace SetupLauncher
                 options.DefaultExtractDirectory = "%TEMP%\\DSPCC";
                 options.PostExtractCommandLine = "%TEMP%\\DSPCC\\DISK1\\setup.exe";
                 options.RemoveUnpackedFilesAfterExecute = true;
-                options.FileVersion = new Version(2, 0, 0);
+                options.FileVersion = new Version(2, 1, 0);
                 options.Description = "DSP Control Center Installer Package";
                 options.Copyright = "© 2013 Stewart Audio, Inc.";
                 options.IconFile = @"C:\SOURCE\DSPControlCenter\DSP Control Center v4.ico";
                 options.ProductName = "DSP Control Center";
-                options.ProductVersion = "2.0.0-BETA";
+                options.ProductVersion = "2.1.0";
                 options.ExtractExistingFile = ExtractExistingFileAction.OverwriteSilently;
                 zip.SaveSelfExtractor("Install DSP Control Center.exe", options);
             }

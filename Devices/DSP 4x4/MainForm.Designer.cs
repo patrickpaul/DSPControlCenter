@@ -71,14 +71,9 @@ namespace DSP_4x4
             this.btnCH1PreFilters = new SA_Resources.PictureButton();
             this.btnCH1Compressor = new SA_Resources.PictureButton();
             this.btnCH1PreGain2 = new SA_Resources.PictureButton();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.dropProgramSelection = new System.Windows.Forms.ComboBox();
-            this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.saveProgramDialog = new System.Windows.Forms.SaveFileDialog();
             this.openProgramDialog = new System.Windows.Forms.OpenFileDialog();
-            this.btnConnectToDevice = new System.Windows.Forms.Button();
-            this.pictureConnectionStatus = new System.Windows.Forms.PictureBox();
             this.pnlCH2PreMixer = new System.Windows.Forms.Panel();
             this.btnCH2PreGain = new SA_Resources.PictureButton();
             this.btnCH2PreFilters = new SA_Resources.PictureButton();
@@ -100,12 +95,9 @@ namespace DSP_4x4
             this.lblCH3Input = new System.Windows.Forms.Label();
             this.lblCH2Input = new System.Windows.Forms.Label();
             this.lblCH1Input = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox37)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureConnectionStatus)).BeginInit();
             this.pnlCH2PreMixer.SuspendLayout();
             this.pnlCH4PostMixer.SuspendLayout();
             this.pnlCH3PostMixer.SuspendLayout();
@@ -114,7 +106,6 @@ namespace DSP_4x4
             this.pnlCH4PreMixer.SuspendLayout();
             this.pnlCH3PreMixer.SuspendLayout();
             this.pnlCH1PreMixer.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // statusStrip1
@@ -783,27 +774,6 @@ namespace DSP_4x4
             this.btnCH1PreGain2.TabIndex = 32;
             this.btnCH1PreGain2.ToolTipText = "";
             // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-            this.pictureBox2.Location = new System.Drawing.Point(604, 24);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(155, 37);
-            this.pictureBox2.TabIndex = 32;
-            this.pictureBox2.TabStop = false;
-            // 
-            // dropProgramSelection
-            // 
-            this.dropProgramSelection.FormattingEnabled = true;
-            this.dropProgramSelection.Items.AddRange(new object[] {
-            "Program 1 (Default)",
-            "Program 2",
-            "Program 3"});
-            this.dropProgramSelection.Location = new System.Drawing.Point(769, 29);
-            this.dropProgramSelection.Name = "dropProgramSelection";
-            this.dropProgramSelection.Size = new System.Drawing.Size(131, 21);
-            this.dropProgramSelection.TabIndex = 33;
-            // 
             // timer1
             // 
             this.timer1.Interval = 75;
@@ -817,24 +787,6 @@ namespace DSP_4x4
             // 
             this.openProgramDialog.Filter = "Configuration Files (*.scfg)|*.scfg";
             this.openProgramDialog.Title = "Open Configuration File";
-            // 
-            // btnConnectToDevice
-            // 
-            this.btnConnectToDevice.BackColor = System.Drawing.Color.Transparent;
-            this.btnConnectToDevice.Location = new System.Drawing.Point(508, 29);
-            this.btnConnectToDevice.Name = "btnConnectToDevice";
-            this.btnConnectToDevice.Size = new System.Drawing.Size(84, 23);
-            this.btnConnectToDevice.TabIndex = 40;
-            this.btnConnectToDevice.Text = "Connect";
-            this.btnConnectToDevice.UseVisualStyleBackColor = false;
-            // 
-            // pictureConnectionStatus
-            // 
-            this.pictureConnectionStatus.Location = new System.Drawing.Point(356, 24);
-            this.pictureConnectionStatus.Name = "pictureConnectionStatus";
-            this.pictureConnectionStatus.Size = new System.Drawing.Size(146, 37);
-            this.pictureConnectionStatus.TabIndex = 42;
-            this.pictureConnectionStatus.TabStop = false;
             // 
             // pnlCH2PreMixer
             // 
@@ -1135,16 +1087,6 @@ namespace DSP_4x4
             this.lblCH1Input.Text = "Input #1";
             this.lblCH1Input.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.BackgroundImage")));
-            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pictureBox1.Location = new System.Drawing.Point(0, 24);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(906, 37);
-            this.pictureBox1.TabIndex = 81;
-            this.pictureBox1.TabStop = false;
-            // 
             // timer2
             // 
             this.timer2.Interval = 500;
@@ -1155,11 +1097,6 @@ namespace DSP_4x4
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(82)))), ((int)(((byte)(82)))));
             this.ClientSize = new System.Drawing.Size(906, 404);
-            this.Controls.Add(this.pictureConnectionStatus);
-            this.Controls.Add(this.btnConnectToDevice);
-            this.Controls.Add(this.dropProgramSelection);
-            this.Controls.Add(this.pictureBox2);
-            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.pnlCH2PreMixer);
             this.Controls.Add(this.btnMatrixMixer);
             this.Controls.Add(this.lblCH4Output);
@@ -1184,8 +1121,6 @@ namespace DSP_4x4
             this.MaximizeBox = false;
             this.Name = "MainForm";
             this.Text = "DSP 4x4";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
-            this.Load += new System.EventHandler(this.MainForm_Load);
             this.Controls.SetChildIndex(this.statusStrip1, 0);
             this.Controls.SetChildIndex(this.pictureBox37, 0);
             this.Controls.SetChildIndex(this.lblCH1Input, 0);
@@ -1205,16 +1140,9 @@ namespace DSP_4x4
             this.Controls.SetChildIndex(this.lblCH4Output, 0);
             this.Controls.SetChildIndex(this.btnMatrixMixer, 0);
             this.Controls.SetChildIndex(this.pnlCH2PreMixer, 0);
-            this.Controls.SetChildIndex(this.pictureBox1, 0);
-            this.Controls.SetChildIndex(this.pictureBox2, 0);
-            this.Controls.SetChildIndex(this.dropProgramSelection, 0);
-            this.Controls.SetChildIndex(this.btnConnectToDevice, 0);
-            this.Controls.SetChildIndex(this.pictureConnectionStatus, 0);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox37)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureConnectionStatus)).EndInit();
             this.pnlCH2PreMixer.ResumeLayout(false);
             this.pnlCH4PostMixer.ResumeLayout(false);
             this.pnlCH3PostMixer.ResumeLayout(false);
@@ -1223,7 +1151,6 @@ namespace DSP_4x4
             this.pnlCH4PreMixer.ResumeLayout(false);
             this.pnlCH3PreMixer.ResumeLayout(false);
             this.pnlCH1PreMixer.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1269,15 +1196,10 @@ namespace DSP_4x4
         private PictureButton btnCH4PreGain;
         private PictureButton btnCH4PreFilters;
         private PictureButton btnCH4Compressor;
-        private System.Windows.Forms.PictureBox pictureBox2;
-        private System.Windows.Forms.ComboBox dropProgramSelection;
-        private System.IO.Ports.SerialPort serialPort1;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.SaveFileDialog saveProgramDialog;
         private System.Windows.Forms.OpenFileDialog openProgramDialog;
         private System.Windows.Forms.ToolStripStatusLabel tsStatusLabel;
-        private System.Windows.Forms.Button btnConnectToDevice;
-        private System.Windows.Forms.PictureBox pictureConnectionStatus;
         private System.Windows.Forms.Panel pnlCH2PreMixer;
         private PictureButton btnCH2PreGain;
         private PictureButton btnCH2PreFilters;
@@ -1299,7 +1221,6 @@ namespace DSP_4x4
         private System.Windows.Forms.Label lblCH3Input;
         private System.Windows.Forms.Label lblCH2Input;
         private System.Windows.Forms.Label lblCH1Input;
-        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Timer timer2;
     }
 }

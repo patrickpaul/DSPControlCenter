@@ -8,6 +8,17 @@ namespace SA_Resources
 {
     public partial class CompressorForm : Form
     {
+
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams myCp = base.CreateParams;
+                myCp.ClassStyle = myCp.ClassStyle | 0x200;
+                return myCp;
+            }
+        } 
+
         private bool dragging_threshold = false;
         private double stored_threshold = -20;
 
@@ -429,12 +440,26 @@ namespace SA_Resources
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            this.Close();
+            SaveRoutine();
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
+            CancelRoutine();
+        }
+
+        private void SaveRoutine()
+        {
+            this.DialogResult = DialogResult.OK;
             this.Close();
+
+        }
+
+        private void CancelRoutine()
+        {
+            this.DialogResult = DialogResult.Cancel;
+            this.Close();
+
         }
 
         private void chkSoftKnee_CheckedChanged(object sender, EventArgs e)
@@ -538,19 +563,7 @@ namespace SA_Resources
             {
                 gainMeterOut.DB = read_gain_value;
             }
-
-            /*converted_value = 20*Math.Log10(DSP_Math.MN_to_double_signed(PARENT_FORM._PIC_Conn.Read_Live_DSP_Value(0xF3C00058), 1, 31));
-
-            Console.WriteLine("Reduction: " + converted_value);
-             * */
-            //converted_value = PARENT_FORM._PIC_Conn.Read_Live_DSP_Value(0xFAC0001E);
-
-            //Console.WriteLine("Clip Indicator: " + converted_value);
-            
-
             comp_switcher = !comp_switcher;
-
-
 
         }
 

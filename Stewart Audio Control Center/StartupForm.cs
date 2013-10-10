@@ -162,7 +162,7 @@ namespace SA_Resources
                 a = Assembly.LoadFrom(activePlugin.Filepath);
                 Type classType = a.GetType(activePlugin.Assembly + ".MainForm");
 
-                Form form = Activator.CreateInstance(classType, CONFIGFILE) as Form;
+                MainForm_Template form = (MainForm_Template)Activator.CreateInstance(classType, CONFIGFILE);
 
                 form.ShowDialog();
 

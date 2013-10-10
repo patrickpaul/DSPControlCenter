@@ -15,6 +15,16 @@ namespace SA_Resources
     public partial class InputConfiguration : Form
     {
 
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams myCp = base.CreateParams;
+                myCp.ClassStyle = myCp.ClassStyle | 0x200;
+                return myCp;
+            }
+        } 
+
         private bool form_loaded = false;
 
         private MainForm_Template PARENT_FORM;
@@ -72,18 +82,10 @@ namespace SA_Resources
 
         private void InputConfiguration_Load(object sender, EventArgs e)
         {
-            txtDisplayName.Select(txtDisplayName.Text.Length, 0);
+            txtDisplayName.SelectAll();
         }
 
-        private void btnSave_Click(object sender, EventArgs e)
-        {
-            SaveRoutine();
-        }
-
-        private void btnCancel_Click(object sender, EventArgs e)
-        {
-            CancelRoutine();
-        }
+        
 
         private void dropInputType_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -154,18 +156,14 @@ namespace SA_Resources
 
         private void txtDisplayName_KeyPress(object sender, KeyPressEventArgs e)
         {
+
             if (e.KeyChar == (char)13)
             {
                 e.Handled = true;
 
-                PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].inputs[CH_NUMBER - 1].Name = txtDisplayName.Text;
-                return;
-                /*
                 SaveRoutine();
                 return;
-                 * * */
             }
-             
 
             string allowedCharacterSet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+=.:'/\\- \b\n";
             if (allowedCharacterSet.Contains(e.KeyChar.ToString()))
@@ -179,18 +177,6 @@ namespace SA_Resources
                 SystemSounds.Beep.Play();
                 e.Handled = true;
             }
-        }
-
-        private void SaveRoutine()
-        {
-            this.Close();
-
-        }
-
-        private void CancelRoutine()
-        {
-            this.Close();
-
         }
 
         private void InputConfiguration_FormClosing(object sender, FormClosingEventArgs e)
@@ -208,7 +194,6 @@ namespace SA_Resources
             UInt32 read_value = PARENT_FORM._PIC_Conn.Read_Live_DSP_Value(read_address);
             double converted_value = DSP_Math.MN_to_double_signed(read_value, 1, 31);
 
-            //Console.WriteLine("Read " + read_value.ToString("X8") + " from " + read_address.ToString("X8"));
 
             if (converted_value > (0.000001 * 0.000001))
             {
@@ -220,6 +205,30 @@ namespace SA_Resources
             }
 
             gainMeter.DB = read_gain_value;
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            SaveRoutine();
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            CancelRoutine();
+        }
+
+        private void SaveRoutine()
+        {
+            this.DialogResult = DialogResult.OK;
+            this.Close();
+
+        }
+
+        private void CancelRoutine()
+        {
+            this.DialogResult = DialogResult.Cancel;
+            this.Close();
+
         }
 
     }

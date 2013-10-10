@@ -745,6 +745,7 @@
             this.btnCancel.Size = new System.Drawing.Size(49, 23);
             this.btnCancel.TabIndex = 31;
             this.btnCancel.ToolTipText = "";
+            this.btnCancel.Visible = false;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // btnSave
@@ -752,7 +753,7 @@
             this.btnSave.AutoResize = true;
             this.btnSave.BackgroundImage = global::SA_Resources.GlobalResources.ui_btn_save;
             this.btnSave.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnSave.Location = new System.Drawing.Point(60, 264);
+            this.btnSave.Location = new System.Drawing.Point(89, 264);
             this.btnSave.Name = "btnSave";
             this.btnSave.OverImage = null;
             this.btnSave.Overlay1Image = null;

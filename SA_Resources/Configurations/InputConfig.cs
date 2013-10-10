@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using SA_Resources.Forms;
 
 namespace SA_Resources
 {
@@ -12,7 +13,7 @@ namespace SA_Resources
         Microphone40
     }
     
-    public class InputConfig
+    public class InputConfig : ICloneable
     {
         public InputType Type;
         public string Name;
@@ -65,6 +66,24 @@ namespace SA_Resources
                 return "Microphone +40dB\nPhantom Power: " + PhantomPower.ToString();
 
             }
+        }
+
+        public void QueueChange(MainForm_Template PARENT_FORM, int SETTINGS_INDEX, double CH_NUMBER)
+        {
+            /*
+            UInt32 new_val =
+                    DSP_Math.double_to_MN(
+                        PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].pregains[CH_NUMBER - 1] +
+                        PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].gains[CH_NUMBER - 1][0].Gain, 9, 23);
+
+            PARENT_FORM.AddItemToQueue(new LiveQueueItem((0 + CH_NUMBER - 1), new_val));
+            PARENT_FORM.AddItemToQueue(new LiveQueueItem((412 + CH_NUMBER - 1), (uint)dropInputType.SelectedIndex));
+             * */
+        }
+
+        public object Clone()
+        {
+            return this.MemberwiseClone();
         }
     }
 

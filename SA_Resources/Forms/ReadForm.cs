@@ -12,6 +12,18 @@ namespace SA_Resources
 {
     public partial class ReadForm : Form
     {
+
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams myCp = base.CreateParams;
+                myCp.ClassStyle = myCp.ClassStyle | 0x200;
+                return myCp;
+            }
+        } 
+
+
         private MainForm_Template PARENT_FORM;
 
         public ReadForm(MainForm_Template _parentForm)

@@ -72,7 +72,6 @@
     <Compile Include="Configurations\CompressorConfig.cs" />
     <Compile Include="Configurations\CopyFormType.cs" />
     <Compile Include="Configurations\DelayConfig.cs" />
-    <Compile Include="Configurations\Enum.cs" />
     <Compile Include="Configurations\FilterConfig.cs" />
     <Compile Include="Configurations\GainConfig.cs" />
     <Compile Include="Configurations\InputConfig.cs" />
@@ -127,7 +126,6 @@
       <DependentUpon>SwitchProgramForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Resource Classes\Buttons.cs" />
-    <Compile Include="Classes\ConfigChangeEventArgs.cs" />
     <Compile Include="Resource Classes\ControlIcons.cs" />
     <Compile Include="Resource Classes\Icons.cs" />
     <Compile Include="UIElements\Controls\SignalMeter_Small.cs">
@@ -187,12 +185,6 @@
     </Compile>
     <Compile Include="Forms\DelayForm.Designer.cs">
       <DependentUpon>DelayForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\FilterForm3.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\FilterForm3.Designer.cs">
-      <DependentUpon>FilterForm3.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\GainForm.cs">
       <SubType>Form</SubType>
@@ -295,9 +287,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\DelayForm.resx">
       <DependentUpon>DelayForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FilterForm3.resx">
-      <DependentUpon>FilterForm3.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\GainForm.resx">
       <DependentUpon>GainForm.cs</DependentUpon>

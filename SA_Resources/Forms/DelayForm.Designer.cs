@@ -53,6 +53,7 @@
             // 
             // btnCancel
             // 
+            this.btnCancel.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnCancel.Image = ((System.Drawing.Image)(resources.GetObject("btnCancel.Image")));
             this.btnCancel.Location = new System.Drawing.Point(135, 125);
             this.btnCancel.Name = "btnCancel";
@@ -71,6 +72,7 @@
             this.btnSave.TabIndex = 6;
             this.btnSave.TabStop = false;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            this.btnSave.MouseClick += new System.Windows.Forms.MouseEventHandler(this.btnSave_Click);
             // 
             // TextDelayMS
             // 
@@ -106,7 +108,6 @@
             this.DialDelayMS.Size = new System.Drawing.Size(40, 40);
             this.DialDelayMS.TabIndex = 32;
             this.DialDelayMS.TabStop = false;
-            this.DialDelayMS.Click += new System.EventHandler(this.DialDelayMS_Click);
             // 
             // TextDelayFT
             // 

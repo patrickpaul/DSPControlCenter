@@ -3693,13 +3693,11 @@
 		<row><td>IDS_PROGMSG_XML_UPDATE_FILE</td><td>1033</td><td>Updating XML file %s...</td><td>0</td><td/><td>-341734801</td></row>
 		<row><td>IDS_SETUPEXE_EXPIRE_MSG</td><td>1033</td><td>This setup works until %s. The setup will now exit.</td><td>0</td><td/><td>-341734801</td></row>
 		<row><td>IDS_SHORTCUT_DISPLAY_NAME1</td><td>1033</td><td>LAUNCH~1.EXE|Launch dp-chooser.exe</td><td>0</td><td/><td>-341757265</td></row>
-		<row><td>IDS_SHORTCUT_DISPLAY_NAME10</td><td>1033</td><td>DSP Control Center</td><td>0</td><td/><td>-341736753</td></row>
 		<row><td>IDS_SHORTCUT_DISPLAY_NAME2</td><td>1033</td><td>LAUNCH~1.EXE|Launch dpinst-amd64.exe</td><td>0</td><td/><td>-341757265</td></row>
 		<row><td>IDS_SHORTCUT_DISPLAY_NAME3</td><td>1033</td><td>LAUNCH~1.EXE|Launch dpinst-x86.exe</td><td>0</td><td/><td>-341757265</td></row>
 		<row><td>IDS_SHORTCUT_DISPLAY_NAME4</td><td>1033</td><td>LAUNCH~1.EXE|Launch dp-chooser.exe</td><td>0</td><td/><td>-341724497</td></row>
 		<row><td>IDS_SHORTCUT_DISPLAY_NAME5</td><td>1033</td><td>LAUNCH~1.EXE|Launch dpinst-amd64.exe</td><td>0</td><td/><td>-341724497</td></row>
 		<row><td>IDS_SHORTCUT_DISPLAY_NAME6</td><td>1033</td><td>LAUNCH~1.EXE|Launch dpinst-x86.exe</td><td>0</td><td/><td>-341724497</td></row>
-		<row><td>IDS_SHORTCUT_DISPLAY_NAME7</td><td>1033</td><td>LAUNCH~1.EXE|Launch wyUpdate.exe</td><td>0</td><td/><td>-727640818</td></row>
 		<row><td>IDS_SQLBROWSE_INTRO</td><td>1033</td><td>From the list of servers below, select the database server you would like to target.</td><td>0</td><td/><td>-341734801</td></row>
 		<row><td>IDS_SQLBROWSE_INTRO_DB</td><td>1033</td><td>From the list of catalog names below, select the database catalog you would like to target.</td><td>0</td><td/><td>-341734801</td></row>
 		<row><td>IDS_SQLBROWSE_INTRO_TEMPLATE</td><td>1033</td><td>[IS_SQLBROWSE_INTRO]</td><td>0</td><td/><td>-341734801</td></row>
@@ -3992,6 +3990,9 @@
 		<row><td>ID_STRING2</td><td>1033</td><td>http://www.StewartAudio.com</td><td>0</td><td/><td>488711467</td></row>
 		<row><td>ID_STRING3</td><td>1033</td><td>Stewart Audio</td><td>0</td><td/><td>488711467</td></row>
 		<row><td>ID_STRING4</td><td>1033</td><td>DSP Control Center</td><td>0</td><td/><td>-341718321</td></row>
+		<row><td>ID_STRING5</td><td>1033</td><td>DSPCON~1|DSP Control Center</td><td>0</td><td/><td>1294067567</td></row>
+		<row><td>ID_STRING6</td><td>1033</td><td>DSPCON~1|DSP Control Center</td><td>0</td><td/><td>1294012464</td></row>
+		<row><td>ID_STRING7</td><td>1033</td><td>UNINST~1|Uninstall DSP Control Center</td><td>0</td><td/><td>1294049328</td></row>
 		<row><td>IIDS_UITEXT_FeatureUninstalled</td><td>1033</td><td>This feature will remain uninstalled.</td><td>0</td><td/><td>-341734801</td></row>
 		<row><td>NEW_STRING1</td><td>1033</td><td>scfg</td><td>0</td><td/><td>-341721681</td></row>
 		<row><td>NEW_STRING2</td><td>1033</td><td>scfg</td><td>0</td><td/><td>-341746960</td></row>
@@ -4103,10 +4104,11 @@
 		<col def="S255">ISBuildSourcePath</col>
 		<col def="I2">ISIconIndex</col>
 		<row><td>ARPPRODUCTICON.exe</td><td/><td>C:\SOURCE\DSPControlCenter\DSP Control Center v4.ico</td><td>0</td></row>
+		<row><td>NewShortcut1_AC0F0F82DED64525A47C2000918AF691.exe</td><td/><td>C:\Program Files (x86)\InstallShield\2012SpringLE\Redist\Language Independent\OS Independent\uninstall.ico</td><td>0</td></row>
+		<row><td>NewShortcut2_460DB07A390443BEA8B0D072E24757BB.exe</td><td/><td>C:\SOURCE\DSPControlCenter\DSP Control Center v4.ico</td><td>0</td></row>
+		<row><td>NewShortcut3_F56979B603174096A3B48F38455C6977.exe</td><td/><td>C:\SOURCE\DSPControlCenter\DSP Control Center v4.ico</td><td>0</td></row>
 		<row><td>_56C34E30_E160_4BB1_97EA_988FB162CC80</td><td/><td>C:\SOURCE\DSPControlCenter\DSP Control Center v4.ico</td><td>0</td></row>
 		<row><td>_B4FC6954_DD33_422E_8857_87BB63F71AF0</td><td/><td>C:\SOURCE\DSPControlCenter\DSP Control Center v4.ico</td><td>0</td></row>
-		<row><td>_Built1_8D1DDD6CD30D4EA2B9B01E150B710B06.exe</td><td/><td>C:\SOURCE\DSPControlCenter\DSP Control Center v4.ico</td><td>0</td></row>
-		<row><td>_Built_42A7D775FC304CAD880CF309546C27EA.exe</td><td/><td>C:\SOURCE\DSPControlCenter\DSP Control Center v4.ico</td><td>0</td></row>
 		<row><td>_F7C68B79_B656_4B5E_BB31_330699E3125B</td><td/><td>C:\SOURCE\DSPControlCenter\DSP Control Center v4.ico</td><td>0</td></row>
 		<row><td>dp_chooser.exe_289AB4CFFC3942F69D9765AE57E643AC.exe</td><td/><td>&lt;ISProductFolder&gt;\redist\Language Independent\OS Independent\GenericExe.ico</td><td>0</td></row>
 		<row><td>dp_chooser.exe_DD6425703330491F88239C529AA06A2B.exe</td><td/><td>&lt;ISProductFolder&gt;\redist\Language Independent\OS Independent\GenericExe.ico</td><td>0</td></row>
@@ -4114,7 +4116,6 @@
 		<row><td>dpinst_amd64.exe_F03E77F9B1404C92BDD538E436B30F21.exe</td><td/><td>C:\SOURCE\DSPControlCenter\Drivers\dpinst-amd64.exe</td><td>0</td></row>
 		<row><td>dpinst_x86.exe_D7FAFFBA3E6E4F4A868239A089B80A55.exe</td><td/><td>C:\SOURCE\DSPControlCenter\Drivers\dpinst-x86.exe</td><td>0</td></row>
 		<row><td>dpinst_x86.exe_E00E4F80F97344F7A83F3D613950482A.exe</td><td/><td>C:\SOURCE\DSPControlCenter\Drivers\dpinst-x86.exe</td><td>0</td></row>
-		<row><td>wyUpdate.exe_9D034DAD32E54CE49A0370DE83CC2B47.exe</td><td/><td>C:\SOURCE\DSPControlCenter\Updater\wyUpdate\wyUpdate.exe</td><td>0</td></row>
 	</table>
 
 	<table name="IniFile">
@@ -4248,7 +4249,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>ISTheme</td><td>InstallShield Blue.theme</td></row>
 		<row><td>ISUSLock</td><td>{D8E2F9FF-1ABD-43FE-B1A2-D1254BE3A2C4}</td></row>
 		<row><td>ISUSSignature</td><td>{9E07B878-5CD4-41D4-90D5-838D58A26570}</td></row>
-		<row><td>ISVisitedViews</td><td>viewAssistant,viewCustomActions,viewISToday,viewUI,viewTextMessages,viewRelease,viewProject,viewRealSetupDesign,viewSetupDesign,viewSetupTypes,viewUpgradePaths,viewObjects,viewDependencies,viewFileExtensions,viewSystemSearch,viewShortcuts,viewRegistry,viewFeatureFiles,viewAppFiles,viewAppV,viewXMLConfig,viewInstallScriptStd,viewComponentServices,viewUpdateService</td></row>
+		<row><td>ISVisitedViews</td><td>viewAssistant,viewCustomActions,viewISToday,viewUI,viewTextMessages,viewRelease,viewProject,viewRealSetupDesign,viewSetupDesign,viewSetupTypes,viewUpgradePaths,viewObjects,viewDependencies,viewFileExtensions,viewSystemSearch,viewShortcuts,viewRegistry,viewFeatureFiles,viewAppFiles,viewAppV,viewXMLConfig,viewInstallScriptStd,viewComponentServices,viewUpdateService,viewSupportFiles</td></row>
 		<row><td>Limited</td><td>1</td></row>
 		<row><td>LockPermissionMode</td><td>1</td></row>
 		<row><td>MsiExecCmdLineOptions</td><td/></row>
@@ -4629,7 +4630,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>PROGRAMFILETOLAUNCHATEND</td><td>[INSTALLDIR]Stewart Audio Control Center.Primary output</td><td/></row>
 		<row><td>ProductCode</td><td>{C4097ACD-CDC7-4ED5-8D32-8D9C9F7677EB}</td><td/></row>
 		<row><td>ProductName</td><td>DSP Control Center</td><td/></row>
-		<row><td>ProductVersion</td><td>2.00.0000</td><td/></row>
+		<row><td>ProductVersion</td><td>2.01.0000</td><td/></row>
 		<row><td>ProgressType0</td><td>install</td><td/></row>
 		<row><td>ProgressType1</td><td>Installing</td><td/></row>
 		<row><td>ProgressType2</td><td>installed</td><td/></row>
@@ -4715,8 +4716,8 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col def="L255">FileName</col>
 		<col def="s72">DirProperty</col>
 		<col def="i2">InstallMode</col>
-		<row><td>_Built</td><td>Stewart_Audio_Control_Center.Primary_output</td><td/><td>dspcon_1_dsp_control_center</td><td>2</td></row>
-		<row><td>wyUpdate.exe</td><td>wyUpdate.exe</td><td/><td>dspcon_1_dsp_control_center</td><td>2</td></row>
+		<row><td>NewShortcut1</td><td>ISX_DEFAULTCOMPONENT7</td><td/><td>dspcon_1_dsp_control_center</td><td>2</td></row>
+		<row><td>NewShortcut3</td><td>ISX_DEFAULTCOMPONENT7</td><td/><td>dspcon_1_dsp_control_center</td><td>2</td></row>
 	</table>
 
 	<table name="RemoveIniFile">
@@ -4802,9 +4803,9 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col def="S255">ISComments</col>
 		<col def="S255">ISShortcutName</col>
 		<col def="I4">ISAttributes</col>
-		<row><td>_Built</td><td>dspcon_1_dsp_control_center</td><td>##IDS_SHORTCUT_DISPLAY_NAME10##</td><td>Stewart_Audio_Control_Center.Primary_output</td><td>AlwaysInstall</td><td/><td/><td/><td>_Built_42A7D775FC304CAD880CF309546C27EA.exe</td><td>0</td><td>1</td><td>INSTALLDIR</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>_Built1</td><td>DesktopFolder</td><td>##IDS_SHORTCUT_DISPLAY_NAME10##</td><td>Stewart_Audio_Control_Center.Primary_output</td><td>AlwaysInstall</td><td/><td/><td/><td>_Built1_8D1DDD6CD30D4EA2B9B01E150B710B06.exe</td><td>0</td><td>1</td><td>INSTALLDIR</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>wyUpdate.exe</td><td>dspcon_1_dsp_control_center</td><td>##IDS_SHORTCUT_DISPLAY_NAME7##</td><td>wyUpdate.exe</td><td>AlwaysInstall</td><td/><td/><td/><td>wyUpdate.exe_9D034DAD32E54CE49A0370DE83CC2B47.exe</td><td>1</td><td>1</td><td>INSTALLDIR</td><td/><td/><td/><td/><td/><td/><td/></row>
+		<row><td>NewShortcut1</td><td>dspcon_1_dsp_control_center</td><td>##ID_STRING7##</td><td>ISX_DEFAULTCOMPONENT7</td><td>[SystemFolder]MsiExec.exe</td><td>/x [ProductCode]</td><td/><td/><td>NewShortcut1_AC0F0F82DED64525A47C2000918AF691.exe</td><td>0</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/></row>
+		<row><td>NewShortcut2</td><td>DesktopFolder</td><td>##ID_STRING5##</td><td>ISX_DEFAULTCOMPONENT7</td><td>[INSTALLDIR]Stewart Audio Control Center.exe</td><td/><td/><td/><td>NewShortcut2_460DB07A390443BEA8B0D072E24757BB.exe</td><td>0</td><td>1</td><td>INSTALLDIR</td><td/><td/><td/><td/><td/><td/><td/></row>
+		<row><td>NewShortcut3</td><td>dspcon_1_dsp_control_center</td><td>##ID_STRING6##</td><td>ISX_DEFAULTCOMPONENT7</td><td>[INSTALLDIR]Stewart Audio Control Center.exe</td><td/><td/><td/><td>NewShortcut3_F56979B603174096A3B48F38455C6977.exe</td><td>0</td><td>1</td><td>INSTALLDIR</td><td/><td/><td/><td/><td/><td/><td/></row>
 	</table>
 
 	<table name="Signature">

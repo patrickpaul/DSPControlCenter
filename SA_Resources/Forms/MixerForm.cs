@@ -13,6 +13,16 @@ namespace SA_Resources
     public partial class MixerForm : Form
     {
 
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams myCp = base.CreateParams;
+                myCp.ClassStyle = myCp.ClassStyle | 0x200;
+                return myCp;
+            }
+        } 
+
         private MainForm_Template PARENT_FORM;
 
         private double read_gain_value = 0;
@@ -69,11 +79,24 @@ namespace SA_Resources
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            this.Close();
+            SaveRoutine();
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
+            CancelRoutine();
+        }
+
+        private void SaveRoutine()
+        {
+            this.DialogResult = DialogResult.OK;
+            this.Close();
+
+        }
+
+        private void CancelRoutine()
+        {
+            this.DialogResult = DialogResult.Cancel;
             this.Close();
         }
 
@@ -83,6 +106,8 @@ namespace SA_Resources
             int index_in = int.Parse(((PictureButton)sender).Name.Substring(9, 1));
             int index_out = int.Parse(((PictureButton)sender).Name.Substring(11, 1));
 
+            GainConfig cached_gain = (GainConfig)PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].crosspoints[index_in - 1][index_out - 1].Clone();
+
             using (GainForm gainForm = new GainForm(PARENT_FORM, index_in - 1, index_out - 1, (index_in * 4) + (index_out-1), true))
             {
 
@@ -90,7 +115,15 @@ namespace SA_Resources
 
                 gainForm.Height = 414;
 
-                gainForm.ShowDialog(this);
+                DialogResult showResult = gainForm.ShowDialog(this);
+
+                if(showResult == DialogResult.Cancel)
+                {
+                    PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].crosspoints[index_in - 1][index_out - 1] = (GainConfig) cached_gain.Clone();
+                    return;
+                }
+
+                // This code below is equivalent to UpdateTooltips() in MainForm_Template, so just leave it.
 
                 PictureButton crosspoint_button = (PictureButton)sender;
 
@@ -113,11 +146,6 @@ namespace SA_Resources
                 {
                     toolTip1.SetToolTip(crosspoint_button, PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].crosspoints[index_in - 1][index_out - 1].Gain.ToString("N1") + "dB");
                 }
-
-                //toolTip1.SetToolTip(this.checkBox1, "My checkBox1"); 
-                
-                //crosspoint_button.ToolTipText = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].crosspoints[index_in - 1][index_out - 1].Gain.ToString("N1") + "dB";
-
                 if(!PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].crosspoints[index_in - 1][index_out - 1].Muted)
                 {
                     crosspoint_button.Overlay3Visible = false;
@@ -125,7 +153,6 @@ namespace SA_Resources
                     
                 } else
                 {
-                    //PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].crosspoints[index_in - 1][index_out - 1].Gain = -24;
                     crosspoint_button.Overlay3Visible = true;
                 }
 

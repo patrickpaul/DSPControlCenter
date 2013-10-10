@@ -16,6 +16,17 @@ namespace SA_Resources
     public partial class FilterForm : Form
     {
 
+
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams myCp = base.CreateParams;
+                myCp.ClassStyle = myCp.ClassStyle | 0x200;
+                return myCp;
+            }
+        } 
+
         #region Variables
 
         public bool graph_loaded = false;
@@ -855,59 +866,80 @@ namespace SA_Resources
 
         public void UpdateUIToVals(object param)
         {
-            MethodInvoker action1, action2, action3;
-
-            int global_filter_index = (int)param;
-
-            int local_filter_index = global_filter_index - starting_filter;
-
-            TextBox freqTextbox = (TextBox)(Controls.Find("txtFreq" + local_filter_index.ToString(), true)[0]);
-            TextBox gainTextbox = (TextBox)(Controls.Find("txtGain" + local_filter_index.ToString(), true)[0]);
-            TextBox qvalTextbox = (TextBox)(Controls.Find("txtQval" + local_filter_index.ToString(), true)[0]); 
-
-            while (true)
+            try
             {
-                try
+                MethodInvoker action1, action2, action3;
+
+                int global_filter_index = (int) param;
+
+                int local_filter_index = global_filter_index - starting_filter;
+
+                TextBox freqTextbox = (TextBox)Enumerable.FirstOrDefault(Controls.Find("txtFreq" + local_filter_index.ToString(), true));
+                TextBox gainTextbox = (TextBox)Enumerable.FirstOrDefault(Controls.Find("txtGain" + local_filter_index.ToString(), true));
+                TextBox qvalTextbox = (TextBox)Enumerable.FirstOrDefault(Controls.Find("txtQval" + local_filter_index.ToString(), true));
+
+
+                while (true)
                 {
-                    action1 = delegate
-                                  {
-                                      freqTextbox.Text = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][global_filter_index].Filter.CenterFrequency.ToString("0");
-                                      freqTextbox.Update();
-                                  };
-                    freqTextbox.BeginInvoke(action1);
-
-                    action2 = delegate
-                                  {
-                                      gainTextbox.Text = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][global_filter_index].Filter.Gain.ToString("0.00");
-                                      gainTextbox.Update();
-                                  };
-                    gainTextbox.BeginInvoke(action2);
-
-                    action3 = delegate
-                                  {
-                                      qvalTextbox.Text = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][global_filter_index].Filter.QValue.ToString("0.000");
-                                      qvalTextbox.Update();
-                                  };
-                    qvalTextbox.BeginInvoke(action3);
-
-                    Thread.Sleep(5);
-
-                    
-                } catch (Exception ex)
-                {
-                    Console.WriteLine("Exception in UpdateUIToVals: " + ex.Message);
-                }
-
-                lock (_threadlock)
-                {
-                    if (uithread_abort == true)
+                    try
                     {
-                        uithread_abort = false;
-                        break;
+                        if (freqTextbox != null)
+                        {
+                            action1 = delegate
+                                          {
+                                              freqTextbox.Text = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][global_filter_index].Filter.CenterFrequency.ToString("0");
+                                              freqTextbox.Update();
+                                          };
+                            freqTextbox.BeginInvoke(action1);
+
+                        }
+
+                        if (gainTextbox != null)
+                        {
+                            action2 = delegate
+                                          {
+                                              gainTextbox.Text = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][global_filter_index].Filter.Gain.ToString("0.00");
+                                              gainTextbox.Update();
+                                          };
+                            gainTextbox.BeginInvoke(action2);
+
+                        }
+
+                        if (qvalTextbox != null)
+                        {
+                            action3 = delegate
+                                          {
+                                              qvalTextbox.Text = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][global_filter_index].Filter.QValue.ToString("0.000");
+                                              qvalTextbox.Update();
+                                          };
+                            qvalTextbox.BeginInvoke(action3);
+
+                        }
+                        Thread.Sleep(5);
+
+
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Exception in UpdateUIToVals: " + ex.Message);
                     }
 
+                    lock (_threadlock)
+                    {
+                        if (uithread_abort == true)
+                        {
+                            uithread_abort = false;
+                            break;
+                        }
 
+
+                    }
                 }
+
+            } catch (Exception ex)
+            {
+                
+
             }
 
         }
@@ -1376,12 +1408,26 @@ namespace SA_Resources
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            this.Close();
+            SaveRoutine();
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
+            CancelRoutine();
+        }
+
+        private void SaveRoutine()
+        {
+            this.DialogResult = DialogResult.OK;
             this.Close();
+
+        }
+
+        private void CancelRoutine()
+        {
+            this.DialogResult = DialogResult.Cancel;
+            this.Close();
+
         }
 
         private void btnGo_Click(object sender, EventArgs e)

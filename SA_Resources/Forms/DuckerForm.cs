@@ -8,6 +8,17 @@ namespace SA_Resources
 {
     public partial class DuckerForm : Form
     {
+
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams myCp = base.CreateParams;
+                myCp.ClassStyle = myCp.ClassStyle | 0x200;
+                return myCp;
+            }
+        } 
+
         private bool dragging_threshold = false;
         private double stored_threshold = -20;
 

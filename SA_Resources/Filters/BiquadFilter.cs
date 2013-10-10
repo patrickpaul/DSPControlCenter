@@ -28,6 +28,31 @@ namespace SA_Resources.Filters
 
         protected double filter_type = -1;
 
+        public bool IsEqual(BiquadFilter compareFilter)
+        {
+            if(center_freq != compareFilter.center_freq)
+            {
+                return false;
+            }
+
+            if(gainDB != compareFilter.gainDB)
+            {
+                return false;
+            }
+
+            if(Q != compareFilter.Q)
+            {
+                return false;
+            }
+
+            if(this.FilterType != compareFilter.FilterType)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
         public BiquadFilter(double in_cf, double in_gain, double in_q)
         {
             center_freq = in_cf;

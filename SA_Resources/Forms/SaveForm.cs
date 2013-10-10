@@ -11,7 +11,18 @@ namespace SA_Resources
 {
     public partial class SaveForm : Form
     {
-           
+
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams myCp = base.CreateParams;
+                myCp.ClassStyle = myCp.ClassStyle | 0x200;
+                return myCp;
+            }
+        } 
+
+
         delegate void AddTextCallback(string text);
 
         byte command_RTS = 0x01;

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using SA_Resources.Forms;
 
 namespace SA_Resources
 {
@@ -12,7 +13,7 @@ namespace SA_Resources
         Limiter
     }
 
-    public class CompressorConfig
+    public class CompressorConfig: ICloneable
     {
         public double Threshold, Ratio, Attack, Release;
         public bool SoftKnee, Bypassed;
@@ -39,6 +40,49 @@ namespace SA_Resources
             SoftKnee = sk;
             Bypassed = bypassed;
             Type = t;
+        }
+
+        public void QueueChange(MainForm_Template PARENT_FORM, int SETTINGS_INDEX)
+        {
+            int ADDR_THRESHOLD =    SETTINGS_INDEX;
+            int ADDR_KNEE =         SETTINGS_INDEX + 1;
+            int ADDR_RATIO =        SETTINGS_INDEX + 2;
+            int ADDR_ATTACK =       SETTINGS_INDEX + 3;
+            int ADDR_RELEASE =      SETTINGS_INDEX + 4;
+            int ADDR_BYPASS =       SETTINGS_INDEX + 5;
+
+
+            PARENT_FORM.AddItemToQueue(new LiveQueueItem(ADDR_THRESHOLD, DSP_Math.double_to_MN(this.Threshold, 9, 23)));
+
+            if (this.SoftKnee)
+            {
+                PARENT_FORM.AddItemToQueue(new LiveQueueItem(ADDR_KNEE, 0x03000000));
+            }
+            else
+            {
+                PARENT_FORM.AddItemToQueue(new LiveQueueItem(ADDR_KNEE, 0x00000000));
+            }
+
+            PARENT_FORM.AddItemToQueue(new LiveQueueItem(ADDR_RATIO, DSP_Math.comp_ratio_to_value(this.Ratio)));
+
+            PARENT_FORM.AddItemToQueue(new LiveQueueItem(ADDR_ATTACK, DSP_Math.comp_attack_to_value(this.Attack))); 
+
+            PARENT_FORM.AddItemToQueue(new LiveQueueItem(ADDR_RELEASE, DSP_Math.comp_release_to_value(this.Release))); 
+
+            if (this.Bypassed)
+            {
+                PARENT_FORM.AddItemToQueue(new LiveQueueItem(ADDR_BYPASS, 0x00000001));
+            }
+            else
+            {
+                PARENT_FORM.AddItemToQueue(new LiveQueueItem(ADDR_BYPASS, 0x00000000));
+            }
+
+        }
+
+        public object Clone()
+        {
+            return this.MemberwiseClone();
         }
     }
 }

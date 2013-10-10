@@ -103,16 +103,25 @@ namespace SA_Resources
         {
             if (!serialPort.IsOpen) return;
 
-            //TODO - GIVE THIS A TIMEOUT?
+            if (serialPort.BytesToRead == 0)
+            {
+                return;
+            }
+            Console.Write("Cleared from serial buffer: ");
+
             while (serialPort.BytesToRead > 0)
             {
-                int bytes_to_read = serialPort.BytesToRead;
-                byte[] availableBytes = new byte[bytes_to_read];
+                byte singleByte = (byte)serialPort.ReadByte();
 
-                serialPort.Read(availableBytes, 0,bytes_to_read);
+                Console.Write(" 0x" + singleByte.ToString("X2"));
 
-                Console.WriteLine("Cleared from serial buffer: " + availableBytes.ToString());
+                if(singleByte >= 0x20 && singleByte <= 0x7F)
+                {
+                    Console.Write(" (" + (char)singleByte + ")");
+                }
             }
+
+            Console.WriteLine();
 
 
         }
@@ -124,298 +133,341 @@ namespace SA_Resources
 
         public bool getRTS()
         {
-            lock (PIC_LOCK)
+            try
             {
-                if (!serialPort.IsOpen) return false;
-
-                byte[] buff = new byte[3];
-
-                buff[0] = 0x02;
-                buff[1] = 0x01;
-                buff[2] = 0x03;
-
-
-                FlushBuffer();
-
-
-                for (int retry_count = 0; retry_count < 3; retry_count++)
+                lock (PIC_LOCK)
                 {
-                    serialPort.Write(buff, 0, 3);
-                    Thread.Sleep(100);
+                    if (!serialPort.IsOpen) return false;
 
-                    if (serialPort.BytesToRead > 2)
+                    byte[] buff = new byte[3];
+
+                    buff[0] = 0x02;
+                    buff[1] = 0x01;
+                    buff[2] = 0x03;
+
+
+                    FlushBuffer();
+
+
+                    for (int retry_count = 0; retry_count < 3; retry_count++)
                     {
-                        Byte[] bytes = new Byte[serialPort.BytesToRead];
+                        serialPort.Write(buff, 0, 3);
+                        Thread.Sleep(100);
 
-                        serialPort.Read(bytes, 0, serialPort.BytesToRead);
-
-                        if (bytes[0] == 0x06 && bytes[1] == 0x01)
+                        if (serialPort.BytesToRead > 2)
                         {
-                            return true;
-                        }
+                            Byte[] bytes = new Byte[serialPort.BytesToRead];
 
-                        if (bytes[0] == 0x15)
+                            serialPort.Read(bytes, 0, serialPort.BytesToRead);
+
+                            if (bytes[0] == 0x06 && bytes[1] == 0x01)
+                            {
+                                return true;
+                            }
+
+                            if (bytes[0] == 0x15)
+                            {
+                                print_error(bytes[1]);
+                            }
+
+                        }
+                        else
                         {
-                            print_error(bytes[1]);
+                            FlushBuffer();
                         }
+                    }
 
-                    }
-                    else
-                    {
-                        FlushBuffer();
-                    }
+                    return false; // failed after 3 retries
                 }
-
-                return false; // failed after 3 retries
+            } catch (Exception ex)
+            {
+                
             }
+
+            return false;
         }
 
         public int GetDeviceID()
         {
-
-            lock (PIC_LOCK)
+            try
             {
-                if (!getRTS())
+
+
+                lock (PIC_LOCK)
                 {
-                    throw new Exception("Device did not respond to RTS request");
-                }
-
-                byte[] buff = new byte[3];
-
-                buff[0] = 0x02;
-                buff[1] = 0X08;
-                buff[2] = 0x03;
-
-                serialPort.Write(buff, 0, 3);
-
-                int bytesToRead = 0;
-
-                for (int count = 0; count <= 5; count++)
-                {
-                    bytesToRead = serialPort.BytesToRead;
-
-                    if (bytesToRead == 4)
+                    if (!getRTS())
                     {
-                        break;
+                        throw new Exception("Device did not respond to RTS request");
                     }
 
-                    Thread.Sleep(100);
+                    byte[] buff = new byte[3];
 
-                    if (count == 5)
+                    buff[0] = 0x02;
+                    buff[1] = 0X08;
+                    buff[2] = 0x03;
+
+                    serialPort.Write(buff, 0, 3);
+
+                    int bytesToRead = 0;
+
+                    for (int count = 0; count <= 5; count++)
+                    {
+                        bytesToRead = serialPort.BytesToRead;
+
+                        if (bytesToRead == 4)
+                        {
+                            break;
+                        }
+
+                        Thread.Sleep(100);
+
+                        if (count == 5)
+                        {
+                            return 0x00;
+                        }
+
+                    }
+
+                    Byte[] bytes = new Byte[bytesToRead];
+
+                    serialPort.Read(bytes, 0, bytesToRead);
+
+                    if (bytes[0] == 0x06 && bytes[1] == 0x08)
+                    {
+                        return bytes[2];
+                    }
+                    else
                     {
                         return 0x00;
                     }
-
                 }
-
-                Byte[] bytes = new Byte[bytesToRead];
-
-                serialPort.Read(bytes, 0, bytesToRead);
-
-                if (bytes[0] == 0x06 && bytes[1] == 0x08)
-                {
-                    return bytes[2];
-                }
-                else
-                {
-                    return 0x00;
-                }
+            } catch (Exception ex)
+            {
+                
             }
+
+            return 0x00;
         }
 
 
         public double GetDeviceFirmwareVersion()
         {
-
-            lock (PIC_LOCK)
+            try
             {
-                if (!getRTS())
+                lock (PIC_LOCK)
                 {
-                    throw new Exception("Device did not respond to RTS request");
-                }
-
-                byte[] buff = new byte[3];
-
-                buff[0] = 0x02;
-                buff[1] = 0X09;
-                buff[2] = 0x03;
-
-                serialPort.Write(buff, 0, 3);
-
-                int bytesToRead = 0;
-
-                for (int count = 0; count <= 5; count++)
-                {
-                    bytesToRead = serialPort.BytesToRead;
-
-                    if (bytesToRead == 4)
+                    if (!getRTS())
                     {
-                        break;
+                        throw new Exception("Device did not respond to RTS request");
                     }
 
-                    Thread.Sleep(100);
+                    byte[] buff = new byte[3];
 
-                    if (count == 5)
+                    buff[0] = 0x02;
+                    buff[1] = 0X09;
+                    buff[2] = 0x03;
+
+                    serialPort.Write(buff, 0, 3);
+
+                    int bytesToRead = 0;
+
+                    for (int count = 0; count <= 5; count++)
                     {
-                        return 0x00;
+                        bytesToRead = serialPort.BytesToRead;
+
+                        if (bytesToRead == 4)
+                        {
+                            break;
+                        }
+
+                        Thread.Sleep(100);
+
+                        if (count == 5)
+                        {
+                            return 2.5;
+                        }
+
                     }
 
-                }
+                    Byte[] bytes = new Byte[bytesToRead];
 
-                Byte[] bytes = new Byte[bytesToRead];
+                    serialPort.Read(bytes, 0, bytesToRead);
 
-                serialPort.Read(bytes, 0, bytesToRead);
-
-                if (bytes[0] == 0x06 && bytes[3] == 0x0A)
-                {
-                    return ((double)bytes[1]) + (((double)bytes[2])/10.0);
+                    if (bytes[0] == 0x06 && bytes[3] == 0x0A)
+                    {
+                        return ((double) bytes[1]) + (((double) bytes[2])/10.0);
+                    }
+                    else
+                    {
+                        return 2.5;
+                    }
                 }
-                else
-                {
-                    return 0.0;
-                }
+            } catch (Exception ex)
+            {
+                
             }
+
+            return 0.00;
         }
 
         public UInt32 Read_DSP_Value(uint address_index)
         {
-
-            lock (PIC_LOCK)
+            try
             {
-                FlushBuffer();
 
-                uint address_index1, address_index2;
 
-                if (address_index > 255)
+                lock (PIC_LOCK)
                 {
-                    address_index1 = 255;
-                    address_index2 = address_index - 255;
-                }
-                else
-                {
-                    address_index1 = address_index;
-                    address_index2 = 0;
-                }
+                    FlushBuffer();
 
-                if (!serialPort.IsOpen) return 0x00000000;
+                    uint address_index1, address_index2;
 
-                byte[] buff = new byte[4];
-
-                buff[0] = 0x08;
-                buff[1] = (byte)address_index1;
-                buff[2] = (byte)address_index2;
-                buff[3] = 0x03;
-
-                for (int retry_count = 0; retry_count < 3; retry_count++)
-                {
-                    serialPort.Write(buff, 0, 4);
-                    Thread.Sleep(delay_ms);
-
-                    if (serialPort.BytesToRead > 2)
+                    if (address_index > 255)
                     {
-                        Byte[] bytes = new Byte[serialPort.BytesToRead];
-
-                        serialPort.Read(bytes, 0, serialPort.BytesToRead);
-
-                        if ((bytes[0] == 0x06) && (bytes[1] == (byte)address_index1) && (bytes[2] == (byte)address_index2))
-                        {
-                            /* INTENTIONAL REVERSAL!! */
-                            UInt32 test_value = 0x00000000 | (uint)bytes[3];
-                            test_value = test_value << 8;
-                            test_value = test_value | (uint)bytes[4];
-                            test_value = test_value << 8;
-                            test_value = test_value | (uint)bytes[5];
-                            test_value = test_value << 8;
-                            test_value = test_value | (uint)bytes[6];
-
-                            return test_value;
-                        }
-
-                        if (bytes[0] == 0x15)
-                        {
-                            print_error(bytes[1]);
-                        }
-
+                        address_index1 = 255;
+                        address_index2 = address_index - 255;
                     }
                     else
                     {
-                        FlushBuffer();
+                        address_index1 = address_index;
+                        address_index2 = 0;
                     }
-                }
 
-                return 0xFFFFFFFF;
+                    if (!serialPort.IsOpen) return 0x00000000;
+
+                    byte[] buff = new byte[4];
+
+                    buff[0] = 0x08;
+                    buff[1] = (byte) address_index1;
+                    buff[2] = (byte) address_index2;
+                    buff[3] = 0x03;
+
+                    for (int retry_count = 0; retry_count < 3; retry_count++)
+                    {
+                        serialPort.Write(buff, 0, 4);
+                        Thread.Sleep(delay_ms);
+
+                        if (serialPort.BytesToRead > 2)
+                        {
+                            Byte[] bytes = new Byte[serialPort.BytesToRead];
+
+                            serialPort.Read(bytes, 0, serialPort.BytesToRead);
+
+                            if ((bytes[0] == 0x06) && (bytes[1] == (byte) address_index1) && (bytes[2] == (byte) address_index2))
+                            {
+                                /* INTENTIONAL REVERSAL!! */
+                                UInt32 test_value = 0x00000000 | (uint) bytes[3];
+                                test_value = test_value << 8;
+                                test_value = test_value | (uint) bytes[4];
+                                test_value = test_value << 8;
+                                test_value = test_value | (uint) bytes[5];
+                                test_value = test_value << 8;
+                                test_value = test_value | (uint) bytes[6];
+
+                                return test_value;
+                            }
+
+                            if (bytes[0] == 0x15)
+                            {
+                                print_error(bytes[1]);
+                            }
+
+                        }
+                        else
+                        {
+                            FlushBuffer();
+                        }
+                    }
+
+                    return 0xFFFFFFFF;
+                }
+            } catch (Exception ex)
+            {
+                
             }
+
+            return 0xFFFFFFFF;
         }
 
 
         public UInt32 Read_Live_DSP_Value(UInt32 DSP_address)
         {
 
-            lock (PIC_LOCK)
+            try
             {
-                FlushBuffer();
-
-                if (!serialPort.IsOpen) return 0x00000000;
-
-                uint byte4 = DSP_address & 0xFF;
-                DSP_address = DSP_address >> 8;
-
-                uint byte3 = DSP_address & 0xFF;
-                DSP_address = DSP_address >> 8;
-
-                uint byte2 = DSP_address & 0xFF;
-
-                uint byte1 = DSP_address >> 8;
-
-                byte[] buff = new byte[6];
-
-                buff[0] = 0x11;
-                buff[1] = (byte)byte1;
-                buff[2] = (byte)byte2;
-                buff[3] = (byte)byte3;
-                buff[4] = (byte)byte4;
-                buff[5] = 0x03;
 
 
-                for (int retry_count = 0; retry_count < 3; retry_count++)
+                lock (PIC_LOCK)
                 {
-                    serialPort.Write(buff, 0, 6);
-                    Thread.Sleep(60);
+                    FlushBuffer();
 
-                    if (serialPort.BytesToRead > 3)
+                    if (!serialPort.IsOpen) return 0x00000000;
+
+                    uint byte4 = DSP_address & 0xFF;
+                    DSP_address = DSP_address >> 8;
+
+                    uint byte3 = DSP_address & 0xFF;
+                    DSP_address = DSP_address >> 8;
+
+                    uint byte2 = DSP_address & 0xFF;
+
+                    uint byte1 = DSP_address >> 8;
+
+                    byte[] buff = new byte[6];
+
+                    buff[0] = 0x11;
+                    buff[1] = (byte) byte1;
+                    buff[2] = (byte) byte2;
+                    buff[3] = (byte) byte3;
+                    buff[4] = (byte) byte4;
+                    buff[5] = 0x03;
+
+
+                    for (int retry_count = 0; retry_count < 3; retry_count++)
                     {
-                        Byte[] bytes = new Byte[serialPort.BytesToRead];
+                        serialPort.Write(buff, 0, 6);
+                        Thread.Sleep(60);
 
-                        serialPort.Read(bytes, 0, serialPort.BytesToRead);
-
-                        if ((bytes[0] == 0x02) && (bytes[5] == 0x0A))
+                        if (serialPort.BytesToRead > 5)
                         {
-                            /* INTENTIONAL REVERSAL!! */
-                            UInt32 test_value = 0x00000000 | (uint)bytes[1];
-                            test_value = test_value << 8;
-                            test_value = test_value | (uint)bytes[2];
-                            test_value = test_value << 8;
-                            test_value = test_value | (uint)bytes[3];
-                            test_value = test_value << 8;
-                            test_value = test_value | (uint)bytes[4];
+                            Byte[] bytes = new Byte[serialPort.BytesToRead];
 
-                            return test_value;
+                            serialPort.Read(bytes, 0, serialPort.BytesToRead);
+
+                            if ((bytes[0] == 0x02) && (bytes[5] == 0x0A))
+                            {
+                                /* INTENTIONAL REVERSAL!! */
+                                UInt32 test_value = 0x00000000 | (uint) bytes[1];
+                                test_value = test_value << 8;
+                                test_value = test_value | (uint) bytes[2];
+                                test_value = test_value << 8;
+                                test_value = test_value | (uint) bytes[3];
+                                test_value = test_value << 8;
+                                test_value = test_value | (uint) bytes[4];
+
+                                return test_value;
+                            }
+
+                            if (bytes[0] == 0x15)
+                            {
+                                print_error(bytes[1]);
+                            }
+
                         }
-
-                        if (bytes[0] == 0x15)
+                        else
                         {
-                            print_error(bytes[1]);
+                            FlushBuffer();
                         }
+                    }
 
-                    }
-                    else
-                    {
-                        FlushBuffer();
-                    }
+                    return 0xFFFFFFFF;
                 }
-
-                return 0xFFFFFFFF;
+            } catch (Exception ex)
+            {
+                
             }
+
+            return 0xFFFFFFFF;
         }
 
         public bool Reboot()
@@ -958,6 +1010,10 @@ namespace SA_Resources
                 byte[] buff = new byte[(name.Length) + 4];
 
                 int byte_counter = 3;
+                int timeout_counter = 0;
+                int max_timeout = 500;
+                bool timeout_error = false;
+
                 //0x10 0x01 0x58 0x58 0x58 0x58 0x58 0x03
                 buff[0] = 0x09;
                 if (is_output)
@@ -983,49 +1039,90 @@ namespace SA_Resources
                 {
                     serialPort.Write(buff, i, 1);
 
-                    Thread.Sleep(20);
-                    if (i < 3)
+                    if(i < 3)
                     {
-                        continue;
+                        Thread.Sleep(20);
                     }
-
-                    if (i == byte_counter)
+                    else if (i == byte_counter)
                     {
-                        break;
-                    }
-
-
-                    Thread.Sleep(30);
-
-                    if (serialPort.BytesToRead != 1)
-                    {
-                        error = true;
-                        serialPort.Read(outbuff, 0, serialPort.BytesToRead);
                     }
                     else
                     {
-                        serialPort.Read(outbuff, 0, 1);
+                        timeout_counter = 0;
+                        timeout_error = false;
 
-                        if (outbuff[0] != buff[i])
+                        while (serialPort.BytesToRead < 1)
+                        {
+                            Thread.Sleep(10);
+                            timeout_counter += 10;
+                            if (timeout_counter >= max_timeout)
+                            {
+                                timeout_error = true;
+                            }
+                        }
+
+                        if (timeout_error == true)
                         {
                             error = true;
                             FlushBuffer();
+                            break;
+                        }
+
+                        if (serialPort.BytesToRead != 1)
+                        {
+                            error = true;
+                            FlushBuffer();
+                            break;
+                        }
+                        else
+                        {
+                            serialPort.Read(outbuff, 0, 1);
+                            if (outbuff[0] != buff[i])
+                            {
+                                error = true;
+                                FlushBuffer();
+                                break;
+                            }
                         }
                     }
                 }
 
 
+                timeout_counter = 0;
+                timeout_error = false;
 
-                if (serialPort.BytesToRead > 0)
+                while (serialPort.BytesToRead < 5)
                 {
-                    FlushBuffer();
-
+                    Thread.Sleep(10);
+                    timeout_counter += 10;
+                    if (timeout_counter >= max_timeout)
+                    {
+                        timeout_error = true;
+                    }
                 }
 
+                if(timeout_error)
+                {
+                    error = true;
+                } else
+                {
+                    serialPort.Read(outbuff, 0, serialPort.BytesToRead);
+
+                    if(outbuff[1] == 0x06)
+                    {
+                        return true;
+                    } else
+                    {
+                        return false;
+                    }
+                }
+
+                //Console.WriteLine("Returning error = " + error.ToString());
                 return !error;
             }
         }
 
+        // NOT ZERO-BASED
         public string ReadChannelName(int channel, bool is_output = false)
         {
 
@@ -1066,11 +1163,18 @@ namespace SA_Resources
 
                         for (int i = 3; i < bytes_read - 1; i++)
                         {
-                            return_string.Append((char)bytes[i]);
+                            if (((char)bytes[i] < 0x20) || ((char)bytes[i]) > 0x7F)
+                            {
+                                // Exit here because we got an invalid character.
+                                return return_string.ToString().Replace("  "," ");
+                            } else
+                            {
+                                return_string.Append((char)bytes[i]); 
+                            }
+                            
                         }
 
-                        return return_string.ToString();
-
+                        return return_string.ToString().Replace("  ", " ");
                     }
                     else
                     {

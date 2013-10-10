@@ -34,6 +34,7 @@ namespace SA_Resources.Forms
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm_Template));
             this.Queue_Thread = new System.ComponentModel.BackgroundWorker();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.openProgramDialog = new System.Windows.Forms.OpenFileDialog();
@@ -53,7 +54,16 @@ namespace SA_Resources.Forms
             this.viewHelpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.aboutDSPControlCenterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
+            this.pictureConnectionStatus = new System.Windows.Forms.PictureBox();
+            this.btnConnectToDevice = new System.Windows.Forms.Button();
+            this.dropProgramSelection = new System.Windows.Forms.ComboBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureConnectionStatus)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // Queue_Thread
@@ -137,6 +147,7 @@ namespace SA_Resources.Forms
             this.deviceToolStripMenuItem1.Name = "deviceToolStripMenuItem1";
             this.deviceToolStripMenuItem1.Size = new System.Drawing.Size(54, 20);
             this.deviceToolStripMenuItem1.Text = "Device";
+            this.deviceToolStripMenuItem1.Visible = false;
             // 
             // connectToDeviceToolStripMenuItem
             // 
@@ -185,11 +196,13 @@ namespace SA_Resources.Forms
             this.viewHelpToolStripMenuItem.Name = "viewHelpToolStripMenuItem";
             this.viewHelpToolStripMenuItem.Size = new System.Drawing.Size(212, 22);
             this.viewHelpToolStripMenuItem.Text = "View Help";
+            this.viewHelpToolStripMenuItem.Visible = false;
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
             this.toolStripMenuItem2.Size = new System.Drawing.Size(209, 6);
+            this.toolStripMenuItem2.Visible = false;
             // 
             // aboutDSPControlCenterToolStripMenuItem
             // 
@@ -199,17 +212,75 @@ namespace SA_Resources.Forms
             this.aboutDSPControlCenterToolStripMenuItem.Text = "About DSP Control Center";
             this.aboutDSPControlCenterToolStripMenuItem.Click += new System.EventHandler(this.About_Event);
             // 
+            // pictureConnectionStatus
+            // 
+            this.pictureConnectionStatus.Location = new System.Drawing.Point(350, 24);
+            this.pictureConnectionStatus.Name = "pictureConnectionStatus";
+            this.pictureConnectionStatus.Size = new System.Drawing.Size(146, 37);
+            this.pictureConnectionStatus.TabIndex = 85;
+            this.pictureConnectionStatus.TabStop = false;
+            // 
+            // btnConnectToDevice
+            // 
+            this.btnConnectToDevice.BackColor = System.Drawing.Color.Transparent;
+            this.btnConnectToDevice.Location = new System.Drawing.Point(502, 29);
+            this.btnConnectToDevice.Name = "btnConnectToDevice";
+            this.btnConnectToDevice.Size = new System.Drawing.Size(84, 23);
+            this.btnConnectToDevice.TabIndex = 84;
+            this.btnConnectToDevice.Text = "Connect";
+            this.btnConnectToDevice.UseVisualStyleBackColor = false;
+            // 
+            // dropProgramSelection
+            // 
+            this.dropProgramSelection.FormattingEnabled = true;
+            this.dropProgramSelection.Items.AddRange(new object[] {
+            "Program 1 (Default)",
+            "Program 2",
+            "Program 3"});
+            this.dropProgramSelection.Location = new System.Drawing.Point(763, 29);
+            this.dropProgramSelection.Name = "dropProgramSelection";
+            this.dropProgramSelection.Size = new System.Drawing.Size(131, 21);
+            this.dropProgramSelection.TabIndex = 83;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
+            this.pictureBox2.Location = new System.Drawing.Point(598, 24);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(155, 37);
+            this.pictureBox2.TabIndex = 82;
+            this.pictureBox2.TabStop = false;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.BackgroundImage")));
+            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pictureBox1.Location = new System.Drawing.Point(0, 24);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(906, 37);
+            this.pictureBox1.TabIndex = 86;
+            this.pictureBox1.TabStop = false;
+            // 
             // MainForm_Template
             // 
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(82)))), ((int)(((byte)(82)))));
             this.ClientSize = new System.Drawing.Size(906, 394);
+            this.Controls.Add(this.pictureConnectionStatus);
+            this.Controls.Add(this.btnConnectToDevice);
+            this.Controls.Add(this.dropProgramSelection);
+            this.Controls.Add(this.pictureBox2);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.menuStrip1);
             this.DoubleBuffered = true;
             this.Name = "MainForm_Template";
             this.Text = "MainForm_Template";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_Template_FormClosing);
+            this.Load += new System.EventHandler(this.MainForm_Template_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureConnectionStatus)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -236,5 +307,11 @@ namespace SA_Resources.Forms
         private ToolStripSeparator toolStripMenuItem2;
         private ToolStripMenuItem aboutDSPControlCenterToolStripMenuItem;
         protected MenuStrip menuStrip1;
+        protected System.IO.Ports.SerialPort serialPort1;
+        protected PictureBox pictureConnectionStatus;
+        protected Button btnConnectToDevice;
+        protected ComboBox dropProgramSelection;
+        protected PictureBox pictureBox2;
+        private PictureBox pictureBox1;
     }
 }

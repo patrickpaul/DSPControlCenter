@@ -1,33 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Windows.Forms;
 using SA_Resources;
 using System.Linq;
 using SA_Resources.Forms;
-using System.ComponentModel;
 
 namespace DSP_4x4
 {
     public partial class MainForm : MainForm_Template
     {
 
+        #region Constructors - Derived
+
+        public MainForm()
+            : base()
+        {
+            InitializeComponent();
+        }
+
+        public MainForm(string configFile)
+            : base(configFile)
+        {
+            InitializeComponent();
+        }
+
+        #endregion
+
+        #region Editable Portion
+
         #region Device Specific Settings
-
-        public override int GetNumInputChannels()
-        {
-            return 4;
-        }
-
-        public override int GetNumOutputChannels()
-        {
-            return 4;
-        }
-
-        public override int GetNumPhantomPowerChannels()
-        {
-            return 4;
-        }
 
         public override int GetDeviceID()
         {
@@ -43,6 +44,23 @@ namespace DSP_4x4
         {
             return DeviceType.DSP4x4;
         }
+        
+        
+        public override int GetNumInputChannels()
+        {
+            return 4;
+        }
+
+        public override int GetNumOutputChannels()
+        {
+            return 4;
+        }
+
+        public override int GetNumPhantomPowerChannels()
+        {
+            return 4;
+        }
+
 
         public override bool IsAmplifier()
         {
@@ -121,100 +139,11 @@ namespace DSP_4x4
 
         }
 
-        public override void SetConnectButtonText(String newText)
-        {
-            btnConnectToDevice.Text = newText;
-            btnConnectToDevice.Invalidate();
-        }
-
-        #endregion
-
-        #region Configuration Variables (Demo Mode etc)
-
-        private bool demo_mode = false;
-        private bool disable_read = false;
-        private bool debug_mode = false;
-
-        #endregion
-
-        #region Constructor(s) and Load
-
-        public MainForm()
-        {
-            InitializeComponent();
-        }
-        
-
-        public MainForm(string configFile = "")
-        {  
-            InitializeComponent();
-
-            LIVE_MODE = false;
-            _PIC_Conn = new PIC_Bridge(serialPort1);
-
-            /* INITIALIZE THE SETTINGS TO DEFAULTS */
-
-            
-            
-            // Temporary fix
-
-            
-
-            InitializePrograms();
-
-            AttachUIEvents();
-
-
-            UpdateTooltips();
-
-            dropProgramSelection.SelectedIndex = 0;
-
-            if (configFile != "")
-            {
-                CONFIGFILE = configFile;
-                
-            }
-
-        }
-
-        private void MainForm_Load(object sender, EventArgs e)
-        {
-
-            try
-            {
-                DefaultSettings();
-
-                if (CONFIGFILE != "" && CONFIGFILE != " ")
-                {
-                    SCFG_Manager.Read(CONFIGFILE, this);
-                }
-
-                LoadSettingsToProgramConfig();
-
-                form_loaded = true;
-
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error loading application: \n\n" + ex.Message + "\n\nProgram will now exit.", "Exception During Load", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                Application.Exit();
-
-            }
-        }
-
-        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            _PIC_Conn.Close();
-        }
-
-        
-
         #endregion
 
         #region DefaultSettings
 
-        private void DefaultSettings()
+        public override void DefaultSettings()
         {
             _settings[0] = new List<DSP_Setting>();
             _settings[1] = new List<DSP_Setting>();
@@ -836,6 +765,7 @@ namespace DSP_4x4
 
 #endregion
 
+        #endregion
 
     }
 }

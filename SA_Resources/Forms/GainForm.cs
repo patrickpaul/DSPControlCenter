@@ -11,7 +11,16 @@ namespace SA_Resources
 {
     public partial class GainForm : Form
     {
-        
+
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams myCp = base.CreateParams;
+                myCp.ClassStyle = myCp.ClassStyle | 0x200;
+                return myCp;
+            }
+        } 
 
         private bool mouseDown;
 
@@ -297,6 +306,8 @@ namespace SA_Resources
                 new_val = DSP_Math.double_to_MN(DSP_Math.decibels_to_voltage_gain(cur_gain), 3, 29);
             }
 
+
+
             //new_val = 0x00000000;
 
             PARENT_FORM.AddItemToQueue(new LiveQueueItem(SETTINGS_INDEX, new_val));
@@ -313,21 +324,6 @@ namespace SA_Resources
         private void GainForm_Load(object sender, EventArgs e)
         {
 
-        }
-
-        private void pictureBox3_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-        private void btnSave_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-        private void btnCancel_Click(object sender, EventArgs e)
-        {
-            this.Close();
         }
 
         private void GainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -417,6 +413,30 @@ namespace SA_Resources
             }
 
             gainMeter.DB = read_gain_value;
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            SaveRoutine();
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            CancelRoutine();
+        }
+
+        private void SaveRoutine()
+        {
+            this.DialogResult = DialogResult.OK;
+            this.Close();
+
+        }
+
+        private void CancelRoutine()
+        {
+            this.DialogResult = DialogResult.Cancel;
+            this.Close();
+
         }
     }
 }

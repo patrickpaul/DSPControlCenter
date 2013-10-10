@@ -13,7 +13,16 @@ namespace SA_Resources
 {
     public partial class DelayForm : Form
     {
-        public event ConfigChangeEventHandler OnChange;
+
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams myCp = base.CreateParams;
+                myCp.ClassStyle = myCp.ClassStyle | 0x200;
+                return myCp;
+            }
+        } 
 
         private int CH_NUMBER = 0;
 
@@ -73,7 +82,6 @@ namespace SA_Resources
             // DSP_Math.double_to_MN(PROGRAMS[program_index].delays[0].Delay, 16, 16);
 
             PARENT_FORM.AddItemToQueue(new LiveQueueItem(SETTINGS_INDEX, DSP_Math.double_to_MN(delayMS.Value, 16, 16)));
-            this.OnChange(this, new ConfigChangeEventArgs(ConfigType.DELAY_MS, delayMS.Value, CH_NUMBER));
         }
 
         private void DialFT_OnChange(object sender, DialEventArgs e)
@@ -83,8 +91,6 @@ namespace SA_Resources
             delayM.Value = new_ft * 0.3048;
 
             PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].delays[CH_NUMBER - 1].Delay = delayMS.Value;
-
-            this.OnChange(this, new ConfigChangeEventArgs(ConfigType.DELAY_MS, delayMS.Value, CH_NUMBER));
         }
 
         private void DialM_OnChange(object sender, DialEventArgs e)
@@ -94,29 +100,12 @@ namespace SA_Resources
             delayFT.Value = new_m * 3.28;
 
             PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].delays[CH_NUMBER - 1].Delay = delayMS.Value;
-
-            this.OnChange(this, new ConfigChangeEventArgs(ConfigType.DELAY_MS, delayMS.Value, CH_NUMBER));
             
         }
 
         private void chkBypass_CheckedChanged(object sender, EventArgs e)
         {
             PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].delays[CH_NUMBER - 1].Bypassed = chkBypass.Checked;
-        }
-        
-        private void btnSave_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-        private void btnCancel_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-        private void DialDelayMS_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void btnGo_Click(object sender, EventArgs e)
@@ -130,6 +119,30 @@ namespace SA_Resources
                     copyForm.ShowDialog(this);
                 }
             }
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            SaveRoutine();
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            CancelRoutine();
+        }
+
+        private void SaveRoutine()
+        {
+            this.DialogResult = DialogResult.OK;
+            this.Close();
+
+        }
+
+        private void CancelRoutine()
+        {
+            this.DialogResult = DialogResult.Cancel;
+            this.Close();
+
         }
 
         

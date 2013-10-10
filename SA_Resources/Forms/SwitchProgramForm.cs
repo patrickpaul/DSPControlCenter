@@ -12,6 +12,18 @@ namespace SA_Resources.Forms
     public partial class SwitchProgramForm : Form
     {
 
+
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams myCp = base.CreateParams;
+                myCp.ClassStyle = myCp.ClassStyle | 0x200;
+                return myCp;
+            }
+        } 
+
+
         private MainForm_Template PARENT_FORM;
         private byte SWITCH_COMMAND;
         public SwitchProgramForm(MainForm_Template _parentForm, byte switchCommand)

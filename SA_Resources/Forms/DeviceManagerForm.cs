@@ -262,7 +262,7 @@ namespace SA_Resources
                 }
             }
 
-
+            PARENT_FORM.FIRMWARE_VERSION = devicesFound[listDevices.SelectedIndex].FW;
 
             worker.RunWorkerCompleted += WorkComplete;
 

@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.grpConnect = new System.Windows.Forms.GroupBox();
+            this.lblFirmware = new System.Windows.Forms.Label();
             this.lblDevice = new System.Windows.Forms.Label();
             this.btnConnect = new System.Windows.Forms.Button();
             this.listDevices = new System.Windows.Forms.ComboBox();
@@ -47,7 +48,6 @@
             this.chkDebug = new System.Windows.Forms.CheckBox();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.closeTimer = new System.Windows.Forms.Timer(this.components);
-            this.lblFirmware = new System.Windows.Forms.Label();
             this.grpConnect.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.deviceThumbnail)).BeginInit();
@@ -70,6 +70,13 @@
             this.grpConnect.TabIndex = 26;
             this.grpConnect.TabStop = false;
             this.grpConnect.Text = "Connect to a Device";
+            // 
+            // lblFirmware
+            // 
+            this.lblFirmware.Location = new System.Drawing.Point(193, 54);
+            this.lblFirmware.Name = "lblFirmware";
+            this.lblFirmware.Size = new System.Drawing.Size(77, 18);
+            this.lblFirmware.TabIndex = 24;
             // 
             // lblDevice
             // 
@@ -174,12 +181,12 @@
             this.radioPush.Checked = true;
             this.radioPush.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.radioPush.ForeColor = System.Drawing.Color.Gainsboro;
-            this.radioPush.Location = new System.Drawing.Point(110, 21);
+            this.radioPush.Location = new System.Drawing.Point(18, 26);
             this.radioPush.Name = "radioPush";
-            this.radioPush.Size = new System.Drawing.Size(123, 23);
+            this.radioPush.Size = new System.Drawing.Size(323, 23);
             this.radioPush.TabIndex = 31;
             this.radioPush.TabStop = true;
-            this.radioPush.Text = "PUSH to Device";
+            this.radioPush.Text = "Copy information from Control Center to Device";
             this.radioPush.UseVisualStyleBackColor = true;
             // 
             // radioPull
@@ -187,11 +194,11 @@
             this.radioPull.AutoSize = true;
             this.radioPull.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.radioPull.ForeColor = System.Drawing.Color.Gainsboro;
-            this.radioPull.Location = new System.Drawing.Point(110, 45);
+            this.radioPull.Location = new System.Drawing.Point(18, 50);
             this.radioPull.Name = "radioPull";
-            this.radioPull.Size = new System.Drawing.Size(136, 23);
+            this.radioPull.Size = new System.Drawing.Size(323, 23);
             this.radioPull.TabIndex = 32;
-            this.radioPull.Text = "PULL from Device";
+            this.radioPull.Text = "Copy information from Device to Control Center";
             this.radioPull.UseVisualStyleBackColor = true;
             // 
             // btnOK
@@ -243,13 +250,6 @@
             // 
             this.closeTimer.Interval = 1000;
             this.closeTimer.Tick += new System.EventHandler(this.closeTimer_Tick);
-            // 
-            // lblFirmware
-            // 
-            this.lblFirmware.Location = new System.Drawing.Point(193, 54);
-            this.lblFirmware.Name = "lblFirmware";
-            this.lblFirmware.Size = new System.Drawing.Size(77, 18);
-            this.lblFirmware.TabIndex = 24;
             // 
             // DeviceManagerForm
             // 

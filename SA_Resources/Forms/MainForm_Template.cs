@@ -2,11 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -26,6 +24,8 @@ namespace SA_Resources.Forms
         public List<UInt32>[] _comp_out_meters = new List<UInt32>[2];
 
         public ProgramConfig[] PROGRAMS = new ProgramConfig[3];
+
+        public ProgramConfig PROGRAM_CACHE = new ProgramConfig();
 
         public Queue UPDATE_QUEUE = new Queue();
         public object _locker = new Object();
@@ -48,6 +48,7 @@ namespace SA_Resources.Forms
 
         public SADevice activeDevice;
 
+        public double FIRMWARE_VERSION;
 
 
         // TODO - Move all DEVICE ID's to a global list
@@ -71,9 +72,68 @@ namespace SA_Resources.Forms
             InitializeComponent();
 
             menuStrip1.Renderer = new MyRenderer();
+        }
+        
+
+
+        public MainForm_Template(string configFile = "")
+        {  
+            InitializeComponent();
+
+            menuStrip1.Renderer = new MyRenderer();
+
+            LIVE_MODE = false;
+            _PIC_Conn = new PIC_Bridge(serialPort1);
+
+            /* INITIALIZE THE SETTINGS TO DEFAULTS */
+
+            DefaultSettings();
+            
+            // Temporary fix
+
+
+            if (configFile != "")
+            {
+                CONFIGFILE = configFile;
+
+            }
+
+            InitializePrograms();
 
         }
 
+        protected void MainForm_Template_Load(object sender, EventArgs e)
+        {
+
+            try
+            {
+                AttachUIEvents();
+                UpdateTooltips();
+
+                dropProgramSelection.SelectedIndex = 0;
+
+                 
+                if (CONFIGFILE != "" && CONFIGFILE != " ")
+                {
+                    SCFG_Manager.Read(CONFIGFILE, this);
+                }
+
+                LoadSettingsToProgramConfig();
+
+                form_loaded = true;
+
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error loading application: \n\n" + ex.Message + "\n\nProgram will now exit.", "Exception During Load", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                Application.Exit();
+
+            }
+
+
+            
+        }
 
         public void InitializePrograms()
         {
@@ -161,7 +221,7 @@ namespace SA_Resources.Forms
 
                             if (_PIC_Conn.getRTS())
                             {
-                                if (read_setting.Index < 1000)
+                                if (read_setting.Index < 1000 && read_setting.Value != 0xFFFFFFFF)
                                 {
                                     if (_PIC_Conn.SetLiveDSPValue((uint)read_setting.Index, read_setting.Value))
                                     {
@@ -176,7 +236,19 @@ namespace SA_Resources.Forms
                                 {
                                     // THIS IS A UTILITY SUCH AS PHANTOM POWER OR INPUT/OUTPUT NAME
 
-                                    if (read_setting.Value == 0x01)
+                                    if (read_setting.ValueString != "")
+                                    {
+                                        if (read_setting.Index < GetNumInputChannels()+1)
+                                        {
+                                            Console.WriteLine("Setting Input CH " + read_setting.Index.ToString() + " name to " + read_setting.ValueString);
+                                            _PIC_Conn.SendChannelName(read_setting.Index, read_setting.ValueString, false);
+                                        } else
+                                        {
+                                            Console.WriteLine("Setting Output CH " + read_setting.Index.ToString() + " name to " + read_setting.ValueString);
+                                            _PIC_Conn.SendChannelName(read_setting.Index - GetNumInputChannels(), read_setting.ValueString, true);
+                                        }
+                                        
+                                    } else if (read_setting.Value == 0x01)
                                     {
                                         _PIC_Conn.SetLivePhantomPower((uint)read_setting.Index - 1000, 1);
                                     }
@@ -356,7 +428,7 @@ namespace SA_Resources.Forms
                             (single_setting.Index > GetProtectedWriteBlock3_Start() && single_setting.Index < GetProtectedWriteBlock3_End())
                         )
                         {
-                            Console.WriteLine("Skipping " + (object)single_setting.Index + " because it is protected");
+                            //Console.WriteLine("Skipping " + (object)single_setting.Index + " because it is protected");
                             continue;
                         }
                         
@@ -371,7 +443,7 @@ namespace SA_Resources.Forms
                                 }
                                 else
                                 {
-                                    Console.WriteLine("Successfully SetDSPValue at index " + single_setting.Index + " to " + single_setting.Value.ToString("X8"));
+                                    //Console.WriteLine("Successfully SetDSPValue at index " + single_setting.Index + " to " + single_setting.Value.ToString("X8"));
                                 }
                             }
                             else
@@ -379,7 +451,7 @@ namespace SA_Resources.Forms
                                 Console.WriteLine("Unable to SetDSPValue at index " + single_setting.Index + " to " + single_setting.Value.ToString("X8"));
                             }
 
-                            backgroundWorker.ReportProgress((int)(total_settings_written / num_settings));
+                            backgroundWorker.ReportProgress(Math.Min(100,(int)((total_settings_written / num_settings)*100)));
                         }
                         else
                         {
@@ -396,16 +468,18 @@ namespace SA_Resources.Forms
                         }
                     }
 
+                     
                     int num_retries = 5;
 
                     for (int input_index = 0; input_index < this.GetNumInputChannels(); input_index++)
                     {
+                        
                         int retry_counter = 0;
                         while (retry_counter < num_retries)
                         {
                             if (_PIC_Conn.SendChannelName(input_index + 1, PROGRAMS[program_index].inputs[input_index].Name))
                             {
-                                continue;
+                                break;
                             }
 
                             retry_counter++;
@@ -415,17 +489,34 @@ namespace SA_Resources.Forms
                     for (int output_index = 0; output_index < this.GetNumOutputChannels(); output_index++)
                     {
 
+                        
                         int retry_counter = 0;
                         while (retry_counter < num_retries)
                         {
                             if (_PIC_Conn.SendChannelName(output_index + 1, PROGRAMS[program_index].inputs[output_index].Name, true))
                             {
-                                continue;
+                                break;
                             }
 
                             retry_counter++;
                         }
                     }
+
+
+                    if (program_index <(NUM_PROGRAMS - 1))
+                    {
+                        backgroundWorker.ReportProgress(0, "Switching to Program " + (program_index + 2));
+
+                        if (_PIC_Conn.sendAckdCommand((byte)(GetProgrammingSwitchCommandBase() + program_index)))
+                        {
+                            Console.WriteLine("Successfully switched to program " + (program_index + 2));
+                        }
+                        else
+                        {
+                            Console.WriteLine("Unable to switch to program " + (program_index + 2));
+                        }
+                    }
+                    
                 }
 
 
@@ -458,6 +549,11 @@ namespace SA_Resources.Forms
 
         #region Virtual Methods
 
+        public virtual void DefaultSettings()
+        {
+        }
+        
+        
         public virtual int GetNumInputChannels()
         {
             return 0;
@@ -505,7 +601,7 @@ namespace SA_Resources.Forms
 
         public virtual byte GetProgrammingSwitchCommandBase()
         {
-            return (byte)32;
+            return (byte)0x20;
         }
 
         public virtual byte GetEEPROMSwitchCommandBase()
@@ -598,10 +694,24 @@ namespace SA_Resources.Forms
 
         public virtual void SetConnectionPicture(Image connectionImage)
         {
+
         }
 
-        public virtual void SetConnectButtonText(string in_text)
+        #endregion
+
+
+        #region Program Undo Changes
+
+
+        public void CacheCurrentProgram()
         {
+            //PROGRAM_CACHE = (ProgramConfig)PROGRAMS[CURRENT_PROGRAM].Clone();
+        }
+
+        public void RestoreProgramCache()
+        {
+            //PROGRAMS[CURRENT_PROGRAM] = (ProgramConfig)PROGRAM_CACHE.Clone(); ;
+            //UpdateTooltips();
         }
 
         #endregion
@@ -783,7 +893,7 @@ namespace SA_Resources.Forms
         #endregion
 
 
-        #region UI Block Actions
+        #region Update UI Actions (Tooltips and Connect Button)
 
         public void UpdateTooltips()
         {
@@ -801,7 +911,7 @@ namespace SA_Resources.Forms
 
             for (int i = 0; i < GetNumInputChannels(); i++)
             {
-                
+
                 PictureButton btn_PreGain = ((PictureButton)Controls.Find("btnCH" + (i + 1) + "PreGain", true).FirstOrDefault());
                 PictureButton btn_PreGain2 = ((PictureButton)Controls.Find("btnCH" + (i + 1) + "PreGain2", true).FirstOrDefault());
                 PictureButton btn_Compressor = ((PictureButton)Controls.Find("btnCH" + (i + 1) + "Compressor", true).FirstOrDefault());
@@ -815,14 +925,14 @@ namespace SA_Resources.Forms
                     toolTip1.SetToolTip(inputLabel, PROGRAMS[CURRENT_PROGRAM].inputs[i].ToString());
                 }
 
-                if(btn_PreGain != null)
+                if (btn_PreGain != null)
                 {
                     toolTip1.SetToolTip(btn_PreGain, PROGRAMS[CURRENT_PROGRAM].gains[i][0].ToString());
                     btn_PreGain.Overlay2Visible = PROGRAMS[CURRENT_PROGRAM].gains[i][0].Muted;
                     btn_PreGain.Invalidate();
                 }
 
-                if(btn_Compressor != null)
+                if (btn_Compressor != null)
                 {
                     btn_Compressor.Overlay1Visible = PROGRAMS[CURRENT_PROGRAM].compressors[i][0].Bypassed;
                     btn_Compressor.Invalidate();
@@ -833,7 +943,7 @@ namespace SA_Resources.Forms
                     toolTip1.SetToolTip(btn_PreGain2, PROGRAMS[CURRENT_PROGRAM].gains[i][1].ToString());
                     btn_PreGain2.Overlay2Visible = PROGRAMS[CURRENT_PROGRAM].gains[i][1].Muted;
                     btn_PreGain2.Invalidate();
-                }  
+                }
             }
 
             for (int i = 0; i < GetNumOutputChannels(); i++)
@@ -853,13 +963,13 @@ namespace SA_Resources.Forms
                     btn_PostTrim.Invalidate();
                 }
 
-                if(btn_Limiter != null)
+                if (btn_Limiter != null)
                 {
                     btn_Limiter.Overlay1Visible = PROGRAMS[CURRENT_PROGRAM].compressors[i][1].Bypassed;
                     btn_Limiter.Invalidate();
                 }
 
-                if(btn_Delay != null)
+                if (btn_Delay != null)
                 {
                     toolTip1.SetToolTip(btn_Delay, (PROGRAMS[CURRENT_PROGRAM].delays[i].Delay * 1000).ToString("N1") + "ms");
                     btn_Delay.Invalidate();
@@ -882,12 +992,27 @@ namespace SA_Resources.Forms
 
         }
 
+        public void SetConnectButtonText(string in_text)
+        {
+            btnConnectToDevice.Text = in_text;
+            btnConnectToDevice.Invalidate();
+        }
+
+        #endregion
+
+
+        #region UI Block Actions
+
+        
         protected void lblInput_Click(object sender, EventArgs e)
         {
             int ch_num = int.Parse(((Label)sender).Name.Substring(5, 1));
 
             // Specific to FLX
             bool phantom_power = (ch_num <= num_phantom);
+
+            InputConfig cached_input = (InputConfig)PROGRAMS[CURRENT_PROGRAM].inputs[ch_num - 1].Clone();
+
             using (InputConfiguration inputForm = new InputConfiguration(this, ch_num, phantom_power))
             {
 
@@ -903,12 +1028,26 @@ namespace SA_Resources.Forms
 
                 inputForm.Height = 221;
 
-                // passing this in ShowDialog will set the .Owner 
-                // property of the child form
-                inputForm.ShowDialog(this);
 
-                UpdateTooltips();
+                DialogResult showBlock = inputForm.ShowDialog(this);
 
+                if(showBlock == DialogResult.Cancel)
+                {
+                    PROGRAMS[CURRENT_PROGRAM].inputs[ch_num - 1] = (InputConfig) cached_input.Clone();
+
+                    if (LIVE_MODE)
+                    {
+                        AddItemToQueue(new LiveQueueItem(ch_num, PROGRAMS[CURRENT_PROGRAM].inputs[ch_num - 1].Name));
+                    }
+
+                } else
+                {
+                   if(LIVE_MODE)
+                   {
+                       AddItemToQueue(new LiveQueueItem(ch_num, PROGRAMS[CURRENT_PROGRAM].inputs[ch_num - 1].Name));
+                   }
+                   UpdateTooltips(); 
+                }
             }
         }
 
@@ -917,8 +1056,11 @@ namespace SA_Resources.Forms
         {
             int ch_num = int.Parse(((PictureButton)sender).Name.Substring(5, 1));
 
+            int settings_index = (0 + ch_num - 1);
 
-            using (GainForm gainForm = new GainForm(this, ch_num - 1, 0, (0 + ch_num - 1), false, "CH" + ch_num.ToString() + " - Input Gain"))
+            GainConfig cached_gain = (GainConfig)PROGRAMS[CURRENT_PROGRAM].gains[ch_num - 1][0].Clone();
+
+            using (GainForm gainForm = new GainForm(this, ch_num - 1, 0, settings_index, false, "CH" + ch_num.ToString() + " - Input Gain"))
             {
 
                 if (!LIVE_MODE)
@@ -932,25 +1074,72 @@ namespace SA_Resources.Forms
 
                 gainForm.Height = 414;
 
-                // passing this in ShowDialog will set the .Owner 
-                // property of the child form
-                gainForm.ShowDialog(this);
+                DialogResult showBlock = gainForm.ShowDialog(this);
 
-                UpdateTooltips();
+                if (showBlock == DialogResult.Cancel)
+                {
+                    PROGRAMS[CURRENT_PROGRAM].gains[ch_num - 1][0] = (GainConfig)cached_gain.Clone();
+                    PROGRAMS[CURRENT_PROGRAM].gains[ch_num - 1][0].QueueChange(this, settings_index,true,ch_num-1);
+
+                }
+                else
+                {
+                    UpdateTooltips();
+                }
             }
         }
 
 
         protected void btnPreFilters_Click(object sender, EventArgs e)
         {
-            int channel = int.Parse(((PictureButton)sender).Name.Substring(5, 1));
+            int ch_num = int.Parse(((PictureButton)sender).Name.Substring(5, 1));
 
-            using (FilterForm filterForm = new FilterForm(this, channel))
+            int settings_index, plainfilter_index;
+
+            FilterConfig[] cached_filters = new FilterConfig[3];
+
+            for (int i = 0; i < 3; i ++)
+            {
+                if (PROGRAMS[CURRENT_PROGRAM].filters[ch_num - 1][i] != null)
+                {
+                    if (PROGRAMS[CURRENT_PROGRAM].filters[ch_num - 1][i] != null)
+                    {
+                        cached_filters[i] = (FilterConfig) PROGRAMS[CURRENT_PROGRAM].filters[ch_num - 1][i].Clone();
+                    }
+                }
+            }
+
+            
+            using (FilterForm filterForm = new FilterForm(this, ch_num))
             {
                 filterForm.Height = 500;
-                // passing this in ShowDialog will set the .Owner 
-                // property of the child form
-                filterForm.ShowDialog(this);
+
+                DialogResult showBlock = filterForm.ShowDialog(this);
+
+                if (showBlock == DialogResult.Cancel)
+                {
+
+                    for (int i = 0; i < 3; i++)
+                    {
+                        if (cached_filters[i] != null)
+                        {
+                            settings_index = (40) + ((ch_num - 1) * 45) + (i * 5);
+                            plainfilter_index = (300) + ((ch_num - 1) * 27) + (i * 3);
+
+                            PROGRAMS[CURRENT_PROGRAM].filters[ch_num - 1][i] = (FilterConfig) cached_filters[i].Clone();
+
+                            if(LIVE_MODE)
+                            {
+                                PROGRAMS[CURRENT_PROGRAM].filters[ch_num - 1][i].QueueChange(this, settings_index, plainfilter_index, ch_num);
+                            }
+                        }
+                    }
+
+                }
+                else
+                {
+                    UpdateTooltips();
+                }
             }
         }
 
@@ -958,15 +1147,30 @@ namespace SA_Resources.Forms
         protected void btnComp_Click(object sender, EventArgs e)
         {
             int ch_num = int.Parse(((PictureButton)sender).Name.Substring(5, 1));
-
             int settings_offset = 220 + (6 * (ch_num - 1));
+
+            CompressorConfig cached_comp = (CompressorConfig)PROGRAMS[CURRENT_PROGRAM].compressors[ch_num - 1][0].Clone();
+
+            
             using (CompressorForm compressorForm = new CompressorForm(this, ch_num, settings_offset))
             {
                 // passing this in ShowDialog will set the .Owner 
                 // property of the child form
-                compressorForm.ShowDialog(this);
+                DialogResult showBlock = compressorForm.ShowDialog(this);
 
-                UpdateTooltips();
+                if (showBlock == DialogResult.Cancel)
+                {
+                    PROGRAMS[CURRENT_PROGRAM].compressors[ch_num - 1][0] = (CompressorConfig)cached_comp.Clone();
+
+                    if(LIVE_MODE)
+                    {
+                        PROGRAMS[CURRENT_PROGRAM].compressors[ch_num - 1][0].QueueChange(this, settings_offset); 
+                    }
+                }
+                else
+                {
+                    UpdateTooltips();
+                }
             }
         }
 
@@ -975,8 +1179,11 @@ namespace SA_Resources.Forms
         {
             int ch_num = int.Parse(((PictureButton)sender).Name.Substring(5, 1));
 
+            int settings_index = (28 + ch_num - 1);
 
-            using (GainForm gainForm = new GainForm(this, ch_num - 1, 1, (28 + ch_num - 1), false, "CH" + ch_num.ToString() + " - Premix Gain"))
+            GainConfig cached_gain = (GainConfig)PROGRAMS[CURRENT_PROGRAM].gains[ch_num - 1][1].Clone();
+
+            using (GainForm gainForm = new GainForm(this, ch_num - 1, 1, settings_index, false, "CH" + ch_num.ToString() + " - Premix Gain"))
             {
                 if (!LIVE_MODE)
                 {
@@ -990,11 +1197,23 @@ namespace SA_Resources.Forms
 
                 gainForm.Height = 414;
 
-                // passing this in ShowDialog will set the .Owner 
-                // property of the child form
-                gainForm.ShowDialog(this);
 
-                UpdateTooltips();
+                DialogResult showBlock = gainForm.ShowDialog(this);
+
+                if (showBlock == DialogResult.Cancel)
+                {
+                    PROGRAMS[CURRENT_PROGRAM].gains[ch_num - 1][1] = (GainConfig)cached_gain.Clone();
+
+                    if (LIVE_MODE)
+                    {
+                        PROGRAMS[CURRENT_PROGRAM].gains[ch_num - 1][1].QueueChange(this, settings_index);
+                    }
+
+                }
+                else
+                {
+                    UpdateTooltips();
+                }
 
             }
         }
@@ -1002,20 +1221,45 @@ namespace SA_Resources.Forms
 
         protected void btnMatrixMixer_Click(object sender, EventArgs e)
         {
-            using (MixerForm mixerForm = new MixerForm(this))
+
+            GainConfig[][] crosspoint_cache = new GainConfig[6][];
+
+            for (int i = 0; i < 6; i++)
             {
+                crosspoint_cache[i] = new GainConfig[4];
 
-                if (LIVE_MODE)
+                for(int j = 0; j < 4; j++)
                 {
-                    mixerForm.Width = 496;
+                    crosspoint_cache[i][j] = (GainConfig) PROGRAMS[CURRENT_PROGRAM].crosspoints[i][j].Clone();
                 }
-                else
-                {
-                    mixerForm.Width = 228;
-                }
-
-                mixerForm.ShowDialog(this);
             }
+
+                using (MixerForm mixerForm = new MixerForm(this))
+                {
+
+                    if (LIVE_MODE)
+                    {
+                        mixerForm.Width = 496;
+                    }
+                    else
+                    {
+                        mixerForm.Width = 228;
+                    }
+
+                    DialogResult showBlock = mixerForm.ShowDialog(this);
+
+                    if (showBlock == DialogResult.Cancel)
+                    {
+                        for (int i = 0; i < 6; i++)
+                        {
+                            for (int j = 0; j < 4; j++)
+                            {
+                                PROGRAMS[CURRENT_PROGRAM].crosspoints[i][j] = (GainConfig)crosspoint_cache[i][j].Clone();
+                            }
+                        }
+
+                    }
+                }
         }
 
 
@@ -1023,6 +1267,9 @@ namespace SA_Resources.Forms
         {
             int ch_num = int.Parse(((PictureButton)sender).Name.Substring(5, 1));
 
+            int settings_index = (32 + ch_num - 1);
+
+            GainConfig cached_gain = (GainConfig)PROGRAMS[CURRENT_PROGRAM].gains[ch_num - 1][2].Clone();
 
             using (GainForm gainForm = new GainForm(this, ch_num - 1, 2, (32 + ch_num - 1), false, "CH" + ch_num.ToString() + " - Trim"))
             {
@@ -1038,24 +1285,74 @@ namespace SA_Resources.Forms
 
                 gainForm.Height = 414;
 
-                // passing this in ShowDialog will set the .Owner 
-                // property of the child form
-                gainForm.ShowDialog(this);
+                DialogResult showBlock = gainForm.ShowDialog(this);
 
-                UpdateTooltips();
+                if (showBlock == DialogResult.Cancel)
+                {
+                    PROGRAMS[CURRENT_PROGRAM].gains[ch_num - 1][2] = (GainConfig)cached_gain.Clone();
+                    if (LIVE_MODE)
+                    {
+                        PROGRAMS[CURRENT_PROGRAM].gains[ch_num - 1][2].QueueChange(this, settings_index);
+                    }
+                }
+                else
+                {
+                    UpdateTooltips();
+                }
             }
         }
 
 
         protected void btnPostFilters_Click(object sender, EventArgs e)
         {
-            int channel = int.Parse(((PictureButton)sender).Name.Substring(5, 1));
+            int ch_num = int.Parse(((PictureButton)sender).Name.Substring(5, 1));
 
-            using (FilterForm filterForm = new FilterForm(this, channel, true))
+            int settings_index, plainfilter_index;
+            FilterConfig[] cached_filters = new FilterConfig[6];
+
+            for (int i = 3; i < 9; i++)
             {
-                // passing this in ShowDialog will set the .Owner 
-                // property of the child form
-                filterForm.ShowDialog(this);
+                if (PROGRAMS[CURRENT_PROGRAM].filters[ch_num - 1][i] != null)
+                {
+                    cached_filters[i-3] = (FilterConfig)PROGRAMS[CURRENT_PROGRAM].filters[ch_num - 1][i].Clone();
+                }
+            }
+
+            using (FilterForm filterForm = new FilterForm(this, ch_num, true))
+            {
+                DialogResult showBlock = filterForm.ShowDialog(this);
+
+                if (showBlock == DialogResult.Cancel)
+                {
+
+                    for (int i = 3; i < 9; i++)
+                    {
+                        settings_index = (40) + ((ch_num - 1) * 45) + (i * 5);
+                        plainfilter_index = (300) + ((ch_num - 1) * 27) + (i * 3);
+
+                        if (cached_filters[i - 3] != null)
+                        {
+                            PROGRAMS[CURRENT_PROGRAM].filters[ch_num - 1][i] = (FilterConfig) cached_filters[i - 3].Clone();
+                            if (LIVE_MODE)
+                            {
+                                PROGRAMS[CURRENT_PROGRAM].filters[ch_num - 1][i].QueueChange(this, settings_index, plainfilter_index, ch_num);
+                            }
+                        } else
+                        {
+                            if (LIVE_MODE)
+                            {
+                                // Filter doesn't exist... SO... let's just send a blank one
+                                new FilterConfig(FilterType.None, true).QueueChange(this, settings_index, plainfilter_index, ch_num);
+                            }
+                        }
+                    }
+
+                }
+                else
+                {
+                    UpdateTooltips();
+                }
+
             }
         }
 
@@ -1066,13 +1363,28 @@ namespace SA_Resources.Forms
 
             int settings_offset = 244 + (6 * (ch_num - 1));
 
+            CompressorConfig cached_lim = (CompressorConfig)PROGRAMS[CURRENT_PROGRAM].compressors[ch_num - 1][1].Clone();
+
             using (CompressorForm compressorForm = new CompressorForm(this, ch_num, settings_offset, CompressorType.Limiter))
             {
                 // passing this in ShowDialog will set the .Owner 
                 // property of the child form
-                compressorForm.ShowDialog(this);
+                DialogResult showBlock = compressorForm.ShowDialog(this);
 
-                UpdateTooltips();
+                if (showBlock == DialogResult.Cancel)
+                {
+                    PROGRAMS[CURRENT_PROGRAM].compressors[ch_num - 1][1] = (CompressorConfig)cached_lim.Clone();
+
+                    if (LIVE_MODE)
+                    {
+                        PROGRAMS[CURRENT_PROGRAM].compressors[ch_num - 1][1].QueueChange(this, settings_offset);
+                    }
+
+                }
+                else
+                {
+                    UpdateTooltips();
+                }
             }
         }
 
@@ -1080,14 +1392,28 @@ namespace SA_Resources.Forms
         protected void btnDelay_Click(object sender, EventArgs e)
         {
             int ch_num = int.Parse(((PictureButton)sender).Name.Substring(5, 1));
+            int settings_index = 268 + (ch_num - 1);
 
-            using (DelayForm delayForm = new DelayForm(this, ch_num, 268 + (ch_num - 1)))
+            DelayConfig cached_delay = (DelayConfig)PROGRAMS[CURRENT_PROGRAM].delays[ch_num - 1].Clone();
+
+            using (DelayForm delayForm = new DelayForm(this, ch_num, settings_index))
             {
 
-                //delayForm.OnChange += new ConfigChangeEventHandler(this.Config_Changed);
-                delayForm.ShowDialog(this);
+                DialogResult showBlock = delayForm.ShowDialog(this);
 
-                UpdateTooltips();
+                if (showBlock == DialogResult.Cancel)
+                {
+                    PROGRAMS[CURRENT_PROGRAM].delays[ch_num - 1] = (DelayConfig)cached_delay.Clone();
+
+                    if (LIVE_MODE)
+                    {
+                        PROGRAMS[CURRENT_PROGRAM].delays[ch_num - 1].QueueChange(this, settings_index);
+                    }
+                }
+                else
+                {
+                    UpdateTooltips();
+                }
 
             }
         }
@@ -1096,9 +1422,11 @@ namespace SA_Resources.Forms
         protected void BtnPostGainClick(object sender, EventArgs e)
         {
             int ch_num = int.Parse(((PictureButton)sender).Name.Substring(5, 1));
+            int settings_index = (36 + ch_num - 1);
 
+            GainConfig cached_gain = (GainConfig)PROGRAMS[CURRENT_PROGRAM].gains[ch_num - 1][3].Clone();
 
-            using (GainForm gainForm = new GainForm(this, ch_num - 1, 3, (36 + ch_num - 1), false, "CH" + ch_num.ToString() + " - Output Gain"))
+            using (GainForm gainForm = new GainForm(this, ch_num - 1, 3, settings_index, false, "CH" + ch_num.ToString() + " - Output Gain"))
             {
 
                 if (!LIVE_MODE)
@@ -1112,12 +1440,24 @@ namespace SA_Resources.Forms
                 }
 
                 gainForm.Height = 414;
-                // passing this in ShowDialog will set the .Owner 
-                // property of the child form
-                gainForm.ShowDialog(this);
 
 
-                UpdateTooltips();
+                DialogResult showBlock = gainForm.ShowDialog(this);
+
+                if (showBlock == DialogResult.Cancel)
+                {
+                    PROGRAMS[CURRENT_PROGRAM].gains[ch_num - 1][3] = (GainConfig)cached_gain.Clone();
+
+                    if (LIVE_MODE)
+                    {
+                        PROGRAMS[CURRENT_PROGRAM].gains[ch_num - 1][3].QueueChange(this, settings_index);
+                    }
+
+                }
+                else
+                {
+                    UpdateTooltips();
+                }
             }
         }
 
@@ -1126,20 +1466,33 @@ namespace SA_Resources.Forms
         {
             int ch_num = int.Parse(((Label)sender).Name.Substring(5, 1));
 
+            OutputConfig cached_output = (OutputConfig)PROGRAMS[CURRENT_PROGRAM].outputs[ch_num - 1].Clone();
+
             using (OutputConfiguration outputForm = new OutputConfiguration(this, ch_num))
             {
-                // passing this in ShowDialog will set the .Owner 
-                // property of the child form
-                outputForm.ShowDialog(this);
 
-                UpdateTooltips();
+                DialogResult showBlock = outputForm.ShowDialog(this);
+
+                if (showBlock == DialogResult.Cancel)
+                {
+                    PROGRAMS[CURRENT_PROGRAM].outputs[ch_num - 1] = (OutputConfig)cached_output.Clone();
+
+                }
+                else
+                {
+                    if (LIVE_MODE)
+                    {
+                        AddItemToQueue(new LiveQueueItem(ch_num + GetNumInputChannels(), PROGRAMS[CURRENT_PROGRAM].outputs[ch_num - 1].Name));
+                    }
+                    UpdateTooltips();
+                }
             }
         }
 
         #endregion
 
 
-        #region UI Menu Actions
+        #region UI Menu Events
 
         public void ReadSCFG_Event(object sender, EventArgs e)
         {
@@ -1242,8 +1595,14 @@ namespace SA_Resources.Forms
 
         private void MainForm_Template_FormClosing(object sender, FormClosingEventArgs e)
         {
+
+            _PIC_Conn.Close();
+
             if (!this.UnsavedChanges)
+            {
                 return;
+            }
+
             switch (MessageBox.Show("Would you like to save your current configuration before closing?", "Unsaved Changes", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question))
             {
                 case DialogResult.Yes:
@@ -1258,6 +1617,8 @@ namespace SA_Resources.Forms
         #endregion
 
     }
+
+    #region Toolstrip Custom Renderer Class
 
     public class MyRenderer : ToolStripProfessionalRenderer
     {
@@ -1300,4 +1661,7 @@ namespace SA_Resources.Forms
             }
         }
     }
+
+    #endregion
+
 }
