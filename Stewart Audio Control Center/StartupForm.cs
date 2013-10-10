@@ -26,22 +26,51 @@ namespace SA_Resources
 
         public StartupForm()
         {
+
+
             InitializeComponent();
 
             string[] args = Environment.GetCommandLineArgs();
+
+            
+
+            CONFIGFILE = "";
+            if (args.Length > 1)
+            {
+                if (args[0].Contains(".scfg"))
+                {
+                    CONFIGFILE = args[0];
+                }
+
+                if (args[1].Contains(".scfg"))
+                {
+                    CONFIGFILE = args[1];
+                }
+
+                if (args[1] == "/standalone")
+                {
+                    standalone_build = true;
+                }
+
+                if (args.Length > 2)
+                {
+                    if (args[2].Contains(".scfg"))
+                    {
+                        CONFIGFILE = args[2];
+                    }
+
+                    if (args[2] == "/standalone")
+                    {
+                        standalone_build = true;
+                    }
+                }
+            }
 
             if (!_vsDebug && !standalone_build)
             {
                 string InstallPath = (string)Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\StewartAudioDSP", "Path", null);
                 // Do stuff
                 Directory.SetCurrentDirectory(InstallPath);
-            }
-
-            CONFIGFILE = "";
-            if ((args.Length > 1) && args[1].Contains(".scfg"))
-            {
-                CONFIGFILE = args[1];
-
             }
 
             //CONFIGFILE = @"c:\users\patrick\desktop\manager107.scfg";

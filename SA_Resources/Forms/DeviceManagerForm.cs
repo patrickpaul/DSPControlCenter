@@ -40,6 +40,11 @@ namespace SA_Resources
             manager = new UsbManager();
 
             manager.StateChanged += new UsbStateChangedEventHandler(USBDeviceStateChanged);
+
+            if(!PARENT_FORM._vsDebug)
+            {
+                chkDebug.Visible = false;
+            }
         }
 
 

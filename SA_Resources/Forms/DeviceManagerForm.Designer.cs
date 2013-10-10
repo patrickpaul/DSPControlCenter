@@ -233,9 +233,9 @@
             this.chkDebug.AutoSize = true;
             this.chkDebug.Location = new System.Drawing.Point(244, 89);
             this.chkDebug.Name = "chkDebug";
-            this.chkDebug.Size = new System.Drawing.Size(80, 17);
+            this.chkDebug.Size = new System.Drawing.Size(74, 17);
             this.chkDebug.TabIndex = 34;
-            this.chkDebug.Text = "checkBox1";
+            this.chkDebug.Text = "Skip Sync";
             this.chkDebug.UseVisualStyleBackColor = true;
             // 
             // progressBar1
