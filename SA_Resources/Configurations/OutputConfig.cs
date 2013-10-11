@@ -21,6 +21,11 @@ namespace SA_Resources
             Name = _name;
         }
 
+        public bool Equals(OutputConfig compareConfig)
+        {
+            return (Name == compareConfig.Name);
+        }
+
         public object Clone()
         {
             return this.MemberwiseClone();

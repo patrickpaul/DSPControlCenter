@@ -398,8 +398,9 @@ namespace SA_Resources
             update_soft_knee();
 
             dynChart.Invalidate();
+            
+            PARENT_FORM.AddItemToQueue(new LiveQueueItem(ADDR_THRESHOLD, DSP_Math.double_to_MN((double) nudCompThreshold.Value, 9, 23)));
 
-            PARENT_FORM.AddItemToQueue(new LiveQueueItem(ADDR_THRESHOLD, DSP_Math.double_to_MN((double)nudCompThreshold.Value, 9, 23)));
         }
 
         private void nudCompRatio_ValueChanged(object sender, EventArgs e)
@@ -549,6 +550,7 @@ namespace SA_Resources
             if (converted_value > (0.000001 * 0.000001))
             {
                 read_gain_value = offset + 10 * Math.Log10(converted_value);
+
             }
             else
             {

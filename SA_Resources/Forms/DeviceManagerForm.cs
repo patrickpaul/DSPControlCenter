@@ -23,6 +23,8 @@ namespace SA_Resources
 
         private bool isConnected = false;
 
+        public bool ONLYPROGRAM1 = false;
+
 		private void USBDeviceStateChanged (UsbStateChangedEventArgs e)
 		{
             timer1.Enabled = true;
@@ -44,6 +46,7 @@ namespace SA_Resources
             if(!PARENT_FORM._vsDebug)
             {
                 chkDebug.Visible = false;
+                chkProgram1.Visible = false;
             }
         }
 
@@ -250,6 +253,11 @@ namespace SA_Resources
             worker.WorkerReportsProgress = true;
             worker.ProgressChanged += ProgressChanged;
 
+            if(chkProgram1.Checked)
+            {
+                ONLYPROGRAM1 = true;
+            }
+
             if (chkDebug.Checked)
             {
                 worker.DoWork += DebugDoWork;
@@ -271,7 +279,7 @@ namespace SA_Resources
 
             worker.RunWorkerCompleted += WorkComplete;
 
-            worker.RunWorkerAsync();
+            worker.RunWorkerAsync(ONLYPROGRAM1);
         }
 
         private void WorkComplete(object sender, RunWorkerCompletedEventArgs e)

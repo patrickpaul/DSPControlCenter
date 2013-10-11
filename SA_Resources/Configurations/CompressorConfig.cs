@@ -80,6 +80,34 @@ namespace SA_Resources
 
         }
 
+        public bool Equals(CompressorConfig compareConfig)
+        {
+
+            if(compareConfig == null)
+            {
+                return false;
+            }
+
+            if(Threshold != compareConfig.Threshold || Ratio != compareConfig.Ratio || Attack != compareConfig.Attack)
+            {
+                return false;
+            }
+
+            if(Release != compareConfig.Release || SoftKnee != compareConfig.SoftKnee || Bypassed != compareConfig.Bypassed)
+            {
+                return false;
+            }
+
+            if(Type != compareConfig.Type)
+            {
+                return false;
+            }
+
+            return true;
+
+        }
+
+
         public object Clone()
         {
             return this.MemberwiseClone();

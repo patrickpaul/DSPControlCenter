@@ -31,6 +31,11 @@ namespace SA_Resources
             PARENT_FORM.AddItemToQueue(new LiveQueueItem(SETTINGS_INDEX, DSP_Math.double_to_MN(this.Delay, 16, 16)));
         }
 
+        public bool Equals(DelayConfig compareConfig)
+        {
+            return (Delay == compareConfig.Delay && Bypassed == compareConfig.Bypassed);
+        }
+
         public object Clone()
         {
             return this.MemberwiseClone();

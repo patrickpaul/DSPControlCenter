@@ -373,10 +373,10 @@ namespace DSP_4x4
 
             // MIXERS
             _mix_meters = new List<UInt32>();
-            _mix_meters.Add(0xF5C00022);
-            _mix_meters.Add(0xF5C00026);
-            _mix_meters.Add(0xF5C0002A);
-            _mix_meters.Add(0xF5C0002E);
+            _mix_meters.Add(0xF5C0003E);
+            _mix_meters.Add(0xF5C00042);
+            _mix_meters.Add(0xF5C00046);
+            _mix_meters.Add(0xF5C0004A);
 
         }
 

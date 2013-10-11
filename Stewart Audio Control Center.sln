@@ -188,7 +188,7 @@ Global
 		{FE01ACC1-CE92-44BC-BAF9-04799748362C} = {09131C94-6C26-4813-9373-F56094F933C0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		BuildVersion_IncrementBeforeBuild = True
 		BuildVersion_BuildVersioningStyle = None.None.Increment.TimeStamp
+		BuildVersion_IncrementBeforeBuild = True
 	EndGlobalSection
 EndGlobal

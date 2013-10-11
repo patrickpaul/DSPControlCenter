@@ -64,6 +64,16 @@ namespace SA_Resources
                 }
             }
 
+            public bool Equals(GainConfig compareConfig)
+            {
+                if(compareConfig == null)
+                {
+                    return false;
+                }
+                return ((Muted == compareConfig.Muted) && (Gain == compareConfig.Gain));
+
+            }
+
             public object Clone()
             {
                 return this.MemberwiseClone();

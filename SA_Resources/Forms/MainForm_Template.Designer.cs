@@ -44,10 +44,11 @@ namespace SA_Resources.Forms
             this.openConfigurationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveConfigurationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitApplicationToolStripMenuItem = new System.Windows.Forms.ToolStripSeparator();
+            this.resetToDefaultToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deviceToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.connectToDeviceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveToDeviceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.readFromDeviceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -60,6 +61,7 @@ namespace SA_Resources.Forms
             this.dropProgramSelection = new System.Windows.Forms.ComboBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.saveToDeviceToolStripMenuItem = new System.Windows.Forms.ToolStripSeparator();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureConnectionStatus)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -103,6 +105,8 @@ namespace SA_Resources.Forms
             this.openConfigurationToolStripMenuItem,
             this.saveConfigurationToolStripMenuItem,
             this.exitApplicationToolStripMenuItem,
+            this.resetToDefaultToolStripMenuItem,
+            this.toolStripMenuItem1,
             this.exitToolStripMenuItem});
             this.mbtnOpenConfiguration.ForeColor = System.Drawing.Color.Gainsboro;
             this.mbtnOpenConfiguration.Name = "mbtnOpenConfiguration";
@@ -130,6 +134,18 @@ namespace SA_Resources.Forms
             this.exitApplicationToolStripMenuItem.Name = "exitApplicationToolStripMenuItem";
             this.exitApplicationToolStripMenuItem.Size = new System.Drawing.Size(220, 6);
             // 
+            // resetToDefaultToolStripMenuItem
+            // 
+            this.resetToDefaultToolStripMenuItem.Name = "resetToDefaultToolStripMenuItem";
+            this.resetToDefaultToolStripMenuItem.Size = new System.Drawing.Size(223, 22);
+            this.resetToDefaultToolStripMenuItem.Text = "Restore Default Settings";
+            this.resetToDefaultToolStripMenuItem.Click += new System.EventHandler(this.ResetInterface_Event);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(220, 6);
+            // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
@@ -147,29 +163,20 @@ namespace SA_Resources.Forms
             this.deviceToolStripMenuItem1.Name = "deviceToolStripMenuItem1";
             this.deviceToolStripMenuItem1.Size = new System.Drawing.Size(54, 20);
             this.deviceToolStripMenuItem1.Text = "Device";
-            this.deviceToolStripMenuItem1.Visible = false;
             // 
             // connectToDeviceToolStripMenuItem
             // 
             this.connectToDeviceToolStripMenuItem.Name = "connectToDeviceToolStripMenuItem";
-            this.connectToDeviceToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
-            this.connectToDeviceToolStripMenuItem.Text = "Connect to Device";
-            this.connectToDeviceToolStripMenuItem.Visible = false;
+            this.connectToDeviceToolStripMenuItem.Size = new System.Drawing.Size(214, 22);
+            this.connectToDeviceToolStripMenuItem.Text = "Open Device Manager";
             this.connectToDeviceToolStripMenuItem.Click += new System.EventHandler(this.Connect_Event);
-            // 
-            // saveToDeviceToolStripMenuItem
-            // 
-            this.saveToDeviceToolStripMenuItem.Name = "saveToDeviceToolStripMenuItem";
-            this.saveToDeviceToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
-            this.saveToDeviceToolStripMenuItem.Text = "Save to Device";
-            this.saveToDeviceToolStripMenuItem.Click += new System.EventHandler(this.WriteDevice_Event);
             // 
             // readFromDeviceToolStripMenuItem
             // 
             this.readFromDeviceToolStripMenuItem.Name = "readFromDeviceToolStripMenuItem";
-            this.readFromDeviceToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
-            this.readFromDeviceToolStripMenuItem.Text = "Read From Device";
-            this.readFromDeviceToolStripMenuItem.Click += new System.EventHandler(this.ReadDevice_Event);
+            this.readFromDeviceToolStripMenuItem.Size = new System.Drawing.Size(214, 22);
+            this.readFromDeviceToolStripMenuItem.Text = "Restore to Factory Settings";
+            this.readFromDeviceToolStripMenuItem.Click += new System.EventHandler(this.FactoryReset_Event);
             // 
             // editToolStripMenuItem
             // 
@@ -261,6 +268,12 @@ namespace SA_Resources.Forms
             this.pictureBox1.TabIndex = 86;
             this.pictureBox1.TabStop = false;
             // 
+            // saveToDeviceToolStripMenuItem
+            // 
+            this.saveToDeviceToolStripMenuItem.Name = "saveToDeviceToolStripMenuItem";
+            this.saveToDeviceToolStripMenuItem.Size = new System.Drawing.Size(211, 6);
+            this.saveToDeviceToolStripMenuItem.Click += new System.EventHandler(this.WriteDevice_Event);
+            // 
             // MainForm_Template
             // 
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(82)))), ((int)(((byte)(82)))));
@@ -300,7 +313,6 @@ namespace SA_Resources.Forms
         private ToolStripMenuItem editToolStripMenuItem;
         private ToolStripMenuItem deviceToolStripMenuItem1;
         private ToolStripMenuItem connectToDeviceToolStripMenuItem;
-        private ToolStripMenuItem saveToDeviceToolStripMenuItem;
         private ToolStripMenuItem readFromDeviceToolStripMenuItem;
         private ToolStripMenuItem helpToolStripMenuItem1;
         private ToolStripMenuItem viewHelpToolStripMenuItem;
@@ -313,5 +325,8 @@ namespace SA_Resources.Forms
         protected ComboBox dropProgramSelection;
         protected PictureBox pictureBox2;
         private PictureBox pictureBox1;
+        private ToolStripMenuItem resetToDefaultToolStripMenuItem;
+        private ToolStripSeparator toolStripMenuItem1;
+        private ToolStripSeparator saveToDeviceToolStripMenuItem;
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO.Ports;
 using System.Threading;
 
@@ -741,7 +742,7 @@ namespace SA_Resources
 
                         serialPort.Read(bytes, 0, serialPort.BytesToRead);
 
-                        if (bytes[0] == 0x06 && bytes[1] == 0x05 && bytes[2] == 0x19 && bytes[3] == 0x02)
+                        if (bytes[0] == 0x06 && bytes[1] == 0x19 && bytes[2] == 0x02 && bytes[3] == 0x0A)
                         {
                             return true;
                         }
@@ -1438,5 +1439,290 @@ namespace SA_Resources
             }
         }
 
+        public void RestoreFactorySettings(object sender, DoWorkEventArgs doWorkEventArgs)
+        {
+
+            BackgroundWorker backgroundWorker = sender as BackgroundWorker;
+
+            lock (PIC_LOCK)
+            {
+                FlushBuffer();
+
+                if (!serialPort.IsOpen) return;
+
+                backgroundWorker.ReportProgress(0, "Started factory reset");
+
+                int timeout_counter = 0;
+                int timeout_length = 0;
+
+                bool timeout_error = false;
+
+                byte[] buff = new byte[3];
+                Byte[] bytes = null;
+
+
+                #region Start Transaction
+
+                buff[0] = 0x02;
+                buff[1] = 0x77;
+                buff[2] = 0x03;
+
+                serialPort.Write(buff, 0, 3);
+
+                Thread.Sleep(500);
+
+                if (serialPort.BytesToRead == 4)
+                {
+                    bytes = new Byte[serialPort.BytesToRead];
+                    serialPort.Read(bytes, 0, serialPort.BytesToRead);
+
+                    if (bytes[2] != 0x01)
+                    {
+                        // error
+                        return;
+                    }
+
+                } else
+                {
+                    return;
+                }
+
+                backgroundWorker.ReportProgress(4,"Erasing all settings");
+
+                #endregion
+
+                #region EEPROM Erase
+
+                timeout_counter = 0;
+
+                timeout_length = 50;
+
+                while (serialPort.BytesToRead < 4)
+                {
+                    Thread.Sleep(1000);
+                    timeout_counter++;
+
+                    if (timeout_counter >= timeout_length)
+                    {
+                        timeout_error = true;
+                        break;
+
+                    }
+                }
+
+                if (timeout_error == true)
+                {
+                    // error
+                    return;
+                }
+
+                bytes = new Byte[serialPort.BytesToRead];
+                serialPort.Read(bytes, 0, serialPort.BytesToRead);
+
+                if (bytes[2] != 0x02)
+                {
+                    // error
+                    return;
+                }
+
+                backgroundWorker.ReportProgress(38, "Writing Factory Program 1");
+
+                #endregion
+
+                #region PROGRAM 1
+
+                timeout_counter = 0;
+
+                timeout_length = 20;
+
+                while (serialPort.BytesToRead < 4)
+                {
+                    Thread.Sleep(1000);
+                    timeout_counter++;
+
+                    if (timeout_counter >= timeout_length)
+                    {
+                        timeout_error = true;
+                        break;
+
+                    }
+                }
+
+                if (timeout_error == true)
+                {
+                    // error
+                    return;
+                }
+
+                bytes = new Byte[serialPort.BytesToRead];
+                serialPort.Read(bytes, 0, serialPort.BytesToRead);
+
+                if (bytes[2] != 0x03)
+                {
+                    // error
+                    return;
+                }
+
+                backgroundWorker.ReportProgress(53, "Writing Factory Program 2");
+
+                #endregion
+
+                #region PROGRAM 2
+
+                timeout_counter = 0;
+
+                timeout_length = 20;
+
+                while (serialPort.BytesToRead < 4)
+                {
+                    Thread.Sleep(1000);
+                    timeout_counter++;
+
+                    if (timeout_counter >= timeout_length)
+                    {
+                        timeout_error = true;
+                        break;
+
+                    }
+                }
+
+                if (timeout_error == true)
+                {
+                    // error
+                    return;
+                }
+
+                bytes = new Byte[serialPort.BytesToRead];
+                serialPort.Read(bytes, 0, serialPort.BytesToRead);
+
+                if (bytes[2] != 0x04)
+                {
+                    // error
+                    return;
+                }
+
+                backgroundWorker.ReportProgress(53, "Writing Factory Program 3");
+
+                #endregion
+
+                #region PROGRAM 3
+
+                timeout_counter = 0;
+
+                timeout_length = 20;
+
+                while (serialPort.BytesToRead < 4)
+                {
+                    Thread.Sleep(1000);
+                    timeout_counter++;
+
+                    if (timeout_counter >= timeout_length)
+                    {
+                        timeout_error = true;
+                        break;
+
+                    }
+                }
+
+                if (timeout_error == true)
+                {
+                    // error
+                    return;
+                }
+
+                bytes = new Byte[serialPort.BytesToRead];
+                serialPort.Read(bytes, 0, serialPort.BytesToRead);
+
+                if (bytes[2] != 0x05)
+                {
+                    // error
+                    return;
+                }
+
+                backgroundWorker.ReportProgress(83, "Returning to Preset 1");
+
+                #endregion
+
+                #region SWITCH
+
+                timeout_counter = 0;
+
+                timeout_length = 5;
+
+                while (serialPort.BytesToRead < 4)
+                {
+                    Thread.Sleep(1000);
+                    timeout_counter++;
+
+                    if (timeout_counter >= timeout_length)
+                    {
+                        timeout_error = true;
+                        break;
+
+                    }
+                }
+
+                if (timeout_error == true)
+                {
+                    // error
+                    return;
+                }
+
+                bytes = new Byte[serialPort.BytesToRead];
+                serialPort.Read(bytes, 0, serialPort.BytesToRead);
+
+                if (bytes[2] != 0x06)
+                {
+                    // error
+                    return;
+                }
+
+                backgroundWorker.ReportProgress(87, "Finalizing restore");
+
+                #endregion
+
+                #region ADDRESSES
+
+                timeout_counter = 0;
+
+                timeout_length = 15;
+
+                while (serialPort.BytesToRead < 4)
+                {
+                    Thread.Sleep(1000);
+                    timeout_counter++;
+
+                    if (timeout_counter >= timeout_length)
+                    {
+                        timeout_error = true;
+                        break;
+
+                    }
+                }
+
+                if (timeout_error == true)
+                {
+                    // error
+                    return;
+                }
+
+                bytes = new Byte[serialPort.BytesToRead];
+                serialPort.Read(bytes, 0, serialPort.BytesToRead);
+
+                if (bytes[2] != 0x07)
+                {
+                    // error
+                    return;
+                }
+
+                backgroundWorker.ReportProgress(100, "Restore Complete!");
+
+                #endregion
+
+
+            }
+
+
+        }
     }
 }

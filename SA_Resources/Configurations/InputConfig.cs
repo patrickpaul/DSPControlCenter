@@ -35,6 +35,11 @@ namespace SA_Resources
             Type = _inputType;
         }
 
+        public uint PhantomAsInt()
+        {
+            return PhantomPower == true ? (uint)1 : (uint)0;
+        }
+
         public UInt32 TypeToValue()
         {
             if(this.Type == InputType.Line)
@@ -79,6 +84,12 @@ namespace SA_Resources
             PARENT_FORM.AddItemToQueue(new LiveQueueItem((0 + CH_NUMBER - 1), new_val));
             PARENT_FORM.AddItemToQueue(new LiveQueueItem((412 + CH_NUMBER - 1), (uint)dropInputType.SelectedIndex));
              * */
+        }
+
+        public bool Equals(InputConfig compareInput)
+        {
+            return (Name == compareInput.Name && Type == compareInput.Type && PhantomPower == compareInput.PhantomPower);
+
         }
 
         public object Clone()

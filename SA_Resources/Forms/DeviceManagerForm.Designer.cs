@@ -48,6 +48,7 @@
             this.chkDebug = new System.Windows.Forms.CheckBox();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.closeTimer = new System.Windows.Forms.Timer(this.components);
+            this.chkProgram1 = new System.Windows.Forms.CheckBox();
             this.grpConnect.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.deviceThumbnail)).BeginInit();
@@ -214,6 +215,7 @@
             // 
             // grpPushPull
             // 
+            this.grpPushPull.Controls.Add(this.chkProgram1);
             this.grpPushPull.Controls.Add(this.chkDebug);
             this.grpPushPull.Controls.Add(this.radioPush);
             this.grpPushPull.Controls.Add(this.btnOK);
@@ -231,7 +233,7 @@
             // chkDebug
             // 
             this.chkDebug.AutoSize = true;
-            this.chkDebug.Location = new System.Drawing.Point(244, 89);
+            this.chkDebug.Location = new System.Drawing.Point(247, 79);
             this.chkDebug.Name = "chkDebug";
             this.chkDebug.Size = new System.Drawing.Size(74, 17);
             this.chkDebug.TabIndex = 34;
@@ -250,6 +252,16 @@
             // 
             this.closeTimer.Interval = 1000;
             this.closeTimer.Tick += new System.EventHandler(this.closeTimer_Tick);
+            // 
+            // chkProgram1
+            // 
+            this.chkProgram1.AutoSize = true;
+            this.chkProgram1.Location = new System.Drawing.Point(247, 102);
+            this.chkProgram1.Name = "chkProgram1";
+            this.chkProgram1.Size = new System.Drawing.Size(105, 17);
+            this.chkProgram1.TabIndex = 35;
+            this.chkProgram1.Text = "Only Program 1";
+            this.chkProgram1.UseVisualStyleBackColor = true;
             // 
             // DeviceManagerForm
             // 
@@ -305,5 +317,6 @@
         private System.Windows.Forms.Timer closeTimer;
         private System.Windows.Forms.CheckBox chkDebug;
         private System.Windows.Forms.Label lblFirmware;
+        private System.Windows.Forms.CheckBox chkProgram1;
     }
 }

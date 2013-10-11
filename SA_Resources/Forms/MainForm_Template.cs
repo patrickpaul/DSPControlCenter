@@ -15,6 +15,14 @@ namespace SA_Resources.Forms
 
         #region Variables
 
+        /* Program Configurations */
+
+        public ProgramConfig[] PROGRAMS = new ProgramConfig[3];
+        public ProgramConfig PROGRAM_CACHE = new ProgramConfig();
+
+
+        /* Settings Lists */
+
         public List<DSP_Setting>[] _settings = new List<DSP_Setting>[3];
         public List<DSP_Setting>[] _cached_settings = new List<DSP_Setting>[3];
 
@@ -23,14 +31,15 @@ namespace SA_Resources.Forms
         public List<UInt32>[] _comp_in_meters = new List<UInt32>[2];
         public List<UInt32>[] _comp_out_meters = new List<UInt32>[2];
 
-        public ProgramConfig[] PROGRAMS = new ProgramConfig[3];
 
-        public ProgramConfig PROGRAM_CACHE = new ProgramConfig();
-
+        /* Queue Processing */
+        
         public Queue UPDATE_QUEUE = new Queue();
         public object _locker = new Object();
 
+
         /* Settings to put into demo modes */
+
         public bool DisableComms = false;
         public readonly bool _vsDebug = System.Diagnostics.Debugger.IsAttached;
 
@@ -71,10 +80,10 @@ namespace SA_Resources.Forms
         {
             InitializeComponent();
 
+            // This renderer uses the custom class so it's not so ugly
             menuStrip1.Renderer = new MyRenderer();
         }
         
-
 
         public MainForm_Template(string configFile = "")
         {  
@@ -88,9 +97,6 @@ namespace SA_Resources.Forms
             /* INITIALIZE THE SETTINGS TO DEFAULTS */
 
             DefaultSettings();
-            
-            // Temporary fix
-
 
             if (configFile != "")
             {
@@ -102,11 +108,14 @@ namespace SA_Resources.Forms
 
         }
 
+
         protected void MainForm_Template_Load(object sender, EventArgs e)
         {
 
             try
             {
+                // We have to attach these here because it must occur after the derived forms' InitializeComponent() happens in their Constructors
+
                 AttachUIEvents();
                 UpdateTooltips();
 
@@ -130,10 +139,8 @@ namespace SA_Resources.Forms
                 Application.Exit();
 
             }
-
-
-            
         }
+
 
         public void InitializePrograms()
         {
@@ -143,6 +150,7 @@ namespace SA_Resources.Forms
             }
 
         }
+
 
         #endregion
 
@@ -240,21 +248,47 @@ namespace SA_Resources.Forms
                                     {
                                         if (read_setting.Index < GetNumInputChannels()+1)
                                         {
-                                            Console.WriteLine("Setting Input CH " + read_setting.Index.ToString() + " name to " + read_setting.ValueString);
-                                            _PIC_Conn.SendChannelName(read_setting.Index, read_setting.ValueString, false);
+                                            
+                                            if(_PIC_Conn.SendChannelName(read_setting.Index, read_setting.ValueString, false))
+                                            {
+                                                Console.WriteLine("Successfully set Input CH " + read_setting.Index.ToString() + " name to " + read_setting.ValueString);
+                                            }
+                                            else
+                                            {
+                                                Console.WriteLine("Error setting Input CH " + read_setting.Index.ToString() + " name to " + read_setting.ValueString);
+                                            }
                                         } else
                                         {
-                                            Console.WriteLine("Setting Output CH " + read_setting.Index.ToString() + " name to " + read_setting.ValueString);
-                                            _PIC_Conn.SendChannelName(read_setting.Index - GetNumInputChannels(), read_setting.ValueString, true);
+                                            if(_PIC_Conn.SendChannelName(read_setting.Index - GetNumInputChannels(), read_setting.ValueString, true))
+                                            {
+                                                Console.WriteLine("Successfully set Output CH " + read_setting.Index.ToString() + " name to " + read_setting.ValueString);
+                                            } else
+                                            {
+                                                Console.WriteLine("Error setting Output CH " + read_setting.Index.ToString() + " name to " + read_setting.ValueString);
+                                            }
                                         }
                                         
                                     } else if (read_setting.Value == 0x01)
                                     {
-                                        _PIC_Conn.SetLivePhantomPower((uint)read_setting.Index - 1000, 1);
+                                        if(_PIC_Conn.SetLivePhantomPower((uint)read_setting.Index - 1000, 1))
+                                        {
+                                            Console.WriteLine("Successfully set Phantom Power CH " + (read_setting.Index - 1000) + " to ON");
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine("Error setting set Phantom Power CH " + (read_setting.Index - 1000) + " to ON");
+                                        }
                                     }
                                     else
                                     {
-                                        _PIC_Conn.SetLivePhantomPower((uint)read_setting.Index - 1000, 0);
+                                        if (_PIC_Conn.SetLivePhantomPower((uint)read_setting.Index - 1000, 0))
+                                        {
+                                            Console.WriteLine("Successfully set Phantom Power CH " + (read_setting.Index - 1000) + " to OFF");
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine("Error setting set Phantom Power CH " + (read_setting.Index - 1000) + " to OFF");
+                                        }
                                     }
 
 
@@ -298,13 +332,23 @@ namespace SA_Resources.Forms
 
         public virtual void ReadDevice(object sender, DoWorkEventArgs doWorkEventArgs)
         {
+
+            int programs_to_run = NUM_PROGRAMS;
+
+            if(doWorkEventArgs.Argument != null)
+            {
+                if((bool)doWorkEventArgs.Argument == true)
+                {
+                    programs_to_run = 1;
+                }
+            }
             BackgroundWorker backgroundWorker = sender as BackgroundWorker;
             
             double num_settings = (_settings[0].Count - 
                 (GetProtectedReadBlock1_End() - GetProtectedReadBlock1_Start()) + 
                 (GetProtectedReadBlock2_End() - GetProtectedReadBlock2_Start()) + 
                 (GetProtectedReadBlock3_End() - GetProtectedReadBlock3_Start())
-                ) * NUM_PROGRAMS;
+                ) * programs_to_run;
            
             double total_settings_read = 0.0;
 
@@ -312,7 +356,7 @@ namespace SA_Resources.Forms
 
             backgroundWorker.ReportProgress(0,"Putting device into read mode");
 
-            for (int program_index = 0; program_index < NUM_PROGRAMS; ++program_index)
+            for (int program_index = 0; program_index < programs_to_run; ++program_index)
             {
                 if (_PIC_Conn.sendAckdCommand((byte)(GetEEPROMSwitchCommandBase() + (uint)program_index), 3000))
                 {
@@ -1012,6 +1056,7 @@ namespace SA_Resources.Forms
             bool phantom_power = (ch_num <= num_phantom);
 
             InputConfig cached_input = (InputConfig)PROGRAMS[CURRENT_PROGRAM].inputs[ch_num - 1].Clone();
+            int cached_pregain = PROGRAMS[CURRENT_PROGRAM].pregains[ch_num - 1];
 
             using (InputConfiguration inputForm = new InputConfiguration(this, ch_num, phantom_power))
             {
@@ -1033,17 +1078,31 @@ namespace SA_Resources.Forms
 
                 if(showBlock == DialogResult.Cancel)
                 {
-                    PROGRAMS[CURRENT_PROGRAM].inputs[ch_num - 1] = (InputConfig) cached_input.Clone();
-
-                    if (LIVE_MODE)
+                    if (!PROGRAMS[CURRENT_PROGRAM].inputs[ch_num - 1].Equals(cached_input))
                     {
-                        AddItemToQueue(new LiveQueueItem(ch_num, PROGRAMS[CURRENT_PROGRAM].inputs[ch_num - 1].Name));
-                    }
+                        PROGRAMS[CURRENT_PROGRAM].inputs[ch_num - 1] = (InputConfig)cached_input.Clone();
+                        PROGRAMS[CURRENT_PROGRAM].pregains[ch_num - 1] = cached_pregain;
 
-                } else
+                        if (LIVE_MODE && FIRMWARE_VERSION > 2.5)
+                        {
+
+                            UInt32 new_input_gain = DSP_Math.double_to_MN(PROGRAMS[CURRENT_PROGRAM].pregains[ch_num - 1] +
+                            PROGRAMS[CURRENT_PROGRAM].gains[ch_num - 1][0].Gain, 9, 23);
+
+                            AddItemToQueue(new LiveQueueItem((0 + ch_num - 1), new_input_gain));
+                            AddItemToQueue(new LiveQueueItem((412 + ch_num - 1), PROGRAMS[CURRENT_PROGRAM].inputs[ch_num - 1].TypeToValue()));
+                            AddItemToQueue(new LiveQueueItem(ch_num, PROGRAMS[CURRENT_PROGRAM].inputs[ch_num - 1].Name));
+                            AddItemToQueue(new LiveQueueItem(1000 + (ch_num - 1), PROGRAMS[CURRENT_PROGRAM].inputs[ch_num-1].PhantomAsInt()));
+
+                        }
+                    }
+                }
+                else
                 {
-                   if(LIVE_MODE)
+                   if (LIVE_MODE && (PROGRAMS[CURRENT_PROGRAM].inputs[ch_num - 1].Name != cached_input.Name))
                    {
+                       // Check if this has changed
+                       // Don't update this until we hit save since it takes so long.
                        AddItemToQueue(new LiveQueueItem(ch_num, PROGRAMS[CURRENT_PROGRAM].inputs[ch_num - 1].Name));
                    }
                    UpdateTooltips(); 
@@ -1078,8 +1137,20 @@ namespace SA_Resources.Forms
 
                 if (showBlock == DialogResult.Cancel)
                 {
-                    PROGRAMS[CURRENT_PROGRAM].gains[ch_num - 1][0] = (GainConfig)cached_gain.Clone();
-                    PROGRAMS[CURRENT_PROGRAM].gains[ch_num - 1][0].QueueChange(this, settings_index,true,ch_num-1);
+                    if (!PROGRAMS[CURRENT_PROGRAM].gains[ch_num - 1][0].Equals(cached_gain))
+                    {
+                        PROGRAMS[CURRENT_PROGRAM].gains[ch_num - 1][0] = (GainConfig) cached_gain.Clone();
+                        PROGRAMS[CURRENT_PROGRAM].gains[ch_num - 1][0].QueueChange(this, settings_index, true, ch_num - 1);
+
+                        if (LIVE_MODE && FIRMWARE_VERSION > 2.5)
+                        {
+
+                            UInt32 new_input_gain = DSP_Math.double_to_MN(PROGRAMS[CURRENT_PROGRAM].pregains[ch_num - 1] +
+                                                                          PROGRAMS[CURRENT_PROGRAM].gains[ch_num - 1][0].Gain, 9, 23);
+
+                            AddItemToQueue(new LiveQueueItem((0 + ch_num - 1), new_input_gain));
+                        }
+                    }
 
                 }
                 else
@@ -1160,11 +1231,14 @@ namespace SA_Resources.Forms
 
                 if (showBlock == DialogResult.Cancel)
                 {
-                    PROGRAMS[CURRENT_PROGRAM].compressors[ch_num - 1][0] = (CompressorConfig)cached_comp.Clone();
-
-                    if(LIVE_MODE)
+                    if (!PROGRAMS[CURRENT_PROGRAM].compressors[ch_num - 1][0].Equals(cached_comp))
                     {
-                        PROGRAMS[CURRENT_PROGRAM].compressors[ch_num - 1][0].QueueChange(this, settings_offset); 
+                        PROGRAMS[CURRENT_PROGRAM].compressors[ch_num - 1][0] = (CompressorConfig) cached_comp.Clone();
+
+                        if (LIVE_MODE)
+                        {
+                            PROGRAMS[CURRENT_PROGRAM].compressors[ch_num - 1][0].QueueChange(this, settings_offset);
+                        }
                     }
                 }
                 else
@@ -1202,11 +1276,14 @@ namespace SA_Resources.Forms
 
                 if (showBlock == DialogResult.Cancel)
                 {
-                    PROGRAMS[CURRENT_PROGRAM].gains[ch_num - 1][1] = (GainConfig)cached_gain.Clone();
-
-                    if (LIVE_MODE)
+                    if (!PROGRAMS[CURRENT_PROGRAM].gains[ch_num - 1][1].Equals(cached_gain))
                     {
-                        PROGRAMS[CURRENT_PROGRAM].gains[ch_num - 1][1].QueueChange(this, settings_index);
+                        PROGRAMS[CURRENT_PROGRAM].gains[ch_num - 1][1] = (GainConfig) cached_gain.Clone();
+
+                        if (LIVE_MODE)
+                        {
+                            PROGRAMS[CURRENT_PROGRAM].gains[ch_num - 1][1].QueueChange(this, settings_index);
+                        }
                     }
 
                 }
@@ -1289,10 +1366,13 @@ namespace SA_Resources.Forms
 
                 if (showBlock == DialogResult.Cancel)
                 {
-                    PROGRAMS[CURRENT_PROGRAM].gains[ch_num - 1][2] = (GainConfig)cached_gain.Clone();
-                    if (LIVE_MODE)
+                    if (!PROGRAMS[CURRENT_PROGRAM].gains[ch_num - 1][2].Equals(cached_gain))
                     {
-                        PROGRAMS[CURRENT_PROGRAM].gains[ch_num - 1][2].QueueChange(this, settings_index);
+                        PROGRAMS[CURRENT_PROGRAM].gains[ch_num - 1][2] = (GainConfig) cached_gain.Clone();
+                        if (LIVE_MODE)
+                        {
+                            PROGRAMS[CURRENT_PROGRAM].gains[ch_num - 1][2].QueueChange(this, settings_index);
+                        }
                     }
                 }
                 else
@@ -1373,13 +1453,15 @@ namespace SA_Resources.Forms
 
                 if (showBlock == DialogResult.Cancel)
                 {
-                    PROGRAMS[CURRENT_PROGRAM].compressors[ch_num - 1][1] = (CompressorConfig)cached_lim.Clone();
-
-                    if (LIVE_MODE)
+                    if (!PROGRAMS[CURRENT_PROGRAM].compressors[ch_num - 1][1].Equals(cached_lim))
                     {
-                        PROGRAMS[CURRENT_PROGRAM].compressors[ch_num - 1][1].QueueChange(this, settings_offset);
-                    }
+                        PROGRAMS[CURRENT_PROGRAM].compressors[ch_num - 1][1] = (CompressorConfig)cached_lim.Clone();
 
+                        if (LIVE_MODE)
+                        {
+                            PROGRAMS[CURRENT_PROGRAM].compressors[ch_num - 1][1].QueueChange(this, settings_offset);
+                        }
+                    }
                 }
                 else
                 {
@@ -1403,12 +1485,17 @@ namespace SA_Resources.Forms
 
                 if (showBlock == DialogResult.Cancel)
                 {
-                    PROGRAMS[CURRENT_PROGRAM].delays[ch_num - 1] = (DelayConfig)cached_delay.Clone();
 
-                    if (LIVE_MODE)
+                    if (!PROGRAMS[CURRENT_PROGRAM].delays[ch_num - 1].Equals(cached_delay))
                     {
-                        PROGRAMS[CURRENT_PROGRAM].delays[ch_num - 1].QueueChange(this, settings_index);
+                        PROGRAMS[CURRENT_PROGRAM].delays[ch_num - 1] = (DelayConfig)cached_delay.Clone();
+
+                        if (LIVE_MODE)
+                        {
+                            PROGRAMS[CURRENT_PROGRAM].delays[ch_num - 1].QueueChange(this, settings_index);
+                        }
                     }
+                    
                 }
                 else
                 {
@@ -1446,11 +1533,14 @@ namespace SA_Resources.Forms
 
                 if (showBlock == DialogResult.Cancel)
                 {
-                    PROGRAMS[CURRENT_PROGRAM].gains[ch_num - 1][3] = (GainConfig)cached_gain.Clone();
-
-                    if (LIVE_MODE)
+                    if (!PROGRAMS[CURRENT_PROGRAM].gains[ch_num - 1][3].Equals(cached_gain))
                     {
-                        PROGRAMS[CURRENT_PROGRAM].gains[ch_num - 1][3].QueueChange(this, settings_index);
+                        PROGRAMS[CURRENT_PROGRAM].gains[ch_num - 1][3] = (GainConfig) cached_gain.Clone();
+
+                        if (LIVE_MODE)
+                        {
+                            PROGRAMS[CURRENT_PROGRAM].gains[ch_num - 1][3].QueueChange(this, settings_index);
+                        }
                     }
 
                 }
@@ -1475,15 +1565,26 @@ namespace SA_Resources.Forms
 
                 if (showBlock == DialogResult.Cancel)
                 {
-                    PROGRAMS[CURRENT_PROGRAM].outputs[ch_num - 1] = (OutputConfig)cached_output.Clone();
+                    if (!PROGRAMS[CURRENT_PROGRAM].outputs[ch_num - 1].Equals(cached_output))
+                    {
+                        PROGRAMS[CURRENT_PROGRAM].outputs[ch_num - 1] = (OutputConfig)cached_output.Clone();
 
+                        if (LIVE_MODE)
+                        {
+                            AddItemToQueue(new LiveQueueItem(ch_num + GetNumInputChannels(), PROGRAMS[CURRENT_PROGRAM].outputs[ch_num - 1].Name));
+                        }
+                    }
                 }
                 else
                 {
-                    if (LIVE_MODE)
+                    if (!PROGRAMS[CURRENT_PROGRAM].outputs[ch_num - 1].Equals(cached_output))
                     {
-                        AddItemToQueue(new LiveQueueItem(ch_num + GetNumInputChannels(), PROGRAMS[CURRENT_PROGRAM].outputs[ch_num - 1].Name));
+                        if (LIVE_MODE)
+                        {
+                            AddItemToQueue(new LiveQueueItem(ch_num + GetNumInputChannels(), PROGRAMS[CURRENT_PROGRAM].outputs[ch_num - 1].Name));
+                        }
                     }
+
                     UpdateTooltips();
                 }
             }
@@ -1585,6 +1686,36 @@ namespace SA_Resources.Forms
                     Console.WriteLine("Successfully switched program");
                     break;
             }
+        }
+
+        public void ResetInterface_Event(object sender, EventArgs e)
+        {
+
+            if(MessageBox.Show("Resetting to Default Settings will overwrite your current configuration. Proceed?","Overwrite Warning",MessageBoxButtons.YesNo,MessageBoxIcon.Warning) == DialogResult.No)
+            {
+                return;
+            }
+
+            InitializePrograms();
+
+            DefaultSettings();
+            
+            dropProgramSelection.SelectedIndex = 0;
+
+            LoadSettingsToProgramConfig();
+
+            UpdateTooltips();
+
+        }
+
+        public void FactoryReset_Event(object sender, EventArgs e)
+        {
+
+            using (RestoreSettingsForm restoreForm = new RestoreSettingsForm(this))
+            {
+                restoreForm.ShowDialog(this);
+            }
+
         }
         
         #endregion
