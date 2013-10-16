@@ -14,6 +14,17 @@ namespace SA_Resources.Forms
 
         private MainForm_Template PARENT_FORM;
 
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams myCp = base.CreateParams;
+                myCp.ClassStyle = myCp.ClassStyle | 0x200;
+                return myCp;
+            }
+        }
+        
+        
         public RestoreSettingsForm(MainForm_Template _parentForm)
         {
             InitializeComponent();

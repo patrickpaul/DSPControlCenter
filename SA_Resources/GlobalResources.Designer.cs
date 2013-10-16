@@ -363,16 +363,6 @@ namespace SA_Resources {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap menu_program_selection1 {
-            get {
-                object obj = ResourceManager.GetObject("menu_program_selection1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         public static System.Drawing.Bitmap menu_read {
             get {
                 object obj = ResourceManager.GetObject("menu_read", resourceCulture);
@@ -686,6 +676,16 @@ namespace SA_Resources {
         public static System.Drawing.Bitmap ui_btn_trim_over {
             get {
                 object obj = ResourceManager.GetObject("ui_btn_trim_over", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap ui_ducker_insert {
+            get {
+                object obj = ResourceManager.GetObject("ui_ducker_insert", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -17,7 +17,7 @@ namespace SA_Resources
 
         private readonly bool _vsDebug = System.Diagnostics.Debugger.IsAttached;
 
-        private bool standalone_build = true;
+        private bool standalone_build = false;
 
         private List<SADevicePlugin> DevicePlugins = new List<SADevicePlugin>();
 

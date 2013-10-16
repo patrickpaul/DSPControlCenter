@@ -210,6 +210,33 @@ namespace SA_Resources
             }
         }
 
+        public static string Format_String_Duck_Hold(double hold)
+        {
+
+            hold = hold * 1000;
+            if (hold < 10)
+            {
+                return hold.ToString("F2") + "ms";
+            }
+            else if (hold < 100)
+            {
+                return hold.ToString("F1") + "ms";
+            }
+            else if (hold < 1000)
+            {
+                return hold.ToString("F0") + "ms";
+            }
+            else if (hold < 10000)
+            {
+                return (hold / 1000.0).ToString("F2") + "s";
+            }
+            else
+            {
+                return (hold / 1000.0).ToString("F1") + "s";
+            }
+        }
+
+
         public static string Format_String_Comp_Threshold(double threshold)
         {
             if (threshold == 0)

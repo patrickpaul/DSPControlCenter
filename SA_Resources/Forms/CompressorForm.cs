@@ -379,6 +379,8 @@ namespace SA_Resources
 
             var threshold = (double)nudCompThreshold.Value;
 
+            PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].compressors[CH_NUMBER - 1][COMP_INDEX].Threshold = threshold;
+
             stored_threshold = threshold;
             MarkerLine.Points[1].SetValueXY(threshold, threshold);
             StraightResponseLine.Points[1].SetValueXY(threshold, threshold);

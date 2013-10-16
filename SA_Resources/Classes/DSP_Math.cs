@@ -197,6 +197,21 @@ namespace SA_Resources
 
         #endregion
 
+        #region Dynamics
+
+        public static UInt32 dynamic_hold_to_value(double hold)
+        {
+            return (UInt32) (hold*(48000.0/16.0));
+        }
+
+        public static double value_to_dynamic_hold(UInt32 value)
+        {
+            return (double)(value / (48000.0 / 16.0));
+        }
+
+        #endregion
+
+
         #region Compressor Attack - Needs verification of 3000 vs 48000
 
         /// <summary>

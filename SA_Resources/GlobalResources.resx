@@ -295,9 +295,6 @@
   <data name="menu_save" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\menu_save.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="menu_program_selection1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Devices\FLX80-4\Resources\menu_program_selection.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="radio_checked_green" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\radio_checked_green.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -336,5 +333,8 @@
   </data>
   <data name="ui_btn_blue_unmute" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\ui_btn_blue_unmute.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ui_ducker_insert" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\ui_ducker_insert.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

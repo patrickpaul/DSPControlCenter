@@ -67,6 +67,11 @@ namespace DSP_4x4
             return false;
         }
 
+        public override bool DuckerEnabled()
+        {
+            return true;
+        }
+
         public override int GetProtectedReadBlock1_Start()
         {
             return 39;
@@ -259,18 +264,18 @@ namespace DSP_4x4
                 _settings[x].Add(new DSP_Setting(counter++, "DUCK Hold Time", 0x0000012c));
                 _settings[x].Add(new DSP_Setting(counter++, "DUCK Depth", 0xf8800000));
                 _settings[x].Add(new DSP_Setting(counter++, "DUCK Attack", 0x04324349));
-                _settings[x].Add(new DSP_Setting(counter++, "DUCK Release", 0x006d0b79));
+                _settings[x].Add(new DSP_Setting(counter++, "DUCK Release", 0x00FA8A7D));
                 _settings[x].Add(new DSP_Setting(counter++, "DUCK Bypass", 0x00000001));
 
-                _settings[x].Add(new DSP_Setting(counter++, "DUCK In Router 1", 0x00000001));
-                _settings[x].Add(new DSP_Setting(counter++, "DUCK In Router 2", 0x00000002));
-                _settings[x].Add(new DSP_Setting(counter++, "DUCK In Router 3", 0x00000003));
-                _settings[x].Add(new DSP_Setting(counter++, "DUCK In Router 4", 0x00000004));
+                _settings[x].Add(new DSP_Setting(counter++, "DUCK In Router 1", 0x00000002));
+                _settings[x].Add(new DSP_Setting(counter++, "DUCK In Router 2", 0x00000003));
+                _settings[x].Add(new DSP_Setting(counter++, "DUCK In Router 3", 0x00000004));
+                _settings[x].Add(new DSP_Setting(counter++, "DUCK In Router 4", 0x00000001));
 
-                _settings[x].Add(new DSP_Setting(counter++, "DUCK Out Router 1", 0x00000001));
-                _settings[x].Add(new DSP_Setting(counter++, "DUCK Out Router 2", 0x00000002));
-                _settings[x].Add(new DSP_Setting(counter++, "DUCK Out Router 3", 0x00000003));
-                _settings[x].Add(new DSP_Setting(counter++, "DUCK Out Router 4", 0x00000004));
+                _settings[x].Add(new DSP_Setting(counter++, "DUCK Out Router 1", 0x00000004));
+                _settings[x].Add(new DSP_Setting(counter++, "DUCK Out Router 2", 0x00000001));
+                _settings[x].Add(new DSP_Setting(counter++, "DUCK Out Router 3", 0x00000002));
+                _settings[x].Add(new DSP_Setting(counter++, "DUCK Out Router 4", 0x00000003));
 
                 while (counter < 300)
                 {
@@ -377,6 +382,13 @@ namespace DSP_4x4
             _mix_meters.Add(0xF5C00042);
             _mix_meters.Add(0xF5C00046);
             _mix_meters.Add(0xF5C0004A);
+
+            // DUCKER
+            _ducker_meters = new List<UInt32>();
+            _ducker_meters.Add(0xF1C00004);
+            _ducker_meters.Add(0xF1C00008);
+            _ducker_meters.Add(0xF1C0000C);
+            _ducker_meters.Add(0xF1C00010);
 
         }
 
@@ -495,6 +507,19 @@ namespace DSP_4x4
                 }
 
                 // counter is at 272, ready for DUCK features
+
+
+                PROGRAMS[program_index].ducker.Threshold = DSP_Math.MN_to_double_signed(_settings[program_index][counter++].Value, 9, 23);
+                PROGRAMS[program_index].ducker.Holdtime = DSP_Math.value_to_dynamic_hold(_settings[program_index][counter++].Value);
+                PROGRAMS[program_index].ducker.Depth = DSP_Math.MN_to_double_signed(_settings[program_index][counter++].Value, 9, 23);
+                PROGRAMS[program_index].ducker.Attack = DSP_Math.value_to_comp_attack(_settings[program_index][counter++].Value);
+                PROGRAMS[program_index].ducker.Release = DSP_Math.value_to_comp_release(_settings[program_index][counter++].Value);
+                PROGRAMS[program_index].ducker.Bypassed = (_settings[program_index][counter++].Value == 0x00000001);
+
+                // To get the priority channel, we simply see what channel goes into the sidechain of the ducker. This is DUCK_IN_ROUTER_4
+                // The router is not zero-based so add 1
+                PROGRAMS[program_index].ducker.PriorityChannel = (int)(_settings[program_index][281].Value-1);
+
                 counter = 0;
 
                 // NOTE - WE JUUUUMP!
@@ -701,6 +726,25 @@ namespace DSP_4x4
 
                 // Ducker will use 272-285
 
+                // counter is at 272, ready for DUCK features
+
+                _settings[program_index][counter++].Value = DSP_Math.double_to_MN(PROGRAMS[program_index].ducker.Threshold, 9, 23);
+                _settings[program_index][counter++].Value = DSP_Math.dynamic_hold_to_value(PROGRAMS[program_index].ducker.Holdtime);
+                _settings[program_index][counter++].Value = DSP_Math.double_to_MN(PROGRAMS[program_index].ducker.Depth, 9, 23);
+                _settings[program_index][counter++].Value = DSP_Math.comp_attack_to_value(PROGRAMS[program_index].ducker.Attack);
+                _settings[program_index][counter++].Value = DSP_Math.comp_release_to_value(PROGRAMS[program_index].ducker.Release);
+                _settings[program_index][counter++].Value = Convert.ToUInt32(PROGRAMS[program_index].ducker.Bypassed);
+
+                _settings[program_index][counter++].Value = Convert.ToUInt32(PROGRAMS[program_index].ducker.RouterInputs[0]);
+                _settings[program_index][counter++].Value = Convert.ToUInt32(PROGRAMS[program_index].ducker.RouterInputs[1]);
+                _settings[program_index][counter++].Value = Convert.ToUInt32(PROGRAMS[program_index].ducker.RouterInputs[2]);
+                _settings[program_index][counter++].Value = Convert.ToUInt32(PROGRAMS[program_index].ducker.RouterInputs[3]);
+
+                _settings[program_index][counter++].Value = Convert.ToUInt32(PROGRAMS[program_index].ducker.RouterOutputs[0]);
+                _settings[program_index][counter++].Value = Convert.ToUInt32(PROGRAMS[program_index].ducker.RouterOutputs[1]);
+                _settings[program_index][counter++].Value = Convert.ToUInt32(PROGRAMS[program_index].ducker.RouterOutputs[2]);
+                _settings[program_index][counter++].Value = Convert.ToUInt32(PROGRAMS[program_index].ducker.RouterOutputs[3]);
+
                 int plainfilter_counter = 300;
                 for (int x = 0; x < 4; x++)
                 {
@@ -765,7 +809,9 @@ namespace DSP_4x4
 
 #endregion
 
+
         #endregion
+
 
     }
 }

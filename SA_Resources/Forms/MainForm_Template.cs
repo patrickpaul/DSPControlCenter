@@ -30,8 +30,8 @@ namespace SA_Resources.Forms
         public List<UInt32> _mix_meters = new List<UInt32>(); 
         public List<UInt32>[] _comp_in_meters = new List<UInt32>[2];
         public List<UInt32>[] _comp_out_meters = new List<UInt32>[2];
-
-
+        public List<UInt32> _ducker_meters = new List<UInt32>();
+       
         /* Queue Processing */
         
         public Queue UPDATE_QUEUE = new Queue();
@@ -82,6 +82,7 @@ namespace SA_Resources.Forms
 
             // This renderer uses the custom class so it's not so ugly
             menuStrip1.Renderer = new MyRenderer();
+
         }
         
 
@@ -90,6 +91,9 @@ namespace SA_Resources.Forms
             InitializeComponent();
 
             menuStrip1.Renderer = new MyRenderer();
+
+
+            
 
             LIVE_MODE = false;
             _PIC_Conn = new PIC_Bridge(serialPort1);
@@ -108,6 +112,23 @@ namespace SA_Resources.Forms
 
         }
 
+        protected void ShowHideBlocks()
+        {
+
+            PictureButton pbtnDucker = (PictureButton)Enumerable.FirstOrDefault(Controls.Find("pbtnDucker", true));
+
+            if (pbtnDucker != null)
+            {
+                pbtnDucker.Visible = this.DuckerEnabled();
+            }
+
+            PictureBox picDuckerLine = (PictureBox)Enumerable.FirstOrDefault(Controls.Find("picDuckerLine", true));
+
+            if (picDuckerLine != null)
+            {
+                picDuckerLine.Visible = this.DuckerEnabled();
+            }
+        }
 
         protected void MainForm_Template_Load(object sender, EventArgs e)
         {
@@ -118,7 +139,7 @@ namespace SA_Resources.Forms
 
                 AttachUIEvents();
                 UpdateTooltips();
-
+                ShowHideBlocks();
                 dropProgramSelection.SelectedIndex = 0;
 
                  
@@ -128,6 +149,8 @@ namespace SA_Resources.Forms
                 }
 
                 LoadSettingsToProgramConfig();
+
+                UpdateTooltips();
 
                 form_loaded = true;
 
@@ -170,6 +193,9 @@ namespace SA_Resources.Forms
             this.SetConnectionPicture((Image)GlobalResources.lblStatus_Connected);
             this.SetConnectButtonText("Disconnect");
 
+            readFromDeviceToolStripMenuItem.Enabled = true;
+
+            //HeartbeatTimer.Enabled = true;
 
         }
 
@@ -186,6 +212,10 @@ namespace SA_Resources.Forms
 
             this.SetConnectionPicture((Image)GlobalResources.lblStatus_Disconnected);
             this.SetConnectButtonText("Connect");
+
+            readFromDeviceToolStripMenuItem.Enabled = false;
+
+            //HeartbeatTimer.Enabled = false;
 
         }
 
@@ -638,6 +668,11 @@ namespace SA_Resources.Forms
             return false;
         }
 
+        public virtual bool DuckerEnabled()
+        {
+            return false;
+        }
+
         public virtual byte GetLiveSwitchCommandBase()
         {
             return (byte)16;
@@ -741,6 +776,8 @@ namespace SA_Resources.Forms
 
         }
 
+        
+
         #endregion
 
 
@@ -788,6 +825,8 @@ namespace SA_Resources.Forms
                 control.Click += new EventHandler(this.SetUnsavedChanges);
             }
 
+
+            
 
             PictureButton pbtnReadDevice = (PictureButton)Enumerable.FirstOrDefault(Controls.Find("pbtnReadDevice", true));
 
@@ -933,6 +972,13 @@ namespace SA_Resources.Forms
 
             }
 
+            PictureButton pbtnDucker = (PictureButton)Enumerable.FirstOrDefault(Controls.Find("pbtnDucker", true));
+
+            if (pbtnDucker != null)
+            {
+                pbtnDucker.Click += new EventHandler(pbtnDucker_Click);
+            }
+
         }
         #endregion
 
@@ -952,6 +998,15 @@ namespace SA_Resources.Forms
             {
                 this.SetConnectionPicture(GlobalResources.lblStatus_Blank);
             }
+
+            PictureButton pbtnDucker = ((PictureButton)Controls.Find("pbtnDucker", true).FirstOrDefault());
+
+            if (pbtnDucker != null)
+            {
+                pbtnDucker.Overlay1Visible = PROGRAMS[CURRENT_PROGRAM].ducker.Bypassed;
+                pbtnDucker.Invalidate();
+            }
+
 
             for (int i = 0; i < GetNumInputChannels(); i++)
             {
@@ -1072,7 +1127,6 @@ namespace SA_Resources.Forms
                 }
 
                 inputForm.Height = 221;
-
 
                 DialogResult showBlock = inputForm.ShowDialog(this);
 
@@ -1214,6 +1268,38 @@ namespace SA_Resources.Forms
             }
         }
 
+        protected void pbtnDucker_Click(object sender, EventArgs e)
+        {
+
+            DuckerConfig cached_ducker = (DuckerConfig)PROGRAMS[CURRENT_PROGRAM].ducker.Clone();
+
+            int settings_offset = 272;
+
+            using (DuckerForm duckerForm = new DuckerForm(this, settings_offset))
+            {
+                // passing this in ShowDialog will set the .Owner 
+                // property of the child form
+                DialogResult showBlock = duckerForm.ShowDialog(this);
+
+                if (showBlock == DialogResult.Cancel)
+                {
+                    if (!PROGRAMS[CURRENT_PROGRAM].ducker.Equals(cached_ducker))
+                    {
+                        PROGRAMS[CURRENT_PROGRAM].ducker = (DuckerConfig)cached_ducker.Clone();
+
+                        
+                        if (LIVE_MODE)
+                        {
+                            PROGRAMS[CURRENT_PROGRAM].ducker.QueueChange(this, settings_offset);
+                        }
+                    }
+                }
+                else
+                {
+                    UpdateTooltips();
+                }
+            }
+        }
 
         protected void btnComp_Click(object sender, EventArgs e)
         {
@@ -1710,6 +1796,13 @@ namespace SA_Resources.Forms
 
         public void FactoryReset_Event(object sender, EventArgs e)
         {
+            if (MessageBox.Show("Restoring to factory settings will take around 2 minutes.\n" +
+                                "Do not power down the device during this process.\n" +
+                                "The clip lights will indicate restore progress.\n" +
+                                "Proceed?", "Restore Factory Settings", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
+            {
+                return;
+            }
 
             using (RestoreSettingsForm restoreForm = new RestoreSettingsForm(this))
             {

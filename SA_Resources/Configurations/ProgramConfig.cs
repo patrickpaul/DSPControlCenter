@@ -20,10 +20,13 @@ namespace SA_Resources
         public DelayConfig[] delays = new DelayConfig[4];
         public GainConfig[][] crosspoints = new GainConfig[6][];
 
+        public DuckerConfig ducker = new DuckerConfig();
+
         public ProgramConfig(string _name = "")
         {
             this.Name = _name; 
             
+
             for (int i = 0; i < 4; i++)
             {
 
@@ -32,6 +35,7 @@ namespace SA_Resources
                 gains[i] = new GainConfig[4];
                 inputs[i] = new InputConfig(i);
                 outputs[i] = new OutputConfig(i);
+
 
 
                 compressors[i] = new CompressorConfig[2];

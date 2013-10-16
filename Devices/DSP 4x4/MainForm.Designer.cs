@@ -96,7 +96,10 @@ namespace DSP_4x4
             this.lblCH2Input = new System.Windows.Forms.Label();
             this.lblCH1Input = new System.Windows.Forms.Label();
             this.timer2 = new System.Windows.Forms.Timer(this.components);
-            this.statusStrip1.SuspendLayout();
+            this.picDuckerLine = new System.Windows.Forms.PictureBox();
+            this.pbtnDucker = new SA_Resources.PictureButton();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureConnectionStatus)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox37)).BeginInit();
             this.pnlCH2PreMixer.SuspendLayout();
             this.pnlCH4PostMixer.SuspendLayout();
@@ -106,12 +109,18 @@ namespace DSP_4x4
             this.pnlCH4PreMixer.SuspendLayout();
             this.pnlCH3PreMixer.SuspendLayout();
             this.pnlCH1PreMixer.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picDuckerLine)).BeginInit();
             this.SuspendLayout();
+            // 
+            // toolTip1
+            // 
+            this.toolTip1.AutoPopDelay = 5000;
+            this.toolTip1.InitialDelay = 10;
+            this.toolTip1.ReshowDelay = 50;
+            this.toolTip1.ShowAlways = true;
             // 
             // statusStrip1
             // 
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsStatusLabel});
             this.statusStrip1.Location = new System.Drawing.Point(0, 382);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(906, 22);
@@ -1091,12 +1100,45 @@ namespace DSP_4x4
             // 
             this.timer2.Interval = 500;
             // 
+            // picDuckerLine
+            // 
+            this.picDuckerLine.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("picDuckerLine.BackgroundImage")));
+            this.picDuckerLine.Image = ((System.Drawing.Image)(resources.GetObject("picDuckerLine.Image")));
+            this.picDuckerLine.Location = new System.Drawing.Point(194, 109);
+            this.picDuckerLine.Name = "picDuckerLine";
+            this.picDuckerLine.Size = new System.Drawing.Size(8, 179);
+            this.picDuckerLine.TabIndex = 88;
+            this.picDuckerLine.TabStop = false;
+            this.picDuckerLine.Visible = false;
+            // 
+            // pbtnDucker
+            // 
+            this.pbtnDucker.AutoResize = false;
+            this.pbtnDucker.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbtnDucker.BackgroundImage")));
+            this.pbtnDucker.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pbtnDucker.Location = new System.Drawing.Point(178, 288);
+            this.pbtnDucker.Name = "pbtnDucker";
+            this.pbtnDucker.OverImage = null;
+            this.pbtnDucker.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("pbtnDucker.Overlay1Image")));
+            this.pbtnDucker.Overlay1Visible = false;
+            this.pbtnDucker.Overlay2Image = null;
+            this.pbtnDucker.Overlay2Visible = false;
+            this.pbtnDucker.Overlay3Image = null;
+            this.pbtnDucker.Overlay3Visible = false;
+            this.pbtnDucker.PressedImage = null;
+            this.pbtnDucker.Size = new System.Drawing.Size(39, 39);
+            this.pbtnDucker.TabIndex = 89;
+            this.pbtnDucker.ToolTipText = "";
+            this.pbtnDucker.Visible = false;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(82)))), ((int)(((byte)(82)))));
             this.ClientSize = new System.Drawing.Size(906, 404);
+            this.Controls.Add(this.pbtnDucker);
+            this.Controls.Add(this.picDuckerLine);
             this.Controls.Add(this.pnlCH2PreMixer);
             this.Controls.Add(this.btnMatrixMixer);
             this.Controls.Add(this.lblCH4Output);
@@ -1118,9 +1160,12 @@ namespace DSP_4x4
             this.Controls.Add(this.statusStrip1);
             this.Cursor = System.Windows.Forms.Cursors.Default;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MaximizeBox = false;
             this.Name = "MainForm";
             this.Text = "DSP 4x4";
+            this.Controls.SetChildIndex(this.pictureBox2, 0);
+            this.Controls.SetChildIndex(this.dropProgramSelection, 0);
+            this.Controls.SetChildIndex(this.btnConnectToDevice, 0);
+            this.Controls.SetChildIndex(this.pictureConnectionStatus, 0);
             this.Controls.SetChildIndex(this.statusStrip1, 0);
             this.Controls.SetChildIndex(this.pictureBox37, 0);
             this.Controls.SetChildIndex(this.lblCH1Input, 0);
@@ -1140,8 +1185,10 @@ namespace DSP_4x4
             this.Controls.SetChildIndex(this.lblCH4Output, 0);
             this.Controls.SetChildIndex(this.btnMatrixMixer, 0);
             this.Controls.SetChildIndex(this.pnlCH2PreMixer, 0);
-            this.statusStrip1.ResumeLayout(false);
-            this.statusStrip1.PerformLayout();
+            this.Controls.SetChildIndex(this.picDuckerLine, 0);
+            this.Controls.SetChildIndex(this.pbtnDucker, 0);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureConnectionStatus)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox37)).EndInit();
             this.pnlCH2PreMixer.ResumeLayout(false);
             this.pnlCH4PostMixer.ResumeLayout(false);
@@ -1151,6 +1198,7 @@ namespace DSP_4x4
             this.pnlCH4PreMixer.ResumeLayout(false);
             this.pnlCH3PreMixer.ResumeLayout(false);
             this.pnlCH1PreMixer.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.picDuckerLine)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1222,5 +1270,7 @@ namespace DSP_4x4
         private System.Windows.Forms.Label lblCH2Input;
         private System.Windows.Forms.Label lblCH1Input;
         private System.Windows.Forms.Timer timer2;
+        private System.Windows.Forms.PictureBox picDuckerLine;
+        private PictureButton pbtnDucker;
     }
 }

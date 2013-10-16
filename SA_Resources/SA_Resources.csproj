@@ -72,6 +72,7 @@
     <Compile Include="Configurations\CompressorConfig.cs" />
     <Compile Include="Configurations\CopyFormType.cs" />
     <Compile Include="Configurations\DelayConfig.cs" />
+    <Compile Include="Configurations\DuckerConfig.cs" />
     <Compile Include="Configurations\FilterConfig.cs" />
     <Compile Include="Configurations\GainConfig.cs" />
     <Compile Include="Configurations\InputConfig.cs" />
@@ -516,6 +517,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\ui_btn_blue_unmute.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ui_ducker_insert.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>

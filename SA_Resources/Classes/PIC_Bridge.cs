@@ -1455,6 +1455,8 @@ namespace SA_Resources
                 int timeout_counter = 0;
                 int timeout_length = 0;
 
+                int progress_counter = 0;
+
                 bool timeout_error = false;
 
                 byte[] buff = new byte[3];
@@ -1508,6 +1510,9 @@ namespace SA_Resources
                         break;
 
                     }
+
+                    backgroundWorker.ReportProgress((int)((double)((double)timeout_counter / (double)timeout_length) * (38 - 4)) + 4);
+
                 }
 
                 if (timeout_error == true)
@@ -1546,6 +1551,8 @@ namespace SA_Resources
                         break;
 
                     }
+
+                    backgroundWorker.ReportProgress((int)((double)((double)timeout_counter / (double)timeout_length) * (53 - 38)) + 38);
                 }
 
                 if (timeout_error == true)
@@ -1584,6 +1591,8 @@ namespace SA_Resources
                         break;
 
                     }
+
+                    backgroundWorker.ReportProgress((int)((double)((double)timeout_counter / (double)timeout_length) * (68 - 53)) + 53);
                 }
 
                 if (timeout_error == true)
@@ -1601,7 +1610,7 @@ namespace SA_Resources
                     return;
                 }
 
-                backgroundWorker.ReportProgress(53, "Writing Factory Program 3");
+                backgroundWorker.ReportProgress(68, "Writing Factory Program 3");
 
                 #endregion
 
@@ -1622,6 +1631,8 @@ namespace SA_Resources
                         break;
 
                     }
+
+                    backgroundWorker.ReportProgress((int)((double)((double)timeout_counter / (double)timeout_length) * (83 - 68)) + 68);
                 }
 
                 if (timeout_error == true)
@@ -1698,6 +1709,8 @@ namespace SA_Resources
                         break;
 
                     }
+
+                    backgroundWorker.ReportProgress((int)((double)((double)timeout_counter / (double)timeout_length) * (100 - 87)) + 87);
                 }
 
                 if (timeout_error == true)

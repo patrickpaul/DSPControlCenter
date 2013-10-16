@@ -49,6 +49,7 @@ namespace SA_Resources.Forms
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deviceToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.connectToDeviceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveToDeviceToolStripMenuItem = new System.Windows.Forms.ToolStripSeparator();
             this.readFromDeviceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -61,7 +62,7 @@ namespace SA_Resources.Forms
             this.dropProgramSelection = new System.Windows.Forms.ComboBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.saveToDeviceToolStripMenuItem = new System.Windows.Forms.ToolStripSeparator();
+            this.HeartbeatTimer = new System.Windows.Forms.Timer(this.components);
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureConnectionStatus)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -171,8 +172,15 @@ namespace SA_Resources.Forms
             this.connectToDeviceToolStripMenuItem.Text = "Open Device Manager";
             this.connectToDeviceToolStripMenuItem.Click += new System.EventHandler(this.Connect_Event);
             // 
+            // saveToDeviceToolStripMenuItem
+            // 
+            this.saveToDeviceToolStripMenuItem.Name = "saveToDeviceToolStripMenuItem";
+            this.saveToDeviceToolStripMenuItem.Size = new System.Drawing.Size(211, 6);
+            this.saveToDeviceToolStripMenuItem.Click += new System.EventHandler(this.WriteDevice_Event);
+            // 
             // readFromDeviceToolStripMenuItem
             // 
+            this.readFromDeviceToolStripMenuItem.Enabled = false;
             this.readFromDeviceToolStripMenuItem.Name = "readFromDeviceToolStripMenuItem";
             this.readFromDeviceToolStripMenuItem.Size = new System.Drawing.Size(214, 22);
             this.readFromDeviceToolStripMenuItem.Text = "Restore to Factory Settings";
@@ -268,11 +276,9 @@ namespace SA_Resources.Forms
             this.pictureBox1.TabIndex = 86;
             this.pictureBox1.TabStop = false;
             // 
-            // saveToDeviceToolStripMenuItem
+            // HeartbeatTimer
             // 
-            this.saveToDeviceToolStripMenuItem.Name = "saveToDeviceToolStripMenuItem";
-            this.saveToDeviceToolStripMenuItem.Size = new System.Drawing.Size(211, 6);
-            this.saveToDeviceToolStripMenuItem.Click += new System.EventHandler(this.WriteDevice_Event);
+            this.HeartbeatTimer.Interval = 10000;
             // 
             // MainForm_Template
             // 
@@ -285,6 +291,7 @@ namespace SA_Resources.Forms
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.menuStrip1);
             this.DoubleBuffered = true;
+            this.MaximizeBox = false;
             this.Name = "MainForm_Template";
             this.Text = "MainForm_Template";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_Template_FormClosing);
@@ -328,5 +335,6 @@ namespace SA_Resources.Forms
         private ToolStripMenuItem resetToDefaultToolStripMenuItem;
         private ToolStripSeparator toolStripMenuItem1;
         private ToolStripSeparator saveToDeviceToolStripMenuItem;
+        private Timer HeartbeatTimer;
     }
 }
