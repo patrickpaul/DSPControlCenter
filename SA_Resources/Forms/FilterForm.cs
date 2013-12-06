@@ -46,6 +46,7 @@ namespace SA_Resources
         private const int HIGH_SHELF = 4;
         private const int PEAK = 5;
         private const int NOTCH = 6;
+        private const int BANDPASS = 7;
 
         /* Caches */
 
@@ -417,7 +418,7 @@ namespace SA_Resources
                 MasterMarkerLine.Points[MasterMarkerLine.Points.Count() - 1].MarkerSize = 10;
                 MasterMarkerLine.Points[MasterMarkerLine.Points.Count() - 1].MarkerBorderColor = Color.White;
 
-                if ((activeFilter is PeakFilter || activeFilter is LowShelfFilter || activeFilter is HighShelfFilter || activeFilter is NotchFilter) && draw_grabber_points)
+                if ((activeFilter is PeakFilter || activeFilter is LowShelfFilter || activeFilter is HighShelfFilter || activeFilter is NotchFilter || activeFilter is BandPassFilter) && draw_grabber_points)
                 {
                     MasterMarkerLine.Points.AddXY(activeFilter.LowerCutoffFrequency, activeFilter.LogValueAt(activeFilter.LowerCutoffFrequency));
                     MasterMarkerLine.Points[MasterMarkerLine.Points.Count() - 1].MarkerColor = filterColors[active_local_filter_index];
@@ -681,6 +682,26 @@ namespace SA_Resources
 
                     break;
 
+                case BANDPASS:
+                    PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][global_filter_index] = new FilterConfig(FilterType.BandPass, bypass_value);
+                    PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][global_filter_index].Filter = new BandPassFilter(toolFilter.SuggestedFrequency(txtFreq.Text), toolFilter.SuggestedGain(txtGain.Text), toolFilter.SuggestedQ(txtQval.Text));
+
+                    filterChart.Series[local_filter_index].Enabled = true;
+
+                    lblFreq.Visible = true;
+                    txtFreq.Visible = true;
+
+                    lblGain.Visible = false;
+                    txtGain.Visible = false;
+
+                    lblQ.Visible = true;
+                    txtQval.Visible = true;
+
+                    lblSlope.Visible = false;
+                    dropSlope.Visible = false;
+
+                    break;
+
                 case PEAK:
                     PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][global_filter_index] = new FilterConfig(FilterType.Peak, bypass_value);
                     PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][global_filter_index].Filter = new PeakFilter(toolFilter.SuggestedFrequency(txtFreq.Text), toolFilter.SuggestedGain(txtGain.Text), toolFilter.SuggestedQ(txtQval.Text));
@@ -879,6 +900,7 @@ namespace SA_Resources
                 TextBox qvalTextbox = (TextBox)Enumerable.FirstOrDefault(Controls.Find("txtQval" + local_filter_index.ToString(), true));
 
 
+                
                 while (true)
                 {
                     try
@@ -891,6 +913,8 @@ namespace SA_Resources
                                               freqTextbox.Update();
                                           };
                             freqTextbox.BeginInvoke(action1);
+
+                            //Console.WriteLine("Updating Frequency to " + freqTextbox.Text);
 
                         }
 
@@ -921,7 +945,7 @@ namespace SA_Resources
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine("Exception in UpdateUIToVals: " + ex.Message);
+                        Console.WriteLine("Exception in UpdateUIToVals Level 2: " + ex.Message);
                     }
 
                     lock (_threadlock)
@@ -929,6 +953,7 @@ namespace SA_Resources
                         if (uithread_abort == true)
                         {
                             uithread_abort = false;
+                            Console.WriteLine("Broke UI thread");
                             break;
                         }
 
@@ -938,7 +963,7 @@ namespace SA_Resources
 
             } catch (Exception ex)
             {
-                
+                Console.WriteLine("Exception in UpdateUIToVals Level 1: " + ex.Message);
 
             }
 
@@ -956,7 +981,8 @@ namespace SA_Resources
                 int point_index = filterChart.HitTest(e.X, e.Y).PointIndex;
 
                 if (PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][active_global_filter_index].Filter is PeakFilter || PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][active_global_filter_index].Filter is LowShelfFilter || PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][active_global_filter_index].Filter is HighShelfFilter || 
-                    PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][active_global_filter_index].Filter is NotchFilter)
+                    PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][active_global_filter_index].Filter is NotchFilter ||
+                    PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][active_global_filter_index].Filter is BandPassFilter)
                 {
                     dragging_lowcutoff = false;
                     dragging_center = false;
@@ -983,7 +1009,8 @@ namespace SA_Resources
                 else if (PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][active_global_filter_index].Filter is FirstOrderLowPassFilter ||
                          PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][active_global_filter_index].Filter is SecondOrderLowPassFilter ||
                          PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][active_global_filter_index].Filter is FirstOrderHighPassFilter ||
-                         PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][active_global_filter_index].Filter is SecondOrderHighPassFilter)
+                         PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][active_global_filter_index].Filter is SecondOrderHighPassFilter ||
+                         PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][active_global_filter_index].Filter is BandPassFilter)
                 {
                     dragging_center = true;
 
@@ -1188,26 +1215,36 @@ namespace SA_Resources
             dragging_center = false;
             dragging_highcutoff = false;
 
-            try
-            {
-                lock (_threadlock)
-                {
-                    uithread_abort = true;
-                }
-            } catch
-            {
-            }
-
-            
-            if(dragging_crosshairs)
+            if (dragging_crosshairs)
             {
                 int lastPoint = MasterMarkerLine.Points.Count - 1;
                 MasterMarkerLine.Points[lastPoint].MarkerSize = 0;
+                dragging_crosshairs = false;
+            } else
+            {
+                try
+                {
+                    lock (_threadlock)
+                    {
+                        uithread_abort = true;
+                    }
+                }
+                catch (Exception ex)
+                {
+               
+
+                }
+
+                SendFilterToParent(active_global_filter_index);
             }
-            dragging_crosshairs = false;
+
+
+
+
+
 
             // TODO - FIX NOTIFYME
-            SendFilterToParent(active_global_filter_index);
+            
         }
 
 
@@ -1372,6 +1409,12 @@ namespace SA_Resources
                 else
                 {
                     active_textbox.Text = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][global_filter_index].Filter.SuggestedGain(parsed_value).ToString("##.#");
+
+                    if (active_textbox.Text == "")
+                    {
+                        active_textbox.Text = "0.0";
+                    }
+                    
                     PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][global_filter_index].Filter.Gain = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].filters[CH_NUMBER - 1][global_filter_index].Filter.SuggestedGain(parsed_value);
 
                     RefreshSingleFilter(global_filter_index);

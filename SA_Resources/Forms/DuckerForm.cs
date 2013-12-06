@@ -69,7 +69,7 @@ namespace SA_Resources
                 dropPriorityChannel.Invalidate();
 
                 HoldDial = new Dial(TextDuckHold, DialDuckHold, new double[] { 0.001, 0.003, 0.01, 0.03, 0.08, 0.3, 1.0 },
-                         DialHelpers.Format_String_Duck_Hold, Images.knob_blue_bg, Images.knob_blue_line);
+                         DialHelpers.Format_String_Duck_Hold, Images.knob_green_bg, Images.knob_green_line);
 
                 HoldDial.Value = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].ducker.Holdtime;
                 HoldDial.OnChange += new DialEventHandler(this.HoldDial_OnChange);

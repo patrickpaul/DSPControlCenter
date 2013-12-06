@@ -463,13 +463,24 @@ namespace SA_Resources.Forms
         {
             try
             {
+
+                int programs_to_run = NUM_PROGRAMS;
+
+                if (doWorkEventArgs.Argument != null)
+                {
+                    if ((bool)doWorkEventArgs.Argument == true)
+                    {
+                        programs_to_run = 1;
+                    }
+                }
+
                 double total_settings_written = 0.0;
 
                 double num_settings = (_settings[0].Count -
                 (GetProtectedWriteBlock1_End() - GetProtectedWriteBlock1_Start()) +
                 (GetProtectedWriteBlock2_End() - GetProtectedWriteBlock2_Start()) +
                 (GetProtectedWriteBlock3_End() - GetProtectedWriteBlock3_Start())
-                ) * NUM_PROGRAMS;
+                ) * programs_to_run;
 
                 BackgroundWorker backgroundWorker = sender as BackgroundWorker;
 
@@ -482,8 +493,8 @@ namespace SA_Resources.Forms
                     Console.WriteLine("Error sending ackd GetProgrammingSwitchCommandBase");
                 }
 
-                    
-                for (int program_index = 0; program_index < this.NUM_PROGRAMS; ++program_index)
+
+                for (int program_index = 0; program_index < programs_to_run; ++program_index)
                 {
                     backgroundWorker.ReportProgress(0, ("Saving configuration for Program " + (program_index + 1)));
 
@@ -577,7 +588,7 @@ namespace SA_Resources.Forms
                     }
 
 
-                    if (program_index <(NUM_PROGRAMS - 1))
+                    if (program_index < (programs_to_run - 1))
                     {
                         backgroundWorker.ReportProgress(0, "Switching to Program " + (program_index + 2));
 
@@ -1839,6 +1850,17 @@ namespace SA_Resources.Forms
         }
 
         #endregion
+
+        private void viewHelpToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                System.Diagnostics.Process.Start("DSP Control Center Manual.pdf");
+            } catch (Exception ex)
+            {
+                
+            }
+        }
 
     }
 

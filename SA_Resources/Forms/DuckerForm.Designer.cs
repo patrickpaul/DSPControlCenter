@@ -117,7 +117,7 @@
             this.label36.AutoSize = true;
             this.label36.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label36.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.label36.Location = new System.Drawing.Point(89, 133);
+            this.label36.Location = new System.Drawing.Point(18, 133);
             this.label36.Name = "label36";
             this.label36.Size = new System.Drawing.Size(39, 13);
             this.label36.TabIndex = 23;
@@ -128,7 +128,7 @@
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.label4.Location = new System.Drawing.Point(157, 133);
+            this.label4.Location = new System.Drawing.Point(86, 133);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(46, 13);
             this.label4.TabIndex = 26;
@@ -189,7 +189,7 @@
             // 
             this.TextDuckRelease.Cursor = System.Windows.Forms.Cursors.Hand;
             this.TextDuckRelease.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TextDuckRelease.Location = new System.Drawing.Point(155, 149);
+            this.TextDuckRelease.Location = new System.Drawing.Point(84, 149);
             this.TextDuckRelease.MaxLength = 10;
             this.TextDuckRelease.Name = "TextDuckRelease";
             this.TextDuckRelease.Size = new System.Drawing.Size(50, 22);
@@ -203,7 +203,7 @@
             this.DialDuckRelease.Cursor = System.Windows.Forms.Cursors.Hand;
             this.DialDuckRelease.Image = global::SA_Resources.GlobalResources.knob_orange_line;
             this.DialDuckRelease.InitialImage = null;
-            this.DialDuckRelease.Location = new System.Drawing.Point(160, 174);
+            this.DialDuckRelease.Location = new System.Drawing.Point(89, 174);
             this.DialDuckRelease.Name = "DialDuckRelease";
             this.DialDuckRelease.Size = new System.Drawing.Size(40, 40);
             this.DialDuckRelease.TabIndex = 25;
@@ -213,7 +213,7 @@
             // 
             this.TextDuckAttack.Cursor = System.Windows.Forms.Cursors.Hand;
             this.TextDuckAttack.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TextDuckAttack.Location = new System.Drawing.Point(83, 149);
+            this.TextDuckAttack.Location = new System.Drawing.Point(12, 149);
             this.TextDuckAttack.MaxLength = 10;
             this.TextDuckAttack.Name = "TextDuckAttack";
             this.TextDuckAttack.Size = new System.Drawing.Size(50, 22);
@@ -227,7 +227,7 @@
             this.DialDuckAttack.Cursor = System.Windows.Forms.Cursors.Hand;
             this.DialDuckAttack.Image = global::SA_Resources.GlobalResources.knob_blue_line;
             this.DialDuckAttack.InitialImage = null;
-            this.DialDuckAttack.Location = new System.Drawing.Point(88, 174);
+            this.DialDuckAttack.Location = new System.Drawing.Point(17, 174);
             this.DialDuckAttack.Name = "DialDuckAttack";
             this.DialDuckAttack.Size = new System.Drawing.Size(40, 40);
             this.DialDuckAttack.TabIndex = 17;
@@ -238,7 +238,7 @@
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.label6.Location = new System.Drawing.Point(7, 133);
+            this.label6.Location = new System.Drawing.Point(153, 133);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(58, 13);
             this.label6.TabIndex = 116;
@@ -250,7 +250,7 @@
             this.DialDuckHold.Cursor = System.Windows.Forms.Cursors.Hand;
             this.DialDuckHold.Image = global::SA_Resources.GlobalResources.knob_green_line;
             this.DialDuckHold.InitialImage = null;
-            this.DialDuckHold.Location = new System.Drawing.Point(15, 174);
+            this.DialDuckHold.Location = new System.Drawing.Point(161, 174);
             this.DialDuckHold.Name = "DialDuckHold";
             this.DialDuckHold.Size = new System.Drawing.Size(40, 40);
             this.DialDuckHold.TabIndex = 115;
@@ -260,7 +260,7 @@
             // 
             this.TextDuckHold.Cursor = System.Windows.Forms.Cursors.Hand;
             this.TextDuckHold.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TextDuckHold.Location = new System.Drawing.Point(10, 149);
+            this.TextDuckHold.Location = new System.Drawing.Point(156, 149);
             this.TextDuckHold.MaxLength = 10;
             this.TextDuckHold.Name = "TextDuckHold";
             this.TextDuckHold.Size = new System.Drawing.Size(50, 22);

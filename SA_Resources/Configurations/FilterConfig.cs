@@ -137,6 +137,45 @@ namespace SA_Resources
             PARENT_FORM.AddItemToQueue(new LiveQueueItem(PLAINFILTER_INDEX + 2, PACKAGE_Q));
         }
 
+        public bool Equals(FilterConfig compareConfig)
+        {
+            if (compareConfig == null)
+            {
+                return false;
+            }
+
+            if(this.Type != compareConfig.Type)
+            {
+                return false;
+            }
+
+            if(this.Filter.CenterFrequency != compareConfig.Filter.CenterFrequency)
+            {
+                return false;
+            }
+
+
+            if(this.Type == FilterType.Peak || this.Type == FilterType.LowShelf || this.Type == FilterType.HighShelf || this.Type == FilterType.Notch)
+            {
+                if (this.Filter.QValue != compareConfig.Filter.QValue)
+                {
+                    return false;
+                }
+            }
+
+            if(this.Type == FilterType.Peak || this.Type == FilterType.LowShelf || this.Type == FilterType.HighShelf)
+            {
+                if (this.Filter.Gain != compareConfig.Filter.Gain)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+
+        }
+
+
         public object Clone()
         {
             return this.MemberwiseClone();

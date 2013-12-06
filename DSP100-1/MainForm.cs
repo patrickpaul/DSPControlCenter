@@ -5,7 +5,7 @@ using SA_Resources;
 using System.Linq;
 using SA_Resources.Forms;
 
-namespace DSP_4x4
+namespace DSP_100_1
 {
     public partial class MainForm : MainForm_Template
     {
@@ -37,39 +37,39 @@ namespace DSP_4x4
 
         public override string GetDeviceName()
         {
-            return "DSP 4x4";
+            return "DSP 100-1";
         }
 
         public override DeviceType GetDeviceType()
         {
-            return DeviceType.DSP4x4;
+            return DeviceType.DSP1001;
         }
         
         
         public override int GetNumInputChannels()
         {
-            return 4;
+            return 1;
         }
 
         public override int GetNumOutputChannels()
         {
-            return 4;
+            return 1;
         }
 
         public override int GetNumPhantomPowerChannels()
         {
-            return 4;
+            return 0;
         }
 
 
         public override bool IsAmplifier()
         {
-            return false;
+            return true;
         }
 
         public override bool DuckerEnabled()
         {
-            return true;
+            return false;
         }
 
         public override int GetProtectedReadBlock1_Start()
@@ -132,10 +132,6 @@ namespace DSP_4x4
             return -1;
         }
 
-        public override Image GetDeviceThumbnail()
-        {
-            return Properties.Resources.DSP4x4_Thumbnail;
-        }
 
         public override void SetConnectionPicture(Image connectionPicture)
         {

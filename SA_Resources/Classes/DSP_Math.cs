@@ -176,6 +176,11 @@ namespace SA_Resources
 
         #region Standard Gain 3.29
 
+        public static double value_to_simple_gain(UInt32 value)
+        {
+            return MN_to_double_signed(value, 9,23);
+        }
+
         public static double value_to_gain(UInt32 value)
         {
             return voltage_gain_to_decibels(MN_to_double_signed(value, 3, 29));

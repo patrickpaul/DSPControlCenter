@@ -357,9 +357,9 @@
             this.dropAction.Items.AddRange(new object[] {
             "Copy configuration to...",
             "Reset to Defaults"});
-            this.dropAction.Location = new System.Drawing.Point(59, 535);
+            this.dropAction.Location = new System.Drawing.Point(91, 535);
             this.dropAction.Name = "dropAction";
-            this.dropAction.Size = new System.Drawing.Size(133, 21);
+            this.dropAction.Size = new System.Drawing.Size(141, 21);
             this.dropAction.TabIndex = 104;
             this.dropAction.Visible = false;
             // 
@@ -370,9 +370,9 @@
             this.lblAction.ForeColor = System.Drawing.Color.Gainsboro;
             this.lblAction.Location = new System.Drawing.Point(9, 538);
             this.lblAction.Name = "lblAction";
-            this.lblAction.Size = new System.Drawing.Size(44, 13);
+            this.lblAction.Size = new System.Drawing.Size(74, 13);
             this.lblAction.TabIndex = 103;
-            this.lblAction.Text = "Action:";
+            this.lblAction.Text = "Copy Action:";
             this.lblAction.Visible = false;
             // 
             // signalTimer
@@ -426,7 +426,7 @@
             this.btnGo.AutoResize = true;
             this.btnGo.BackgroundImage = global::SA_Resources.GlobalResources.ui_btn_go;
             this.btnGo.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnGo.Location = new System.Drawing.Point(200, 535);
+            this.btnGo.Location = new System.Drawing.Point(244, 535);
             this.btnGo.Name = "btnGo";
             this.btnGo.OverImage = null;
             this.btnGo.Overlay1Image = null;
@@ -532,7 +532,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(82)))), ((int)(((byte)(82)))));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.ClientSize = new System.Drawing.Size(305, 532);
+            this.ClientSize = new System.Drawing.Size(305, 565);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.gainMeterOut);
             this.Controls.Add(this.gainMeterIn);

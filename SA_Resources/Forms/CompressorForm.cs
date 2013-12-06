@@ -51,6 +51,8 @@ namespace SA_Resources
         private int ADDR_RELEASE;
         private int ADDR_BYPASS;
 
+        private bool approx_threshold_override = false;
+
         private bool comp_switcher;
 
         public CompressorForm(MainForm_Template _parentForm, int channel, int _settings_offset, CompressorType compType = CompressorType.Compressor)
@@ -195,10 +197,24 @@ namespace SA_Resources
         {
             // By removing the following, we must do some error handling...
 
+
+            
             //if (dynChart.HitTest(e.X, e.Y).ChartArea != dynChart.ChartAreas[0])
             //{
             //    return;
             //}
+
+            if(e.Y > 230 && e.Y < 245 && e.X > 65 && e.X < 80 && stored_threshold < 58)
+            {
+                dynChart.Cursor = Cursors.Hand;
+                dynChart.Invalidate();
+                approx_threshold_override = true;
+                return;
+                //Console.WriteLine("X = " + e.X + ", Y = " + e.Y);
+            } else
+            {
+                approx_threshold_override = false;
+            }
 
             if (e.Y <= 0 || e.Y >= dynChart.Height)
             {
@@ -348,6 +364,9 @@ namespace SA_Resources
                     }
                 }
 
+            } else if(approx_threshold_override)
+            {
+                dragging_threshold = true;
             }
         }
 

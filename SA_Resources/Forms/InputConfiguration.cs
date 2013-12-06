@@ -184,6 +184,8 @@ namespace SA_Resources
 
             double offset = 20 + 10 * Math.Log10(2) + 20 * Math.Log10(16);
             UInt32 read_value = PARENT_FORM._PIC_Conn.Read_Live_DSP_Value(read_address);
+
+            Console.WriteLine("Read " + read_value);
             double converted_value = DSP_Math.MN_to_double_signed(read_value, 1, 31);
 
 

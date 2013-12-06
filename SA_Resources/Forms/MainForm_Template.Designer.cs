@@ -210,14 +210,13 @@ namespace SA_Resources.Forms
             // 
             this.viewHelpToolStripMenuItem.Name = "viewHelpToolStripMenuItem";
             this.viewHelpToolStripMenuItem.Size = new System.Drawing.Size(212, 22);
-            this.viewHelpToolStripMenuItem.Text = "View Help";
-            this.viewHelpToolStripMenuItem.Visible = false;
+            this.viewHelpToolStripMenuItem.Text = "View Users Manual";
+            this.viewHelpToolStripMenuItem.Click += new System.EventHandler(this.viewHelpToolStripMenuItem_Click);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
             this.toolStripMenuItem2.Size = new System.Drawing.Size(209, 6);
-            this.toolStripMenuItem2.Visible = false;
             // 
             // aboutDSPControlCenterToolStripMenuItem
             // 

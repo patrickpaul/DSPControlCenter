@@ -114,13 +114,13 @@
             this.dropAction = new System.Windows.Forms.ComboBox();
             this.lblAction = new System.Windows.Forms.Label();
             this.pnlButtons = new System.Windows.Forms.Panel();
-            this.btnSave = new SA_Resources.PictureButton();
-            this.btnGo = new SA_Resources.PictureButton();
-            this.btnCancel = new SA_Resources.PictureButton();
             this.pnlSecondRowFilters = new System.Windows.Forms.Panel();
             this.chkBypass5 = new SA_Resources.PictureCheckbox();
             this.chkBypass4 = new SA_Resources.PictureCheckbox();
             this.chkBypass3 = new SA_Resources.PictureCheckbox();
+            this.btnSave = new SA_Resources.PictureButton();
+            this.btnGo = new SA_Resources.PictureButton();
+            this.btnCancel = new SA_Resources.PictureButton();
             this.chkBypass2 = new SA_Resources.PictureCheckbox();
             this.chkBypass1 = new SA_Resources.PictureCheckbox();
             this.chkBypass0 = new SA_Resources.PictureCheckbox();
@@ -255,7 +255,8 @@
             "Low Shelf",
             "High Shelf",
             "Peak (PEQ)",
-            "Notch"});
+            "Notch",
+            "Band Pass"});
             this.dropFilter0.Location = new System.Drawing.Point(52, 325);
             this.dropFilter0.Name = "dropFilter0";
             this.dropFilter0.Size = new System.Drawing.Size(121, 21);
@@ -310,9 +311,9 @@
             this.lblStatus.BackColor = System.Drawing.Color.Black;
             this.lblStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblStatus.ForeColor = System.Drawing.Color.White;
-            this.lblStatus.Location = new System.Drawing.Point(611, 271);
+            this.lblStatus.Location = new System.Drawing.Point(581, 271);
             this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size(128, 23);
+            this.lblStatus.Size = new System.Drawing.Size(158, 23);
             this.lblStatus.TabIndex = 73;
             this.lblStatus.Text = "0Hz, 0dB";
             this.lblStatus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1169,67 +1170,6 @@
             this.pnlButtons.Size = new System.Drawing.Size(817, 47);
             this.pnlButtons.TabIndex = 136;
             // 
-            // btnSave
-            // 
-            this.btnSave.AutoResize = true;
-            this.btnSave.BackgroundImage = global::SA_Resources.GlobalResources.ui_btn_save;
-            this.btnSave.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnSave.Location = new System.Drawing.Point(351, 12);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.OverImage = null;
-            this.btnSave.Overlay1Image = null;
-            this.btnSave.Overlay1Visible = false;
-            this.btnSave.Overlay2Image = null;
-            this.btnSave.Overlay2Visible = false;
-            this.btnSave.Overlay3Image = null;
-            this.btnSave.Overlay3Visible = false;
-            this.btnSave.PressedImage = null;
-            this.btnSave.Size = new System.Drawing.Size(49, 23);
-            this.btnSave.TabIndex = 95;
-            this.btnSave.ToolTipText = "";
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
-            // 
-            // btnGo
-            // 
-            this.btnGo.AutoResize = true;
-            this.btnGo.BackgroundImage = global::SA_Resources.GlobalResources.ui_btn_go;
-            this.btnGo.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnGo.Location = new System.Drawing.Point(196, 12);
-            this.btnGo.Name = "btnGo";
-            this.btnGo.OverImage = null;
-            this.btnGo.Overlay1Image = null;
-            this.btnGo.Overlay1Visible = false;
-            this.btnGo.Overlay2Image = null;
-            this.btnGo.Overlay2Visible = false;
-            this.btnGo.Overlay3Image = null;
-            this.btnGo.Overlay3Visible = false;
-            this.btnGo.PressedImage = null;
-            this.btnGo.Size = new System.Drawing.Size(49, 23);
-            this.btnGo.TabIndex = 135;
-            this.btnGo.ToolTipText = "";
-            this.btnGo.Visible = false;
-            this.btnGo.Click += new System.EventHandler(this.btnGo_Click);
-            // 
-            // btnCancel
-            // 
-            this.btnCancel.AutoResize = true;
-            this.btnCancel.BackgroundImage = global::SA_Resources.GlobalResources.ui_btn_cancel;
-            this.btnCancel.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCancel.Location = new System.Drawing.Point(417, 12);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.OverImage = null;
-            this.btnCancel.Overlay1Image = null;
-            this.btnCancel.Overlay1Visible = false;
-            this.btnCancel.Overlay2Image = null;
-            this.btnCancel.Overlay2Visible = false;
-            this.btnCancel.Overlay3Image = null;
-            this.btnCancel.Overlay3Visible = false;
-            this.btnCancel.PressedImage = null;
-            this.btnCancel.Size = new System.Drawing.Size(49, 23);
-            this.btnCancel.TabIndex = 96;
-            this.btnCancel.ToolTipText = "";
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
-            // 
             // pnlSecondRowFilters
             // 
             this.pnlSecondRowFilters.Controls.Add(this.label19);
@@ -1308,6 +1248,67 @@
             this.chkBypass3.UseVisualStyleBackColor = true;
             this.chkBypass3.CheckedChanged += new System.EventHandler(this.chkBypass_CheckedChanged);
             this.chkBypass3.Enter += new System.EventHandler(this.filterControl_Enter);
+            // 
+            // btnSave
+            // 
+            this.btnSave.AutoResize = true;
+            this.btnSave.BackgroundImage = global::SA_Resources.GlobalResources.ui_btn_save;
+            this.btnSave.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnSave.Location = new System.Drawing.Point(351, 12);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.OverImage = null;
+            this.btnSave.Overlay1Image = null;
+            this.btnSave.Overlay1Visible = false;
+            this.btnSave.Overlay2Image = null;
+            this.btnSave.Overlay2Visible = false;
+            this.btnSave.Overlay3Image = null;
+            this.btnSave.Overlay3Visible = false;
+            this.btnSave.PressedImage = null;
+            this.btnSave.Size = new System.Drawing.Size(49, 23);
+            this.btnSave.TabIndex = 95;
+            this.btnSave.ToolTipText = "";
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
+            // btnGo
+            // 
+            this.btnGo.AutoResize = true;
+            this.btnGo.BackgroundImage = global::SA_Resources.GlobalResources.ui_btn_go;
+            this.btnGo.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnGo.Location = new System.Drawing.Point(196, 12);
+            this.btnGo.Name = "btnGo";
+            this.btnGo.OverImage = null;
+            this.btnGo.Overlay1Image = null;
+            this.btnGo.Overlay1Visible = false;
+            this.btnGo.Overlay2Image = null;
+            this.btnGo.Overlay2Visible = false;
+            this.btnGo.Overlay3Image = null;
+            this.btnGo.Overlay3Visible = false;
+            this.btnGo.PressedImage = null;
+            this.btnGo.Size = new System.Drawing.Size(49, 23);
+            this.btnGo.TabIndex = 135;
+            this.btnGo.ToolTipText = "";
+            this.btnGo.Visible = false;
+            this.btnGo.Click += new System.EventHandler(this.btnGo_Click);
+            // 
+            // btnCancel
+            // 
+            this.btnCancel.AutoResize = true;
+            this.btnCancel.BackgroundImage = global::SA_Resources.GlobalResources.ui_btn_cancel;
+            this.btnCancel.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnCancel.Location = new System.Drawing.Point(417, 12);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.OverImage = null;
+            this.btnCancel.Overlay1Image = null;
+            this.btnCancel.Overlay1Visible = false;
+            this.btnCancel.Overlay2Image = null;
+            this.btnCancel.Overlay2Visible = false;
+            this.btnCancel.Overlay3Image = null;
+            this.btnCancel.Overlay3Visible = false;
+            this.btnCancel.PressedImage = null;
+            this.btnCancel.Size = new System.Drawing.Size(49, 23);
+            this.btnCancel.TabIndex = 96;
+            this.btnCancel.ToolTipText = "";
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // chkBypass2
             // 
