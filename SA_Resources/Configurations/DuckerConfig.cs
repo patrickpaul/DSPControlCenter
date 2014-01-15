@@ -31,17 +31,6 @@ namespace SA_Resources
             {
                 _priorityChannel = value;
                 RecalculateRouter();
-
-                Console.WriteLine("New priority channel is: " + this.PriorityChannel);
-                for(int i = 0; i < 4; i++)
-                {
-                    Console.WriteLine("Ducker Router Input " + i + " = " + RouterInputs[i]);
-                }
-
-                for(int i = 0; i < 4; i++)
-                {
-                    Console.WriteLine("Ducker Router Output " + i + " = " + RouterOutputs[i]);
-                }
             }
         }
         public DuckerConfig()

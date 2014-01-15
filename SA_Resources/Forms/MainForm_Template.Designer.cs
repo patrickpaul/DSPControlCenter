@@ -48,8 +48,9 @@ namespace SA_Resources.Forms
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deviceToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.presetManagerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
             this.connectToDeviceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveToDeviceToolStripMenuItem = new System.Windows.Forms.ToolStripSeparator();
             this.readFromDeviceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -63,10 +64,17 @@ namespace SA_Resources.Forms
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.HeartbeatTimer = new System.Windows.Forms.Timer(this.components);
+            this.menuBlockCopy = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.menuItem_Cut = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuItem_Copy = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuItem_Paste = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureConnectionStatus)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.menuBlockCopy.SuspendLayout();
             this.SuspendLayout();
             // 
             // Queue_Thread
@@ -157,13 +165,28 @@ namespace SA_Resources.Forms
             // deviceToolStripMenuItem1
             // 
             this.deviceToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.presetManagerToolStripMenuItem,
+            this.toolStripMenuItem3,
             this.connectToDeviceToolStripMenuItem,
-            this.saveToDeviceToolStripMenuItem,
             this.readFromDeviceToolStripMenuItem});
             this.deviceToolStripMenuItem1.ForeColor = System.Drawing.Color.Gainsboro;
             this.deviceToolStripMenuItem1.Name = "deviceToolStripMenuItem1";
-            this.deviceToolStripMenuItem1.Size = new System.Drawing.Size(54, 20);
-            this.deviceToolStripMenuItem1.Text = "Device";
+            this.deviceToolStripMenuItem1.Size = new System.Drawing.Size(48, 20);
+            this.deviceToolStripMenuItem1.Text = "Tools";
+            // 
+            // presetManagerToolStripMenuItem
+            // 
+            this.presetManagerToolStripMenuItem.Name = "presetManagerToolStripMenuItem";
+            this.presetManagerToolStripMenuItem.Size = new System.Drawing.Size(214, 22);
+            this.presetManagerToolStripMenuItem.Text = "Preset Manager";
+            this.presetManagerToolStripMenuItem.Visible = false;
+            this.presetManagerToolStripMenuItem.Click += new System.EventHandler(this.presetManagerToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(211, 6);
+            this.toolStripMenuItem3.Visible = false;
             // 
             // connectToDeviceToolStripMenuItem
             // 
@@ -171,12 +194,6 @@ namespace SA_Resources.Forms
             this.connectToDeviceToolStripMenuItem.Size = new System.Drawing.Size(214, 22);
             this.connectToDeviceToolStripMenuItem.Text = "Open Device Manager";
             this.connectToDeviceToolStripMenuItem.Click += new System.EventHandler(this.Connect_Event);
-            // 
-            // saveToDeviceToolStripMenuItem
-            // 
-            this.saveToDeviceToolStripMenuItem.Name = "saveToDeviceToolStripMenuItem";
-            this.saveToDeviceToolStripMenuItem.Size = new System.Drawing.Size(211, 6);
-            this.saveToDeviceToolStripMenuItem.Click += new System.EventHandler(this.WriteDevice_Event);
             // 
             // readFromDeviceToolStripMenuItem
             // 
@@ -228,7 +245,7 @@ namespace SA_Resources.Forms
             // 
             // pictureConnectionStatus
             // 
-            this.pictureConnectionStatus.Location = new System.Drawing.Point(350, 24);
+            this.pictureConnectionStatus.Location = new System.Drawing.Point(331, 24);
             this.pictureConnectionStatus.Name = "pictureConnectionStatus";
             this.pictureConnectionStatus.Size = new System.Drawing.Size(146, 37);
             this.pictureConnectionStatus.TabIndex = 85;
@@ -237,7 +254,7 @@ namespace SA_Resources.Forms
             // btnConnectToDevice
             // 
             this.btnConnectToDevice.BackColor = System.Drawing.Color.Transparent;
-            this.btnConnectToDevice.Location = new System.Drawing.Point(502, 29);
+            this.btnConnectToDevice.Location = new System.Drawing.Point(492, 30);
             this.btnConnectToDevice.Name = "btnConnectToDevice";
             this.btnConnectToDevice.Size = new System.Drawing.Size(84, 23);
             this.btnConnectToDevice.TabIndex = 84;
@@ -247,19 +264,16 @@ namespace SA_Resources.Forms
             // dropProgramSelection
             // 
             this.dropProgramSelection.FormattingEnabled = true;
-            this.dropProgramSelection.Items.AddRange(new object[] {
-            "Program 1 (Default)",
-            "Program 2",
-            "Program 3"});
-            this.dropProgramSelection.Location = new System.Drawing.Point(763, 29);
+            this.dropProgramSelection.Location = new System.Drawing.Point(729, 30);
             this.dropProgramSelection.Name = "dropProgramSelection";
-            this.dropProgramSelection.Size = new System.Drawing.Size(131, 21);
+            this.dropProgramSelection.Size = new System.Drawing.Size(165, 21);
             this.dropProgramSelection.TabIndex = 83;
+            this.dropProgramSelection.SelectedIndexChanged += new System.EventHandler(this.dropProgramSelection_SelectedIndexChanged);
             // 
             // pictureBox2
             // 
-            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-            this.pictureBox2.Location = new System.Drawing.Point(598, 24);
+            this.pictureBox2.Image = global::SA_Resources.GlobalResources.menu_program_selection;
+            this.pictureBox2.Location = new System.Drawing.Point(568, 24);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(155, 37);
             this.pictureBox2.TabIndex = 82;
@@ -279,6 +293,60 @@ namespace SA_Resources.Forms
             // 
             this.HeartbeatTimer.Interval = 10000;
             // 
+            // menuBlockCopy
+            // 
+            this.menuBlockCopy.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuItem_Cut,
+            this.menuItem_Copy,
+            this.menuItem_Paste,
+            this.toolStripSeparator1,
+            this.toolStripMenuItem6});
+            this.menuBlockCopy.Name = "contextMenuStrip1";
+            this.menuBlockCopy.Size = new System.Drawing.Size(179, 120);
+            // 
+            // menuItem_Cut
+            // 
+            this.menuItem_Cut.Image = global::SA_Resources.GlobalResources.cut_icon;
+            this.menuItem_Cut.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.menuItem_Cut.Name = "menuItem_Cut";
+            this.menuItem_Cut.Size = new System.Drawing.Size(178, 22);
+            this.menuItem_Cut.Text = "Cu&t";
+            this.menuItem_Cut.Visible = false;
+            this.menuItem_Cut.Click += new System.EventHandler(this.ContextMenu_Cut);
+            // 
+            // menuItem_Copy
+            // 
+            this.menuItem_Copy.Image = ((System.Drawing.Image)(resources.GetObject("menuItem_Copy.Image")));
+            this.menuItem_Copy.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.menuItem_Copy.Name = "menuItem_Copy";
+            this.menuItem_Copy.Size = new System.Drawing.Size(178, 22);
+            this.menuItem_Copy.Text = "&Copy";
+            this.menuItem_Copy.Click += new System.EventHandler(this.ContextMenu_Copy);
+            // 
+            // menuItem_Paste
+            // 
+            this.menuItem_Paste.Image = global::SA_Resources.GlobalResources.paste_icon;
+            this.menuItem_Paste.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.menuItem_Paste.Name = "menuItem_Paste";
+            this.menuItem_Paste.Size = new System.Drawing.Size(178, 22);
+            this.menuItem_Paste.Text = "&Paste";
+            this.menuItem_Paste.Click += new System.EventHandler(this.ContextMenu_Paste);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(175, 6);
+            this.toolStripSeparator1.Visible = false;
+            // 
+            // toolStripMenuItem6
+            // 
+            this.toolStripMenuItem6.Image = global::SA_Resources.GlobalResources.clear_icon;
+            this.toolStripMenuItem6.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.toolStripMenuItem6.Name = "toolStripMenuItem6";
+            this.toolStripMenuItem6.Size = new System.Drawing.Size(178, 22);
+            this.toolStripMenuItem6.Text = "Clear Configuration";
+            this.toolStripMenuItem6.Visible = false;
+            // 
             // MainForm_Template
             // 
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(82)))), ((int)(((byte)(82)))));
@@ -290,6 +358,7 @@ namespace SA_Resources.Forms
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.menuStrip1);
             this.DoubleBuffered = true;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "MainForm_Template";
             this.Text = "MainForm_Template";
@@ -300,6 +369,7 @@ namespace SA_Resources.Forms
             ((System.ComponentModel.ISupportInitialize)(this.pictureConnectionStatus)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.menuBlockCopy.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -333,7 +403,14 @@ namespace SA_Resources.Forms
         private PictureBox pictureBox1;
         private ToolStripMenuItem resetToDefaultToolStripMenuItem;
         private ToolStripSeparator toolStripMenuItem1;
-        private ToolStripSeparator saveToDeviceToolStripMenuItem;
         private Timer HeartbeatTimer;
+        private ContextMenuStrip menuBlockCopy;
+        private ToolStripMenuItem menuItem_Cut;
+        private ToolStripMenuItem menuItem_Copy;
+        private ToolStripMenuItem menuItem_Paste;
+        private ToolStripSeparator toolStripSeparator1;
+        private ToolStripMenuItem toolStripMenuItem6;
+        private ToolStripMenuItem presetManagerToolStripMenuItem;
+        private ToolStripSeparator toolStripMenuItem3;
     }
 }

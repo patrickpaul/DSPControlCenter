@@ -32,6 +32,8 @@ namespace SA_Resources.Forms
         public List<UInt32>[] _comp_out_meters = new List<UInt32>[2];
         public List<UInt32> _ducker_meters = new List<UInt32>();
        
+        public List<string> _presetNames = new List<string>(); 
+
         /* Queue Processing */
         
         public Queue UPDATE_QUEUE = new Queue();
@@ -59,6 +61,30 @@ namespace SA_Resources.Forms
 
         public double FIRMWARE_VERSION;
 
+        public Control activeBlockForMenu;
+
+
+        public object TempConfig;
+        public object CopyConfig;
+        public object CutConfig;
+
+        public bool has_copy_config = false;
+        public bool has_cut_config = false;
+
+        public int temp_from_preset = 0;
+        public int temp_from_ch = 0;
+        public int temp_from_index = 0;
+
+        public int copy_from_preset = 0;
+        public int copy_from_ch = 0;
+        public int copy_from_index = 0;
+
+        public int cut_from_preset = 0;
+        public int cut_from_ch = 0;
+        public int cut_from_index = 0;
+
+        public CopyFormType CopyType;
+        public CopyFormType CutType;
 
         // TODO - Move all DEVICE ID's to a global list
         public string DEVICE_NAME = "";
@@ -140,7 +166,6 @@ namespace SA_Resources.Forms
                 AttachUIEvents();
                 UpdateTooltips();
                 ShowHideBlocks();
-                dropProgramSelection.SelectedIndex = 0;
 
                  
                 if (CONFIGFILE != "" && CONFIGFILE != " ")
@@ -151,6 +176,8 @@ namespace SA_Resources.Forms
                 LoadSettingsToProgramConfig();
 
                 UpdateTooltips();
+
+                UpdatePresetDropdown();
 
                 form_loaded = true;
 
@@ -172,6 +199,10 @@ namespace SA_Resources.Forms
                 PROGRAMS[p] = new ProgramConfig();
             }
 
+            for (int i = 0; i < this.NumPresets(); i++)
+            {
+                _presetNames.Add("Program " + (i+1));
+            }
         }
 
 
@@ -787,6 +818,11 @@ namespace SA_Resources.Forms
 
         }
 
+        public virtual int NumPresets()
+        {
+            return 3;
+        }
+
         
 
         #endregion
@@ -836,9 +872,6 @@ namespace SA_Resources.Forms
                 control.Click += new EventHandler(this.SetUnsavedChanges);
             }
 
-
-            
-
             PictureButton pbtnReadDevice = (PictureButton)Enumerable.FirstOrDefault(Controls.Find("pbtnReadDevice", true));
 
             if (pbtnReadDevice != null)
@@ -882,7 +915,7 @@ namespace SA_Resources.Forms
 
                 if (lblInput != null)
                 {
-                    lblInput.Click += new System.EventHandler(this.lblInput_Click);
+                    lblInput.MouseClick += new MouseEventHandler(this.lblInput_MouseClick);
                 }
 
                 // First Gain Block
@@ -890,7 +923,7 @@ namespace SA_Resources.Forms
 
                 if (btnPreGain1 != null)
                 {
-                    btnPreGain1.Click += new System.EventHandler(this.btnPreGain1_Click);
+                    btnPreGain1.MouseClick += new MouseEventHandler(this.btnPreGain1_MouseClick);
                 }
 
                 // Input Filters
@@ -898,7 +931,7 @@ namespace SA_Resources.Forms
 
                 if (btnPreFilters != null)
                 {
-                    btnPreFilters.Click += new System.EventHandler(this.btnPreFilters_Click);
+                    btnPreFilters.MouseClick += new MouseEventHandler(this.btnPreFilters_MouseClick);
                 }
 
                 // Compressor
@@ -906,7 +939,7 @@ namespace SA_Resources.Forms
 
                 if (btnCompressor != null)
                 {
-                    btnCompressor.Click += new System.EventHandler(this.btnComp_Click);
+                    btnCompressor.MouseClick += new MouseEventHandler(this.btnComp_MouseClick);
                 }
 
                 // Premix Gain Block
@@ -914,7 +947,7 @@ namespace SA_Resources.Forms
 
                 if (btnPreGain2 != null)
                 {
-                    btnPreGain2.Click += new System.EventHandler(this.btnPreGain2_Click);
+                    btnPreGain2.MouseClick += new MouseEventHandler(this.btnPreGain2_MouseClick);
                 }
 
 
@@ -926,7 +959,7 @@ namespace SA_Resources.Forms
 
             if (btnMatrixMixer != null)
             {
-                btnMatrixMixer.Click += new System.EventHandler(this.btnMatrixMixer_Click);
+                btnMatrixMixer.MouseClick += new MouseEventHandler(this.btnMatrixMixer_MouseClick);
             }
 
             for (int i = 0; i < GetNumOutputChannels(); i++)
@@ -937,7 +970,7 @@ namespace SA_Resources.Forms
 
                 if (btnPostTrim != null)
                 {
-                    btnPostTrim.Click += new System.EventHandler(this.btnPostTrim_Click);
+                    btnPostTrim.MouseClick += new MouseEventHandler(this.btnPostTrim_MouseClick);
                 }
 
                 // Output Filters
@@ -945,7 +978,7 @@ namespace SA_Resources.Forms
 
                 if (btnPostFilters != null)
                 {
-                    btnPostFilters.Click += new System.EventHandler(this.btnPostFilters_Click);
+                    btnPostFilters.MouseClick += new MouseEventHandler(this.btnPostFilters_MouseClick);
                 }
 
                 // Limiter
@@ -953,7 +986,7 @@ namespace SA_Resources.Forms
 
                 if (btnLimiter != null)
                 {
-                    btnLimiter.Click += new System.EventHandler(this.btnLimiter_Click);
+                    btnLimiter.MouseClick += new MouseEventHandler(this.btnLimiter_MouseClick);
                 }
 
                 // Delay Block
@@ -961,7 +994,7 @@ namespace SA_Resources.Forms
 
                 if (btnDelay != null)
                 {
-                    btnDelay.Click += new System.EventHandler(this.btnDelay_Click);
+                    btnDelay.MouseClick += new MouseEventHandler(this.btnDelay_MouseClick);
                 }
                 
                 // Output Gain Block
@@ -969,7 +1002,7 @@ namespace SA_Resources.Forms
 
                 if (btnPostGain != null)
                 {
-                    btnPostGain.Click += new System.EventHandler(this.BtnPostGainClick);
+                    btnPostGain.MouseClick += new MouseEventHandler(this.BtnPostGain_MouseClick);
                 }
 
                 // Output Label
@@ -977,7 +1010,7 @@ namespace SA_Resources.Forms
 
                 if (lblOutput != null)
                 {
-                    lblOutput.Click += new System.EventHandler(this.lblOutput_Click);
+                    lblOutput.MouseClick += new MouseEventHandler(this.lblOutput_MouseClick);
                 }
 
 
@@ -987,7 +1020,7 @@ namespace SA_Resources.Forms
 
             if (pbtnDucker != null)
             {
-                pbtnDucker.Click += new EventHandler(pbtnDucker_Click);
+                pbtnDucker.MouseClick += new MouseEventHandler(pbtnDucker_MouseClick);
             }
 
         }
@@ -996,6 +1029,21 @@ namespace SA_Resources.Forms
 
         #region Update UI Actions (Tooltips and Connect Button)
 
+        public void UpdatePresetDropdown()
+        {
+            dropProgramSelection.Items.Clear();
+            foreach (string singlePresetName in _presetNames)
+            {
+                dropProgramSelection.Items.Add(singlePresetName);
+            }
+
+            if (dropProgramSelection.Items.Count > 0)
+            {
+                dropProgramSelection.SelectedIndex = 0;
+            }
+            dropProgramSelection.Invalidate();
+        }
+        
         public void UpdateTooltips()
         {
 
@@ -1007,8 +1055,11 @@ namespace SA_Resources.Forms
             // Must be called from somewhere inside SA_Resources. Why not here?
             if (!form_loaded)
             {
-                this.SetConnectionPicture(GlobalResources.lblStatus_Blank);
+                this.SetConnectionPicture(GlobalResources.lblStatus_Disconnected);
             }
+
+         
+            
 
             PictureButton pbtnDucker = ((PictureButton)Controls.Find("pbtnDucker", true).FirstOrDefault());
 
@@ -1114,7 +1165,7 @@ namespace SA_Resources.Forms
         #region UI Block Actions
 
         
-        protected void lblInput_Click(object sender, EventArgs e)
+        protected void lblInput_MouseClick(object sender, MouseEventArgs e)
         {
             int ch_num = int.Parse(((Label)sender).Name.Substring(5, 1));
 
@@ -1175,14 +1226,25 @@ namespace SA_Resources.Forms
             }
         }
 
-
-        protected void btnPreGain1_Click(object sender, EventArgs e)
+        protected void btnPreGain1_MouseClick(object sender, MouseEventArgs e)
         {
             int ch_num = int.Parse(((PictureButton)sender).Name.Substring(5, 1));
 
-            int settings_index = (0 + ch_num - 1);
-
+            int settings_index = (0 + ch_num - 1); 
+            
             GainConfig cached_gain = (GainConfig)PROGRAMS[CURRENT_PROGRAM].gains[ch_num - 1][0].Clone();
+            
+            if(e.Button == MouseButtons.Right)
+            {
+                TempConfig = cached_gain;
+
+                temp_from_ch = ch_num;
+                temp_from_index = 0;
+                temp_from_preset = CURRENT_PROGRAM;
+
+                ShowCopyMenu(sender);
+                return;
+            }
 
             using (GainForm gainForm = new GainForm(this, ch_num - 1, 0, settings_index, false, "CH" + ch_num.ToString() + " - Input Gain"))
             {
@@ -1226,8 +1288,14 @@ namespace SA_Resources.Forms
         }
 
 
-        protected void btnPreFilters_Click(object sender, EventArgs e)
+        protected void btnPreFilters_MouseClick(object sender, MouseEventArgs e)
         {
+
+            if (e.Button == MouseButtons.Right)
+            {
+                return;
+            }
+
             int ch_num = int.Parse(((PictureButton)sender).Name.Substring(5, 1));
 
             int settings_index, plainfilter_index;
@@ -1279,8 +1347,13 @@ namespace SA_Resources.Forms
             }
         }
 
-        protected void pbtnDucker_Click(object sender, EventArgs e)
+        protected void pbtnDucker_MouseClick(object sender, MouseEventArgs e)
         {
+
+            if(e.Button == MouseButtons.Right)
+            {
+                return;
+            }
 
             DuckerConfig cached_ducker = (DuckerConfig)PROGRAMS[CURRENT_PROGRAM].ducker.Clone();
 
@@ -1298,7 +1371,7 @@ namespace SA_Resources.Forms
                     {
                         PROGRAMS[CURRENT_PROGRAM].ducker = (DuckerConfig)cached_ducker.Clone();
 
-                        
+
                         if (LIVE_MODE)
                         {
                             PROGRAMS[CURRENT_PROGRAM].ducker.QueueChange(this, settings_offset);
@@ -1312,14 +1385,25 @@ namespace SA_Resources.Forms
             }
         }
 
-        protected void btnComp_Click(object sender, EventArgs e)
+        protected void btnComp_MouseClick(object sender, MouseEventArgs e)
         {
             int ch_num = int.Parse(((PictureButton)sender).Name.Substring(5, 1));
             int settings_offset = 220 + (6 * (ch_num - 1));
 
             CompressorConfig cached_comp = (CompressorConfig)PROGRAMS[CURRENT_PROGRAM].compressors[ch_num - 1][0].Clone();
 
-            
+            if (e.Button == MouseButtons.Right)
+            {
+                TempConfig = cached_comp;
+
+                temp_from_ch = ch_num;
+                temp_from_index = 0;
+                temp_from_preset = CURRENT_PROGRAM;
+
+                ShowCopyMenu(sender);
+                return;
+            }
+
             using (CompressorForm compressorForm = new CompressorForm(this, ch_num, settings_offset))
             {
                 // passing this in ShowDialog will set the .Owner 
@@ -1346,14 +1430,27 @@ namespace SA_Resources.Forms
         }
 
 
-        protected void btnPreGain2_Click(object sender, EventArgs e)
+        protected void btnPreGain2_MouseClick(object sender, MouseEventArgs e)
         {
             int ch_num = int.Parse(((PictureButton)sender).Name.Substring(5, 1));
 
             int settings_index = (28 + ch_num - 1);
 
             GainConfig cached_gain = (GainConfig)PROGRAMS[CURRENT_PROGRAM].gains[ch_num - 1][1].Clone();
+            
+            
+            if (e.Button == MouseButtons.Right)
+            {
+                temp_from_ch = ch_num;
+                temp_from_index = 0;
+                temp_from_preset = CURRENT_PROGRAM;
 
+                TempConfig = cached_gain;
+                ShowCopyMenu(sender);
+                return;
+            }
+
+            
             using (GainForm gainForm = new GainForm(this, ch_num - 1, 1, settings_index, false, "CH" + ch_num.ToString() + " - Premix Gain"))
             {
                 if (!LIVE_MODE)
@@ -1393,8 +1490,13 @@ namespace SA_Resources.Forms
         }
 
 
-        protected void btnMatrixMixer_Click(object sender, EventArgs e)
+        protected void btnMatrixMixer_MouseClick(object sender, MouseEventArgs e)
         {
+
+            if (e.Button == MouseButtons.Right)
+            {
+                return;
+            }
 
             GainConfig[][] crosspoint_cache = new GainConfig[6][];
 
@@ -1437,13 +1539,26 @@ namespace SA_Resources.Forms
         }
 
 
-        protected void btnPostTrim_Click(object sender, EventArgs e)
+        protected void btnPostTrim_MouseClick(object sender, MouseEventArgs e)
         {
             int ch_num = int.Parse(((PictureButton)sender).Name.Substring(5, 1));
 
             int settings_index = (32 + ch_num - 1);
 
             GainConfig cached_gain = (GainConfig)PROGRAMS[CURRENT_PROGRAM].gains[ch_num - 1][2].Clone();
+            
+            if (e.Button == MouseButtons.Right)
+            {
+                temp_from_ch = ch_num;
+                temp_from_index = 0;
+                temp_from_preset = CURRENT_PROGRAM;
+
+                TempConfig = cached_gain; 
+                ShowCopyMenu(sender);
+                return;
+            }
+
+            
 
             using (GainForm gainForm = new GainForm(this, ch_num - 1, 2, (32 + ch_num - 1), false, "CH" + ch_num.ToString() + " - Trim"))
             {
@@ -1480,8 +1595,14 @@ namespace SA_Resources.Forms
         }
 
 
-        protected void btnPostFilters_Click(object sender, EventArgs e)
+        protected void btnPostFilters_MouseClick(object sender, MouseEventArgs e)
         {
+
+            if (e.Button == MouseButtons.Right)
+            {
+                return;
+            }
+
             int ch_num = int.Parse(((PictureButton)sender).Name.Substring(5, 1));
 
             int settings_index, plainfilter_index;
@@ -1534,13 +1655,25 @@ namespace SA_Resources.Forms
         }
 
 
-        protected void btnLimiter_Click(object sender, EventArgs e)
+        protected void btnLimiter_MouseClick(object sender, MouseEventArgs e)
         {
             int ch_num = int.Parse(((PictureButton)sender).Name.Substring(5, 1));
 
             int settings_offset = 244 + (6 * (ch_num - 1));
 
             CompressorConfig cached_lim = (CompressorConfig)PROGRAMS[CURRENT_PROGRAM].compressors[ch_num - 1][1].Clone();
+
+            if (e.Button == MouseButtons.Right)
+            {
+                TempConfig = cached_lim;
+
+                temp_from_ch = ch_num;
+                temp_from_index = 0;
+                temp_from_preset = CURRENT_PROGRAM;
+
+                ShowCopyMenu(sender);
+                return;
+            }
 
             using (CompressorForm compressorForm = new CompressorForm(this, ch_num, settings_offset, CompressorType.Limiter))
             {
@@ -1568,13 +1701,24 @@ namespace SA_Resources.Forms
         }
 
 
-        protected void btnDelay_Click(object sender, EventArgs e)
+        protected void btnDelay_MouseClick(object sender, MouseEventArgs e)
         {
             int ch_num = int.Parse(((PictureButton)sender).Name.Substring(5, 1));
             int settings_index = 268 + (ch_num - 1);
 
             DelayConfig cached_delay = (DelayConfig)PROGRAMS[CURRENT_PROGRAM].delays[ch_num - 1].Clone();
 
+            if (e.Button == MouseButtons.Right)
+            {
+                TempConfig = cached_delay;
+
+                temp_from_ch = ch_num;
+                temp_from_index = 0;
+                temp_from_preset = CURRENT_PROGRAM;
+
+                ShowCopyMenu(sender);
+                return;
+            }
             using (DelayForm delayForm = new DelayForm(this, ch_num, settings_index))
             {
 
@@ -1603,12 +1747,24 @@ namespace SA_Resources.Forms
         }
 
 
-        protected void BtnPostGainClick(object sender, EventArgs e)
+        protected void BtnPostGain_MouseClick(object sender, MouseEventArgs e)
         {
             int ch_num = int.Parse(((PictureButton)sender).Name.Substring(5, 1));
             int settings_index = (36 + ch_num - 1);
 
-            GainConfig cached_gain = (GainConfig)PROGRAMS[CURRENT_PROGRAM].gains[ch_num - 1][3].Clone();
+            GainConfig cached_gain = (GainConfig)PROGRAMS[CURRENT_PROGRAM].gains[ch_num - 1][3].Clone(); 
+            
+            if (e.Button == MouseButtons.Right)
+            {
+                temp_from_ch = ch_num;
+                temp_from_index = 0;
+                temp_from_preset = CURRENT_PROGRAM;
+
+                TempConfig = cached_gain; 
+                ShowCopyMenu(sender);
+                return;
+            }
+            
 
             using (GainForm gainForm = new GainForm(this, ch_num - 1, 3, settings_index, false, "CH" + ch_num.ToString() + " - Output Gain"))
             {
@@ -1649,11 +1805,22 @@ namespace SA_Resources.Forms
         }
 
 
-        protected void lblOutput_Click(object sender, EventArgs e)
+        protected void lblOutput_MouseClick(object sender, MouseEventArgs e)
         {
             int ch_num = int.Parse(((Label)sender).Name.Substring(5, 1));
 
             OutputConfig cached_output = (OutputConfig)PROGRAMS[CURRENT_PROGRAM].outputs[ch_num - 1].Clone();
+
+            if (e.Button == MouseButtons.Right)
+            {
+                temp_from_ch = ch_num;
+                temp_from_index = 0;
+                temp_from_preset = CURRENT_PROGRAM;
+
+                TempConfig = cached_output;
+                ShowCopyMenu(sender);
+                return;
+            }
 
             using (OutputConfiguration outputForm = new OutputConfiguration(this, ch_num))
             {
@@ -1824,14 +1991,150 @@ namespace SA_Resources.Forms
         
         #endregion
 
+        #region UI ContextMenu Actions
+
+        public CopyFormType CopyTypeFromControl(Control control)
+        {
+            if(control.Name.Contains("Input"))
+            {
+                return CopyFormType.InputConfiguration;
+            }
+
+            if(control.Name.Contains("Gain"))
+            {
+                return CopyFormType.Gain;
+            }
+
+            if(control.Name.Contains("PreFilter"))
+            {
+                return CopyFormType.Filter3;
+            }
+
+            if (control.Name.Contains("Compressor"))
+            {
+                return CopyFormType.Compressor;
+            }
+
+            if (control.Name.Contains("PostFilter"))
+            {
+                return CopyFormType.Filter6;
+            }
+
+            if (control.Name.Contains("Limiter"))
+            {
+                return CopyFormType.Limiter;
+            }
+
+            if (control.Name.Contains("Delay"))
+            {
+                return CopyFormType.Delay;
+            }
+
+            if (control.Name.Contains("Output"))
+            {
+                return CopyFormType.OutputConfiguration;
+            }
+
+            return CopyFormType.Unknown;
+        }
+
+        public void ShowCopyMenu(object sender)
+        {
+
+            return; // DISABLE THIS. NOT READY FOR RELEASE.
+
+            activeBlockForMenu = (Control)sender;            
+
+            if(!has_copy_config)
+            {
+                menuItem_Paste.Enabled = false;
+            } else
+            {
+                if(CopyType != CopyTypeFromControl(activeBlockForMenu))
+                {
+                    menuItem_Paste.Enabled = false;
+                } else
+                {
+                    menuItem_Paste.Enabled = true;
+                }
+            }
+
+            menuBlockCopy.Show((Control)sender, ((Control)sender).Width - 2, ((Control)sender).Height - 2);
+        }
+
+        public void ContextMenu_Copy(object sender, EventArgs e)
+        {
+            CopyType = CopyTypeFromControl(activeBlockForMenu);
+            CopyConfig = TempConfig;
+            
+            copy_from_preset = temp_from_preset;
+            copy_from_index = temp_from_index;
+            has_copy_config = true;
+
+        }
+
+        public void ContextMenu_Cut(object sender, EventArgs e)
+        {
+
+
+        }
+
+        public void ContextMenu_Paste(object sender, EventArgs e)
+        {
+            // We have already checked that we're good to copy by showing/hiding the Paste menuitem
+
+            switch(CopyType)
+            {
+                case CopyFormType.Gain:
+                    PROGRAMS[CURRENT_PROGRAM].gains[temp_from_ch - 1][temp_from_index] = (GainConfig)((GainConfig)CopyConfig).Clone();
+                break;
+
+                case CopyFormType.InputConfiguration:
+                    PROGRAMS[CURRENT_PROGRAM].inputs[temp_from_ch - 1] = (InputConfig)((InputConfig)CopyConfig).Clone();
+                break;
+
+                case CopyFormType.Compressor:
+                    PROGRAMS[CURRENT_PROGRAM].compressors[temp_from_ch - 1][0] = (CompressorConfig)((CompressorConfig)CopyConfig).Clone();
+                break;
+
+                case CopyFormType.Limiter:
+                    PROGRAMS[CURRENT_PROGRAM].compressors[temp_from_ch - 1][1] = (CompressorConfig)((CompressorConfig)CopyConfig).Clone();
+                break;
+
+                case CopyFormType.Delay:
+                    PROGRAMS[CURRENT_PROGRAM].delays[temp_from_ch - 1] = (DelayConfig)((DelayConfig)CopyConfig).Clone();
+                break;
+
+                case CopyFormType.OutputConfiguration:
+                    PROGRAMS[CURRENT_PROGRAM].outputs[temp_from_ch - 1] = (OutputConfig)((OutputConfig)CopyConfig).Clone();
+                break;
+
+                default :
+                    // Do nothing. How did we get here?
+
+                    break;
+
+            }
+
+            UpdateTooltips();
+
+        }
+
+        #endregion
 
         #region Form Actions
+
+
 
 
         private void MainForm_Template_FormClosing(object sender, FormClosingEventArgs e)
         {
 
-            _PIC_Conn.Close();
+
+            if (_PIC_Conn.isOpen)
+            {
+                _PIC_Conn.Close();
+            }
 
             if (!this.UnsavedChanges)
             {
@@ -1861,6 +2164,29 @@ namespace SA_Resources.Forms
                 
             }
         }
+
+        private void dropProgramSelection_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void presetManagerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (PresetManager presetForm = new PresetManager(this))
+            {
+
+
+                DialogResult showBlock = presetForm.ShowDialog(this);
+
+                if (showBlock == DialogResult.Cancel)
+                {
+                }
+                else
+                {
+                }
+            }
+        }
+
 
     }
 

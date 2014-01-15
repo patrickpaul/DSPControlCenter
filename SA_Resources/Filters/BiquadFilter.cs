@@ -65,7 +65,7 @@ namespace SA_Resources.Filters
         {
             get { return filter_type; }
             set {}
-    }
+        }
         public double CenterFrequency
         {
             get

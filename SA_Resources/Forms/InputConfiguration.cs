@@ -49,7 +49,7 @@ namespace SA_Resources
             {
                 dropInputType.SelectedIndex = 0;
             }
-            else if (PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].inputs[CH_NUMBER - 1].Type == InputType.Microphone20)
+            else if (PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].inputs[CH_NUMBER - 1].Type == InputType.Microphone6)
             {
                 dropInputType.SelectedIndex = 1;
             } else
@@ -106,13 +106,13 @@ namespace SA_Resources
                 PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].pregains[CH_NUMBER - 1] = 0;
             } else if(dropInputType.SelectedIndex == 1)
             {
-                PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].inputs[CH_NUMBER - 1].Type = InputType.Microphone20;
-                PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].pregains[CH_NUMBER - 1] = 20;
+                PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].inputs[CH_NUMBER - 1].Type = InputType.Microphone6;
+                PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].pregains[CH_NUMBER - 1] = 6;
 
             } else
             {
-                PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].inputs[CH_NUMBER - 1].Type = InputType.Microphone40;
-                PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].pregains[CH_NUMBER - 1] = 40;
+                PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].inputs[CH_NUMBER - 1].Type = InputType.Microphone20;
+                PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].pregains[CH_NUMBER - 1] = 20;
             }
 
             if (PARENT_FORM.LIVE_MODE)
@@ -176,16 +176,29 @@ namespace SA_Resources
             PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].inputs[CH_NUMBER - 1].Name = txtDisplayName.Text;
         }
 
+        public bool input_switcher = false;
+
         private void signalTimer_Tick(object sender, EventArgs e)
         {
             UInt32 read_address;
 
             read_address = PARENT_FORM._gain_meters[CH_NUMBER - 1][0];
 
+            /*
+            if (input_switcher)
+            {
+                read_address = 0xF0C00005;
+            }
+            else
+            {
+                read_address = 0xF0C00077;
+
+            }
+            */
             double offset = 20 + 10 * Math.Log10(2) + 20 * Math.Log10(16);
             UInt32 read_value = PARENT_FORM._PIC_Conn.Read_Live_DSP_Value(read_address);
 
-            Console.WriteLine("Read " + read_value);
+            
             double converted_value = DSP_Math.MN_to_double_signed(read_value, 1, 31);
 
 
@@ -198,7 +211,23 @@ namespace SA_Resources
                 read_gain_value = -100;
             }
 
+            read_gain_value = offset + 10 * Math.Log10(converted_value);
+            /*
+            if(input_switcher)
+            {
+                textBox1.Text = read_gain_value.ToString("F1");
+                Console.WriteLine("INPUT Read read_value = " + read_value + ", Converted Value = " + converted_value + ", DB Value = " + read_gain_value);
+            
+            } else
+            {
+                textBox2.Text = read_gain_value.ToString("F1");
+                Console.WriteLine("AFTERGAIN Read read_value = " + read_value + ", Converted Value = " + converted_value + ", DB Value = " + read_gain_value);
+            
+            }
+             * */
             gainMeter.DB = read_gain_value;
+
+            input_switcher = !input_switcher;
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -222,6 +251,11 @@ namespace SA_Resources
         {
             this.DialogResult = DialogResult.Cancel;
             this.Close();
+
+        }
+
+        private void txtDisplayName_TextChanged(object sender, EventArgs e)
+        {
 
         }
 

@@ -40,6 +40,8 @@
             this.signalTimer = new System.Windows.Forms.Timer(this.components);
             this.gainMeter = new SA_Resources.SignalMeter_Small();
             this.chkPhantomPower = new SA_Resources.PictureCheckbox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.btnCancel)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnSave)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gainMeter)).BeginInit();
@@ -65,6 +67,7 @@
             this.txtDisplayName.Size = new System.Drawing.Size(133, 20);
             this.txtDisplayName.TabIndex = 1;
             this.txtDisplayName.Text = "Local Input #1";
+            this.txtDisplayName.TextChanged += new System.EventHandler(this.txtDisplayName_TextChanged);
             this.txtDisplayName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDisplayName_KeyPress);
             // 
             // lblPhantomPower
@@ -118,8 +121,8 @@
             this.dropInputType.FormattingEnabled = true;
             this.dropInputType.Items.AddRange(new object[] {
             "Line Level +0dB",
-            "Microphone +20dB",
-            "Microphone +40dB"});
+            "Microphone +6dB",
+            "Microphone +20dB"});
             this.dropInputType.Location = new System.Drawing.Point(113, 51);
             this.dropInputType.Name = "dropInputType";
             this.dropInputType.Size = new System.Drawing.Size(133, 21);
@@ -152,12 +155,30 @@
             this.chkPhantomPower.UseVisualStyleBackColor = true;
             this.chkPhantomPower.CheckedChanged += new System.EventHandler(this.chkPhantomPower_CheckedChanged);
             // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(147, 81);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(39, 20);
+            this.textBox1.TabIndex = 14;
+            this.textBox1.Visible = false;
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(204, 81);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(42, 20);
+            this.textBox2.TabIndex = 15;
+            this.textBox2.Visible = false;
+            // 
             // InputConfiguration
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(82)))), ((int)(((byte)(82)))));
             this.ClientSize = new System.Drawing.Size(260, 187);
+            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.gainMeter);
             this.Controls.Add(this.dropInputType);
             this.Controls.Add(this.label3);
@@ -195,5 +216,7 @@
         private System.Windows.Forms.ComboBox dropInputType;
         private System.Windows.Forms.Timer signalTimer;
         private SignalMeter_Small gainMeter;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBox2;
     }
 }

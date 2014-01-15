@@ -563,9 +563,15 @@ namespace SA_Resources
             } else
             {
                 read_address = PARENT_FORM._comp_out_meters[COMP_INDEX][CH_NUMBER - 1];
+
             }
 
             read_value = PARENT_FORM._PIC_Conn.Read_Live_DSP_Value(read_address);
+
+            if(!comp_switcher)
+            {
+                Console.WriteLine("Read " + read_value);
+            }
             converted_value = DSP_Math.MN_to_double_signed(read_value, 1, 31);
 
             if (converted_value > (0.000001 * 0.000001))

@@ -9,8 +9,8 @@ namespace SA_Resources
     public enum InputType
     {
         Line,
-        Microphone20,
-        Microphone40
+        Microphone6,
+        Microphone20
     }
     
     public class InputConfig : ICloneable
@@ -46,7 +46,7 @@ namespace SA_Resources
             {
                 return 0;
             }
-            else if (this.Type == InputType.Microphone20)
+            else if (this.Type == InputType.Microphone6)
             {
                 return 1;
             } else
@@ -62,13 +62,13 @@ namespace SA_Resources
             {
                 return "Line Level\nPhantom Power: " + PhantomPower.ToString();
             }
-            else if (Type == InputType.Microphone20)
+            else if (Type == InputType.Microphone6)
             {
-                return "Microphone +20dB\nPhantom Power: " + PhantomPower.ToString();
+                return "Microphone +6dB\nPhantom Power: " + PhantomPower.ToString();
             }
             else
             {
-                return "Microphone +40dB\nPhantom Power: " + PhantomPower.ToString();
+                return "Microphone +20dB\nPhantom Power: " + PhantomPower.ToString();
 
             }
         }

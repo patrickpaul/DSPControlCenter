@@ -78,6 +78,12 @@
     <Compile Include="Configurations\InputConfig.cs" />
     <Compile Include="Configurations\OutputConfig.cs" />
     <Compile Include="Configurations\ProgramConfig.cs" />
+    <Compile Include="Forms\PresetManagerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\PresetManagerForm.Designer.cs">
+      <DependentUpon>PresetManagerForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\RestoreSettingsForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -132,9 +138,12 @@
     <Compile Include="Forms\SwitchProgramForm.Designer.cs">
       <DependentUpon>SwitchProgramForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Resource Classes\Buttons.cs" />
-    <Compile Include="Resource Classes\ControlIcons.cs" />
-    <Compile Include="Resource Classes\Icons.cs" />
+    <Compile Include="Forms\Resource Classes\Buttons.cs" />
+    <Compile Include="Forms\Resource Classes\ControlIcons.cs" />
+    <Compile Include="Forms\Resource Classes\Icons.cs" />
+    <Compile Include="UIElements\Controls\SAComboBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="UIElements\Controls\SignalMeter_Small.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -179,7 +188,7 @@
     <Compile Include="Classes\DSP_Math.cs" />
     <Compile Include="Classes\DSP_Setting.cs" />
     <Compile Include="Classes\ImageHelpers.cs" />
-    <Compile Include="Resource Classes\Images.cs" />
+    <Compile Include="Forms\Resource Classes\Images.cs" />
     <Compile Include="Classes\PIC_Bridge.cs" />
     <Compile Include="Forms\CompressorForm.cs">
       <SubType>Form</SubType>
@@ -273,6 +282,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\CompressorForm.resx">
       <DependentUpon>CompressorForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\PresetManagerForm.resx">
+      <DependentUpon>PresetManagerForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\RestoreSettingsForm.resx">
       <DependentUpon>RestoreSettingsForm.cs</DependentUpon>
@@ -521,10 +533,22 @@
   <ItemGroup>
     <None Include="Resources\ui_ducker_insert.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\copy_icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\clear_icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cut_icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\paste_icon.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_UpdateAssemblyVersion="True" BuildVersion_UpdateFileVersion="True" BuildVersion_AssemblyInfoFilename="Properties\AssemblyInfo.cs" BuildVersion_UseGlobalSettings="True" />
+      <UserProperties BuildVersion_UseGlobalSettings="True" BuildVersion_AssemblyInfoFilename="Properties\AssemblyInfo.cs" BuildVersion_UpdateFileVersion="True" BuildVersion_UpdateAssemblyVersion="True" />
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>

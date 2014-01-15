@@ -534,10 +534,10 @@ namespace DSP_4x4
                         PROGRAMS[program_index].inputs[in_count].Type = InputType.Line;
                     } else if(_settings[program_index][412+in_count].Value == 1)
                     {
-                        PROGRAMS[program_index].inputs[in_count].Type = InputType.Microphone20;
+                        PROGRAMS[program_index].inputs[in_count].Type = InputType.Microphone6;
                     } else
                     {
-                        PROGRAMS[program_index].inputs[in_count].Type = InputType.Microphone40;
+                        PROGRAMS[program_index].inputs[in_count].Type = InputType.Microphone20;
                     }
 
                      PROGRAMS[program_index].gains[in_count][0].Gain = DSP_Math.MN_to_double_signed(_settings[program_index][416+in_count].Value,6,26);

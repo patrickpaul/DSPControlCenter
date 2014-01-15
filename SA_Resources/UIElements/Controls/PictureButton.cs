@@ -201,6 +201,12 @@ namespace SA_Resources
         // sets the mouse capture automatically.
         protected override void OnMouseDown(MouseEventArgs e)
         {
+
+            if(e.Button == MouseButtons.Right)
+            {
+                return;
+            }
+
             this.pressed = true;
             this.Invalidate();
             base.OnMouseDown(e);
@@ -210,6 +216,12 @@ namespace SA_Resources
         // and invalidate to redraw the button in the unpressed state.
         protected override void OnMouseUp(MouseEventArgs e)
         {
+            if (e.Button == MouseButtons.Right)
+            {
+                return;
+            }
+
+
             this.pressed = false;
             this.Invalidate();
             base.OnMouseUp(e);
