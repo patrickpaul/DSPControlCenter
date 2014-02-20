@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using SA_Resources.Filters;
 using SA_Resources.Forms;
 
@@ -20,17 +21,16 @@ namespace SA_Resources
 
     public class FilterConfig : ICloneable
     {
-        public string[] _filterNames;
+        public BiquadFilter Filter;
         public FilterType Type;
         public bool Bypassed;
-        public BiquadFilter Filter;
+        
 
         public FilterConfig()
         {
             Type = FilterType.None;
             Bypassed = true;
             Filter = null;
-            _filterNames = new string[10];
         }
         
         
@@ -47,6 +47,9 @@ namespace SA_Resources
             Bypassed = bypassed;
             Filter = in_filter;
         }
+
+        
+
 
         public bool IsEqual(FilterConfig compareFilter)
         {

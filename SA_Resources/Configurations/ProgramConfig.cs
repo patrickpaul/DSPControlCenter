@@ -40,8 +40,8 @@ namespace SA_Resources
 
                 compressors[i] = new CompressorConfig[2];
 
-                compressors[i][0] = new CompressorConfig(CompressorType.Compressor);
-                compressors[i][1] = new CompressorConfig(CompressorType.Limiter);
+                compressors[i][0] = new CompressorConfig(i+1,CompressorType.Compressor);
+                compressors[i][1] = new CompressorConfig(i+1,CompressorType.Limiter);
 
                 delays[i] = new DelayConfig();
 

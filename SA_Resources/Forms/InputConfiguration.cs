@@ -184,6 +184,8 @@ namespace SA_Resources
 
             read_address = PARENT_FORM._gain_meters[CH_NUMBER - 1][0];
 
+            //read_address = 0xF0C00069;
+
             /*
             if (input_switcher)
             {

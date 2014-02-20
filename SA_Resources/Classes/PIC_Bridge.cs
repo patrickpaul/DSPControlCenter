@@ -1455,7 +1455,6 @@ namespace SA_Resources
                 int timeout_counter = 0;
                 int timeout_length = 0;
 
-                int progress_counter = 0;
 
                 bool timeout_error = false;
 

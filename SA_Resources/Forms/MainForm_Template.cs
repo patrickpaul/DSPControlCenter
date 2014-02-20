@@ -20,6 +20,7 @@ namespace SA_Resources.Forms
         public ProgramConfig[] PROGRAMS = new ProgramConfig[3];
         public ProgramConfig PROGRAM_CACHE = new ProgramConfig();
 
+        public Primitive_Manager[] PRIMITIVE_PROGRAMS = new Primitive_Manager[3];
 
         /* Settings Lists */
 
@@ -197,6 +198,7 @@ namespace SA_Resources.Forms
             for (int p = 0; p < NUM_PROGRAMS; p++)
             {
                 PROGRAMS[p] = new ProgramConfig();
+                PRIMITIVE_PROGRAMS[p] = new Primitive_Manager();
             }
 
             for (int i = 0; i < this.NumPresets(); i++)
@@ -253,11 +255,6 @@ namespace SA_Resources.Forms
 
         public void AddItemToQueue(LiveQueueItem itemToAdd)
         {
-
-            if (!LIVE_MODE)
-            {
-                return;
-            }
 
             Console.WriteLine("Added item to queue: " + itemToAdd.Index + " - " + itemToAdd.Value.ToString("X8"));
             lock (_locker)
@@ -1095,8 +1092,8 @@ namespace SA_Resources.Forms
 
                 if (btn_Compressor != null)
                 {
-                    btn_Compressor.Overlay1Visible = PROGRAMS[CURRENT_PROGRAM].compressors[i][0].Bypassed;
-                    btn_Compressor.Invalidate();
+                    //btn_Compressor.Overlay1Visible = PROGRAMS[CURRENT_PROGRAM].compressors[i][0].Bypassed;
+                   // btn_Compressor.Invalidate();
                 }
 
                 if (btn_PreGain2 != null)
@@ -1920,6 +1917,7 @@ namespace SA_Resources.Forms
 
         public void About_Event(object sender, EventArgs e)
         {
+            // TODO - CHECK - WHY IS THIS EMPTY
             if (new AboutForm("About " + this.GetDeviceName() + " Plugin", "DSP Control Center - " + this.GetDeviceName() + " Plugin", Assembly.GetExecutingAssembly().GetName().Version, "").ShowDialog() != DialogResult.OK);
         }
 

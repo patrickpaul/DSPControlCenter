@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using SA_Resources;
 using System.Linq;
+using SA_Resources.Filters;
 using SA_Resources.Forms;
 
 namespace DSP_4x4
@@ -16,6 +17,8 @@ namespace DSP_4x4
             : base()
         {
             InitializeComponent();
+
+            
         }
 
         public MainForm(string configFile)
@@ -475,15 +478,12 @@ namespace DSP_4x4
                 for (int m = 0; m < 4; m++)
                 {
 
-                    PROGRAMS[program_index].compressors[m][0].Threshold = DSP_Math.MN_to_double_signed(_settings[program_index][counter++].Value, 9, 23);
-                    PROGRAMS[program_index].compressors[m][0].SoftKnee = (_settings[program_index][counter++].Value == 0x03000000);
-                    PROGRAMS[program_index].compressors[m][0].Ratio = DSP_Math.value_to_comp_ratio(_settings[program_index][counter++].Value);
-                    PROGRAMS[program_index].compressors[m][0].Attack = DSP_Math.value_to_comp_attack(_settings[program_index][counter++].Value);
-                    PROGRAMS[program_index].compressors[m][0].Release = DSP_Math.value_to_comp_release(_settings[program_index][counter++].Value);
-                    PROGRAMS[program_index].compressors[m][0].Bypassed = (_settings[program_index][counter++].Value == 0x00000001);
+                    PROGRAMS[program_index].compressors[m][0].UpdateFromSettings(this,program_index,counter);
 
-                    ((PictureButton)Controls.Find("btnCH" + (m + 1).ToString() + "Compressor", true).First()).Overlay1Visible = PROGRAMS[program_index].compressors[m][0].Bypassed;
-                    ((PictureButton)Controls.Find("btnCH" + (m + 1).ToString() + "Compressor", true).First()).Invalidate();
+                    counter += PROGRAMS[program_index].compressors[m][0].NUM_DSP_SETTINGS;
+
+                    //((PictureButton)Controls.Find("btnCH" + (m + 1).ToString() + "Compressor", true).First()).Overlay1Visible = PROGRAMS[program_index].compressors[m][0].Bypassed;
+                    //((PictureButton)Controls.Find("btnCH" + (m + 1).ToString() + "Compressor", true).First()).Invalidate();
                 }
 
                 // LIMITERS
@@ -679,44 +679,24 @@ namespace DSP_4x4
 
                 for (int m = 0; m < 4; m++)
                 {
-                    _settings[program_index][counter++].Value = DSP_Math.double_to_MN(PROGRAMS[program_index].compressors[m][0].Threshold, 9, 23);
-
-                    if (PROGRAMS[program_index].compressors[m][0].SoftKnee)
-                    {
-                        _settings[program_index][counter++].Value = 0x03000000;
-                    }
-                    else
-                    {
-                        _settings[program_index][counter++].Value = 0x00000000;
-                    }
-
-                    _settings[program_index][counter++].Value = DSP_Math.comp_ratio_to_value(PROGRAMS[program_index].compressors[m][0].Ratio);
-                    _settings[program_index][counter++].Value = DSP_Math.comp_attack_to_value(PROGRAMS[program_index].compressors[m][0].Attack);
-                    _settings[program_index][counter++].Value = DSP_Math.comp_release_to_value(PROGRAMS[program_index].compressors[m][0].Release);
-                    _settings[program_index][counter++].Value = Convert.ToUInt32(PROGRAMS[program_index].compressors[m][0].Bypassed);
-
+                    _settings[program_index][counter++].Value = PROGRAMS[program_index].compressors[m][0].Threshold_Value;
+                    _settings[program_index][counter++].Value = PROGRAMS[program_index].compressors[m][0].SoftKnee_Value;
+                    _settings[program_index][counter++].Value = PROGRAMS[program_index].compressors[m][0].Ratio_Value;
+                    _settings[program_index][counter++].Value = PROGRAMS[program_index].compressors[m][0].Attack_Value;
+                    _settings[program_index][counter++].Value = PROGRAMS[program_index].compressors[m][0].Release_Value;
+                    _settings[program_index][counter++].Value = PROGRAMS[program_index].compressors[m][0].Bypassed_Value;
                 }
 
                 // LIMITERS
 
                 for (int n = 0; n < 4; n++)
                 {
-                    _settings[program_index][counter++].Value = DSP_Math.double_to_MN(PROGRAMS[program_index].compressors[n][1].Threshold, 9, 23);
-
-                    if (PROGRAMS[program_index].compressors[n][1].SoftKnee)
-                    {
-                        _settings[program_index][counter++].Value = 0x03000000;
-                    }
-                    else
-                    {
-                        _settings[program_index][counter++].Value = 0x00000000;
-                    }
-
-                    _settings[program_index][counter++].Value = DSP_Math.comp_ratio_to_value(PROGRAMS[program_index].compressors[n][1].Ratio);
-                    _settings[program_index][counter++].Value = DSP_Math.comp_attack_to_value(PROGRAMS[program_index].compressors[n][1].Attack);
-                    _settings[program_index][counter++].Value = DSP_Math.comp_release_to_value(PROGRAMS[program_index].compressors[n][1].Release);
-                    _settings[program_index][counter++].Value = Convert.ToUInt32(PROGRAMS[program_index].compressors[n][1].Bypassed);
-
+                    _settings[program_index][counter++].Value = PROGRAMS[program_index].compressors[n][1].Threshold_Value;
+                    _settings[program_index][counter++].Value = PROGRAMS[program_index].compressors[n][1].SoftKnee_Value;
+                    _settings[program_index][counter++].Value = PROGRAMS[program_index].compressors[n][1].Ratio_Value;
+                    _settings[program_index][counter++].Value = PROGRAMS[program_index].compressors[n][1].Attack_Value;
+                    _settings[program_index][counter++].Value = PROGRAMS[program_index].compressors[n][1].Release_Value;
+                    _settings[program_index][counter++].Value = PROGRAMS[program_index].compressors[n][1].Bypassed_Value;
                 }
 
                 _settings[program_index][counter++].Value = DSP_Math.double_to_MN(PROGRAMS[program_index].delays[0].Delay, 16, 16);
@@ -808,6 +788,98 @@ namespace DSP_4x4
         }
 
 #endregion
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                //Primitive_Manager PManager = new Primitive_Manager();
+
+                /* Gain Blocks */
+
+                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(0, new DSP_Primitive_StandardGain("Input Gain CH 1", 0, 0));
+                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(1, new DSP_Primitive_StandardGain("Input Gain CH 2", 1, 0));
+                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(2, new DSP_Primitive_StandardGain("Input Gain CH 3", 2, 0));
+                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(3, new DSP_Primitive_StandardGain("Input Gain CH 4", 3, 0));
+
+                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(28, new DSP_Primitive_StandardGain("Pre-Mix Gain CH 1", 0, 1));
+                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(29, new DSP_Primitive_StandardGain("Pre-Mix Gain CH 2", 1, 1));
+                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(30, new DSP_Primitive_StandardGain("Pre-Mix Gain CH 3", 2, 1));
+                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(31, new DSP_Primitive_StandardGain("Pre-Mix Gain CH 4", 3, 1));
+
+                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(32, new DSP_Primitive_StandardGain("Post-Mix Trim CH 1", 0, 2));
+                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(33, new DSP_Primitive_StandardGain("Post-Mix Trim CH 2", 1, 2));
+                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(34, new DSP_Primitive_StandardGain("Post-Mix Trim CH 3", 2, 2));
+                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(35, new DSP_Primitive_StandardGain("Post-Mix Trim CH 4", 3, 2));
+
+                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(36, new DSP_Primitive_StandardGain("Output Gain CH 1", 0, 3));
+                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(37, new DSP_Primitive_StandardGain("Output Gain CH 2", 1, 3));
+                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(38, new DSP_Primitive_StandardGain("Output Gain CH 3", 2, 3));
+                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(39, new DSP_Primitive_StandardGain("Output Gain CH 4", 3, 3));
+
+                /* Filters */
+
+                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(40, new DSP_Primitive_BiquadFilter("INFILTER_1_1", 1, 0, 300));
+                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(45, new DSP_Primitive_BiquadFilter("INFILTER_1_2", 1, 1, 303));
+                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(50, new DSP_Primitive_BiquadFilter("INFILTER_1_3", 1, 2, 306));
+                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(55, new DSP_Primitive_BiquadFilter("OUTFILTER_1_1", 1, 3, 309));
+                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(60, new DSP_Primitive_BiquadFilter("OUTFILTER_1_2", 1, 4, 312));
+                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(65, new DSP_Primitive_BiquadFilter("OUTFILTER_1_3", 1, 5, 315));
+                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(70, new DSP_Primitive_BiquadFilter("OUTFILTER_1_4", 1, 6, 318));
+                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(75, new DSP_Primitive_BiquadFilter("OUTFILTER_1_5", 1, 7, 321));
+                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(80, new DSP_Primitive_BiquadFilter("OUTFILTER_1_6", 1, 8, 324));
+
+                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(85, new DSP_Primitive_BiquadFilter("INFILTER_2_1", 2, 0, 327));
+                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(90, new DSP_Primitive_BiquadFilter("INFILTER_2_2", 2, 1, 330));
+                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(95, new DSP_Primitive_BiquadFilter("INFILTER_2_3", 2, 2, 333));
+                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(100, new DSP_Primitive_BiquadFilter("OUTFILTER_2_1", 2, 3, 336));
+                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(105, new DSP_Primitive_BiquadFilter("OUTFILTER_2_2", 2, 4, 339));
+                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(110, new DSP_Primitive_BiquadFilter("OUTFILTER_2_3", 2, 5, 342));
+                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(115, new DSP_Primitive_BiquadFilter("OUTFILTER_2_4", 2, 6, 345));
+                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(120, new DSP_Primitive_BiquadFilter("OUTFILTER_2_5", 2, 7, 348));
+                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(125, new DSP_Primitive_BiquadFilter("OUTFILTER_2_6", 2, 8, 351));
+
+                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(130, new DSP_Primitive_BiquadFilter("INFILTER_3_1", 3, 0, 354));
+                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(135, new DSP_Primitive_BiquadFilter("INFILTER_3_2", 3, 1, 357));
+                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(140, new DSP_Primitive_BiquadFilter("INFILTER_3_3", 3, 2, 360));
+                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(145, new DSP_Primitive_BiquadFilter("OUTFILTER_3_1", 3, 3, 363));
+                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(150, new DSP_Primitive_BiquadFilter("OUTFILTER_3_2", 3, 4, 366));
+                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(155, new DSP_Primitive_BiquadFilter("OUTFILTER_3_3", 3, 5, 369));
+                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(160, new DSP_Primitive_BiquadFilter("OUTFILTER_3_4", 3, 6, 372));
+                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(165, new DSP_Primitive_BiquadFilter("OUTFILTER_3_5", 3, 7, 375));
+                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(170, new DSP_Primitive_BiquadFilter("OUTFILTER_3_6", 3, 8, 378));
+
+                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(175, new DSP_Primitive_BiquadFilter("INFILTER_4_1", 4, 0, 381));
+                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(180, new DSP_Primitive_BiquadFilter("INFILTER_4_2", 4, 1, 384));
+                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(185, new DSP_Primitive_BiquadFilter("INFILTER_4_3", 4, 2, 387));
+                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(190, new DSP_Primitive_BiquadFilter("OUTFILTER_4_1", 4, 3, 390));
+                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(195, new DSP_Primitive_BiquadFilter("OUTFILTER_4_2", 4, 4, 393));
+                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(200, new DSP_Primitive_BiquadFilter("OUTFILTER_4_3", 4, 5, 396));
+                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(205, new DSP_Primitive_BiquadFilter("OUTFILTER_4_4", 4, 6, 399));
+                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(210, new DSP_Primitive_BiquadFilter("OUTFILTER_4_5", 4, 7, 402));
+                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(215, new DSP_Primitive_BiquadFilter("OUTFILTER_4_6", 4, 8, 405));
+
+                /* Compressors */
+                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(220, new DSP_Primitive_Compressor("CH 1 - Compressor", 0, 0));
+                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(226, new DSP_Primitive_Compressor("CH 2 - Compressor", 1, 0));
+                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(232, new DSP_Primitive_Compressor("CH 3 - Compressor", 2, 0));
+                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(238, new DSP_Primitive_Compressor("CH 4 - Compressor", 3, 0));
+
+                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(244, new DSP_Primitive_Compressor("CH 1 - Limiter", 0, 1, DSP_Primitive_Types.Limiter));
+                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(250, new DSP_Primitive_Compressor("CH 2 - Limiter", 1, 1, DSP_Primitive_Types.Limiter));
+                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(256, new DSP_Primitive_Compressor("CH 3 - Limiter", 2, 1, DSP_Primitive_Types.Limiter));
+                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(262, new DSP_Primitive_Compressor("CH 4 - Limiter", 3, 1, DSP_Primitive_Types.Limiter));
+
+                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(268, new DSP_Primitive_Delay("CH 1 - Delay", 0));
+                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(270, new DSP_Primitive_Delay("CH 2 - Delay", 1));
+                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(272, new DSP_Primitive_Delay("CH 3 - Delay", 2));
+                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(274, new DSP_Primitive_Delay("CH 4 - Delay", 3));
+
+            } catch (Exception ex)
+            {
+                Console.WriteLine("[EXCEPTION]: " + ex.Message);
+            }
+        }
 
 
         #endregion

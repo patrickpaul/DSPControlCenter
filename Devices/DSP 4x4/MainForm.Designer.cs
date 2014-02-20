@@ -30,7 +30,6 @@ namespace DSP_4x4
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.tsStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
@@ -71,7 +70,7 @@ namespace DSP_4x4
             this.btnCH1PreFilters = new SA_Resources.PictureButton();
             this.btnCH1Compressor = new SA_Resources.PictureButton();
             this.btnCH1PreGain2 = new SA_Resources.PictureButton();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.timer1 = new System.Windows.Forms.Timer();
             this.saveProgramDialog = new System.Windows.Forms.SaveFileDialog();
             this.openProgramDialog = new System.Windows.Forms.OpenFileDialog();
             this.pnlCH2PreMixer = new System.Windows.Forms.Panel();
@@ -95,9 +94,10 @@ namespace DSP_4x4
             this.lblCH3Input = new System.Windows.Forms.Label();
             this.lblCH2Input = new System.Windows.Forms.Label();
             this.lblCH1Input = new System.Windows.Forms.Label();
-            this.timer2 = new System.Windows.Forms.Timer(this.components);
+            this.timer2 = new System.Windows.Forms.Timer();
             this.picDuckerLine = new System.Windows.Forms.PictureBox();
             this.pbtnDucker = new SA_Resources.PictureButton();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureConnectionStatus)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox37)).BeginInit();
@@ -754,7 +754,7 @@ namespace DSP_4x4
             this.btnCH1Compressor.Name = "btnCH1Compressor";
             this.btnCH1Compressor.OverImage = null;
             this.btnCH1Compressor.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnCH1Compressor.Overlay1Image")));
-            this.btnCH1Compressor.Overlay1Visible = true;
+            this.btnCH1Compressor.Overlay1Visible = false;
             this.btnCH1Compressor.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnCH1Compressor.Overlay2Image")));
             this.btnCH1Compressor.Overlay2Visible = false;
             this.btnCH1Compressor.Overlay3Image = null;
@@ -1131,12 +1131,23 @@ namespace DSP_4x4
             this.pbtnDucker.ToolTipText = "";
             this.pbtnDucker.Visible = false;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(294, 331);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 90;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(82)))), ((int)(((byte)(82)))));
             this.ClientSize = new System.Drawing.Size(906, 404);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.pbtnDucker);
             this.Controls.Add(this.picDuckerLine);
             this.Controls.Add(this.pnlCH2PreMixer);
@@ -1187,6 +1198,7 @@ namespace DSP_4x4
             this.Controls.SetChildIndex(this.pnlCH2PreMixer, 0);
             this.Controls.SetChildIndex(this.picDuckerLine, 0);
             this.Controls.SetChildIndex(this.pbtnDucker, 0);
+            this.Controls.SetChildIndex(this.button1, 0);
             ((System.ComponentModel.ISupportInitialize)(this.pictureConnectionStatus)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox37)).EndInit();
@@ -1272,5 +1284,6 @@ namespace DSP_4x4
         private System.Windows.Forms.Timer timer2;
         private System.Windows.Forms.PictureBox picDuckerLine;
         private PictureButton pbtnDucker;
+        private System.Windows.Forms.Button button1;
     }
 }

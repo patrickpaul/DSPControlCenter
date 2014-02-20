@@ -141,6 +141,14 @@
     <Compile Include="Forms\Resource Classes\Buttons.cs" />
     <Compile Include="Forms\Resource Classes\ControlIcons.cs" />
     <Compile Include="Forms\Resource Classes\Icons.cs" />
+    <Compile Include="Primitives\DSP_Primitive_Base.cs" />
+    <Compile Include="Primitives\DSP_Primitive_BiquadFilter.cs" />
+    <Compile Include="Primitives\DSP_Primitive_Compressor.cs" />
+    <Compile Include="Primitives\DSP_Primitive_Delay.cs" />
+    <Compile Include="Primitives\DSP_Primitive_Input.cs" />
+    <Compile Include="Primitives\DSP_Primitive_StandardGain.cs" />
+    <Compile Include="Primitives\Primitive_Manager.cs" />
+    <Compile Include="Primitives\Primitive_Types.cs" />
     <Compile Include="UIElements\Controls\SAComboBox.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -548,7 +556,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_UseGlobalSettings="True" BuildVersion_AssemblyInfoFilename="Properties\AssemblyInfo.cs" BuildVersion_UpdateFileVersion="True" BuildVersion_UpdateAssemblyVersion="True" />
+      <UserProperties BuildVersion_UpdateAssemblyVersion="True" BuildVersion_UpdateFileVersion="True" BuildVersion_AssemblyInfoFilename="Properties\AssemblyInfo.cs" BuildVersion_UseGlobalSettings="True" />
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>

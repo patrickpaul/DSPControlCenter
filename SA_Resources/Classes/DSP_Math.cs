@@ -42,6 +42,36 @@ namespace SA_Resources
 
         }
 
+        public static UInt32 filter_primitive_to_package(DSP_Primitive_BiquadFilter in_primitive)
+        {
+            UInt32 return_int = 0x00;
+
+            return_int |= Convert.ToUInt32(in_primitive.Bypassed);
+
+            return_int <<= 4;
+
+            return_int |= (uint)in_primitive.Filter.FilterType;
+
+            return_int <<= 3;
+
+            if (in_primitive.FType == FilterType.SecondOrderHighPass || in_primitive.FType == FilterType.SecondOrderLowPass)
+            {
+                return_int |= 0x01;
+            }
+            else
+            {
+                return_int |= 0x00;
+            }
+
+
+            return_int <<= 23;
+
+            return_int |= (uint)in_primitive.Filter.CenterFrequency;
+
+            return return_int;
+
+        }
+
 
         public static FilterConfig rebuild_filter(UInt32 package, UInt32 Gain, UInt32 QVal)
         {

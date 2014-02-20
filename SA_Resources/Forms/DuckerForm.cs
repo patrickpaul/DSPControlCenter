@@ -35,7 +35,6 @@ namespace SA_Resources
         private int ADDR_BYPASS;
 
         private int cur_meter;
-        private bool comp_switcher;
 
         private bool form_loaded = false;
         public DuckerForm(MainForm_Template _parentForm, int _settings_offset)
