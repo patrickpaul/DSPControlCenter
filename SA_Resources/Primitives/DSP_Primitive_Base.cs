@@ -31,14 +31,15 @@ namespace SA_Resources
             this.Offset = new_offset;
         }
 
-        public abstract void UpdateFromSettings(List<DSP_Setting> settingsList);
+        public abstract void UpdateFromReadValues(List<UInt32> valuesList);
 
         public abstract void PrintValues();
 
-        public abstract bool Equals(DSP_Primitive comparePrimitive);
-
         public abstract void QueueChange(MainForm_Template PARENT_FORM);
+        public abstract void QueueChangeByOffset(MainForm_Template PARENT_FORM, int const_offset);
+        public abstract void QueueDeltas(MainForm_Template PARENT_FORM, DSP_Primitive comparePrimitive);
 
+        public abstract bool Equals(DSP_Primitive comparePrimitive);
         public abstract object Clone();
     }
 }

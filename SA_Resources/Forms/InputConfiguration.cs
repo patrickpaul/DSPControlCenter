@@ -28,28 +28,33 @@ namespace SA_Resources
         private bool form_loaded = false;
 
         private MainForm_Template PARENT_FORM;
-        private int CH_NUMBER;
+
         private double read_gain_value;
 
-        public InputConfiguration(MainForm_Template _parentForm, int _channelNumber, bool show_phantom = true)
+        private DSP_Primitive_Input Active_Primitive;
+        private DSP_Primitive_StandardGain Input_Gain_Primitive;
+
+
+        public InputConfiguration(MainForm_Template _parentForm, DSP_Primitive_Input in_primitive)
         {
             InitializeComponent();
 
             PARENT_FORM = _parentForm;
-            CH_NUMBER = _channelNumber;
 
-            this.Text = "CH " + CH_NUMBER.ToString("N0") + " - Input Configuration";
+            Active_Primitive = in_primitive;
 
-            txtDisplayName.Text = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].inputs[CH_NUMBER-1].Name;
+            this.Text = "CH " + (Active_Primitive.Channel+1).ToString("N0") + " - Input Configuration";
 
-            chkPhantomPower.Checked = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].inputs[CH_NUMBER - 1].PhantomPower;
+            txtDisplayName.Text = Active_Primitive.Name;
+
+            chkPhantomPower.Checked = Active_Primitive.PhantomPower;
             chkPhantomPower.Invalidate();
 
-            if (PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].inputs[CH_NUMBER - 1].Type == InputType.Line)
+            if (Active_Primitive.InputType == InputType.Line)
             {
                 dropInputType.SelectedIndex = 0;
             }
-            else if (PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].inputs[CH_NUMBER - 1].Type == InputType.Microphone6)
+            else if (Active_Primitive.InputType == InputType.Microphone6)
             {
                 dropInputType.SelectedIndex = 1;
             } else
@@ -59,7 +64,7 @@ namespace SA_Resources
 
             dropInputType.Invalidate();
 
-            if(!show_phantom)
+            if (!Active_Primitive.PhantomAvailable)
             {
                 lblPhantomPower.Visible = false;
                 chkPhantomPower.Visible = false;
@@ -102,28 +107,27 @@ namespace SA_Resources
 
             if(dropInputType.SelectedIndex == 0)
             {
-                PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].inputs[CH_NUMBER - 1].Type = InputType.Line;
-                PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].pregains[CH_NUMBER - 1] = 0;
+                Active_Primitive.InputType = InputType.Line;
             } else if(dropInputType.SelectedIndex == 1)
             {
-                PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].inputs[CH_NUMBER - 1].Type = InputType.Microphone6;
-                PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].pregains[CH_NUMBER - 1] = 6;
+                Active_Primitive.InputType = InputType.Microphone6;
 
             } else
             {
-                PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].inputs[CH_NUMBER - 1].Type = InputType.Microphone20;
-                PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].pregains[CH_NUMBER - 1] = 20;
+                Active_Primitive.InputType = InputType.Microphone20;
             }
 
             if (PARENT_FORM.LIVE_MODE)
             {
+                
                 UInt32 new_val =
                     DSP_Math.double_to_MN(
-                        PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].pregains[CH_NUMBER - 1] +
-                        PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].gains[CH_NUMBER - 1][0].Gain, 9, 23);
-
+                        Active_Primitive.Pregain +
+                        Input_Gain_Primitive.Gain, 9, 23);
+                /*
                 PARENT_FORM.AddItemToQueue(new LiveQueueItem((0 + CH_NUMBER - 1), new_val));
                 PARENT_FORM.AddItemToQueue(new LiveQueueItem((412 + CH_NUMBER - 1), (uint) dropInputType.SelectedIndex));
+                 * */
             }
 
         }
@@ -140,9 +144,9 @@ namespace SA_Resources
                 chkPhantomPower.Checked = false;
             }
 
-            PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].inputs[CH_NUMBER - 1].PhantomPower = chkPhantomPower.Checked;
+            Active_Primitive.PhantomPower = chkPhantomPower.Checked;
 
-            PARENT_FORM.AddItemToQueue(new LiveQueueItem(1000 + (CH_NUMBER - 1), PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].inputs[CH_NUMBER - 1].PhantomAsInt()));                
+            //PARENT_FORM.AddItemToQueue(new LiveQueueItem(1000 + (CH_NUMBER - 1), Active_Primitive.PhantomAsInt()));                
 
         }
 
@@ -173,30 +177,21 @@ namespace SA_Resources
 
         private void InputConfiguration_FormClosing(object sender, FormClosingEventArgs e)
         {
-            PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].inputs[CH_NUMBER - 1].Name = txtDisplayName.Text;
+            Active_Primitive.Name = txtDisplayName.Text;
         }
 
         public bool input_switcher = false;
 
         private void signalTimer_Tick(object sender, EventArgs e)
         {
+            /*
             UInt32 read_address;
 
-            read_address = PARENT_FORM._gain_meters[CH_NUMBER - 1][0];
+            //read_address = PARENT_FORM._gain_meters[CH_NUMBER - 1][0];
 
             //read_address = 0xF0C00069;
 
-            /*
-            if (input_switcher)
-            {
-                read_address = 0xF0C00005;
-            }
-            else
-            {
-                read_address = 0xF0C00077;
-
-            }
-            */
+ 
             double offset = 20 + 10 * Math.Log10(2) + 20 * Math.Log10(16);
             UInt32 read_value = PARENT_FORM._PIC_Conn.Read_Live_DSP_Value(read_address);
 
@@ -214,7 +209,7 @@ namespace SA_Resources
             }
 
             read_gain_value = offset + 10 * Math.Log10(converted_value);
-            /*
+             * 
             if(input_switcher)
             {
                 textBox1.Text = read_gain_value.ToString("F1");
@@ -226,10 +221,11 @@ namespace SA_Resources
                 Console.WriteLine("AFTERGAIN Read read_value = " + read_value + ", Converted Value = " + converted_value + ", DB Value = " + read_gain_value);
             
             }
-             * */
             gainMeter.DB = read_gain_value;
 
             input_switcher = !input_switcher;
+
+            */
         }
 
         private void btnSave_Click(object sender, EventArgs e)

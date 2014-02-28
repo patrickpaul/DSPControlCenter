@@ -22,7 +22,7 @@ namespace SA_Resources.Filters
         private double gain_min = -24.0;
         private double gain_default = 0;
 
-        private double q_max = 10;
+        private double q_max = 20;
         private double q_min = 0.707;
         private double q_default= 0.707;
 
@@ -53,7 +53,7 @@ namespace SA_Resources.Filters
             return true;
         }
 
-        public BiquadFilter(double in_cf, double in_gain, double in_q)
+        public BiquadFilter(double in_cf, double in_gain = 0, double in_q = 0)
         {
             center_freq = in_cf;
             gainDB = in_gain;

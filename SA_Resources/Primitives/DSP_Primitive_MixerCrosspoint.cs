@@ -6,52 +6,31 @@ using SA_Resources.Forms;
 
 namespace SA_Resources
 {
-    public enum StandardGain_Types
-    {
-        Twelve_to_Negative_100,
-        Six_to_Negative_12
-    }
-
-    public class DSP_Primitive_StandardGain : DSP_Primitive, ICloneable
+    public class DSP_Primitive_MixerCrosspoint : DSP_Primitive, ICloneable
     {
         public double _Gain;
         public UInt32 Gain_Value, Muted_Value;
         public bool _Muted;
         public double _Pregain;
-        public StandardGain_Types _Mode;
 
-        public DSP_Primitive_StandardGain(string in_name, int in_channel, int in_positionA)
-            : base(in_name,in_channel,in_positionA)
-        {
-            Muted = false;
-            Gain = 0;
-            _Pregain = 0;
-            Mode = StandardGain_Types.Twelve_to_Negative_100;
-            this.Type = DSP_Primitive_Types.StandardGain;
-            // TODO - Is this really 1 value? Edit below as well
-            this.Num_Values = 1;
-        }
-
-        public DSP_Primitive_StandardGain(string in_name, int in_channel, int in_positionA, StandardGain_Types in_type)
+        public DSP_Primitive_MixerCrosspoint(string in_name, int in_channel, int in_positionA)
             : base(in_name, in_channel, in_positionA)
         {
             Muted = false;
             Gain = 0;
             _Pregain = 0;
-            Mode = in_type;
-            this.Type = DSP_Primitive_Types.StandardGain;
-            // TODO - Is this really 1 value? Edit below as well
+
+            this.Type = DSP_Primitive_Types.MixerCrosspoint; ;
             this.Num_Values = 1;
         }
 
-        public DSP_Primitive_StandardGain(string in_name, int in_channel, int in_positionA, StandardGain_Types in_type, double in_gain = 0, bool in_muted = false)
+        public DSP_Primitive_MixerCrosspoint(string in_name, int in_channel, int in_positionA, double in_gain = 0, bool in_muted = false)
             : base(in_name, in_channel, in_positionA)
         {
             Muted = in_muted;
             Gain = in_gain;
-            Mode = in_type;
             _Pregain = 0;
-            this.Type = DSP_Primitive_Types.StandardGain;
+            this.Type = DSP_Primitive_Types.MixerCrosspoint;
             this.Num_Values = 1;
         }
 
@@ -61,8 +40,8 @@ namespace SA_Resources
             {
                 return new List<UInt32>(new UInt32[] { Gain_Value });
             }
-            set {}
-        } 
+            set { }
+        }
 
         public double Gain
         {
@@ -70,7 +49,8 @@ namespace SA_Resources
             {
                 return this._Gain + _Pregain;
             }
-            set {
+            set
+            {
                 this._Gain = value;
 
                 if (this._Muted)
@@ -81,18 +61,6 @@ namespace SA_Resources
                 {
                     this.Gain_Value = DSP_Math.double_to_MN(DSP_Math.decibels_to_voltage_gain(this._Gain), 9, 23);
                 }
-            }
-        }
-
-        public StandardGain_Types Mode
-        {
-            get
-            {
-                return this._Mode;
-            }
-            set
-            {
-                this._Mode = value;
             }
         }
 
@@ -120,7 +88,7 @@ namespace SA_Resources
         {
             if (Muted == true)
             {
-                return "Muted (" + Gain.ToString("N1") + "dB)";
+                return "Muted";
             }
             else
             {
@@ -130,10 +98,14 @@ namespace SA_Resources
 
         public override void UpdateFromReadValues(List<UInt32> valuesList)
         {
+            if(valuesList.Count > this.Num_Values)
+            {
+                
+            }
             this.Gain = DSP_Math.value_to_gain(valuesList[0]);
             this.Muted = false;
 
-            if(this.Gain < -90)
+            if (this.Gain < -90)
             {
                 this.Gain = 0;
                 this.Muted = true;
@@ -151,7 +123,7 @@ namespace SA_Resources
 
         public override void QueueChangeByOffset(MainForm_Template PARENT_FORM, int const_offset)
         {
-            Console.WriteLine("StandardGain - QueueChangeByOffset - Sending " + this.Values[const_offset].ToString("X") + " to offset " + (Offset + const_offset));
+            Console.WriteLine("MixerCrosspoint - QueueChangeByOffset - Sending " + this.Values[const_offset].ToString("X") + " to offset " + (Offset + const_offset));
 
             if (PARENT_FORM.LIVE_MODE)
             {
@@ -163,7 +135,7 @@ namespace SA_Resources
         public override void QueueDeltas(MainForm_Template PARENT_FORM, DSP_Primitive comparePrimitive)
         {
 
-            DSP_Primitive_StandardGain RecastPrimitive = (DSP_Primitive_StandardGain)comparePrimitive;
+            DSP_Primitive_MixerCrosspoint RecastPrimitive = (DSP_Primitive_MixerCrosspoint)comparePrimitive;
 
             for (int i = 0; i < this.Num_Values; i++)
             {
@@ -192,10 +164,10 @@ namespace SA_Resources
                 return false;
             }
 
-            DSP_Primitive_StandardGain recastPrimitive = (DSP_Primitive_StandardGain)comparePrimitive;
+            DSP_Primitive_MixerCrosspoint recastPrimitive = (DSP_Primitive_MixerCrosspoint)comparePrimitive;
 
             // TODO - Do we lose precision when we test?
-            return ((Muted == recastPrimitive.Muted) && (Gain == recastPrimitive.Gain) && (Mode == recastPrimitive.Mode));
+            return ((Muted == recastPrimitive.Muted) && (Gain == recastPrimitive.Gain));
 
         }
 

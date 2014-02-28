@@ -30,53 +30,13 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GainForm));
-            this.lblGain = new System.Windows.Forms.Label();
-            this.sliderPB = new System.Windows.Forms.PictureBox();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.signalTimer = new System.Windows.Forms.Timer(this.components);
             this.gainMeter = new SA_Resources.SignalMeter();
-            this.chkMuted = new SA_Resources.PictureCheckbox();
             this.btnCancel = new SA_Resources.PictureButton();
             this.btnSave = new SA_Resources.PictureButton();
-            ((System.ComponentModel.ISupportInitialize)(this.sliderPB)).BeginInit();
-            this.panel1.SuspendLayout();
+            this.saGainFader1 = new SA_Resources.SAGainFader();
             ((System.ComponentModel.ISupportInitialize)(this.gainMeter)).BeginInit();
             this.SuspendLayout();
-            // 
-            // lblGain
-            // 
-            this.lblGain.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(90)))), ((int)(((byte)(90)))));
-            this.lblGain.Font = new System.Drawing.Font("Segoe UI", 8.25F);
-            this.lblGain.ForeColor = System.Drawing.Color.White;
-            this.lblGain.Location = new System.Drawing.Point(28, 319);
-            this.lblGain.Name = "lblGain";
-            this.lblGain.Size = new System.Drawing.Size(59, 20);
-            this.lblGain.TabIndex = 2;
-            this.lblGain.Text = "0.0dB";
-            this.lblGain.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // sliderPB
-            // 
-            this.sliderPB.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.sliderPB.Image = ((System.Drawing.Image)(resources.GetObject("sliderPB.Image")));
-            this.sliderPB.Location = new System.Drawing.Point(18, 236);
-            this.sliderPB.Name = "sliderPB";
-            this.sliderPB.Size = new System.Drawing.Size(20, 44);
-            this.sliderPB.TabIndex = 2;
-            this.sliderPB.TabStop = false;
-            this.sliderPB.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pic_MouseDown);
-            this.sliderPB.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pic_MouseMove);
-            this.sliderPB.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pic_MouseUp);
-            // 
-            // panel1
-            // 
-            this.panel1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panel1.BackgroundImage")));
-            this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.panel1.Controls.Add(this.sliderPB);
-            this.panel1.Location = new System.Drawing.Point(24, 37);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(73, 302);
-            this.panel1.TabIndex = 1;
             // 
             // signalTimer
             // 
@@ -91,18 +51,6 @@
             this.gainMeter.Size = new System.Drawing.Size(43, 225);
             this.gainMeter.TabIndex = 34;
             this.gainMeter.TabStop = false;
-            // 
-            // chkMuted
-            // 
-            this.chkMuted.CheckedImage = ((System.Drawing.Image)(resources.GetObject("chkMuted.CheckedImage")));
-            this.chkMuted.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.chkMuted.Location = new System.Drawing.Point(26, 8);
-            this.chkMuted.Name = "chkMuted";
-            this.chkMuted.Size = new System.Drawing.Size(61, 23);
-            this.chkMuted.TabIndex = 32;
-            this.chkMuted.UncheckedImage = ((System.Drawing.Image)(resources.GetObject("chkMuted.UncheckedImage")));
-            this.chkMuted.UseVisualStyleBackColor = true;
-            this.chkMuted.CheckedChanged += new System.EventHandler(this.chkMuted_CheckedChanged);
             // 
             // btnCancel
             // 
@@ -144,17 +92,27 @@
             this.btnSave.ToolTipText = "";
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
+            // saGainFader1
+            // 
+            this.saGainFader1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(82)))), ((int)(((byte)(82)))));
+            this.saGainFader1.Gain = 0D;
+            this.saGainFader1.Location = new System.Drawing.Point(25, 5);
+            this.saGainFader1.Mode = 0;
+            this.saGainFader1.Muted = false;
+            this.saGainFader1.Name = "saGainFader1";
+            this.saGainFader1.Size = new System.Drawing.Size(73, 340);
+            this.saGainFader1.TabIndex = 35;
+            this.saGainFader1.OnChange += new SA_Resources.FaderEventHandler(this.saGainFader1_OnChange);
+            // 
             // GainForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(82)))), ((int)(((byte)(82)))));
             this.ClientSize = new System.Drawing.Size(179, 380);
+            this.Controls.Add(this.saGainFader1);
             this.Controls.Add(this.gainMeter);
-            this.Controls.Add(this.chkMuted);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSave);
-            this.Controls.Add(this.lblGain);
-            this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -162,10 +120,6 @@
             this.Name = "GainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "CH 1 - Gain";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.GainForm_FormClosing);
-            this.Load += new System.EventHandler(this.GainForm_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.sliderPB)).EndInit();
-            this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gainMeter)).EndInit();
             this.ResumeLayout(false);
 
@@ -173,13 +127,10 @@
 
         #endregion
 
-        private System.Windows.Forms.Label lblGain;
         private PictureButton btnCancel;
         private PictureButton btnSave;
-        private SA_Resources.PictureCheckbox chkMuted;
-        private System.Windows.Forms.PictureBox sliderPB;
-        private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Timer signalTimer;
         private SignalMeter gainMeter;
+        private SAGainFader saGainFader1;
     }
 }

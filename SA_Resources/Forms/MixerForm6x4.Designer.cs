@@ -1,6 +1,6 @@
 ﻿namespace SA_Resources
 {
-    partial class MixerForm
+    partial class MixerForm6x4
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MixerForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MixerForm6x4));
             this.lblInput0 = new System.Windows.Forms.Label();
             this.lblInput1 = new System.Windows.Forms.Label();
             this.lblInput2 = new System.Windows.Forms.Label();
@@ -88,9 +88,9 @@
             this.lblInput0.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.lblInput0.Location = new System.Drawing.Point(12, 104);
             this.lblInput0.Name = "lblInput0";
-            this.lblInput0.Size = new System.Drawing.Size(80, 13);
+            this.lblInput0.Size = new System.Drawing.Size(19, 13);
             this.lblInput0.TabIndex = 14;
-            this.lblInput0.Text = "Local Input #1";
+            this.lblInput0.Text = "---";
             this.lblInput0.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // lblInput1
@@ -100,9 +100,9 @@
             this.lblInput1.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.lblInput1.Location = new System.Drawing.Point(12, 132);
             this.lblInput1.Name = "lblInput1";
-            this.lblInput1.Size = new System.Drawing.Size(80, 13);
+            this.lblInput1.Size = new System.Drawing.Size(19, 13);
             this.lblInput1.TabIndex = 15;
-            this.lblInput1.Text = "Local Input #2";
+            this.lblInput1.Text = "---";
             this.lblInput1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // lblInput2
@@ -112,9 +112,9 @@
             this.lblInput2.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.lblInput2.Location = new System.Drawing.Point(12, 160);
             this.lblInput2.Name = "lblInput2";
-            this.lblInput2.Size = new System.Drawing.Size(80, 13);
+            this.lblInput2.Size = new System.Drawing.Size(19, 13);
             this.lblInput2.TabIndex = 16;
-            this.lblInput2.Text = "Local Input #3";
+            this.lblInput2.Text = "---";
             this.lblInput2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // lblInput3
@@ -124,9 +124,9 @@
             this.lblInput3.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.lblInput3.Location = new System.Drawing.Point(12, 188);
             this.lblInput3.Name = "lblInput3";
-            this.lblInput3.Size = new System.Drawing.Size(80, 13);
+            this.lblInput3.Size = new System.Drawing.Size(19, 13);
             this.lblInput3.TabIndex = 17;
-            this.lblInput3.Text = "Local Input #4";
+            this.lblInput3.Text = "---";
             this.lblInput3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label5
@@ -824,7 +824,7 @@
             this.lblOutput0.TextDirection = SA_Resources.Direction.Clockwise;
             this.lblOutput0.TextOrientation = SA_Resources.Orientation.Rotate;
             // 
-            // MixerForm
+            // MixerForm6x4
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(82)))), ((int)(((byte)(82)))));
@@ -877,10 +877,9 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "MixerForm";
+            this.Name = "MixerForm6x4";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Matrix Mixer";
-            this.Load += new System.EventHandler(this.MixerForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.gainMeter4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gainMeter3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gainMeter2)).EndInit();

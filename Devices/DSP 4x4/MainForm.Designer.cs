@@ -37,47 +37,47 @@ namespace DSP_4x4
             this.deviceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnCH4PostGain = new SA_Resources.PictureButton();
+            this.btnGain33 = new SA_Resources.PictureButton();
             this.btnCH4Delay = new SA_Resources.PictureButton();
-            this.btnCH4Limiter = new SA_Resources.PictureButton();
-            this.btnCH4PostTrim = new SA_Resources.PictureButton();
+            this.btnCompressor31 = new SA_Resources.PictureButton();
+            this.btnGain32 = new SA_Resources.PictureButton();
             this.btnCH4PostFilters = new SA_Resources.PictureButton();
-            this.btnCH3PostGain = new SA_Resources.PictureButton();
+            this.btnGain23 = new SA_Resources.PictureButton();
             this.btnCH3Delay = new SA_Resources.PictureButton();
-            this.btnCH3Limiter = new SA_Resources.PictureButton();
-            this.btnCH3PostTrim = new SA_Resources.PictureButton();
+            this.btnCompressor21 = new SA_Resources.PictureButton();
+            this.btnGain22 = new SA_Resources.PictureButton();
             this.btnCH3PostFilters = new SA_Resources.PictureButton();
-            this.btnCH2PostGain = new SA_Resources.PictureButton();
+            this.btnGain13 = new SA_Resources.PictureButton();
             this.btnCH2Delay = new SA_Resources.PictureButton();
-            this.btnCH2Limiter = new SA_Resources.PictureButton();
-            this.btnCH2PostTrim = new SA_Resources.PictureButton();
+            this.btnCompressor11 = new SA_Resources.PictureButton();
+            this.btnGain12 = new SA_Resources.PictureButton();
             this.btnCH2PostFilters = new SA_Resources.PictureButton();
             this.pictureBox37 = new System.Windows.Forms.PictureBox();
-            this.btnCH1PostGain = new SA_Resources.PictureButton();
+            this.btnGain03 = new SA_Resources.PictureButton();
             this.btnCH1Delay = new SA_Resources.PictureButton();
-            this.btnCH1Limiter = new SA_Resources.PictureButton();
-            this.btnCH1PostTrim = new SA_Resources.PictureButton();
+            this.btnCompressor01 = new SA_Resources.PictureButton();
+            this.btnGain02 = new SA_Resources.PictureButton();
             this.btnCH1PostFilters = new SA_Resources.PictureButton();
-            this.btnCH4PreGain = new SA_Resources.PictureButton();
+            this.btnGain30 = new SA_Resources.PictureButton();
             this.btnCH4PreFilters = new SA_Resources.PictureButton();
-            this.btnCH4Compressor = new SA_Resources.PictureButton();
-            this.btnCH4PreGain2 = new SA_Resources.PictureButton();
-            this.btnCH3PreGain = new SA_Resources.PictureButton();
+            this.btnCompressor30 = new SA_Resources.PictureButton();
+            this.btnGain31 = new SA_Resources.PictureButton();
+            this.btnGain20 = new SA_Resources.PictureButton();
             this.btnCH3PreFilters = new SA_Resources.PictureButton();
-            this.btnCH3Compressor = new SA_Resources.PictureButton();
-            this.btnCH3PreGain2 = new SA_Resources.PictureButton();
-            this.btnCH1PreGain = new SA_Resources.PictureButton();
+            this.btnCompressor20 = new SA_Resources.PictureButton();
+            this.btnGain21 = new SA_Resources.PictureButton();
+            this.btnGain00 = new SA_Resources.PictureButton();
             this.btnCH1PreFilters = new SA_Resources.PictureButton();
-            this.btnCH1Compressor = new SA_Resources.PictureButton();
-            this.btnCH1PreGain2 = new SA_Resources.PictureButton();
+            this.btnCompressor00 = new SA_Resources.PictureButton();
+            this.btnGain01 = new SA_Resources.PictureButton();
             this.timer1 = new System.Windows.Forms.Timer();
             this.saveProgramDialog = new System.Windows.Forms.SaveFileDialog();
             this.openProgramDialog = new System.Windows.Forms.OpenFileDialog();
             this.pnlCH2PreMixer = new System.Windows.Forms.Panel();
-            this.btnCH2PreGain = new SA_Resources.PictureButton();
+            this.btnGain10 = new SA_Resources.PictureButton();
             this.btnCH2PreFilters = new SA_Resources.PictureButton();
-            this.btnCH2Compressor = new SA_Resources.PictureButton();
-            this.btnCH2PreGain2 = new SA_Resources.PictureButton();
+            this.btnCompressor10 = new SA_Resources.PictureButton();
+            this.btnGain11 = new SA_Resources.PictureButton();
             this.btnMatrixMixer = new SA_Resources.PictureButton();
             this.lblCH4Output = new System.Windows.Forms.Label();
             this.lblCH3Output = new System.Windows.Forms.Label();
@@ -118,6 +118,13 @@ namespace DSP_4x4
             this.toolTip1.InitialDelay = 10;
             this.toolTip1.ReshowDelay = 50;
             this.toolTip1.ShowAlways = true;
+            // 
+            // dropProgramSelection
+            // 
+            this.dropProgramSelection.Items.AddRange(new object[] {
+            "Program 1",
+            "Program 2",
+            "Program 3"});
             // 
             // statusStrip1
             // 
@@ -165,24 +172,24 @@ namespace DSP_4x4
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(45, 20);
             this.helpToolStripMenuItem.Text = "Help";
             // 
-            // btnCH4PostGain
+            // btnGain33
             // 
-            this.btnCH4PostGain.AutoResize = false;
-            this.btnCH4PostGain.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnCH4PostGain.BackgroundImage")));
-            this.btnCH4PostGain.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCH4PostGain.Location = new System.Drawing.Point(270, 0);
-            this.btnCH4PostGain.Name = "btnCH4PostGain";
-            this.btnCH4PostGain.OverImage = null;
-            this.btnCH4PostGain.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnCH4PostGain.Overlay1Image")));
-            this.btnCH4PostGain.Overlay1Visible = false;
-            this.btnCH4PostGain.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnCH4PostGain.Overlay2Image")));
-            this.btnCH4PostGain.Overlay2Visible = false;
-            this.btnCH4PostGain.Overlay3Image = null;
-            this.btnCH4PostGain.Overlay3Visible = false;
-            this.btnCH4PostGain.PressedImage = ((System.Drawing.Image)(resources.GetObject("btnCH4PostGain.PressedImage")));
-            this.btnCH4PostGain.Size = new System.Drawing.Size(39, 39);
-            this.btnCH4PostGain.TabIndex = 31;
-            this.btnCH4PostGain.ToolTipText = "";
+            this.btnGain33.AutoResize = false;
+            this.btnGain33.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnGain33.BackgroundImage")));
+            this.btnGain33.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnGain33.Location = new System.Drawing.Point(270, 0);
+            this.btnGain33.Name = "btnGain33";
+            this.btnGain33.OverImage = null;
+            this.btnGain33.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnGain33.Overlay1Image")));
+            this.btnGain33.Overlay1Visible = false;
+            this.btnGain33.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnGain33.Overlay2Image")));
+            this.btnGain33.Overlay2Visible = false;
+            this.btnGain33.Overlay3Image = null;
+            this.btnGain33.Overlay3Visible = false;
+            this.btnGain33.PressedImage = ((System.Drawing.Image)(resources.GetObject("btnGain33.PressedImage")));
+            this.btnGain33.Size = new System.Drawing.Size(39, 39);
+            this.btnGain33.TabIndex = 31;
+            this.btnGain33.ToolTipText = "";
             // 
             // btnCH4Delay
             // 
@@ -203,43 +210,43 @@ namespace DSP_4x4
             this.btnCH4Delay.TabIndex = 30;
             this.btnCH4Delay.ToolTipText = "";
             // 
-            // btnCH4Limiter
+            // btnCompressor31
             // 
-            this.btnCH4Limiter.AutoResize = false;
-            this.btnCH4Limiter.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnCH4Limiter.BackgroundImage")));
-            this.btnCH4Limiter.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCH4Limiter.Location = new System.Drawing.Point(150, 0);
-            this.btnCH4Limiter.Name = "btnCH4Limiter";
-            this.btnCH4Limiter.OverImage = null;
-            this.btnCH4Limiter.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnCH4Limiter.Overlay1Image")));
-            this.btnCH4Limiter.Overlay1Visible = true;
-            this.btnCH4Limiter.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnCH4Limiter.Overlay2Image")));
-            this.btnCH4Limiter.Overlay2Visible = false;
-            this.btnCH4Limiter.Overlay3Image = null;
-            this.btnCH4Limiter.Overlay3Visible = false;
-            this.btnCH4Limiter.PressedImage = ((System.Drawing.Image)(resources.GetObject("btnCH4Limiter.PressedImage")));
-            this.btnCH4Limiter.Size = new System.Drawing.Size(39, 39);
-            this.btnCH4Limiter.TabIndex = 29;
-            this.btnCH4Limiter.ToolTipText = "";
+            this.btnCompressor31.AutoResize = false;
+            this.btnCompressor31.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnCompressor31.BackgroundImage")));
+            this.btnCompressor31.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnCompressor31.Location = new System.Drawing.Point(150, 0);
+            this.btnCompressor31.Name = "btnCompressor31";
+            this.btnCompressor31.OverImage = null;
+            this.btnCompressor31.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnCompressor31.Overlay1Image")));
+            this.btnCompressor31.Overlay1Visible = true;
+            this.btnCompressor31.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnCompressor31.Overlay2Image")));
+            this.btnCompressor31.Overlay2Visible = false;
+            this.btnCompressor31.Overlay3Image = null;
+            this.btnCompressor31.Overlay3Visible = false;
+            this.btnCompressor31.PressedImage = ((System.Drawing.Image)(resources.GetObject("btnCompressor31.PressedImage")));
+            this.btnCompressor31.Size = new System.Drawing.Size(39, 39);
+            this.btnCompressor31.TabIndex = 29;
+            this.btnCompressor31.ToolTipText = "";
             // 
-            // btnCH4PostTrim
+            // btnGain32
             // 
-            this.btnCH4PostTrim.AutoResize = false;
-            this.btnCH4PostTrim.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnCH4PostTrim.BackgroundImage")));
-            this.btnCH4PostTrim.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCH4PostTrim.Location = new System.Drawing.Point(30, 0);
-            this.btnCH4PostTrim.Name = "btnCH4PostTrim";
-            this.btnCH4PostTrim.OverImage = null;
-            this.btnCH4PostTrim.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnCH4PostTrim.Overlay1Image")));
-            this.btnCH4PostTrim.Overlay1Visible = false;
-            this.btnCH4PostTrim.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnCH4PostTrim.Overlay2Image")));
-            this.btnCH4PostTrim.Overlay2Visible = false;
-            this.btnCH4PostTrim.Overlay3Image = null;
-            this.btnCH4PostTrim.Overlay3Visible = false;
-            this.btnCH4PostTrim.PressedImage = ((System.Drawing.Image)(resources.GetObject("btnCH4PostTrim.PressedImage")));
-            this.btnCH4PostTrim.Size = new System.Drawing.Size(39, 39);
-            this.btnCH4PostTrim.TabIndex = 28;
-            this.btnCH4PostTrim.ToolTipText = "";
+            this.btnGain32.AutoResize = false;
+            this.btnGain32.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnGain32.BackgroundImage")));
+            this.btnGain32.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnGain32.Location = new System.Drawing.Point(30, 0);
+            this.btnGain32.Name = "btnGain32";
+            this.btnGain32.OverImage = null;
+            this.btnGain32.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnGain32.Overlay1Image")));
+            this.btnGain32.Overlay1Visible = false;
+            this.btnGain32.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnGain32.Overlay2Image")));
+            this.btnGain32.Overlay2Visible = false;
+            this.btnGain32.Overlay3Image = null;
+            this.btnGain32.Overlay3Visible = false;
+            this.btnGain32.PressedImage = ((System.Drawing.Image)(resources.GetObject("btnGain32.PressedImage")));
+            this.btnGain32.Size = new System.Drawing.Size(39, 39);
+            this.btnGain32.TabIndex = 28;
+            this.btnGain32.ToolTipText = "";
             // 
             // btnCH4PostFilters
             // 
@@ -260,24 +267,24 @@ namespace DSP_4x4
             this.btnCH4PostFilters.TabIndex = 27;
             this.btnCH4PostFilters.ToolTipText = "";
             // 
-            // btnCH3PostGain
+            // btnGain23
             // 
-            this.btnCH3PostGain.AutoResize = false;
-            this.btnCH3PostGain.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnCH3PostGain.BackgroundImage")));
-            this.btnCH3PostGain.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCH3PostGain.Location = new System.Drawing.Point(270, 0);
-            this.btnCH3PostGain.Name = "btnCH3PostGain";
-            this.btnCH3PostGain.OverImage = null;
-            this.btnCH3PostGain.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnCH3PostGain.Overlay1Image")));
-            this.btnCH3PostGain.Overlay1Visible = false;
-            this.btnCH3PostGain.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnCH3PostGain.Overlay2Image")));
-            this.btnCH3PostGain.Overlay2Visible = false;
-            this.btnCH3PostGain.Overlay3Image = null;
-            this.btnCH3PostGain.Overlay3Visible = false;
-            this.btnCH3PostGain.PressedImage = ((System.Drawing.Image)(resources.GetObject("btnCH3PostGain.PressedImage")));
-            this.btnCH3PostGain.Size = new System.Drawing.Size(39, 39);
-            this.btnCH3PostGain.TabIndex = 31;
-            this.btnCH3PostGain.ToolTipText = "";
+            this.btnGain23.AutoResize = false;
+            this.btnGain23.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnGain23.BackgroundImage")));
+            this.btnGain23.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnGain23.Location = new System.Drawing.Point(270, 0);
+            this.btnGain23.Name = "btnGain23";
+            this.btnGain23.OverImage = null;
+            this.btnGain23.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnGain23.Overlay1Image")));
+            this.btnGain23.Overlay1Visible = false;
+            this.btnGain23.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnGain23.Overlay2Image")));
+            this.btnGain23.Overlay2Visible = false;
+            this.btnGain23.Overlay3Image = null;
+            this.btnGain23.Overlay3Visible = false;
+            this.btnGain23.PressedImage = ((System.Drawing.Image)(resources.GetObject("btnGain23.PressedImage")));
+            this.btnGain23.Size = new System.Drawing.Size(39, 39);
+            this.btnGain23.TabIndex = 31;
+            this.btnGain23.ToolTipText = "";
             // 
             // btnCH3Delay
             // 
@@ -298,43 +305,43 @@ namespace DSP_4x4
             this.btnCH3Delay.TabIndex = 30;
             this.btnCH3Delay.ToolTipText = "";
             // 
-            // btnCH3Limiter
+            // btnCompressor21
             // 
-            this.btnCH3Limiter.AutoResize = false;
-            this.btnCH3Limiter.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnCH3Limiter.BackgroundImage")));
-            this.btnCH3Limiter.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCH3Limiter.Location = new System.Drawing.Point(150, 0);
-            this.btnCH3Limiter.Name = "btnCH3Limiter";
-            this.btnCH3Limiter.OverImage = null;
-            this.btnCH3Limiter.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnCH3Limiter.Overlay1Image")));
-            this.btnCH3Limiter.Overlay1Visible = true;
-            this.btnCH3Limiter.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnCH3Limiter.Overlay2Image")));
-            this.btnCH3Limiter.Overlay2Visible = false;
-            this.btnCH3Limiter.Overlay3Image = null;
-            this.btnCH3Limiter.Overlay3Visible = false;
-            this.btnCH3Limiter.PressedImage = ((System.Drawing.Image)(resources.GetObject("btnCH3Limiter.PressedImage")));
-            this.btnCH3Limiter.Size = new System.Drawing.Size(39, 39);
-            this.btnCH3Limiter.TabIndex = 29;
-            this.btnCH3Limiter.ToolTipText = "";
+            this.btnCompressor21.AutoResize = false;
+            this.btnCompressor21.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnCompressor21.BackgroundImage")));
+            this.btnCompressor21.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnCompressor21.Location = new System.Drawing.Point(150, 0);
+            this.btnCompressor21.Name = "btnCompressor21";
+            this.btnCompressor21.OverImage = null;
+            this.btnCompressor21.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnCompressor21.Overlay1Image")));
+            this.btnCompressor21.Overlay1Visible = true;
+            this.btnCompressor21.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnCompressor21.Overlay2Image")));
+            this.btnCompressor21.Overlay2Visible = false;
+            this.btnCompressor21.Overlay3Image = null;
+            this.btnCompressor21.Overlay3Visible = false;
+            this.btnCompressor21.PressedImage = ((System.Drawing.Image)(resources.GetObject("btnCompressor21.PressedImage")));
+            this.btnCompressor21.Size = new System.Drawing.Size(39, 39);
+            this.btnCompressor21.TabIndex = 29;
+            this.btnCompressor21.ToolTipText = "";
             // 
-            // btnCH3PostTrim
+            // btnGain22
             // 
-            this.btnCH3PostTrim.AutoResize = false;
-            this.btnCH3PostTrim.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnCH3PostTrim.BackgroundImage")));
-            this.btnCH3PostTrim.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCH3PostTrim.Location = new System.Drawing.Point(30, 0);
-            this.btnCH3PostTrim.Name = "btnCH3PostTrim";
-            this.btnCH3PostTrim.OverImage = null;
-            this.btnCH3PostTrim.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnCH3PostTrim.Overlay1Image")));
-            this.btnCH3PostTrim.Overlay1Visible = false;
-            this.btnCH3PostTrim.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnCH3PostTrim.Overlay2Image")));
-            this.btnCH3PostTrim.Overlay2Visible = false;
-            this.btnCH3PostTrim.Overlay3Image = null;
-            this.btnCH3PostTrim.Overlay3Visible = false;
-            this.btnCH3PostTrim.PressedImage = ((System.Drawing.Image)(resources.GetObject("btnCH3PostTrim.PressedImage")));
-            this.btnCH3PostTrim.Size = new System.Drawing.Size(39, 39);
-            this.btnCH3PostTrim.TabIndex = 28;
-            this.btnCH3PostTrim.ToolTipText = "";
+            this.btnGain22.AutoResize = false;
+            this.btnGain22.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnGain22.BackgroundImage")));
+            this.btnGain22.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnGain22.Location = new System.Drawing.Point(30, 0);
+            this.btnGain22.Name = "btnGain22";
+            this.btnGain22.OverImage = null;
+            this.btnGain22.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnGain22.Overlay1Image")));
+            this.btnGain22.Overlay1Visible = false;
+            this.btnGain22.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnGain22.Overlay2Image")));
+            this.btnGain22.Overlay2Visible = false;
+            this.btnGain22.Overlay3Image = null;
+            this.btnGain22.Overlay3Visible = false;
+            this.btnGain22.PressedImage = ((System.Drawing.Image)(resources.GetObject("btnGain22.PressedImage")));
+            this.btnGain22.Size = new System.Drawing.Size(39, 39);
+            this.btnGain22.TabIndex = 28;
+            this.btnGain22.ToolTipText = "";
             // 
             // btnCH3PostFilters
             // 
@@ -355,24 +362,24 @@ namespace DSP_4x4
             this.btnCH3PostFilters.TabIndex = 27;
             this.btnCH3PostFilters.ToolTipText = "";
             // 
-            // btnCH2PostGain
+            // btnGain13
             // 
-            this.btnCH2PostGain.AutoResize = false;
-            this.btnCH2PostGain.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnCH2PostGain.BackgroundImage")));
-            this.btnCH2PostGain.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCH2PostGain.Location = new System.Drawing.Point(270, 0);
-            this.btnCH2PostGain.Name = "btnCH2PostGain";
-            this.btnCH2PostGain.OverImage = null;
-            this.btnCH2PostGain.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnCH2PostGain.Overlay1Image")));
-            this.btnCH2PostGain.Overlay1Visible = false;
-            this.btnCH2PostGain.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnCH2PostGain.Overlay2Image")));
-            this.btnCH2PostGain.Overlay2Visible = false;
-            this.btnCH2PostGain.Overlay3Image = null;
-            this.btnCH2PostGain.Overlay3Visible = false;
-            this.btnCH2PostGain.PressedImage = ((System.Drawing.Image)(resources.GetObject("btnCH2PostGain.PressedImage")));
-            this.btnCH2PostGain.Size = new System.Drawing.Size(39, 39);
-            this.btnCH2PostGain.TabIndex = 31;
-            this.btnCH2PostGain.ToolTipText = "";
+            this.btnGain13.AutoResize = false;
+            this.btnGain13.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnGain13.BackgroundImage")));
+            this.btnGain13.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnGain13.Location = new System.Drawing.Point(270, 0);
+            this.btnGain13.Name = "btnGain13";
+            this.btnGain13.OverImage = null;
+            this.btnGain13.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnGain13.Overlay1Image")));
+            this.btnGain13.Overlay1Visible = false;
+            this.btnGain13.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnGain13.Overlay2Image")));
+            this.btnGain13.Overlay2Visible = false;
+            this.btnGain13.Overlay3Image = null;
+            this.btnGain13.Overlay3Visible = false;
+            this.btnGain13.PressedImage = ((System.Drawing.Image)(resources.GetObject("btnGain13.PressedImage")));
+            this.btnGain13.Size = new System.Drawing.Size(39, 39);
+            this.btnGain13.TabIndex = 31;
+            this.btnGain13.ToolTipText = "";
             // 
             // btnCH2Delay
             // 
@@ -393,43 +400,43 @@ namespace DSP_4x4
             this.btnCH2Delay.TabIndex = 30;
             this.btnCH2Delay.ToolTipText = "";
             // 
-            // btnCH2Limiter
+            // btnCompressor11
             // 
-            this.btnCH2Limiter.AutoResize = false;
-            this.btnCH2Limiter.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnCH2Limiter.BackgroundImage")));
-            this.btnCH2Limiter.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCH2Limiter.Location = new System.Drawing.Point(150, 0);
-            this.btnCH2Limiter.Name = "btnCH2Limiter";
-            this.btnCH2Limiter.OverImage = null;
-            this.btnCH2Limiter.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnCH2Limiter.Overlay1Image")));
-            this.btnCH2Limiter.Overlay1Visible = true;
-            this.btnCH2Limiter.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnCH2Limiter.Overlay2Image")));
-            this.btnCH2Limiter.Overlay2Visible = false;
-            this.btnCH2Limiter.Overlay3Image = null;
-            this.btnCH2Limiter.Overlay3Visible = false;
-            this.btnCH2Limiter.PressedImage = ((System.Drawing.Image)(resources.GetObject("btnCH2Limiter.PressedImage")));
-            this.btnCH2Limiter.Size = new System.Drawing.Size(39, 39);
-            this.btnCH2Limiter.TabIndex = 29;
-            this.btnCH2Limiter.ToolTipText = "";
+            this.btnCompressor11.AutoResize = false;
+            this.btnCompressor11.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnCompressor11.BackgroundImage")));
+            this.btnCompressor11.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnCompressor11.Location = new System.Drawing.Point(150, 0);
+            this.btnCompressor11.Name = "btnCompressor11";
+            this.btnCompressor11.OverImage = null;
+            this.btnCompressor11.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnCompressor11.Overlay1Image")));
+            this.btnCompressor11.Overlay1Visible = true;
+            this.btnCompressor11.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnCompressor11.Overlay2Image")));
+            this.btnCompressor11.Overlay2Visible = false;
+            this.btnCompressor11.Overlay3Image = null;
+            this.btnCompressor11.Overlay3Visible = false;
+            this.btnCompressor11.PressedImage = ((System.Drawing.Image)(resources.GetObject("btnCompressor11.PressedImage")));
+            this.btnCompressor11.Size = new System.Drawing.Size(39, 39);
+            this.btnCompressor11.TabIndex = 29;
+            this.btnCompressor11.ToolTipText = "";
             // 
-            // btnCH2PostTrim
+            // btnGain12
             // 
-            this.btnCH2PostTrim.AutoResize = false;
-            this.btnCH2PostTrim.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnCH2PostTrim.BackgroundImage")));
-            this.btnCH2PostTrim.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCH2PostTrim.Location = new System.Drawing.Point(30, 0);
-            this.btnCH2PostTrim.Name = "btnCH2PostTrim";
-            this.btnCH2PostTrim.OverImage = null;
-            this.btnCH2PostTrim.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnCH2PostTrim.Overlay1Image")));
-            this.btnCH2PostTrim.Overlay1Visible = false;
-            this.btnCH2PostTrim.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnCH2PostTrim.Overlay2Image")));
-            this.btnCH2PostTrim.Overlay2Visible = false;
-            this.btnCH2PostTrim.Overlay3Image = null;
-            this.btnCH2PostTrim.Overlay3Visible = false;
-            this.btnCH2PostTrim.PressedImage = ((System.Drawing.Image)(resources.GetObject("btnCH2PostTrim.PressedImage")));
-            this.btnCH2PostTrim.Size = new System.Drawing.Size(39, 39);
-            this.btnCH2PostTrim.TabIndex = 28;
-            this.btnCH2PostTrim.ToolTipText = "";
+            this.btnGain12.AutoResize = false;
+            this.btnGain12.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnGain12.BackgroundImage")));
+            this.btnGain12.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnGain12.Location = new System.Drawing.Point(30, 0);
+            this.btnGain12.Name = "btnGain12";
+            this.btnGain12.OverImage = null;
+            this.btnGain12.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnGain12.Overlay1Image")));
+            this.btnGain12.Overlay1Visible = false;
+            this.btnGain12.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnGain12.Overlay2Image")));
+            this.btnGain12.Overlay2Visible = false;
+            this.btnGain12.Overlay3Image = null;
+            this.btnGain12.Overlay3Visible = false;
+            this.btnGain12.PressedImage = ((System.Drawing.Image)(resources.GetObject("btnGain12.PressedImage")));
+            this.btnGain12.Size = new System.Drawing.Size(39, 39);
+            this.btnGain12.TabIndex = 28;
+            this.btnGain12.ToolTipText = "";
             // 
             // btnCH2PostFilters
             // 
@@ -460,24 +467,24 @@ namespace DSP_4x4
             this.pictureBox37.TabIndex = 24;
             this.pictureBox37.TabStop = false;
             // 
-            // btnCH1PostGain
+            // btnGain03
             // 
-            this.btnCH1PostGain.AutoResize = false;
-            this.btnCH1PostGain.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnCH1PostGain.BackgroundImage")));
-            this.btnCH1PostGain.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCH1PostGain.Location = new System.Drawing.Point(270, 0);
-            this.btnCH1PostGain.Name = "btnCH1PostGain";
-            this.btnCH1PostGain.OverImage = null;
-            this.btnCH1PostGain.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnCH1PostGain.Overlay1Image")));
-            this.btnCH1PostGain.Overlay1Visible = false;
-            this.btnCH1PostGain.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnCH1PostGain.Overlay2Image")));
-            this.btnCH1PostGain.Overlay2Visible = false;
-            this.btnCH1PostGain.Overlay3Image = null;
-            this.btnCH1PostGain.Overlay3Visible = false;
-            this.btnCH1PostGain.PressedImage = ((System.Drawing.Image)(resources.GetObject("btnCH1PostGain.PressedImage")));
-            this.btnCH1PostGain.Size = new System.Drawing.Size(39, 39);
-            this.btnCH1PostGain.TabIndex = 31;
-            this.btnCH1PostGain.ToolTipText = "";
+            this.btnGain03.AutoResize = false;
+            this.btnGain03.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnGain03.BackgroundImage")));
+            this.btnGain03.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnGain03.Location = new System.Drawing.Point(270, 0);
+            this.btnGain03.Name = "btnGain03";
+            this.btnGain03.OverImage = null;
+            this.btnGain03.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnGain03.Overlay1Image")));
+            this.btnGain03.Overlay1Visible = false;
+            this.btnGain03.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnGain03.Overlay2Image")));
+            this.btnGain03.Overlay2Visible = false;
+            this.btnGain03.Overlay3Image = null;
+            this.btnGain03.Overlay3Visible = false;
+            this.btnGain03.PressedImage = ((System.Drawing.Image)(resources.GetObject("btnGain03.PressedImage")));
+            this.btnGain03.Size = new System.Drawing.Size(39, 39);
+            this.btnGain03.TabIndex = 31;
+            this.btnGain03.ToolTipText = "";
             // 
             // btnCH1Delay
             // 
@@ -498,43 +505,43 @@ namespace DSP_4x4
             this.btnCH1Delay.TabIndex = 30;
             this.btnCH1Delay.ToolTipText = "";
             // 
-            // btnCH1Limiter
+            // btnCompressor01
             // 
-            this.btnCH1Limiter.AutoResize = false;
-            this.btnCH1Limiter.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnCH1Limiter.BackgroundImage")));
-            this.btnCH1Limiter.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCH1Limiter.Location = new System.Drawing.Point(150, 0);
-            this.btnCH1Limiter.Name = "btnCH1Limiter";
-            this.btnCH1Limiter.OverImage = null;
-            this.btnCH1Limiter.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnCH1Limiter.Overlay1Image")));
-            this.btnCH1Limiter.Overlay1Visible = true;
-            this.btnCH1Limiter.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnCH1Limiter.Overlay2Image")));
-            this.btnCH1Limiter.Overlay2Visible = false;
-            this.btnCH1Limiter.Overlay3Image = null;
-            this.btnCH1Limiter.Overlay3Visible = false;
-            this.btnCH1Limiter.PressedImage = ((System.Drawing.Image)(resources.GetObject("btnCH1Limiter.PressedImage")));
-            this.btnCH1Limiter.Size = new System.Drawing.Size(39, 39);
-            this.btnCH1Limiter.TabIndex = 29;
-            this.btnCH1Limiter.ToolTipText = "";
+            this.btnCompressor01.AutoResize = false;
+            this.btnCompressor01.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnCompressor01.BackgroundImage")));
+            this.btnCompressor01.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnCompressor01.Location = new System.Drawing.Point(150, 0);
+            this.btnCompressor01.Name = "btnCompressor01";
+            this.btnCompressor01.OverImage = null;
+            this.btnCompressor01.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnCompressor01.Overlay1Image")));
+            this.btnCompressor01.Overlay1Visible = true;
+            this.btnCompressor01.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnCompressor01.Overlay2Image")));
+            this.btnCompressor01.Overlay2Visible = false;
+            this.btnCompressor01.Overlay3Image = null;
+            this.btnCompressor01.Overlay3Visible = false;
+            this.btnCompressor01.PressedImage = ((System.Drawing.Image)(resources.GetObject("btnCompressor01.PressedImage")));
+            this.btnCompressor01.Size = new System.Drawing.Size(39, 39);
+            this.btnCompressor01.TabIndex = 29;
+            this.btnCompressor01.ToolTipText = "";
             // 
-            // btnCH1PostTrim
+            // btnGain02
             // 
-            this.btnCH1PostTrim.AutoResize = false;
-            this.btnCH1PostTrim.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnCH1PostTrim.BackgroundImage")));
-            this.btnCH1PostTrim.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCH1PostTrim.Location = new System.Drawing.Point(30, 0);
-            this.btnCH1PostTrim.Name = "btnCH1PostTrim";
-            this.btnCH1PostTrim.OverImage = null;
-            this.btnCH1PostTrim.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnCH1PostTrim.Overlay1Image")));
-            this.btnCH1PostTrim.Overlay1Visible = false;
-            this.btnCH1PostTrim.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnCH1PostTrim.Overlay2Image")));
-            this.btnCH1PostTrim.Overlay2Visible = false;
-            this.btnCH1PostTrim.Overlay3Image = null;
-            this.btnCH1PostTrim.Overlay3Visible = false;
-            this.btnCH1PostTrim.PressedImage = ((System.Drawing.Image)(resources.GetObject("btnCH1PostTrim.PressedImage")));
-            this.btnCH1PostTrim.Size = new System.Drawing.Size(39, 39);
-            this.btnCH1PostTrim.TabIndex = 28;
-            this.btnCH1PostTrim.ToolTipText = "";
+            this.btnGain02.AutoResize = false;
+            this.btnGain02.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnGain02.BackgroundImage")));
+            this.btnGain02.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnGain02.Location = new System.Drawing.Point(30, 0);
+            this.btnGain02.Name = "btnGain02";
+            this.btnGain02.OverImage = null;
+            this.btnGain02.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnGain02.Overlay1Image")));
+            this.btnGain02.Overlay1Visible = false;
+            this.btnGain02.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnGain02.Overlay2Image")));
+            this.btnGain02.Overlay2Visible = false;
+            this.btnGain02.Overlay3Image = null;
+            this.btnGain02.Overlay3Visible = false;
+            this.btnGain02.PressedImage = ((System.Drawing.Image)(resources.GetObject("btnGain02.PressedImage")));
+            this.btnGain02.Size = new System.Drawing.Size(39, 39);
+            this.btnGain02.TabIndex = 28;
+            this.btnGain02.ToolTipText = "";
             // 
             // btnCH1PostFilters
             // 
@@ -555,24 +562,24 @@ namespace DSP_4x4
             this.btnCH1PostFilters.TabIndex = 27;
             this.btnCH1PostFilters.ToolTipText = "";
             // 
-            // btnCH4PreGain
+            // btnGain30
             // 
-            this.btnCH4PreGain.AutoResize = false;
-            this.btnCH4PreGain.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnCH4PreGain.BackgroundImage")));
-            this.btnCH4PreGain.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCH4PreGain.Location = new System.Drawing.Point(30, 0);
-            this.btnCH4PreGain.Name = "btnCH4PreGain";
-            this.btnCH4PreGain.OverImage = null;
-            this.btnCH4PreGain.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnCH4PreGain.Overlay1Image")));
-            this.btnCH4PreGain.Overlay1Visible = false;
-            this.btnCH4PreGain.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnCH4PreGain.Overlay2Image")));
-            this.btnCH4PreGain.Overlay2Visible = false;
-            this.btnCH4PreGain.Overlay3Image = null;
-            this.btnCH4PreGain.Overlay3Visible = false;
-            this.btnCH4PreGain.PressedImage = ((System.Drawing.Image)(resources.GetObject("btnCH4PreGain.PressedImage")));
-            this.btnCH4PreGain.Size = new System.Drawing.Size(39, 39);
-            this.btnCH4PreGain.TabIndex = 36;
-            this.btnCH4PreGain.ToolTipText = "";
+            this.btnGain30.AutoResize = false;
+            this.btnGain30.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnGain30.BackgroundImage")));
+            this.btnGain30.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnGain30.Location = new System.Drawing.Point(30, 0);
+            this.btnGain30.Name = "btnGain30";
+            this.btnGain30.OverImage = null;
+            this.btnGain30.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnGain30.Overlay1Image")));
+            this.btnGain30.Overlay1Visible = false;
+            this.btnGain30.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnGain30.Overlay2Image")));
+            this.btnGain30.Overlay2Visible = false;
+            this.btnGain30.Overlay3Image = null;
+            this.btnGain30.Overlay3Visible = false;
+            this.btnGain30.PressedImage = ((System.Drawing.Image)(resources.GetObject("btnGain30.PressedImage")));
+            this.btnGain30.Size = new System.Drawing.Size(39, 39);
+            this.btnGain30.TabIndex = 36;
+            this.btnGain30.ToolTipText = "";
             // 
             // btnCH4PreFilters
             // 
@@ -593,62 +600,62 @@ namespace DSP_4x4
             this.btnCH4PreFilters.TabIndex = 35;
             this.btnCH4PreFilters.ToolTipText = "";
             // 
-            // btnCH4Compressor
+            // btnCompressor30
             // 
-            this.btnCH4Compressor.AutoResize = false;
-            this.btnCH4Compressor.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnCH4Compressor.BackgroundImage")));
-            this.btnCH4Compressor.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCH4Compressor.Location = new System.Drawing.Point(152, 0);
-            this.btnCH4Compressor.Name = "btnCH4Compressor";
-            this.btnCH4Compressor.OverImage = null;
-            this.btnCH4Compressor.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnCH4Compressor.Overlay1Image")));
-            this.btnCH4Compressor.Overlay1Visible = true;
-            this.btnCH4Compressor.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnCH4Compressor.Overlay2Image")));
-            this.btnCH4Compressor.Overlay2Visible = false;
-            this.btnCH4Compressor.Overlay3Image = null;
-            this.btnCH4Compressor.Overlay3Visible = false;
-            this.btnCH4Compressor.PressedImage = ((System.Drawing.Image)(resources.GetObject("btnCH4Compressor.PressedImage")));
-            this.btnCH4Compressor.Size = new System.Drawing.Size(39, 39);
-            this.btnCH4Compressor.TabIndex = 34;
-            this.btnCH4Compressor.ToolTipText = "";
+            this.btnCompressor30.AutoResize = false;
+            this.btnCompressor30.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnCompressor30.BackgroundImage")));
+            this.btnCompressor30.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnCompressor30.Location = new System.Drawing.Point(152, 0);
+            this.btnCompressor30.Name = "btnCompressor30";
+            this.btnCompressor30.OverImage = null;
+            this.btnCompressor30.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnCompressor30.Overlay1Image")));
+            this.btnCompressor30.Overlay1Visible = true;
+            this.btnCompressor30.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnCompressor30.Overlay2Image")));
+            this.btnCompressor30.Overlay2Visible = false;
+            this.btnCompressor30.Overlay3Image = null;
+            this.btnCompressor30.Overlay3Visible = false;
+            this.btnCompressor30.PressedImage = ((System.Drawing.Image)(resources.GetObject("btnCompressor30.PressedImage")));
+            this.btnCompressor30.Size = new System.Drawing.Size(39, 39);
+            this.btnCompressor30.TabIndex = 34;
+            this.btnCompressor30.ToolTipText = "";
             // 
-            // btnCH4PreGain2
+            // btnGain31
             // 
-            this.btnCH4PreGain2.AutoResize = false;
-            this.btnCH4PreGain2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnCH4PreGain2.BackgroundImage")));
-            this.btnCH4PreGain2.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCH4PreGain2.Location = new System.Drawing.Point(212, 0);
-            this.btnCH4PreGain2.Name = "btnCH4PreGain2";
-            this.btnCH4PreGain2.OverImage = null;
-            this.btnCH4PreGain2.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnCH4PreGain2.Overlay1Image")));
-            this.btnCH4PreGain2.Overlay1Visible = false;
-            this.btnCH4PreGain2.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnCH4PreGain2.Overlay2Image")));
-            this.btnCH4PreGain2.Overlay2Visible = false;
-            this.btnCH4PreGain2.Overlay3Image = null;
-            this.btnCH4PreGain2.Overlay3Visible = false;
-            this.btnCH4PreGain2.PressedImage = ((System.Drawing.Image)(resources.GetObject("btnCH4PreGain2.PressedImage")));
-            this.btnCH4PreGain2.Size = new System.Drawing.Size(39, 39);
-            this.btnCH4PreGain2.TabIndex = 33;
-            this.btnCH4PreGain2.ToolTipText = "";
+            this.btnGain31.AutoResize = false;
+            this.btnGain31.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnGain31.BackgroundImage")));
+            this.btnGain31.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnGain31.Location = new System.Drawing.Point(212, 0);
+            this.btnGain31.Name = "btnGain31";
+            this.btnGain31.OverImage = null;
+            this.btnGain31.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnGain31.Overlay1Image")));
+            this.btnGain31.Overlay1Visible = false;
+            this.btnGain31.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnGain31.Overlay2Image")));
+            this.btnGain31.Overlay2Visible = false;
+            this.btnGain31.Overlay3Image = null;
+            this.btnGain31.Overlay3Visible = false;
+            this.btnGain31.PressedImage = ((System.Drawing.Image)(resources.GetObject("btnGain31.PressedImage")));
+            this.btnGain31.Size = new System.Drawing.Size(39, 39);
+            this.btnGain31.TabIndex = 33;
+            this.btnGain31.ToolTipText = "";
             // 
-            // btnCH3PreGain
+            // btnGain20
             // 
-            this.btnCH3PreGain.AutoResize = false;
-            this.btnCH3PreGain.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnCH3PreGain.BackgroundImage")));
-            this.btnCH3PreGain.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCH3PreGain.Location = new System.Drawing.Point(30, 0);
-            this.btnCH3PreGain.Name = "btnCH3PreGain";
-            this.btnCH3PreGain.OverImage = null;
-            this.btnCH3PreGain.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnCH3PreGain.Overlay1Image")));
-            this.btnCH3PreGain.Overlay1Visible = false;
-            this.btnCH3PreGain.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnCH3PreGain.Overlay2Image")));
-            this.btnCH3PreGain.Overlay2Visible = false;
-            this.btnCH3PreGain.Overlay3Image = null;
-            this.btnCH3PreGain.Overlay3Visible = false;
-            this.btnCH3PreGain.PressedImage = ((System.Drawing.Image)(resources.GetObject("btnCH3PreGain.PressedImage")));
-            this.btnCH3PreGain.Size = new System.Drawing.Size(39, 39);
-            this.btnCH3PreGain.TabIndex = 36;
-            this.btnCH3PreGain.ToolTipText = "";
+            this.btnGain20.AutoResize = false;
+            this.btnGain20.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnGain20.BackgroundImage")));
+            this.btnGain20.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnGain20.Location = new System.Drawing.Point(30, 0);
+            this.btnGain20.Name = "btnGain20";
+            this.btnGain20.OverImage = null;
+            this.btnGain20.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnGain20.Overlay1Image")));
+            this.btnGain20.Overlay1Visible = false;
+            this.btnGain20.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnGain20.Overlay2Image")));
+            this.btnGain20.Overlay2Visible = false;
+            this.btnGain20.Overlay3Image = null;
+            this.btnGain20.Overlay3Visible = false;
+            this.btnGain20.PressedImage = ((System.Drawing.Image)(resources.GetObject("btnGain20.PressedImage")));
+            this.btnGain20.Size = new System.Drawing.Size(39, 39);
+            this.btnGain20.TabIndex = 36;
+            this.btnGain20.ToolTipText = "";
             // 
             // btnCH3PreFilters
             // 
@@ -669,62 +676,62 @@ namespace DSP_4x4
             this.btnCH3PreFilters.TabIndex = 35;
             this.btnCH3PreFilters.ToolTipText = "";
             // 
-            // btnCH3Compressor
+            // btnCompressor20
             // 
-            this.btnCH3Compressor.AutoResize = false;
-            this.btnCH3Compressor.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnCH3Compressor.BackgroundImage")));
-            this.btnCH3Compressor.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCH3Compressor.Location = new System.Drawing.Point(152, 0);
-            this.btnCH3Compressor.Name = "btnCH3Compressor";
-            this.btnCH3Compressor.OverImage = null;
-            this.btnCH3Compressor.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnCH3Compressor.Overlay1Image")));
-            this.btnCH3Compressor.Overlay1Visible = true;
-            this.btnCH3Compressor.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnCH3Compressor.Overlay2Image")));
-            this.btnCH3Compressor.Overlay2Visible = false;
-            this.btnCH3Compressor.Overlay3Image = null;
-            this.btnCH3Compressor.Overlay3Visible = false;
-            this.btnCH3Compressor.PressedImage = ((System.Drawing.Image)(resources.GetObject("btnCH3Compressor.PressedImage")));
-            this.btnCH3Compressor.Size = new System.Drawing.Size(39, 39);
-            this.btnCH3Compressor.TabIndex = 34;
-            this.btnCH3Compressor.ToolTipText = "";
+            this.btnCompressor20.AutoResize = false;
+            this.btnCompressor20.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnCompressor20.BackgroundImage")));
+            this.btnCompressor20.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnCompressor20.Location = new System.Drawing.Point(152, 0);
+            this.btnCompressor20.Name = "btnCompressor20";
+            this.btnCompressor20.OverImage = null;
+            this.btnCompressor20.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnCompressor20.Overlay1Image")));
+            this.btnCompressor20.Overlay1Visible = true;
+            this.btnCompressor20.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnCompressor20.Overlay2Image")));
+            this.btnCompressor20.Overlay2Visible = false;
+            this.btnCompressor20.Overlay3Image = null;
+            this.btnCompressor20.Overlay3Visible = false;
+            this.btnCompressor20.PressedImage = ((System.Drawing.Image)(resources.GetObject("btnCompressor20.PressedImage")));
+            this.btnCompressor20.Size = new System.Drawing.Size(39, 39);
+            this.btnCompressor20.TabIndex = 34;
+            this.btnCompressor20.ToolTipText = "";
             // 
-            // btnCH3PreGain2
+            // btnGain21
             // 
-            this.btnCH3PreGain2.AutoResize = false;
-            this.btnCH3PreGain2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnCH3PreGain2.BackgroundImage")));
-            this.btnCH3PreGain2.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCH3PreGain2.Location = new System.Drawing.Point(212, 0);
-            this.btnCH3PreGain2.Name = "btnCH3PreGain2";
-            this.btnCH3PreGain2.OverImage = null;
-            this.btnCH3PreGain2.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnCH3PreGain2.Overlay1Image")));
-            this.btnCH3PreGain2.Overlay1Visible = false;
-            this.btnCH3PreGain2.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnCH3PreGain2.Overlay2Image")));
-            this.btnCH3PreGain2.Overlay2Visible = false;
-            this.btnCH3PreGain2.Overlay3Image = null;
-            this.btnCH3PreGain2.Overlay3Visible = false;
-            this.btnCH3PreGain2.PressedImage = ((System.Drawing.Image)(resources.GetObject("btnCH3PreGain2.PressedImage")));
-            this.btnCH3PreGain2.Size = new System.Drawing.Size(39, 39);
-            this.btnCH3PreGain2.TabIndex = 33;
-            this.btnCH3PreGain2.ToolTipText = "";
+            this.btnGain21.AutoResize = false;
+            this.btnGain21.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnGain21.BackgroundImage")));
+            this.btnGain21.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnGain21.Location = new System.Drawing.Point(212, 0);
+            this.btnGain21.Name = "btnGain21";
+            this.btnGain21.OverImage = null;
+            this.btnGain21.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnGain21.Overlay1Image")));
+            this.btnGain21.Overlay1Visible = false;
+            this.btnGain21.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnGain21.Overlay2Image")));
+            this.btnGain21.Overlay2Visible = false;
+            this.btnGain21.Overlay3Image = null;
+            this.btnGain21.Overlay3Visible = false;
+            this.btnGain21.PressedImage = ((System.Drawing.Image)(resources.GetObject("btnGain21.PressedImage")));
+            this.btnGain21.Size = new System.Drawing.Size(39, 39);
+            this.btnGain21.TabIndex = 33;
+            this.btnGain21.ToolTipText = "";
             // 
-            // btnCH1PreGain
+            // btnGain00
             // 
-            this.btnCH1PreGain.AutoResize = false;
-            this.btnCH1PreGain.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnCH1PreGain.BackgroundImage")));
-            this.btnCH1PreGain.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCH1PreGain.Location = new System.Drawing.Point(30, 0);
-            this.btnCH1PreGain.Name = "btnCH1PreGain";
-            this.btnCH1PreGain.OverImage = null;
-            this.btnCH1PreGain.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnCH1PreGain.Overlay1Image")));
-            this.btnCH1PreGain.Overlay1Visible = false;
-            this.btnCH1PreGain.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnCH1PreGain.Overlay2Image")));
-            this.btnCH1PreGain.Overlay2Visible = false;
-            this.btnCH1PreGain.Overlay3Image = null;
-            this.btnCH1PreGain.Overlay3Visible = false;
-            this.btnCH1PreGain.PressedImage = ((System.Drawing.Image)(resources.GetObject("btnCH1PreGain.PressedImage")));
-            this.btnCH1PreGain.Size = new System.Drawing.Size(39, 39);
-            this.btnCH1PreGain.TabIndex = 35;
-            this.btnCH1PreGain.ToolTipText = "";
+            this.btnGain00.AutoResize = false;
+            this.btnGain00.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnGain00.BackgroundImage")));
+            this.btnGain00.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnGain00.Location = new System.Drawing.Point(30, 0);
+            this.btnGain00.Name = "btnGain00";
+            this.btnGain00.OverImage = null;
+            this.btnGain00.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnGain00.Overlay1Image")));
+            this.btnGain00.Overlay1Visible = false;
+            this.btnGain00.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnGain00.Overlay2Image")));
+            this.btnGain00.Overlay2Visible = false;
+            this.btnGain00.Overlay3Image = null;
+            this.btnGain00.Overlay3Visible = false;
+            this.btnGain00.PressedImage = ((System.Drawing.Image)(resources.GetObject("btnGain00.PressedImage")));
+            this.btnGain00.Size = new System.Drawing.Size(39, 39);
+            this.btnGain00.TabIndex = 35;
+            this.btnGain00.ToolTipText = "";
             // 
             // btnCH1PreFilters
             // 
@@ -745,43 +752,43 @@ namespace DSP_4x4
             this.btnCH1PreFilters.TabIndex = 34;
             this.btnCH1PreFilters.ToolTipText = "Filters";
             // 
-            // btnCH1Compressor
+            // btnCompressor00
             // 
-            this.btnCH1Compressor.AutoResize = false;
-            this.btnCH1Compressor.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnCH1Compressor.BackgroundImage")));
-            this.btnCH1Compressor.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCH1Compressor.Location = new System.Drawing.Point(152, 0);
-            this.btnCH1Compressor.Name = "btnCH1Compressor";
-            this.btnCH1Compressor.OverImage = null;
-            this.btnCH1Compressor.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnCH1Compressor.Overlay1Image")));
-            this.btnCH1Compressor.Overlay1Visible = false;
-            this.btnCH1Compressor.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnCH1Compressor.Overlay2Image")));
-            this.btnCH1Compressor.Overlay2Visible = false;
-            this.btnCH1Compressor.Overlay3Image = null;
-            this.btnCH1Compressor.Overlay3Visible = false;
-            this.btnCH1Compressor.PressedImage = ((System.Drawing.Image)(resources.GetObject("btnCH1Compressor.PressedImage")));
-            this.btnCH1Compressor.Size = new System.Drawing.Size(39, 39);
-            this.btnCH1Compressor.TabIndex = 33;
-            this.btnCH1Compressor.ToolTipText = "Compressor";
+            this.btnCompressor00.AutoResize = false;
+            this.btnCompressor00.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnCompressor00.BackgroundImage")));
+            this.btnCompressor00.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnCompressor00.Location = new System.Drawing.Point(152, 0);
+            this.btnCompressor00.Name = "btnCompressor00";
+            this.btnCompressor00.OverImage = null;
+            this.btnCompressor00.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnCompressor00.Overlay1Image")));
+            this.btnCompressor00.Overlay1Visible = false;
+            this.btnCompressor00.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnCompressor00.Overlay2Image")));
+            this.btnCompressor00.Overlay2Visible = false;
+            this.btnCompressor00.Overlay3Image = null;
+            this.btnCompressor00.Overlay3Visible = false;
+            this.btnCompressor00.PressedImage = ((System.Drawing.Image)(resources.GetObject("btnCompressor00.PressedImage")));
+            this.btnCompressor00.Size = new System.Drawing.Size(39, 39);
+            this.btnCompressor00.TabIndex = 33;
+            this.btnCompressor00.ToolTipText = "Compressor";
             // 
-            // btnCH1PreGain2
+            // btnGain01
             // 
-            this.btnCH1PreGain2.AutoResize = false;
-            this.btnCH1PreGain2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnCH1PreGain2.BackgroundImage")));
-            this.btnCH1PreGain2.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCH1PreGain2.Location = new System.Drawing.Point(212, 0);
-            this.btnCH1PreGain2.Name = "btnCH1PreGain2";
-            this.btnCH1PreGain2.OverImage = null;
-            this.btnCH1PreGain2.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnCH1PreGain2.Overlay1Image")));
-            this.btnCH1PreGain2.Overlay1Visible = false;
-            this.btnCH1PreGain2.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnCH1PreGain2.Overlay2Image")));
-            this.btnCH1PreGain2.Overlay2Visible = false;
-            this.btnCH1PreGain2.Overlay3Image = null;
-            this.btnCH1PreGain2.Overlay3Visible = false;
-            this.btnCH1PreGain2.PressedImage = ((System.Drawing.Image)(resources.GetObject("btnCH1PreGain2.PressedImage")));
-            this.btnCH1PreGain2.Size = new System.Drawing.Size(39, 39);
-            this.btnCH1PreGain2.TabIndex = 32;
-            this.btnCH1PreGain2.ToolTipText = "";
+            this.btnGain01.AutoResize = false;
+            this.btnGain01.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnGain01.BackgroundImage")));
+            this.btnGain01.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnGain01.Location = new System.Drawing.Point(212, 0);
+            this.btnGain01.Name = "btnGain01";
+            this.btnGain01.OverImage = null;
+            this.btnGain01.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnGain01.Overlay1Image")));
+            this.btnGain01.Overlay1Visible = false;
+            this.btnGain01.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnGain01.Overlay2Image")));
+            this.btnGain01.Overlay2Visible = false;
+            this.btnGain01.Overlay3Image = null;
+            this.btnGain01.Overlay3Visible = false;
+            this.btnGain01.PressedImage = ((System.Drawing.Image)(resources.GetObject("btnGain01.PressedImage")));
+            this.btnGain01.Size = new System.Drawing.Size(39, 39);
+            this.btnGain01.TabIndex = 32;
+            this.btnGain01.ToolTipText = "";
             // 
             // timer1
             // 
@@ -800,33 +807,33 @@ namespace DSP_4x4
             // pnlCH2PreMixer
             // 
             this.pnlCH2PreMixer.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pnlCH2PreMixer.BackgroundImage")));
-            this.pnlCH2PreMixer.Controls.Add(this.btnCH2PreGain);
+            this.pnlCH2PreMixer.Controls.Add(this.btnGain10);
             this.pnlCH2PreMixer.Controls.Add(this.btnCH2PreFilters);
-            this.pnlCH2PreMixer.Controls.Add(this.btnCH2Compressor);
-            this.pnlCH2PreMixer.Controls.Add(this.btnCH2PreGain2);
+            this.pnlCH2PreMixer.Controls.Add(this.btnCompressor10);
+            this.pnlCH2PreMixer.Controls.Add(this.btnGain11);
             this.pnlCH2PreMixer.Location = new System.Drawing.Point(119, 140);
             this.pnlCH2PreMixer.Name = "pnlCH2PreMixer";
             this.pnlCH2PreMixer.Size = new System.Drawing.Size(281, 39);
             this.pnlCH2PreMixer.TabIndex = 78;
             // 
-            // btnCH2PreGain
+            // btnGain10
             // 
-            this.btnCH2PreGain.AutoResize = false;
-            this.btnCH2PreGain.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnCH2PreGain.BackgroundImage")));
-            this.btnCH2PreGain.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCH2PreGain.Location = new System.Drawing.Point(30, 0);
-            this.btnCH2PreGain.Name = "btnCH2PreGain";
-            this.btnCH2PreGain.OverImage = null;
-            this.btnCH2PreGain.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnCH2PreGain.Overlay1Image")));
-            this.btnCH2PreGain.Overlay1Visible = false;
-            this.btnCH2PreGain.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnCH2PreGain.Overlay2Image")));
-            this.btnCH2PreGain.Overlay2Visible = false;
-            this.btnCH2PreGain.Overlay3Image = null;
-            this.btnCH2PreGain.Overlay3Visible = false;
-            this.btnCH2PreGain.PressedImage = ((System.Drawing.Image)(resources.GetObject("btnCH2PreGain.PressedImage")));
-            this.btnCH2PreGain.Size = new System.Drawing.Size(39, 39);
-            this.btnCH2PreGain.TabIndex = 36;
-            this.btnCH2PreGain.ToolTipText = "";
+            this.btnGain10.AutoResize = false;
+            this.btnGain10.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnGain10.BackgroundImage")));
+            this.btnGain10.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnGain10.Location = new System.Drawing.Point(30, 0);
+            this.btnGain10.Name = "btnGain10";
+            this.btnGain10.OverImage = null;
+            this.btnGain10.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnGain10.Overlay1Image")));
+            this.btnGain10.Overlay1Visible = false;
+            this.btnGain10.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnGain10.Overlay2Image")));
+            this.btnGain10.Overlay2Visible = false;
+            this.btnGain10.Overlay3Image = null;
+            this.btnGain10.Overlay3Visible = false;
+            this.btnGain10.PressedImage = ((System.Drawing.Image)(resources.GetObject("btnGain10.PressedImage")));
+            this.btnGain10.Size = new System.Drawing.Size(39, 39);
+            this.btnGain10.TabIndex = 36;
+            this.btnGain10.ToolTipText = "";
             // 
             // btnCH2PreFilters
             // 
@@ -847,43 +854,43 @@ namespace DSP_4x4
             this.btnCH2PreFilters.TabIndex = 35;
             this.btnCH2PreFilters.ToolTipText = "";
             // 
-            // btnCH2Compressor
+            // btnCompressor10
             // 
-            this.btnCH2Compressor.AutoResize = false;
-            this.btnCH2Compressor.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnCH2Compressor.BackgroundImage")));
-            this.btnCH2Compressor.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCH2Compressor.Location = new System.Drawing.Point(152, 0);
-            this.btnCH2Compressor.Name = "btnCH2Compressor";
-            this.btnCH2Compressor.OverImage = null;
-            this.btnCH2Compressor.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnCH2Compressor.Overlay1Image")));
-            this.btnCH2Compressor.Overlay1Visible = true;
-            this.btnCH2Compressor.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnCH2Compressor.Overlay2Image")));
-            this.btnCH2Compressor.Overlay2Visible = false;
-            this.btnCH2Compressor.Overlay3Image = null;
-            this.btnCH2Compressor.Overlay3Visible = false;
-            this.btnCH2Compressor.PressedImage = ((System.Drawing.Image)(resources.GetObject("btnCH2Compressor.PressedImage")));
-            this.btnCH2Compressor.Size = new System.Drawing.Size(39, 39);
-            this.btnCH2Compressor.TabIndex = 34;
-            this.btnCH2Compressor.ToolTipText = "";
+            this.btnCompressor10.AutoResize = false;
+            this.btnCompressor10.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnCompressor10.BackgroundImage")));
+            this.btnCompressor10.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnCompressor10.Location = new System.Drawing.Point(152, 0);
+            this.btnCompressor10.Name = "btnCompressor10";
+            this.btnCompressor10.OverImage = null;
+            this.btnCompressor10.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnCompressor10.Overlay1Image")));
+            this.btnCompressor10.Overlay1Visible = true;
+            this.btnCompressor10.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnCompressor10.Overlay2Image")));
+            this.btnCompressor10.Overlay2Visible = false;
+            this.btnCompressor10.Overlay3Image = null;
+            this.btnCompressor10.Overlay3Visible = false;
+            this.btnCompressor10.PressedImage = ((System.Drawing.Image)(resources.GetObject("btnCompressor10.PressedImage")));
+            this.btnCompressor10.Size = new System.Drawing.Size(39, 39);
+            this.btnCompressor10.TabIndex = 34;
+            this.btnCompressor10.ToolTipText = "";
             // 
-            // btnCH2PreGain2
+            // btnGain11
             // 
-            this.btnCH2PreGain2.AutoResize = false;
-            this.btnCH2PreGain2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnCH2PreGain2.BackgroundImage")));
-            this.btnCH2PreGain2.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCH2PreGain2.Location = new System.Drawing.Point(212, 0);
-            this.btnCH2PreGain2.Name = "btnCH2PreGain2";
-            this.btnCH2PreGain2.OverImage = null;
-            this.btnCH2PreGain2.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnCH2PreGain2.Overlay1Image")));
-            this.btnCH2PreGain2.Overlay1Visible = false;
-            this.btnCH2PreGain2.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnCH2PreGain2.Overlay2Image")));
-            this.btnCH2PreGain2.Overlay2Visible = false;
-            this.btnCH2PreGain2.Overlay3Image = null;
-            this.btnCH2PreGain2.Overlay3Visible = false;
-            this.btnCH2PreGain2.PressedImage = ((System.Drawing.Image)(resources.GetObject("btnCH2PreGain2.PressedImage")));
-            this.btnCH2PreGain2.Size = new System.Drawing.Size(39, 39);
-            this.btnCH2PreGain2.TabIndex = 33;
-            this.btnCH2PreGain2.ToolTipText = "";
+            this.btnGain11.AutoResize = false;
+            this.btnGain11.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnGain11.BackgroundImage")));
+            this.btnGain11.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnGain11.Location = new System.Drawing.Point(212, 0);
+            this.btnGain11.Name = "btnGain11";
+            this.btnGain11.OverImage = null;
+            this.btnGain11.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnGain11.Overlay1Image")));
+            this.btnGain11.Overlay1Visible = false;
+            this.btnGain11.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnGain11.Overlay2Image")));
+            this.btnGain11.Overlay2Visible = false;
+            this.btnGain11.Overlay3Image = null;
+            this.btnGain11.Overlay3Visible = false;
+            this.btnGain11.PressedImage = ((System.Drawing.Image)(resources.GetObject("btnGain11.PressedImage")));
+            this.btnGain11.Size = new System.Drawing.Size(39, 39);
+            this.btnGain11.TabIndex = 33;
+            this.btnGain11.ToolTipText = "";
             // 
             // btnMatrixMixer
             // 
@@ -946,11 +953,11 @@ namespace DSP_4x4
             // pnlCH4PostMixer
             // 
             this.pnlCH4PostMixer.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pnlCH4PostMixer.BackgroundImage")));
-            this.pnlCH4PostMixer.Controls.Add(this.btnCH4PostTrim);
+            this.pnlCH4PostMixer.Controls.Add(this.btnGain32);
             this.pnlCH4PostMixer.Controls.Add(this.btnCH4PostFilters);
-            this.pnlCH4PostMixer.Controls.Add(this.btnCH4Limiter);
+            this.pnlCH4PostMixer.Controls.Add(this.btnCompressor31);
             this.pnlCH4PostMixer.Controls.Add(this.btnCH4Delay);
-            this.pnlCH4PostMixer.Controls.Add(this.btnCH4PostGain);
+            this.pnlCH4PostMixer.Controls.Add(this.btnGain33);
             this.pnlCH4PostMixer.Location = new System.Drawing.Point(454, 236);
             this.pnlCH4PostMixer.Name = "pnlCH4PostMixer";
             this.pnlCH4PostMixer.Size = new System.Drawing.Size(335, 39);
@@ -959,11 +966,11 @@ namespace DSP_4x4
             // pnlCH3PostMixer
             // 
             this.pnlCH3PostMixer.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pnlCH3PostMixer.BackgroundImage")));
-            this.pnlCH3PostMixer.Controls.Add(this.btnCH3PostTrim);
+            this.pnlCH3PostMixer.Controls.Add(this.btnGain22);
             this.pnlCH3PostMixer.Controls.Add(this.btnCH3PostFilters);
-            this.pnlCH3PostMixer.Controls.Add(this.btnCH3Limiter);
+            this.pnlCH3PostMixer.Controls.Add(this.btnCompressor21);
             this.pnlCH3PostMixer.Controls.Add(this.btnCH3Delay);
-            this.pnlCH3PostMixer.Controls.Add(this.btnCH3PostGain);
+            this.pnlCH3PostMixer.Controls.Add(this.btnGain23);
             this.pnlCH3PostMixer.Location = new System.Drawing.Point(454, 188);
             this.pnlCH3PostMixer.Name = "pnlCH3PostMixer";
             this.pnlCH3PostMixer.Size = new System.Drawing.Size(335, 39);
@@ -972,11 +979,11 @@ namespace DSP_4x4
             // pnlCH2PostMixer
             // 
             this.pnlCH2PostMixer.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pnlCH2PostMixer.BackgroundImage")));
-            this.pnlCH2PostMixer.Controls.Add(this.btnCH2PostTrim);
+            this.pnlCH2PostMixer.Controls.Add(this.btnGain12);
             this.pnlCH2PostMixer.Controls.Add(this.btnCH2PostFilters);
-            this.pnlCH2PostMixer.Controls.Add(this.btnCH2Limiter);
+            this.pnlCH2PostMixer.Controls.Add(this.btnCompressor11);
             this.pnlCH2PostMixer.Controls.Add(this.btnCH2Delay);
-            this.pnlCH2PostMixer.Controls.Add(this.btnCH2PostGain);
+            this.pnlCH2PostMixer.Controls.Add(this.btnGain13);
             this.pnlCH2PostMixer.Location = new System.Drawing.Point(454, 139);
             this.pnlCH2PostMixer.Name = "pnlCH2PostMixer";
             this.pnlCH2PostMixer.Size = new System.Drawing.Size(335, 39);
@@ -998,11 +1005,11 @@ namespace DSP_4x4
             // pnlCH1PostMixer
             // 
             this.pnlCH1PostMixer.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pnlCH1PostMixer.BackgroundImage")));
-            this.pnlCH1PostMixer.Controls.Add(this.btnCH1PostTrim);
+            this.pnlCH1PostMixer.Controls.Add(this.btnGain02);
             this.pnlCH1PostMixer.Controls.Add(this.btnCH1PostFilters);
-            this.pnlCH1PostMixer.Controls.Add(this.btnCH1Limiter);
+            this.pnlCH1PostMixer.Controls.Add(this.btnCompressor01);
             this.pnlCH1PostMixer.Controls.Add(this.btnCH1Delay);
-            this.pnlCH1PostMixer.Controls.Add(this.btnCH1PostGain);
+            this.pnlCH1PostMixer.Controls.Add(this.btnGain03);
             this.pnlCH1PostMixer.Location = new System.Drawing.Point(454, 91);
             this.pnlCH1PostMixer.Name = "pnlCH1PostMixer";
             this.pnlCH1PostMixer.Size = new System.Drawing.Size(335, 39);
@@ -1011,10 +1018,10 @@ namespace DSP_4x4
             // pnlCH4PreMixer
             // 
             this.pnlCH4PreMixer.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pnlCH4PreMixer.BackgroundImage")));
-            this.pnlCH4PreMixer.Controls.Add(this.btnCH4PreGain);
+            this.pnlCH4PreMixer.Controls.Add(this.btnGain30);
             this.pnlCH4PreMixer.Controls.Add(this.btnCH4PreFilters);
-            this.pnlCH4PreMixer.Controls.Add(this.btnCH4Compressor);
-            this.pnlCH4PreMixer.Controls.Add(this.btnCH4PreGain2);
+            this.pnlCH4PreMixer.Controls.Add(this.btnCompressor30);
+            this.pnlCH4PreMixer.Controls.Add(this.btnGain31);
             this.pnlCH4PreMixer.Location = new System.Drawing.Point(119, 236);
             this.pnlCH4PreMixer.Name = "pnlCH4PreMixer";
             this.pnlCH4PreMixer.Size = new System.Drawing.Size(281, 39);
@@ -1023,10 +1030,10 @@ namespace DSP_4x4
             // pnlCH3PreMixer
             // 
             this.pnlCH3PreMixer.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pnlCH3PreMixer.BackgroundImage")));
-            this.pnlCH3PreMixer.Controls.Add(this.btnCH3PreGain);
+            this.pnlCH3PreMixer.Controls.Add(this.btnGain20);
             this.pnlCH3PreMixer.Controls.Add(this.btnCH3PreFilters);
-            this.pnlCH3PreMixer.Controls.Add(this.btnCH3Compressor);
-            this.pnlCH3PreMixer.Controls.Add(this.btnCH3PreGain2);
+            this.pnlCH3PreMixer.Controls.Add(this.btnCompressor20);
+            this.pnlCH3PreMixer.Controls.Add(this.btnGain21);
             this.pnlCH3PreMixer.Location = new System.Drawing.Point(119, 188);
             this.pnlCH3PreMixer.Name = "pnlCH3PreMixer";
             this.pnlCH3PreMixer.Size = new System.Drawing.Size(281, 39);
@@ -1035,10 +1042,10 @@ namespace DSP_4x4
             // pnlCH1PreMixer
             // 
             this.pnlCH1PreMixer.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pnlCH1PreMixer.BackgroundImage")));
-            this.pnlCH1PreMixer.Controls.Add(this.btnCH1PreGain);
+            this.pnlCH1PreMixer.Controls.Add(this.btnGain00);
             this.pnlCH1PreMixer.Controls.Add(this.btnCH1PreFilters);
-            this.pnlCH1PreMixer.Controls.Add(this.btnCH1Compressor);
-            this.pnlCH1PreMixer.Controls.Add(this.btnCH1PreGain2);
+            this.pnlCH1PreMixer.Controls.Add(this.btnCompressor00);
+            this.pnlCH1PreMixer.Controls.Add(this.btnGain01);
             this.pnlCH1PreMixer.Location = new System.Drawing.Point(119, 91);
             this.pnlCH1PreMixer.Name = "pnlCH1PreMixer";
             this.pnlCH1PreMixer.Size = new System.Drawing.Size(281, 39);
@@ -1109,7 +1116,6 @@ namespace DSP_4x4
             this.picDuckerLine.Size = new System.Drawing.Size(8, 179);
             this.picDuckerLine.TabIndex = 88;
             this.picDuckerLine.TabStop = false;
-            this.picDuckerLine.Visible = false;
             // 
             // pbtnDucker
             // 
@@ -1129,11 +1135,10 @@ namespace DSP_4x4
             this.pbtnDucker.Size = new System.Drawing.Size(39, 39);
             this.pbtnDucker.TabIndex = 89;
             this.pbtnDucker.ToolTipText = "";
-            this.pbtnDucker.Visible = false;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(294, 331);
+            this.button1.Location = new System.Drawing.Point(331, 329);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 90;
@@ -1225,46 +1230,46 @@ namespace DSP_4x4
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private PictureButton btnCH1PostFilters;
-        private PictureButton btnCH1PostGain;
+        private PictureButton btnGain03;
         private PictureButton btnCH1Delay;
-        private PictureButton btnCH1Limiter;
-        private PictureButton btnCH1PostTrim;
-        private PictureButton btnCH2PostGain;
+        private PictureButton btnCompressor01;
+        private PictureButton btnGain02;
+        private PictureButton btnGain13;
         private PictureButton btnCH2Delay;
-        private PictureButton btnCH2Limiter;
-        private PictureButton btnCH2PostTrim;
+        private PictureButton btnCompressor11;
+        private PictureButton btnGain12;
         private PictureButton btnCH2PostFilters;
-        private PictureButton btnCH3PostGain;
+        private PictureButton btnGain23;
         private PictureButton btnCH3Delay;
-        private PictureButton btnCH3Limiter;
-        private PictureButton btnCH3PostTrim;
+        private PictureButton btnCompressor21;
+        private PictureButton btnGain22;
         private PictureButton btnCH3PostFilters;
-        private PictureButton btnCH4PostGain;
+        private PictureButton btnGain33;
         private PictureButton btnCH4Delay;
-        private PictureButton btnCH4Limiter;
-        private PictureButton btnCH4PostTrim;
+        private PictureButton btnCompressor31;
+        private PictureButton btnGain32;
         private PictureButton btnCH4PostFilters;
-        private PictureButton btnCH1Compressor;
-        private PictureButton btnCH1PreGain2;
-        private PictureButton btnCH3PreGain2;
-        private PictureButton btnCH4PreGain2;
-        private PictureButton btnCH1PreGain;
+        private PictureButton btnCompressor00;
+        private PictureButton btnGain01;
+        private PictureButton btnGain21;
+        private PictureButton btnGain31;
+        private PictureButton btnGain00;
         private PictureButton btnCH1PreFilters;
-        private PictureButton btnCH3PreGain;
+        private PictureButton btnGain20;
         private PictureButton btnCH3PreFilters;
-        private PictureButton btnCH3Compressor;
-        private PictureButton btnCH4PreGain;
+        private PictureButton btnCompressor20;
+        private PictureButton btnGain30;
         private PictureButton btnCH4PreFilters;
-        private PictureButton btnCH4Compressor;
+        private PictureButton btnCompressor30;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.SaveFileDialog saveProgramDialog;
         private System.Windows.Forms.OpenFileDialog openProgramDialog;
         private System.Windows.Forms.ToolStripStatusLabel tsStatusLabel;
         private System.Windows.Forms.Panel pnlCH2PreMixer;
-        private PictureButton btnCH2PreGain;
+        private PictureButton btnGain10;
         private PictureButton btnCH2PreFilters;
-        private PictureButton btnCH2Compressor;
-        private PictureButton btnCH2PreGain2;
+        private PictureButton btnCompressor10;
+        private PictureButton btnGain11;
         protected PictureButton btnMatrixMixer;
         private System.Windows.Forms.Label lblCH4Output;
         private System.Windows.Forms.Label lblCH3Output;

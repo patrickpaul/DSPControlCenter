@@ -76,16 +76,42 @@ namespace SA_Resources
             }
         }
 
-        public override void UpdateFromSettings(List<DSP_Setting> settingsList)
+        public override void UpdateFromReadValues(List<UInt32> valuesList)
         {
-            this.Bypassed = (settingsList[1].Value == 0x00000001);
-            this.Delay = DSP_Math.MN_to_double_signed(settingsList[1].Value, 16, 16);
+            this.Bypassed = (valuesList[0] == 0x00000001);
+            this.Delay = DSP_Math.MN_to_double_signed(valuesList[1], 16, 16);
         }
 
         public override void QueueChange(MainForm_Template PARENT_FORM)
         {
             PARENT_FORM.AddItemToQueue(new LiveQueueItem(this.Offset, this.Bypassed_Value));
             PARENT_FORM.AddItemToQueue(new LiveQueueItem(this.Offset+1, this.Delay_Value));
+        }
+
+        public override void QueueChangeByOffset(MainForm_Template PARENT_FORM, int const_offset)
+        {
+            Console.WriteLine("Delay - QueueChangeByOffset - Sending " + this.Values[const_offset].ToString("X") + " to offset " + (Offset + const_offset));
+
+            if (PARENT_FORM.LIVE_MODE)
+            {
+                PARENT_FORM.AddItemToQueue(new LiveQueueItem(Offset + const_offset, this.Values[const_offset]));
+            }
+        }
+
+
+        public override void QueueDeltas(MainForm_Template PARENT_FORM, DSP_Primitive comparePrimitive)
+        {
+
+            DSP_Primitive_Delay RecastPrimitive = (DSP_Primitive_Delay)comparePrimitive;
+
+            for (int i = 0; i < this.Num_Values; i++)
+            {
+                if (this.Values[i] != RecastPrimitive.Values[i])
+                {
+                    Console.WriteLine("Value[" + i + "] " + this.Values[i].ToString("X") + " does not equal " + RecastPrimitive.Values[i].ToString("X"));
+                    this.QueueChangeByOffset(PARENT_FORM, i);
+                }
+            }
         }
 
         public override void PrintValues()

@@ -16,13 +16,14 @@ namespace SA_Resources
     public partial class FilterForm : Form
     {
 
-
+        // Disable form's closing button
         protected override CreateParams CreateParams
         {
             get
             {
+                int CP_NOCLOSE_BUTTON = 0x200;
                 CreateParams myCp = base.CreateParams;
-                myCp.ClassStyle = myCp.ClassStyle | 0x200;
+                myCp.ClassStyle = myCp.ClassStyle | CP_NOCLOSE_BUTTON;
                 return myCp;
             }
         } 
@@ -883,7 +884,6 @@ namespace SA_Resources
         #endregion
 
         #region Chart Events
-
 
         public void UpdateUIToVals(object param)
         {

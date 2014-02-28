@@ -20,7 +20,11 @@ namespace SA_Resources.Forms
         public ProgramConfig[] PROGRAMS = new ProgramConfig[3];
         public ProgramConfig PROGRAM_CACHE = new ProgramConfig();
 
-        public Primitive_Manager[] PRIMITIVE_PROGRAMS = new Primitive_Manager[3];
+        public DSP_Program_Manager[] DSP_PROGRAMS = new DSP_Program_Manager[20];
+
+        public DSP_Meter_Manager DSP_METER_MANAGER = new DSP_Meter_Manager();
+
+        public int NUM_PRESETS = 3;
 
         /* Settings Lists */
 
@@ -98,6 +102,7 @@ namespace SA_Resources.Forms
 
         public bool LIVE_MODE;
 
+        public bool PRIMITIVES_LOADED = false;
         #endregion
 
 
@@ -105,29 +110,27 @@ namespace SA_Resources.Forms
 
         public MainForm_Template()
         {
+            // Initialize all User Controls
             InitializeComponent();
-
-            // This renderer uses the custom class so it's not so ugly
-            menuStrip1.Renderer = new MyRenderer();
-
         }
-        
 
-        public MainForm_Template(string configFile = "")
+        public MainForm_Template(string configFile)
         {  
+            // Initialize all User Controls
             InitializeComponent();
 
             menuStrip1.Renderer = new MyRenderer();
-
 
             
 
-            LIVE_MODE = false;
-            _PIC_Conn = new PIC_Bridge(serialPort1);
+            // TODO - Should these still be disabled?
 
             /* INITIALIZE THE SETTINGS TO DEFAULTS */
-
-            DefaultSettings();
+            /*
+            DefaultSettings(); 
+            
+            
+            
 
             if (configFile != "")
             {
@@ -136,37 +139,39 @@ namespace SA_Resources.Forms
             }
 
             InitializePrograms();
+            InitializeDSPPrimitives();
+             * */
 
         }
-
-        protected void ShowHideBlocks()
-        {
-
-            PictureButton pbtnDucker = (PictureButton)Enumerable.FirstOrDefault(Controls.Find("pbtnDucker", true));
-
-            if (pbtnDucker != null)
-            {
-                pbtnDucker.Visible = this.DuckerEnabled();
-            }
-
-            PictureBox picDuckerLine = (PictureBox)Enumerable.FirstOrDefault(Controls.Find("picDuckerLine", true));
-
-            if (picDuckerLine != null)
-            {
-                picDuckerLine.Visible = this.DuckerEnabled();
-            }
-        }
-
         protected void MainForm_Template_Load(object sender, EventArgs e)
         {
 
             try
             {
+                // Starting up not connected, set LIVE_MODE to false
+                LIVE_MODE = false;
+                // Initialize the PIC_Bridge (starts up closed)
+                _PIC_Conn = new PIC_Bridge(serialPort1);
+
+                // Initialize Array of Presets (both Programs and Primitives for now)
+                InitializePrograms();
+                Initialize_DSP_Programs();
+
+                //TODO - REMOVE ME
+                DefaultSettings();
+                Default_DSP_Programs();
+                Default_DSP_Meters();
+
+                // This prevents Visual Studio from throwing an exception when loading derived forms in designer
+                if (DSP_PROGRAMS.Count() < 1 || DSP_PROGRAMS[0] == null)
+                {
+                    form_loaded = true;
+                    return;
+                }
                 // We have to attach these here because it must occur after the derived forms' InitializeComponent() happens in their Constructors
 
                 AttachUIEvents();
                 UpdateTooltips();
-                ShowHideBlocks();
 
                  
                 if (CONFIGFILE != "" && CONFIGFILE != " ")
@@ -186,27 +191,37 @@ namespace SA_Resources.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error loading application: \n\n" + ex.Message + "\n\nProgram will now exit.", "Exception During Load", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                Application.Exit();
+                MessageBox.Show("Error loading application: \n\n" + ex.Message + System.Environment.NewLine + ex.StackTrace + "\n\nProgram will now exit.", "Exception During Load", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                //Application.Exit();
 
             }
         }
 
 
-        public void InitializePrograms()
+        public virtual void InitializePrograms()
         {
-            for (int p = 0; p < NUM_PROGRAMS; p++)
-            {
-                PROGRAMS[p] = new ProgramConfig();
-                PRIMITIVE_PROGRAMS[p] = new Primitive_Manager();
-            }
-
-            for (int i = 0; i < this.NumPresets(); i++)
-            {
-                _presetNames.Add("Program " + (i+1));
-            }
+            //NUM_PRESETS
         }
 
+        public virtual void Initialize_DSP_Programs()
+        {
+            
+        }
+
+        public virtual void Initialize_DSP_Meters()
+        {
+
+        }
+
+        public virtual void Default_DSP_Programs()
+        {
+            
+        }
+
+        public virtual void Default_DSP_Meters()
+        {
+            
+        }
 
         #endregion
 
@@ -228,6 +243,7 @@ namespace SA_Resources.Forms
 
             readFromDeviceToolStripMenuItem.Enabled = true;
 
+            // TODO - implement USB detection so heartbeat timer isn't necessary
             //HeartbeatTimer.Enabled = true;
 
         }
@@ -255,7 +271,7 @@ namespace SA_Resources.Forms
 
         public void AddItemToQueue(LiveQueueItem itemToAdd)
         {
-
+            // TODO - Disable this once done testing
             Console.WriteLine("Added item to queue: " + itemToAdd.Index + " - " + itemToAdd.Value.ToString("X8"));
             lock (_locker)
             {
@@ -265,6 +281,8 @@ namespace SA_Resources.Forms
 
         protected void Queue_Thread_DoWork(object sender, DoWorkEventArgs e)
         {
+
+            // RE-EVALUATE QUEUE_THREAD_DOWORK
             BackgroundWorker worker = sender as BackgroundWorker;
 
             while (true)
@@ -390,7 +408,7 @@ namespace SA_Resources.Forms
 
         public virtual void ReadDevice(object sender, DoWorkEventArgs doWorkEventArgs)
         {
-
+            /*
             int programs_to_run = NUM_PROGRAMS;
 
             if(doWorkEventArgs.Argument != null)
@@ -485,13 +503,15 @@ namespace SA_Resources.Forms
 
             backgroundWorker.ReportProgress(0, "Read device complete");
             backgroundWorker.ReportProgress(100);
+
+            */
         }
 
         public virtual void WriteDevice(object sender, DoWorkEventArgs doWorkEventArgs)
         {
-            try
+            /*try
             {
-
+                
                 int programs_to_run = NUM_PROGRAMS;
 
                 if (doWorkEventArgs.Argument != null)
@@ -655,6 +675,7 @@ namespace SA_Resources.Forms
             catch (Exception ex)
             {
             }
+                 * */
         }
 
         #endregion
@@ -707,11 +728,6 @@ namespace SA_Resources.Forms
             return false;
         }
 
-        public virtual bool DuckerEnabled()
-        {
-            return false;
-        }
-
         public virtual byte GetLiveSwitchCommandBase()
         {
             return (byte)16;
@@ -725,66 +741,6 @@ namespace SA_Resources.Forms
         public virtual byte GetEEPROMSwitchCommandBase()
         {
             return (byte)48;
-        }
-
-        public virtual int GetProtectedReadBlock1_Start()
-        {
-            return -1;
-        }
-
-        public virtual int GetProtectedReadBlock1_End()
-        {
-            return -1;
-        }
-
-        public virtual int GetProtectedReadBlock2_Start()
-        {
-            return -1;
-        }
-
-        public virtual int GetProtectedReadBlock2_End()
-        {
-            return -1;
-        }
-
-        public virtual int GetProtectedReadBlock3_Start()
-        {
-            return -1;
-        }
-
-        public virtual int GetProtectedReadBlock3_End()
-        {
-            return -1;
-        }
-
-        public virtual int GetProtectedWriteBlock1_Start()
-        {
-            return -1;
-        }
-
-        public virtual int GetProtectedWriteBlock1_End()
-        {
-            return -1;
-        }
-
-        public virtual int GetProtectedWriteBlock2_Start()
-        {
-            return -1;
-        }
-
-        public virtual int GetProtectedWriteBlock2_End()
-        {
-            return -1;
-        }
-
-        public virtual int GetProtectedWriteBlock3_Start()
-        {
-            return -1;
-        }
-
-        public virtual int GetProtectedWriteBlock3_End()
-        {
-            return -1;
         }
 
         public virtual byte GetCommand_RTS()
@@ -862,8 +818,9 @@ namespace SA_Resources.Forms
 
        
 
-        protected void AttachUIEvents()
+        protected virtual void AttachUIEvents()
         {
+            
             foreach (Control control in GetControlsOfType(this, typeof(PictureButton)))
             {
                 control.Click += new EventHandler(this.SetUnsavedChanges);
@@ -903,114 +860,11 @@ namespace SA_Resources.Forms
             }
 
 
-
-            for (int i = 0; i < GetNumInputChannels(); i++)
-            {
-
-                // Input Label
-                Label lblInput = (Label)(Controls.Find("lblCH" + (i + 1) + "Input", true).FirstOrDefault());
-
-                if (lblInput != null)
-                {
-                    lblInput.MouseClick += new MouseEventHandler(this.lblInput_MouseClick);
-                }
-
-                // First Gain Block
-                PictureButton btnPreGain1 = (PictureButton)(Controls.Find("btnCH" + (i + 1) + "PreGain", true).FirstOrDefault());
-
-                if (btnPreGain1 != null)
-                {
-                    btnPreGain1.MouseClick += new MouseEventHandler(this.btnPreGain1_MouseClick);
-                }
-
-                // Input Filters
-                PictureButton btnPreFilters = (PictureButton)(Controls.Find("btnCH" + (i + 1) + "PreFilters", true).FirstOrDefault());
-
-                if (btnPreFilters != null)
-                {
-                    btnPreFilters.MouseClick += new MouseEventHandler(this.btnPreFilters_MouseClick);
-                }
-
-                // Compressor
-                PictureButton btnCompressor = (PictureButton)(Controls.Find("btnCH" + (i + 1) + "Compressor", true).FirstOrDefault());
-
-                if (btnCompressor != null)
-                {
-                    btnCompressor.MouseClick += new MouseEventHandler(this.btnComp_MouseClick);
-                }
-
-                // Premix Gain Block
-                PictureButton btnPreGain2 = (PictureButton)(Controls.Find("btnCH" + (i + 1) + "PreGain2", true).FirstOrDefault());
-
-                if (btnPreGain2 != null)
-                {
-                    btnPreGain2.MouseClick += new MouseEventHandler(this.btnPreGain2_MouseClick);
-                }
-
-
-            }
-
-
-            // Premix Gain Block
             PictureButton btnMatrixMixer = (PictureButton)(Controls.Find("btnMatrixMixer", true).FirstOrDefault());
 
             if (btnMatrixMixer != null)
             {
                 btnMatrixMixer.MouseClick += new MouseEventHandler(this.btnMatrixMixer_MouseClick);
-            }
-
-            for (int i = 0; i < GetNumOutputChannels(); i++)
-            {
-
-                // Trim Block
-                PictureButton btnPostTrim = (PictureButton)(Controls.Find("btnCH" + (i + 1) + "PostTrim", true).FirstOrDefault());
-
-                if (btnPostTrim != null)
-                {
-                    btnPostTrim.MouseClick += new MouseEventHandler(this.btnPostTrim_MouseClick);
-                }
-
-                // Output Filters
-                PictureButton btnPostFilters = (PictureButton)(Controls.Find("btnCH" + (i + 1) + "PostFilters", true).FirstOrDefault());
-
-                if (btnPostFilters != null)
-                {
-                    btnPostFilters.MouseClick += new MouseEventHandler(this.btnPostFilters_MouseClick);
-                }
-
-                // Limiter
-                PictureButton btnLimiter = (PictureButton)(Controls.Find("btnCH" + (i + 1) + "Limiter", true).FirstOrDefault());
-
-                if (btnLimiter != null)
-                {
-                    btnLimiter.MouseClick += new MouseEventHandler(this.btnLimiter_MouseClick);
-                }
-
-                // Delay Block
-                PictureButton btnDelay = (PictureButton)(Controls.Find("btnCH" + (i + 1) + "Delay", true).FirstOrDefault());
-
-                if (btnDelay != null)
-                {
-                    btnDelay.MouseClick += new MouseEventHandler(this.btnDelay_MouseClick);
-                }
-                
-                // Output Gain Block
-                PictureButton btnPostGain = (PictureButton)(Controls.Find("btnCH" + (i + 1) + "PostGain", true).FirstOrDefault());
-
-                if (btnPostGain != null)
-                {
-                    btnPostGain.MouseClick += new MouseEventHandler(this.BtnPostGain_MouseClick);
-                }
-
-                // Output Label
-                Label lblOutput = (Label)(Controls.Find("lblCH" + (i + 1) + "Output", true).FirstOrDefault());
-
-                if (lblOutput != null)
-                {
-                    lblOutput.MouseClick += new MouseEventHandler(this.lblOutput_MouseClick);
-                }
-
-
             }
 
             PictureButton pbtnDucker = (PictureButton)Enumerable.FirstOrDefault(Controls.Find("pbtnDucker", true));
@@ -1021,6 +875,7 @@ namespace SA_Resources.Forms
             }
 
         }
+
         #endregion
 
 
@@ -1043,7 +898,6 @@ namespace SA_Resources.Forms
         
         public void UpdateTooltips()
         {
-
             toolTip1.AutoPopDelay = 5000;
             toolTip1.InitialDelay = 10;
             toolTip1.ReshowDelay = 50;
@@ -1055,8 +909,92 @@ namespace SA_Resources.Forms
                 this.SetConnectionPicture(GlobalResources.lblStatus_Disconnected);
             }
 
-         
-            
+
+            PictureButton PrimitiveButton = null;
+            Label PrimitiveLabel = null;
+
+            DSP_Primitive_Compressor RecastCompressor;
+            DSP_Primitive_Delay RecastDelay;
+            DSP_Primitive_Input RecastInput;
+            DSP_Primitive_StandardGain RecastStandardGain;
+
+            foreach (DSP_Primitive SinglePrimitive in DSP_PROGRAMS[0].PRIMITIVES)
+            {
+                switch(SinglePrimitive.Type)
+                {
+                    case DSP_Primitive_Types.Compressor: 
+    
+                        RecastCompressor = (DSP_Primitive_Compressor) SinglePrimitive;
+
+                        PrimitiveButton = ((PictureButton)Controls.Find("btnCH" + (RecastCompressor.Channel + 1) + "Compressor", true).FirstOrDefault());
+
+                        if(PrimitiveButton != null)
+                        {
+                            PrimitiveButton.Overlay1Visible = (RecastCompressor.Bypassed);
+                            PrimitiveButton.Invalidate();
+                        }
+
+                    break;
+
+                    case DSP_Primitive_Types.Delay:
+
+                    RecastDelay = (DSP_Primitive_Delay)SinglePrimitive;
+
+                    PrimitiveButton = ((PictureButton)Controls.Find("btnCH" + (RecastDelay.Channel + 1) + "Delay", true).FirstOrDefault());
+
+                    if (PrimitiveButton != null)
+                    {
+                        PrimitiveButton.Overlay1Visible = (RecastDelay.Bypassed);
+                        PrimitiveButton.Invalidate();
+
+                        toolTip1.SetToolTip(PrimitiveButton, RecastDelay.ToString());
+
+                    }
+
+                    break;
+
+                    case DSP_Primitive_Types.Input:
+
+                    RecastInput = (DSP_Primitive_Input)SinglePrimitive;
+
+                    PrimitiveLabel = ((Label)Controls.Find("lblCH" + (RecastInput.Channel + 1) + "Input", true).FirstOrDefault());
+
+                    if (PrimitiveLabel != null)
+                    {
+                        PrimitiveLabel.Text = RecastInput.Name;
+
+                        toolTip1.SetToolTip(PrimitiveLabel, RecastInput.ToString());
+
+                    }
+
+                    break;
+
+                    case DSP_Primitive_Types.StandardGain:
+
+                    RecastStandardGain = (DSP_Primitive_StandardGain)SinglePrimitive;
+
+                    PrimitiveButton = ((PictureButton)Controls.Find("btnGain" + (RecastStandardGain.Channel) + (RecastStandardGain.PositionA), true).FirstOrDefault());
+
+                    if (PrimitiveButton != null)
+                    {
+                        PrimitiveButton.Overlay2Visible = (RecastStandardGain.Muted);
+                        PrimitiveButton.Invalidate();
+
+                        toolTip1.SetToolTip(PrimitiveButton, RecastStandardGain.ToString());
+
+                    }
+
+                    break;
+
+
+                    default :
+                        
+                    break;
+                }
+
+            }
+
+            return;
 
             PictureButton pbtnDucker = ((PictureButton)Controls.Find("pbtnDucker", true).FirstOrDefault());
 
@@ -1092,8 +1030,11 @@ namespace SA_Resources.Forms
 
                 if (btn_Compressor != null)
                 {
-                    //btn_Compressor.Overlay1Visible = PROGRAMS[CURRENT_PROGRAM].compressors[i][0].Bypassed;
-                   // btn_Compressor.Invalidate();
+                    if (DSP_PROGRAMS[0].LookupIndex(DSP_Primitive_Types.Compressor, i, 0) > 0)
+                    {
+                        btn_Compressor.Overlay1Visible = ((DSP_Primitive_Compressor)DSP_PROGRAMS[0].LookupPrimitive(DSP_Primitive_Types.Compressor, i, 0)).Bypassed;
+                        btn_Compressor.Invalidate();
+                    }
                 }
 
                 if (btn_PreGain2 != null)
@@ -1162,19 +1103,31 @@ namespace SA_Resources.Forms
         #region UI Block Actions
 
         
-        protected void lblInput_MouseClick(object sender, MouseEventArgs e)
+        public void lblInput_MouseClick(object sender, MouseEventArgs e)
         {
-            int ch_num = int.Parse(((Label)sender).Name.Substring(5, 1));
+            int ch_num = int.Parse(((Label)sender).Name.Substring(5, 1)) - 1;
 
-            // Specific to FLX
-            bool phantom_power = (ch_num <= num_phantom);
+            DSP_Primitive_Input Active_Primitive;
 
-            InputConfig cached_input = (InputConfig)PROGRAMS[CURRENT_PROGRAM].inputs[ch_num - 1].Clone();
-            int cached_pregain = PROGRAMS[CURRENT_PROGRAM].pregains[ch_num - 1];
+            int PrimitiveIndex = DSP_PROGRAMS[0].LookupIndex(DSP_Primitive_Types.Input, ch_num, 0);
 
-            using (InputConfiguration inputForm = new InputConfiguration(this, ch_num, phantom_power))
+            if (PrimitiveIndex < 0)
             {
+                Active_Primitive = null;
+                Console.WriteLine("[ERROR] Unable to locate Input at CH=" + ch_num + " and POS = " + 0);
+                return;
+            }
+            else
+            {
+                Active_Primitive = (DSP_Primitive_Input)DSP_PROGRAMS[0].PRIMITIVES[PrimitiveIndex];
 
+            }
+
+            DSP_Primitive_Input Cached_Primitive = (DSP_Primitive_Input)Active_Primitive.Clone();
+
+            using (InputConfiguration inputForm = new InputConfiguration(this,Active_Primitive))
+            {
+                
                 if (!LIVE_MODE)
                 {
                     inputForm.Width = 276;
@@ -1186,39 +1139,42 @@ namespace SA_Resources.Forms
                 }
 
                 inputForm.Height = 221;
+                
 
                 DialogResult showBlock = inputForm.ShowDialog(this);
 
                 if(showBlock == DialogResult.Cancel)
                 {
-                    if (!PROGRAMS[CURRENT_PROGRAM].inputs[ch_num - 1].Equals(cached_input))
+                    if (showBlock == DialogResult.Cancel)
                     {
-                        PROGRAMS[CURRENT_PROGRAM].inputs[ch_num - 1] = (InputConfig)cached_input.Clone();
-                        PROGRAMS[CURRENT_PROGRAM].pregains[ch_num - 1] = cached_pregain;
-
-                        if (LIVE_MODE && FIRMWARE_VERSION > 2.5)
+                        if (!Active_Primitive.Equals(Cached_Primitive))
                         {
+                            if (LIVE_MODE)
+                            {
+                                Cached_Primitive.QueueDeltas(this, Active_Primitive);
+                            }
 
-                            UInt32 new_input_gain = DSP_Math.double_to_MN(PROGRAMS[CURRENT_PROGRAM].pregains[ch_num - 1] +
-                            PROGRAMS[CURRENT_PROGRAM].gains[ch_num - 1][0].Gain, 9, 23);
-
-                            AddItemToQueue(new LiveQueueItem((0 + ch_num - 1), new_input_gain));
-                            AddItemToQueue(new LiveQueueItem((412 + ch_num - 1), PROGRAMS[CURRENT_PROGRAM].inputs[ch_num - 1].TypeToValue()));
-                            AddItemToQueue(new LiveQueueItem(ch_num, PROGRAMS[CURRENT_PROGRAM].inputs[ch_num - 1].Name));
-                            AddItemToQueue(new LiveQueueItem(1000 + (ch_num - 1), PROGRAMS[CURRENT_PROGRAM].inputs[ch_num-1].PhantomAsInt()));
-
+                            DSP_PROGRAMS[0].PRIMITIVES[PrimitiveIndex] = (DSP_Primitive_Input)Cached_Primitive.Clone();
                         }
+                    }
+                    else
+                    {
+                        UpdateTooltips();
                     }
                 }
                 else
                 {
+                    /*
                    if (LIVE_MODE && (PROGRAMS[CURRENT_PROGRAM].inputs[ch_num - 1].Name != cached_input.Name))
                    {
                        // Check if this has changed
                        // Don't update this until we hit save since it takes so long.
                        AddItemToQueue(new LiveQueueItem(ch_num, PROGRAMS[CURRENT_PROGRAM].inputs[ch_num - 1].Name));
                    }
-                   UpdateTooltips(); 
+                   * */
+                    
+                    UpdateTooltips(); 
+                     
                 }
             }
         }
@@ -1242,6 +1198,7 @@ namespace SA_Resources.Forms
                 ShowCopyMenu(sender);
                 return;
             }
+            /*
 
             using (GainForm gainForm = new GainForm(this, ch_num - 1, 0, settings_index, false, "CH" + ch_num.ToString() + " - Input Gain"))
             {
@@ -1282,6 +1239,7 @@ namespace SA_Resources.Forms
                     UpdateTooltips();
                 }
             }
+             * */
         }
 
 
@@ -1382,15 +1340,38 @@ namespace SA_Resources.Forms
             }
         }
 
-        protected void btnComp_MouseClick(object sender, MouseEventArgs e)
+        public void btnComp_MouseClick(object sender, MouseEventArgs e)
         {
-            int ch_num = int.Parse(((PictureButton)sender).Name.Substring(5, 1));
-            int settings_offset = 220 + (6 * (ch_num - 1));
+            DSP_Primitive_Compressor Active_Primitive;
 
-            CompressorConfig cached_comp = (CompressorConfig)PROGRAMS[CURRENT_PROGRAM].compressors[ch_num - 1][0].Clone();
+            int ch_num = int.Parse(((PictureButton)sender).Name.Substring(13, 1));
+            int prim_position = int.Parse(((PictureButton)sender).Name.Substring(14, 1));
+
+            int PrimitiveIndex = DSP_PROGRAMS[0].LookupIndex(DSP_Primitive_Types.Compressor, ch_num, prim_position);
+
+            if (PrimitiveIndex < 0)
+            {
+                // Couldn't find a compressor, let's see if we have a limiter there instead
+                PrimitiveIndex = DSP_PROGRAMS[0].LookupIndex(DSP_Primitive_Types.Limiter, ch_num, prim_position);
+            }
+
+            if (PrimitiveIndex < 0)
+            {
+                Active_Primitive = null;
+                Console.WriteLine("[ERROR] Unable to locate Compressor at CH=" + ch_num + " and POS = " + 0);
+                return;
+            } else
+            {
+                Active_Primitive = (DSP_Primitive_Compressor)DSP_PROGRAMS[0].PRIMITIVES[PrimitiveIndex];
+
+            }
+            
+            DSP_Primitive_Compressor Cached_Primitive = (DSP_Primitive_Compressor)Active_Primitive.Clone();
 
             if (e.Button == MouseButtons.Right)
             {
+                Console.WriteLine("Right-click not yet implemented");
+                /*
                 TempConfig = cached_comp;
 
                 temp_from_ch = ch_num;
@@ -1399,90 +1380,29 @@ namespace SA_Resources.Forms
 
                 ShowCopyMenu(sender);
                 return;
+                 * */
             }
 
-            using (CompressorForm compressorForm = new CompressorForm(this, ch_num, settings_offset))
+            using (CompressorForm compressorForm = new CompressorForm(this, Active_Primitive))
             {
-                // passing this in ShowDialog will set the .Owner 
-                // property of the child form
                 DialogResult showBlock = compressorForm.ShowDialog(this);
 
                 if (showBlock == DialogResult.Cancel)
                 {
-                    if (!PROGRAMS[CURRENT_PROGRAM].compressors[ch_num - 1][0].Equals(cached_comp))
+                    if (!Active_Primitive.Equals(Cached_Primitive))
                     {
-                        PROGRAMS[CURRENT_PROGRAM].compressors[ch_num - 1][0] = (CompressorConfig) cached_comp.Clone();
-
                         if (LIVE_MODE)
                         {
-                            PROGRAMS[CURRENT_PROGRAM].compressors[ch_num - 1][0].QueueChange(this, settings_offset);
+                            Cached_Primitive.QueueDeltas(this, Active_Primitive);
                         }
+
+                        DSP_PROGRAMS[0].PRIMITIVES[PrimitiveIndex] = (DSP_Primitive_Compressor)Cached_Primitive.Clone();
                     }
                 }
                 else
                 {
                     UpdateTooltips();
                 }
-            }
-        }
-
-
-        protected void btnPreGain2_MouseClick(object sender, MouseEventArgs e)
-        {
-            int ch_num = int.Parse(((PictureButton)sender).Name.Substring(5, 1));
-
-            int settings_index = (28 + ch_num - 1);
-
-            GainConfig cached_gain = (GainConfig)PROGRAMS[CURRENT_PROGRAM].gains[ch_num - 1][1].Clone();
-            
-            
-            if (e.Button == MouseButtons.Right)
-            {
-                temp_from_ch = ch_num;
-                temp_from_index = 0;
-                temp_from_preset = CURRENT_PROGRAM;
-
-                TempConfig = cached_gain;
-                ShowCopyMenu(sender);
-                return;
-            }
-
-            
-            using (GainForm gainForm = new GainForm(this, ch_num - 1, 1, settings_index, false, "CH" + ch_num.ToString() + " - Premix Gain"))
-            {
-                if (!LIVE_MODE)
-                {
-                    gainForm.Width = 132;
-                }
-                else
-                {
-                    gainForm.Width = 187;
-                }
-
-
-                gainForm.Height = 414;
-
-
-                DialogResult showBlock = gainForm.ShowDialog(this);
-
-                if (showBlock == DialogResult.Cancel)
-                {
-                    if (!PROGRAMS[CURRENT_PROGRAM].gains[ch_num - 1][1].Equals(cached_gain))
-                    {
-                        PROGRAMS[CURRENT_PROGRAM].gains[ch_num - 1][1] = (GainConfig) cached_gain.Clone();
-
-                        if (LIVE_MODE)
-                        {
-                            PROGRAMS[CURRENT_PROGRAM].gains[ch_num - 1][1].QueueChange(this, settings_index);
-                        }
-                    }
-
-                }
-                else
-                {
-                    UpdateTooltips();
-                }
-
             }
         }
 
@@ -1507,19 +1427,19 @@ namespace SA_Resources.Forms
                 }
             }
 
-                using (MixerForm mixerForm = new MixerForm(this))
+                using (MixerForm6x4 mixerForm6X4 = new MixerForm6x4(this))
                 {
 
                     if (LIVE_MODE)
                     {
-                        mixerForm.Width = 496;
+                        mixerForm6X4.Width = 496;
                     }
                     else
                     {
-                        mixerForm.Width = 228;
+                        mixerForm6X4.Width = 228;
                     }
 
-                    DialogResult showBlock = mixerForm.ShowDialog(this);
+                    DialogResult showBlock = mixerForm6X4.ShowDialog(this);
 
                     if (showBlock == DialogResult.Cancel)
                     {
@@ -1535,61 +1455,6 @@ namespace SA_Resources.Forms
                 }
         }
 
-
-        protected void btnPostTrim_MouseClick(object sender, MouseEventArgs e)
-        {
-            int ch_num = int.Parse(((PictureButton)sender).Name.Substring(5, 1));
-
-            int settings_index = (32 + ch_num - 1);
-
-            GainConfig cached_gain = (GainConfig)PROGRAMS[CURRENT_PROGRAM].gains[ch_num - 1][2].Clone();
-            
-            if (e.Button == MouseButtons.Right)
-            {
-                temp_from_ch = ch_num;
-                temp_from_index = 0;
-                temp_from_preset = CURRENT_PROGRAM;
-
-                TempConfig = cached_gain; 
-                ShowCopyMenu(sender);
-                return;
-            }
-
-            
-
-            using (GainForm gainForm = new GainForm(this, ch_num - 1, 2, (32 + ch_num - 1), false, "CH" + ch_num.ToString() + " - Trim"))
-            {
-
-                if (!LIVE_MODE)
-                {
-                    gainForm.Width = 132;
-                }
-                else
-                {
-                    gainForm.Width = 187;
-                }
-
-                gainForm.Height = 414;
-
-                DialogResult showBlock = gainForm.ShowDialog(this);
-
-                if (showBlock == DialogResult.Cancel)
-                {
-                    if (!PROGRAMS[CURRENT_PROGRAM].gains[ch_num - 1][2].Equals(cached_gain))
-                    {
-                        PROGRAMS[CURRENT_PROGRAM].gains[ch_num - 1][2] = (GainConfig) cached_gain.Clone();
-                        if (LIVE_MODE)
-                        {
-                            PROGRAMS[CURRENT_PROGRAM].gains[ch_num - 1][2].QueueChange(this, settings_index);
-                        }
-                    }
-                }
-                else
-                {
-                    UpdateTooltips();
-                }
-            }
-        }
 
 
         protected void btnPostFilters_MouseClick(object sender, MouseEventArgs e)
@@ -1652,17 +1517,34 @@ namespace SA_Resources.Forms
         }
 
 
-        protected void btnLimiter_MouseClick(object sender, MouseEventArgs e)
+        public void btnDelay_MouseClick(object sender, MouseEventArgs e)
         {
-            int ch_num = int.Parse(((PictureButton)sender).Name.Substring(5, 1));
+            int ch_num = int.Parse(((PictureButton)sender).Name.Substring(5, 1)) - 1;
 
-            int settings_offset = 244 + (6 * (ch_num - 1));
+            DSP_Primitive_Delay Active_Primitive;
 
-            CompressorConfig cached_lim = (CompressorConfig)PROGRAMS[CURRENT_PROGRAM].compressors[ch_num - 1][1].Clone();
+            int PrimitiveIndex = DSP_PROGRAMS[0].LookupIndex(DSP_Primitive_Types.Delay, ch_num, 0);
+
+            if (PrimitiveIndex < 0)
+            {
+                Active_Primitive = null;
+                Console.WriteLine("[ERROR] Unable to locate Delay at CH=" + ch_num + " and POS = " + 0);
+                return;
+            }
+            else
+            {
+                Active_Primitive = (DSP_Primitive_Delay)DSP_PROGRAMS[0].PRIMITIVES[PrimitiveIndex];
+
+            }
+
+            DSP_Primitive_Delay Cached_Primitive = (DSP_Primitive_Delay)Active_Primitive.Clone();
+
 
             if (e.Button == MouseButtons.Right)
             {
-                TempConfig = cached_lim;
+                Console.WriteLine("Right-click not yet implemented");
+                return;
+                /*TempConfig = cached_delay;
 
                 temp_from_ch = ch_num;
                 temp_from_index = 0;
@@ -1670,70 +1552,24 @@ namespace SA_Resources.Forms
 
                 ShowCopyMenu(sender);
                 return;
+                 * */
             }
-
-            using (CompressorForm compressorForm = new CompressorForm(this, ch_num, settings_offset, CompressorType.Limiter))
-            {
-                // passing this in ShowDialog will set the .Owner 
-                // property of the child form
-                DialogResult showBlock = compressorForm.ShowDialog(this);
-
-                if (showBlock == DialogResult.Cancel)
-                {
-                    if (!PROGRAMS[CURRENT_PROGRAM].compressors[ch_num - 1][1].Equals(cached_lim))
-                    {
-                        PROGRAMS[CURRENT_PROGRAM].compressors[ch_num - 1][1] = (CompressorConfig)cached_lim.Clone();
-
-                        if (LIVE_MODE)
-                        {
-                            PROGRAMS[CURRENT_PROGRAM].compressors[ch_num - 1][1].QueueChange(this, settings_offset);
-                        }
-                    }
-                }
-                else
-                {
-                    UpdateTooltips();
-                }
-            }
-        }
-
-
-        protected void btnDelay_MouseClick(object sender, MouseEventArgs e)
-        {
-            int ch_num = int.Parse(((PictureButton)sender).Name.Substring(5, 1));
-            int settings_index = 268 + (ch_num - 1);
-
-            DelayConfig cached_delay = (DelayConfig)PROGRAMS[CURRENT_PROGRAM].delays[ch_num - 1].Clone();
-
-            if (e.Button == MouseButtons.Right)
-            {
-                TempConfig = cached_delay;
-
-                temp_from_ch = ch_num;
-                temp_from_index = 0;
-                temp_from_preset = CURRENT_PROGRAM;
-
-                ShowCopyMenu(sender);
-                return;
-            }
-            using (DelayForm delayForm = new DelayForm(this, ch_num, settings_index))
+            using (DelayForm delayForm = new DelayForm(this, Active_Primitive))
             {
 
                 DialogResult showBlock = delayForm.ShowDialog(this);
 
                 if (showBlock == DialogResult.Cancel)
                 {
-
-                    if (!PROGRAMS[CURRENT_PROGRAM].delays[ch_num - 1].Equals(cached_delay))
+                    if (!Active_Primitive.Equals(Cached_Primitive))
                     {
-                        PROGRAMS[CURRENT_PROGRAM].delays[ch_num - 1] = (DelayConfig)cached_delay.Clone();
-
                         if (LIVE_MODE)
                         {
-                            PROGRAMS[CURRENT_PROGRAM].delays[ch_num - 1].QueueChange(this, settings_index);
+                            Cached_Primitive.QueueDeltas(this, Active_Primitive);
                         }
+
+                        DSP_PROGRAMS[0].PRIMITIVES[PrimitiveIndex] = (DSP_Primitive_Delay)Cached_Primitive.Clone();
                     }
-                    
                 }
                 else
                 {
@@ -1744,55 +1580,62 @@ namespace SA_Resources.Forms
         }
 
 
-        protected void BtnPostGain_MouseClick(object sender, MouseEventArgs e)
+        public void btnStandardGain_MouseClick(object sender, MouseEventArgs e)
         {
-            int ch_num = int.Parse(((PictureButton)sender).Name.Substring(5, 1));
-            int settings_index = (36 + ch_num - 1);
+            int ch_num = int.Parse(((PictureButton) sender).Name.Substring(7, 1));
+            int pos = int.Parse(((PictureButton)sender).Name.Substring(8, 1));
 
-            GainConfig cached_gain = (GainConfig)PROGRAMS[CURRENT_PROGRAM].gains[ch_num - 1][3].Clone(); 
-            
+            DSP_Primitive_StandardGain Active_Primitive;
+
+            int PrimitiveIndex = DSP_PROGRAMS[0].LookupIndex(DSP_Primitive_Types.StandardGain, ch_num, pos);
+
+            if (PrimitiveIndex < 0)
+            {
+                Active_Primitive = null;
+                Console.WriteLine("[ERROR] Unable to locate StandardGain at CH = " + ch_num + " and POS = " + 0);
+            }
+            else
+            {
+                Active_Primitive = (DSP_Primitive_StandardGain)DSP_PROGRAMS[0].PRIMITIVES[PrimitiveIndex];
+            }
+
+            DSP_Primitive_StandardGain Cached_Primitive = (DSP_Primitive_StandardGain)Active_Primitive.Clone();
+
+
             if (e.Button == MouseButtons.Right)
             {
+                Console.WriteLine("Right-click not yet implemented");
+                return;
+                /*TempConfig = cached_delay;
+
                 temp_from_ch = ch_num;
                 temp_from_index = 0;
                 temp_from_preset = CURRENT_PROGRAM;
 
-                TempConfig = cached_gain; 
                 ShowCopyMenu(sender);
                 return;
+                 * */
             }
-            
 
-            using (GainForm gainForm = new GainForm(this, ch_num - 1, 3, settings_index, false, "CH" + ch_num.ToString() + " - Output Gain"))
+            using (GainForm gainForm = new GainForm(this, Active_Primitive, DSP_Primitive_Types.StandardGain))
             {
 
-                if (!LIVE_MODE)
-                {
-                    gainForm.Width = 132;
-
-                }
-                else
-                {
-                    gainForm.Width = 187;
-                }
-
+                gainForm.Width = LIVE_MODE ? 187 : 132;
                 gainForm.Height = 414;
-
 
                 DialogResult showBlock = gainForm.ShowDialog(this);
 
                 if (showBlock == DialogResult.Cancel)
                 {
-                    if (!PROGRAMS[CURRENT_PROGRAM].gains[ch_num - 1][3].Equals(cached_gain))
+                    if (!Active_Primitive.Equals(Cached_Primitive))
                     {
-                        PROGRAMS[CURRENT_PROGRAM].gains[ch_num - 1][3] = (GainConfig) cached_gain.Clone();
-
                         if (LIVE_MODE)
                         {
-                            PROGRAMS[CURRENT_PROGRAM].gains[ch_num - 1][3].QueueChange(this, settings_index);
+                            Cached_Primitive.QueueDeltas(this, Active_Primitive);
                         }
-                    }
 
+                        DSP_PROGRAMS[0].PRIMITIVES[PrimitiveIndex] = (DSP_Primitive_StandardGain)Cached_Primitive.Clone();
+                    }
                 }
                 else
                 {
@@ -2127,12 +1970,16 @@ namespace SA_Resources.Forms
 
         private void MainForm_Template_FormClosing(object sender, FormClosingEventArgs e)
         {
-
-
-            if (_PIC_Conn.isOpen)
+            
+            if (_PIC_Conn != null)
             {
-                _PIC_Conn.Close();
+                if (_PIC_Conn.isOpen)
+                {
+                    _PIC_Conn.Close();
+                }
             }
+
+            
 
             if (!this.UnsavedChanges)
             {

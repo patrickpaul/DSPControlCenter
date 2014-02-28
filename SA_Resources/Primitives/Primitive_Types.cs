@@ -14,6 +14,7 @@ namespace SA_Resources
         Ducker,
         BiquadFilter,
         Delay,
+        MixerCrosspoint,
         Unknown
     }
 }

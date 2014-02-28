@@ -91,6 +91,7 @@ namespace SA_Resources
         {
             int input_router_counter = 0;
             int output_router_counter = 0;
+
             for(int i = 0; i < 4; i++)
             {
                 if (i == _priorityChannel)

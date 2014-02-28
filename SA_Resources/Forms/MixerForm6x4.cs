@@ -10,15 +10,17 @@ using SA_Resources.Forms;
 
 namespace SA_Resources
 {
-    public partial class MixerForm : Form
+    public partial class MixerForm6x4 : Form
     {
 
+        // Disable form's closing button
         protected override CreateParams CreateParams
         {
             get
             {
+                int CP_NOCLOSE_BUTTON = 0x200;
                 CreateParams myCp = base.CreateParams;
-                myCp.ClassStyle = myCp.ClassStyle | 0x200;
+                myCp.ClassStyle = myCp.ClassStyle | CP_NOCLOSE_BUTTON;
                 return myCp;
             }
         } 
@@ -28,16 +30,33 @@ namespace SA_Resources
         private double read_gain_value = 0;
         private int cur_meter;
 
-        public MixerForm(MainForm_Template _parentForm)
+        public MixerForm6x4(MainForm_Template _parentForm)
         {
             InitializeComponent();
 
             PARENT_FORM = _parentForm;
 
-            lblInput0.Text = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].inputs[0].Name;
-            lblInput1.Text = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].inputs[1].Name;
-            lblInput2.Text = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].inputs[2].Name;
-            lblInput3.Text = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].inputs[3].Name;
+            DSP_Primitive_Input InputPrimitive = null;
+            Label InputLabel = null;
+
+            for(int i = 0; i < 4; i++)
+            {
+                InputPrimitive = (DSP_Primitive_Input)PARENT_FORM.DSP_PROGRAMS[0].LookupPrimitive(DSP_Primitive_Types.Input, i, 0);
+                InputLabel = (Label) Controls.Find("lblInput" + i, true).FirstOrDefault();
+
+                if(InputLabel != null)
+                {
+                    if(InputPrimitive != null)
+                    {
+                        InputLabel.Text = InputPrimitive.InputName;
+                    } else
+                    {
+                        InputLabel.Text = "Input " + (i + 1).ToString();
+                    }
+                }
+
+            }
+
 
             lblOutput0.Text = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].outputs[0].Name;
             lblOutput1.Text = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].outputs[1].Name;
@@ -107,7 +126,7 @@ namespace SA_Resources
             int index_out = int.Parse(((PictureButton)sender).Name.Substring(11, 1));
 
             GainConfig cached_gain = (GainConfig)PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].crosspoints[index_in - 1][index_out - 1].Clone();
-
+            /*
             using (GainForm gainForm = new GainForm(PARENT_FORM, index_in - 1, index_out - 1, (index_in * 4) + (index_out-1), true))
             {
 
@@ -158,6 +177,7 @@ namespace SA_Resources
 
                 crosspoint_button.Invalidate();
             }
+             * */
         }
 
         private void signalTimer_Tick(object sender, EventArgs e)
@@ -192,11 +212,6 @@ namespace SA_Resources
 
             curMeter.DB = read_gain_value;
             curMeter.Refresh();
-        }
-
-        private void MixerForm_Load(object sender, EventArgs e)
-        {
-
         }
 
     }

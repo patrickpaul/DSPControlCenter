@@ -9,11 +9,21 @@ namespace SA_Resources
     public class DSP_Primitive_Compressor : DSP_Primitive, ICloneable
     {
 
+        public const int THRESHOLD_OFFSET = 0;
+        public const int SOFTKNEE_OFFSET = 1;
+        public const int RATIO_OFFSET = 2;
+        public const int ATTACK_OFFSET = 3;
+        public const int RELEASE_OFFSET = 4;
+        public const int BYPASSED_OFFSET = 5;
+        
         public double _Threshold, _Ratio, _Attack, _Release;
         public bool _SoftKnee, _Bypassed;
         public CompressorType _Type;
         public int NUM_DSP_SETTINGS = 6;
         public UInt32 Threshold_Value, Ratio_Value, Attack_Value, Release_Value, SoftKnee_Value, Bypassed_Value, Type_Value;
+
+        public UInt16 METER1, METER2;
+
 
         public DSP_Primitive_Compressor(string in_name, int in_channel, int in_positionA, DSP_Primitive_Types in_type = DSP_Primitive_Types.Compressor)
             : base(in_name,in_channel,in_positionA)
@@ -43,16 +53,18 @@ namespace SA_Resources
             this.Num_Values = 6;
         }
 
-        public override void UpdateFromSettings(List<DSP_Setting> settingsList)
+        public override void UpdateFromReadValues(List<UInt32> valuesList)
         {
-            this.Threshold = DSP_Math.MN_to_double_signed(settingsList[0].Value, 9, 23);
-            this.SoftKnee = (settingsList[1].Value == 0x03000000);
-            this.Ratio = DSP_Math.value_to_comp_ratio(settingsList[2].Value);
-            this.Attack = DSP_Math.value_to_comp_attack(settingsList[3].Value);
-            this.Release = DSP_Math.value_to_comp_release(settingsList[4].Value);
-            this.Bypassed = (settingsList[5].Value == 0x00000001);
+            this.Threshold = DSP_Math.MN_to_double_signed(valuesList[0], 9, 23);
+            this.SoftKnee = (valuesList[1] == 0x03000000);
+            this.Ratio = DSP_Math.value_to_comp_ratio(valuesList[2]);
+            this.Attack = DSP_Math.value_to_comp_attack(valuesList[3]);
+            this.Release = DSP_Math.value_to_comp_release(valuesList[4]);
+            this.Bypassed = (valuesList[5] == 0x00000001);
 
         }
+
+        
 
         public List<UInt32> Values
         {
@@ -132,9 +144,45 @@ namespace SA_Resources
         {
             for (int i = 0; i < this.Num_Values; i++)
             {
-                PARENT_FORM.AddItemToQueue(new LiveQueueItem(Offset + i, this.Values[i]));
+                Console.WriteLine("Compressor - QueueChange - Sending " + this.Values[i].ToString("X") + " to offset " + (Offset + i));
+            }
+
+            if (PARENT_FORM.LIVE_MODE)
+            {
+                for (int i = 0; i < this.Num_Values; i++)
+                {
+                    PARENT_FORM.AddItemToQueue(new LiveQueueItem(Offset + i, this.Values[i]));
+                }
             }
         }
+
+
+        public override void QueueChangeByOffset(MainForm_Template PARENT_FORM,int const_offset)
+        {
+            Console.WriteLine("Compressor - QueueChangeByOffset - Sending " + this.Values[const_offset].ToString("X") + " to offset " + (Offset + const_offset));
+
+            if (PARENT_FORM.LIVE_MODE)
+            {
+                PARENT_FORM.AddItemToQueue(new LiveQueueItem(Offset + const_offset, this.Values[const_offset]));
+            }
+        }
+
+
+        public override void QueueDeltas(MainForm_Template PARENT_FORM, DSP_Primitive comparePrimitive)
+        {
+
+            DSP_Primitive_Compressor RecastPrimitive = (DSP_Primitive_Compressor)comparePrimitive;
+
+            for (int i = 0; i < this.Num_Values; i++)
+            {
+                if (this.Values[i] != RecastPrimitive.Values[i])
+                {
+                    Console.WriteLine("Value[" + i + "] " + this.Values[i].ToString("X") + " does not equal " + RecastPrimitive.Values[i].ToString("X"));
+                    this.QueueChangeByOffset(PARENT_FORM, i);
+                }
+            }
+        }
+
 
         public override void PrintValues()
         {

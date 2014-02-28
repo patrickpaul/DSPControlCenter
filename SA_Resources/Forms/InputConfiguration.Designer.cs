@@ -38,10 +38,10 @@
             this.label3 = new System.Windows.Forms.Label();
             this.dropInputType = new System.Windows.Forms.ComboBox();
             this.signalTimer = new System.Windows.Forms.Timer(this.components);
-            this.gainMeter = new SA_Resources.SignalMeter_Small();
-            this.chkPhantomPower = new SA_Resources.PictureCheckbox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
+            this.gainMeter = new SA_Resources.SignalMeter_Small();
+            this.chkPhantomPower = new SA_Resources.PictureCheckbox();
             ((System.ComponentModel.ISupportInitialize)(this.btnCancel)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnSave)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gainMeter)).BeginInit();
@@ -133,6 +133,22 @@
             // 
             this.signalTimer.Tick += new System.EventHandler(this.signalTimer_Tick);
             // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(147, 81);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(39, 20);
+            this.textBox1.TabIndex = 14;
+            this.textBox1.Visible = false;
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(204, 81);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(42, 20);
+            this.textBox2.TabIndex = 15;
+            this.textBox2.Visible = false;
+            // 
             // gainMeter
             // 
             this.gainMeter.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("gainMeter.BackgroundImage")));
@@ -155,28 +171,12 @@
             this.chkPhantomPower.UseVisualStyleBackColor = true;
             this.chkPhantomPower.CheckedChanged += new System.EventHandler(this.chkPhantomPower_CheckedChanged);
             // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(147, 81);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(39, 20);
-            this.textBox1.TabIndex = 14;
-            this.textBox1.Visible = false;
-            // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(204, 81);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(42, 20);
-            this.textBox2.TabIndex = 15;
-            this.textBox2.Visible = false;
-            // 
             // InputConfiguration
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(82)))), ((int)(((byte)(82)))));
-            this.ClientSize = new System.Drawing.Size(260, 187);
+            this.ClientSize = new System.Drawing.Size(262, 180);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.gainMeter);

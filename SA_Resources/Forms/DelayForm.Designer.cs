@@ -55,7 +55,7 @@
             // 
             this.btnCancel.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnCancel.Image = ((System.Drawing.Image)(resources.GetObject("btnCancel.Image")));
-            this.btnCancel.Location = new System.Drawing.Point(135, 125);
+            this.btnCancel.Location = new System.Drawing.Point(135, 147);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(49, 23);
             this.btnCancel.TabIndex = 7;
@@ -66,7 +66,7 @@
             // 
             this.btnSave.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSave.Image = ((System.Drawing.Image)(resources.GetObject("btnSave.Image")));
-            this.btnSave.Location = new System.Drawing.Point(77, 125);
+            this.btnSave.Location = new System.Drawing.Point(77, 147);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(49, 23);
             this.btnSave.TabIndex = 6;
@@ -78,7 +78,7 @@
             // 
             this.TextDelayMS.Cursor = System.Windows.Forms.Cursors.Hand;
             this.TextDelayMS.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TextDelayMS.Location = new System.Drawing.Point(21, 27);
+            this.TextDelayMS.Location = new System.Drawing.Point(21, 60);
             this.TextDelayMS.MaxLength = 10;
             this.TextDelayMS.Name = "TextDelayMS";
             this.TextDelayMS.Size = new System.Drawing.Size(50, 22);
@@ -91,7 +91,7 @@
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.label4.Location = new System.Drawing.Point(20, 11);
+            this.label4.Location = new System.Drawing.Point(20, 44);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(53, 13);
             this.label4.TabIndex = 33;
@@ -103,7 +103,7 @@
             this.DialDelayMS.Cursor = System.Windows.Forms.Cursors.Hand;
             this.DialDelayMS.Image = global::SA_Resources.GlobalResources.knob_red_line;
             this.DialDelayMS.InitialImage = null;
-            this.DialDelayMS.Location = new System.Drawing.Point(26, 52);
+            this.DialDelayMS.Location = new System.Drawing.Point(26, 85);
             this.DialDelayMS.Name = "DialDelayMS";
             this.DialDelayMS.Size = new System.Drawing.Size(40, 40);
             this.DialDelayMS.TabIndex = 32;
@@ -113,7 +113,7 @@
             // 
             this.TextDelayFT.Cursor = System.Windows.Forms.Cursors.Hand;
             this.TextDelayFT.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TextDelayFT.Location = new System.Drawing.Point(101, 27);
+            this.TextDelayFT.Location = new System.Drawing.Point(101, 60);
             this.TextDelayFT.MaxLength = 10;
             this.TextDelayFT.Name = "TextDelayFT";
             this.TextDelayFT.Size = new System.Drawing.Size(50, 22);
@@ -126,7 +126,7 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.label2.Location = new System.Drawing.Point(92, 11);
+            this.label2.Location = new System.Drawing.Point(92, 44);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(68, 13);
             this.label2.TabIndex = 36;
@@ -138,7 +138,7 @@
             this.DialDelayFT.Cursor = System.Windows.Forms.Cursors.Hand;
             this.DialDelayFT.Image = global::SA_Resources.GlobalResources.knob_blue_line;
             this.DialDelayFT.InitialImage = null;
-            this.DialDelayFT.Location = new System.Drawing.Point(106, 52);
+            this.DialDelayFT.Location = new System.Drawing.Point(106, 85);
             this.DialDelayFT.Name = "DialDelayFT";
             this.DialDelayFT.Size = new System.Drawing.Size(40, 40);
             this.DialDelayFT.TabIndex = 35;
@@ -148,7 +148,7 @@
             // 
             this.TextDelayM.Cursor = System.Windows.Forms.Cursors.Hand;
             this.TextDelayM.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TextDelayM.Location = new System.Drawing.Point(181, 27);
+            this.TextDelayM.Location = new System.Drawing.Point(181, 60);
             this.TextDelayM.MaxLength = 10;
             this.TextDelayM.Name = "TextDelayM";
             this.TextDelayM.Size = new System.Drawing.Size(50, 22);
@@ -161,7 +161,7 @@
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.label3.Location = new System.Drawing.Point(172, 11);
+            this.label3.Location = new System.Drawing.Point(172, 44);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(69, 13);
             this.label3.TabIndex = 39;
@@ -173,7 +173,7 @@
             this.DialDelayM.Cursor = System.Windows.Forms.Cursors.Hand;
             this.DialDelayM.Image = global::SA_Resources.GlobalResources.knob_green_line;
             this.DialDelayM.InitialImage = null;
-            this.DialDelayM.Location = new System.Drawing.Point(186, 52);
+            this.DialDelayM.Location = new System.Drawing.Point(186, 85);
             this.DialDelayM.Name = "DialDelayM";
             this.DialDelayM.Size = new System.Drawing.Size(40, 40);
             this.DialDelayM.TabIndex = 38;
@@ -228,13 +228,12 @@
             // 
             this.chkBypass.CheckedImage = global::SA_Resources.GlobalResources.ui_btn_bypass_red;
             this.chkBypass.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.chkBypass.Location = new System.Drawing.Point(184, 12);
+            this.chkBypass.Location = new System.Drawing.Point(184, 8);
             this.chkBypass.Name = "chkBypass";
             this.chkBypass.Size = new System.Drawing.Size(61, 23);
             this.chkBypass.TabIndex = 31;
             this.chkBypass.UncheckedImage = global::SA_Resources.GlobalResources.ui_btn_bypass;
             this.chkBypass.UseVisualStyleBackColor = true;
-            this.chkBypass.Visible = false;
             this.chkBypass.CheckedChanged += new System.EventHandler(this.chkBypass_CheckedChanged);
             // 
             // DelayForm
@@ -242,7 +241,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(82)))), ((int)(((byte)(82)))));
-            this.ClientSize = new System.Drawing.Size(260, 161);
+            this.ClientSize = new System.Drawing.Size(260, 181);
             this.Controls.Add(this.btnGo);
             this.Controls.Add(this.dropAction);
             this.Controls.Add(this.lblAction);

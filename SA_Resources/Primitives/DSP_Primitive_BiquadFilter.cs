@@ -54,7 +54,45 @@ namespace SA_Resources
         public BiquadFilter Filter
         {
             get { return this._Filter; }
-            set { this._Filter = value;}
+            set {
+                this._Filter = value;
+                if (value != null)
+                {
+                    Recalculate_Values();
+                }
+            }
+        }
+
+        public bool HasNoFilter
+        {
+            get { return (this.FType == FilterType.None || this.Filter == null); }
+
+            set {}
+        }
+        public override void QueueChangeByOffset(MainForm_Template PARENT_FORM, int const_offset)
+        {
+            Console.WriteLine("BiquadFilter - QueueChangeByOffset - Sending " + this.Values[const_offset].ToString("X") + " to offset " + (Offset + const_offset));
+
+            if (PARENT_FORM.LIVE_MODE)
+            {
+                PARENT_FORM.AddItemToQueue(new LiveQueueItem(Offset + const_offset, this.Values[const_offset]));
+            }
+        }
+
+
+        public override void QueueDeltas(MainForm_Template PARENT_FORM, DSP_Primitive comparePrimitive)
+        {
+            // TODO - need plainfilter stuff
+            DSP_Primitive_BiquadFilter RecastPrimitive = (DSP_Primitive_BiquadFilter)comparePrimitive;
+
+            for (int i = 0; i < this.Num_Values; i++)
+            {
+                if (this.Values[i] != RecastPrimitive.Values[i])
+                {
+                    Console.WriteLine("Value[" + i + "] " + this.Values[i].ToString("X") + " does not equal " + RecastPrimitive.Values[i].ToString("X"));
+                    this.QueueChangeByOffset(PARENT_FORM, i);
+                }
+            }
         }
 
         public override void QueueChange(MainForm_Template PARENT_FORM)
@@ -69,9 +107,9 @@ namespace SA_Resources
             //PARENT_FORM.AddItemToQueue(new LiveQueueItem(36 + (CH_NUMBER - 1), 0x00000000));
 
             // TODO - Change this to use current program
-            int OutputGain_Offset = PARENT_FORM.PRIMITIVE_PROGRAMS[0].LookupPrimitive(DSP_Primitive_Types.StandardGain, this.Channel, 4).Offset;
+            int OutputGain_Offset = PARENT_FORM.DSP_PROGRAMS[0].LookupPrimitive(DSP_Primitive_Types.StandardGain, this.Channel, 4).Offset;
 
-            UInt32 OutputGain_Value = ((DSP_Primitive_StandardGain)PARENT_FORM.PRIMITIVE_PROGRAMS[0].LookupPrimitive(DSP_Primitive_Types.StandardGain, this.Channel, 4)).Values[0];
+            UInt32 OutputGain_Value = ((DSP_Primitive_StandardGain)PARENT_FORM.DSP_PROGRAMS[0].LookupPrimitive(DSP_Primitive_Types.StandardGain, this.Channel, 4)).Values[0];
             
             PARENT_FORM.AddItemToQueue(new LiveQueueItem(OutputGain_Offset, 0x00000000));
 
@@ -166,7 +204,7 @@ namespace SA_Resources
 
         }
 
-        public override void UpdateFromSettings(List<DSP_Setting> settingsList)
+        public override void UpdateFromReadValues(List<UInt32> valuesList)
         {
             
         }

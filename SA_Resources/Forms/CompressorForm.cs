@@ -44,35 +44,25 @@ namespace SA_Resources
 
         double read_gain_value;
 
-        private int ADDR_THRESHOLD;
-        private int ADDR_KNEE;
-        private int ADDR_RATIO;
-        private int ADDR_ATTACK;
-        private int ADDR_RELEASE;
-        private int ADDR_BYPASS;
-
         private bool approx_threshold_override = false;
 
         private bool comp_switcher;
 
-        public CompressorForm(MainForm_Template _parentForm, int channel, int _settings_offset, CompressorType compType = CompressorType.Compressor)
-        {
-            InitializeComponent();
+        private DSP_Primitive_Compressor Active_Primitive;
 
-            ADDR_THRESHOLD = _settings_offset;
-            ADDR_KNEE = _settings_offset+1;
-            ADDR_RATIO = _settings_offset+2;
-            ADDR_ATTACK = _settings_offset+3;
-            ADDR_RELEASE = _settings_offset+4;
-            ADDR_BYPASS = _settings_offset+5;
+        public CompressorForm(MainForm_Template _parentForm, DSP_Primitive_Compressor input_primitive)
+        {
+
+            Active_Primitive = input_primitive;
+
+            InitializeComponent();
 
             dropAction.SelectedIndex = 0;
             dropAction.Invalidate();
 
             PARENT_FORM = _parentForm;
-            CH_NUMBER = channel;
 
-            if (compType == CompressorType.Compressor)
+            if (Active_Primitive.Type == DSP_Primitive_Types.Compressor)
             {
                 is_limiter = false;
                 COMP_INDEX = 0;
@@ -86,7 +76,6 @@ namespace SA_Resources
             try
             {
                 
-                
                 FixedLine = dynChart.Series[0];
                 MarkerLine = dynChart.Series[1];
                 StraightResponseLine = dynChart.Series[2];
@@ -94,10 +83,10 @@ namespace SA_Resources
 
 
 
-                nudCompThreshold.Value = (decimal)PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].compressors[CH_NUMBER - 1][COMP_INDEX].Threshold;
-                nudCompRatio.Value = (decimal)(Math.Min(100.0, PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].compressors[CH_NUMBER - 1][COMP_INDEX].Ratio));
+                nudCompThreshold.Value = (decimal)Active_Primitive.Threshold;
+                nudCompRatio.Value = (decimal)(Math.Min(100.0, Active_Primitive.Ratio));
 
-                if (compType == CompressorType.Limiter)
+                if (is_limiter)
                 {
                     lblRatio.Visible = false;
                     lblRatioSuffix.Visible = false;
@@ -107,23 +96,23 @@ namespace SA_Resources
 
                     dynChart.Invalidate();
 
-                    this.Text = "Limiter - CH" + channel.ToString();
+                    this.Text = "Limiter - CH" + (Active_Primitive.Channel+1).ToString();
                 }
                 else
                 {
                     MarkerLine.Points[2].MarkerSize = 12;
-                    this.Text = "Compressor - CH" + channel.ToString();
+                    this.Text = "Compressor - CH" + (Active_Primitive.Channel + 1).ToString();
                 }
 
                 AttackDial = new Dial(TextCompAttack, DialCompAttack, new double[] {0.001, 0.003, 0.01, 0.03, 0.08, 0.3, 1.0},
                          DialHelpers.Format_String_Comp_Attack, Images.knob_blue_bg, Images.knob_blue_line);
 
-                AttackDial.Value = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].compressors[CH_NUMBER - 1][COMP_INDEX].Attack;
+                AttackDial.Value = Active_Primitive.Attack;
                 AttackDial.OnChange += new DialEventHandler(this.AttackDial_OnChange);
 
                 ReleaseDial = new Dial(TextCompRelease, DialCompRelease, new double[] {0.010, 0.038, 0.150, 0.530, 1.250, 7.0, 30.0},
                          DialHelpers.Format_String_Comp_Release, Images.knob_orange_bg, Images.knob_orange_line);
-                ReleaseDial.Value = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].compressors[CH_NUMBER - 1][COMP_INDEX].Release;
+                ReleaseDial.Value = Active_Primitive.Release;
                 ReleaseDial.OnChange += new DialEventHandler(this.ReleaseDial_OnChange);
 
 
@@ -135,22 +124,21 @@ namespace SA_Resources
 
                 update_soft_knee();
 
-                chkSoftKnee.Checked = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].compressors[CH_NUMBER - 1][COMP_INDEX].SoftKnee;
-
-                
-                if (chkSoftKnee.Checked)
+                if (Active_Primitive.SoftKnee)
                 {
+                    chkSoftKnee.Checked = true;
                     KneedResponseLine.Enabled = true;
                     StraightResponseLine.Enabled = false;
                 }
                 else
                 {
+                    chkSoftKnee.Checked = false;
                     KneedResponseLine.Enabled = false;
                     StraightResponseLine.Enabled = true;
                 }
 
 
-                chkBypass.Checked = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].compressors[CH_NUMBER - 1][COMP_INDEX].Bypassed;
+                chkBypass.Checked = Active_Primitive.Bypassed;
 
 
                 if (_parentForm.LIVE_MODE && _parentForm._PIC_Conn.isOpen)
@@ -182,15 +170,15 @@ namespace SA_Resources
         private void ReleaseDial_OnChange(object sender, DialEventArgs e)
         {
 
-            PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].compressors[CH_NUMBER - 1][COMP_INDEX].Release = ReleaseDial.Value;
-            PARENT_FORM.AddItemToQueue(new LiveQueueItem(ADDR_RELEASE, DSP_Math.comp_release_to_value(ReleaseDial.Value))); 
+            Active_Primitive.Release = ReleaseDial.Value;
+            Active_Primitive.QueueChangeByOffset(PARENT_FORM, DSP_Primitive_Compressor.RELEASE_OFFSET);
         }
 
         private void AttackDial_OnChange(object sender, DialEventArgs e)
         {
 
-            PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].compressors[CH_NUMBER - 1][COMP_INDEX].Attack = AttackDial.Value;
-            PARENT_FORM.AddItemToQueue(new LiveQueueItem(ADDR_ATTACK, DSP_Math.comp_attack_to_value(AttackDial.Value))); 
+            Active_Primitive.Attack = AttackDial.Value;
+            Active_Primitive.QueueChangeByOffset(PARENT_FORM, DSP_Primitive_Compressor.ATTACK_OFFSET);
         }
 
         private void dynChart_MouseMove(object sender, MouseEventArgs e)
@@ -203,7 +191,6 @@ namespace SA_Resources
             //{
             //    return;
             //}
-
             if(e.Y > 230 && e.Y < 245 && e.X > 65 && e.X < 80 && stored_threshold < 58)
             {
                 dynChart.Cursor = Cursors.Hand;
@@ -211,7 +198,15 @@ namespace SA_Resources
                 approx_threshold_override = true;
                 return;
                 //Console.WriteLine("X = " + e.X + ", Y = " + e.Y);
-            } else
+            } else if (e.Y < 25 && e.X > 283 && e.X < 300 && stored_threshold > 9)
+            {
+                dynChart.Cursor = Cursors.Hand;
+                dynChart.Invalidate();
+                approx_threshold_override = true;
+                return;
+                //Console.WriteLine("X = " + e.X + ", Y = " + e.Y);
+            }
+            else
             {
                 approx_threshold_override = false;
             }
@@ -228,7 +223,7 @@ namespace SA_Resources
                     // Fixed ratio
 
                     // New threshold
-                    var threshold = Math.Round(Math.Min(max_threshold, Math.Max(min_threshold, dynChart.ChartAreas[0].AxisX.PixelPositionToValue(e.X))), 1);
+                    var threshold = Math.Round(Math.Min(max_threshold, Math.Max(min_threshold, dynChart.ChartAreas[0].AxisX.PixelPositionToValue(Math.Min(300,e.X)))), 1);
 
                     stored_threshold = threshold;
                     /* Update the threshold point.. this is always (threshold,threshold) */
@@ -249,7 +244,7 @@ namespace SA_Resources
                         StraightResponseLine.Points[2].SetValueXY(10, ((10 - threshold) / stored_ratio) + threshold);
                     }
 
-                    PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].compressors[CH_NUMBER - 1][COMP_INDEX].Threshold = threshold;
+                    Active_Primitive.Threshold = threshold;
 
 
                     update_soft_knee();
@@ -283,7 +278,7 @@ namespace SA_Resources
                         ratio = Math.Min(100.0, ((10 - threshold)/(yVal - threshold)));
                     }
 
-                    PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].compressors[CH_NUMBER - 1][COMP_INDEX].Ratio = ratio;
+                    Active_Primitive.Ratio = ratio;
 
                     stored_ratio = ratio;
 
@@ -345,9 +340,18 @@ namespace SA_Resources
         {
             if (dynChart.HitTest(e.X, e.Y).Series == dynChart.Series[1])
             {
+                
                 dynChart.Cursor = Cursors.Hand;
 
                 int point_index = dynChart.HitTest(e.X, e.Y).PointIndex;
+
+                // If we're at the upper-right corner, the hit test will give us the ratio point (point_index = 2)
+                // Force threshold point (point_index = 1) if we detect that the points are likely stacked 
+                if(approx_threshold_override && stored_threshold > 9)
+                {
+                    point_index = 1;
+                }
+
 
                 dragging_threshold = false;
                 dragging_ratio = false;
@@ -374,13 +378,14 @@ namespace SA_Resources
         {
             if (dragging_threshold)
             {
-
-                PARENT_FORM.AddItemToQueue(new LiveQueueItem(ADDR_THRESHOLD, DSP_Math.double_to_MN((double)nudCompThreshold.Value, 9, 23)));
+                Active_Primitive.Threshold = (double) nudCompThreshold.Value;
+                Active_Primitive.QueueChangeByOffset(PARENT_FORM, DSP_Primitive_Compressor.THRESHOLD_OFFSET);
             }
 
             if (dragging_ratio)
             {
-                PARENT_FORM.AddItemToQueue(new LiveQueueItem(ADDR_RATIO, DSP_Math.comp_ratio_to_value((double)nudCompRatio.Value)));
+                Active_Primitive.Ratio = (double)nudCompRatio.Value;
+                Active_Primitive.QueueChangeByOffset(PARENT_FORM, DSP_Primitive_Compressor.RATIO_OFFSET);
             }
 
 
@@ -398,7 +403,7 @@ namespace SA_Resources
 
             var threshold = (double)nudCompThreshold.Value;
 
-            PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].compressors[CH_NUMBER - 1][COMP_INDEX].Threshold = threshold;
+            Active_Primitive.Threshold = threshold;
 
             stored_threshold = threshold;
             MarkerLine.Points[1].SetValueXY(threshold, threshold);
@@ -420,7 +425,7 @@ namespace SA_Resources
 
             dynChart.Invalidate();
             
-            PARENT_FORM.AddItemToQueue(new LiveQueueItem(ADDR_THRESHOLD, DSP_Math.double_to_MN((double) nudCompThreshold.Value, 9, 23)));
+            Active_Primitive.QueueChangeByOffset(PARENT_FORM, DSP_Primitive_Compressor.THRESHOLD_OFFSET);
 
         }
 
@@ -435,7 +440,7 @@ namespace SA_Resources
 
             stored_ratio = ratio;
 
-            PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].compressors[CH_NUMBER - 1][COMP_INDEX].Ratio = ratio;
+            Active_Primitive.Ratio = ratio;
 
             update_soft_knee();
 
@@ -455,9 +460,7 @@ namespace SA_Resources
                 nudCompRatio.Increment = (decimal)5.0;
             }
 
-            PARENT_FORM.AddItemToQueue(new LiveQueueItem(ADDR_RATIO, DSP_Math.comp_ratio_to_value((double)nudCompRatio.Value)));
-
-
+            Active_Primitive.QueueChangeByOffset(PARENT_FORM, DSP_Primitive_Compressor.RATIO_OFFSET);
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -496,32 +499,18 @@ namespace SA_Resources
                 StraightResponseLine.Enabled = true;
             }
 
-            PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].compressors[CH_NUMBER - 1][COMP_INDEX].SoftKnee = chkSoftKnee.Checked;
+            Active_Primitive.SoftKnee = chkSoftKnee.Checked;
 
-            if (chkSoftKnee.Checked)
-            {
-                PARENT_FORM.AddItemToQueue(new LiveQueueItem(ADDR_KNEE, 0x03000000));
-            }
-            else
-            {
-                PARENT_FORM.AddItemToQueue(new LiveQueueItem(ADDR_KNEE, 0x00000000));
-            }
+            Active_Primitive.QueueChangeByOffset(PARENT_FORM, DSP_Primitive_Compressor.SOFTKNEE_OFFSET);
         }
 
         private void chkBypass_CheckedChanged(object sender, EventArgs e)
         {
             StraightResponseLine.BorderDashStyle = ChartDashStyle.Solid;
 
-            PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].compressors[CH_NUMBER - 1][COMP_INDEX].Bypassed = chkBypass.Checked;
+            Active_Primitive.Bypassed = chkBypass.Checked;
 
-            if (chkBypass.Checked)
-            {
-                PARENT_FORM.AddItemToQueue(new LiveQueueItem(ADDR_BYPASS, 0x00000001)); 
-            }
-            else
-            {
-                PARENT_FORM.AddItemToQueue(new LiveQueueItem(ADDR_BYPASS, 0x00000000)); 
-            }
+            Active_Primitive.QueueChangeByOffset(PARENT_FORM, DSP_Primitive_Compressor.BYPASSED_OFFSET);
             
         }
 
@@ -559,10 +548,10 @@ namespace SA_Resources
 
             if (comp_switcher)
             {
-                read_address = PARENT_FORM._comp_in_meters[COMP_INDEX][CH_NUMBER - 1];
+                //read_address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter();
             } else
             {
-                read_address = PARENT_FORM._comp_out_meters[COMP_INDEX][CH_NUMBER - 1];
+                //read_address = PARENT_FORM._comp_out_meters[COMP_INDEX][CH_NUMBER - 1];
 
             }
 

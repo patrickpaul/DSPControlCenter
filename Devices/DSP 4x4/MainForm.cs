@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Windows.Forms;
 using SA_Resources;
 using System.Linq;
 using SA_Resources.Filters;
@@ -14,14 +15,12 @@ namespace DSP_4x4
         #region Constructors - Derived
 
         public MainForm()
-            : base()
+            : base("")
         {
             InitializeComponent();
-
-            
         }
 
-        public MainForm(string configFile)
+        public MainForm(string configFile = "")
             : base(configFile)
         {
             InitializeComponent();
@@ -70,76 +69,6 @@ namespace DSP_4x4
             return false;
         }
 
-        public override bool DuckerEnabled()
-        {
-            return true;
-        }
-
-        public override int GetProtectedReadBlock1_Start()
-        {
-            return 39;
-        }
-
-        public override int GetProtectedReadBlock1_End()
-        {
-            return 220;
-        }
-
-        public override int GetProtectedReadBlock2_Start()
-        {
-            return 285;
-        }
-
-        public override int GetProtectedReadBlock2_End()
-        {
-            return 300;
-        }
-
-        public override int GetProtectedReadBlock3_Start()
-        {
-            return -1;
-        }
-
-        public override int GetProtectedReadBlock3_End()
-        {
-            return -1;
-        }
-
-        public override int GetProtectedWriteBlock1_Start()
-        {
-            return 285;
-        }
-
-        public override int GetProtectedWriteBlock1_End()
-        {
-            return 300;
-        }
-
-        public override int GetProtectedWriteBlock2_Start()
-        {
-            return -1;
-        }
-
-        public override int GetProtectedWriteBlock2_End()
-        {
-            return -1;
-        }
-
-        public override int GetProtectedWriteBlock3_Start()
-        {
-            return -1;
-        }
-
-        public override int GetProtectedWriteBlock3_End()
-        {
-            return -1;
-        }
-
-        public override Image GetDeviceThumbnail()
-        {
-            return Properties.Resources.DSP4x4_Thumbnail;
-        }
-
         public override void SetConnectionPicture(Image connectionPicture)
         {
             pictureConnectionStatus.BackgroundImage = connectionPicture;
@@ -151,248 +80,45 @@ namespace DSP_4x4
 
         #region DefaultSettings
 
-        public override void DefaultSettings()
+        public override void InitializePrograms()
         {
-            _settings[0] = new List<DSP_Setting>();
-            _settings[1] = new List<DSP_Setting>();
-            _settings[2] = new List<DSP_Setting>();
 
-            _cached_settings[0] = new List<DSP_Setting>();
-            _cached_settings[1] = new List<DSP_Setting>();
-            _cached_settings[2] = new List<DSP_Setting>();
-
-            for (int x = 0; x < 3; x++)
+            for (int p = 0; p < NUM_PROGRAMS; p++)
             {
-                _settings[x].Add(new DSP_Setting(0, "Gain CH1", 0x00000000));
-                _settings[x].Add(new DSP_Setting(1, "Gain CH2", 0x00000000));
-                _settings[x].Add(new DSP_Setting(2, "Gain CH3", 0x00000000));
-                _settings[x].Add(new DSP_Setting(3, "Gain CH4", 0x00000000));
-
-                _settings[x].Add(new DSP_Setting(4, "Mixer - IN 1 - OUT 1", 0x20000000));
-                _settings[x].Add(new DSP_Setting(5, "Mixer - IN 1 - OUT 2", 0x0000000));
-                _settings[x].Add(new DSP_Setting(6, "Mixer - IN 1 - OUT 3", 0x0000000));
-                _settings[x].Add(new DSP_Setting(7, "Mixer - IN 1 - OUT 4", 0x0000000));
-
-                _settings[x].Add(new DSP_Setting(8, "Mixer - IN 2 - OUT 1", 0x0000000));
-                _settings[x].Add(new DSP_Setting(9, "Mixer - IN 2 - OUT 2", 0x20000000));
-                _settings[x].Add(new DSP_Setting(10, "Mixer - IN 2 - OUT 3", 0x0000000));
-                _settings[x].Add(new DSP_Setting(11, "Mixer - IN 2 - OUT 4", 0x0000000));
-
-                _settings[x].Add(new DSP_Setting(12, "Mixer - IN 3 - OUT 1", 0x0000000));
-                _settings[x].Add(new DSP_Setting(13, "Mixer - IN 3 - OUT 2", 0x0000000));
-                _settings[x].Add(new DSP_Setting(14, "Mixer - IN 3 - OUT 3", 0x20000000));
-                _settings[x].Add(new DSP_Setting(15, "Mixer - IN 3 - OUT 4", 0x0000000));
-
-                _settings[x].Add(new DSP_Setting(16, "Mixer - IN 4 - OUT 1", 0x0000000));
-                _settings[x].Add(new DSP_Setting(17, "Mixer - IN 4 - OUT 2", 0x0000000));
-                _settings[x].Add(new DSP_Setting(18, "Mixer - IN 4 - OUT 3", 0x0000000));
-                _settings[x].Add(new DSP_Setting(19, "Mixer - IN 4 - OUT 4", 0x20000000));
-
-                _settings[x].Add(new DSP_Setting(20, "Mixer - IN 5 - OUT 1", 0x0000000));
-                _settings[x].Add(new DSP_Setting(21, "Mixer - IN 5 - OUT 2", 0x0000000));
-                _settings[x].Add(new DSP_Setting(22, "Mixer - IN 5 - OUT 3", 0x0000000));
-                _settings[x].Add(new DSP_Setting(23, "Mixer - IN 5 - OUT 4", 0x0000000));
-
-                _settings[x].Add(new DSP_Setting(24, "Mixer - IN 6 - OUT 1", 0x0000000));
-                _settings[x].Add(new DSP_Setting(25, "Mixer - IN 6 - OUT 2", 0x0000000));
-                _settings[x].Add(new DSP_Setting(26, "Mixer - IN 6 - OUT 3", 0x0000000));
-                _settings[x].Add(new DSP_Setting(27, "Mixer - IN 6 - OUT 4", 0x0000000));
-
-                _settings[x].Add(new DSP_Setting(28, "Premix Gain CH1", 0x20000000));
-                _settings[x].Add(new DSP_Setting(29, "Premix Gain CH2", 0x20000000));
-                _settings[x].Add(new DSP_Setting(30, "Premix Gain CH3", 0x20000000));
-                _settings[x].Add(new DSP_Setting(31, "Premix Gain CH4", 0x20000000));
-
-                _settings[x].Add(new DSP_Setting(32, "Trim CH1", 0x20000000));
-                _settings[x].Add(new DSP_Setting(33, "Trim CH2", 0x20000000));
-                _settings[x].Add(new DSP_Setting(34, "Trim CH3", 0x20000000));
-                _settings[x].Add(new DSP_Setting(35, "Trim CH4", 0x20000000));
-
-                _settings[x].Add(new DSP_Setting(36, "Output Gain CH1", 0x20000000));
-                _settings[x].Add(new DSP_Setting(37, "Output Gain CH2", 0x20000000));
-                _settings[x].Add(new DSP_Setting(38, "Output Gain CH3", 0x20000000));
-                _settings[x].Add(new DSP_Setting(39, "Output Gain CH4", 0x20000000));
-
-                uint counter = 40;
-
-                uint i, j;
-
-                for (i = 1; i <= 4; i++)
-                {
-                    for (j = 1; j <= 3; j++)
-                    {
-                        _settings[x].Add(new DSP_Setting(counter++, "IN FILTER " + i + " - " + j + " B0", 0x20000000));
-                        _settings[x].Add(new DSP_Setting(counter++, "IN FILTER " + i + " - " + j + " B1", 0x00000000));
-                        _settings[x].Add(new DSP_Setting(counter++, "IN FILTER " + i + " - " + j + " B2", 0x00000000));
-                        _settings[x].Add(new DSP_Setting(counter++, "IN FILTER " + i + " - " + j + " A1", 0x00000000));
-                        _settings[x].Add(new DSP_Setting(counter++, "IN FILTER " + i + " - " + j + " A2", 0x00000000));
-                    }
-
-                    for (j = 1; j <= 6; j++)
-                    {
-                        _settings[x].Add(new DSP_Setting(counter++, "OUT FILTER " + i + " - " + j + " B0", 0x20000000));
-                        _settings[x].Add(new DSP_Setting(counter++, "OUT FILTER " + i + " - " + j + " B1", 0x00000000));
-                        _settings[x].Add(new DSP_Setting(counter++, "OUT FILTER " + i + " - " + j + " B2", 0x00000000));
-                        _settings[x].Add(new DSP_Setting(counter++, "OUT FILTER " + i + " - " + j + " A1", 0x00000000));
-                        _settings[x].Add(new DSP_Setting(counter++, "OUT FILTER " + i + " - " + j + " A2", 0x00000000));
-                    }
-                }
-
-                for (i = 1; i <= 4; i++)
-                {
-                    _settings[x].Add(new DSP_Setting(counter++, "COMP " + i + " Threshold", 0x00000000));
-                    _settings[x].Add(new DSP_Setting(counter++, "COMP " + i + " Knee Size", 0x00000000));
-                    _settings[x].Add(new DSP_Setting(counter++, "COMP " + i + " Ratio", 0xC0000000));
-                    _settings[x].Add(new DSP_Setting(counter++, "COMP " + i + " Attack", 0x04324349));
-                    _settings[x].Add(new DSP_Setting(counter++, "COMP " + i + " Release", 0x00fa8a7d));
-                    _settings[x].Add(new DSP_Setting(counter++, "COMP " + i + " Bypass", 0x00000001));
-                }
-
-                for (i = 1; i <= 4; i++)
-                {
-                    _settings[x].Add(new DSP_Setting(counter++, "LIM " + i + " Threshold", 0x00000000));
-                    _settings[x].Add(new DSP_Setting(counter++, "LIM " + i + " Knee Size", 0x00000000));
-                    _settings[x].Add(new DSP_Setting(counter++, "LIM " + i + " Ratio", 0x8147AE14));
-                    _settings[x].Add(new DSP_Setting(counter++, "LIM " + i + " Attack", 0x04324349));
-                    _settings[x].Add(new DSP_Setting(counter++, "LIM " + i + " Release", 0x00fa8a7d));
-                    _settings[x].Add(new DSP_Setting(counter++, "LIM " + i + " Bypass", 0x00000001));
-                }
-
-                _settings[x].Add(new DSP_Setting(counter++, "DELAY CH1", 0x00000000));
-                _settings[x].Add(new DSP_Setting(counter++, "DELAY CH2", 0x00000000));
-                _settings[x].Add(new DSP_Setting(counter++, "DELAY CH3", 0x00000000));
-                _settings[x].Add(new DSP_Setting(counter++, "DELAY CH4", 0x00000000));
-
-                _settings[x].Add(new DSP_Setting(counter++, "DUCK Threshold", 0x00000000));
-                _settings[x].Add(new DSP_Setting(counter++, "DUCK Hold Time", 0x0000012c));
-                _settings[x].Add(new DSP_Setting(counter++, "DUCK Depth", 0xf8800000));
-                _settings[x].Add(new DSP_Setting(counter++, "DUCK Attack", 0x04324349));
-                _settings[x].Add(new DSP_Setting(counter++, "DUCK Release", 0x00FA8A7D));
-                _settings[x].Add(new DSP_Setting(counter++, "DUCK Bypass", 0x00000001));
-
-                _settings[x].Add(new DSP_Setting(counter++, "DUCK In Router 1", 0x00000002));
-                _settings[x].Add(new DSP_Setting(counter++, "DUCK In Router 2", 0x00000003));
-                _settings[x].Add(new DSP_Setting(counter++, "DUCK In Router 3", 0x00000004));
-                _settings[x].Add(new DSP_Setting(counter++, "DUCK In Router 4", 0x00000001));
-
-                _settings[x].Add(new DSP_Setting(counter++, "DUCK Out Router 1", 0x00000004));
-                _settings[x].Add(new DSP_Setting(counter++, "DUCK Out Router 2", 0x00000001));
-                _settings[x].Add(new DSP_Setting(counter++, "DUCK Out Router 3", 0x00000002));
-                _settings[x].Add(new DSP_Setting(counter++, "DUCK Out Router 4", 0x00000003));
-
-                while (counter < 300)
-                {
-                    _settings[x].Add(new DSP_Setting(counter++, "DUMMY " + counter, 0x00000000));
-                }
-
-                for (i = 1; i <= 4; i++)
-                {
-                    for (j = 1; j <= 3; j++)
-                    {
-                        _settings[x].Add(new DSP_Setting(counter++, "IN FILTER " + i + " - " + j + " Package", 0x00000000));
-                        _settings[x].Add(new DSP_Setting(counter++, "IN FILTER " + i + " - " + j + " Gain", 0x00000000));
-                        _settings[x].Add(new DSP_Setting(counter++, "IN FILTER " + i + " - " + j + " Q", 0x00000000));
-                    }
-
-                    for (j = 1; j <= 6; j++)
-                    {
-                        _settings[x].Add(new DSP_Setting(counter++, "OUT FILTER " + i + " - " + j + " Package", 0x00000000));
-                        _settings[x].Add(new DSP_Setting(counter++, "OUT FILTER " + i + " - " + j + " Gain", 0x00000000));
-                        _settings[x].Add(new DSP_Setting(counter++, "OUT FILTER " + i + " - " + j + " Q", 0x00000000));
-                    }
-                }
-
-                _settings[x].Add(new DSP_Setting(counter++, "Volume Group 1-2", 0x00000000));
-                _settings[x].Add(new DSP_Setting(counter++, "Volume Group 3-4", 0x00000000));
-                _settings[x].Add(new DSP_Setting(counter++, "Volume Group 5-6", 0x00000000));
-                _settings[x].Add(new DSP_Setting(counter++, "Volume Group 7-8", 0x00000000));
-
-                _settings[x].Add(new DSP_Setting(counter++, "Pregain 1", 0x00000000));
-                _settings[x].Add(new DSP_Setting(counter++, "Pregain 2", 0x00000000));
-                _settings[x].Add(new DSP_Setting(counter++, "Pregain 3", 0x00000000));
-                _settings[x].Add(new DSP_Setting(counter++, "Pregain 4", 0x00000000));
-
-                _settings[x].Add(new DSP_Setting(counter++, "Input Gain 1", 0x00000000));
-                _settings[x].Add(new DSP_Setting(counter++, "Input Gain 2", 0x00000000));
-                _settings[x].Add(new DSP_Setting(counter++, "Input Gain 3", 0x00000000));
-                _settings[x].Add(new DSP_Setting(counter++, "Input Gain 4", 0x00000000));
-
-
-                foreach (DSP_Setting single_setting in _settings[x])
-                {
-                    _cached_settings[x].Add(new DSP_Setting(single_setting.Index, single_setting.Name, single_setting.Value));
-                }
-
+                PROGRAMS[p] = new ProgramConfig();
             }
 
-            // CH1 METERS
-            _gain_meters[0] = new List<UInt32>();
-            _gain_meters[0].Add(0xF0C00005);
-            _gain_meters[0].Add(0xF4C00004);
-            _gain_meters[0].Add(0xF6C00004);
-            _gain_meters[0].Add(0xFAC00004);
+            for (int i = 0; i < this.NumPresets(); i++)
+            {
+                _presetNames.Add("Program " + (i + 1));
+            }
+        }
 
-            // CH2 METERS
-            _gain_meters[1] = new List<UInt32>();
-            _gain_meters[1].Add(0xF0C00009);
-            _gain_meters[1].Add(0xF4C00008);
-            _gain_meters[1].Add(0xF6C00008);
-            _gain_meters[1].Add(0xFAC00008);
+        protected override void AttachUIEvents()
+        {
+            base.AttachUIEvents();
 
-            // CH3 METERS
-            _gain_meters[2] = new List<UInt32>();
-            _gain_meters[2].Add(0xF0C0000D);
-            _gain_meters[2].Add(0xF4C0000C);
-            _gain_meters[2].Add(0xF6C0000C);
-            _gain_meters[2].Add(0xFAC0000C);
+            DSP_PROGRAMS[0].AttachUI_Events(this);
 
-            // CH4 METERS
-            _gain_meters[3] = new List<UInt32>();
-            _gain_meters[3].Add(0xF0C00011);
-            _gain_meters[3].Add(0xF4C00010);
-            _gain_meters[3].Add(0xF6C00010);
-            _gain_meters[3].Add(0xFAC00010);
+        }
 
-            // COMPRESSORS
-            _comp_in_meters[0] = new List<UInt32>();
-            _comp_in_meters[0].Add(0xF3C00004);
-            _comp_in_meters[0].Add(0xF3C00008);
-            _comp_in_meters[0].Add(0xF3C0000C);
-            _comp_in_meters[0].Add(0xF3C00010);
+        public override void Initialize_DSP_Programs()
+        {
+            for (int i = 0; i < 20; i++)
+            {
+                DSP_PROGRAMS[i] = new DSP_Program_Manager("Program " + i.ToString());
+            }
+        }
 
-            _comp_out_meters[0] = new List<UInt32>();
-            _comp_out_meters[0].Add(0xF3C00018);
-            _comp_out_meters[0].Add(0xF3C0001C);
-            _comp_out_meters[0].Add(0xF3C00020);
-            _comp_out_meters[0].Add(0xF3C00024);
+        public override void Initialize_DSP_Meters()
+        {
+            //DSP_METERS = new DSP
+        }
 
-            // LIMITERS
-            _comp_in_meters[1] = new List<UInt32>();
-            _comp_in_meters[1].Add(0xF8C00004);
-            _comp_in_meters[1].Add(0xF8C00008);
-            _comp_in_meters[1].Add(0xF8C0000C);
-            _comp_in_meters[1].Add(0xF8C00010);
+        public override void DefaultSettings()
+        {
 
-            _comp_out_meters[1] = new List<UInt32>();
-            _comp_out_meters[1].Add(0xF8C00018);
-            _comp_out_meters[1].Add(0xF8C0001C);
-            _comp_out_meters[1].Add(0xF8C00020);
-            _comp_out_meters[1].Add(0xF8C00024);
-
-            // MIXERS
-            _mix_meters = new List<UInt32>();
-            _mix_meters.Add(0xF5C0003E);
-            _mix_meters.Add(0xF5C00042);
-            _mix_meters.Add(0xF5C00046);
-            _mix_meters.Add(0xF5C0004A);
-
-            // DUCKER
-            _ducker_meters = new List<UInt32>();
-            _ducker_meters.Add(0xF1C00004);
-            _ducker_meters.Add(0xF1C00008);
-            _ducker_meters.Add(0xF1C0000C);
-            _ducker_meters.Add(0xF1C00010);
-
+            
         }
 
         #endregion    
@@ -401,7 +127,8 @@ namespace DSP_4x4
 
         public override void LoadSettingsToProgramConfig()
         {
-            
+            return;
+
             int counter = 0;
             int i, j;
 
@@ -473,40 +200,7 @@ namespace DSP_4x4
                 // Counter is now at 40
                 // Skip to 220 because 40-219 are the biquad coefficients and absolutely useless to anyone but the DSP
 
-                counter = 220;
-
-                for (int m = 0; m < 4; m++)
-                {
-
-                    PROGRAMS[program_index].compressors[m][0].UpdateFromSettings(this,program_index,counter);
-
-                    counter += PROGRAMS[program_index].compressors[m][0].NUM_DSP_SETTINGS;
-
-                    //((PictureButton)Controls.Find("btnCH" + (m + 1).ToString() + "Compressor", true).First()).Overlay1Visible = PROGRAMS[program_index].compressors[m][0].Bypassed;
-                    //((PictureButton)Controls.Find("btnCH" + (m + 1).ToString() + "Compressor", true).First()).Invalidate();
-                }
-
-                // LIMITERS
-
-                for (int n = 0; n < 4; n++)
-                {
-                    PROGRAMS[program_index].compressors[n][1].Threshold = DSP_Math.MN_to_double_signed(_settings[program_index][counter++].Value, 9, 23);
-                    PROGRAMS[program_index].compressors[n][1].SoftKnee = (_settings[program_index][counter++].Value == 0x03000000);
-                    PROGRAMS[program_index].compressors[n][1].Ratio = DSP_Math.value_to_comp_ratio(_settings[program_index][counter++].Value);
-                    PROGRAMS[program_index].compressors[n][1].Attack = DSP_Math.value_to_comp_attack(_settings[program_index][counter++].Value);
-                    PROGRAMS[program_index].compressors[n][1].Release = DSP_Math.value_to_comp_release(_settings[program_index][counter++].Value);
-                    PROGRAMS[program_index].compressors[n][1].Bypassed = (_settings[program_index][counter++].Value == 0x00000001);
-
-                    ((PictureButton)Controls.Find("btnCH" + (n + 1).ToString() + "Limiter", true).First()).Overlay1Visible = PROGRAMS[program_index].compressors[n][1].Bypassed;
-                    ((PictureButton)Controls.Find("btnCH" + (n + 1).ToString() + "Limiter", true).First()).Invalidate();
-                }
-
-                for (int o = 0; o < 4; o++)
-                {
-                    PROGRAMS[program_index].delays[o].Delay = DSP_Math.MN_to_double_signed(_settings[program_index][counter++].Value, 16,16);
-                }
-
-                // counter is at 272, ready for DUCK features
+               
 
 
                 PROGRAMS[program_index].ducker.Threshold = DSP_Math.MN_to_double_signed(_settings[program_index][counter++].Value, 9, 23);
@@ -789,7 +483,20 @@ namespace DSP_4x4
 
 #endregion
 
-        private void button1_Click(object sender, EventArgs e)
+        public override void Default_DSP_Meters()
+        {
+            try
+            {
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C00094, DSP_Primitive_Types.Compressor, 0, 0));
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C00078, DSP_Primitive_Types.Compressor, 0, 1));
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("[EXCEPTION]: " + ex.Message);
+            }
+        }
+
+        public override void Default_DSP_Programs()
         {
             try
             {
@@ -797,93 +504,132 @@ namespace DSP_4x4
 
                 /* Gain Blocks */
 
-                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(0, new DSP_Primitive_StandardGain("Input Gain CH 1", 0, 0));
-                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(1, new DSP_Primitive_StandardGain("Input Gain CH 2", 1, 0));
-                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(2, new DSP_Primitive_StandardGain("Input Gain CH 3", 2, 0));
-                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(3, new DSP_Primitive_StandardGain("Input Gain CH 4", 3, 0));
+                DSP_PROGRAMS[0].RegisterNewPrimitive(0, new DSP_Primitive_StandardGain("Input Gain CH 1", 0, 0, StandardGain_Types.Twelve_to_Negative_100));
+                DSP_PROGRAMS[0].RegisterNewPrimitive(1, new DSP_Primitive_StandardGain("Input Gain CH 2", 1, 0, StandardGain_Types.Twelve_to_Negative_100));
+                DSP_PROGRAMS[0].RegisterNewPrimitive(2, new DSP_Primitive_StandardGain("Input Gain CH 3", 2, 0, StandardGain_Types.Twelve_to_Negative_100));
+                DSP_PROGRAMS[0].RegisterNewPrimitive(3, new DSP_Primitive_StandardGain("Input Gain CH 4", 3, 0, StandardGain_Types.Twelve_to_Negative_100));
 
-                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(28, new DSP_Primitive_StandardGain("Pre-Mix Gain CH 1", 0, 1));
-                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(29, new DSP_Primitive_StandardGain("Pre-Mix Gain CH 2", 1, 1));
-                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(30, new DSP_Primitive_StandardGain("Pre-Mix Gain CH 3", 2, 1));
-                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(31, new DSP_Primitive_StandardGain("Pre-Mix Gain CH 4", 3, 1));
+                DSP_PROGRAMS[0].RegisterNewPrimitive(4, new DSP_Primitive_MixerCrosspoint("Mixer Input 1 - Output 1", 0, 0, 0));
+                DSP_PROGRAMS[0].RegisterNewPrimitive(5, new DSP_Primitive_MixerCrosspoint("Mixer Input 1 - Output 2", 0, 0, 1));
+                DSP_PROGRAMS[0].RegisterNewPrimitive(6, new DSP_Primitive_MixerCrosspoint("Mixer Input 1 - Output 3", 0, 0, 2));
+                DSP_PROGRAMS[0].RegisterNewPrimitive(7, new DSP_Primitive_MixerCrosspoint("Mixer Input 1 - Output 4", 0, 0, 3));
 
-                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(32, new DSP_Primitive_StandardGain("Post-Mix Trim CH 1", 0, 2));
-                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(33, new DSP_Primitive_StandardGain("Post-Mix Trim CH 2", 1, 2));
-                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(34, new DSP_Primitive_StandardGain("Post-Mix Trim CH 3", 2, 2));
-                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(35, new DSP_Primitive_StandardGain("Post-Mix Trim CH 4", 3, 2));
+                DSP_PROGRAMS[0].RegisterNewPrimitive(8, new DSP_Primitive_MixerCrosspoint("Mixer Input 2 - Output 1", 0, 1, 0));
+                DSP_PROGRAMS[0].RegisterNewPrimitive(9, new DSP_Primitive_MixerCrosspoint("Mixer Input 2 - Output 2", 0, 1, 1));
+                DSP_PROGRAMS[0].RegisterNewPrimitive(10, new DSP_Primitive_MixerCrosspoint("Mixer Input 2 - Output 3", 0, 1, 2));
+                DSP_PROGRAMS[0].RegisterNewPrimitive(11, new DSP_Primitive_MixerCrosspoint("Mixer Input 2 - Output 4", 0, 1, 3));
 
-                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(36, new DSP_Primitive_StandardGain("Output Gain CH 1", 0, 3));
-                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(37, new DSP_Primitive_StandardGain("Output Gain CH 2", 1, 3));
-                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(38, new DSP_Primitive_StandardGain("Output Gain CH 3", 2, 3));
-                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(39, new DSP_Primitive_StandardGain("Output Gain CH 4", 3, 3));
+                DSP_PROGRAMS[0].RegisterNewPrimitive(12, new DSP_Primitive_MixerCrosspoint("Mixer Input 3 - Output 1", 0, 2, 0));
+                DSP_PROGRAMS[0].RegisterNewPrimitive(13, new DSP_Primitive_MixerCrosspoint("Mixer Input 3 - Output 2", 0, 2, 1));
+                DSP_PROGRAMS[0].RegisterNewPrimitive(14, new DSP_Primitive_MixerCrosspoint("Mixer Input 3 - Output 3", 0, 2, 2));
+                DSP_PROGRAMS[0].RegisterNewPrimitive(15, new DSP_Primitive_MixerCrosspoint("Mixer Input 3 - Output 4", 0, 2, 3));
 
-                /* Filters */
+                DSP_PROGRAMS[0].RegisterNewPrimitive(16, new DSP_Primitive_MixerCrosspoint("Mixer Input 4 - Output 1", 0, 3, 0));
+                DSP_PROGRAMS[0].RegisterNewPrimitive(17, new DSP_Primitive_MixerCrosspoint("Mixer Input 4 - Output 2", 0, 3, 1));
+                DSP_PROGRAMS[0].RegisterNewPrimitive(18, new DSP_Primitive_MixerCrosspoint("Mixer Input 4 - Output 3", 0, 3, 2));
+                DSP_PROGRAMS[0].RegisterNewPrimitive(19, new DSP_Primitive_MixerCrosspoint("Mixer Input 4 - Output 4", 0, 3, 3));
 
-                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(40, new DSP_Primitive_BiquadFilter("INFILTER_1_1", 1, 0, 300));
-                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(45, new DSP_Primitive_BiquadFilter("INFILTER_1_2", 1, 1, 303));
-                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(50, new DSP_Primitive_BiquadFilter("INFILTER_1_3", 1, 2, 306));
-                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(55, new DSP_Primitive_BiquadFilter("OUTFILTER_1_1", 1, 3, 309));
-                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(60, new DSP_Primitive_BiquadFilter("OUTFILTER_1_2", 1, 4, 312));
-                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(65, new DSP_Primitive_BiquadFilter("OUTFILTER_1_3", 1, 5, 315));
-                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(70, new DSP_Primitive_BiquadFilter("OUTFILTER_1_4", 1, 6, 318));
-                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(75, new DSP_Primitive_BiquadFilter("OUTFILTER_1_5", 1, 7, 321));
-                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(80, new DSP_Primitive_BiquadFilter("OUTFILTER_1_6", 1, 8, 324));
+                DSP_PROGRAMS[0].RegisterNewPrimitive(20, new DSP_Primitive_MixerCrosspoint("Mixer Input 5 - Output 1", 0, 4, 0));
+                DSP_PROGRAMS[0].RegisterNewPrimitive(21, new DSP_Primitive_MixerCrosspoint("Mixer Input 5 - Output 2", 0, 4, 1));
+                DSP_PROGRAMS[0].RegisterNewPrimitive(22, new DSP_Primitive_MixerCrosspoint("Mixer Input 5 - Output 3", 0, 4, 2));
+                DSP_PROGRAMS[0].RegisterNewPrimitive(23, new DSP_Primitive_MixerCrosspoint("Mixer Input 5 - Output 4", 0, 4, 3));
 
-                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(85, new DSP_Primitive_BiquadFilter("INFILTER_2_1", 2, 0, 327));
-                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(90, new DSP_Primitive_BiquadFilter("INFILTER_2_2", 2, 1, 330));
-                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(95, new DSP_Primitive_BiquadFilter("INFILTER_2_3", 2, 2, 333));
-                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(100, new DSP_Primitive_BiquadFilter("OUTFILTER_2_1", 2, 3, 336));
-                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(105, new DSP_Primitive_BiquadFilter("OUTFILTER_2_2", 2, 4, 339));
-                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(110, new DSP_Primitive_BiquadFilter("OUTFILTER_2_3", 2, 5, 342));
-                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(115, new DSP_Primitive_BiquadFilter("OUTFILTER_2_4", 2, 6, 345));
-                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(120, new DSP_Primitive_BiquadFilter("OUTFILTER_2_5", 2, 7, 348));
-                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(125, new DSP_Primitive_BiquadFilter("OUTFILTER_2_6", 2, 8, 351));
+                DSP_PROGRAMS[0].RegisterNewPrimitive(24, new DSP_Primitive_MixerCrosspoint("Mixer Input 6 - Output 1", 0, 5, 0));
+                DSP_PROGRAMS[0].RegisterNewPrimitive(25, new DSP_Primitive_MixerCrosspoint("Mixer Input 6 - Output 1", 0, 5, 1));
+                DSP_PROGRAMS[0].RegisterNewPrimitive(26, new DSP_Primitive_MixerCrosspoint("Mixer Input 6 - Output 1", 0, 5, 2));
+                DSP_PROGRAMS[0].RegisterNewPrimitive(27, new DSP_Primitive_MixerCrosspoint("Mixer Input 6 - Output 1", 0, 5, 3));
 
-                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(130, new DSP_Primitive_BiquadFilter("INFILTER_3_1", 3, 0, 354));
-                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(135, new DSP_Primitive_BiquadFilter("INFILTER_3_2", 3, 1, 357));
-                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(140, new DSP_Primitive_BiquadFilter("INFILTER_3_3", 3, 2, 360));
-                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(145, new DSP_Primitive_BiquadFilter("OUTFILTER_3_1", 3, 3, 363));
-                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(150, new DSP_Primitive_BiquadFilter("OUTFILTER_3_2", 3, 4, 366));
-                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(155, new DSP_Primitive_BiquadFilter("OUTFILTER_3_3", 3, 5, 369));
-                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(160, new DSP_Primitive_BiquadFilter("OUTFILTER_3_4", 3, 6, 372));
-                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(165, new DSP_Primitive_BiquadFilter("OUTFILTER_3_5", 3, 7, 375));
-                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(170, new DSP_Primitive_BiquadFilter("OUTFILTER_3_6", 3, 8, 378));
+                DSP_PROGRAMS[0].RegisterNewPrimitive(28, new DSP_Primitive_StandardGain("CH 1 - Pre-Mix Gain", 0, 1, StandardGain_Types.Twelve_to_Negative_100));
+                DSP_PROGRAMS[0].RegisterNewPrimitive(29, new DSP_Primitive_StandardGain("CH 2 - Pre-Mix Gain", 1, 1, StandardGain_Types.Twelve_to_Negative_100));
+                DSP_PROGRAMS[0].RegisterNewPrimitive(30, new DSP_Primitive_StandardGain("CH 3 - Pre-Mix Gain", 2, 1, StandardGain_Types.Twelve_to_Negative_100));
+                DSP_PROGRAMS[0].RegisterNewPrimitive(31, new DSP_Primitive_StandardGain("CH 4 - Pre-Mix Gain", 3, 1, StandardGain_Types.Twelve_to_Negative_100));
 
-                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(175, new DSP_Primitive_BiquadFilter("INFILTER_4_1", 4, 0, 381));
-                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(180, new DSP_Primitive_BiquadFilter("INFILTER_4_2", 4, 1, 384));
-                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(185, new DSP_Primitive_BiquadFilter("INFILTER_4_3", 4, 2, 387));
-                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(190, new DSP_Primitive_BiquadFilter("OUTFILTER_4_1", 4, 3, 390));
-                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(195, new DSP_Primitive_BiquadFilter("OUTFILTER_4_2", 4, 4, 393));
-                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(200, new DSP_Primitive_BiquadFilter("OUTFILTER_4_3", 4, 5, 396));
-                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(205, new DSP_Primitive_BiquadFilter("OUTFILTER_4_4", 4, 6, 399));
-                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(210, new DSP_Primitive_BiquadFilter("OUTFILTER_4_5", 4, 7, 402));
-                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(215, new DSP_Primitive_BiquadFilter("OUTFILTER_4_6", 4, 8, 405));
+                DSP_PROGRAMS[0].RegisterNewPrimitive(32, new DSP_Primitive_StandardGain("CH 1 - Trim", 0, 2, StandardGain_Types.Six_to_Negative_12));
+                DSP_PROGRAMS[0].RegisterNewPrimitive(33, new DSP_Primitive_StandardGain("CH 2 - Trim", 1, 2, StandardGain_Types.Six_to_Negative_12));
+                DSP_PROGRAMS[0].RegisterNewPrimitive(34, new DSP_Primitive_StandardGain("CH 3 - Trim", 2, 2, StandardGain_Types.Six_to_Negative_12));
+                DSP_PROGRAMS[0].RegisterNewPrimitive(35, new DSP_Primitive_StandardGain("CH 4 - Trim", 3, 2, StandardGain_Types.Six_to_Negative_12));
 
-                /* Compressors */
-                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(220, new DSP_Primitive_Compressor("CH 1 - Compressor", 0, 0));
-                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(226, new DSP_Primitive_Compressor("CH 2 - Compressor", 1, 0));
-                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(232, new DSP_Primitive_Compressor("CH 3 - Compressor", 2, 0));
-                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(238, new DSP_Primitive_Compressor("CH 4 - Compressor", 3, 0));
+                DSP_PROGRAMS[0].RegisterNewPrimitive(36, new DSP_Primitive_StandardGain("CH 1 - Output Gain", 0, 3, StandardGain_Types.Twelve_to_Negative_100));
+                DSP_PROGRAMS[0].RegisterNewPrimitive(37, new DSP_Primitive_StandardGain("CH 2 - Output Gain", 1, 3, StandardGain_Types.Twelve_to_Negative_100));
+                DSP_PROGRAMS[0].RegisterNewPrimitive(38, new DSP_Primitive_StandardGain("CH 3 - Output Gain", 2, 3, StandardGain_Types.Twelve_to_Negative_100));
+                DSP_PROGRAMS[0].RegisterNewPrimitive(39, new DSP_Primitive_StandardGain("CH 4 - Output Gain", 3, 3, StandardGain_Types.Twelve_to_Negative_100));
 
-                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(244, new DSP_Primitive_Compressor("CH 1 - Limiter", 0, 1, DSP_Primitive_Types.Limiter));
-                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(250, new DSP_Primitive_Compressor("CH 2 - Limiter", 1, 1, DSP_Primitive_Types.Limiter));
-                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(256, new DSP_Primitive_Compressor("CH 3 - Limiter", 2, 1, DSP_Primitive_Types.Limiter));
-                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(262, new DSP_Primitive_Compressor("CH 4 - Limiter", 3, 1, DSP_Primitive_Types.Limiter));
+                DSP_PROGRAMS[0].RegisterNewPrimitive(40, new DSP_Primitive_BiquadFilter("INFILTER_1_1", 1, 0, 300));
+                DSP_PROGRAMS[0].RegisterNewPrimitive(45, new DSP_Primitive_BiquadFilter("INFILTER_1_2", 1, 1, 303));
+                DSP_PROGRAMS[0].RegisterNewPrimitive(50, new DSP_Primitive_BiquadFilter("INFILTER_1_3", 1, 2, 306));
+                DSP_PROGRAMS[0].RegisterNewPrimitive(55, new DSP_Primitive_BiquadFilter("OUTFILTER_1_1", 1, 3, 309));
+                DSP_PROGRAMS[0].RegisterNewPrimitive(60, new DSP_Primitive_BiquadFilter("OUTFILTER_1_2", 1, 4, 312));
+                DSP_PROGRAMS[0].RegisterNewPrimitive(65, new DSP_Primitive_BiquadFilter("OUTFILTER_1_3", 1, 5, 315));
+                DSP_PROGRAMS[0].RegisterNewPrimitive(70, new DSP_Primitive_BiquadFilter("OUTFILTER_1_4", 1, 6, 318));
+                DSP_PROGRAMS[0].RegisterNewPrimitive(75, new DSP_Primitive_BiquadFilter("OUTFILTER_1_5", 1, 7, 321));
+                DSP_PROGRAMS[0].RegisterNewPrimitive(80, new DSP_Primitive_BiquadFilter("OUTFILTER_1_6", 1, 8, 324));
 
-                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(268, new DSP_Primitive_Delay("CH 1 - Delay", 0));
-                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(270, new DSP_Primitive_Delay("CH 2 - Delay", 1));
-                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(272, new DSP_Primitive_Delay("CH 3 - Delay", 2));
-                PRIMITIVE_PROGRAMS[0].RegisterNewPrimitive(274, new DSP_Primitive_Delay("CH 4 - Delay", 3));
+                DSP_PROGRAMS[0].RegisterNewPrimitive(85, new DSP_Primitive_BiquadFilter("INFILTER_2_1", 2, 0, 327));
+                DSP_PROGRAMS[0].RegisterNewPrimitive(90, new DSP_Primitive_BiquadFilter("INFILTER_2_2", 2, 1, 330));
+                DSP_PROGRAMS[0].RegisterNewPrimitive(95, new DSP_Primitive_BiquadFilter("INFILTER_2_3", 2, 2, 333));
+                DSP_PROGRAMS[0].RegisterNewPrimitive(100, new DSP_Primitive_BiquadFilter("OUTFILTER_2_1", 2, 3, 336));
+                DSP_PROGRAMS[0].RegisterNewPrimitive(105, new DSP_Primitive_BiquadFilter("OUTFILTER_2_2", 2, 4, 339));
+                DSP_PROGRAMS[0].RegisterNewPrimitive(110, new DSP_Primitive_BiquadFilter("OUTFILTER_2_3", 2, 5, 342));
+                DSP_PROGRAMS[0].RegisterNewPrimitive(115, new DSP_Primitive_BiquadFilter("OUTFILTER_2_4", 2, 6, 345));
+                DSP_PROGRAMS[0].RegisterNewPrimitive(120, new DSP_Primitive_BiquadFilter("OUTFILTER_2_5", 2, 7, 348));
+                DSP_PROGRAMS[0].RegisterNewPrimitive(125, new DSP_Primitive_BiquadFilter("OUTFILTER_2_6", 2, 8, 351));
 
-            } catch (Exception ex)
+                DSP_PROGRAMS[0].RegisterNewPrimitive(130, new DSP_Primitive_BiquadFilter("INFILTER_3_1", 3, 0, 354));
+                DSP_PROGRAMS[0].RegisterNewPrimitive(135, new DSP_Primitive_BiquadFilter("INFILTER_3_2", 3, 1, 357));
+                DSP_PROGRAMS[0].RegisterNewPrimitive(140, new DSP_Primitive_BiquadFilter("INFILTER_3_3", 3, 2, 360));
+                DSP_PROGRAMS[0].RegisterNewPrimitive(145, new DSP_Primitive_BiquadFilter("OUTFILTER_3_1", 3, 3, 363));
+                DSP_PROGRAMS[0].RegisterNewPrimitive(150, new DSP_Primitive_BiquadFilter("OUTFILTER_3_2", 3, 4, 366));
+                DSP_PROGRAMS[0].RegisterNewPrimitive(155, new DSP_Primitive_BiquadFilter("OUTFILTER_3_3", 3, 5, 369));
+                DSP_PROGRAMS[0].RegisterNewPrimitive(160, new DSP_Primitive_BiquadFilter("OUTFILTER_3_4", 3, 6, 372));
+                DSP_PROGRAMS[0].RegisterNewPrimitive(165, new DSP_Primitive_BiquadFilter("OUTFILTER_3_5", 3, 7, 375));
+                DSP_PROGRAMS[0].RegisterNewPrimitive(170, new DSP_Primitive_BiquadFilter("OUTFILTER_3_6", 3, 8, 378));
+
+                DSP_PROGRAMS[0].RegisterNewPrimitive(175, new DSP_Primitive_BiquadFilter("INFILTER_4_1", 4, 0, 381));
+                DSP_PROGRAMS[0].RegisterNewPrimitive(180, new DSP_Primitive_BiquadFilter("INFILTER_4_2", 4, 1, 384));
+                DSP_PROGRAMS[0].RegisterNewPrimitive(185, new DSP_Primitive_BiquadFilter("INFILTER_4_3", 4, 2, 387));
+                DSP_PROGRAMS[0].RegisterNewPrimitive(190, new DSP_Primitive_BiquadFilter("OUTFILTER_4_1", 4, 3, 390));
+                DSP_PROGRAMS[0].RegisterNewPrimitive(195, new DSP_Primitive_BiquadFilter("OUTFILTER_4_2", 4, 4, 393));
+                DSP_PROGRAMS[0].RegisterNewPrimitive(200, new DSP_Primitive_BiquadFilter("OUTFILTER_4_3", 4, 5, 396));
+                DSP_PROGRAMS[0].RegisterNewPrimitive(205, new DSP_Primitive_BiquadFilter("OUTFILTER_4_4", 4, 6, 399));
+                DSP_PROGRAMS[0].RegisterNewPrimitive(210, new DSP_Primitive_BiquadFilter("OUTFILTER_4_5", 4, 7, 402));
+                DSP_PROGRAMS[0].RegisterNewPrimitive(215, new DSP_Primitive_BiquadFilter("OUTFILTER_4_6", 4, 8, 405));
+
+
+                DSP_PROGRAMS[0].RegisterNewPrimitive(220, new DSP_Primitive_Compressor("CH 1 - Compressor", 0, 0));
+                DSP_PROGRAMS[0].RegisterNewPrimitive(226, new DSP_Primitive_Compressor("CH 2 - Compressor", 1, 0));
+                DSP_PROGRAMS[0].RegisterNewPrimitive(232, new DSP_Primitive_Compressor("CH 3 - Compressor", 2, 0));
+                DSP_PROGRAMS[0].RegisterNewPrimitive(238, new DSP_Primitive_Compressor("CH 4 - Compressor", 3, 0));
+
+                DSP_PROGRAMS[0].RegisterNewPrimitive(244, new DSP_Primitive_Compressor("CH 1 - Limiter", 0, 1, DSP_Primitive_Types.Limiter));
+                DSP_PROGRAMS[0].RegisterNewPrimitive(250, new DSP_Primitive_Compressor("CH 2 - Limiter", 1, 1, DSP_Primitive_Types.Limiter));
+                DSP_PROGRAMS[0].RegisterNewPrimitive(256, new DSP_Primitive_Compressor("CH 3 - Limiter", 2, 1, DSP_Primitive_Types.Limiter));
+                DSP_PROGRAMS[0].RegisterNewPrimitive(262, new DSP_Primitive_Compressor("CH 4 - Limiter", 3, 1, DSP_Primitive_Types.Limiter));
+
+                DSP_PROGRAMS[0].RegisterNewPrimitive(268, new DSP_Primitive_Delay("CH 1 - Delay", 0));
+                DSP_PROGRAMS[0].RegisterNewPrimitive(270, new DSP_Primitive_Delay("CH 2 - Delay", 1));
+                DSP_PROGRAMS[0].RegisterNewPrimitive(272, new DSP_Primitive_Delay("CH 3 - Delay", 2));
+                DSP_PROGRAMS[0].RegisterNewPrimitive(274, new DSP_Primitive_Delay("CH 4 - Delay", 3));
+
+                DSP_PROGRAMS[0].RegisterNewPrimitive(400, new DSP_Primitive_Input("Local Input CH 1", 0, 0, 1000, 900, "Local Input #1", InputType.Line, false));
+                DSP_PROGRAMS[0].RegisterNewPrimitive(410, new DSP_Primitive_Input("Local Input CH 2", 1, 0, 1000, 900, "Local Input #2", InputType.Line, false));
+                DSP_PROGRAMS[0].RegisterNewPrimitive(420, new DSP_Primitive_Input("Local Input CH 3", 2, 0, 1000, 900, "Local Input #3", InputType.Line, false));
+                DSP_PROGRAMS[0].RegisterNewPrimitive(430, new DSP_Primitive_Input("Local Input CH 4", 3, 0, 1000, 900, "Local Input #4", InputType.Line, false));
+
+            }
+            catch (Exception ex)
             {
                 Console.WriteLine("[EXCEPTION]: " + ex.Message);
             }
         }
 
-
         #endregion
 
-
+        private void button1_Click(object sender, EventArgs e)
+        {
+            using(FilterDesignerForm fdForm = new FilterDesignerForm())
+            {
+                fdForm.ShowDialog();
+            }
+        }
     }
 }

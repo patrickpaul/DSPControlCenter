@@ -1,8 +1,9 @@
 ﻿using SA_Resources;
+using SA_Resources.Forms;
 
 namespace DSP_100_1
 {
-    partial class MainForm
+    partial class MainForm : MainForm_Template
     {
         /// <summary>
         /// Required designer variable.

@@ -6,7 +6,7 @@ namespace SA_Resources.Filters
 
     public class FirstOrderHighPassFilter : BiquadFilter
     {
-        public FirstOrderHighPassFilter(double in_cf, double in_gain, double in_q): base(in_cf, in_gain, in_q)
+        public FirstOrderHighPassFilter(double in_cf, double in_gain = 0, double in_q = 0): base(in_cf, in_gain, in_q)
         {
             filter_type = 1;
         }
@@ -38,7 +38,7 @@ namespace SA_Resources.Filters
 
     public class SecondOrderHighPassFilter : BiquadFilter
     {
-        public SecondOrderHighPassFilter(double in_cf, double in_gain, double in_q) : base(in_cf, in_gain, in_q)
+        public SecondOrderHighPassFilter(double in_cf, double in_gain = 0, double in_q = 0) : base(in_cf, in_gain, in_q)
         {
             filter_type = 7;
         }

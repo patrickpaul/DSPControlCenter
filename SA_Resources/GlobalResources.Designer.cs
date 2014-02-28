@@ -173,6 +173,26 @@ namespace SA_Resources {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap gainfader_12_to__100 {
+            get {
+                object obj = ResourceManager.GetObject("gainfader_12_to__100", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap gainfader_6_to__12 {
+            get {
+                object obj = ResourceManager.GetObject("gainfader_6_to__12", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap knob_blue_bg {
             get {
                 object obj = ResourceManager.GetObject("knob_blue_bg", resourceCulture);
@@ -746,6 +766,16 @@ namespace SA_Resources {
         public static System.Drawing.Bitmap ui_fader_slider {
             get {
                 object obj = ResourceManager.GetObject("ui_fader_slider", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap ui_fader_slider_muted {
+            get {
+                object obj = ResourceManager.GetObject("ui_fader_slider_muted", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

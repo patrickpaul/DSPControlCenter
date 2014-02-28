@@ -10,34 +10,56 @@ namespace SA_Resources
     {
         public InputType InputType;
         public string InputName;
+        public bool PhantomAvailable;
         public bool PhantomPower;
-        public int PlainOffset;
+        public int PhantomOffset;
+        public int NameOffset;
 
-        public DSP_Primitive_Input(string in_name, int in_channel, int in_positionA, int _plainOffset)
+        public DSP_Primitive_Input(string in_name, int in_channel, int in_positionA, int in_nameOffset, int in_phantomOffset = -1)
             : base(in_name, in_channel, in_positionA)
         {
             InputName = "Input #" + (in_channel + 1).ToString("N0");
 
-            PhantomPower = false;
+            if(in_phantomOffset < 0)
+            {
+                PhantomAvailable = false;
+                PhantomPower = false;
+            } else
+            {
+                PhantomOffset = in_phantomOffset;
+            }
+
+            NameOffset = in_nameOffset;
+
             InputType = InputType.Line;
 
-            PlainOffset = _plainOffset;
-
-            this.Type = DSP_Primitive_Types.Input ;
+            this.Type = DSP_Primitive_Types.Input;
 
             this.Num_Values = 1;
         }
 
-        public DSP_Primitive_Input(string in_name, int in_channel, int in_positionA,  int _plainOffset, string _name, InputType _inputType, bool _phantomPower)
+        public DSP_Primitive_Input(string in_name, int in_channel, int in_positionA, int in_nameOffset, int in_phantomOffset, string _name, InputType _inputType, bool _phantomPower)
             : base(in_name, in_channel, in_positionA)
         {
             InputName = _name;
-            PhantomPower = _phantomPower;
+
+            if(in_phantomOffset < 0)
+            {
+                PhantomAvailable = false;
+                PhantomPower = false;
+            } else
+            {
+                PhantomAvailable = true;
+                PhantomOffset = in_phantomOffset;
+                PhantomPower = _phantomPower;
+            }
+
+            NameOffset = in_nameOffset;
+
             InputType = _inputType;
 
-            PlainOffset = _plainOffset;
+            this.Type = DSP_Primitive_Types.Input;
 
-            this.Type = DSP_Primitive_Types.StandardGain;
             this.Num_Values = 1;
         }
 
@@ -50,6 +72,25 @@ namespace SA_Resources
             set { }
         }
 
+        public double Pregain
+        {
+            set { }
+            get
+            {
+                if (this.InputType == InputType.Line)
+                {
+                    return 0;
+                }
+                else if (this.InputType == InputType.Microphone6)
+                {
+                    return 6;
+                }
+                else
+                {
+                    return 20;
+                }
+            }
+        }
         public UInt32 TypeToValue()
         {
             if (this.InputType == InputType.Line)
@@ -84,7 +125,7 @@ namespace SA_Resources
             }
         }
 
-        public override void UpdateFromSettings(List<DSP_Setting> settingsList)
+        public override void UpdateFromReadValues(List<UInt32> valuesList)
         {
             /*
             this.Gain = DSP_Math.value_to_gain(settingsList[0].Value);
@@ -110,8 +151,34 @@ namespace SA_Resources
             PARENT_FORM.AddItemToQueue(new LiveQueueItem((0 + CH_NUMBER - 1), new_val));
              *  * */
 
-            PARENT_FORM.AddItemToQueue(new LiveQueueItem(PlainOffset, (uint)this.TypeToValue()));
+            //PARENT_FORM.AddItemToQueue(new LiveQueueItem(PlainOffset, (uint)this.TypeToValue()));
             
+        }
+
+        public override void QueueChangeByOffset(MainForm_Template PARENT_FORM, int const_offset)
+        {
+            Console.WriteLine("Input - QueueChangeByOffset - Sending " + this.Values[const_offset].ToString("X") + " to offset " + (Offset + const_offset));
+
+            if (PARENT_FORM.LIVE_MODE)
+            {
+                PARENT_FORM.AddItemToQueue(new LiveQueueItem(Offset + const_offset, this.Values[const_offset]));
+            }
+        }
+
+
+        public override void QueueDeltas(MainForm_Template PARENT_FORM, DSP_Primitive comparePrimitive)
+        {
+
+            DSP_Primitive_Input RecastPrimitive = (DSP_Primitive_Input)comparePrimitive;
+
+            for (int i = 0; i < this.Num_Values; i++)
+            {
+                if (this.Values[i] != RecastPrimitive.Values[i])
+                {
+                    Console.WriteLine("Value[" + i + "] " + this.Values[i].ToString("X") + " does not equal " + RecastPrimitive.Values[i].ToString("X"));
+                    this.QueueChangeByOffset(PARENT_FORM, i);
+                }
+            }
         }
 
         public override void PrintValues()
