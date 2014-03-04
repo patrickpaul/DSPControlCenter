@@ -5,35 +5,8 @@ using System.Net.Security;
 using System.Text;
 using System.Management;
 
-namespace SA_Resources
+namespace SA_Resources.USB
 {
-
-    using System.Management;
-    
-    internal class ProcessConnection
-    {
-
-        
-        
-        public static ConnectionOptions ProcessConnectionOptions()
-        {
-            ConnectionOptions options = new ConnectionOptions();
-            options.Impersonation = ImpersonationLevel.Impersonate;
-            options.Authentication = AuthenticationLevel.Default;
-            options.EnablePrivileges = true;
-            return options;
-        }
-
-        public static ManagementScope ConnectionScope(string machineName, ConnectionOptions options, string path)
-        {
-            ManagementScope connectScope = new ManagementScope();
-            connectScope.Path = new ManagementPath(@"\\" + machineName + path);
-            connectScope.Options = options;
-            connectScope.Connect();
-            return connectScope;
-        }
-    }
-
     public class COMPortInfo
     {
         public string Name { get; set; }
@@ -72,20 +45,20 @@ namespace SA_Resources
                             if (caption.Contains("USB Serial Port (COM"))
                             {
 
-                                    obj_as_string = obj.ToString();
-                                    obj_string_length = obj_as_string.Length;
-                                    last_index = obj_as_string.LastIndexOf("6015+");
+                                obj_as_string = obj.ToString();
+                                obj_string_length = obj_as_string.Length;
+                                last_index = obj_as_string.LastIndexOf("6015+");
 
-                                    if ((last_index + 13) > obj_string_length)
-                                    {
-                                        serialNumber = "UNKNOWN";
-                                    } else
-                                    {
-                                        serialNumber = obj_as_string.Substring(last_index + 5, 8);
-                                    }
+                                if ((last_index + 13) > obj_string_length)
+                                {
+                                    serialNumber = "UNKNOWN";
+                                } else
+                                {
+                                    serialNumber = obj_as_string.Substring(last_index + 5, 8);
+                                }
                                 COMPortInfo comPortInfo = new COMPortInfo();
                                 comPortInfo.Name = caption.Substring(caption.LastIndexOf("(COM")).Replace("(", string.Empty).Replace(")",
-                                                                     string.Empty);
+                                    string.Empty);
                                 comPortInfo.Description = caption;
                                 comPortInfo.SerialNumber = serialNumber; 
                                 comPortInfoList.Add(comPortInfo);
@@ -95,6 +68,36 @@ namespace SA_Resources
                 }
             }
             return comPortInfoList;
+        }
+    }
+}
+
+namespace SA_Resources
+{
+
+    using System.Management;
+    
+    internal class ProcessConnection
+    {
+
+        
+        
+        public static ConnectionOptions ProcessConnectionOptions()
+        {
+            ConnectionOptions options = new ConnectionOptions();
+            options.Impersonation = ImpersonationLevel.Impersonate;
+            options.Authentication = AuthenticationLevel.Default;
+            options.EnablePrivileges = true;
+            return options;
+        }
+
+        public static ManagementScope ConnectionScope(string machineName, ConnectionOptions options, string path)
+        {
+            ManagementScope connectScope = new ManagementScope();
+            connectScope.Path = new ManagementPath(@"\\" + machineName + path);
+            connectScope.Options = options;
+            connectScope.Connect();
+            return connectScope;
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace SA_Resources.Forms
+﻿namespace SA_Resources.SAForms
 {
     partial class SwitchProgramForm
     {

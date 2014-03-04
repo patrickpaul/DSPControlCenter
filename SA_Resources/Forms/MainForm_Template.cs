@@ -7,8 +7,13 @@ using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
+using SA_Resources.Configurations;
+using SA_Resources.DSP.Primitives;
+using SA_Resources.SAControls;
+using SA_Resources.SADevices;
+using SA_Resources.USB;
 
-namespace SA_Resources.Forms
+namespace SA_Resources.SAForms
 {
     public partial class MainForm_Template : Form
     {

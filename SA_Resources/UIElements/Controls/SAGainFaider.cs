@@ -7,9 +7,37 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace SA_Resources
+namespace SA_Resources.SAControls
 {
-    
+    public class FaderEventArgs : EventArgs
+    {
+        private readonly double _gain;
+        private readonly bool _muted;
+
+        // Constructor.
+        public FaderEventArgs(double in_gain, bool in_muted)
+        {
+            _gain = in_gain;
+            _muted = in_muted;
+        }
+
+        public double Gain
+        {
+            get { return _gain; }
+        }
+
+        public bool Muted
+        {
+            get { return _muted; }
+        }
+        // Properties.
+
+
+
+    }
+
+    public delegate void FaderEventHandler(object sender, FaderEventArgs e);
+
     public partial class SAGainFader : UserControl
     {
 
@@ -498,33 +526,4 @@ namespace SA_Resources
 
         }
     }
-
-    public class FaderEventArgs : EventArgs
-    {
-        private readonly double _gain;
-        private readonly bool _muted;
-
-        // Constructor.
-        public FaderEventArgs(double in_gain, bool in_muted)
-        {
-            _gain = in_gain;
-            _muted = in_muted;
-        }
-
-        public double Gain
-        {
-            get { return _gain; }
-        }
-
-        public bool Muted
-        {
-            get { return _muted; }
-        }
-        // Properties.
-
-
-
-    }
-
-    public delegate void FaderEventHandler(object sender, FaderEventArgs e);
 }

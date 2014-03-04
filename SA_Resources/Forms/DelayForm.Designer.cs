@@ -1,4 +1,6 @@
-﻿namespace SA_Resources
+﻿using SA_Resources.SAControls;
+
+namespace SA_Resources.SAForms
 {
     partial class DelayForm
     {
@@ -42,8 +44,8 @@
             this.DialDelayM = new System.Windows.Forms.PictureBox();
             this.dropAction = new System.Windows.Forms.ComboBox();
             this.lblAction = new System.Windows.Forms.Label();
-            this.btnGo = new SA_Resources.PictureButton();
-            this.chkBypass = new SA_Resources.PictureCheckbox();
+            this.btnGo = new PictureButton();
+            this.chkBypass = new PictureCheckbox();
             ((System.ComponentModel.ISupportInitialize)(this.btnCancel)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnSave)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DialDelayMS)).BeginInit();
@@ -277,7 +279,7 @@
 
         private System.Windows.Forms.PictureBox btnCancel;
         private System.Windows.Forms.PictureBox btnSave;
-        private SA_Resources.PictureCheckbox chkBypass;
+        private PictureCheckbox chkBypass;
         private System.Windows.Forms.TextBox TextDelayMS;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.PictureBox DialDelayMS;

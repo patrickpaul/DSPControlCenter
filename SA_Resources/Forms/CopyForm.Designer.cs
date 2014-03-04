@@ -1,4 +1,6 @@
-﻿namespace SA_Resources.Forms
+﻿using SA_Resources.SAControls;
+
+namespace SA_Resources.SAForms
 {
     partial class CopyForm
     {
@@ -31,18 +33,18 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CopyForm));
             this.lblDestinationChannel = new System.Windows.Forms.Label();
             this.lblCopyFollowing = new System.Windows.Forms.Label();
-            this.pchkItem6 = new SA_Resources.PictureCheckbox();
-            this.pchkItem5 = new SA_Resources.PictureCheckbox();
-            this.pchkItem4 = new SA_Resources.PictureCheckbox();
-            this.pchkItem3 = new SA_Resources.PictureCheckbox();
-            this.pchkItem2 = new SA_Resources.PictureCheckbox();
-            this.pchkItem1 = new SA_Resources.PictureCheckbox();
-            this.pchkChannel4 = new SA_Resources.PictureCheckbox();
-            this.pchkChannel3 = new SA_Resources.PictureCheckbox();
-            this.pchkChannel2 = new SA_Resources.PictureCheckbox();
-            this.pchkChannel1 = new SA_Resources.PictureCheckbox();
-            this.btnCancel = new SA_Resources.PictureButton();
-            this.btnCopy = new SA_Resources.PictureButton();
+            this.pchkItem6 = new PictureCheckbox();
+            this.pchkItem5 = new PictureCheckbox();
+            this.pchkItem4 = new PictureCheckbox();
+            this.pchkItem3 = new PictureCheckbox();
+            this.pchkItem2 = new PictureCheckbox();
+            this.pchkItem1 = new PictureCheckbox();
+            this.pchkChannel4 = new PictureCheckbox();
+            this.pchkChannel3 = new PictureCheckbox();
+            this.pchkChannel2 = new PictureCheckbox();
+            this.pchkChannel1 = new PictureCheckbox();
+            this.btnCancel = new PictureButton();
+            this.btnCopy = new PictureButton();
             this.SuspendLayout();
             // 
             // lblDestinationChannel
@@ -293,15 +295,15 @@
         private PictureButton btnCancel;
         private PictureButton btnCopy;
         private System.Windows.Forms.Label lblCopyFollowing;
-        private SA_Resources.PictureCheckbox pchkChannel1;
-        private SA_Resources.PictureCheckbox pchkChannel2;
-        private SA_Resources.PictureCheckbox pchkChannel4;
-        private SA_Resources.PictureCheckbox pchkChannel3;
-        private SA_Resources.PictureCheckbox pchkItem4;
-        private SA_Resources.PictureCheckbox pchkItem3;
-        private SA_Resources.PictureCheckbox pchkItem2;
-        private SA_Resources.PictureCheckbox pchkItem1;
-        private SA_Resources.PictureCheckbox pchkItem6;
-        private SA_Resources.PictureCheckbox pchkItem5;
+        private PictureCheckbox pchkChannel1;
+        private PictureCheckbox pchkChannel2;
+        private PictureCheckbox pchkChannel4;
+        private PictureCheckbox pchkChannel3;
+        private PictureCheckbox pchkItem4;
+        private PictureCheckbox pchkItem3;
+        private PictureCheckbox pchkItem2;
+        private PictureCheckbox pchkItem1;
+        private PictureCheckbox pchkItem6;
+        private PictureCheckbox pchkItem5;
     }
 }

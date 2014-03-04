@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using SA_Resources.Forms;
+using SA_Resources.DSP;
+using SA_Resources.SAForms;
 
-namespace SA_Resources
+namespace SA_Resources.DSP.Primitives
 {
     public enum StandardGain_Types
     {

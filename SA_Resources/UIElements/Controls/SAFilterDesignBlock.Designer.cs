@@ -1,4 +1,4 @@
-﻿namespace SA_Resources
+﻿namespace SA_Resources.SAControls
 {
     partial class SAFilterDesignBlock
     {
@@ -38,7 +38,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.dropFilter = new System.Windows.Forms.ComboBox();
             this.dropSlope = new System.Windows.Forms.ComboBox();
-            this.chkBypass = new SA_Resources.PictureCheckbox();
+            this.chkBypass = new PictureCheckbox();
             this.SuspendLayout();
             // 
             // txtQval

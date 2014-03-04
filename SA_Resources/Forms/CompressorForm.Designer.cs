@@ -1,4 +1,6 @@
-﻿namespace SA_Resources
+﻿using SA_Resources.SAControls;
+
+namespace SA_Resources.SAForms
 {
     partial class CompressorForm
     {
@@ -67,13 +69,13 @@
             this.signalTimer = new System.Windows.Forms.Timer(this.components);
             this.lblIn = new System.Windows.Forms.Label();
             this.lblOut = new System.Windows.Forms.Label();
-            this.gainMeterOut = new SA_Resources.SignalMeter_Small();
-            this.gainMeterIn = new SA_Resources.SignalMeter_Small();
-            this.btnGo = new SA_Resources.PictureButton();
-            this.chkSoftKnee = new SA_Resources.PictureCheckbox();
-            this.chkBypass = new SA_Resources.PictureCheckbox();
-            this.btnCancel = new SA_Resources.PictureButton();
-            this.btnSave = new SA_Resources.PictureButton();
+            this.gainMeterOut = new SignalMeter_Small();
+            this.gainMeterIn = new SignalMeter_Small();
+            this.btnGo = new PictureButton();
+            this.chkSoftKnee = new PictureCheckbox();
+            this.chkBypass = new PictureCheckbox();
+            this.btnCancel = new PictureButton();
+            this.btnSave = new PictureButton();
             this.panel1 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.dynChart)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudCompRatio)).BeginInit();
@@ -587,8 +589,8 @@
         private System.Windows.Forms.PictureBox DialCompRelease;
         private PictureButton btnSave;
         private PictureButton btnCancel;
-        private SA_Resources.PictureCheckbox chkBypass;
-        private SA_Resources.PictureCheckbox chkSoftKnee;
+        private PictureCheckbox chkBypass;
+        private PictureCheckbox chkSoftKnee;
         private PictureButton btnGo;
         private System.Windows.Forms.ComboBox dropAction;
         private System.Windows.Forms.Label lblAction;

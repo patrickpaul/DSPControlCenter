@@ -2,7 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace SA_Resources
+namespace SA_Resources.SAControls
 {
     public class DialEventArgs : EventArgs
     {
@@ -12,8 +12,6 @@ namespace SA_Resources
 
     }
 
-    public delegate void DialEventHandler(object sender, DialEventArgs e);
-    
     public class Dial
     {
 
@@ -259,4 +257,6 @@ namespace SA_Resources
             }
         }
     }
+
+    public delegate void DialEventHandler(object sender, DialEventArgs e);
 }

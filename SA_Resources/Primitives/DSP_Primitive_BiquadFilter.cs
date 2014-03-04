@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using SA_Resources.Filters;
-using SA_Resources.Forms;
+using SA_Resources.Configurations;
+using SA_Resources.DSP;
+using SA_Resources.DSP.Filters;
+using SA_Resources.SAForms;
 
-namespace SA_Resources
+namespace SA_Resources.DSP.Primitives
 {
     public class DSP_Primitive_BiquadFilter : DSP_Primitive, ICloneable
     {

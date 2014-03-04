@@ -8,9 +8,11 @@ using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
-using SA_Resources.Filters;
+using SA_Resources.Configurations;
+using SA_Resources.DSP.Filters;
+using SA_Resources.DSP.Primitives;
 
-namespace SA_Resources
+namespace SA_Resources.SAControls
 {
     public partial class FilterDesigner : UserControl
     {
@@ -52,7 +54,7 @@ namespace SA_Resources
         public int FocusedFilterID = 0;
         public int PreviouslyFocusedFilterID = 0;
 
-        public event FilterEventHandler OnChange;
+        public event FilterDesignerEventHandler OnChange;
 
         public event EventHandler OnDragBegin;
         public event EventHandler OnDragEnd;

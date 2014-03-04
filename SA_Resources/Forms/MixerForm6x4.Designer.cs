@@ -1,4 +1,6 @@
-﻿namespace SA_Resources
+﻿using SA_Resources.SAControls;
+
+namespace SA_Resources.SAForms
 {
     partial class MixerForm6x4
     {
@@ -41,40 +43,40 @@
             this.lblOutputMeter3 = new System.Windows.Forms.Label();
             this.lblOutputMeter4 = new System.Windows.Forms.Label();
             this.signalTimer = new System.Windows.Forms.Timer(this.components);
-            this.gainMeter4 = new SA_Resources.SignalMeter();
-            this.gainMeter3 = new SA_Resources.SignalMeter();
-            this.gainMeter2 = new SA_Resources.SignalMeter();
-            this.gainMeter1 = new SA_Resources.SignalMeter();
-            this.btnRouter6_4 = new SA_Resources.PictureButton();
-            this.btnRouter5_4 = new SA_Resources.PictureButton();
-            this.btnRouter6_3 = new SA_Resources.PictureButton();
-            this.btnRouter5_3 = new SA_Resources.PictureButton();
-            this.btnRouter6_2 = new SA_Resources.PictureButton();
-            this.btnRouter5_2 = new SA_Resources.PictureButton();
-            this.btnRouter6_1 = new SA_Resources.PictureButton();
-            this.btnRouter5_1 = new SA_Resources.PictureButton();
-            this.btnRouter4_4 = new SA_Resources.PictureButton();
-            this.btnRouter3_4 = new SA_Resources.PictureButton();
-            this.btnRouter2_4 = new SA_Resources.PictureButton();
-            this.btnRouter1_4 = new SA_Resources.PictureButton();
-            this.btnRouter4_3 = new SA_Resources.PictureButton();
-            this.btnRouter3_3 = new SA_Resources.PictureButton();
-            this.btnRouter2_3 = new SA_Resources.PictureButton();
-            this.btnRouter1_3 = new SA_Resources.PictureButton();
-            this.btnRouter4_2 = new SA_Resources.PictureButton();
-            this.btnRouter3_2 = new SA_Resources.PictureButton();
-            this.btnRouter2_2 = new SA_Resources.PictureButton();
-            this.btnRouter1_2 = new SA_Resources.PictureButton();
-            this.btnRouter4_1 = new SA_Resources.PictureButton();
-            this.btnRouter3_1 = new SA_Resources.PictureButton();
-            this.btnRouter2_1 = new SA_Resources.PictureButton();
-            this.btnRouter1_1 = new SA_Resources.PictureButton();
-            this.btnCancel = new SA_Resources.PictureButton();
-            this.btnSave = new SA_Resources.PictureButton();
-            this.lblOutput3 = new SA_Resources.OrientedTextLabel();
-            this.lblOutput2 = new SA_Resources.OrientedTextLabel();
-            this.lblOutput1 = new SA_Resources.OrientedTextLabel();
-            this.lblOutput0 = new SA_Resources.OrientedTextLabel();
+            this.gainMeter4 = new SignalMeter();
+            this.gainMeter3 = new SignalMeter();
+            this.gainMeter2 = new SignalMeter();
+            this.gainMeter1 = new SignalMeter();
+            this.btnRouter6_4 = new PictureButton();
+            this.btnRouter5_4 = new PictureButton();
+            this.btnRouter6_3 = new PictureButton();
+            this.btnRouter5_3 = new PictureButton();
+            this.btnRouter6_2 = new PictureButton();
+            this.btnRouter5_2 = new PictureButton();
+            this.btnRouter6_1 = new PictureButton();
+            this.btnRouter5_1 = new PictureButton();
+            this.btnRouter4_4 = new PictureButton();
+            this.btnRouter3_4 = new PictureButton();
+            this.btnRouter2_4 = new PictureButton();
+            this.btnRouter1_4 = new PictureButton();
+            this.btnRouter4_3 = new PictureButton();
+            this.btnRouter3_3 = new PictureButton();
+            this.btnRouter2_3 = new PictureButton();
+            this.btnRouter1_3 = new PictureButton();
+            this.btnRouter4_2 = new PictureButton();
+            this.btnRouter3_2 = new PictureButton();
+            this.btnRouter2_2 = new PictureButton();
+            this.btnRouter1_2 = new PictureButton();
+            this.btnRouter4_1 = new PictureButton();
+            this.btnRouter3_1 = new PictureButton();
+            this.btnRouter2_1 = new PictureButton();
+            this.btnRouter1_1 = new PictureButton();
+            this.btnCancel = new PictureButton();
+            this.btnSave = new PictureButton();
+            this.lblOutput3 = new OrientedTextLabel();
+            this.lblOutput2 = new OrientedTextLabel();
+            this.lblOutput1 = new OrientedTextLabel();
+            this.lblOutput0 = new OrientedTextLabel();
             ((System.ComponentModel.ISupportInitialize)(this.gainMeter4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gainMeter3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gainMeter2)).BeginInit();
@@ -779,8 +781,8 @@
             this.lblOutput3.TabIndex = 21;
             this.lblOutput3.Text = "Output #4";
             this.lblOutput3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lblOutput3.TextDirection = SA_Resources.Direction.Clockwise;
-            this.lblOutput3.TextOrientation = SA_Resources.Orientation.Rotate;
+            this.lblOutput3.TextDirection = Direction.Clockwise;
+            this.lblOutput3.TextOrientation = Orientation.Rotate;
             // 
             // lblOutput2
             // 
@@ -793,8 +795,8 @@
             this.lblOutput2.TabIndex = 20;
             this.lblOutput2.Text = "Output #3";
             this.lblOutput2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lblOutput2.TextDirection = SA_Resources.Direction.Clockwise;
-            this.lblOutput2.TextOrientation = SA_Resources.Orientation.Rotate;
+            this.lblOutput2.TextDirection = Direction.Clockwise;
+            this.lblOutput2.TextOrientation = Orientation.Rotate;
             // 
             // lblOutput1
             // 
@@ -807,8 +809,8 @@
             this.lblOutput1.TabIndex = 19;
             this.lblOutput1.Text = "Output #2";
             this.lblOutput1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lblOutput1.TextDirection = SA_Resources.Direction.Clockwise;
-            this.lblOutput1.TextOrientation = SA_Resources.Orientation.Rotate;
+            this.lblOutput1.TextDirection = Direction.Clockwise;
+            this.lblOutput1.TextOrientation = Orientation.Rotate;
             // 
             // lblOutput0
             // 
@@ -821,8 +823,8 @@
             this.lblOutput0.TabIndex = 18;
             this.lblOutput0.Text = "Output #1";
             this.lblOutput0.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lblOutput0.TextDirection = SA_Resources.Direction.Clockwise;
-            this.lblOutput0.TextOrientation = SA_Resources.Orientation.Rotate;
+            this.lblOutput0.TextDirection = Direction.Clockwise;
+            this.lblOutput0.TextOrientation = Orientation.Rotate;
             // 
             // MixerForm6x4
             // 

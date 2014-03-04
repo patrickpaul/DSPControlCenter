@@ -3,7 +3,8 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Media;
 using System.Windows.Forms;
-using SA_Resources.Forms;
+using SA_Resources.DSP;
+using SA_Resources.SAForms;
 
 namespace SA_Resources
 {

@@ -1,4 +1,4 @@
-﻿namespace SA_Resources
+﻿namespace SA_Resources.SAForms
 {
     partial class ReadForm
     {

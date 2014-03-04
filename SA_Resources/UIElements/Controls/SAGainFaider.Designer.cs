@@ -1,4 +1,4 @@
-﻿namespace SA_Resources
+﻿namespace SA_Resources.SAControls
 {
     partial class SAGainFader
     {
@@ -32,7 +32,7 @@
             this.lblGain = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.sliderPB = new System.Windows.Forms.PictureBox();
-            this.chkMuted = new SA_Resources.PictureCheckbox();
+            this.chkMuted = new PictureCheckbox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.sliderPB)).BeginInit();
             this.SuspendLayout();

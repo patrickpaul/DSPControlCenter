@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SA_Resources
+namespace SA_Resources.SAControls
 {
     public sealed class DialHelpers
     {

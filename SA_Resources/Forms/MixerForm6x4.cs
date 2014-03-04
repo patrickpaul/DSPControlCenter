@@ -6,9 +6,12 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using SA_Resources.Forms;
+using SA_Resources.Configurations;
+using SA_Resources.DSP;
+using SA_Resources.DSP.Primitives;
+using SA_Resources.SAControls;
 
-namespace SA_Resources
+namespace SA_Resources.SAForms
 {
     public partial class MixerForm6x4 : Form
     {

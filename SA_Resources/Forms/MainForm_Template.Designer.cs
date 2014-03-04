@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace SA_Resources.Forms
+namespace SA_Resources.SAForms
 {
     partial class MainForm_Template
     {

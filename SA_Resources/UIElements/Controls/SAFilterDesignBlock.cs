@@ -7,10 +7,14 @@ using System.Linq;
 using System.Media;
 using System.Text;
 using System.Windows.Forms;
-using SA_Resources.Filters;
+using SA_Resources.Configurations;
+using SA_Resources.DSP.Filters;
+using SA_Resources.DSP.Primitives;
 
-namespace SA_Resources
+namespace SA_Resources.SAControls
 {
+    public delegate void FilterDesignerEventHandler(object sender, FilterEventArgs e);
+
     public partial class SAFilterDesignBlock : UserControl
     {
         public DSP_Primitive_BiquadFilter FilterPrimitive;
@@ -27,7 +31,7 @@ namespace SA_Resources
         private const int INDEX_NOTCH = 6;
         private const int INDEX_BANDPASS = 7;
 
-        public event FilterEventHandler OnChange;
+        public event FilterDesignerEventHandler OnChange;
 
         public event EventHandler OnFocus;
 
@@ -188,7 +192,7 @@ namespace SA_Resources
 
                     chkBypass.Checked = FilterPrimitive.Bypassed;
 
-                break;
+                    break;
 
                 case FilterType.SecondOrderLowPass:
 
@@ -204,7 +208,7 @@ namespace SA_Resources
                     chkBypass.Checked = FilterPrimitive.Bypassed;
 
 
-                break;
+                    break;
 
                 case FilterType.FirstOrderHighPass:
 
@@ -219,7 +223,7 @@ namespace SA_Resources
 
                     chkBypass.Checked = FilterPrimitive.Bypassed;
 
-                break;
+                    break;
 
                 case FilterType.SecondOrderHighPass:
 
@@ -234,7 +238,7 @@ namespace SA_Resources
 
                     chkBypass.Checked = FilterPrimitive.Bypassed;
 
-                break;
+                    break;
 
                 case FilterType.LowShelf:
 
@@ -248,7 +252,7 @@ namespace SA_Resources
 
                     chkBypass.Checked = FilterPrimitive.Bypassed;
 
-                break;
+                    break;
 
                 case FilterType.HighShelf:
 
@@ -262,7 +266,7 @@ namespace SA_Resources
 
                     chkBypass.Checked = FilterPrimitive.Bypassed;
 
-                break;
+                    break;
 
                 case FilterType.Peak:
 
@@ -276,7 +280,7 @@ namespace SA_Resources
 
                     chkBypass.Checked = FilterPrimitive.Bypassed;
 
-                break;
+                    break;
 
                 case FilterType.Notch:
 
@@ -290,7 +294,7 @@ namespace SA_Resources
 
                     chkBypass.Checked = FilterPrimitive.Bypassed;
 
-                break;
+                    break;
             }
         }
 
@@ -390,7 +394,7 @@ namespace SA_Resources
                         dropSlope.Invalidate();
                     }
 
-                break;
+                    break;
 
                 case INDEX_LOWSHELF:
 
@@ -693,16 +697,6 @@ namespace SA_Resources
         }
     }
 
-    public enum FilterChangeType
-    {
-        Full,
-        Type,
-        CenterFrequency,
-        Gain,
-        CenterFrequencyGain,
-        QVal,
-        Slope
-    }
     public class FilterEventArgs : EventArgs
     {
         private readonly int _index;
@@ -738,6 +732,18 @@ namespace SA_Resources
 
 
     }
+}
 
-    public delegate void FilterEventHandler(object sender, FilterEventArgs e);
+namespace SA_Resources
+{
+    public enum FilterChangeType
+    {
+        Full,
+        Type,
+        CenterFrequency,
+        Gain,
+        CenterFrequencyGain,
+        QVal,
+        Slope
+    }
 }

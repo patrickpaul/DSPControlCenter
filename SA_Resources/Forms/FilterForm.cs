@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Media;
 using System.Threading;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
-using SA_Resources;
-using SA_Resources.Filters;
-using SA_Resources.Forms;
+using SA_Resources.Configurations;
+using SA_Resources.DSP;
+using SA_Resources.DSP.Filters;
+using SA_Resources.SAControls;
 
-namespace SA_Resources
+namespace SA_Resources.SAForms
 {
     public partial class FilterForm : Form
     {

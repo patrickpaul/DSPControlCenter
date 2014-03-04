@@ -1,4 +1,6 @@
-﻿namespace SA_Resources
+﻿using SA_Resources.SAControls;
+
+namespace SA_Resources
 {
     partial class OutputConfiguration
     {
@@ -43,7 +45,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.panelRS232 = new System.Windows.Forms.Panel();
-            this.gainMeterOut = new SA_Resources.SignalMeter_Small();
+            this.gainMeterOut = new SignalMeter_Small();
             ((System.ComponentModel.ISupportInitialize)(this.btnCancel)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnSave)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbtnReset)).BeginInit();

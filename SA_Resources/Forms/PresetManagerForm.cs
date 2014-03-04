@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace SA_Resources.Forms
+namespace SA_Resources.SAForms
 {
 
     public partial class PresetManager : Form

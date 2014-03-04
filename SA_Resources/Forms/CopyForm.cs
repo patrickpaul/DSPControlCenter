@@ -7,8 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using SA_Resources;
+using SA_Resources.Configurations;
+using SA_Resources.SAControls;
 
-namespace SA_Resources.Forms
+namespace SA_Resources.SAForms
 {
     // TODO - This form must know the number of channels
     public partial class CopyForm : Form

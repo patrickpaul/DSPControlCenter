@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Drawing;
-using SA_Resources.Filters;
+using SA_Resources.Configurations;
+using SA_Resources.DSP.Filters;
+using SA_Resources.DSP.Primitives;
 
-namespace SA_Resources
+namespace SA_Resources.DSP
 {
     public class DSP_Math
     {

@@ -3,9 +3,10 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
-using SA_Resources.Forms;
+using SA_Resources.DSP;
+using SA_Resources.SAControls;
 
-namespace SA_Resources
+namespace SA_Resources.SAForms
 {
     public partial class DuckerForm : Form
     {

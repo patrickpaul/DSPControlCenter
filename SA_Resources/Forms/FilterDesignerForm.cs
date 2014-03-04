@@ -7,9 +7,12 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
-using SA_Resources.Filters;
+using SA_Resources.Configurations;
+using SA_Resources.DSP.Filters;
+using SA_Resources.DSP.Primitives;
+using SA_Resources.SAControls;
 
-namespace SA_Resources
+namespace SA_Resources.SAForms
 {
     public partial class FilterDesignerForm : Form
     {
@@ -65,6 +68,8 @@ namespace SA_Resources
         {
             filterDesigner.SetActiveFilter(e.Index);
             filterDesigner.RefreshAllFilters();
+
+            Console.WriteLine("filterDesignBlock_OnChange");
         }
 
 
@@ -141,6 +146,10 @@ namespace SA_Resources
                 {
                     uithread_abort = true;
                 }
+
+
+                Console.WriteLine("filterDesigner_OnDragEnd");
+
             }
             catch (Exception ex)
             {

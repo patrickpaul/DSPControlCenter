@@ -1,4 +1,6 @@
-﻿namespace SA_Resources
+﻿using SA_Resources.SAControls;
+
+namespace SA_Resources.SAForms
 {
     partial class GainForm
     {
@@ -31,10 +33,10 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GainForm));
             this.signalTimer = new System.Windows.Forms.Timer(this.components);
-            this.gainMeter = new SA_Resources.SignalMeter();
-            this.btnCancel = new SA_Resources.PictureButton();
-            this.btnSave = new SA_Resources.PictureButton();
-            this.saGainFader1 = new SA_Resources.SAGainFader();
+            this.gainMeter = new SignalMeter();
+            this.btnCancel = new PictureButton();
+            this.btnSave = new PictureButton();
+            this.saGainFader1 = new SAGainFader();
             ((System.ComponentModel.ISupportInitialize)(this.gainMeter)).BeginInit();
             this.SuspendLayout();
             // 
@@ -102,7 +104,7 @@
             this.saGainFader1.Name = "saGainFader1";
             this.saGainFader1.Size = new System.Drawing.Size(73, 340);
             this.saGainFader1.TabIndex = 35;
-            this.saGainFader1.OnChange += new SA_Resources.FaderEventHandler(this.saGainFader1_OnChange);
+            this.saGainFader1.OnChange += new FaderEventHandler(this.saGainFader1_OnChange);
             // 
             // GainForm
             // 

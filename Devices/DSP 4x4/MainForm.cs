@@ -4,8 +4,12 @@ using System.Drawing;
 using System.Windows.Forms;
 using SA_Resources;
 using System.Linq;
-using SA_Resources.Filters;
-using SA_Resources.Forms;
+using SA_Resources.Configurations;
+using SA_Resources.DSP;
+using SA_Resources.DSP.Filters;
+using SA_Resources.SADevices;
+using SA_Resources.SAForms;
+using SA_Resources.DSP.Primitives;
 
 namespace DSP_4x4
 {

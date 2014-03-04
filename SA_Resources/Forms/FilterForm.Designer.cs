@@ -1,4 +1,6 @@
-﻿namespace SA_Resources
+﻿using SA_Resources.SAControls;
+
+namespace SA_Resources.SAForms
 {
     partial class FilterForm
     {
@@ -114,16 +116,16 @@
             this.dropAction = new System.Windows.Forms.ComboBox();
             this.lblAction = new System.Windows.Forms.Label();
             this.pnlButtons = new System.Windows.Forms.Panel();
-            this.btnSave = new SA_Resources.PictureButton();
-            this.btnGo = new SA_Resources.PictureButton();
-            this.btnCancel = new SA_Resources.PictureButton();
+            this.btnSave = new PictureButton();
+            this.btnGo = new PictureButton();
+            this.btnCancel = new PictureButton();
             this.pnlSecondRowFilters = new System.Windows.Forms.Panel();
-            this.chkBypass5 = new SA_Resources.PictureCheckbox();
-            this.chkBypass4 = new SA_Resources.PictureCheckbox();
-            this.chkBypass3 = new SA_Resources.PictureCheckbox();
-            this.chkBypass2 = new SA_Resources.PictureCheckbox();
-            this.chkBypass1 = new SA_Resources.PictureCheckbox();
-            this.chkBypass0 = new SA_Resources.PictureCheckbox();
+            this.chkBypass5 = new PictureCheckbox();
+            this.chkBypass4 = new PictureCheckbox();
+            this.chkBypass3 = new PictureCheckbox();
+            this.chkBypass2 = new PictureCheckbox();
+            this.chkBypass1 = new PictureCheckbox();
+            this.chkBypass0 = new PictureCheckbox();
             ((System.ComponentModel.ISupportInitialize)(this.filterChart)).BeginInit();
             this.pnlButtons.SuspendLayout();
             this.pnlSecondRowFilters.SuspendLayout();
@@ -1447,9 +1449,9 @@
         private System.Windows.Forms.Label lblSlope2;
         private System.Windows.Forms.ComboBox dropSlope2;
         private System.Windows.Forms.Label label2;
-        private SA_Resources.PictureCheckbox chkBypass0;
-        private SA_Resources.PictureCheckbox chkBypass1;
-        private SA_Resources.PictureCheckbox chkBypass2;
+        private PictureCheckbox chkBypass0;
+        private PictureCheckbox chkBypass1;
+        private PictureCheckbox chkBypass2;
         private System.Windows.Forms.TextBox txtFreq0;
         private System.Windows.Forms.TextBox txtGain0;
         private System.Windows.Forms.TextBox txtQval0;
@@ -1470,11 +1472,11 @@
         private System.Windows.Forms.TextBox txtQval3;
         private System.Windows.Forms.TextBox txtGain3;
         private System.Windows.Forms.TextBox txtFreq3;
-        private SA_Resources.PictureCheckbox chkBypass5;
-        private SA_Resources.PictureCheckbox chkBypass4;
+        private PictureCheckbox chkBypass5;
+        private PictureCheckbox chkBypass4;
         private System.Windows.Forms.Label lblSlope4;
         private System.Windows.Forms.Label lblSlope5;
-        private SA_Resources.PictureCheckbox chkBypass3;
+        private PictureCheckbox chkBypass3;
         private System.Windows.Forms.Label lblQ4;
         private System.Windows.Forms.Label lblGain4;
         private System.Windows.Forms.Label lblSlope3;

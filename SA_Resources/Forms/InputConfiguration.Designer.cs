@@ -1,4 +1,6 @@
-﻿namespace SA_Resources
+﻿using SA_Resources.SAControls;
+
+namespace SA_Resources
 {
     partial class InputConfiguration
     {
@@ -40,8 +42,8 @@
             this.signalTimer = new System.Windows.Forms.Timer(this.components);
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
-            this.gainMeter = new SA_Resources.SignalMeter_Small();
-            this.chkPhantomPower = new SA_Resources.PictureCheckbox();
+            this.gainMeter = new SignalMeter_Small();
+            this.chkPhantomPower = new PictureCheckbox();
             ((System.ComponentModel.ISupportInitialize)(this.btnCancel)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnSave)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gainMeter)).BeginInit();
@@ -209,7 +211,7 @@
         private System.Windows.Forms.Label label1;
         public System.Windows.Forms.TextBox txtDisplayName;
         private System.Windows.Forms.Label lblPhantomPower;
-        private SA_Resources.PictureCheckbox chkPhantomPower;
+        private PictureCheckbox chkPhantomPower;
         private System.Windows.Forms.PictureBox btnCancel;
         private System.Windows.Forms.PictureBox btnSave;
         private System.Windows.Forms.Label label3;

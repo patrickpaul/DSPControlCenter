@@ -8,7 +8,10 @@ using System.Media;
 using System.Text;
 using System.Windows.Forms;
 using SA_Resources;
-using SA_Resources.Forms;
+using SA_Resources.Configurations;
+using SA_Resources.DSP;
+using SA_Resources.SAForms;
+using SA_Resources.DSP.Primitives;
 
 namespace SA_Resources
 {

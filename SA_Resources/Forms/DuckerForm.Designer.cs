@@ -1,4 +1,6 @@
-﻿namespace SA_Resources
+﻿using SA_Resources.SAControls;
+
+namespace SA_Resources.SAForms
 {
     partial class DuckerForm
     {
@@ -48,13 +50,13 @@
             this.TextDuckHold = new System.Windows.Forms.TextBox();
             this.dropPriorityChannel = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.meter4 = new SA_Resources.SignalMeter_Small();
-            this.meter3 = new SA_Resources.SignalMeter_Small();
-            this.meter2 = new SA_Resources.SignalMeter_Small();
-            this.meter1 = new SA_Resources.SignalMeter_Small();
-            this.btnSave = new SA_Resources.PictureButton();
-            this.btnCancel = new SA_Resources.PictureButton();
-            this.chkBypass = new SA_Resources.PictureCheckbox();
+            this.meter4 = new SignalMeter_Small();
+            this.meter3 = new SignalMeter_Small();
+            this.meter2 = new SignalMeter_Small();
+            this.meter1 = new SignalMeter_Small();
+            this.btnSave = new PictureButton();
+            this.btnCancel = new PictureButton();
+            this.chkBypass = new PictureCheckbox();
             ((System.ComponentModel.ISupportInitialize)(this.nudDuckThreshold)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudDuckDepth)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DialDuckRelease)).BeginInit();
@@ -442,7 +444,7 @@
         private System.Windows.Forms.Label label4;
         private PictureButton btnSave;
         private PictureButton btnCancel;
-        private SA_Resources.PictureCheckbox chkBypass;
+        private PictureCheckbox chkBypass;
         private System.Windows.Forms.Timer signalTimer;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label5;

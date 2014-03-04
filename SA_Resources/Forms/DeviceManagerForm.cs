@@ -7,9 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
-using SA_Resources.Forms;
+using SA_Resources.SADevices;
+using SA_Resources.USB;
 
-namespace SA_Resources
+namespace SA_Resources.SAForms
 {
     public partial class DeviceManagerForm : Form
     {

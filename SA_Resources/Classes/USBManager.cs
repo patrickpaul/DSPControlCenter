@@ -2,52 +2,8 @@
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
-namespace SA_Resources
+namespace SA_Resources.USB
 {
-    
-    [StructLayout(LayoutKind.Sequential)]
-    public struct DEV_BROADCAST_VOLUME
-    {
-        public int dbcv_size; // size of the struct
-        public int dbcv_devicetype; // DBT_DEVTYP_VOLUME
-        public int dbcv_reserved; // reserved; do not use
-        public int dbcv_unitmask; // Bit 0=A, bit 1=B, and so on (bitmask)
-        public short dbcv_flags; // DBTF_MEDIA=0x01, DBTF_NET=0x02 (bitmask)
-    }
-
-
-    public delegate void UsbStateChangedEventHandler(UsbStateChangedEventArgs e);
-
-
-    public enum UsbStateChange
-    {
-        Added,
-        Removing,
-        Removed
-    }
-
-
-    public class UsbStateChangedEventArgs : EventArgs
-    {
-        public UsbStateChangedEventArgs(UsbStateChange state, DEV_BROADCAST_VOLUME volume)
-        {
-            this.State = state;
-            this.Volume = volume;
-        }
-
-        public DEV_BROADCAST_VOLUME Volume
-        {
-            get;
-            private set;
-        }
-
-        public UsbStateChange State
-        {
-            get;
-            private set;
-        }
-    }
-
     public class UsbManager : IDisposable
     {
 
@@ -250,5 +206,45 @@ namespace SA_Resources
             }
         }
 
+    }
+
+    public enum UsbStateChange
+    {
+        Added,
+        Removing,
+        Removed
+    }
+
+    public class UsbStateChangedEventArgs : EventArgs
+    {
+        public UsbStateChangedEventArgs(UsbStateChange state, DEV_BROADCAST_VOLUME volume)
+        {
+            this.State = state;
+            this.Volume = volume;
+        }
+
+        public DEV_BROADCAST_VOLUME Volume
+        {
+            get;
+            private set;
+        }
+
+        public UsbStateChange State
+        {
+            get;
+            private set;
+        }
+    }
+
+    public delegate void UsbStateChangedEventHandler(UsbStateChangedEventArgs e);
+
+    [StructLayout(LayoutKind.Sequential)]
+    public struct DEV_BROADCAST_VOLUME
+    {
+        public int dbcv_size; // size of the struct
+        public int dbcv_devicetype; // DBT_DEVTYP_VOLUME
+        public int dbcv_reserved; // reserved; do not use
+        public int dbcv_unitmask; // Bit 0=A, bit 1=B, and so on (bitmask)
+        public short dbcv_flags; // DBTF_MEDIA=0x01, DBTF_NET=0x02 (bitmask)
     }
 }

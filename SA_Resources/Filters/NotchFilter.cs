@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Drawing;
 
-namespace SA_Resources.Filters
+namespace SA_Resources.DSP.Filters
 {
     public class NotchFilter : BiquadFilter
     {

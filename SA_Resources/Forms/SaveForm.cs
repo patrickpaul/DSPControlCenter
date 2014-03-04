@@ -5,9 +5,8 @@ using System.Diagnostics;
 using System.Windows.Forms;
 using System.IO.Ports;
 using System.Threading;
-using SA_Resources.Forms;
 
-namespace SA_Resources
+namespace SA_Resources.SAForms
 {
     public partial class SaveForm : Form
     {

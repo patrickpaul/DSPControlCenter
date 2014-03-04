@@ -8,7 +8,8 @@ using System.Threading;
 using System.Windows.Forms;
 using Microsoft.Win32;
 using SA_Resources;
-using SA_Resources.Forms;
+using SA_Resources.SADevices;
+using SA_Resources.SAForms;
 
 namespace SA_Resources
 {

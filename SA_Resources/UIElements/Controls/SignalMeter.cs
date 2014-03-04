@@ -8,7 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 
 
-namespace SA_Resources
+namespace SA_Resources.SAControls
 {
     public partial class SignalMeter : PictureBox
     {

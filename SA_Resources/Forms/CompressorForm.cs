@@ -2,9 +2,12 @@
 using System.Drawing;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
-using SA_Resources.Forms;
+using SA_Resources.Configurations;
+using SA_Resources.DSP;
+using SA_Resources.SAControls;
+using SA_Resources.DSP.Primitives;
 
-namespace SA_Resources
+namespace SA_Resources.SAForms
 {
     public partial class CompressorForm : Form
     {

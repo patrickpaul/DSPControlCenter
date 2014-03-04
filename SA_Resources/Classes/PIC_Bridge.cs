@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.IO.Ports;
 using System.Threading;
 
-namespace SA_Resources
+namespace SA_Resources.USB
 {
     public class PIC_Bridge
     {
