@@ -30,13 +30,13 @@ namespace SA_Resources.SAForms
         /// </summary>
         private void InitializeComponent()
         {
-            this.filterDesignBlock5 = new SAFilterDesignBlock();
-            this.filterDesignBlock4 = new SAFilterDesignBlock();
-            this.filterDesignBlock3 = new SAFilterDesignBlock();
-            this.filterDesignBlock2 = new SAFilterDesignBlock();
-            this.filterDesignBlock1 = new SAFilterDesignBlock();
-            this.filterDesignBlock0 = new SAFilterDesignBlock();
-            this.filterDesigner = new FilterDesigner();
+            this.filterDesignBlock5 = new SA_Resources.SAControls.SAFilterDesignBlock();
+            this.filterDesignBlock4 = new SA_Resources.SAControls.SAFilterDesignBlock();
+            this.filterDesignBlock3 = new SA_Resources.SAControls.SAFilterDesignBlock();
+            this.filterDesignBlock2 = new SA_Resources.SAControls.SAFilterDesignBlock();
+            this.filterDesignBlock1 = new SA_Resources.SAControls.SAFilterDesignBlock();
+            this.filterDesignBlock0 = new SA_Resources.SAControls.SAFilterDesignBlock();
+            this.filterDesigner = new SA_Resources.SAControls.FilterDesigner();
             this.SuspendLayout();
             // 
             // filterDesignBlock5
@@ -50,7 +50,7 @@ namespace SA_Resources.SAForms
             this.filterDesignBlock5.Size = new System.Drawing.Size(243, 80);
             this.filterDesignBlock5.TabIndex = 6;
             this.filterDesignBlock5.Visible = false;
-            this.filterDesignBlock5.OnChange += new FilterDesignerEventHandler(this.filterDesignBlock_OnChange);
+            this.filterDesignBlock5.OnChange += new SA_Resources.SAControls.FilterDesignerEventHandler(this.filterDesignBlock_OnChange);
             // 
             // filterDesignBlock4
             // 
@@ -63,7 +63,7 @@ namespace SA_Resources.SAForms
             this.filterDesignBlock4.Size = new System.Drawing.Size(243, 80);
             this.filterDesignBlock4.TabIndex = 5;
             this.filterDesignBlock4.Visible = false;
-            this.filterDesignBlock4.OnChange += new FilterDesignerEventHandler(this.filterDesignBlock_OnChange);
+            this.filterDesignBlock4.OnChange += new SA_Resources.SAControls.FilterDesignerEventHandler(this.filterDesignBlock_OnChange);
             // 
             // filterDesignBlock3
             // 
@@ -76,7 +76,7 @@ namespace SA_Resources.SAForms
             this.filterDesignBlock3.Size = new System.Drawing.Size(243, 80);
             this.filterDesignBlock3.TabIndex = 4;
             this.filterDesignBlock3.Visible = false;
-            this.filterDesignBlock3.OnChange += new FilterDesignerEventHandler(this.filterDesignBlock_OnChange);
+            this.filterDesignBlock3.OnChange += new SA_Resources.SAControls.FilterDesignerEventHandler(this.filterDesignBlock_OnChange);
             // 
             // filterDesignBlock2
             // 
@@ -89,7 +89,7 @@ namespace SA_Resources.SAForms
             this.filterDesignBlock2.Size = new System.Drawing.Size(243, 80);
             this.filterDesignBlock2.TabIndex = 3;
             this.filterDesignBlock2.Visible = false;
-            this.filterDesignBlock2.OnChange += new FilterDesignerEventHandler(this.filterDesignBlock_OnChange);
+            this.filterDesignBlock2.OnChange += new SA_Resources.SAControls.FilterDesignerEventHandler(this.filterDesignBlock_OnChange);
             // 
             // filterDesignBlock1
             // 
@@ -102,7 +102,7 @@ namespace SA_Resources.SAForms
             this.filterDesignBlock1.Size = new System.Drawing.Size(243, 80);
             this.filterDesignBlock1.TabIndex = 2;
             this.filterDesignBlock1.Visible = false;
-            this.filterDesignBlock1.OnChange += new FilterDesignerEventHandler(this.filterDesignBlock_OnChange);
+            this.filterDesignBlock1.OnChange += new SA_Resources.SAControls.FilterDesignerEventHandler(this.filterDesignBlock_OnChange);
             // 
             // filterDesignBlock0
             // 
@@ -115,7 +115,7 @@ namespace SA_Resources.SAForms
             this.filterDesignBlock0.Size = new System.Drawing.Size(243, 80);
             this.filterDesignBlock0.TabIndex = 1;
             this.filterDesignBlock0.Visible = false;
-            this.filterDesignBlock0.OnChange += new FilterDesignerEventHandler(this.filterDesignBlock_OnChange);
+            this.filterDesignBlock0.OnChange += new SA_Resources.SAControls.FilterDesignerEventHandler(this.filterDesignBlock_OnChange);
             // 
             // filterDesigner
             // 

@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Media;
 using System.Windows.Forms;
 using SA_Resources.DSP;
+using SA_Resources.DSP.Primitives;
 using SA_Resources.SAForms;
 
 namespace SA_Resources
@@ -21,31 +22,47 @@ namespace SA_Resources
             }
         } 
 
+        private bool form_loaded = false;
+
         private MainForm_Template PARENT_FORM;
         private int CH_NUMBER;
 
-        public OutputConfiguration(MainForm_Template _parentForm, int _ch_number)
+        private double read_gain_value;
+
+        private DSP_Primitive_Output Active_Primitive;
+
+
+        public OutputConfiguration(MainForm_Template _parentForm, DSP_Primitive_Output in_primitive)
         {
             InitializeComponent();
 
-            PARENT_FORM = _parentForm;
-            CH_NUMBER = _ch_number;
-            
-
-            this.Text = "CH " + CH_NUMBER.ToString("N0") + " - Output Configuration";
-
-            txtDisplayName.Text = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].outputs[CH_NUMBER-1].Name;
-
-            if (_parentForm.LIVE_MODE && _parentForm._PIC_Conn.isOpen && PARENT_FORM.FIRMWARE_VERSION > 2.5)
+            try
             {
-                signalTimer.Enabled = true;
-                gainMeterOut.Visible = true;
-                panelRS232.Visible = true;
+                PARENT_FORM = _parentForm;
+                CH_NUMBER = in_primitive.Channel + 1;
+
+
+                this.Text = "CH " + CH_NUMBER.ToString("N0") + " - Output Configuration";
+
+                Active_Primitive = in_primitive;
+
+                txtDisplayName.Text = Active_Primitive.OutputName;
+
+                if (_parentForm.LIVE_MODE && _parentForm._PIC_Conn.isOpen && PARENT_FORM.FIRMWARE_VERSION > 2.5)
+                {
+                    signalTimer.Enabled = true;
+                    gainMeterOut.Visible = true;
+                    panelRS232.Visible = true;
+                }
+                else
+                {
+                    gainMeterOut.Visible = false;
+                    panelRS232.Visible = false;
+                }
             }
-            else
+            catch (Exception ex)
             {
-                gainMeterOut.Visible = false;
-                panelRS232.Visible = false;
+                Console.WriteLine("[Exception in OutputConfiguration]: " + ex.Message);
             }
         }
 
@@ -105,7 +122,7 @@ namespace SA_Resources
 
         private void OutputConfiguration_FormClosing(object sender, FormClosingEventArgs e)
         {
-            PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].outputs[CH_NUMBER - 1].Name = txtDisplayName.Text;
+            Active_Primitive.OutputName = txtDisplayName.Text;
         }
 
         private void signalTimer_Tick(object sender, EventArgs e)
@@ -119,7 +136,8 @@ namespace SA_Resources
             UInt32 read_value;
             double converted_value;
             double offset = 20 + 10 * Math.Log10(2) + 20 * Math.Log10(16);
-            UInt32 read_address =  read_address = PARENT_FORM._gain_meters[CH_NUMBER - 1][3];
+            // TODO - FIX ME
+            UInt32 read_address = 0;
             double read_gain_value;
 
             read_value = PARENT_FORM._PIC_Conn.Read_Live_DSP_Value(read_address);

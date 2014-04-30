@@ -8,7 +8,6 @@ using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
-using SA_Resources.Configurations;
 using SA_Resources.DSP.Filters;
 using SA_Resources.DSP.Primitives;
 

@@ -38,7 +38,7 @@ namespace SA_Resources.SAForms
             pchkItem4.Visible = true;
             pchkItem5.Visible = true;
             pchkItem6.Visible = true;
-
+            
             switch (formType)
             {
                 case CopyFormType.Filter3:
@@ -135,7 +135,7 @@ namespace SA_Resources.SAForms
             pchkItem4.Invalidate();
             pchkItem5.Invalidate();
             pchkItem6.Invalidate();
-
+            
         }
 
         private void btnCopy_Click(object sender, EventArgs e)

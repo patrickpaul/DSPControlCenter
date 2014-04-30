@@ -35,38 +35,47 @@ namespace SA_Resources.SAForms
         public GainForm(MainForm_Template _parentForm, DSP_Primitive _inputPrimitive, DSP_Primitive_Types _primitiveType)
         {
             InitializeComponent();
-            
-            if(_primitiveType == DSP_Primitive_Types.StandardGain)
+
+            try
             {
-                is_mixer = false;
-                RecastStandardGain = (DSP_Primitive_StandardGain) _inputPrimitive;
-            } else
-            {
-                is_mixer = true;
-                RecastCrossPoint = (DSP_Primitive_MixerCrosspoint) _inputPrimitive;
+                if (_primitiveType == DSP_Primitive_Types.StandardGain)
+                {
+                    is_mixer = false;
+                    RecastStandardGain = (DSP_Primitive_StandardGain) _inputPrimitive;
+                    saGainFader1.Mode = RecastStandardGain.Mode == StandardGain_Types.Twelve_to_Negative_100 ? 0 : 1;
+                }
+                else
+                {
+                    is_mixer = true;
+                    RecastCrossPoint = (DSP_Primitive_MixerCrosspoint) _inputPrimitive;
+                    saGainFader1.Mode = 0;
+                    saGainFader1.MuteDisablesFader = true;
+                }
+
+                PARENT_FORM = _parentForm;
+
+                if (PARENT_FORM.LIVE_MODE)
+                {
+                    gainMeter.Visible = true;
+                    signalTimer.Enabled = true;
+                }
+                else
+                {
+                    gainMeter.Visible = false;
+                    signalTimer.Enabled = false;
+                }
+
+                saGainFader1.Gain = is_mixer ? RecastCrossPoint.Gain : RecastStandardGain.Gain;
+                saGainFader1.Muted = is_mixer ? RecastCrossPoint.Muted : RecastStandardGain.Muted;
+
+
+
+                this.Text = _inputPrimitive.Name;
             }
-
-            PARENT_FORM = _parentForm;
-
-            if (PARENT_FORM.LIVE_MODE)
+            catch (Exception ex)
             {
-                gainMeter.Visible = true;
-                signalTimer.Enabled = true;
+                Console.WriteLine("[Exception in GainForm]: " + ex.Message);
             }
-            else
-            {
-                gainMeter.Visible = false;
-                signalTimer.Enabled = false;
-            }
-
-            saGainFader1.Mode = RecastStandardGain.Mode == StandardGain_Types.Twelve_to_Negative_100 ? 0 : 1;
-
-            saGainFader1.Gain = is_mixer ? RecastCrossPoint.Gain : RecastStandardGain.Gain;
-            saGainFader1.Muted = is_mixer ? RecastCrossPoint.Muted : RecastStandardGain.Muted;
-
-            
-
-            this.Text = _inputPrimitive.Name;
 
         }
 

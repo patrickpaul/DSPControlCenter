@@ -2,7 +2,6 @@
 using System.Drawing;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
-using SA_Resources.Configurations;
 using SA_Resources.DSP;
 using SA_Resources.SAControls;
 using SA_Resources.DSP.Primitives;
@@ -519,6 +518,7 @@ namespace SA_Resources.SAForms
 
         private void btnGo_Click(object sender, EventArgs e)
         {
+            /*
             CopyFormType copyType = CopyFormType.Compressor;
             if (dropAction.SelectedIndex == 0)
             {
@@ -532,6 +532,7 @@ namespace SA_Resources.SAForms
                     copyForm.ShowDialog(this);
                 }
             }
+             * */
         }
 
         private void signalTimer_Tick(object sender, EventArgs e)

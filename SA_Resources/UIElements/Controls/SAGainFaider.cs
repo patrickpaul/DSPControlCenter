@@ -9,33 +9,6 @@ using System.Windows.Forms;
 
 namespace SA_Resources.SAControls
 {
-    public class FaderEventArgs : EventArgs
-    {
-        private readonly double _gain;
-        private readonly bool _muted;
-
-        // Constructor.
-        public FaderEventArgs(double in_gain, bool in_muted)
-        {
-            _gain = in_gain;
-            _muted = in_muted;
-        }
-
-        public double Gain
-        {
-            get { return _gain; }
-        }
-
-        public bool Muted
-        {
-            get { return _muted; }
-        }
-        // Properties.
-
-
-
-    }
-
     public delegate void FaderEventHandler(object sender, FaderEventArgs e);
 
     public partial class SAGainFader : UserControl
@@ -57,6 +30,7 @@ namespace SA_Resources.SAControls
 
         private bool has_changed = false;
 
+        public bool MuteDisablesFader = false;
 
         private ToolTip toolTip1;
 
@@ -160,13 +134,19 @@ namespace SA_Resources.SAControls
                 {
                     
                     sliderPB.Image = SA_Resources.GlobalResources.ui_fader_slider_muted;
-                    //sliderPB.Cursor = Cursors.No;
+                    if (MuteDisablesFader)
+                    {
+                        sliderPB.Cursor = Cursors.No;
+                    }
                     toolTip1.SetToolTip(sliderPB, "Muted");
                     lblGain.ForeColor = Color.PaleVioletRed;
                 } else
                 {
                     sliderPB.Image = SA_Resources.GlobalResources.ui_fader_slider;
-                    //sliderPB.Cursor = Cursors.Hand;
+                    if (MuteDisablesFader)
+                    {
+                        sliderPB.Cursor = Cursors.Hand;
+                    }
                     toolTip1.SetToolTip(sliderPB, null);
                     lblGain.ForeColor = Color.White;
                 }
@@ -208,10 +188,10 @@ namespace SA_Resources.SAControls
 
         private void pic_MouseDown(object sender, MouseEventArgs e)
         {
-            /*if (chkMuted.Checked)
+            if (chkMuted.Checked && MuteDisablesFader)
             {
                 return;
-            }*/
+            }
             mouseDown = true;
             has_changed = false;
 
@@ -525,5 +505,32 @@ namespace SA_Resources.SAControls
             OnChangeEvent(args);
 
         }
+    }
+
+    public class FaderEventArgs : EventArgs
+    {
+        private readonly double _gain;
+        private readonly bool _muted;
+
+        // Constructor.
+        public FaderEventArgs(double in_gain, bool in_muted)
+        {
+            _gain = in_gain;
+            _muted = in_muted;
+        }
+
+        public double Gain
+        {
+            get { return _gain; }
+        }
+
+        public bool Muted
+        {
+            get { return _muted; }
+        }
+        // Properties.
+
+
+
     }
 }

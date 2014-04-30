@@ -26,7 +26,7 @@ namespace SA_Resources.DSP.Primitives
         public DSP_Primitive_MixerCrosspoint(string in_name, int in_channel, int in_positionA, double in_gain = 0, bool in_muted = false)
             : base(in_name, in_channel, in_positionA)
         {
-            Muted = in_muted;
+            Muted = (in_gain == -100) ? true : in_muted;
             Gain = in_gain;
             _Pregain = 0;
             this.Type = DSP_Primitive_Types.MixerCrosspoint;

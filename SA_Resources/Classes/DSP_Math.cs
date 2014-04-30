@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Drawing;
-using SA_Resources.Configurations;
 using SA_Resources.DSP.Filters;
 using SA_Resources.DSP.Primitives;
 
@@ -14,7 +13,23 @@ namespace SA_Resources.DSP
 
         #region Filter Packaging
 
-        public static UInt32 filter_to_package(FilterConfig in_filter)
+        public double Q_to_Octaves(double q)
+        {
+            double Q2bw1st = ((2.0 * Math.Pow(q, 2.0)) + 1) / (2.0 * Math.Pow(q, 2.0));
+            double Q2bw2nd = Math.Pow(2.0 * Q2bw1st, 2.0) / 4.0;
+            double Q2bw3rd = Math.Sqrt(Q2bw2nd - 1);
+            double Q2bw4th = Q2bw1st + Q2bw3rd;
+            return Math.Log10(Q2bw4th)/Math.Log10(2);
+
+        }
+
+        public double Octaves_to_Q(double octaves)
+        {
+            return Math.Sqrt(Math.Pow(2.0, octaves))/(Math.Pow(2.0, octaves) - 1.0);
+
+        }
+
+        public static UInt32 filter_to_package(DSP_Primitive_BiquadFilter in_filter)
         {
             UInt32 return_int = 0x00;
 
@@ -26,7 +41,7 @@ namespace SA_Resources.DSP
 
             return_int <<= 3;
 
-            if (in_filter.Type == FilterType.SecondOrderHighPass || in_filter.Type == FilterType.SecondOrderLowPass)
+            if (in_filter.FType == FilterType.SecondOrderHighPass || in_filter.FType == FilterType.SecondOrderLowPass)
             {
                 return_int |= 0x01;
             }
@@ -74,7 +89,7 @@ namespace SA_Resources.DSP
 
         }
 
-
+        /*
         public static FilterConfig rebuild_filter(UInt32 package, UInt32 Gain, UInt32 QVal)
         {
             uint center_freq = package & 0x7FFFFF; //23 bits
@@ -113,7 +128,7 @@ namespace SA_Resources.DSP
             }
         }
          
-
+        */
         #endregion
 
         #region Decibel and Voltage Gain Conversions

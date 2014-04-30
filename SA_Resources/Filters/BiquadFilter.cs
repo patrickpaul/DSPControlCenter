@@ -23,7 +23,7 @@ namespace SA_Resources.DSP.Filters
         private double gain_default = 0;
 
         private double q_max = 20;
-        private double q_min = 0.707;
+        private double q_min = 0.250;
         private double q_default= 0.707;
 
         protected double filter_type = -1;

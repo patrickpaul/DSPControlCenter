@@ -27,8 +27,8 @@ namespace SA_Resources.DSP.Primitives
             _Pregain = 0;
             Mode = StandardGain_Types.Twelve_to_Negative_100;
             this.Type = DSP_Primitive_Types.StandardGain;
-            // TODO - Is this really 1 value? Edit below as well
-            this.Num_Values = 1;
+
+            this.Num_Values = 2;
         }
 
         public DSP_Primitive_StandardGain(string in_name, int in_channel, int in_positionA, StandardGain_Types in_type)
@@ -39,8 +39,7 @@ namespace SA_Resources.DSP.Primitives
             _Pregain = 0;
             Mode = in_type;
             this.Type = DSP_Primitive_Types.StandardGain;
-            // TODO - Is this really 1 value? Edit below as well
-            this.Num_Values = 1;
+            this.Num_Values = 2;
         }
 
         public DSP_Primitive_StandardGain(string in_name, int in_channel, int in_positionA, StandardGain_Types in_type, double in_gain = 0, bool in_muted = false)
@@ -51,14 +50,14 @@ namespace SA_Resources.DSP.Primitives
             Mode = in_type;
             _Pregain = 0;
             this.Type = DSP_Primitive_Types.StandardGain;
-            this.Num_Values = 1;
+            this.Num_Values = 2;
         }
 
         public List<UInt32> Values
         {
             get
             {
-                return new List<UInt32>(new UInt32[] { Gain_Value });
+                return new List<UInt32>(new UInt32[] { Gain_Value, Muted_Value });
             }
             set {}
         } 
@@ -72,6 +71,8 @@ namespace SA_Resources.DSP.Primitives
             set {
                 this._Gain = value;
 
+                this.Gain_Value = DSP_Math.double_to_MN(DSP_Math.decibels_to_voltage_gain(this._Gain), 9, 23);
+                /*
                 if (this._Muted)
                 {
                     this.Gain_Value = DSP_Math.double_to_MN(DSP_Math.decibels_to_voltage_gain(-100), 3, 29);
@@ -80,6 +81,7 @@ namespace SA_Resources.DSP.Primitives
                 {
                     this.Gain_Value = DSP_Math.double_to_MN(DSP_Math.decibels_to_voltage_gain(this._Gain), 9, 23);
                 }
+                 * */
             }
         }
 
@@ -106,11 +108,11 @@ namespace SA_Resources.DSP.Primitives
                 this._Muted = value;
                 if (this._Muted)
                 {
-                    this.Gain_Value = DSP_Math.double_to_MN(DSP_Math.decibels_to_voltage_gain(-100), 3, 29);
+                    this.Muted_Value = 0x00000002;
                 }
                 else
                 {
-                    this.Gain_Value = DSP_Math.double_to_MN(DSP_Math.decibels_to_voltage_gain(this._Gain), 9, 23);
+                    this.Muted_Value = 0x00000001;
                 }
             }
         }
@@ -130,13 +132,7 @@ namespace SA_Resources.DSP.Primitives
         public override void UpdateFromReadValues(List<UInt32> valuesList)
         {
             this.Gain = DSP_Math.value_to_gain(valuesList[0]);
-            this.Muted = false;
-
-            if(this.Gain < -90)
-            {
-                this.Gain = 0;
-                this.Muted = true;
-            }
+            this.Muted = (valuesList[1] == 0x0000002);
         }
 
         public override void QueueChange(MainForm_Template PARENT_FORM)
@@ -144,6 +140,7 @@ namespace SA_Resources.DSP.Primitives
             if (PARENT_FORM.LIVE_MODE)
             {
                 PARENT_FORM.AddItemToQueue(new LiveQueueItem(this.Offset, this.Gain_Value));
+                PARENT_FORM.AddItemToQueue(new LiveQueueItem(this.Offset+1, this.Muted_Value));
             }
         }
 

@@ -69,26 +69,17 @@
     <Compile Include="Classes\SADevicePlugin.cs" />
     <Compile Include="Classes\SCFG_Manager.cs" />
     <Compile Include="Classes\USBManager.cs" />
-    <Compile Include="Configurations\CompressorConfig.cs" />
-    <Compile Include="Configurations\CopyFormType.cs" />
-    <Compile Include="Configurations\DelayConfig.cs" />
-    <Compile Include="Configurations\DuckerConfig.cs" />
-    <Compile Include="Configurations\FilterConfig.cs" />
-    <Compile Include="Configurations\GainConfig.cs" />
-    <Compile Include="Configurations\InputConfig.cs" />
-    <Compile Include="Configurations\OutputConfig.cs" />
-    <Compile Include="Configurations\ProgramConfig.cs" />
+    <Compile Include="Forms\DuckerForm4x4.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\DuckerForm4x4.Designer.cs">
+      <DependentUpon>DuckerForm4x4.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FilterDesignerForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\FilterDesignerForm.Designer.cs">
       <DependentUpon>FilterDesignerForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\PresetManagerForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\PresetManagerForm.Designer.cs">
-      <DependentUpon>PresetManagerForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\RestoreSettingsForm.cs">
       <SubType>Form</SubType>
@@ -102,18 +93,6 @@
     <Compile Include="Forms\DeviceManagerForm.Designer.cs">
       <DependentUpon>DeviceManagerForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\DuckerForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\DuckerForm.Designer.cs">
-      <DependentUpon>DuckerForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\CopyForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\CopyForm.Designer.cs">
-      <DependentUpon>CopyForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\MainForm_Template.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -125,12 +104,6 @@
     </Compile>
     <Compile Include="Forms\OutputConfiguration.Designer.cs">
       <DependentUpon>OutputConfiguration.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\FilterForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\FilterForm.Designer.cs">
-      <DependentUpon>FilterForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\ReadForm.cs">
       <SubType>Form</SubType>
@@ -147,6 +120,9 @@
     <Compile Include="Forms\Resource Classes\Buttons.cs" />
     <Compile Include="Forms\Resource Classes\ControlIcons.cs" />
     <Compile Include="Forms\Resource Classes\Icons.cs" />
+    <Compile Include="Primitives\DSP_Primitive_Output.cs" />
+    <Compile Include="Primitives\DSP_Primitive_Ducker4x4.cs" />
+    <Compile Include="Primitives\DSP_Primitive_Ducker8x8.cs" />
     <Compile Include="Primitives\DSP_Meter.cs" />
     <Compile Include="Primitives\DSP_Meter_Manager.cs" />
     <Compile Include="Primitives\DSP_Primitive_Base.cs" />
@@ -185,6 +161,12 @@
     </Compile>
     <Compile Include="UIElements\Controls\SAGainFaider.Designer.cs">
       <DependentUpon>SAGainFaider.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UIElements\Controls\SASignalMeter.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UIElements\Controls\SASignalMeter.Designer.cs">
+      <DependentUpon>SASignalMeter.cs</DependentUpon>
     </Compile>
     <Compile Include="UIElements\Controls\SignalMeter_Small.cs">
       <SubType>Component</SubType>
@@ -262,12 +244,6 @@
     <Compile Include="Forms\MixerForm6x4.Designer.cs">
       <DependentUpon>MixerForm6x4.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\SaveForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\SaveForm.Designer.cs">
-      <DependentUpon>SaveForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Classes\Helpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GlobalResources.Designer.cs">
@@ -326,11 +302,11 @@
     <EmbeddedResource Include="Forms\CompressorForm.resx">
       <DependentUpon>CompressorForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\DuckerForm4x4.resx">
+      <DependentUpon>DuckerForm4x4.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\FilterDesignerForm.resx">
       <DependentUpon>FilterDesignerForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\PresetManagerForm.resx">
-      <DependentUpon>PresetManagerForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\RestoreSettingsForm.resx">
       <DependentUpon>RestoreSettingsForm.cs</DependentUpon>
@@ -338,20 +314,11 @@
     <EmbeddedResource Include="Forms\DeviceManagerForm.resx">
       <DependentUpon>DeviceManagerForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\DuckerForm.resx">
-      <DependentUpon>DuckerForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\CopyForm.resx">
-      <DependentUpon>CopyForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\MainForm_Template.resx">
       <DependentUpon>MainForm_Template.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\OutputConfiguration.resx">
       <DependentUpon>OutputConfiguration.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FilterForm.resx">
-      <DependentUpon>FilterForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\DelayForm.resx">
       <DependentUpon>DelayForm.cs</DependentUpon>
@@ -367,9 +334,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ReadForm.resx">
       <DependentUpon>ReadForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\SaveForm.resx">
-      <DependentUpon>SaveForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\SwitchProgramForm.resx">
       <DependentUpon>SwitchProgramForm.cs</DependentUpon>
@@ -387,6 +351,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UIElements\Controls\SAGainFaider.resx">
       <DependentUpon>SAGainFaider.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UIElements\Controls\SASignalMeter.resx">
+      <DependentUpon>SASignalMeter.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -612,7 +579,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_UseGlobalSettings="True" BuildVersion_AssemblyInfoFilename="Properties\AssemblyInfo.cs" BuildVersion_UpdateFileVersion="True" BuildVersion_UpdateAssemblyVersion="True" />
+      <UserProperties BuildVersion_UpdateAssemblyVersion="True" BuildVersion_UpdateFileVersion="True" BuildVersion_AssemblyInfoFilename="Properties\AssemblyInfo.cs" BuildVersion_UseGlobalSettings="True" />
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>

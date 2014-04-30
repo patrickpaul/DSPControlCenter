@@ -1,11 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using SA_Resources.Configurations;
 using SA_Resources.DSP;
 using SA_Resources.SAForms;
 
 namespace SA_Resources.DSP.Primitives
 {
+    public enum CompressorType
+    {
+        Compressor,
+        Limiter
+    }
+
     public class DSP_Primitive_Compressor : DSP_Primitive, ICloneable
     {
 

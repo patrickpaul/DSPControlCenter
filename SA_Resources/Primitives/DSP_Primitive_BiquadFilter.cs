@@ -1,12 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
-using SA_Resources.Configurations;
 using SA_Resources.DSP;
 using SA_Resources.DSP.Filters;
 using SA_Resources.SAForms;
 
 namespace SA_Resources.DSP.Primitives
 {
+    public enum FilterType
+    {
+        None,
+        BandPass,
+        FirstOrderHighPass,
+        SecondOrderHighPass,
+        HighShelf,
+        FirstOrderLowPass,
+        SecondOrderLowPass,
+        LowShelf,
+        Notch,
+        Peak
+    }
+
     public class DSP_Primitive_BiquadFilter : DSP_Primitive, ICloneable
     {
 
@@ -20,7 +33,7 @@ namespace SA_Resources.DSP.Primitives
         public DSP_Primitive_BiquadFilter(string in_name, int in_channel, int in_positionA, int _plainOffset)
             : base(in_name, in_channel, in_positionA)
         {
-            this.Type = DSP_Primitive_Types.BiquadFilter; ;
+            this.Type = DSP_Primitive_Types.BiquadFilter;
             this.Num_Values = 5;
             Plainfilter_Offset = _plainOffset;
         }

@@ -8,7 +8,6 @@ using System.Media;
 using System.Text;
 using System.Windows.Forms;
 using SA_Resources;
-using SA_Resources.Configurations;
 using SA_Resources.DSP;
 using SA_Resources.SAForms;
 using SA_Resources.DSP.Primitives;
@@ -187,15 +186,15 @@ namespace SA_Resources
 
         private void signalTimer_Tick(object sender, EventArgs e)
         {
-            /*
+            
             UInt32 read_address;
 
             //read_address = PARENT_FORM._gain_meters[CH_NUMBER - 1][0];
 
-            //read_address = 0xF0C00069;
+            read_address = 0xF0C000E5;
 
  
-            double offset = 20 + 10 * Math.Log10(2) + 20 * Math.Log10(16);
+            double offset = 10 * Math.Log10(2) + 20 * Math.Log10(16);
             UInt32 read_value = PARENT_FORM._PIC_Conn.Read_Live_DSP_Value(read_address);
 
             
@@ -212,7 +211,8 @@ namespace SA_Resources
             }
 
             read_gain_value = offset + 10 * Math.Log10(converted_value);
-             * 
+             
+            /*
             if(input_switcher)
             {
                 textBox1.Text = read_gain_value.ToString("F1");
@@ -224,11 +224,12 @@ namespace SA_Resources
                 Console.WriteLine("AFTERGAIN Read read_value = " + read_value + ", Converted Value = " + converted_value + ", DB Value = " + read_gain_value);
             
             }
+             * */
             gainMeter.DB = read_gain_value;
 
             input_switcher = !input_switcher;
 
-            */
+            
         }
 
         private void btnSave_Click(object sender, EventArgs e)

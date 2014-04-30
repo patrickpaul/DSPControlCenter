@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -9,9 +10,10 @@ using SA_Resources.SAControls;
 
 namespace SA_Resources.SAForms
 {
-    public partial class DuckerForm : Form
+    public partial class DuckerForm4x4 : Form
     {
 
+        /* Hides the [X] in the window */
         protected override CreateParams CreateParams
         {
             get
@@ -22,33 +24,24 @@ namespace SA_Resources.SAForms
             }
         }
 
+        private MainForm_Template PARENT_FORM; 
+        
         private Dial ReleaseDial, AttackDial, HoldDial;
 
-        private MainForm_Template PARENT_FORM;
+        
 
-
-        double read_gain_value;
-
-        private int ADDR_THRESHOLD;
-        private int ADDR_HOLD;
-        private int ADDR_DEPTH;
-        private int ADDR_ATTACK;
-        private int ADDR_RELEASE;
-        private int ADDR_BYPASS;
-
-        private int cur_meter;
+        private bool flagSwitchingPriorityOrder = false;
 
         private bool form_loaded = false;
-        public DuckerForm(MainForm_Template _parentForm, int _settings_offset)
+
+        private DSP_Primitive_Ducker4x4 RecastDucker;
+
+        private List<bool> BypassCache = new List<bool>();
+        private int[] chkOrderCache = new int[3];
+
+        public DuckerForm4x4(MainForm_Template _parentForm, DSP_Primitive _inputPrimitive)
         {
             InitializeComponent();
-
-            ADDR_THRESHOLD = _settings_offset;
-            ADDR_HOLD = _settings_offset+1;
-            ADDR_DEPTH = _settings_offset+2;
-            ADDR_ATTACK = _settings_offset+3;
-            ADDR_RELEASE = _settings_offset+4;
-            ADDR_BYPASS = _settings_offset+5;
 
             PARENT_FORM = _parentForm;
 
@@ -57,38 +50,44 @@ namespace SA_Resources.SAForms
                 dropPriorityChannel.Items.Clear();
                 dropPriorityChannel.Text = "";
 
+
+                RecastDucker = (DSP_Primitive_Ducker4x4) _inputPrimitive;
+
+
                 for (int i = 0; i < PARENT_FORM.GetNumInputChannels(); i++)
                 {
+                    BypassCache.Add(RecastDucker.CH_Bypasses[i]);
                     dropPriorityChannel.Items.Add(((DSP_Primitive_Input)PARENT_FORM.DSP_PROGRAMS[0].LookupPrimitive(DSP_Primitive_Types.Input, i, 0)).InputName);
                 }
 
-                dropPriorityChannel.SelectedIndex = 0;
+                dropPriorityChannel.SelectedIndex = RecastDucker.PriorityChannel;
                 dropPriorityChannel.Invalidate();
 
-                nudDuckThreshold.Value = (decimal)PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].ducker.Threshold;
-                nudDuckDepth.Value = (decimal)PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].ducker.Depth;
 
-                
+
+                nudDuckThreshold.Value = (decimal)RecastDucker.Threshold;
+                nudDuckDepth.Value = (decimal) RecastDucker.Depth;
 
                 HoldDial = new Dial(TextDuckHold, DialDuckHold, new double[] { 0.001, 0.003, 0.01, 0.03, 0.08, 0.3, 1.0 },
                          DialHelpers.Format_String_Duck_Hold, Images.knob_green_bg, Images.knob_green_line);
 
-                HoldDial.Value = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].ducker.Holdtime;
+                HoldDial.Value = RecastDucker.HoldTime;
                 HoldDial.OnChange += new DialEventHandler(this.HoldDial_OnChange);
 
                 AttackDial = new Dial(TextDuckAttack, DialDuckAttack, new double[] { 0.001, 0.003, 0.01, 0.03, 0.08, 0.3, 1.0 },
                          DialHelpers.Format_String_Comp_Attack, Images.knob_blue_bg, Images.knob_blue_line);
 
-                AttackDial.Value = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].ducker.Attack;
+                AttackDial.Value = RecastDucker.Attack;
                 AttackDial.OnChange += new DialEventHandler(this.AttackDial_OnChange);
 
 
                 ReleaseDial = new Dial(TextDuckRelease, DialDuckRelease, new double[] {0.010, 0.038, 0.150, 0.530, 1.250, 7.0, 30.0},
                          DialHelpers.Format_String_Comp_Release, Images.knob_orange_bg, Images.knob_orange_line);
-                ReleaseDial.Value = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].ducker.Release;
+
+                ReleaseDial.Value = RecastDucker.Release;
                 ReleaseDial.OnChange += new DialEventHandler(this.ReleaseDial_OnChange);
 
-                chkBypass.Checked = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].ducker.Bypassed;
+                chkBypass.Checked = RecastDucker.Bypassed;
 
 
 
@@ -106,7 +105,7 @@ namespace SA_Resources.SAForms
 
             } catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine("[Exception in DuckerForm4x4]: " + ex.Message);
             }
 
             form_loaded = true;
@@ -121,22 +120,22 @@ namespace SA_Resources.SAForms
         private void HoldDial_OnChange(object sender, DialEventArgs e)
         {
 
-            PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].ducker.Holdtime = HoldDial.Value;
-            PARENT_FORM.AddItemToQueue(new LiveQueueItem(ADDR_HOLD, DSP_Math.dynamic_hold_to_value(HoldDial.Value)));
+            RecastDucker.HoldTime = HoldDial.Value;
+            RecastDucker.QueueChange(PARENT_FORM);
         }
         
         private void ReleaseDial_OnChange(object sender, DialEventArgs e)
         {
 
-            PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].ducker.Release = ReleaseDial.Value;
-            PARENT_FORM.AddItemToQueue(new LiveQueueItem(ADDR_RELEASE, DSP_Math.comp_release_to_value(ReleaseDial.Value))); 
+            RecastDucker.Release = ReleaseDial.Value;
+            RecastDucker.QueueChange(PARENT_FORM);
         }
 
         private void AttackDial_OnChange(object sender, DialEventArgs e)
         {
 
-            PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].ducker.Attack = AttackDial.Value;
-            PARENT_FORM.AddItemToQueue(new LiveQueueItem(ADDR_ATTACK, DSP_Math.comp_attack_to_value(AttackDial.Value))); 
+            RecastDucker.Attack = AttackDial.Value;
+            RecastDucker.QueueChange(PARENT_FORM);
         }
 
 
@@ -148,9 +147,8 @@ namespace SA_Resources.SAForms
                 return;
             } 
 
-            PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].ducker.Depth = (double)nudDuckDepth.Value;
-
-            PARENT_FORM.AddItemToQueue(new LiveQueueItem(ADDR_DEPTH, DSP_Math.double_to_MN((double)nudDuckDepth.Value, 9, 23)));
+            RecastDucker.Depth = (double)nudDuckDepth.Value;
+            RecastDucker.QueueChange(PARENT_FORM);
         }
 
         private void nudDuckThreshold_ValueChanged(object sender, EventArgs e)
@@ -161,9 +159,8 @@ namespace SA_Resources.SAForms
                 return;
             } 
 
-            PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].ducker.Threshold = (double)nudDuckThreshold.Value;
-
-            PARENT_FORM.AddItemToQueue(new LiveQueueItem(ADDR_THRESHOLD, DSP_Math.double_to_MN((double)nudDuckThreshold.Value, 9, 23)));
+            RecastDucker.Threshold = (double)nudDuckThreshold.Value;
+            RecastDucker.QueueChange(PARENT_FORM);
         }
 
 
@@ -194,21 +191,14 @@ namespace SA_Resources.SAForms
         private void chkBypass_CheckedChanged(object sender, EventArgs e)
         {
 
-            PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].ducker.Bypassed = chkBypass.Checked;
-
-            if (chkBypass.Checked)
-            {
-                PARENT_FORM.AddItemToQueue(new LiveQueueItem(ADDR_BYPASS, 0x00000001)); 
-            }
-            else
-            {
-                PARENT_FORM.AddItemToQueue(new LiveQueueItem(ADDR_BYPASS, 0x00000000)); 
-            }
+            RecastDucker.Bypassed = chkBypass.Checked;
+            RecastDucker.QueueChange(PARENT_FORM);
             
         }
 
         private void signalTimer_Tick(object sender, EventArgs e)
         {
+            /*
             UInt32 read_address = 0x00000000;
             double offset = 20 + 10 * Math.Log10(2) + 20 * Math.Log10(16);
             UInt32 read_value = 0x00000000;
@@ -240,11 +230,13 @@ namespace SA_Resources.SAForms
             curMeter.DB = read_gain_value;
             curMeter.Refresh();
 
-
+            */
         }
 
         private void dropPriorityChannel_SelectedIndexChanged(object sender, EventArgs e)
         {
+
+            flagSwitchingPriorityOrder = true;
 
             int label_counter = 0;
 
@@ -255,41 +247,56 @@ namespace SA_Resources.SAForms
             {
                 if (i != dropPriorityChannel.SelectedIndex)
                 {
+                    PictureCheckbox temp_checkbox = ((PictureCheckbox)Controls.Find("chkBypass" + label_counter.ToString(), true).FirstOrDefault());
+                    temp_checkbox.Checked = !BypassCache[i];
+
                     Temp_Primitive = ((DSP_Primitive_Input)PARENT_FORM.DSP_PROGRAMS[0].LookupPrimitive(DSP_Primitive_Types.Input, i, 0));
                     temp_label = ((Label)Controls.Find("lblDuckInput" + label_counter.ToString(), true).FirstOrDefault());
                     temp_label.Text = Temp_Primitive.InputName;
                     temp_label.Invalidate();
+                    
+
+                    chkOrderCache[label_counter] = i;
+
                     label_counter++;
                 }
             }
 
+            flagSwitchingPriorityOrder = false;
 
             if (!form_loaded)
             {
                 return;
             } 
             
-            PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].ducker.PriorityChannel = dropPriorityChannel.SelectedIndex;
+            RecastDucker.PriorityChannel = dropPriorityChannel.SelectedIndex;
 
             if (PARENT_FORM.LIVE_MODE)
             {
-                PARENT_FORM.AddItemToQueue(new LiveQueueItem(278, (uint) PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].ducker.RouterInputs[0]));
-                PARENT_FORM.AddItemToQueue(new LiveQueueItem(279, (uint) PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].ducker.RouterInputs[1]));
-                PARENT_FORM.AddItemToQueue(new LiveQueueItem(280, (uint) PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].ducker.RouterInputs[2]));
-                PARENT_FORM.AddItemToQueue(new LiveQueueItem(281, (uint) PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].ducker.RouterInputs[3]));
-
-                PARENT_FORM.AddItemToQueue(new LiveQueueItem(282, (uint) PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].ducker.RouterOutputs[0]));
-                PARENT_FORM.AddItemToQueue(new LiveQueueItem(283, (uint) PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].ducker.RouterOutputs[1]));
-                PARENT_FORM.AddItemToQueue(new LiveQueueItem(284, (uint) PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].ducker.RouterOutputs[2]));
-                PARENT_FORM.AddItemToQueue(new LiveQueueItem(285, (uint) PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].ducker.RouterOutputs[3]));
+                RecastDucker.QueueChange(PARENT_FORM);
             }
+
+            
 
         }
 
-        
+        private void chkChannelBypass_CheckedChanged(object sender, EventArgs e)
+        {
 
-        
+            if (flagSwitchingPriorityOrder)
+            {
+                return;
+            }
 
+            PictureCheckbox senderCheckbox = (PictureCheckbox) sender;
 
+            int checkIndex = int.Parse(senderCheckbox.Name.Substring(9, 1));
+
+            int ch_num = chkOrderCache[checkIndex];
+
+            RecastDucker.SetChannelBypass(ch_num,!(senderCheckbox.Checked));
+            BypassCache[ch_num] = !senderCheckbox.Checked;
+
+        }
     }
 }

@@ -180,7 +180,6 @@ namespace SA_Resources.SAForms
             this.presetManagerToolStripMenuItem.Size = new System.Drawing.Size(214, 22);
             this.presetManagerToolStripMenuItem.Text = "Preset Manager";
             this.presetManagerToolStripMenuItem.Visible = false;
-            this.presetManagerToolStripMenuItem.Click += new System.EventHandler(this.presetManagerToolStripMenuItem_Click);
             // 
             // toolStripMenuItem3
             // 
@@ -312,7 +311,6 @@ namespace SA_Resources.SAForms
             this.menuItem_Cut.Size = new System.Drawing.Size(178, 22);
             this.menuItem_Cut.Text = "Cu&t";
             this.menuItem_Cut.Visible = false;
-            this.menuItem_Cut.Click += new System.EventHandler(this.ContextMenu_Cut);
             // 
             // menuItem_Copy
             // 
@@ -321,7 +319,6 @@ namespace SA_Resources.SAForms
             this.menuItem_Copy.Name = "menuItem_Copy";
             this.menuItem_Copy.Size = new System.Drawing.Size(178, 22);
             this.menuItem_Copy.Text = "&Copy";
-            this.menuItem_Copy.Click += new System.EventHandler(this.ContextMenu_Copy);
             // 
             // menuItem_Paste
             // 
@@ -330,7 +327,6 @@ namespace SA_Resources.SAForms
             this.menuItem_Paste.Name = "menuItem_Paste";
             this.menuItem_Paste.Size = new System.Drawing.Size(178, 22);
             this.menuItem_Paste.Text = "&Paste";
-            this.menuItem_Paste.Click += new System.EventHandler(this.ContextMenu_Paste);
             // 
             // toolStripSeparator1
             // 

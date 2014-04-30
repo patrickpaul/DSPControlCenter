@@ -14,6 +14,7 @@ namespace SA_Resources
 
         public static void Write(string outputFile, MainForm_Template FORM_INSTANCE)
         {
+            /*
             using (System.IO.StreamWriter file = new System.IO.StreamWriter(outputFile))
             {
                 file.WriteLine("DEVICE-ID:" + FORM_INSTANCE.GetDeviceID().ToString("X8") + ";");
@@ -45,6 +46,7 @@ namespace SA_Resources
                     }
                 }
             }
+             * */
 
             
         }
@@ -71,6 +73,7 @@ namespace SA_Resources
 
         public static void Read(string inputFile, MainForm_Template FORM_INSTANCE)
         {
+            /*
             string tempLine = "";
             string channel_name = "";
             int cur_program = 0;
@@ -164,6 +167,7 @@ namespace SA_Resources
                     }
                 }
             }
+             * */
 
 
         }

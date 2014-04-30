@@ -1475,6 +1475,7 @@ namespace SA_Resources.SAForms
 
         private void btnGo_Click(object sender, EventArgs e)
         {
+            /*
             CopyFormType copyType = CopyFormType.Filter3;
             if (IS_SIX_CHANNEL)
             {
@@ -1486,6 +1487,7 @@ namespace SA_Resources.SAForms
                 // property of the child form
                 copyForm.ShowDialog(this);
             }
+             * */
         }
 
         private void filterControl_Enter(object sender, EventArgs e)

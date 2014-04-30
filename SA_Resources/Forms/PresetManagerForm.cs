@@ -27,7 +27,7 @@ namespace SA_Resources.SAForms
             dropProgramSelection.Items.Clear();
             dropProgramSelection.Text = "";
 
-            for(int i = 0; i < _parent.NumPresets(); i++)
+            for(int i = 0; i < _parent.GetNumPresets(); i++)
             {
                 dropProgramSelection.Items.Add(_parent._presetNames[i]);
             }

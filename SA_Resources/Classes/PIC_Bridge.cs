@@ -127,9 +127,9 @@ namespace SA_Resources.USB
 
         }
 
-        public void print_error(int error_id)
+        public void PrintError(int error_id)
         {
-            Console.WriteLine("Error: " + ERROR_LOOKUP[error_id]);
+            Console.WriteLine("PIC_Bridge Error: " + ERROR_LOOKUP[error_id]);
         }
 
         public bool getRTS()
@@ -153,7 +153,7 @@ namespace SA_Resources.USB
                     for (int retry_count = 0; retry_count < 3; retry_count++)
                     {
                         serialPort.Write(buff, 0, 3);
-                        Thread.Sleep(100);
+                        Thread.Sleep(30);
 
                         if (serialPort.BytesToRead > 2)
                         {
@@ -161,14 +161,14 @@ namespace SA_Resources.USB
 
                             serialPort.Read(bytes, 0, serialPort.BytesToRead);
 
-                            if (bytes[0] == 0x06 && bytes[1] == 0x01)
+                            if (bytes[0] == 0x06 && bytes[1] == 0x01 && bytes[2] == 0x03)
                             {
                                 return true;
                             }
 
                             if (bytes[0] == 0x15)
                             {
-                                print_error(bytes[1]);
+                                PrintError(bytes[1]);
                             }
 
                         }
@@ -192,8 +192,6 @@ namespace SA_Resources.USB
         {
             try
             {
-
-
                 lock (PIC_LOCK)
                 {
                     if (!getRTS())
@@ -204,7 +202,7 @@ namespace SA_Resources.USB
                     byte[] buff = new byte[3];
 
                     buff[0] = 0x02;
-                    buff[1] = 0X08;
+                    buff[1] = 0X04;
                     buff[2] = 0x03;
 
                     serialPort.Write(buff, 0, 3);
@@ -370,7 +368,7 @@ namespace SA_Resources.USB
 
                             if (bytes[0] == 0x15)
                             {
-                                print_error(bytes[1]);
+                                PrintError(bytes[1]);
                             }
 
                         }
@@ -451,7 +449,7 @@ namespace SA_Resources.USB
 
                             if (bytes[0] == 0x15)
                             {
-                                print_error(bytes[1]);
+                                PrintError(bytes[1]);
                             }
 
                         }
@@ -605,7 +603,7 @@ namespace SA_Resources.USB
 
                         if (bytes[0] == 0x15)
                         {
-                            print_error(bytes[1]);
+                            PrintError(bytes[1]);
                         }
 
                     }
@@ -698,7 +696,7 @@ namespace SA_Resources.USB
 
                         if (bytes[0] == 0x15)
                         {
-                            print_error(bytes[1]);
+                            PrintError(bytes[1]);
                         }
 
                     }
@@ -749,7 +747,7 @@ namespace SA_Resources.USB
 
                         if (bytes[0] == 0x15)
                         {
-                            print_error(bytes[1]);
+                            PrintError(bytes[1]);
                         }
 
                     }
@@ -818,7 +816,7 @@ namespace SA_Resources.USB
 
                         if (bytes[0] == 0x15)
                         {
-                            print_error(bytes[1]);
+                            PrintError(bytes[1]);
                         }
 
                     }
@@ -938,7 +936,7 @@ namespace SA_Resources.USB
 
                         if (bytes[0] == 0x15)
                         {
-                            print_error(bytes[1]);
+                            PrintError(bytes[1]);
                         }
 
                     }
@@ -985,7 +983,7 @@ namespace SA_Resources.USB
 
                         if (bytes[0] == 0x15)
                         {
-                            print_error(bytes[1]);
+                            PrintError(bytes[1]);
                         }
 
                     }

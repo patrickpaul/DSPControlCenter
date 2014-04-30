@@ -30,12 +30,12 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AboutForm));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lblProductTitle = new System.Windows.Forms.Label();
             this.lblVersion = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.btnAboutOK = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -49,6 +49,17 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(262, 72);
             this.panel1.TabIndex = 1;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::SA_Resources.GlobalResources.ui_logo;
+            this.pictureBox1.ImageLocation = "";
+            this.pictureBox1.Location = new System.Drawing.Point(7, 5);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(248, 63);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
             // 
             // lblProductTitle
             // 
@@ -81,7 +92,7 @@
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(147, 15);
             this.label3.TabIndex = 4;
-            this.label3.Text = "© 2013 Stewart Audio, Inc.";
+            this.label3.Text = "© 2014 Stewart Audio, Inc.";
             // 
             // label4
             // 
@@ -104,17 +115,6 @@
             this.btnAboutOK.Text = "OK";
             this.btnAboutOK.UseVisualStyleBackColor = true;
             this.btnAboutOK.Click += new System.EventHandler(this.BtnAboutOk_Click);
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::SA_Resources.GlobalResources.ui_logo;
-            this.pictureBox1.ImageLocation = "";
-            this.pictureBox1.Location = new System.Drawing.Point(7, 5);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(248, 63);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
             // 
             // AboutForm
             // 

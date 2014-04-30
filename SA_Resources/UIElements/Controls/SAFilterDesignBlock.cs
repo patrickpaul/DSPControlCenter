@@ -7,7 +7,6 @@ using System.Linq;
 using System.Media;
 using System.Text;
 using System.Windows.Forms;
-using SA_Resources.Configurations;
 using SA_Resources.DSP.Filters;
 using SA_Resources.DSP.Primitives;
 
@@ -295,6 +294,28 @@ namespace SA_Resources.SAControls
                     chkBypass.Checked = FilterPrimitive.Bypassed;
 
                     break;
+
+                case FilterType.BandPass:
+
+                    // This will show/hide the necessary controls
+                    dropFilter.SelectedIndex = INDEX_BANDPASS;
+                    dropFilter.Invalidate();
+
+                    txtQval.Text = FilterPrimitive.Filter.QValue.ToString("F3");
+                    txtFreq.Text = FilterPrimitive.Filter.CenterFrequency.ToString("#.");
+                    txtGain.Text = FilterPrimitive.Filter.Gain.ToString("F1");
+
+                    chkBypass.Checked = FilterPrimitive.Bypassed;
+
+                    break;
+
+                default :
+                    dropFilter.SelectedIndex = INDEX_NONE;
+                    dropFilter.Invalidate();
+
+                    chkBypass.Checked = true;
+
+                    break;
             }
         }
 
@@ -456,6 +477,22 @@ namespace SA_Resources.SAControls
                         FilterPrimitive.FType = FilterType.Notch;
                         FilterPrimitive.Filter = new NotchFilter(toolFilter.SuggestedFrequency(txtFreq.Text), toolFilter.SuggestedGain(txtGain.Text), toolFilter.SuggestedQ(txtQval.Text));
                     
+                    }
+
+                    break;
+
+                case INDEX_BANDPASS:
+
+                    SetFrequencyVisibility(true);
+                    SetGainVisibility(false);
+                    SetQVisibility(true);
+                    SetSlopeVisibility(false);
+
+                    if (FilterPrimitive != null && InitialLoadComplete)
+                    {
+                        FilterPrimitive.FType = FilterType.BandPass;
+                        FilterPrimitive.Filter = new BandPassFilter(toolFilter.SuggestedFrequency(txtFreq.Text), toolFilter.SuggestedGain(txtGain.Text), toolFilter.SuggestedQ(txtQval.Text));
+
                     }
 
                     break;

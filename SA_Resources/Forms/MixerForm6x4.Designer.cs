@@ -43,40 +43,40 @@ namespace SA_Resources.SAForms
             this.lblOutputMeter3 = new System.Windows.Forms.Label();
             this.lblOutputMeter4 = new System.Windows.Forms.Label();
             this.signalTimer = new System.Windows.Forms.Timer(this.components);
-            this.gainMeter4 = new SignalMeter();
-            this.gainMeter3 = new SignalMeter();
-            this.gainMeter2 = new SignalMeter();
-            this.gainMeter1 = new SignalMeter();
-            this.btnRouter6_4 = new PictureButton();
-            this.btnRouter5_4 = new PictureButton();
-            this.btnRouter6_3 = new PictureButton();
-            this.btnRouter5_3 = new PictureButton();
-            this.btnRouter6_2 = new PictureButton();
-            this.btnRouter5_2 = new PictureButton();
-            this.btnRouter6_1 = new PictureButton();
-            this.btnRouter5_1 = new PictureButton();
-            this.btnRouter4_4 = new PictureButton();
-            this.btnRouter3_4 = new PictureButton();
-            this.btnRouter2_4 = new PictureButton();
-            this.btnRouter1_4 = new PictureButton();
-            this.btnRouter4_3 = new PictureButton();
-            this.btnRouter3_3 = new PictureButton();
-            this.btnRouter2_3 = new PictureButton();
-            this.btnRouter1_3 = new PictureButton();
-            this.btnRouter4_2 = new PictureButton();
-            this.btnRouter3_2 = new PictureButton();
-            this.btnRouter2_2 = new PictureButton();
-            this.btnRouter1_2 = new PictureButton();
-            this.btnRouter4_1 = new PictureButton();
-            this.btnRouter3_1 = new PictureButton();
-            this.btnRouter2_1 = new PictureButton();
-            this.btnRouter1_1 = new PictureButton();
-            this.btnCancel = new PictureButton();
-            this.btnSave = new PictureButton();
-            this.lblOutput3 = new OrientedTextLabel();
-            this.lblOutput2 = new OrientedTextLabel();
-            this.lblOutput1 = new OrientedTextLabel();
-            this.lblOutput0 = new OrientedTextLabel();
+            this.gainMeter4 = new SA_Resources.SAControls.SignalMeter();
+            this.gainMeter3 = new SA_Resources.SAControls.SignalMeter();
+            this.gainMeter2 = new SA_Resources.SAControls.SignalMeter();
+            this.gainMeter1 = new SA_Resources.SAControls.SignalMeter();
+            this.btnRouter93 = new SA_Resources.SAControls.PictureButton();
+            this.btnRouter83 = new SA_Resources.SAControls.PictureButton();
+            this.btnRouter92 = new SA_Resources.SAControls.PictureButton();
+            this.btnRouter82 = new SA_Resources.SAControls.PictureButton();
+            this.btnRouter91 = new SA_Resources.SAControls.PictureButton();
+            this.btnRouter81 = new SA_Resources.SAControls.PictureButton();
+            this.btnRouter90 = new SA_Resources.SAControls.PictureButton();
+            this.btnRouter80 = new SA_Resources.SAControls.PictureButton();
+            this.btnRouter33 = new SA_Resources.SAControls.PictureButton();
+            this.btnRouter23 = new SA_Resources.SAControls.PictureButton();
+            this.btnRouter13 = new SA_Resources.SAControls.PictureButton();
+            this.btnRouter03 = new SA_Resources.SAControls.PictureButton();
+            this.btnRouter32 = new SA_Resources.SAControls.PictureButton();
+            this.btnRouter22 = new SA_Resources.SAControls.PictureButton();
+            this.btnRouter12 = new SA_Resources.SAControls.PictureButton();
+            this.btnRouter02 = new SA_Resources.SAControls.PictureButton();
+            this.btnRouter31 = new SA_Resources.SAControls.PictureButton();
+            this.btnRouter21 = new SA_Resources.SAControls.PictureButton();
+            this.btnRouter11 = new SA_Resources.SAControls.PictureButton();
+            this.btnRouter01 = new SA_Resources.SAControls.PictureButton();
+            this.btnRouter30 = new SA_Resources.SAControls.PictureButton();
+            this.btnRouter20 = new SA_Resources.SAControls.PictureButton();
+            this.btnRouter10 = new SA_Resources.SAControls.PictureButton();
+            this.btnRouter00 = new SA_Resources.SAControls.PictureButton();
+            this.btnCancel = new SA_Resources.SAControls.PictureButton();
+            this.btnSave = new SA_Resources.SAControls.PictureButton();
+            this.lblOutput3 = new SA_Resources.SAControls.OrientedTextLabel();
+            this.lblOutput2 = new SA_Resources.SAControls.OrientedTextLabel();
+            this.lblOutput1 = new SA_Resources.SAControls.OrientedTextLabel();
+            this.lblOutput0 = new SA_Resources.SAControls.OrientedTextLabel();
             ((System.ComponentModel.ISupportInitialize)(this.gainMeter4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gainMeter3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gainMeter2)).BeginInit();
@@ -249,485 +249,485 @@ namespace SA_Resources.SAForms
             this.gainMeter1.TabIndex = 75;
             this.gainMeter1.TabStop = false;
             // 
-            // btnRouter6_4
+            // btnRouter93
             // 
-            this.btnRouter6_4.AutoResize = true;
-            this.btnRouter6_4.BackgroundImage = global::SA_Resources.GlobalResources.radiobutton_unchecked;
-            this.btnRouter6_4.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnRouter6_4.Location = new System.Drawing.Point(178, 239);
-            this.btnRouter6_4.Name = "btnRouter6_4";
-            this.btnRouter6_4.OverImage = null;
-            this.btnRouter6_4.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnRouter6_4.Overlay1Image")));
-            this.btnRouter6_4.Overlay1Visible = false;
-            this.btnRouter6_4.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnRouter6_4.Overlay2Image")));
-            this.btnRouter6_4.Overlay2Visible = false;
-            this.btnRouter6_4.Overlay3Image = ((System.Drawing.Image)(resources.GetObject("btnRouter6_4.Overlay3Image")));
-            this.btnRouter6_4.Overlay3Visible = false;
-            this.btnRouter6_4.PressedImage = null;
-            this.btnRouter6_4.Size = new System.Drawing.Size(17, 17);
-            this.btnRouter6_4.TabIndex = 66;
-            this.btnRouter6_4.ToolTipText = "";
-            this.btnRouter6_4.Click += new System.EventHandler(this.btnMixerCrosspoint_Click);
+            this.btnRouter93.AutoResize = true;
+            this.btnRouter93.BackgroundImage = global::SA_Resources.GlobalResources.radiobutton_unchecked;
+            this.btnRouter93.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnRouter93.Location = new System.Drawing.Point(178, 239);
+            this.btnRouter93.Name = "btnRouter93";
+            this.btnRouter93.OverImage = null;
+            this.btnRouter93.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnRouter93.Overlay1Image")));
+            this.btnRouter93.Overlay1Visible = false;
+            this.btnRouter93.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnRouter93.Overlay2Image")));
+            this.btnRouter93.Overlay2Visible = false;
+            this.btnRouter93.Overlay3Image = ((System.Drawing.Image)(resources.GetObject("btnRouter93.Overlay3Image")));
+            this.btnRouter93.Overlay3Visible = false;
+            this.btnRouter93.PressedImage = null;
+            this.btnRouter93.Size = new System.Drawing.Size(17, 17);
+            this.btnRouter93.TabIndex = 66;
+            this.btnRouter93.ToolTipText = "";
+            this.btnRouter93.Click += new System.EventHandler(this.btnMixerCrosspoint_Click);
             // 
-            // btnRouter5_4
+            // btnRouter83
             // 
-            this.btnRouter5_4.AutoResize = true;
-            this.btnRouter5_4.BackgroundImage = global::SA_Resources.GlobalResources.radiobutton_unchecked;
-            this.btnRouter5_4.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnRouter5_4.Location = new System.Drawing.Point(178, 212);
-            this.btnRouter5_4.Name = "btnRouter5_4";
-            this.btnRouter5_4.OverImage = null;
-            this.btnRouter5_4.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnRouter5_4.Overlay1Image")));
-            this.btnRouter5_4.Overlay1Visible = false;
-            this.btnRouter5_4.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnRouter5_4.Overlay2Image")));
-            this.btnRouter5_4.Overlay2Visible = false;
-            this.btnRouter5_4.Overlay3Image = ((System.Drawing.Image)(resources.GetObject("btnRouter5_4.Overlay3Image")));
-            this.btnRouter5_4.Overlay3Visible = false;
-            this.btnRouter5_4.PressedImage = null;
-            this.btnRouter5_4.Size = new System.Drawing.Size(17, 17);
-            this.btnRouter5_4.TabIndex = 65;
-            this.btnRouter5_4.ToolTipText = "";
-            this.btnRouter5_4.Click += new System.EventHandler(this.btnMixerCrosspoint_Click);
+            this.btnRouter83.AutoResize = true;
+            this.btnRouter83.BackgroundImage = global::SA_Resources.GlobalResources.radiobutton_unchecked;
+            this.btnRouter83.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnRouter83.Location = new System.Drawing.Point(178, 212);
+            this.btnRouter83.Name = "btnRouter83";
+            this.btnRouter83.OverImage = null;
+            this.btnRouter83.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnRouter83.Overlay1Image")));
+            this.btnRouter83.Overlay1Visible = false;
+            this.btnRouter83.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnRouter83.Overlay2Image")));
+            this.btnRouter83.Overlay2Visible = false;
+            this.btnRouter83.Overlay3Image = ((System.Drawing.Image)(resources.GetObject("btnRouter83.Overlay3Image")));
+            this.btnRouter83.Overlay3Visible = false;
+            this.btnRouter83.PressedImage = null;
+            this.btnRouter83.Size = new System.Drawing.Size(17, 17);
+            this.btnRouter83.TabIndex = 65;
+            this.btnRouter83.ToolTipText = "";
+            this.btnRouter83.Click += new System.EventHandler(this.btnMixerCrosspoint_Click);
             // 
-            // btnRouter6_3
+            // btnRouter92
             // 
-            this.btnRouter6_3.AutoResize = true;
-            this.btnRouter6_3.BackgroundImage = global::SA_Resources.GlobalResources.radiobutton_unchecked;
-            this.btnRouter6_3.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnRouter6_3.Location = new System.Drawing.Point(151, 239);
-            this.btnRouter6_3.Name = "btnRouter6_3";
-            this.btnRouter6_3.OverImage = null;
-            this.btnRouter6_3.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnRouter6_3.Overlay1Image")));
-            this.btnRouter6_3.Overlay1Visible = false;
-            this.btnRouter6_3.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnRouter6_3.Overlay2Image")));
-            this.btnRouter6_3.Overlay2Visible = false;
-            this.btnRouter6_3.Overlay3Image = ((System.Drawing.Image)(resources.GetObject("btnRouter6_3.Overlay3Image")));
-            this.btnRouter6_3.Overlay3Visible = false;
-            this.btnRouter6_3.PressedImage = null;
-            this.btnRouter6_3.Size = new System.Drawing.Size(17, 17);
-            this.btnRouter6_3.TabIndex = 64;
-            this.btnRouter6_3.ToolTipText = "";
-            this.btnRouter6_3.Click += new System.EventHandler(this.btnMixerCrosspoint_Click);
+            this.btnRouter92.AutoResize = true;
+            this.btnRouter92.BackgroundImage = global::SA_Resources.GlobalResources.radiobutton_unchecked;
+            this.btnRouter92.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnRouter92.Location = new System.Drawing.Point(151, 239);
+            this.btnRouter92.Name = "btnRouter92";
+            this.btnRouter92.OverImage = null;
+            this.btnRouter92.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnRouter92.Overlay1Image")));
+            this.btnRouter92.Overlay1Visible = false;
+            this.btnRouter92.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnRouter92.Overlay2Image")));
+            this.btnRouter92.Overlay2Visible = false;
+            this.btnRouter92.Overlay3Image = ((System.Drawing.Image)(resources.GetObject("btnRouter92.Overlay3Image")));
+            this.btnRouter92.Overlay3Visible = false;
+            this.btnRouter92.PressedImage = null;
+            this.btnRouter92.Size = new System.Drawing.Size(17, 17);
+            this.btnRouter92.TabIndex = 64;
+            this.btnRouter92.ToolTipText = "";
+            this.btnRouter92.Click += new System.EventHandler(this.btnMixerCrosspoint_Click);
             // 
-            // btnRouter5_3
+            // btnRouter82
             // 
-            this.btnRouter5_3.AutoResize = true;
-            this.btnRouter5_3.BackgroundImage = global::SA_Resources.GlobalResources.radiobutton_unchecked;
-            this.btnRouter5_3.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnRouter5_3.Location = new System.Drawing.Point(151, 212);
-            this.btnRouter5_3.Name = "btnRouter5_3";
-            this.btnRouter5_3.OverImage = null;
-            this.btnRouter5_3.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnRouter5_3.Overlay1Image")));
-            this.btnRouter5_3.Overlay1Visible = false;
-            this.btnRouter5_3.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnRouter5_3.Overlay2Image")));
-            this.btnRouter5_3.Overlay2Visible = false;
-            this.btnRouter5_3.Overlay3Image = ((System.Drawing.Image)(resources.GetObject("btnRouter5_3.Overlay3Image")));
-            this.btnRouter5_3.Overlay3Visible = false;
-            this.btnRouter5_3.PressedImage = null;
-            this.btnRouter5_3.Size = new System.Drawing.Size(17, 17);
-            this.btnRouter5_3.TabIndex = 63;
-            this.btnRouter5_3.ToolTipText = "";
-            this.btnRouter5_3.Click += new System.EventHandler(this.btnMixerCrosspoint_Click);
+            this.btnRouter82.AutoResize = true;
+            this.btnRouter82.BackgroundImage = global::SA_Resources.GlobalResources.radiobutton_unchecked;
+            this.btnRouter82.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnRouter82.Location = new System.Drawing.Point(151, 212);
+            this.btnRouter82.Name = "btnRouter82";
+            this.btnRouter82.OverImage = null;
+            this.btnRouter82.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnRouter82.Overlay1Image")));
+            this.btnRouter82.Overlay1Visible = false;
+            this.btnRouter82.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnRouter82.Overlay2Image")));
+            this.btnRouter82.Overlay2Visible = false;
+            this.btnRouter82.Overlay3Image = ((System.Drawing.Image)(resources.GetObject("btnRouter82.Overlay3Image")));
+            this.btnRouter82.Overlay3Visible = false;
+            this.btnRouter82.PressedImage = null;
+            this.btnRouter82.Size = new System.Drawing.Size(17, 17);
+            this.btnRouter82.TabIndex = 63;
+            this.btnRouter82.ToolTipText = "";
+            this.btnRouter82.Click += new System.EventHandler(this.btnMixerCrosspoint_Click);
             // 
-            // btnRouter6_2
+            // btnRouter91
             // 
-            this.btnRouter6_2.AutoResize = true;
-            this.btnRouter6_2.BackgroundImage = global::SA_Resources.GlobalResources.radiobutton_unchecked;
-            this.btnRouter6_2.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnRouter6_2.Location = new System.Drawing.Point(124, 239);
-            this.btnRouter6_2.Name = "btnRouter6_2";
-            this.btnRouter6_2.OverImage = null;
-            this.btnRouter6_2.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnRouter6_2.Overlay1Image")));
-            this.btnRouter6_2.Overlay1Visible = false;
-            this.btnRouter6_2.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnRouter6_2.Overlay2Image")));
-            this.btnRouter6_2.Overlay2Visible = false;
-            this.btnRouter6_2.Overlay3Image = ((System.Drawing.Image)(resources.GetObject("btnRouter6_2.Overlay3Image")));
-            this.btnRouter6_2.Overlay3Visible = false;
-            this.btnRouter6_2.PressedImage = null;
-            this.btnRouter6_2.Size = new System.Drawing.Size(17, 17);
-            this.btnRouter6_2.TabIndex = 62;
-            this.btnRouter6_2.ToolTipText = "";
-            this.btnRouter6_2.Click += new System.EventHandler(this.btnMixerCrosspoint_Click);
+            this.btnRouter91.AutoResize = true;
+            this.btnRouter91.BackgroundImage = global::SA_Resources.GlobalResources.radiobutton_unchecked;
+            this.btnRouter91.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnRouter91.Location = new System.Drawing.Point(124, 239);
+            this.btnRouter91.Name = "btnRouter91";
+            this.btnRouter91.OverImage = null;
+            this.btnRouter91.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnRouter91.Overlay1Image")));
+            this.btnRouter91.Overlay1Visible = false;
+            this.btnRouter91.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnRouter91.Overlay2Image")));
+            this.btnRouter91.Overlay2Visible = false;
+            this.btnRouter91.Overlay3Image = ((System.Drawing.Image)(resources.GetObject("btnRouter91.Overlay3Image")));
+            this.btnRouter91.Overlay3Visible = false;
+            this.btnRouter91.PressedImage = null;
+            this.btnRouter91.Size = new System.Drawing.Size(17, 17);
+            this.btnRouter91.TabIndex = 62;
+            this.btnRouter91.ToolTipText = "";
+            this.btnRouter91.Click += new System.EventHandler(this.btnMixerCrosspoint_Click);
             // 
-            // btnRouter5_2
+            // btnRouter81
             // 
-            this.btnRouter5_2.AutoResize = true;
-            this.btnRouter5_2.BackgroundImage = global::SA_Resources.GlobalResources.radiobutton_unchecked;
-            this.btnRouter5_2.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnRouter5_2.Location = new System.Drawing.Point(124, 212);
-            this.btnRouter5_2.Name = "btnRouter5_2";
-            this.btnRouter5_2.OverImage = null;
-            this.btnRouter5_2.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnRouter5_2.Overlay1Image")));
-            this.btnRouter5_2.Overlay1Visible = false;
-            this.btnRouter5_2.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnRouter5_2.Overlay2Image")));
-            this.btnRouter5_2.Overlay2Visible = false;
-            this.btnRouter5_2.Overlay3Image = ((System.Drawing.Image)(resources.GetObject("btnRouter5_2.Overlay3Image")));
-            this.btnRouter5_2.Overlay3Visible = false;
-            this.btnRouter5_2.PressedImage = null;
-            this.btnRouter5_2.Size = new System.Drawing.Size(17, 17);
-            this.btnRouter5_2.TabIndex = 61;
-            this.btnRouter5_2.ToolTipText = "";
-            this.btnRouter5_2.Click += new System.EventHandler(this.btnMixerCrosspoint_Click);
+            this.btnRouter81.AutoResize = true;
+            this.btnRouter81.BackgroundImage = global::SA_Resources.GlobalResources.radiobutton_unchecked;
+            this.btnRouter81.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnRouter81.Location = new System.Drawing.Point(124, 212);
+            this.btnRouter81.Name = "btnRouter81";
+            this.btnRouter81.OverImage = null;
+            this.btnRouter81.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnRouter81.Overlay1Image")));
+            this.btnRouter81.Overlay1Visible = false;
+            this.btnRouter81.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnRouter81.Overlay2Image")));
+            this.btnRouter81.Overlay2Visible = false;
+            this.btnRouter81.Overlay3Image = ((System.Drawing.Image)(resources.GetObject("btnRouter81.Overlay3Image")));
+            this.btnRouter81.Overlay3Visible = false;
+            this.btnRouter81.PressedImage = null;
+            this.btnRouter81.Size = new System.Drawing.Size(17, 17);
+            this.btnRouter81.TabIndex = 61;
+            this.btnRouter81.ToolTipText = "";
+            this.btnRouter81.Click += new System.EventHandler(this.btnMixerCrosspoint_Click);
             // 
-            // btnRouter6_1
+            // btnRouter90
             // 
-            this.btnRouter6_1.AutoResize = true;
-            this.btnRouter6_1.BackgroundImage = global::SA_Resources.GlobalResources.radiobutton_unchecked;
-            this.btnRouter6_1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnRouter6_1.Location = new System.Drawing.Point(97, 239);
-            this.btnRouter6_1.Name = "btnRouter6_1";
-            this.btnRouter6_1.OverImage = null;
-            this.btnRouter6_1.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnRouter6_1.Overlay1Image")));
-            this.btnRouter6_1.Overlay1Visible = false;
-            this.btnRouter6_1.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnRouter6_1.Overlay2Image")));
-            this.btnRouter6_1.Overlay2Visible = false;
-            this.btnRouter6_1.Overlay3Image = ((System.Drawing.Image)(resources.GetObject("btnRouter6_1.Overlay3Image")));
-            this.btnRouter6_1.Overlay3Visible = false;
-            this.btnRouter6_1.PressedImage = null;
-            this.btnRouter6_1.Size = new System.Drawing.Size(17, 17);
-            this.btnRouter6_1.TabIndex = 60;
-            this.btnRouter6_1.ToolTipText = "";
-            this.btnRouter6_1.Click += new System.EventHandler(this.btnMixerCrosspoint_Click);
+            this.btnRouter90.AutoResize = true;
+            this.btnRouter90.BackgroundImage = global::SA_Resources.GlobalResources.radiobutton_unchecked;
+            this.btnRouter90.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnRouter90.Location = new System.Drawing.Point(97, 239);
+            this.btnRouter90.Name = "btnRouter90";
+            this.btnRouter90.OverImage = null;
+            this.btnRouter90.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnRouter90.Overlay1Image")));
+            this.btnRouter90.Overlay1Visible = false;
+            this.btnRouter90.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnRouter90.Overlay2Image")));
+            this.btnRouter90.Overlay2Visible = false;
+            this.btnRouter90.Overlay3Image = ((System.Drawing.Image)(resources.GetObject("btnRouter90.Overlay3Image")));
+            this.btnRouter90.Overlay3Visible = false;
+            this.btnRouter90.PressedImage = null;
+            this.btnRouter90.Size = new System.Drawing.Size(17, 17);
+            this.btnRouter90.TabIndex = 60;
+            this.btnRouter90.ToolTipText = "";
+            this.btnRouter90.Click += new System.EventHandler(this.btnMixerCrosspoint_Click);
             // 
-            // btnRouter5_1
+            // btnRouter80
             // 
-            this.btnRouter5_1.AutoResize = true;
-            this.btnRouter5_1.BackgroundImage = global::SA_Resources.GlobalResources.radiobutton_unchecked;
-            this.btnRouter5_1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnRouter5_1.Location = new System.Drawing.Point(97, 212);
-            this.btnRouter5_1.Name = "btnRouter5_1";
-            this.btnRouter5_1.OverImage = null;
-            this.btnRouter5_1.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnRouter5_1.Overlay1Image")));
-            this.btnRouter5_1.Overlay1Visible = false;
-            this.btnRouter5_1.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnRouter5_1.Overlay2Image")));
-            this.btnRouter5_1.Overlay2Visible = false;
-            this.btnRouter5_1.Overlay3Image = ((System.Drawing.Image)(resources.GetObject("btnRouter5_1.Overlay3Image")));
-            this.btnRouter5_1.Overlay3Visible = false;
-            this.btnRouter5_1.PressedImage = null;
-            this.btnRouter5_1.Size = new System.Drawing.Size(17, 17);
-            this.btnRouter5_1.TabIndex = 59;
-            this.btnRouter5_1.ToolTipText = "";
-            this.btnRouter5_1.Click += new System.EventHandler(this.btnMixerCrosspoint_Click);
+            this.btnRouter80.AutoResize = true;
+            this.btnRouter80.BackgroundImage = global::SA_Resources.GlobalResources.radiobutton_unchecked;
+            this.btnRouter80.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnRouter80.Location = new System.Drawing.Point(97, 212);
+            this.btnRouter80.Name = "btnRouter80";
+            this.btnRouter80.OverImage = null;
+            this.btnRouter80.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnRouter80.Overlay1Image")));
+            this.btnRouter80.Overlay1Visible = false;
+            this.btnRouter80.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnRouter80.Overlay2Image")));
+            this.btnRouter80.Overlay2Visible = false;
+            this.btnRouter80.Overlay3Image = ((System.Drawing.Image)(resources.GetObject("btnRouter80.Overlay3Image")));
+            this.btnRouter80.Overlay3Visible = false;
+            this.btnRouter80.PressedImage = null;
+            this.btnRouter80.Size = new System.Drawing.Size(17, 17);
+            this.btnRouter80.TabIndex = 59;
+            this.btnRouter80.ToolTipText = "";
+            this.btnRouter80.Click += new System.EventHandler(this.btnMixerCrosspoint_Click);
             // 
-            // btnRouter4_4
+            // btnRouter33
             // 
-            this.btnRouter4_4.AutoResize = true;
-            this.btnRouter4_4.BackgroundImage = global::SA_Resources.GlobalResources.radiobutton_unchecked;
-            this.btnRouter4_4.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnRouter4_4.Location = new System.Drawing.Point(178, 185);
-            this.btnRouter4_4.Name = "btnRouter4_4";
-            this.btnRouter4_4.OverImage = null;
-            this.btnRouter4_4.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnRouter4_4.Overlay1Image")));
-            this.btnRouter4_4.Overlay1Visible = false;
-            this.btnRouter4_4.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnRouter4_4.Overlay2Image")));
-            this.btnRouter4_4.Overlay2Visible = false;
-            this.btnRouter4_4.Overlay3Image = ((System.Drawing.Image)(resources.GetObject("btnRouter4_4.Overlay3Image")));
-            this.btnRouter4_4.Overlay3Visible = false;
-            this.btnRouter4_4.PressedImage = null;
-            this.btnRouter4_4.Size = new System.Drawing.Size(17, 17);
-            this.btnRouter4_4.TabIndex = 56;
-            this.btnRouter4_4.ToolTipText = "";
-            this.btnRouter4_4.Click += new System.EventHandler(this.btnMixerCrosspoint_Click);
+            this.btnRouter33.AutoResize = true;
+            this.btnRouter33.BackgroundImage = global::SA_Resources.GlobalResources.radiobutton_unchecked;
+            this.btnRouter33.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnRouter33.Location = new System.Drawing.Point(178, 185);
+            this.btnRouter33.Name = "btnRouter33";
+            this.btnRouter33.OverImage = null;
+            this.btnRouter33.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnRouter33.Overlay1Image")));
+            this.btnRouter33.Overlay1Visible = false;
+            this.btnRouter33.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnRouter33.Overlay2Image")));
+            this.btnRouter33.Overlay2Visible = false;
+            this.btnRouter33.Overlay3Image = ((System.Drawing.Image)(resources.GetObject("btnRouter33.Overlay3Image")));
+            this.btnRouter33.Overlay3Visible = false;
+            this.btnRouter33.PressedImage = null;
+            this.btnRouter33.Size = new System.Drawing.Size(17, 17);
+            this.btnRouter33.TabIndex = 56;
+            this.btnRouter33.ToolTipText = "";
+            this.btnRouter33.Click += new System.EventHandler(this.btnMixerCrosspoint_Click);
             // 
-            // btnRouter3_4
+            // btnRouter23
             // 
-            this.btnRouter3_4.AutoResize = true;
-            this.btnRouter3_4.BackgroundImage = global::SA_Resources.GlobalResources.radiobutton_unchecked;
-            this.btnRouter3_4.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnRouter3_4.Location = new System.Drawing.Point(178, 158);
-            this.btnRouter3_4.Name = "btnRouter3_4";
-            this.btnRouter3_4.OverImage = null;
-            this.btnRouter3_4.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnRouter3_4.Overlay1Image")));
-            this.btnRouter3_4.Overlay1Visible = false;
-            this.btnRouter3_4.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnRouter3_4.Overlay2Image")));
-            this.btnRouter3_4.Overlay2Visible = false;
-            this.btnRouter3_4.Overlay3Image = ((System.Drawing.Image)(resources.GetObject("btnRouter3_4.Overlay3Image")));
-            this.btnRouter3_4.Overlay3Visible = false;
-            this.btnRouter3_4.PressedImage = null;
-            this.btnRouter3_4.Size = new System.Drawing.Size(17, 17);
-            this.btnRouter3_4.TabIndex = 55;
-            this.btnRouter3_4.ToolTipText = "";
-            this.btnRouter3_4.Click += new System.EventHandler(this.btnMixerCrosspoint_Click);
+            this.btnRouter23.AutoResize = true;
+            this.btnRouter23.BackgroundImage = global::SA_Resources.GlobalResources.radiobutton_unchecked;
+            this.btnRouter23.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnRouter23.Location = new System.Drawing.Point(178, 158);
+            this.btnRouter23.Name = "btnRouter23";
+            this.btnRouter23.OverImage = null;
+            this.btnRouter23.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnRouter23.Overlay1Image")));
+            this.btnRouter23.Overlay1Visible = false;
+            this.btnRouter23.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnRouter23.Overlay2Image")));
+            this.btnRouter23.Overlay2Visible = false;
+            this.btnRouter23.Overlay3Image = ((System.Drawing.Image)(resources.GetObject("btnRouter23.Overlay3Image")));
+            this.btnRouter23.Overlay3Visible = false;
+            this.btnRouter23.PressedImage = null;
+            this.btnRouter23.Size = new System.Drawing.Size(17, 17);
+            this.btnRouter23.TabIndex = 55;
+            this.btnRouter23.ToolTipText = "";
+            this.btnRouter23.Click += new System.EventHandler(this.btnMixerCrosspoint_Click);
             // 
-            // btnRouter2_4
+            // btnRouter13
             // 
-            this.btnRouter2_4.AutoResize = true;
-            this.btnRouter2_4.BackgroundImage = global::SA_Resources.GlobalResources.radiobutton_unchecked;
-            this.btnRouter2_4.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnRouter2_4.Location = new System.Drawing.Point(178, 131);
-            this.btnRouter2_4.Name = "btnRouter2_4";
-            this.btnRouter2_4.OverImage = null;
-            this.btnRouter2_4.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnRouter2_4.Overlay1Image")));
-            this.btnRouter2_4.Overlay1Visible = false;
-            this.btnRouter2_4.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnRouter2_4.Overlay2Image")));
-            this.btnRouter2_4.Overlay2Visible = false;
-            this.btnRouter2_4.Overlay3Image = ((System.Drawing.Image)(resources.GetObject("btnRouter2_4.Overlay3Image")));
-            this.btnRouter2_4.Overlay3Visible = false;
-            this.btnRouter2_4.PressedImage = null;
-            this.btnRouter2_4.Size = new System.Drawing.Size(17, 17);
-            this.btnRouter2_4.TabIndex = 54;
-            this.btnRouter2_4.ToolTipText = "";
-            this.btnRouter2_4.Click += new System.EventHandler(this.btnMixerCrosspoint_Click);
+            this.btnRouter13.AutoResize = true;
+            this.btnRouter13.BackgroundImage = global::SA_Resources.GlobalResources.radiobutton_unchecked;
+            this.btnRouter13.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnRouter13.Location = new System.Drawing.Point(178, 131);
+            this.btnRouter13.Name = "btnRouter13";
+            this.btnRouter13.OverImage = null;
+            this.btnRouter13.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnRouter13.Overlay1Image")));
+            this.btnRouter13.Overlay1Visible = false;
+            this.btnRouter13.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnRouter13.Overlay2Image")));
+            this.btnRouter13.Overlay2Visible = false;
+            this.btnRouter13.Overlay3Image = ((System.Drawing.Image)(resources.GetObject("btnRouter13.Overlay3Image")));
+            this.btnRouter13.Overlay3Visible = false;
+            this.btnRouter13.PressedImage = null;
+            this.btnRouter13.Size = new System.Drawing.Size(17, 17);
+            this.btnRouter13.TabIndex = 54;
+            this.btnRouter13.ToolTipText = "";
+            this.btnRouter13.Click += new System.EventHandler(this.btnMixerCrosspoint_Click);
             // 
-            // btnRouter1_4
+            // btnRouter03
             // 
-            this.btnRouter1_4.AutoResize = true;
-            this.btnRouter1_4.BackgroundImage = global::SA_Resources.GlobalResources.radiobutton_unchecked;
-            this.btnRouter1_4.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnRouter1_4.Location = new System.Drawing.Point(178, 104);
-            this.btnRouter1_4.Name = "btnRouter1_4";
-            this.btnRouter1_4.OverImage = null;
-            this.btnRouter1_4.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnRouter1_4.Overlay1Image")));
-            this.btnRouter1_4.Overlay1Visible = false;
-            this.btnRouter1_4.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnRouter1_4.Overlay2Image")));
-            this.btnRouter1_4.Overlay2Visible = false;
-            this.btnRouter1_4.Overlay3Image = ((System.Drawing.Image)(resources.GetObject("btnRouter1_4.Overlay3Image")));
-            this.btnRouter1_4.Overlay3Visible = false;
-            this.btnRouter1_4.PressedImage = null;
-            this.btnRouter1_4.Size = new System.Drawing.Size(17, 17);
-            this.btnRouter1_4.TabIndex = 53;
-            this.btnRouter1_4.ToolTipText = "";
-            this.btnRouter1_4.Click += new System.EventHandler(this.btnMixerCrosspoint_Click);
+            this.btnRouter03.AutoResize = true;
+            this.btnRouter03.BackgroundImage = global::SA_Resources.GlobalResources.radiobutton_unchecked;
+            this.btnRouter03.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnRouter03.Location = new System.Drawing.Point(178, 104);
+            this.btnRouter03.Name = "btnRouter03";
+            this.btnRouter03.OverImage = null;
+            this.btnRouter03.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnRouter03.Overlay1Image")));
+            this.btnRouter03.Overlay1Visible = false;
+            this.btnRouter03.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnRouter03.Overlay2Image")));
+            this.btnRouter03.Overlay2Visible = false;
+            this.btnRouter03.Overlay3Image = ((System.Drawing.Image)(resources.GetObject("btnRouter03.Overlay3Image")));
+            this.btnRouter03.Overlay3Visible = false;
+            this.btnRouter03.PressedImage = null;
+            this.btnRouter03.Size = new System.Drawing.Size(17, 17);
+            this.btnRouter03.TabIndex = 53;
+            this.btnRouter03.ToolTipText = "";
+            this.btnRouter03.Click += new System.EventHandler(this.btnMixerCrosspoint_Click);
             // 
-            // btnRouter4_3
+            // btnRouter32
             // 
-            this.btnRouter4_3.AutoResize = true;
-            this.btnRouter4_3.BackgroundImage = global::SA_Resources.GlobalResources.radiobutton_unchecked;
-            this.btnRouter4_3.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnRouter4_3.Location = new System.Drawing.Point(151, 185);
-            this.btnRouter4_3.Name = "btnRouter4_3";
-            this.btnRouter4_3.OverImage = null;
-            this.btnRouter4_3.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnRouter4_3.Overlay1Image")));
-            this.btnRouter4_3.Overlay1Visible = false;
-            this.btnRouter4_3.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnRouter4_3.Overlay2Image")));
-            this.btnRouter4_3.Overlay2Visible = false;
-            this.btnRouter4_3.Overlay3Image = ((System.Drawing.Image)(resources.GetObject("btnRouter4_3.Overlay3Image")));
-            this.btnRouter4_3.Overlay3Visible = false;
-            this.btnRouter4_3.PressedImage = null;
-            this.btnRouter4_3.Size = new System.Drawing.Size(17, 17);
-            this.btnRouter4_3.TabIndex = 52;
-            this.btnRouter4_3.ToolTipText = "";
-            this.btnRouter4_3.Click += new System.EventHandler(this.btnMixerCrosspoint_Click);
+            this.btnRouter32.AutoResize = true;
+            this.btnRouter32.BackgroundImage = global::SA_Resources.GlobalResources.radiobutton_unchecked;
+            this.btnRouter32.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnRouter32.Location = new System.Drawing.Point(151, 185);
+            this.btnRouter32.Name = "btnRouter32";
+            this.btnRouter32.OverImage = null;
+            this.btnRouter32.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnRouter32.Overlay1Image")));
+            this.btnRouter32.Overlay1Visible = false;
+            this.btnRouter32.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnRouter32.Overlay2Image")));
+            this.btnRouter32.Overlay2Visible = false;
+            this.btnRouter32.Overlay3Image = ((System.Drawing.Image)(resources.GetObject("btnRouter32.Overlay3Image")));
+            this.btnRouter32.Overlay3Visible = false;
+            this.btnRouter32.PressedImage = null;
+            this.btnRouter32.Size = new System.Drawing.Size(17, 17);
+            this.btnRouter32.TabIndex = 52;
+            this.btnRouter32.ToolTipText = "";
+            this.btnRouter32.Click += new System.EventHandler(this.btnMixerCrosspoint_Click);
             // 
-            // btnRouter3_3
+            // btnRouter22
             // 
-            this.btnRouter3_3.AutoResize = true;
-            this.btnRouter3_3.BackgroundImage = global::SA_Resources.GlobalResources.radiobutton_unchecked;
-            this.btnRouter3_3.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnRouter3_3.Location = new System.Drawing.Point(151, 158);
-            this.btnRouter3_3.Name = "btnRouter3_3";
-            this.btnRouter3_3.OverImage = null;
-            this.btnRouter3_3.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnRouter3_3.Overlay1Image")));
-            this.btnRouter3_3.Overlay1Visible = false;
-            this.btnRouter3_3.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnRouter3_3.Overlay2Image")));
-            this.btnRouter3_3.Overlay2Visible = false;
-            this.btnRouter3_3.Overlay3Image = ((System.Drawing.Image)(resources.GetObject("btnRouter3_3.Overlay3Image")));
-            this.btnRouter3_3.Overlay3Visible = false;
-            this.btnRouter3_3.PressedImage = null;
-            this.btnRouter3_3.Size = new System.Drawing.Size(17, 17);
-            this.btnRouter3_3.TabIndex = 51;
-            this.btnRouter3_3.ToolTipText = "";
-            this.btnRouter3_3.Click += new System.EventHandler(this.btnMixerCrosspoint_Click);
+            this.btnRouter22.AutoResize = true;
+            this.btnRouter22.BackgroundImage = global::SA_Resources.GlobalResources.radiobutton_unchecked;
+            this.btnRouter22.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnRouter22.Location = new System.Drawing.Point(151, 158);
+            this.btnRouter22.Name = "btnRouter22";
+            this.btnRouter22.OverImage = null;
+            this.btnRouter22.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnRouter22.Overlay1Image")));
+            this.btnRouter22.Overlay1Visible = false;
+            this.btnRouter22.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnRouter22.Overlay2Image")));
+            this.btnRouter22.Overlay2Visible = false;
+            this.btnRouter22.Overlay3Image = ((System.Drawing.Image)(resources.GetObject("btnRouter22.Overlay3Image")));
+            this.btnRouter22.Overlay3Visible = false;
+            this.btnRouter22.PressedImage = null;
+            this.btnRouter22.Size = new System.Drawing.Size(17, 17);
+            this.btnRouter22.TabIndex = 51;
+            this.btnRouter22.ToolTipText = "";
+            this.btnRouter22.Click += new System.EventHandler(this.btnMixerCrosspoint_Click);
             // 
-            // btnRouter2_3
+            // btnRouter12
             // 
-            this.btnRouter2_3.AutoResize = true;
-            this.btnRouter2_3.BackgroundImage = global::SA_Resources.GlobalResources.radiobutton_unchecked;
-            this.btnRouter2_3.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnRouter2_3.Location = new System.Drawing.Point(151, 131);
-            this.btnRouter2_3.Name = "btnRouter2_3";
-            this.btnRouter2_3.OverImage = null;
-            this.btnRouter2_3.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnRouter2_3.Overlay1Image")));
-            this.btnRouter2_3.Overlay1Visible = false;
-            this.btnRouter2_3.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnRouter2_3.Overlay2Image")));
-            this.btnRouter2_3.Overlay2Visible = false;
-            this.btnRouter2_3.Overlay3Image = ((System.Drawing.Image)(resources.GetObject("btnRouter2_3.Overlay3Image")));
-            this.btnRouter2_3.Overlay3Visible = false;
-            this.btnRouter2_3.PressedImage = null;
-            this.btnRouter2_3.Size = new System.Drawing.Size(17, 17);
-            this.btnRouter2_3.TabIndex = 50;
-            this.btnRouter2_3.ToolTipText = "";
-            this.btnRouter2_3.Click += new System.EventHandler(this.btnMixerCrosspoint_Click);
+            this.btnRouter12.AutoResize = true;
+            this.btnRouter12.BackgroundImage = global::SA_Resources.GlobalResources.radiobutton_unchecked;
+            this.btnRouter12.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnRouter12.Location = new System.Drawing.Point(151, 131);
+            this.btnRouter12.Name = "btnRouter12";
+            this.btnRouter12.OverImage = null;
+            this.btnRouter12.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnRouter12.Overlay1Image")));
+            this.btnRouter12.Overlay1Visible = false;
+            this.btnRouter12.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnRouter12.Overlay2Image")));
+            this.btnRouter12.Overlay2Visible = false;
+            this.btnRouter12.Overlay3Image = ((System.Drawing.Image)(resources.GetObject("btnRouter12.Overlay3Image")));
+            this.btnRouter12.Overlay3Visible = false;
+            this.btnRouter12.PressedImage = null;
+            this.btnRouter12.Size = new System.Drawing.Size(17, 17);
+            this.btnRouter12.TabIndex = 50;
+            this.btnRouter12.ToolTipText = "";
+            this.btnRouter12.Click += new System.EventHandler(this.btnMixerCrosspoint_Click);
             // 
-            // btnRouter1_3
+            // btnRouter02
             // 
-            this.btnRouter1_3.AutoResize = true;
-            this.btnRouter1_3.BackgroundImage = global::SA_Resources.GlobalResources.radiobutton_unchecked;
-            this.btnRouter1_3.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnRouter1_3.Location = new System.Drawing.Point(151, 104);
-            this.btnRouter1_3.Name = "btnRouter1_3";
-            this.btnRouter1_3.OverImage = null;
-            this.btnRouter1_3.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnRouter1_3.Overlay1Image")));
-            this.btnRouter1_3.Overlay1Visible = false;
-            this.btnRouter1_3.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnRouter1_3.Overlay2Image")));
-            this.btnRouter1_3.Overlay2Visible = false;
-            this.btnRouter1_3.Overlay3Image = ((System.Drawing.Image)(resources.GetObject("btnRouter1_3.Overlay3Image")));
-            this.btnRouter1_3.Overlay3Visible = false;
-            this.btnRouter1_3.PressedImage = null;
-            this.btnRouter1_3.Size = new System.Drawing.Size(17, 17);
-            this.btnRouter1_3.TabIndex = 49;
-            this.btnRouter1_3.ToolTipText = "";
-            this.btnRouter1_3.Click += new System.EventHandler(this.btnMixerCrosspoint_Click);
+            this.btnRouter02.AutoResize = true;
+            this.btnRouter02.BackgroundImage = global::SA_Resources.GlobalResources.radiobutton_unchecked;
+            this.btnRouter02.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnRouter02.Location = new System.Drawing.Point(151, 104);
+            this.btnRouter02.Name = "btnRouter02";
+            this.btnRouter02.OverImage = null;
+            this.btnRouter02.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnRouter02.Overlay1Image")));
+            this.btnRouter02.Overlay1Visible = false;
+            this.btnRouter02.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnRouter02.Overlay2Image")));
+            this.btnRouter02.Overlay2Visible = false;
+            this.btnRouter02.Overlay3Image = ((System.Drawing.Image)(resources.GetObject("btnRouter02.Overlay3Image")));
+            this.btnRouter02.Overlay3Visible = false;
+            this.btnRouter02.PressedImage = null;
+            this.btnRouter02.Size = new System.Drawing.Size(17, 17);
+            this.btnRouter02.TabIndex = 49;
+            this.btnRouter02.ToolTipText = "";
+            this.btnRouter02.Click += new System.EventHandler(this.btnMixerCrosspoint_Click);
             // 
-            // btnRouter4_2
+            // btnRouter31
             // 
-            this.btnRouter4_2.AutoResize = true;
-            this.btnRouter4_2.BackgroundImage = global::SA_Resources.GlobalResources.radiobutton_unchecked;
-            this.btnRouter4_2.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnRouter4_2.Location = new System.Drawing.Point(124, 185);
-            this.btnRouter4_2.Name = "btnRouter4_2";
-            this.btnRouter4_2.OverImage = null;
-            this.btnRouter4_2.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnRouter4_2.Overlay1Image")));
-            this.btnRouter4_2.Overlay1Visible = false;
-            this.btnRouter4_2.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnRouter4_2.Overlay2Image")));
-            this.btnRouter4_2.Overlay2Visible = false;
-            this.btnRouter4_2.Overlay3Image = ((System.Drawing.Image)(resources.GetObject("btnRouter4_2.Overlay3Image")));
-            this.btnRouter4_2.Overlay3Visible = false;
-            this.btnRouter4_2.PressedImage = null;
-            this.btnRouter4_2.Size = new System.Drawing.Size(17, 17);
-            this.btnRouter4_2.TabIndex = 48;
-            this.btnRouter4_2.ToolTipText = "";
-            this.btnRouter4_2.Click += new System.EventHandler(this.btnMixerCrosspoint_Click);
+            this.btnRouter31.AutoResize = true;
+            this.btnRouter31.BackgroundImage = global::SA_Resources.GlobalResources.radiobutton_unchecked;
+            this.btnRouter31.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnRouter31.Location = new System.Drawing.Point(124, 185);
+            this.btnRouter31.Name = "btnRouter31";
+            this.btnRouter31.OverImage = null;
+            this.btnRouter31.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnRouter31.Overlay1Image")));
+            this.btnRouter31.Overlay1Visible = false;
+            this.btnRouter31.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnRouter31.Overlay2Image")));
+            this.btnRouter31.Overlay2Visible = false;
+            this.btnRouter31.Overlay3Image = ((System.Drawing.Image)(resources.GetObject("btnRouter31.Overlay3Image")));
+            this.btnRouter31.Overlay3Visible = false;
+            this.btnRouter31.PressedImage = null;
+            this.btnRouter31.Size = new System.Drawing.Size(17, 17);
+            this.btnRouter31.TabIndex = 48;
+            this.btnRouter31.ToolTipText = "";
+            this.btnRouter31.Click += new System.EventHandler(this.btnMixerCrosspoint_Click);
             // 
-            // btnRouter3_2
+            // btnRouter21
             // 
-            this.btnRouter3_2.AutoResize = true;
-            this.btnRouter3_2.BackgroundImage = global::SA_Resources.GlobalResources.radiobutton_unchecked;
-            this.btnRouter3_2.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnRouter3_2.Location = new System.Drawing.Point(124, 158);
-            this.btnRouter3_2.Name = "btnRouter3_2";
-            this.btnRouter3_2.OverImage = null;
-            this.btnRouter3_2.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnRouter3_2.Overlay1Image")));
-            this.btnRouter3_2.Overlay1Visible = false;
-            this.btnRouter3_2.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnRouter3_2.Overlay2Image")));
-            this.btnRouter3_2.Overlay2Visible = false;
-            this.btnRouter3_2.Overlay3Image = ((System.Drawing.Image)(resources.GetObject("btnRouter3_2.Overlay3Image")));
-            this.btnRouter3_2.Overlay3Visible = false;
-            this.btnRouter3_2.PressedImage = null;
-            this.btnRouter3_2.Size = new System.Drawing.Size(17, 17);
-            this.btnRouter3_2.TabIndex = 47;
-            this.btnRouter3_2.ToolTipText = "";
-            this.btnRouter3_2.Click += new System.EventHandler(this.btnMixerCrosspoint_Click);
+            this.btnRouter21.AutoResize = true;
+            this.btnRouter21.BackgroundImage = global::SA_Resources.GlobalResources.radiobutton_unchecked;
+            this.btnRouter21.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnRouter21.Location = new System.Drawing.Point(124, 158);
+            this.btnRouter21.Name = "btnRouter21";
+            this.btnRouter21.OverImage = null;
+            this.btnRouter21.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnRouter21.Overlay1Image")));
+            this.btnRouter21.Overlay1Visible = false;
+            this.btnRouter21.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnRouter21.Overlay2Image")));
+            this.btnRouter21.Overlay2Visible = false;
+            this.btnRouter21.Overlay3Image = ((System.Drawing.Image)(resources.GetObject("btnRouter21.Overlay3Image")));
+            this.btnRouter21.Overlay3Visible = false;
+            this.btnRouter21.PressedImage = null;
+            this.btnRouter21.Size = new System.Drawing.Size(17, 17);
+            this.btnRouter21.TabIndex = 47;
+            this.btnRouter21.ToolTipText = "";
+            this.btnRouter21.Click += new System.EventHandler(this.btnMixerCrosspoint_Click);
             // 
-            // btnRouter2_2
+            // btnRouter11
             // 
-            this.btnRouter2_2.AutoResize = true;
-            this.btnRouter2_2.BackgroundImage = global::SA_Resources.GlobalResources.radiobutton_unchecked;
-            this.btnRouter2_2.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnRouter2_2.Location = new System.Drawing.Point(124, 131);
-            this.btnRouter2_2.Name = "btnRouter2_2";
-            this.btnRouter2_2.OverImage = null;
-            this.btnRouter2_2.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnRouter2_2.Overlay1Image")));
-            this.btnRouter2_2.Overlay1Visible = false;
-            this.btnRouter2_2.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnRouter2_2.Overlay2Image")));
-            this.btnRouter2_2.Overlay2Visible = false;
-            this.btnRouter2_2.Overlay3Image = ((System.Drawing.Image)(resources.GetObject("btnRouter2_2.Overlay3Image")));
-            this.btnRouter2_2.Overlay3Visible = false;
-            this.btnRouter2_2.PressedImage = null;
-            this.btnRouter2_2.Size = new System.Drawing.Size(17, 17);
-            this.btnRouter2_2.TabIndex = 46;
-            this.btnRouter2_2.ToolTipText = "";
-            this.btnRouter2_2.Click += new System.EventHandler(this.btnMixerCrosspoint_Click);
+            this.btnRouter11.AutoResize = true;
+            this.btnRouter11.BackgroundImage = global::SA_Resources.GlobalResources.radiobutton_unchecked;
+            this.btnRouter11.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnRouter11.Location = new System.Drawing.Point(124, 131);
+            this.btnRouter11.Name = "btnRouter11";
+            this.btnRouter11.OverImage = null;
+            this.btnRouter11.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnRouter11.Overlay1Image")));
+            this.btnRouter11.Overlay1Visible = false;
+            this.btnRouter11.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnRouter11.Overlay2Image")));
+            this.btnRouter11.Overlay2Visible = false;
+            this.btnRouter11.Overlay3Image = ((System.Drawing.Image)(resources.GetObject("btnRouter11.Overlay3Image")));
+            this.btnRouter11.Overlay3Visible = false;
+            this.btnRouter11.PressedImage = null;
+            this.btnRouter11.Size = new System.Drawing.Size(17, 17);
+            this.btnRouter11.TabIndex = 46;
+            this.btnRouter11.ToolTipText = "";
+            this.btnRouter11.Click += new System.EventHandler(this.btnMixerCrosspoint_Click);
             // 
-            // btnRouter1_2
+            // btnRouter01
             // 
-            this.btnRouter1_2.AutoResize = true;
-            this.btnRouter1_2.BackgroundImage = global::SA_Resources.GlobalResources.radiobutton_unchecked;
-            this.btnRouter1_2.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnRouter1_2.Location = new System.Drawing.Point(124, 104);
-            this.btnRouter1_2.Name = "btnRouter1_2";
-            this.btnRouter1_2.OverImage = null;
-            this.btnRouter1_2.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnRouter1_2.Overlay1Image")));
-            this.btnRouter1_2.Overlay1Visible = false;
-            this.btnRouter1_2.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnRouter1_2.Overlay2Image")));
-            this.btnRouter1_2.Overlay2Visible = false;
-            this.btnRouter1_2.Overlay3Image = ((System.Drawing.Image)(resources.GetObject("btnRouter1_2.Overlay3Image")));
-            this.btnRouter1_2.Overlay3Visible = false;
-            this.btnRouter1_2.PressedImage = null;
-            this.btnRouter1_2.Size = new System.Drawing.Size(17, 17);
-            this.btnRouter1_2.TabIndex = 45;
-            this.btnRouter1_2.ToolTipText = "";
-            this.btnRouter1_2.Click += new System.EventHandler(this.btnMixerCrosspoint_Click);
+            this.btnRouter01.AutoResize = true;
+            this.btnRouter01.BackgroundImage = global::SA_Resources.GlobalResources.radiobutton_unchecked;
+            this.btnRouter01.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnRouter01.Location = new System.Drawing.Point(124, 104);
+            this.btnRouter01.Name = "btnRouter01";
+            this.btnRouter01.OverImage = null;
+            this.btnRouter01.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnRouter01.Overlay1Image")));
+            this.btnRouter01.Overlay1Visible = false;
+            this.btnRouter01.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnRouter01.Overlay2Image")));
+            this.btnRouter01.Overlay2Visible = false;
+            this.btnRouter01.Overlay3Image = ((System.Drawing.Image)(resources.GetObject("btnRouter01.Overlay3Image")));
+            this.btnRouter01.Overlay3Visible = false;
+            this.btnRouter01.PressedImage = null;
+            this.btnRouter01.Size = new System.Drawing.Size(17, 17);
+            this.btnRouter01.TabIndex = 45;
+            this.btnRouter01.ToolTipText = "";
+            this.btnRouter01.Click += new System.EventHandler(this.btnMixerCrosspoint_Click);
             // 
-            // btnRouter4_1
+            // btnRouter30
             // 
-            this.btnRouter4_1.AutoResize = true;
-            this.btnRouter4_1.BackgroundImage = global::SA_Resources.GlobalResources.radiobutton_unchecked;
-            this.btnRouter4_1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnRouter4_1.Location = new System.Drawing.Point(97, 185);
-            this.btnRouter4_1.Name = "btnRouter4_1";
-            this.btnRouter4_1.OverImage = null;
-            this.btnRouter4_1.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnRouter4_1.Overlay1Image")));
-            this.btnRouter4_1.Overlay1Visible = false;
-            this.btnRouter4_1.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnRouter4_1.Overlay2Image")));
-            this.btnRouter4_1.Overlay2Visible = false;
-            this.btnRouter4_1.Overlay3Image = ((System.Drawing.Image)(resources.GetObject("btnRouter4_1.Overlay3Image")));
-            this.btnRouter4_1.Overlay3Visible = false;
-            this.btnRouter4_1.PressedImage = null;
-            this.btnRouter4_1.Size = new System.Drawing.Size(17, 17);
-            this.btnRouter4_1.TabIndex = 44;
-            this.btnRouter4_1.ToolTipText = "";
-            this.btnRouter4_1.Click += new System.EventHandler(this.btnMixerCrosspoint_Click);
+            this.btnRouter30.AutoResize = true;
+            this.btnRouter30.BackgroundImage = global::SA_Resources.GlobalResources.radiobutton_unchecked;
+            this.btnRouter30.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnRouter30.Location = new System.Drawing.Point(97, 185);
+            this.btnRouter30.Name = "btnRouter30";
+            this.btnRouter30.OverImage = null;
+            this.btnRouter30.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnRouter30.Overlay1Image")));
+            this.btnRouter30.Overlay1Visible = false;
+            this.btnRouter30.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnRouter30.Overlay2Image")));
+            this.btnRouter30.Overlay2Visible = false;
+            this.btnRouter30.Overlay3Image = ((System.Drawing.Image)(resources.GetObject("btnRouter30.Overlay3Image")));
+            this.btnRouter30.Overlay3Visible = false;
+            this.btnRouter30.PressedImage = null;
+            this.btnRouter30.Size = new System.Drawing.Size(17, 17);
+            this.btnRouter30.TabIndex = 44;
+            this.btnRouter30.ToolTipText = "";
+            this.btnRouter30.Click += new System.EventHandler(this.btnMixerCrosspoint_Click);
             // 
-            // btnRouter3_1
+            // btnRouter20
             // 
-            this.btnRouter3_1.AutoResize = true;
-            this.btnRouter3_1.BackgroundImage = global::SA_Resources.GlobalResources.radiobutton_unchecked;
-            this.btnRouter3_1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnRouter3_1.Location = new System.Drawing.Point(97, 158);
-            this.btnRouter3_1.Name = "btnRouter3_1";
-            this.btnRouter3_1.OverImage = null;
-            this.btnRouter3_1.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnRouter3_1.Overlay1Image")));
-            this.btnRouter3_1.Overlay1Visible = false;
-            this.btnRouter3_1.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnRouter3_1.Overlay2Image")));
-            this.btnRouter3_1.Overlay2Visible = false;
-            this.btnRouter3_1.Overlay3Image = ((System.Drawing.Image)(resources.GetObject("btnRouter3_1.Overlay3Image")));
-            this.btnRouter3_1.Overlay3Visible = false;
-            this.btnRouter3_1.PressedImage = null;
-            this.btnRouter3_1.Size = new System.Drawing.Size(17, 17);
-            this.btnRouter3_1.TabIndex = 40;
-            this.btnRouter3_1.ToolTipText = "";
-            this.btnRouter3_1.Click += new System.EventHandler(this.btnMixerCrosspoint_Click);
+            this.btnRouter20.AutoResize = true;
+            this.btnRouter20.BackgroundImage = global::SA_Resources.GlobalResources.radiobutton_unchecked;
+            this.btnRouter20.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnRouter20.Location = new System.Drawing.Point(97, 158);
+            this.btnRouter20.Name = "btnRouter20";
+            this.btnRouter20.OverImage = null;
+            this.btnRouter20.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnRouter20.Overlay1Image")));
+            this.btnRouter20.Overlay1Visible = false;
+            this.btnRouter20.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnRouter20.Overlay2Image")));
+            this.btnRouter20.Overlay2Visible = false;
+            this.btnRouter20.Overlay3Image = ((System.Drawing.Image)(resources.GetObject("btnRouter20.Overlay3Image")));
+            this.btnRouter20.Overlay3Visible = false;
+            this.btnRouter20.PressedImage = null;
+            this.btnRouter20.Size = new System.Drawing.Size(17, 17);
+            this.btnRouter20.TabIndex = 40;
+            this.btnRouter20.ToolTipText = "";
+            this.btnRouter20.Click += new System.EventHandler(this.btnMixerCrosspoint_Click);
             // 
-            // btnRouter2_1
+            // btnRouter10
             // 
-            this.btnRouter2_1.AutoResize = true;
-            this.btnRouter2_1.BackgroundImage = global::SA_Resources.GlobalResources.radiobutton_unchecked;
-            this.btnRouter2_1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnRouter2_1.Location = new System.Drawing.Point(97, 131);
-            this.btnRouter2_1.Name = "btnRouter2_1";
-            this.btnRouter2_1.OverImage = null;
-            this.btnRouter2_1.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnRouter2_1.Overlay1Image")));
-            this.btnRouter2_1.Overlay1Visible = false;
-            this.btnRouter2_1.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnRouter2_1.Overlay2Image")));
-            this.btnRouter2_1.Overlay2Visible = false;
-            this.btnRouter2_1.Overlay3Image = ((System.Drawing.Image)(resources.GetObject("btnRouter2_1.Overlay3Image")));
-            this.btnRouter2_1.Overlay3Visible = false;
-            this.btnRouter2_1.PressedImage = null;
-            this.btnRouter2_1.Size = new System.Drawing.Size(17, 17);
-            this.btnRouter2_1.TabIndex = 36;
-            this.btnRouter2_1.ToolTipText = "";
-            this.btnRouter2_1.Click += new System.EventHandler(this.btnMixerCrosspoint_Click);
+            this.btnRouter10.AutoResize = true;
+            this.btnRouter10.BackgroundImage = global::SA_Resources.GlobalResources.radiobutton_unchecked;
+            this.btnRouter10.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnRouter10.Location = new System.Drawing.Point(97, 131);
+            this.btnRouter10.Name = "btnRouter10";
+            this.btnRouter10.OverImage = null;
+            this.btnRouter10.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnRouter10.Overlay1Image")));
+            this.btnRouter10.Overlay1Visible = false;
+            this.btnRouter10.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnRouter10.Overlay2Image")));
+            this.btnRouter10.Overlay2Visible = false;
+            this.btnRouter10.Overlay3Image = ((System.Drawing.Image)(resources.GetObject("btnRouter10.Overlay3Image")));
+            this.btnRouter10.Overlay3Visible = false;
+            this.btnRouter10.PressedImage = null;
+            this.btnRouter10.Size = new System.Drawing.Size(17, 17);
+            this.btnRouter10.TabIndex = 36;
+            this.btnRouter10.ToolTipText = "";
+            this.btnRouter10.Click += new System.EventHandler(this.btnMixerCrosspoint_Click);
             // 
-            // btnRouter1_1
+            // btnRouter00
             // 
-            this.btnRouter1_1.AutoResize = true;
-            this.btnRouter1_1.BackgroundImage = global::SA_Resources.GlobalResources.radiobutton_unchecked;
-            this.btnRouter1_1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnRouter1_1.Location = new System.Drawing.Point(97, 104);
-            this.btnRouter1_1.Name = "btnRouter1_1";
-            this.btnRouter1_1.OverImage = null;
-            this.btnRouter1_1.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnRouter1_1.Overlay1Image")));
-            this.btnRouter1_1.Overlay1Visible = false;
-            this.btnRouter1_1.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnRouter1_1.Overlay2Image")));
-            this.btnRouter1_1.Overlay2Visible = false;
-            this.btnRouter1_1.Overlay3Image = ((System.Drawing.Image)(resources.GetObject("btnRouter1_1.Overlay3Image")));
-            this.btnRouter1_1.Overlay3Visible = false;
-            this.btnRouter1_1.PressedImage = null;
-            this.btnRouter1_1.Size = new System.Drawing.Size(17, 17);
-            this.btnRouter1_1.TabIndex = 32;
-            this.btnRouter1_1.ToolTipText = "";
-            this.btnRouter1_1.Click += new System.EventHandler(this.btnMixerCrosspoint_Click);
+            this.btnRouter00.AutoResize = true;
+            this.btnRouter00.BackgroundImage = global::SA_Resources.GlobalResources.radiobutton_unchecked;
+            this.btnRouter00.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnRouter00.Location = new System.Drawing.Point(97, 104);
+            this.btnRouter00.Name = "btnRouter00";
+            this.btnRouter00.OverImage = null;
+            this.btnRouter00.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnRouter00.Overlay1Image")));
+            this.btnRouter00.Overlay1Visible = false;
+            this.btnRouter00.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnRouter00.Overlay2Image")));
+            this.btnRouter00.Overlay2Visible = false;
+            this.btnRouter00.Overlay3Image = ((System.Drawing.Image)(resources.GetObject("btnRouter00.Overlay3Image")));
+            this.btnRouter00.Overlay3Visible = false;
+            this.btnRouter00.PressedImage = null;
+            this.btnRouter00.Size = new System.Drawing.Size(17, 17);
+            this.btnRouter00.TabIndex = 32;
+            this.btnRouter00.ToolTipText = "";
+            this.btnRouter00.Click += new System.EventHandler(this.btnMixerCrosspoint_Click);
             // 
             // btnCancel
             // 
@@ -755,7 +755,7 @@ namespace SA_Resources.SAForms
             this.btnSave.AutoResize = true;
             this.btnSave.BackgroundImage = global::SA_Resources.GlobalResources.ui_btn_save;
             this.btnSave.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnSave.Location = new System.Drawing.Point(89, 264);
+            this.btnSave.Location = new System.Drawing.Point(89, 266);
             this.btnSave.Name = "btnSave";
             this.btnSave.OverImage = null;
             this.btnSave.Overlay1Image = null;
@@ -781,8 +781,8 @@ namespace SA_Resources.SAForms
             this.lblOutput3.TabIndex = 21;
             this.lblOutput3.Text = "Output #4";
             this.lblOutput3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lblOutput3.TextDirection = Direction.Clockwise;
-            this.lblOutput3.TextOrientation = Orientation.Rotate;
+            this.lblOutput3.TextDirection = SA_Resources.SAControls.Direction.Clockwise;
+            this.lblOutput3.TextOrientation = SA_Resources.SAControls.Orientation.Rotate;
             // 
             // lblOutput2
             // 
@@ -795,8 +795,8 @@ namespace SA_Resources.SAForms
             this.lblOutput2.TabIndex = 20;
             this.lblOutput2.Text = "Output #3";
             this.lblOutput2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lblOutput2.TextDirection = Direction.Clockwise;
-            this.lblOutput2.TextOrientation = Orientation.Rotate;
+            this.lblOutput2.TextDirection = SA_Resources.SAControls.Direction.Clockwise;
+            this.lblOutput2.TextOrientation = SA_Resources.SAControls.Orientation.Rotate;
             // 
             // lblOutput1
             // 
@@ -809,8 +809,8 @@ namespace SA_Resources.SAForms
             this.lblOutput1.TabIndex = 19;
             this.lblOutput1.Text = "Output #2";
             this.lblOutput1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lblOutput1.TextDirection = Direction.Clockwise;
-            this.lblOutput1.TextOrientation = Orientation.Rotate;
+            this.lblOutput1.TextDirection = SA_Resources.SAControls.Direction.Clockwise;
+            this.lblOutput1.TextOrientation = SA_Resources.SAControls.Orientation.Rotate;
             // 
             // lblOutput0
             // 
@@ -823,8 +823,8 @@ namespace SA_Resources.SAForms
             this.lblOutput0.TabIndex = 18;
             this.lblOutput0.Text = "Output #1";
             this.lblOutput0.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lblOutput0.TextDirection = Direction.Clockwise;
-            this.lblOutput0.TextOrientation = Orientation.Rotate;
+            this.lblOutput0.TextDirection = SA_Resources.SAControls.Direction.Clockwise;
+            this.lblOutput0.TextOrientation = SA_Resources.SAControls.Orientation.Rotate;
             // 
             // MixerForm6x4
             // 
@@ -839,32 +839,32 @@ namespace SA_Resources.SAForms
             this.Controls.Add(this.lblOutputMeter3);
             this.Controls.Add(this.lblOutputMeter2);
             this.Controls.Add(this.lblOutputMeter1);
-            this.Controls.Add(this.btnRouter6_4);
-            this.Controls.Add(this.btnRouter5_4);
-            this.Controls.Add(this.btnRouter6_3);
-            this.Controls.Add(this.btnRouter5_3);
-            this.Controls.Add(this.btnRouter6_2);
-            this.Controls.Add(this.btnRouter5_2);
-            this.Controls.Add(this.btnRouter6_1);
-            this.Controls.Add(this.btnRouter5_1);
+            this.Controls.Add(this.btnRouter93);
+            this.Controls.Add(this.btnRouter83);
+            this.Controls.Add(this.btnRouter92);
+            this.Controls.Add(this.btnRouter82);
+            this.Controls.Add(this.btnRouter91);
+            this.Controls.Add(this.btnRouter81);
+            this.Controls.Add(this.btnRouter90);
+            this.Controls.Add(this.btnRouter80);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.btnRouter4_4);
-            this.Controls.Add(this.btnRouter3_4);
-            this.Controls.Add(this.btnRouter2_4);
-            this.Controls.Add(this.btnRouter1_4);
-            this.Controls.Add(this.btnRouter4_3);
-            this.Controls.Add(this.btnRouter3_3);
-            this.Controls.Add(this.btnRouter2_3);
-            this.Controls.Add(this.btnRouter1_3);
-            this.Controls.Add(this.btnRouter4_2);
-            this.Controls.Add(this.btnRouter3_2);
-            this.Controls.Add(this.btnRouter2_2);
-            this.Controls.Add(this.btnRouter1_2);
-            this.Controls.Add(this.btnRouter4_1);
-            this.Controls.Add(this.btnRouter3_1);
-            this.Controls.Add(this.btnRouter2_1);
-            this.Controls.Add(this.btnRouter1_1);
+            this.Controls.Add(this.btnRouter33);
+            this.Controls.Add(this.btnRouter23);
+            this.Controls.Add(this.btnRouter13);
+            this.Controls.Add(this.btnRouter03);
+            this.Controls.Add(this.btnRouter32);
+            this.Controls.Add(this.btnRouter22);
+            this.Controls.Add(this.btnRouter12);
+            this.Controls.Add(this.btnRouter02);
+            this.Controls.Add(this.btnRouter31);
+            this.Controls.Add(this.btnRouter21);
+            this.Controls.Add(this.btnRouter11);
+            this.Controls.Add(this.btnRouter01);
+            this.Controls.Add(this.btnRouter30);
+            this.Controls.Add(this.btnRouter20);
+            this.Controls.Add(this.btnRouter10);
+            this.Controls.Add(this.btnRouter00);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.lblOutput3);
@@ -903,30 +903,30 @@ namespace SA_Resources.SAForms
         private OrientedTextLabel lblOutput3;
         private PictureButton btnCancel;
         private PictureButton btnSave;
-        private PictureButton btnRouter1_1;
-        private PictureButton btnRouter2_1;
-        private PictureButton btnRouter4_1;
-        private PictureButton btnRouter3_1;
-        private PictureButton btnRouter4_2;
-        private PictureButton btnRouter3_2;
-        private PictureButton btnRouter2_2;
-        private PictureButton btnRouter1_2;
-        private PictureButton btnRouter4_3;
-        private PictureButton btnRouter3_3;
-        private PictureButton btnRouter2_3;
-        private PictureButton btnRouter1_3;
-        private PictureButton btnRouter4_4;
-        private PictureButton btnRouter3_4;
-        private PictureButton btnRouter2_4;
-        private PictureButton btnRouter1_4;
-        private PictureButton btnRouter6_4;
-        private PictureButton btnRouter5_4;
-        private PictureButton btnRouter6_3;
-        private PictureButton btnRouter5_3;
-        private PictureButton btnRouter6_2;
-        private PictureButton btnRouter5_2;
-        private PictureButton btnRouter6_1;
-        private PictureButton btnRouter5_1;
+        private PictureButton btnRouter00;
+        private PictureButton btnRouter10;
+        private PictureButton btnRouter30;
+        private PictureButton btnRouter20;
+        private PictureButton btnRouter31;
+        private PictureButton btnRouter21;
+        private PictureButton btnRouter11;
+        private PictureButton btnRouter01;
+        private PictureButton btnRouter32;
+        private PictureButton btnRouter22;
+        private PictureButton btnRouter12;
+        private PictureButton btnRouter02;
+        private PictureButton btnRouter33;
+        private PictureButton btnRouter23;
+        private PictureButton btnRouter13;
+        private PictureButton btnRouter03;
+        private PictureButton btnRouter93;
+        private PictureButton btnRouter83;
+        private PictureButton btnRouter92;
+        private PictureButton btnRouter82;
+        private PictureButton btnRouter91;
+        private PictureButton btnRouter81;
+        private PictureButton btnRouter90;
+        private PictureButton btnRouter80;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label lblOutputMeter1;

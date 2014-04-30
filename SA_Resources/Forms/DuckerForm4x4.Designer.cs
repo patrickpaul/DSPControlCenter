@@ -2,7 +2,7 @@
 
 namespace SA_Resources.SAForms
 {
-    partial class DuckerForm
+    partial class DuckerForm4x4
     {
         /// <summary>
         /// Required designer variable.
@@ -31,7 +31,7 @@ namespace SA_Resources.SAForms
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DuckerForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DuckerForm4x4));
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.nudDuckThreshold = new System.Windows.Forms.NumericUpDown();
@@ -56,9 +56,9 @@ namespace SA_Resources.SAForms
             this.lblDuckInput2 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
-            this.pictureCheckbox3 = new SA_Resources.SAControls.PictureCheckbox();
-            this.pictureCheckbox2 = new SA_Resources.SAControls.PictureCheckbox();
-            this.pictureCheckbox1 = new SA_Resources.SAControls.PictureCheckbox();
+            this.chkBypass2 = new SA_Resources.SAControls.PictureCheckbox();
+            this.chkBypass1 = new SA_Resources.SAControls.PictureCheckbox();
+            this.chkBypass0 = new SA_Resources.SAControls.PictureCheckbox();
             this.meter1 = new SA_Resources.SAControls.SignalMeter_Small();
             this.btnSave = new SA_Resources.SAControls.PictureButton();
             this.btnCancel = new SA_Resources.SAControls.PictureButton();
@@ -362,38 +362,41 @@ namespace SA_Resources.SAForms
             this.label14.Text = "Channel";
             this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // pictureCheckbox3
+            // chkBypass2
             // 
-            this.pictureCheckbox3.CheckedImage = null;
-            this.pictureCheckbox3.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureCheckbox3.Location = new System.Drawing.Point(117, 164);
-            this.pictureCheckbox3.Name = "pictureCheckbox3";
-            this.pictureCheckbox3.Size = new System.Drawing.Size(16, 16);
-            this.pictureCheckbox3.TabIndex = 131;
-            this.pictureCheckbox3.UncheckedImage = null;
-            this.pictureCheckbox3.UseVisualStyleBackColor = true;
+            this.chkBypass2.CheckedImage = null;
+            this.chkBypass2.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.chkBypass2.Location = new System.Drawing.Point(117, 164);
+            this.chkBypass2.Name = "chkBypass2";
+            this.chkBypass2.Size = new System.Drawing.Size(16, 16);
+            this.chkBypass2.TabIndex = 131;
+            this.chkBypass2.UncheckedImage = null;
+            this.chkBypass2.UseVisualStyleBackColor = true;
+            this.chkBypass2.CheckedChanged += new System.EventHandler(this.chkChannelBypass_CheckedChanged);
             // 
-            // pictureCheckbox2
+            // chkBypass1
             // 
-            this.pictureCheckbox2.CheckedImage = null;
-            this.pictureCheckbox2.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureCheckbox2.Location = new System.Drawing.Point(117, 131);
-            this.pictureCheckbox2.Name = "pictureCheckbox2";
-            this.pictureCheckbox2.Size = new System.Drawing.Size(16, 16);
-            this.pictureCheckbox2.TabIndex = 129;
-            this.pictureCheckbox2.UncheckedImage = null;
-            this.pictureCheckbox2.UseVisualStyleBackColor = true;
+            this.chkBypass1.CheckedImage = null;
+            this.chkBypass1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.chkBypass1.Location = new System.Drawing.Point(117, 131);
+            this.chkBypass1.Name = "chkBypass1";
+            this.chkBypass1.Size = new System.Drawing.Size(16, 16);
+            this.chkBypass1.TabIndex = 129;
+            this.chkBypass1.UncheckedImage = null;
+            this.chkBypass1.UseVisualStyleBackColor = true;
+            this.chkBypass1.CheckedChanged += new System.EventHandler(this.chkChannelBypass_CheckedChanged);
             // 
-            // pictureCheckbox1
+            // chkBypass0
             // 
-            this.pictureCheckbox1.CheckedImage = null;
-            this.pictureCheckbox1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureCheckbox1.Location = new System.Drawing.Point(117, 98);
-            this.pictureCheckbox1.Name = "pictureCheckbox1";
-            this.pictureCheckbox1.Size = new System.Drawing.Size(16, 16);
-            this.pictureCheckbox1.TabIndex = 126;
-            this.pictureCheckbox1.UncheckedImage = null;
-            this.pictureCheckbox1.UseVisualStyleBackColor = true;
+            this.chkBypass0.CheckedImage = null;
+            this.chkBypass0.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.chkBypass0.Location = new System.Drawing.Point(117, 98);
+            this.chkBypass0.Name = "chkBypass0";
+            this.chkBypass0.Size = new System.Drawing.Size(16, 16);
+            this.chkBypass0.TabIndex = 126;
+            this.chkBypass0.UncheckedImage = null;
+            this.chkBypass0.UseVisualStyleBackColor = true;
+            this.chkBypass0.CheckedChanged += new System.EventHandler(this.chkChannelBypass_CheckedChanged);
             // 
             // meter1
             // 
@@ -459,7 +462,7 @@ namespace SA_Resources.SAForms
             this.chkBypass.UseVisualStyleBackColor = true;
             this.chkBypass.CheckedChanged += new System.EventHandler(this.chkBypass_CheckedChanged);
             // 
-            // DuckerForm
+            // DuckerForm4x4
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(82)))), ((int)(((byte)(82)))));
@@ -468,12 +471,12 @@ namespace SA_Resources.SAForms
             this.Controls.Add(this.label14);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.lblDuckInput2);
-            this.Controls.Add(this.pictureCheckbox3);
+            this.Controls.Add(this.chkBypass2);
             this.Controls.Add(this.lblDuckInput1);
-            this.Controls.Add(this.pictureCheckbox2);
+            this.Controls.Add(this.chkBypass1);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.lblDuckInput0);
-            this.Controls.Add(this.pictureCheckbox1);
+            this.Controls.Add(this.chkBypass0);
             this.Controls.Add(this.meter1);
             this.Controls.Add(this.dropPriorityChannel);
             this.Controls.Add(this.label7);
@@ -498,7 +501,7 @@ namespace SA_Resources.SAForms
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.Name = "DuckerForm";
+            this.Name = "DuckerForm4x4";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Ducker Configuration";
             this.Load += new System.EventHandler(this.DuckerForm_Load);
@@ -537,13 +540,13 @@ namespace SA_Resources.SAForms
         private System.Windows.Forms.ComboBox dropPriorityChannel;
         private System.Windows.Forms.Label label7;
         private SignalMeter_Small meter1;
-        private PictureCheckbox pictureCheckbox1;
+        private PictureCheckbox chkBypass0;
         private System.Windows.Forms.Label lblDuckInput0;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label lblDuckInput1;
-        private PictureCheckbox pictureCheckbox2;
+        private PictureCheckbox chkBypass1;
         private System.Windows.Forms.Label lblDuckInput2;
-        private PictureCheckbox pictureCheckbox3;
+        private PictureCheckbox chkBypass2;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label14;
     }

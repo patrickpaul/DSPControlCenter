@@ -58,6 +58,15 @@ namespace SA_Resources.DSP.Primitives
 
         }
 
+        public void PrintIndexUsage()
+        {
+            foreach (DSP_Primitive singlePrimitive in PRIMITIVES)
+            {
+                Console.WriteLine(singlePrimitive.Offset + "-" + (singlePrimitive.Offset + singlePrimitive.Num_Values-1) + " =" + singlePrimitive.Name);
+            }
+
+        }
+
         public void ReloadFromSettingsList(List<DSP_Setting> settingsList)
         {
             foreach(DSP_Primitive singlePrimitive in PRIMITIVES)
@@ -103,14 +112,25 @@ namespace SA_Resources.DSP.Primitives
                     
                     
                     case DSP_Primitive_Types.BiquadFilter:
-                        /*
-                    PrimitiveButton = (PictureButton)(PARENT_FORM.Controls.Find("btnCH" + (SinglePrimitive.Channel + 1) + "Delay", true).FirstOrDefault());
 
-                    if (PrimitiveButton != null)
-                    {
-                        PrimitiveButton.MouseClick += new MouseEventHandler(PARENT_FORM.btnDelay_MouseClick);
-                    }
-*/
+                        if (SinglePrimitive.PositionA == 0)
+                        {
+                            PrimitiveButton = (PictureButton)(PARENT_FORM.Controls.Find("btnCH" + (SinglePrimitive.Channel) + "PreFilters", true).FirstOrDefault());
+
+                            if (PrimitiveButton != null)
+                            {
+                                PrimitiveButton.MouseClick += new MouseEventHandler(PARENT_FORM.btnFilter_MouseClick);
+                            }
+                        }
+                        else if (SinglePrimitive.PositionA == 3)
+                        {
+                            PrimitiveButton = (PictureButton)(PARENT_FORM.Controls.Find("btnCH" + (SinglePrimitive.Channel) + "PostFilters", true).FirstOrDefault());
+
+                            if (PrimitiveButton != null)
+                            {
+                                PrimitiveButton.MouseClick += new MouseEventHandler(PARENT_FORM.btnFilter_MouseClick);
+                            }
+                        }
                     break;
                     
                     
@@ -133,6 +153,28 @@ namespace SA_Resources.DSP.Primitives
                     {
                         PrimitiveLabel.MouseClick += new MouseEventHandler(PARENT_FORM.lblInput_MouseClick);
                     }
+
+                    break;
+
+                    case DSP_Primitive_Types.Output:
+
+                    PrimitiveLabel = (Label)(PARENT_FORM.Controls.Find("lblCH" + (SinglePrimitive.Channel + 1) + "Output", true).FirstOrDefault());
+
+                    if (PrimitiveLabel != null)
+                    {
+                        PrimitiveLabel.MouseClick += new MouseEventHandler(PARENT_FORM.lblOutput_MouseClick);
+                    }
+
+                    break;
+
+                    case DSP_Primitive_Types.Ducker4x4:
+
+                    PrimitiveButton = (PictureButton)(PARENT_FORM.Controls.Find("pbtnDucker", true).FirstOrDefault());
+
+                        if (PrimitiveButton != null)
+                        {
+                            PrimitiveButton.MouseClick += new MouseEventHandler(PARENT_FORM.pbtnDucker4x4_MouseClick);
+                        }
 
                     break;
 

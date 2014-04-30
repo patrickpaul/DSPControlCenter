@@ -33,7 +33,7 @@ namespace SA_Resources.DSP.Primitives
         {
             get
             {
-                return new List<UInt32>(new UInt32[] { Bypassed_Value, Delay_Value });
+                return new List<UInt32>(new UInt32[] { Delay_Value, Bypassed_Value });
             }
             set { }
         }
@@ -77,14 +77,14 @@ namespace SA_Resources.DSP.Primitives
 
         public override void UpdateFromReadValues(List<UInt32> valuesList)
         {
-            this.Bypassed = (valuesList[0] == 0x00000001);
-            this.Delay = DSP_Math.MN_to_double_signed(valuesList[1], 16, 16);
+            this.Bypassed = (valuesList[1] == 0x00000001);
+            this.Delay = DSP_Math.MN_to_double_signed(valuesList[0], 16, 16);
         }
 
         public override void QueueChange(MainForm_Template PARENT_FORM)
         {
-            PARENT_FORM.AddItemToQueue(new LiveQueueItem(this.Offset, this.Bypassed_Value));
-            PARENT_FORM.AddItemToQueue(new LiveQueueItem(this.Offset+1, this.Delay_Value));
+            PARENT_FORM.AddItemToQueue(new LiveQueueItem(this.Offset, this.Delay_Value));
+            PARENT_FORM.AddItemToQueue(new LiveQueueItem(this.Offset + 1, this.Bypassed_Value));
         }
 
         public override void QueueChangeByOffset(MainForm_Template PARENT_FORM, int const_offset)

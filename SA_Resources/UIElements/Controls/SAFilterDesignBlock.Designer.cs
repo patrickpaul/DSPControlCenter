@@ -38,7 +38,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.dropFilter = new System.Windows.Forms.ComboBox();
             this.dropSlope = new System.Windows.Forms.ComboBox();
-            this.chkBypass = new PictureCheckbox();
+            this.chkBypass = new SA_Resources.SAControls.PictureCheckbox();
             this.SuspendLayout();
             // 
             // txtQval
@@ -147,7 +147,8 @@
             "Low Shelf",
             "High Shelf",
             "Peak (PEQ)",
-            "Notch"});
+            "Notch",
+            "Bandpass"});
             this.dropFilter.Location = new System.Drawing.Point(41, 4);
             this.dropFilter.Name = "dropFilter";
             this.dropFilter.Size = new System.Drawing.Size(121, 21);

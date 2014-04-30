@@ -6,7 +6,6 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using SA_Resources.Configurations;
 using SA_Resources.DSP;
 using SA_Resources.DSP.Primitives;
 using SA_Resources.SAControls;
@@ -33,68 +32,87 @@ namespace SA_Resources.SAForms
         private double read_gain_value = 0;
         private int cur_meter;
 
+        private DSP_Primitive_MixerCrosspoint ActiveCrosspoint;
+
         public MixerForm6x4(MainForm_Template _parentForm)
         {
             InitializeComponent();
 
-            PARENT_FORM = _parentForm;
-
-            DSP_Primitive_Input InputPrimitive = null;
-            Label InputLabel = null;
-
-            for(int i = 0; i < 4; i++)
+            try
             {
-                InputPrimitive = (DSP_Primitive_Input)PARENT_FORM.DSP_PROGRAMS[0].LookupPrimitive(DSP_Primitive_Types.Input, i, 0);
-                InputLabel = (Label) Controls.Find("lblInput" + i, true).FirstOrDefault();
+                PARENT_FORM = _parentForm;
 
-                if(InputLabel != null)
+
+                DSP_Primitive_Input InputPrimitive = null;
+                Label InputLabel = null;
+
+                for (int i = 0; i < 4; i++)
                 {
-                    if(InputPrimitive != null)
+                    InputPrimitive = (DSP_Primitive_Input) PARENT_FORM.DSP_PROGRAMS[0].LookupPrimitive(DSP_Primitive_Types.Input, i, 0);
+                    InputLabel = (Label) Controls.Find("lblInput" + i, true).FirstOrDefault();
+
+                    if (InputLabel != null)
                     {
-                        InputLabel.Text = InputPrimitive.InputName;
-                    } else
-                    {
-                        InputLabel.Text = "Input " + (i + 1).ToString();
+                        if (InputPrimitive != null)
+                        {
+                            InputLabel.Text = InputPrimitive.InputName;
+                        }
+                        else
+                        {
+                            InputLabel.Text = "Input " + (i + 1).ToString();
+                        }
                     }
+
                 }
 
+                lblOutput0.Text = ((DSP_Primitive_Output) PARENT_FORM.DSP_PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].LookupPrimitive(DSP_Primitive_Types.Output, 0, 0)).OutputName;
+                lblOutput1.Text = ((DSP_Primitive_Output) PARENT_FORM.DSP_PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].LookupPrimitive(DSP_Primitive_Types.Output, 1, 0)).OutputName;
+                lblOutput2.Text = ((DSP_Primitive_Output) PARENT_FORM.DSP_PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].LookupPrimitive(DSP_Primitive_Types.Output, 2, 0)).OutputName;
+                lblOutput3.Text = ((DSP_Primitive_Output) PARENT_FORM.DSP_PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].LookupPrimitive(DSP_Primitive_Types.Output, 3, 0)).OutputName;
+
+                int inputIndex = 0;
+
+                DSP_Primitive_MixerCrosspoint SingleCrosspoint;
+
+                for (int i = 0; i < 6; i++)
+                {
+
+                    inputIndex = i < 4 ? i : i + 4;
+
+                    for (int j = 0; j < 4; j++)
+                    {
+                        PictureButton pbControl = (PictureButton)Controls.Find("btnRouter" + (inputIndex).ToString() + "" + (j).ToString(), true).First();
+
+                        // Create the ToolTip and associate with the Form container.
+                        ToolTip toolTip1 = new ToolTip();
+
+                        // Set up the delays for the ToolTip.
+                        toolTip1.AutoPopDelay = 5000;
+                        toolTip1.InitialDelay = 10;
+                        toolTip1.ReshowDelay = 50;
+                        // Force the ToolTip text to be displayed whether or not the form is active.
+                        toolTip1.ShowAlways = true;
+
+                        SingleCrosspoint = (DSP_Primitive_MixerCrosspoint)PARENT_FORM.DSP_PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].LookupPrimitive(DSP_Primitive_Types.MixerCrosspoint, inputIndex, j);
+
+                        if (SingleCrosspoint.Muted)
+                        {
+                            toolTip1.SetToolTip(pbControl, "Muted");
+                            pbControl.Overlay3Visible = true;
+                        }
+                        else
+                        {
+                            toolTip1.SetToolTip(pbControl, SingleCrosspoint.Gain.ToString("N1") + "dB");
+                            pbControl.Overlay1Visible = true;
+                        }
+
+                        pbControl.Invalidate();
+                    }
+                }
             }
-
-
-            lblOutput0.Text = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].outputs[0].Name;
-            lblOutput1.Text = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].outputs[1].Name;
-            lblOutput2.Text = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].outputs[2].Name;
-            lblOutput3.Text = PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].outputs[3].Name;
-
-            for (int i = 0; i < 6; i++)
+            catch (Exception ex)
             {
-                for (int j = 0; j < 4; j++)
-                {
-                    PictureButton pbControl = (PictureButton)Controls.Find("btnRouter" + (i + 1).ToString() + "_" + (j + 1).ToString(), true).First();
-
-                    // Create the ToolTip and associate with the Form container.
-                    ToolTip toolTip1 = new ToolTip();
-
-                    // Set up the delays for the ToolTip.
-                    toolTip1.AutoPopDelay = 5000;
-                    toolTip1.InitialDelay = 10;
-                    toolTip1.ReshowDelay = 50;
-                    // Force the ToolTip text to be displayed whether or not the form is active.
-                    toolTip1.ShowAlways = true;
-
-                    // Set up the ToolTip text for the Button and Checkbox.
-                    if (PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].crosspoints[i][j].Muted)
-                    {
-                        toolTip1.SetToolTip(pbControl, "Muted");
-                        pbControl.Overlay3Visible = true;
-                    }
-                    else
-                    {
-                        toolTip1.SetToolTip(pbControl, PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].crosspoints[i][j].Gain.ToString("N1") + "dB");
-                        pbControl.Overlay1Visible = true;
-                    }
-                    pbControl.Invalidate();
-                }
+                Console.WriteLine("[Exception in MixerForm6x4]: " + ex.Message);
             }
 
         }
@@ -126,22 +144,19 @@ namespace SA_Resources.SAForms
         {
 
             int index_in = int.Parse(((PictureButton)sender).Name.Substring(9, 1));
-            int index_out = int.Parse(((PictureButton)sender).Name.Substring(11, 1));
+            int index_out = int.Parse(((PictureButton)sender).Name.Substring(10, 1));
 
-            GainConfig cached_gain = (GainConfig)PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].crosspoints[index_in - 1][index_out - 1].Clone();
-            /*
-            using (GainForm gainForm = new GainForm(PARENT_FORM, index_in - 1, index_out - 1, (index_in * 4) + (index_out-1), true))
+            ActiveCrosspoint = (DSP_Primitive_MixerCrosspoint)PARENT_FORM.DSP_PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].LookupPrimitive(DSP_Primitive_Types.MixerCrosspoint, index_in, index_out);
+
+
+            using (GainForm gainForm = new GainForm(PARENT_FORM, ActiveCrosspoint,DSP_Primitive_Types.MixerCrosspoint))
             {
-
-                gainForm.Width = 132;
-
-                gainForm.Height = 414;
 
                 DialogResult showResult = gainForm.ShowDialog(this);
 
                 if(showResult == DialogResult.Cancel)
                 {
-                    PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].crosspoints[index_in - 1][index_out - 1] = (GainConfig) cached_gain.Clone();
+                    //PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].crosspoints[index_in - 1][index_out - 1] = (GainConfig) cached_gain.Clone();
                     return;
                 }
 
@@ -160,15 +175,15 @@ namespace SA_Resources.SAForms
                 toolTip1.ShowAlways = true;
 
                 // Set up the ToolTip text for the Button and Checkbox.
-                if (PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].crosspoints[index_in - 1][index_out - 1].Muted)
+                if (ActiveCrosspoint.Muted)
                 {
                     toolTip1.SetToolTip(crosspoint_button, "Muted");
                 }
                 else
                 {
-                    toolTip1.SetToolTip(crosspoint_button, PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].crosspoints[index_in - 1][index_out - 1].Gain.ToString("N1") + "dB");
+                    toolTip1.SetToolTip(crosspoint_button, ActiveCrosspoint.Gain.ToString("N1") + "dB");
                 }
-                if(!PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].crosspoints[index_in - 1][index_out - 1].Muted)
+                if (!ActiveCrosspoint.Muted)
                 {
                     crosspoint_button.Overlay3Visible = false;
                     crosspoint_button.Overlay1Visible = true; 
@@ -180,7 +195,6 @@ namespace SA_Resources.SAForms
 
                 crosspoint_button.Invalidate();
             }
-             * */
         }
 
         private void signalTimer_Tick(object sender, EventArgs e)
@@ -199,7 +213,7 @@ namespace SA_Resources.SAForms
 
             SignalMeter curMeter = ((SignalMeter)Controls.Find("gainMeter" + (cur_meter + 1), true).First());
 
-            read_address = PARENT_FORM._mix_meters[cur_meter];
+            //read_address = PARENT_FORM._mix_meters[cur_meter];
 
 
             read_value = PARENT_FORM._PIC_Conn.Read_Live_DSP_Value(read_address);

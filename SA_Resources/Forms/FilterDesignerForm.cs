@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
-using SA_Resources.Configurations;
 using SA_Resources.DSP.Filters;
 using SA_Resources.DSP.Primitives;
 using SA_Resources.SAControls;
@@ -23,45 +22,44 @@ namespace SA_Resources.SAForms
         public object _threadlock;
         public bool uithread_abort = false;
 
-        public FilterDesignerForm()
+        public MainForm_Template PARENT_FORM;
+
+        // public DelayForm(MainForm_Template _parent, DSP_Primitive_Delay input_primitive)
+        public FilterDesignerForm(MainForm_Template _parent, int num_filters, int ch_num, int starting_filter_index)
         {
             InitializeComponent();
 
             _threadlock = new Object();
 
-            DSP_Primitive_BiquadFilter TestPrimitive1 = new DSP_Primitive_BiquadFilter("Test filter", 0, 0, 100, FilterType.Peak, false);
-            TestPrimitive1.Filter = new PeakFilter(200, 5, 1);
+            PARENT_FORM = _parent;
 
-            DSP_Primitive_BiquadFilter TestPrimitive2 = new DSP_Primitive_BiquadFilter("Test filter", 0, 0, 100, FilterType.Peak, false);
-            TestPrimitive2.Filter = new PeakFilter(500, 10, 1);
+            DSP_Primitive_BiquadFilter SingleFilterPrimitive;
+            SAFilterDesignBlock DesignBlock;
 
-            DSP_Primitive_BiquadFilter TestPrimitive3 = new DSP_Primitive_BiquadFilter("Test filter", 0, 0, 100, FilterType.Peak, false);
-            TestPrimitive3.Filter = new PeakFilter(1000, 10, 1);
+            bool firstFilterFound = false;
 
-            DSP_Primitive_BiquadFilter TestPrimitive4 = new DSP_Primitive_BiquadFilter("Test filter", 0, 0, 100, FilterType.Peak, false);
-            TestPrimitive4.Filter = new PeakFilter(5000, 10, 1);
+            for (int i = 0; i < num_filters; i++)
+            {
+                SingleFilterPrimitive = (DSP_Primitive_BiquadFilter)PARENT_FORM.DSP_PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].LookupPrimitive(DSP_Primitive_Types.BiquadFilter,ch_num,starting_filter_index++);
+                filterDesigner.RegisterFilterPrimitive(SingleFilterPrimitive);
 
-            DSP_Primitive_BiquadFilter TestPrimitive5 = new DSP_Primitive_BiquadFilter("Test filter", 0, 0, 100, FilterType.Peak, false);
-            TestPrimitive5.Filter = new PeakFilter(10000, 10, 1);
+                if (SingleFilterPrimitive.Filter != null)
+                {
+                    if (SingleFilterPrimitive.FType != FilterType.None)
+                    {
+                        filterDesigner.SetActiveFilter(i);
+                        firstFilterFound = true;
+                    }
 
-            DSP_Primitive_BiquadFilter TestPrimitive6 = new DSP_Primitive_BiquadFilter("Test filter", 0, 0, 100, FilterType.Peak, false);
-            TestPrimitive6.Filter = new PeakFilter(15000, 10, 1);
+                }
+                DesignBlock = (SAFilterDesignBlock)Controls.Find("filterDesignBlock" + i, true).First();
+                DesignBlock.RegisterPrimitive(i, SingleFilterPrimitive);
+            }
 
-            filterDesigner.RegisterFilterPrimitive(TestPrimitive1);
-            filterDesigner.RegisterFilterPrimitive(TestPrimitive2);
-            filterDesigner.RegisterFilterPrimitive(TestPrimitive3);
-            filterDesigner.RegisterFilterPrimitive(TestPrimitive4);
-            filterDesigner.RegisterFilterPrimitive(TestPrimitive5);
-            //filterDesigner.RegisterFilterPrimitive(TestPrimitive6);
-
-            filterDesignBlock0.RegisterPrimitive(0,TestPrimitive1);
-            filterDesignBlock1.RegisterPrimitive(1,TestPrimitive2);
-            filterDesignBlock2.RegisterPrimitive(2,TestPrimitive3);
-            filterDesignBlock3.RegisterPrimitive(3,TestPrimitive4);
-            filterDesignBlock4.RegisterPrimitive(4,TestPrimitive5);
-            //filterDesignBlock5.RegisterPrimitive(5,TestPrimitive6);
-
-            filterDesigner.SetActiveFilter(0);
+            if (!firstFilterFound)
+            {
+                filterDesigner.SetActiveFilter(0);
+            }
         }
 
         private void filterDesignBlock_OnChange(object sender, FilterEventArgs e)

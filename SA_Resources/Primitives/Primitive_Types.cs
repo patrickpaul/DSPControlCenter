@@ -7,9 +7,12 @@
         Compressor,
         Limiter,
         Ducker,
+        Ducker4x4,
+        Ducker8x8,
         BiquadFilter,
         Delay,
         MixerCrosspoint,
+        Output,
         Unknown
     }
 }

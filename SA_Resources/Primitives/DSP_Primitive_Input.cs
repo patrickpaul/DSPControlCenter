@@ -1,10 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using SA_Resources.Configurations;
 using SA_Resources.SAForms;
 
 namespace SA_Resources.DSP.Primitives
 {
+    public enum InputType
+    {
+        Line,
+        Microphone6,
+        Microphone20
+    }
+
     public class DSP_Primitive_Input : DSP_Primitive, ICloneable
     {
         public InputType InputType;

@@ -42,8 +42,8 @@ namespace SA_Resources
             this.signalTimer = new System.Windows.Forms.Timer(this.components);
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
-            this.gainMeter = new SignalMeter_Small();
-            this.chkPhantomPower = new PictureCheckbox();
+            this.gainMeter = new SA_Resources.SAControls.SignalMeter_Small();
+            this.chkPhantomPower = new SA_Resources.SAControls.PictureCheckbox();
             ((System.ComponentModel.ISupportInitialize)(this.btnCancel)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnSave)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gainMeter)).BeginInit();
@@ -178,7 +178,7 @@ namespace SA_Resources
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(82)))), ((int)(((byte)(82)))));
-            this.ClientSize = new System.Drawing.Size(262, 180);
+            this.ClientSize = new System.Drawing.Size(327, 180);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.gainMeter);

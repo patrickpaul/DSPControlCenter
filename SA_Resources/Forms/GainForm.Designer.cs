@@ -33,16 +33,28 @@ namespace SA_Resources.SAForms
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GainForm));
             this.signalTimer = new System.Windows.Forms.Timer(this.components);
-            this.gainMeter = new SignalMeter();
-            this.btnCancel = new PictureButton();
-            this.btnSave = new PictureButton();
-            this.saGainFader1 = new SAGainFader();
+            this.saGainFader1 = new SA_Resources.SAControls.SAGainFader();
+            this.gainMeter = new SA_Resources.SAControls.SignalMeter();
+            this.btnCancel = new SA_Resources.SAControls.PictureButton();
+            this.btnSave = new SA_Resources.SAControls.PictureButton();
             ((System.ComponentModel.ISupportInitialize)(this.gainMeter)).BeginInit();
             this.SuspendLayout();
             // 
             // signalTimer
             // 
             this.signalTimer.Tick += new System.EventHandler(this.signalTimer_Tick);
+            // 
+            // saGainFader1
+            // 
+            this.saGainFader1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(82)))), ((int)(((byte)(82)))));
+            this.saGainFader1.Gain = 0D;
+            this.saGainFader1.Location = new System.Drawing.Point(25, 5);
+            this.saGainFader1.Mode = 0;
+            this.saGainFader1.Muted = false;
+            this.saGainFader1.Name = "saGainFader1";
+            this.saGainFader1.Size = new System.Drawing.Size(73, 340);
+            this.saGainFader1.TabIndex = 35;
+            this.saGainFader1.OnChange += new SA_Resources.SAControls.FaderEventHandler(this.saGainFader1_OnChange);
             // 
             // gainMeter
             // 
@@ -94,23 +106,11 @@ namespace SA_Resources.SAForms
             this.btnSave.ToolTipText = "";
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
-            // saGainFader1
-            // 
-            this.saGainFader1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(82)))), ((int)(((byte)(82)))));
-            this.saGainFader1.Gain = 0D;
-            this.saGainFader1.Location = new System.Drawing.Point(25, 5);
-            this.saGainFader1.Mode = 0;
-            this.saGainFader1.Muted = false;
-            this.saGainFader1.Name = "saGainFader1";
-            this.saGainFader1.Size = new System.Drawing.Size(73, 340);
-            this.saGainFader1.TabIndex = 35;
-            this.saGainFader1.OnChange += new FaderEventHandler(this.saGainFader1_OnChange);
-            // 
             // GainForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(82)))), ((int)(((byte)(82)))));
-            this.ClientSize = new System.Drawing.Size(179, 380);
+            this.ClientSize = new System.Drawing.Size(259, 380);
             this.Controls.Add(this.saGainFader1);
             this.Controls.Add(this.gainMeter);
             this.Controls.Add(this.btnCancel);
