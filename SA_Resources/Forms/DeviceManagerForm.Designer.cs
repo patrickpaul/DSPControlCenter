@@ -45,10 +45,10 @@
             this.radioPull = new System.Windows.Forms.RadioButton();
             this.btnOK = new System.Windows.Forms.Button();
             this.grpPushPull = new System.Windows.Forms.GroupBox();
+            this.chkProgram1 = new System.Windows.Forms.CheckBox();
             this.chkDebug = new System.Windows.Forms.CheckBox();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.closeTimer = new System.Windows.Forms.Timer(this.components);
-            this.chkProgram1 = new System.Windows.Forms.CheckBox();
             this.grpConnect.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.deviceThumbnail)).BeginInit();
@@ -76,7 +76,7 @@
             // 
             this.lblFirmware.Location = new System.Drawing.Point(193, 54);
             this.lblFirmware.Name = "lblFirmware";
-            this.lblFirmware.Size = new System.Drawing.Size(77, 18);
+            this.lblFirmware.Size = new System.Drawing.Size(128, 18);
             this.lblFirmware.TabIndex = 24;
             // 
             // lblDevice
@@ -230,6 +230,16 @@
             this.grpPushPull.TabStop = false;
             this.grpPushPull.Text = "Synchronize";
             // 
+            // chkProgram1
+            // 
+            this.chkProgram1.AutoSize = true;
+            this.chkProgram1.Location = new System.Drawing.Point(247, 102);
+            this.chkProgram1.Name = "chkProgram1";
+            this.chkProgram1.Size = new System.Drawing.Size(105, 17);
+            this.chkProgram1.TabIndex = 35;
+            this.chkProgram1.Text = "Only Program 1";
+            this.chkProgram1.UseVisualStyleBackColor = true;
+            // 
             // chkDebug
             // 
             this.chkDebug.AutoSize = true;
@@ -252,16 +262,6 @@
             // 
             this.closeTimer.Interval = 1000;
             this.closeTimer.Tick += new System.EventHandler(this.closeTimer_Tick);
-            // 
-            // chkProgram1
-            // 
-            this.chkProgram1.AutoSize = true;
-            this.chkProgram1.Location = new System.Drawing.Point(247, 102);
-            this.chkProgram1.Name = "chkProgram1";
-            this.chkProgram1.Size = new System.Drawing.Size(105, 17);
-            this.chkProgram1.TabIndex = 35;
-            this.chkProgram1.Text = "Only Program 1";
-            this.chkProgram1.UseVisualStyleBackColor = true;
             // 
             // DeviceManagerForm
             // 

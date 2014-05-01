@@ -138,16 +138,15 @@ namespace SA_Resources.USB
             {
                 lock (PIC_LOCK)
                 {
+                    FlushBuffer();
+
                     if (!serialPort.IsOpen) return false;
 
-                    byte[] buff = new byte[3];
+                    byte[] buff = new byte[10];
 
                     buff[0] = 0x02;
                     buff[1] = 0x01;
                     buff[2] = 0x03;
-
-
-                    FlushBuffer();
 
 
                     for (int retry_count = 0; retry_count < 3; retry_count++)
@@ -155,20 +154,21 @@ namespace SA_Resources.USB
                         serialPort.Write(buff, 0, 3);
                         Thread.Sleep(30);
 
-                        if (serialPort.BytesToRead > 2)
+                        if (serialPort.BytesToRead >= 3)
                         {
-                            Byte[] bytes = new Byte[serialPort.BytesToRead];
+
+                            Byte[] bytes = new Byte[serialPort.BytesToRead + 5];
 
                             serialPort.Read(bytes, 0, serialPort.BytesToRead);
 
-                            if (bytes[0] == 0x06 && bytes[1] == 0x01 && bytes[2] == 0x03)
+                            if (bytes[0] == 0x06 && bytes[1] == 0x01)
                             {
                                 return true;
                             }
 
                             if (bytes[0] == 0x15)
                             {
-                                PrintError(bytes[1]);
+                                //print_error(bytes[1]);
                             }
 
                         }
@@ -178,7 +178,7 @@ namespace SA_Resources.USB
                         }
                     }
 
-                    return false; // failed after 3 retries
+                    return false;
                 }
             } catch (Exception ex)
             {
@@ -202,43 +202,43 @@ namespace SA_Resources.USB
                     byte[] buff = new byte[3];
 
                     buff[0] = 0x02;
-                    buff[1] = 0X04;
+                    buff[1] = 0x04;
                     buff[2] = 0x03;
 
-                    serialPort.Write(buff, 0, 3);
+                    int device_id = 0;
 
-                    int bytesToRead = 0;
-
-                    for (int count = 0; count <= 5; count++)
+                    for (int retry_count = 0; retry_count < 3; retry_count++)
                     {
-                        bytesToRead = serialPort.BytesToRead;
+                        serialPort.Write(buff, 0, 3);
+                        Thread.Sleep(30);
 
-                        if (bytesToRead == 4)
+                        if (serialPort.BytesToRead >= 5)
                         {
-                            break;
+
+                            Byte[] bytes = new Byte[serialPort.BytesToRead];
+
+                            serialPort.Read(bytes, 0, serialPort.BytesToRead);
+
+                            if (bytes[0] == 0x06 && bytes[1] == 0x04)
+                            {
+                                device_id = device_id | bytes[2];
+                                device_id <<= 8;
+                                return (device_id | bytes[3]);
+                            }
+
+                            if (bytes[0] == 0x15)
+                            {
+                                //print_error(bytes[1]);
+                            }
+
                         }
-
-                        Thread.Sleep(100);
-
-                        if (count == 5)
+                        else
                         {
-                            return 0x00;
+                            FlushBuffer();
                         }
-
                     }
 
-                    Byte[] bytes = new Byte[bytesToRead];
-
-                    serialPort.Read(bytes, 0, bytesToRead);
-
-                    if (bytes[0] == 0x06 && bytes[1] == 0x08)
-                    {
-                        return bytes[2];
-                    }
-                    else
-                    {
-                        return 0x00;
-                    }
+                    return 0;
                 }
             } catch (Exception ex)
             {
@@ -263,43 +263,42 @@ namespace SA_Resources.USB
                     byte[] buff = new byte[3];
 
                     buff[0] = 0x02;
-                    buff[1] = 0X09;
+                    buff[1] = 0x07;
                     buff[2] = 0x03;
 
-                    serialPort.Write(buff, 0, 3);
+                    double version = 0;
 
-                    int bytesToRead = 0;
-
-                    for (int count = 0; count <= 5; count++)
+                    for (int retry_count = 0; retry_count < 3; retry_count++)
                     {
-                        bytesToRead = serialPort.BytesToRead;
+                        serialPort.Write(buff, 0, 3);
+                        Thread.Sleep(30);
 
-                        if (bytesToRead == 4)
+                        if (serialPort.BytesToRead >= 5)
                         {
-                            break;
+
+                            Byte[] bytes = new Byte[serialPort.BytesToRead];
+
+                            serialPort.Read(bytes, 0, serialPort.BytesToRead);
+
+                            if (bytes[0] == 0x06 && bytes[1] == 0x07)
+                            {
+                                version = double.Parse(bytes[2] + "." + bytes[3]);
+                                return version;
+                            }
+
+                            if (bytes[0] == 0x15)
+                            {
+                                //print_error(bytes[1]);
+                            }
+
                         }
-
-                        Thread.Sleep(100);
-
-                        if (count == 5)
+                        else
                         {
-                            return 2.5;
+                            FlushBuffer();
                         }
-
                     }
 
-                    Byte[] bytes = new Byte[bytesToRead];
-
-                    serialPort.Read(bytes, 0, bytesToRead);
-
-                    if (bytes[0] == 0x06 && bytes[3] == 0x0A)
-                    {
-                        return ((double) bytes[1]) + (((double) bytes[2])/10.0);
-                    }
-                    else
-                    {
-                        return 2.5;
-                    }
+                    return 0;
                 }
             } catch (Exception ex)
             {
@@ -398,72 +397,73 @@ namespace SA_Resources.USB
 
                 lock (PIC_LOCK)
                 {
-                    FlushBuffer();
+                FlushBuffer();
 
-                    if (!serialPort.IsOpen) return 0x00000000;
+                if (!serialPort.IsOpen) return 0x00000000;
 
-                    uint byte4 = DSP_address & 0xFF;
-                    DSP_address = DSP_address >> 8;
+                uint byte4 = DSP_address & 0xFF;
+                DSP_address = DSP_address >> 8;
 
-                    uint byte3 = DSP_address & 0xFF;
-                    DSP_address = DSP_address >> 8;
+                uint byte3 = DSP_address & 0xFF;
+                DSP_address = DSP_address >> 8;
 
-                    uint byte2 = DSP_address & 0xFF;
+                uint byte2 = DSP_address & 0xFF;
 
-                    uint byte1 = DSP_address >> 8;
+                uint byte1 = DSP_address >> 8;
 
-                    byte[] buff = new byte[6];
+                byte[] buff = new byte[6];
 
-                    buff[0] = 0x11;
-                    buff[1] = (byte) byte1;
-                    buff[2] = (byte) byte2;
-                    buff[3] = (byte) byte3;
-                    buff[4] = (byte) byte4;
-                    buff[5] = 0x03;
+                buff[0] = 0x08;
+                buff[1] = (byte)byte1;
+                buff[2] = (byte)byte2;
+                buff[3] = (byte)byte3;
+                buff[4] = (byte)byte4;
+                buff[5] = 0x03;
 
 
-                    for (int retry_count = 0; retry_count < 3; retry_count++)
+                for (int retry_count = 0; retry_count < 3; retry_count++)
+                {
+                    serialPort.Write(buff, 0, 6);
+                    Thread.Sleep(60);
+
+                    if (serialPort.BytesToRead > 5)
                     {
-                        serialPort.Write(buff, 0, 6);
-                        Thread.Sleep(60);
+                        Byte[] bytes = new Byte[serialPort.BytesToRead];
 
-                        if (serialPort.BytesToRead > 5)
+                        serialPort.Read(bytes, 0, serialPort.BytesToRead);
+
+                        if ((bytes[0] == 0x06) && (bytes[5] == 0x03))
                         {
-                            Byte[] bytes = new Byte[serialPort.BytesToRead];
+                            /* INTENTIONAL REVERSAL!! */
+                            UInt32 test_value = 0x00000000 | (uint)bytes[1];
+                            test_value = test_value << 8;
+                            test_value = test_value | (uint)bytes[2];
+                            test_value = test_value << 8;
+                            test_value = test_value | (uint)bytes[3];
+                            test_value = test_value << 8;
+                            test_value = test_value | (uint)bytes[4];
 
-                            serialPort.Read(bytes, 0, serialPort.BytesToRead);
-
-                            if ((bytes[0] == 0x02) && (bytes[5] == 0x0A))
-                            {
-                                /* INTENTIONAL REVERSAL!! */
-                                UInt32 test_value = 0x00000000 | (uint) bytes[1];
-                                test_value = test_value << 8;
-                                test_value = test_value | (uint) bytes[2];
-                                test_value = test_value << 8;
-                                test_value = test_value | (uint) bytes[3];
-                                test_value = test_value << 8;
-                                test_value = test_value | (uint) bytes[4];
-
-                                return test_value;
-                            }
-
-                            if (bytes[0] == 0x15)
-                            {
-                                PrintError(bytes[1]);
-                            }
-
+                            return test_value;
                         }
-                        else
+
+                        if (bytes[0] == 0x15)
                         {
-                            FlushBuffer();
+                            //print_error(bytes[1]);
                         }
+
+                    }
+                    else
+                    {
+                        FlushBuffer();
+                    }
                     }
 
                     return 0xFFFFFFFF;
                 }
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
-                
+                Console.WriteLine("[EXCEPTION in Read_Live_DSP_Value]: " + ex.Message);
             }
 
             return 0xFFFFFFFF;
@@ -629,13 +629,13 @@ namespace SA_Resources.USB
 
                 if (address_index > 255)
                 {
-                    address_index1 = 255;
-                    address_index2 = address_index - 255;
+                    address_index1 = address_index - 255;
+                    address_index2 = 255;
                 }
                 else
                 {
-                    address_index1 = address_index;
-                    address_index2 = 0;
+                    address_index1 = 0;
+                    address_index2 = address_index;
                 }
 
                 uint byte4 = value & 0xFF;
@@ -661,7 +661,7 @@ namespace SA_Resources.USB
 
                 byte[] buff = new byte[8];
 
-                buff[0] = 0x06;
+                buff[0] = 0x04;
                 buff[1] = (byte)address_index1;
                 buff[2] = (byte)address_index2;
                 buff[3] = (byte)byte1;
@@ -677,19 +677,20 @@ namespace SA_Resources.USB
                 last_byte3 = byte3;
                 last_byte4 = byte4;
 
+
                 for (int retry_count = 0; retry_count < 3; retry_count++)
                 {
                     serialPort.Write(buff, 0, 8);
-                    Thread.Sleep(100);
+                    Thread.Sleep(50);
 
-                    if (serialPort.BytesToRead >= 3)
+                    if (serialPort.BytesToRead >= 4)
                     {
 
                         Byte[] bytes = new Byte[serialPort.BytesToRead + 5];
 
                         serialPort.Read(bytes, 0, serialPort.BytesToRead);
 
-                        if (bytes[0] == 0x06 && bytes[1] == 0x05 && bytes[2] == (byte)address_index1 && bytes[3] == (byte)address_index2)
+                        if (bytes[0] == 0x06 && bytes[1] == (byte)address_index1 && bytes[2] == (byte)address_index2)
                         {
                             return true;
                         }

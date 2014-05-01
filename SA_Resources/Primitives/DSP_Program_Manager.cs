@@ -100,12 +100,23 @@ namespace SA_Resources.DSP.Primitives
                     break;
 
                     case DSP_Primitive_Types.StandardGain:
-                        
+
                     PrimitiveButton = (PictureButton)(PARENT_FORM.Controls.Find("btnGain" + SinglePrimitive.Channel + SinglePrimitive.PositionA, true).FirstOrDefault());
 
                     if (PrimitiveButton != null)
                     {
                         PrimitiveButton.MouseClick += new MouseEventHandler(PARENT_FORM.btnStandardGain_MouseClick);
+                    }
+
+                    break;
+                    
+                    case DSP_Primitive_Types.Pregain:
+                        
+                    PrimitiveButton = (PictureButton)(PARENT_FORM.Controls.Find("btnGain" + SinglePrimitive.Channel + SinglePrimitive.PositionA, true).FirstOrDefault());
+
+                    if (PrimitiveButton != null)
+                    {
+                        PrimitiveButton.MouseClick += new MouseEventHandler(PARENT_FORM.btnPregain_MouseClick);
                     }
 
                     break;
@@ -188,6 +199,159 @@ namespace SA_Resources.DSP.Primitives
 
 
             }
+        }
+
+        public void SaveToFile(string outputFile)
+        {
+            bool print_labels = false;
+            Int16 index_counter = 0;
+            try
+            {
+                using (System.IO.StreamWriter file = new System.IO.StreamWriter(outputFile))
+                {
+
+                    foreach (DSP_Primitive singlePrimitive in PRIMITIVES)
+                    {
+                        switch (singlePrimitive.Type)
+                        {
+                            case DSP_Primitive_Types.StandardGain:
+
+                                if (print_labels)
+                                {
+                                    file.WriteLine("StandardGain at " + singlePrimitive.Channel + "-" + singlePrimitive.PositionA);
+                                }
+                                
+                                foreach (UInt32 singleValue in ((DSP_Primitive_StandardGain) singlePrimitive).Values)
+                                {
+                                    
+                                    file.WriteLine(index_counter.ToString("0000") + ":" + singleValue.ToString("X8"));
+                                    index_counter++;
+                                }
+
+                                break;
+
+                            case DSP_Primitive_Types.Pregain:
+
+                                if (print_labels)
+                                {
+                                    file.WriteLine("Pregain at " + singlePrimitive.Channel + "-" + singlePrimitive.PositionA);
+                                }
+
+                                foreach (UInt32 singleValue in ((DSP_Primitive_Pregain)singlePrimitive).Values)
+                                {
+
+                                    file.WriteLine(index_counter.ToString("0000") + ":" + singleValue.ToString("X8"));
+                                    index_counter++;
+                                }
+
+                                break;
+
+
+                            case DSP_Primitive_Types.BiquadFilter:
+
+                                if (print_labels)
+                                {
+                                    file.WriteLine("Filter at " + singlePrimitive.Channel + "-" + singlePrimitive.PositionA);
+                                }
+
+                                foreach (UInt32 singleValue in ((DSP_Primitive_BiquadFilter) singlePrimitive).Values)
+                                {
+
+                                    file.WriteLine(index_counter.ToString("0000") + ":" + singleValue.ToString("X8"));
+                                    index_counter++;
+                                }
+
+
+                            break;
+
+                            case DSP_Primitive_Types.Compressor:
+                            case DSP_Primitive_Types.Limiter:
+
+                                if (print_labels)
+                                {
+                                    file.WriteLine("Compressor/Limiter at " + singlePrimitive.Channel + "-" + singlePrimitive.PositionA);
+                                }
+                            
+                            foreach (UInt32 singleValue in ((DSP_Primitive_Compressor)singlePrimitive).Values)
+                            {
+
+                                file.WriteLine(index_counter.ToString("0000") + ":" + singleValue.ToString("X8"));
+                                index_counter++;
+                            }
+
+
+                            break;
+
+                            case DSP_Primitive_Types.Ducker4x4:
+
+                                if (print_labels)
+                                {
+                                    file.WriteLine("Ducker at " + singlePrimitive.Channel + "-" + singlePrimitive.PositionA);
+                            
+                                }
+                            
+                            foreach (UInt32 singleValue in ((DSP_Primitive_Ducker4x4)singlePrimitive).Values)
+                            {
+
+                                file.WriteLine(index_counter.ToString("0000") + ":" + singleValue.ToString("X8"));
+                                index_counter++;
+                            }
+
+
+                            break;
+
+                            case DSP_Primitive_Types.MixerCrosspoint:
+
+                                if (print_labels)
+                                {
+                                    file.WriteLine("MixerCrosspoint at " + singlePrimitive.Channel + "-" + singlePrimitive.PositionA);
+
+                                }
+                            
+                            foreach (UInt32 singleValue in ((DSP_Primitive_MixerCrosspoint)singlePrimitive).Values)
+                            {
+
+                                file.WriteLine(index_counter.ToString("0000") + ":" + singleValue.ToString("X8"));
+                                index_counter++;
+                            }
+
+
+                            break;
+                            
+                            
+                            case DSP_Primitive_Types.Delay:
+
+                                if (print_labels)
+                                {
+                                    file.WriteLine("Delay at " + singlePrimitive.Channel + "-" + singlePrimitive.PositionA);
+  
+                                }
+                            
+                            foreach (UInt32 singleValue in ((DSP_Primitive_Delay)singlePrimitive).Values)
+                            {
+
+                                file.WriteLine(index_counter.ToString("0000") + ":" + singleValue.ToString("X8"));
+                                index_counter++;
+                            }
+
+
+                            break;
+
+
+
+                        }
+
+
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("[Exception in SaveToFile]: " + ex.Message);
+            }
+
+
         }
 
 

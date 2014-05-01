@@ -913,6 +913,7 @@ namespace SA_Resources.SAForms
             DSP_Primitive_Input RecastInput;
             DSP_Primitive_Output RecastOutput;
             DSP_Primitive_StandardGain RecastStandardGain;
+            DSP_Primitive_Pregain RecastPregain; 
             DSP_Primitive_Ducker4x4 RecastDucker4x4;
 
             foreach (DSP_Primitive SinglePrimitive in DSP_PROGRAMS[CURRENT_PROGRAM].PRIMITIVES)
@@ -996,6 +997,24 @@ namespace SA_Resources.SAForms
 
                     break;
 
+                    case DSP_Primitive_Types.Pregain:
+
+                    RecastPregain = (DSP_Primitive_Pregain)SinglePrimitive;
+
+                    PrimitiveButton = ((PictureButton)Controls.Find("btnGain" + (RecastPregain.Channel) + (RecastPregain.PositionA), true).FirstOrDefault());
+
+                    if (PrimitiveButton != null)
+                    {
+                        PrimitiveButton.Overlay2Visible = (RecastPregain.Muted);
+                        PrimitiveButton.Invalidate();
+
+                        toolTip1.SetToolTip(PrimitiveButton, RecastPregain.ToString());
+
+                    }
+
+                    break;
+                    
+                    
                     case DSP_Primitive_Types.StandardGain:
 
                     RecastStandardGain = (DSP_Primitive_StandardGain)SinglePrimitive;
@@ -1474,6 +1493,64 @@ namespace SA_Resources.SAForms
                         }
 
                         DSP_PROGRAMS[0].PRIMITIVES[PrimitiveIndex] = (DSP_Primitive_StandardGain)Cached_Primitive.Clone();
+                    }
+                }
+                else
+                {
+                    UpdateTooltips();
+                }
+            }
+        }
+
+
+        public void btnPregain_MouseClick(object sender, MouseEventArgs e)
+        {
+
+            if (e.Button == MouseButtons.Right)
+            {
+                return;
+            }
+
+            int ch_num = int.Parse(((PictureButton)sender).Name.Substring(7, 1));
+            int pos = int.Parse(((PictureButton)sender).Name.Substring(8, 1));
+
+            DSP_Primitive_Pregain Active_Primitive;
+
+            int PrimitiveIndex = DSP_PROGRAMS[0].LookupIndex(DSP_Primitive_Types.Pregain, ch_num, pos);
+
+            if (PrimitiveIndex < 0)
+            {
+                Active_Primitive = null;
+                Console.WriteLine("[ERROR] Unable to locate Pregain at CH = " + ch_num + " and POS = " + 0);
+            }
+            else
+            {
+                Active_Primitive = (DSP_Primitive_Pregain)DSP_PROGRAMS[0].PRIMITIVES[PrimitiveIndex];
+            }
+
+            DSP_Primitive_Pregain Cached_Primitive = (DSP_Primitive_Pregain)Active_Primitive.Clone();
+
+
+
+
+            using (PregainForm gainForm = new PregainForm(this, Active_Primitive))
+            {
+
+                gainForm.Width = LIVE_MODE ? 187 : 132;
+                gainForm.Height = 414;
+
+                DialogResult showBlock = gainForm.ShowDialog(this);
+
+                if (showBlock == DialogResult.Cancel)
+                {
+                    if (!Active_Primitive.Equals(Cached_Primitive))
+                    {
+                        if (LIVE_MODE)
+                        {
+                            Cached_Primitive.QueueDeltas(this, Active_Primitive);
+                        }
+
+                        DSP_PROGRAMS[0].PRIMITIVES[PrimitiveIndex] = (DSP_Primitive_Pregain)Cached_Primitive.Clone();
                     }
                 }
                 else

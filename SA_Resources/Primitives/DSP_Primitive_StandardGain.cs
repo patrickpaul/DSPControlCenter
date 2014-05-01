@@ -18,7 +18,7 @@ namespace SA_Resources.DSP.Primitives
         public bool _Muted;
         public double _Pregain;
         public StandardGain_Types _Mode;
-
+        public UInt32 _Meter;
         public DSP_Primitive_StandardGain(string in_name, int in_channel, int in_positionA)
             : base(in_name,in_channel,in_positionA)
         {
@@ -31,7 +31,7 @@ namespace SA_Resources.DSP.Primitives
             this.Num_Values = 2;
         }
 
-        public DSP_Primitive_StandardGain(string in_name, int in_channel, int in_positionA, StandardGain_Types in_type)
+        public DSP_Primitive_StandardGain(string in_name, int in_channel, int in_positionA, StandardGain_Types in_type, UInt32 in_meter)
             : base(in_name, in_channel, in_positionA)
         {
             Muted = false;
@@ -40,9 +40,10 @@ namespace SA_Resources.DSP.Primitives
             Mode = in_type;
             this.Type = DSP_Primitive_Types.StandardGain;
             this.Num_Values = 2;
+            this.Meter = in_meter;
         }
 
-        public DSP_Primitive_StandardGain(string in_name, int in_channel, int in_positionA, StandardGain_Types in_type, double in_gain = 0, bool in_muted = false)
+        public DSP_Primitive_StandardGain(string in_name, int in_channel, int in_positionA, StandardGain_Types in_type, UInt32 in_meter, double in_gain = 0, bool in_muted = false)
             : base(in_name, in_channel, in_positionA)
         {
             Muted = in_muted;
@@ -51,6 +52,7 @@ namespace SA_Resources.DSP.Primitives
             _Pregain = 0;
             this.Type = DSP_Primitive_Types.StandardGain;
             this.Num_Values = 2;
+            this.Meter = in_meter;
         }
 
         public List<UInt32> Values
@@ -60,8 +62,13 @@ namespace SA_Resources.DSP.Primitives
                 return new List<UInt32>(new UInt32[] { Gain_Value, Muted_Value });
             }
             set {}
-        } 
+        }
 
+        public UInt32 Meter
+        {
+            get { return this._Meter; }
+            set { this._Meter = value; }
+        }
         public double Gain
         {
             get
@@ -71,17 +78,7 @@ namespace SA_Resources.DSP.Primitives
             set {
                 this._Gain = value;
 
-                this.Gain_Value = DSP_Math.double_to_MN(DSP_Math.decibels_to_voltage_gain(this._Gain), 9, 23);
-                /*
-                if (this._Muted)
-                {
-                    this.Gain_Value = DSP_Math.double_to_MN(DSP_Math.decibels_to_voltage_gain(-100), 3, 29);
-                }
-                else
-                {
-                    this.Gain_Value = DSP_Math.double_to_MN(DSP_Math.decibels_to_voltage_gain(this._Gain), 9, 23);
-                }
-                 * */
+                this.Gain_Value = DSP_Math.double_to_MN(DSP_Math.decibels_to_voltage_gain(this._Gain), 3, 29);
             }
         }
 
@@ -108,11 +105,11 @@ namespace SA_Resources.DSP.Primitives
                 this._Muted = value;
                 if (this._Muted)
                 {
-                    this.Muted_Value = 0x00000002;
+                    this.Muted_Value = 0x00000001;
                 }
                 else
                 {
-                    this.Muted_Value = 0x00000001;
+                    this.Muted_Value = 0x00000000;
                 }
             }
         }
@@ -132,7 +129,7 @@ namespace SA_Resources.DSP.Primitives
         public override void UpdateFromReadValues(List<UInt32> valuesList)
         {
             this.Gain = DSP_Math.value_to_gain(valuesList[0]);
-            this.Muted = (valuesList[1] == 0x0000002);
+            this.Muted = (valuesList[1] == 0x0000001);
         }
 
         public override void QueueChange(MainForm_Template PARENT_FORM)

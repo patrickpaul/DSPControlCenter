@@ -69,6 +69,12 @@
     <Compile Include="Classes\SADevicePlugin.cs" />
     <Compile Include="Classes\SCFG_Manager.cs" />
     <Compile Include="Classes\USBManager.cs" />
+    <Compile Include="Forms\PregainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\PregainForm.Designer.cs">
+      <DependentUpon>PregainForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\DuckerForm4x4.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -132,6 +138,7 @@
     <Compile Include="Primitives\DSP_Primitive_Ducker6x6.cs" />
     <Compile Include="Primitives\DSP_Primitive_Input.cs" />
     <Compile Include="Primitives\DSP_Primitive_MixerCrosspoint.cs" />
+    <Compile Include="Primitives\DSP_Primitive_Pregain.cs" />
     <Compile Include="Primitives\DSP_Primitive_StandardGain.cs" />
     <Compile Include="Primitives\DSP_Program_Manager.cs" />
     <Compile Include="Primitives\Primitive_Types.cs" />
@@ -301,6 +308,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\CompressorForm.resx">
       <DependentUpon>CompressorForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\PregainForm.resx">
+      <DependentUpon>PregainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\DuckerForm4x4.resx">
       <DependentUpon>DuckerForm4x4.cs</DependentUpon>
@@ -576,10 +586,13 @@
   <ItemGroup>
     <None Include="Resources\ui_fader_slider_muted.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\gainfader_24_to__24.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_UpdateAssemblyVersion="True" BuildVersion_UpdateFileVersion="True" BuildVersion_AssemblyInfoFilename="Properties\AssemblyInfo.cs" BuildVersion_UseGlobalSettings="True" />
+      <UserProperties BuildVersion_UseGlobalSettings="True" BuildVersion_AssemblyInfoFilename="Properties\AssemblyInfo.cs" BuildVersion_UpdateFileVersion="True" BuildVersion_UpdateAssemblyVersion="True" />
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>

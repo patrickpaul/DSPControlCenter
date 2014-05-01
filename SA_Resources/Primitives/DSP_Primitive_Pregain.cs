@@ -5,61 +5,67 @@ using SA_Resources.SAForms;
 
 namespace SA_Resources.DSP.Primitives
 {
-    public class DSP_Primitive_MixerCrosspoint : DSP_Primitive, ICloneable
+
+    public class DSP_Primitive_Pregain : DSP_Primitive, ICloneable
     {
         public double _Gain;
         public UInt32 Gain_Value, Muted_Value;
         public bool _Muted;
-        public double _Pregain;
+        public UInt32 _Meter;
+        public DSP_Primitive_Pregain(string in_name, int in_channel, int in_positionA)
+            : base(in_name,in_channel,in_positionA)
+        {
+            Muted = false;
+            Gain = 0;
+            this.Type = DSP_Primitive_Types.Pregain;
 
-        public DSP_Primitive_MixerCrosspoint(string in_name, int in_channel, int in_positionA)
+            this.Num_Values = 2;
+        }
+
+        public DSP_Primitive_Pregain(string in_name, int in_channel, int in_positionA, UInt32 in_meter)
             : base(in_name, in_channel, in_positionA)
         {
             Muted = false;
             Gain = 0;
-            _Pregain = 0;
-
-            this.Type = DSP_Primitive_Types.MixerCrosspoint; ;
-            this.Num_Values = 1;
+            this.Type = DSP_Primitive_Types.Pregain;
+            this.Num_Values = 2;
+            this.Meter = in_meter;
         }
 
-        public DSP_Primitive_MixerCrosspoint(string in_name, int in_channel, int in_positionA, double in_gain = 0, bool in_muted = false)
+        public DSP_Primitive_Pregain(string in_name, int in_channel, int in_positionA, UInt32 in_meter, double in_gain = 0, bool in_muted = false)
             : base(in_name, in_channel, in_positionA)
         {
-            Muted = (in_gain == -100) ? true : in_muted;
+            Muted = in_muted;
             Gain = in_gain;
-            _Pregain = 0;
-            this.Type = DSP_Primitive_Types.MixerCrosspoint;
-            this.Num_Values = 1;
+            this.Type = DSP_Primitive_Types.Pregain;
+            this.Num_Values = 2;
+            this.Meter = in_meter;
         }
 
         public List<UInt32> Values
         {
             get
             {
-                return new List<UInt32>(new UInt32[] { Gain_Value });
+                return new List<UInt32>(new UInt32[] { Gain_Value, Muted_Value });
             }
-            set { }
+            set {}
         }
 
+        public UInt32 Meter
+        {
+            get { return this._Meter; }
+            set { this._Meter = value; }
+        }
         public double Gain
         {
             get
             {
-                return this._Gain + _Pregain;
+                return this._Gain;
             }
-            set
-            {
+            set {
                 this._Gain = value;
 
-                if (this._Muted)
-                {
-                    this.Gain_Value = 0x00000000; // To prevent any possible cross-channel issues we do zero instead of -100dB (0x000014F8)
-                }
-                else
-                {
-                    this.Gain_Value = DSP_Math.double_to_MN(DSP_Math.decibels_to_voltage_gain(this._Gain), 3, 29);
-                }
+                this.Gain_Value = DSP_Math.double_to_MN(this._Gain, 9,23);
             }
         }
 
@@ -74,11 +80,11 @@ namespace SA_Resources.DSP.Primitives
                 this._Muted = value;
                 if (this._Muted)
                 {
-                    this.Gain_Value = DSP_Math.double_to_MN(DSP_Math.decibels_to_voltage_gain(-100), 3, 29);
+                    this.Muted_Value = 0x00000001;
                 }
                 else
                 {
-                    this.Gain_Value = DSP_Math.double_to_MN(DSP_Math.decibels_to_voltage_gain(this._Gain), 9, 23);
+                    this.Muted_Value = 0x00000000;
                 }
             }
         }
@@ -87,7 +93,7 @@ namespace SA_Resources.DSP.Primitives
         {
             if (Muted == true)
             {
-                return "Muted";
+                return "Muted (" + Gain.ToString("N1") + "dB)";
             }
             else
             {
@@ -97,18 +103,8 @@ namespace SA_Resources.DSP.Primitives
 
         public override void UpdateFromReadValues(List<UInt32> valuesList)
         {
-            if(valuesList.Count > this.Num_Values)
-            {
-                
-            }
             this.Gain = DSP_Math.value_to_gain(valuesList[0]);
-            this.Muted = false;
-
-            if (this.Gain < -90)
-            {
-                this.Gain = 0;
-                this.Muted = true;
-            }
+            this.Muted = (valuesList[1] == 0x0000001);
         }
 
         public override void QueueChange(MainForm_Template PARENT_FORM)
@@ -116,13 +112,14 @@ namespace SA_Resources.DSP.Primitives
             if (PARENT_FORM.LIVE_MODE)
             {
                 PARENT_FORM.AddItemToQueue(new LiveQueueItem(this.Offset, this.Gain_Value));
+                PARENT_FORM.AddItemToQueue(new LiveQueueItem(this.Offset+1, this.Muted_Value));
             }
         }
 
 
         public override void QueueChangeByOffset(MainForm_Template PARENT_FORM, int const_offset)
         {
-            Console.WriteLine("MixerCrosspoint - QueueChangeByOffset - Sending " + this.Values[const_offset].ToString("X") + " to offset " + (Offset + const_offset));
+            Console.WriteLine("StandardGain - QueueChangeByOffset - Sending " + this.Values[const_offset].ToString("X") + " to offset " + (Offset + const_offset));
 
             if (PARENT_FORM.LIVE_MODE)
             {
@@ -134,7 +131,7 @@ namespace SA_Resources.DSP.Primitives
         public override void QueueDeltas(MainForm_Template PARENT_FORM, DSP_Primitive comparePrimitive)
         {
 
-            DSP_Primitive_MixerCrosspoint RecastPrimitive = (DSP_Primitive_MixerCrosspoint)comparePrimitive;
+            DSP_Primitive_Pregain RecastPrimitive = (DSP_Primitive_Pregain)comparePrimitive;
 
             for (int i = 0; i < this.Num_Values; i++)
             {
@@ -163,7 +160,7 @@ namespace SA_Resources.DSP.Primitives
                 return false;
             }
 
-            DSP_Primitive_MixerCrosspoint recastPrimitive = (DSP_Primitive_MixerCrosspoint)comparePrimitive;
+            DSP_Primitive_Pregain recastPrimitive = (DSP_Primitive_Pregain)comparePrimitive;
 
             // TODO - Do we lose precision when we test?
             return ((Muted == recastPrimitive.Muted) && (Gain == recastPrimitive.Gain));

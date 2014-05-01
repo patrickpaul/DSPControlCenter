@@ -38,7 +38,7 @@ namespace DSP_4x4
 
         public override int GetDeviceID()
         {
-            return 0x20;
+            return 0x14;
         }
 
         public override string GetDeviceName()
@@ -135,33 +135,33 @@ namespace DSP_4x4
         public override void Single_Default_DSP_Program(int program_index = 0)
         {
             try {
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(0, new DSP_Primitive_StandardGain("Input Gain CH 1", 0, 0, StandardGain_Types.Twelve_to_Negative_100));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(2, new DSP_Primitive_StandardGain("Input Gain CH 2", 1, 0, StandardGain_Types.Twelve_to_Negative_100));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(4, new DSP_Primitive_StandardGain("Input Gain CH 3", 2, 0, StandardGain_Types.Twelve_to_Negative_100));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(6, new DSP_Primitive_StandardGain("Input Gain CH 4", 3, 0, StandardGain_Types.Twelve_to_Negative_100));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(8, new DSP_Primitive_StandardGain("Input Gain CH 5", 4, 0, StandardGain_Types.Twelve_to_Negative_100));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(10, new DSP_Primitive_StandardGain("Input Gain CH 6", 5, 0, StandardGain_Types.Twelve_to_Negative_100));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(12, new DSP_Primitive_StandardGain("Input Gain CH 7", 6, 0, StandardGain_Types.Twelve_to_Negative_100));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(14, new DSP_Primitive_StandardGain("Input Gain CH 8", 7, 0, StandardGain_Types.Twelve_to_Negative_100));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(0, new DSP_Primitive_Pregain("Input Pre-Gain CH 1", 0, 0, 0xF0C00125));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(2, new DSP_Primitive_Pregain("Input Pre-Gain CH 2", 1, 0, 0xF0C00127));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(4, new DSP_Primitive_Pregain("Input Pre-Gain CH 3", 2, 0, 0xF0C0012b));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(6, new DSP_Primitive_Pregain("Input Pre-Gain CH 4", 3, 0, 0xF0C0012f));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(8, new DSP_Primitive_Pregain("Input Pre-Gain CH 5", 4, 0, 0xF0C00133));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(10, new DSP_Primitive_Pregain("Input Pre-Gain CH 6", 5, 0, 0xF0C00137));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(12, new DSP_Primitive_Pregain("Input Pre-Gain CH 7", 6, 0, 0xF0C0013b));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(14, new DSP_Primitive_Pregain("Input Pre-Gain CH 8", 7, 0, 0xF0C0013f));
 
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(16, new DSP_Primitive_StandardGain("CH 1 - Pre-Mix Gain", 0, 1, StandardGain_Types.Twelve_to_Negative_100));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(18, new DSP_Primitive_StandardGain("CH 2 - Pre-Mix Gain", 1, 1, StandardGain_Types.Twelve_to_Negative_100));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(20, new DSP_Primitive_StandardGain("CH 3 - Pre-Mix Gain", 2, 1, StandardGain_Types.Twelve_to_Negative_100));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(22, new DSP_Primitive_StandardGain("CH 4 - Pre-Mix Gain", 3, 1, StandardGain_Types.Twelve_to_Negative_100));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(24, new DSP_Primitive_StandardGain("CH 5 - Pre-Mix Gain", 4, 1, StandardGain_Types.Twelve_to_Negative_100));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(26, new DSP_Primitive_StandardGain("CH 6 - Pre-Mix Gain", 5, 1, StandardGain_Types.Twelve_to_Negative_100));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(28, new DSP_Primitive_StandardGain("CH 7 - Pre-Mix Gain", 6, 1, StandardGain_Types.Twelve_to_Negative_100));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(30, new DSP_Primitive_StandardGain("CH 8 - Pre-Mix Gain", 7, 1, StandardGain_Types.Twelve_to_Negative_100));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(16, new DSP_Primitive_StandardGain("CH 1 - Pre-Mix Gain", 0, 1, StandardGain_Types.Twelve_to_Negative_100, 0xF0C0008b));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(18, new DSP_Primitive_StandardGain("CH 2 - Pre-Mix Gain", 1, 1, StandardGain_Types.Twelve_to_Negative_100, 0xF0C0008f));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(20, new DSP_Primitive_StandardGain("CH 3 - Pre-Mix Gain", 2, 1, StandardGain_Types.Twelve_to_Negative_100, 0xF0C00093));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(22, new DSP_Primitive_StandardGain("CH 4 - Pre-Mix Gain", 3, 1, StandardGain_Types.Twelve_to_Negative_100, 0xF0C00097));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(24, new DSP_Primitive_StandardGain("CH 5 - Pre-Mix Gain", 4, 1, StandardGain_Types.Twelve_to_Negative_100, 0xF0C0009b));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(26, new DSP_Primitive_StandardGain("CH 6 - Pre-Mix Gain", 5, 1, StandardGain_Types.Twelve_to_Negative_100, 0xF0C0009f));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(28, new DSP_Primitive_StandardGain("CH 7 - Pre-Mix Gain", 6, 1, StandardGain_Types.Twelve_to_Negative_100, 0xF0C000a3));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(30, new DSP_Primitive_StandardGain("CH 8 - Pre-Mix Gain", 7, 1, StandardGain_Types.Twelve_to_Negative_100, 0xF0C000a7));
 
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(32, new DSP_Primitive_StandardGain("CH 1 - Trim", 0, 2, StandardGain_Types.Six_to_Negative_12));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(34, new DSP_Primitive_StandardGain("CH 2 - Trim", 1, 2, StandardGain_Types.Six_to_Negative_12));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(36, new DSP_Primitive_StandardGain("CH 3 - Trim", 2, 2, StandardGain_Types.Six_to_Negative_12));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(38, new DSP_Primitive_StandardGain("CH 4 - Trim", 3, 2, StandardGain_Types.Six_to_Negative_12));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(32, new DSP_Primitive_StandardGain("CH 1 - Trim", 0, 2, StandardGain_Types.Six_to_Negative_12, 0xF0C001e3));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(34, new DSP_Primitive_StandardGain("CH 2 - Trim", 1, 2, StandardGain_Types.Six_to_Negative_12, 0xF0C001e7));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(36, new DSP_Primitive_StandardGain("CH 3 - Trim", 2, 2, StandardGain_Types.Six_to_Negative_12, 0xF0C001eb));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(38, new DSP_Primitive_StandardGain("CH 4 - Trim", 3, 2, StandardGain_Types.Six_to_Negative_12, 0xF0C001ef));
 
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(40, new DSP_Primitive_StandardGain("CH 1 - Output Gain", 0, 3, StandardGain_Types.Twelve_to_Negative_100));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(42, new DSP_Primitive_StandardGain("CH 2 - Output Gain", 1, 3, StandardGain_Types.Twelve_to_Negative_100));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(44, new DSP_Primitive_StandardGain("CH 3 - Output Gain", 2, 3, StandardGain_Types.Twelve_to_Negative_100));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(46, new DSP_Primitive_StandardGain("CH 4 - Output Gain", 3, 3, StandardGain_Types.Twelve_to_Negative_100));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(40, new DSP_Primitive_StandardGain("CH 1 - Output Gain", 0, 3, StandardGain_Types.Twelve_to_Negative_100, 0xF0C00193));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(42, new DSP_Primitive_StandardGain("CH 2 - Output Gain", 1, 3, StandardGain_Types.Twelve_to_Negative_100, 0xF0C00197));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(44, new DSP_Primitive_StandardGain("CH 3 - Output Gain", 2, 3, StandardGain_Types.Twelve_to_Negative_100, 0xF0C0019b));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(46, new DSP_Primitive_StandardGain("CH 4 - Output Gain", 3, 3, StandardGain_Types.Twelve_to_Negative_100, 0xF0C0019f));
 
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(48, new DSP_Primitive_Ducker4x4("Ducker 4x4", 0, 0));
 
@@ -303,5 +303,12 @@ namespace DSP_4x4
                 fdForm.ShowDialog();
             }
         }
+
+        private void btnSavetoFile_Click(object sender, EventArgs e)
+        {
+            DSP_PROGRAMS[0].SaveToFile(@"C:\program1test.txt");
+        }
+
+
     }
 }

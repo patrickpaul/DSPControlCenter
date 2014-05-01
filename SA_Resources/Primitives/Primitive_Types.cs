@@ -3,6 +3,7 @@
     public enum DSP_Primitive_Types
     {
         StandardGain,
+        Pregain,
         Input,
         Compressor,
         Limiter,

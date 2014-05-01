@@ -164,7 +164,12 @@ namespace SA_Resources.SAControls
             {
                 this.mode = value;
 
-                if (this.mode == 1)
+                if (this.mode == 2)
+                {
+                    _maxGain = 24;
+                    _minGain = -24;
+                    this.panel1.BackgroundImage = SA_Resources.GlobalResources.gainfader_24_to__24;
+                } else if (this.mode == 1)
                 {
                     _maxGain = 6;
                     _minGain = -12;
@@ -209,7 +214,10 @@ namespace SA_Resources.SAControls
 
         private double yVal_to_gain(double yVal)
         {
-            if (this.mode == 1)
+            if (this.mode == 2)
+            {
+                return yVal_to_gain_mode2(yVal);
+            }  else if (this.mode == 1)
             {
                 return yVal_to_gain_mode1(yVal);
             }
@@ -331,6 +339,22 @@ namespace SA_Resources.SAControls
             return _minGain;
         }
 
+        private double yVal_to_gain_mode2(double yVal)
+        {
+            if (yVal < 115)
+            {
+                return yVal_to_gain_scale(yVal, 5.0, 118.0, 24.0, 0.0);
+            } else if (yVal == 118)
+            {
+                return 0.0;
+            }
+            else
+            {
+                return yVal_to_gain_scale(yVal, 115.0, 235.0, 0.0, -24.0);  
+            }
+
+        }
+
         private double gain_to_yval_scale(double gainVal, double gain_upper, double gain_lower, double y_upper, double y_lower)
         {
             double percent = (gain_upper - gainVal) / (gain_upper - gain_lower);
@@ -343,7 +367,10 @@ namespace SA_Resources.SAControls
 
         public double gain_to_yval(double gainVal)
         {
-            if(this.mode == 1)
+            if(this.mode == 2)
+            {
+                return gain_to_yval_mode2(gainVal);
+            } else if(this.mode == 1)
             {
                 return gain_to_yval_mode1(gainVal);
             } else
@@ -462,6 +489,30 @@ namespace SA_Resources.SAControls
 
 
             return 225.0;
+
+        }
+
+
+        private double gain_to_yval_mode2(double gainVal)
+        {
+            if (gainVal > 0)
+            {
+                return gain_to_yval_scale(gainVal, 24.0, 0.0, 5.0, 118.0);
+            }
+
+            if (gainVal == 0)
+            {
+                return 118;
+            }
+
+
+            if (gainVal < 0)
+            {
+                return gain_to_yval_scale(gainVal, 0.0, -24.0, 118.0, 235.0);
+            }
+
+
+            return 235.0;
 
         }
 

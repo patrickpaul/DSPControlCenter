@@ -141,33 +141,40 @@ namespace SA_Resources.DSP.Primitives
 
         public void Recalculate_Values()
         {
-            Package_Value = 0x00000000;
-            Package_Gain_Value = 0x00000000;
-            Package_Q_Value = 0x00000000;
-
-            if (!this.Bypassed)
+            try
             {
-                Package_Value = DSP_Math.filter_primitive_to_package(this);
-                Package_Gain_Value = DSP_Math.double_to_MN(this.Filter.Gain, 8, 24);
-                Package_Q_Value = DSP_Math.double_to_MN(this.Filter.QValue, 8, 24);
+                Package_Value = 0x00000000;
+                Package_Gain_Value = 0x00000000;
+                Package_Q_Value = 0x00000000;
+
+                if (!this.Bypassed)
+                {
+                    //Package_Value = DSP_Math.filter_primitive_to_package(this);
+                    //Package_Gain_Value = DSP_Math.double_to_MN(this.Filter.Gain, 8, 24);
+                    //Package_Q_Value = DSP_Math.double_to_MN(this.Filter.QValue, 8, 24);
+                }
+
+                if (this.FType == FilterType.None || this.Bypassed)
+                {
+                    B0_Value = 0x20000000;
+                    B1_Value = 0x00000000;
+                    B2_Value = 0x00000000;
+                    A1_Value = 0x00000000;
+                    A2_Value = 0x00000000;
+                }
+                else
+                {
+                    B0_Value = DSP_Math.double_to_MN(this.Filter.B0, 3, 29);
+                    B1_Value = DSP_Math.double_to_MN(this.Filter.B1, 3, 29);
+                    B2_Value = DSP_Math.double_to_MN(this.Filter.B2, 3, 29);
+                    A1_Value = DSP_Math.double_to_MN(this.Filter.A1*-1, 2, 30);
+                    A2_Value = DSP_Math.double_to_MN(this.Filter.A2*-1, 2, 30);
+
+                }
             }
-
-            if (this.FType == FilterType.None || this.Bypassed)
+            catch (Exception ex)
             {
-                B0_Value = 0x20000000;
-                B1_Value = 0x00000000;
-                B2_Value = 0x00000000;
-                A1_Value = 0x00000000;
-                A2_Value = 0x00000000;
-            }
-            else
-            {
-                B0_Value = DSP_Math.double_to_MN(this.Filter.B0, 3, 29);
-                B1_Value = DSP_Math.double_to_MN(this.Filter.B1, 3, 29);
-                B2_Value = DSP_Math.double_to_MN(this.Filter.B2, 3, 29);
-                A1_Value = DSP_Math.double_to_MN(this.Filter.A1 * -1, 2, 30);
-                A2_Value = DSP_Math.double_to_MN(this.Filter.A2 * -1, 2, 30);
-
+                Console.WriteLine("[Exception in DSP_Primitive_BiquadFilter.Recalculate_Values]: " + ex.Message);
             }
         }
 

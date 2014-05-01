@@ -12,7 +12,7 @@ using SA_Resources.DSP.Primitives;
 
 namespace SA_Resources.SAForms
 {
-    public partial class GainForm : Form
+    public partial class PregainForm : Form
     {
 
         // Disable form's closing button
@@ -28,30 +28,17 @@ namespace SA_Resources.SAForms
         } 
         
         private MainForm_Template PARENT_FORM;
-        private DSP_Primitive_StandardGain RecastStandardGain;
-        private DSP_Primitive_MixerCrosspoint RecastCrossPoint;
+        private DSP_Primitive_Pregain RecastPregain;
 
         private bool is_mixer = false;
 
-        public GainForm(MainForm_Template _parentForm, DSP_Primitive _inputPrimitive, DSP_Primitive_Types _primitiveType)
+        public PregainForm(MainForm_Template _parentForm, DSP_Primitive _inputPrimitive)
         {
             InitializeComponent();
 
             try
             {
-                if (_primitiveType == DSP_Primitive_Types.StandardGain)
-                {
-                    is_mixer = false;
-                    RecastStandardGain = (DSP_Primitive_StandardGain) _inputPrimitive;
-                    saGainFader1.Mode = RecastStandardGain.Mode == StandardGain_Types.Twelve_to_Negative_100 ? 0 : 1;
-                }
-                else
-                {
-                    is_mixer = true;
-                    RecastCrossPoint = (DSP_Primitive_MixerCrosspoint) _inputPrimitive;
-                    saGainFader1.Mode = 0;
-                    saGainFader1.MuteDisablesFader = true;
-                }
+                RecastPregain = (DSP_Primitive_Pregain)_inputPrimitive;
 
                 PARENT_FORM = _parentForm;
 
@@ -66,8 +53,8 @@ namespace SA_Resources.SAForms
                     signalTimer.Enabled = false;
                 }
 
-                saGainFader1.Gain = is_mixer ? RecastCrossPoint.Gain : RecastStandardGain.Gain;
-                saGainFader1.Muted = is_mixer ? RecastCrossPoint.Muted : RecastStandardGain.Muted;
+                saGainFader1.Gain = RecastPregain.Gain;
+                saGainFader1.Muted = RecastPregain.Muted;
 
 
 
@@ -82,34 +69,20 @@ namespace SA_Resources.SAForms
 
         private void saGainFader1_OnChange(object sender, FaderEventArgs e)
         {
-            // TODO add QueueChange here
 
-            if (is_mixer)
-            {
-                RecastCrossPoint.Gain = e.Gain;
-                RecastCrossPoint.Muted = e.Muted;
-                RecastCrossPoint.QueueChange(PARENT_FORM);
-            }
-            else
-            {
-                RecastStandardGain.Gain = e.Gain;
+                RecastPregain.Gain = e.Gain;
+                Console.WriteLine("Setting gain to " + e.Gain);
 
-                RecastStandardGain.Muted = e.Muted;
-                RecastStandardGain.QueueChange(PARENT_FORM);
-            }
+                RecastPregain.Muted = e.Muted;
+                RecastPregain.QueueChange(PARENT_FORM);
         }
 
         private void signalTimer_Tick(object sender, EventArgs e)
         {
             // TODO add meter handler here
 
-            if (is_mixer)
-            {
-                return;
-            }
 
-
-            UInt32 read_address = (RecastStandardGain.Meter);
+            UInt32 read_address = (RecastPregain.Meter);
             
             
             double offset = 10 * Math.Log10(2) + 20 * Math.Log10(16);
@@ -127,6 +100,7 @@ namespace SA_Resources.SAForms
             {
                 read_gain_value = -100;
             }
+
 
             gainMeter.DB = read_gain_value;
           

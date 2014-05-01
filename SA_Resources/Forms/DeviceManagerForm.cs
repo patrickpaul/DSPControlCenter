@@ -209,6 +209,24 @@ namespace SA_Resources.SAForms
                             //_isRunning = true;
                             //OpenDeviceInterface(_deviceIDs[device_type]);
                             //CloseAndClearComm();
+
+
+                            BackgroundWorker worker = new BackgroundWorker();
+                            worker.WorkerReportsProgress = true;
+                            worker.ProgressChanged += ProgressChanged;
+
+                            worker.DoWork += DebugDoWork;
+                            
+
+                            PARENT_FORM.FIRMWARE_VERSION = devicesFound[listDevices.SelectedIndex].FW;
+
+                            worker.RunWorkerCompleted += WorkComplete;
+
+
+
+                            worker.RunWorkerAsync(ONLYPROGRAM1);
+
+
                         }
                         else
                         {
@@ -360,7 +378,7 @@ namespace SA_Resources.SAForms
             {
                 SADevice SelectedDevice = devicesFound[listDevices.SelectedIndex];
 
-                lblFirmware.Text = "Firmware v" + SelectedDevice.FW.ToString();
+                lblFirmware.Text = "Firmware v" + SelectedDevice.FW.ToString("F");
                 lblFirmware.Invalidate();
             }
         }

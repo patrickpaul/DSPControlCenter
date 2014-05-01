@@ -33,11 +33,11 @@ namespace SA_Resources.DSP.Primitives
         public DSP_Primitive_Compressor(string in_name, int in_channel, int in_positionA, DSP_Primitive_Types in_type = DSP_Primitive_Types.Compressor)
             : base(in_name,in_channel,in_positionA)
         {
-            Threshold = -20;
-            Ratio = 100;
+            Threshold = -20; //-20
+            Ratio = 2; // 100
             Attack = 0.01; // 10ms
-            Release = 0.01; // 10ms
-            SoftKnee = false;
+            Release = 0.1; // 100ms
+            SoftKnee = true;
             Bypassed = true;
             this.Type = in_type;
             this.Num_Values = 6;

@@ -163,9 +163,9 @@ namespace SA_Resources {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap gain_24_24 {
+        public static System.Drawing.Bitmap gainfader_12_to__100 {
             get {
-                object obj = ResourceManager.GetObject("gain_24_24", resourceCulture);
+                object obj = ResourceManager.GetObject("gainfader_12_to__100", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -173,9 +173,9 @@ namespace SA_Resources {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        public static System.Drawing.Bitmap gainfader_12_to__100 {
+        public static System.Drawing.Bitmap gainfader_24_to__24 {
             get {
-                object obj = ResourceManager.GetObject("gainfader_12_to__100", resourceCulture);
+                object obj = ResourceManager.GetObject("gainfader_24_to__24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

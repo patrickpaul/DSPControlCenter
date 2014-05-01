@@ -14,7 +14,6 @@ namespace SA_Resources.DSP.Primitives
         public string Name;
         public DSP_Primitive_Types Type = DSP_Primitive_Types.Unknown;
 
-
         public DSP_Primitive(string in_name, int in_channel, int in_positionA = 0, int in_positionB = -1)
         {
             this.Name = in_name;
@@ -30,6 +29,8 @@ namespace SA_Resources.DSP.Primitives
         }
 
         public abstract void UpdateFromReadValues(List<UInt32> valuesList);
+
+        
 
         public abstract void PrintValues();
 

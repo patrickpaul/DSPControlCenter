@@ -31,7 +31,6 @@ namespace DSP_4x4
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.tsStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
@@ -72,7 +71,6 @@ namespace DSP_4x4
             this.btnCH0PreFilters = new SA_Resources.SAControls.PictureButton();
             this.btnCompressor00 = new SA_Resources.SAControls.PictureButton();
             this.btnGain01 = new SA_Resources.SAControls.PictureButton();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.saveProgramDialog = new System.Windows.Forms.SaveFileDialog();
             this.openProgramDialog = new System.Windows.Forms.OpenFileDialog();
             this.pnlCH2PreMixer = new System.Windows.Forms.Panel();
@@ -96,10 +94,10 @@ namespace DSP_4x4
             this.lblCH3Input = new System.Windows.Forms.Label();
             this.lblCH2Input = new System.Windows.Forms.Label();
             this.lblCH1Input = new System.Windows.Forms.Label();
-            this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.picDuckerLine = new System.Windows.Forms.PictureBox();
             this.pbtnDucker = new SA_Resources.SAControls.PictureButton();
             this.button1 = new System.Windows.Forms.Button();
+            this.btnSavetoFile = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureConnectionStatus)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox37)).BeginInit();
@@ -121,9 +119,53 @@ namespace DSP_4x4
             this.toolTip1.ReshowDelay = 50;
             this.toolTip1.ShowAlways = true;
             // 
+            // serialPort1
+            // 
+            this.serialPort1.BaudRate = 19200;
+            // 
             // dropProgramSelection
             // 
             this.dropProgramSelection.Items.AddRange(new object[] {
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
             "Program 1",
             "Program 2",
             "Program 3"});
@@ -792,10 +834,6 @@ namespace DSP_4x4
             this.btnGain01.TabIndex = 32;
             this.btnGain01.ToolTipText = "";
             // 
-            // timer1
-            // 
-            this.timer1.Interval = 75;
-            // 
             // saveProgramDialog
             // 
             this.saveProgramDialog.Filter = "Configuration Files (*.scfg)|*.scfg";
@@ -1105,10 +1143,6 @@ namespace DSP_4x4
             this.lblCH1Input.Text = "Local Input #1";
             this.lblCH1Input.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // timer2
-            // 
-            this.timer2.Interval = 500;
-            // 
             // picDuckerLine
             // 
             this.picDuckerLine.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("picDuckerLine.BackgroundImage")));
@@ -1148,12 +1182,23 @@ namespace DSP_4x4
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // btnSavetoFile
+            // 
+            this.btnSavetoFile.Location = new System.Drawing.Point(359, 321);
+            this.btnSavetoFile.Name = "btnSavetoFile";
+            this.btnSavetoFile.Size = new System.Drawing.Size(75, 23);
+            this.btnSavetoFile.TabIndex = 91;
+            this.btnSavetoFile.Text = "Save";
+            this.btnSavetoFile.UseVisualStyleBackColor = true;
+            this.btnSavetoFile.Click += new System.EventHandler(this.btnSavetoFile_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(82)))), ((int)(((byte)(82)))));
             this.ClientSize = new System.Drawing.Size(906, 404);
+            this.Controls.Add(this.btnSavetoFile);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.pbtnDucker);
             this.Controls.Add(this.picDuckerLine);
@@ -1206,6 +1251,7 @@ namespace DSP_4x4
             this.Controls.SetChildIndex(this.picDuckerLine, 0);
             this.Controls.SetChildIndex(this.pbtnDucker, 0);
             this.Controls.SetChildIndex(this.button1, 0);
+            this.Controls.SetChildIndex(this.btnSavetoFile, 0);
             ((System.ComponentModel.ISupportInitialize)(this.pictureConnectionStatus)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox37)).EndInit();
@@ -1263,7 +1309,6 @@ namespace DSP_4x4
         private PictureButton btnGain30;
         private PictureButton btnCH3PreFilters;
         private PictureButton btnCompressor30;
-        private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.SaveFileDialog saveProgramDialog;
         private System.Windows.Forms.OpenFileDialog openProgramDialog;
         private System.Windows.Forms.ToolStripStatusLabel tsStatusLabel;
@@ -1288,9 +1333,9 @@ namespace DSP_4x4
         private System.Windows.Forms.Label lblCH3Input;
         private System.Windows.Forms.Label lblCH2Input;
         private System.Windows.Forms.Label lblCH1Input;
-        private System.Windows.Forms.Timer timer2;
         private System.Windows.Forms.PictureBox picDuckerLine;
         private PictureButton pbtnDucker;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnSavetoFile;
     }
 }
