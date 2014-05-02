@@ -146,7 +146,7 @@ namespace SA_Resources.SAForms
                 //TODO - REMOVE ME
                 for (int i = 0; i < this.GetNumPresets(); i++)
                 {
-                    DSP_PROGRAMS[i] = new DSP_Program_Manager();
+                    DSP_PROGRAMS[i] = new DSP_Program_Manager(i,"");
                 }
                 Default_DSP_Programs();
                 Default_DSP_Meters();
@@ -299,7 +299,7 @@ namespace SA_Resources.SAForms
 
                             if (_PIC_Conn.getRTS())
                             {
-                                if (read_setting.Index < 1000 && read_setting.Value != 0xFFFFFFFF)
+                                if (read_setting.Index < 900 && read_setting.Value != 0xFFFFFFFF)
                                 {
                                     if (_PIC_Conn.SetLiveDSPValue((uint)read_setting.Index, read_setting.Value))
                                     {
@@ -340,18 +340,18 @@ namespace SA_Resources.SAForms
                                         
                                     } else if (read_setting.Value == 0x01)
                                     {
-                                        if(_PIC_Conn.SetLivePhantomPower((uint)read_setting.Index - 1000, 1))
+                                        if(_PIC_Conn.SetLivePhantomPower((uint)read_setting.Index - 900, 1))
                                         {
-                                            Console.WriteLine("Successfully set Phantom Power CH " + (read_setting.Index - 1000) + " to ON");
+                                            Console.WriteLine("Successfully set Phantom Power CH " + (read_setting.Index - 900) + " to ON");
                                         }
                                         else
                                         {
-                                            Console.WriteLine("Error setting set Phantom Power CH " + (read_setting.Index - 1000) + " to ON");
+                                            Console.WriteLine("Error setting set Phantom Power CH " + (read_setting.Index - 900) + " to ON");
                                         }
                                     }
                                     else
                                     {
-                                        if (_PIC_Conn.SetLivePhantomPower((uint)read_setting.Index - 1000, 0))
+                                        if (_PIC_Conn.SetLivePhantomPower((uint)read_setting.Index - 900, 0))
                                         {
                                             Console.WriteLine("Successfully set Phantom Power CH " + (read_setting.Index - 1000) + " to OFF");
                                         }
@@ -977,6 +977,14 @@ namespace SA_Resources.SAForms
                     {
                         PrimitiveLabel.Text = RecastInput.InputName;
 
+                        if (RecastInput.PhantomPower)
+                        {
+                            PrimitiveLabel.BackColor = Color.ForestGreen;
+                        }
+                        else
+                        {
+                            PrimitiveLabel.BackColor = Color.FromArgb(40, 40, 40);
+                        }
                         toolTip1.SetToolTip(PrimitiveLabel, RecastInput.ToString());
 
                     }

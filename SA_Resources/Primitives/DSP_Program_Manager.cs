@@ -4,21 +4,31 @@ using System.Linq;
 using System.Windows.Forms;
 using SA_Resources.SAControls;
 using SA_Resources.SAForms;
+using SA_Resources.USB;
 
 namespace SA_Resources.DSP.Primitives
 {
     public class DSP_Program_Manager
     {
         public List<DSP_Primitive> PRIMITIVES;
+        public List<UInt32> FLASH_READ_VALUES;
+
+        private const int NUM_PAGES = 8;
 
         public int next_available_offset = 0;
 
         public string Name;
+        public int Index;
 
-        public DSP_Program_Manager(string in_name = "")
+        public DSP_Program_Manager(int program_index, string in_name = "")
         {
+            Index = program_index;
+
             Name = in_name;
             PRIMITIVES = new List<DSP_Primitive>();
+            FLASH_READ_VALUES = new List<UInt32>();
+
+
         }
 
         public void RegisterNewPrimitive(int offset,DSP_Primitive in_primitive)
@@ -216,10 +226,7 @@ namespace SA_Resources.DSP.Primitives
                         {
                             case DSP_Primitive_Types.StandardGain:
 
-                                if (print_labels)
-                                {
-                                    file.WriteLine("StandardGain at " + singlePrimitive.Channel + "-" + singlePrimitive.PositionA);
-                                }
+       
                                 
                                 foreach (UInt32 singleValue in ((DSP_Primitive_StandardGain) singlePrimitive).Values)
                                 {
@@ -231,11 +238,6 @@ namespace SA_Resources.DSP.Primitives
                                 break;
 
                             case DSP_Primitive_Types.Pregain:
-
-                                if (print_labels)
-                                {
-                                    file.WriteLine("Pregain at " + singlePrimitive.Channel + "-" + singlePrimitive.PositionA);
-                                }
 
                                 foreach (UInt32 singleValue in ((DSP_Primitive_Pregain)singlePrimitive).Values)
                                 {
@@ -249,11 +251,7 @@ namespace SA_Resources.DSP.Primitives
 
                             case DSP_Primitive_Types.BiquadFilter:
 
-                                if (print_labels)
-                                {
-                                    file.WriteLine("Filter at " + singlePrimitive.Channel + "-" + singlePrimitive.PositionA);
-                                }
-
+                    
                                 foreach (UInt32 singleValue in ((DSP_Primitive_BiquadFilter) singlePrimitive).Values)
                                 {
 
@@ -267,11 +265,7 @@ namespace SA_Resources.DSP.Primitives
                             case DSP_Primitive_Types.Compressor:
                             case DSP_Primitive_Types.Limiter:
 
-                                if (print_labels)
-                                {
-                                    file.WriteLine("Compressor/Limiter at " + singlePrimitive.Channel + "-" + singlePrimitive.PositionA);
-                                }
-                            
+                     
                             foreach (UInt32 singleValue in ((DSP_Primitive_Compressor)singlePrimitive).Values)
                             {
 
@@ -284,11 +278,7 @@ namespace SA_Resources.DSP.Primitives
 
                             case DSP_Primitive_Types.Ducker4x4:
 
-                                if (print_labels)
-                                {
-                                    file.WriteLine("Ducker at " + singlePrimitive.Channel + "-" + singlePrimitive.PositionA);
-                            
-                                }
+       
                             
                             foreach (UInt32 singleValue in ((DSP_Primitive_Ducker4x4)singlePrimitive).Values)
                             {
@@ -302,12 +292,6 @@ namespace SA_Resources.DSP.Primitives
 
                             case DSP_Primitive_Types.MixerCrosspoint:
 
-                                if (print_labels)
-                                {
-                                    file.WriteLine("MixerCrosspoint at " + singlePrimitive.Channel + "-" + singlePrimitive.PositionA);
-
-                                }
-                            
                             foreach (UInt32 singleValue in ((DSP_Primitive_MixerCrosspoint)singlePrimitive).Values)
                             {
 
@@ -349,6 +333,68 @@ namespace SA_Resources.DSP.Primitives
             catch (Exception ex)
             {
                 Console.WriteLine("[Exception in SaveToFile]: " + ex.Message);
+            }
+
+
+        }
+
+        public bool ReadFromDevice(MainForm_Template PARENT_FORM)
+        {
+            try
+            {
+                DSP_Primitive_Input Input_Primitive;
+
+                if (PARENT_FORM._PIC_Conn.getRTS())
+                {
+                    FLASH_READ_VALUES.Clear();
+
+                    for (int i = 0; i < NUM_PAGES; i++)
+                    {
+                        //Console.WriteLine("Streaming page " + i + " to index  " + (i*64));
+                        PARENT_FORM._PIC_Conn.StreamReadPage(this.Index, i, ref FLASH_READ_VALUES, i*64);
+                    }
+
+                    //Console.WriteLine("Done reading values! Now to load them....");
+
+                    int primitive_value_offset = 0;
+
+                    List<UInt32> Single_Primitive_Values = new List<uint>();
+
+                    Single_Primitive_Values.Clear();
+
+                    
+                    foreach (DSP_Primitive singlePrimitive in PRIMITIVES)
+                    {
+                        Single_Primitive_Values = FLASH_READ_VALUES.GetRange(primitive_value_offset, singlePrimitive.Num_Values);
+
+                        singlePrimitive.UpdateFromReadValues(Single_Primitive_Values);
+
+                        if (singlePrimitive.Type == DSP_Primitive_Types.Input)
+                        {
+                            Input_Primitive = (DSP_Primitive_Input) singlePrimitive;
+
+                            if (Input_Primitive.PhantomAvailable)
+                            {
+                                Input_Primitive.PhantomPower = PARENT_FORM._PIC_Conn.ReadPhantomPower(Input_Primitive.Channel);
+                            }
+                        }
+                        primitive_value_offset += singlePrimitive.Num_Values;
+                    }
+
+                    Console.WriteLine("Done with program read");
+
+                    return true;
+                }
+                else
+                {
+                    Console.WriteLine("[EXCEPTION in DSP_Program_Manager.ReadFromDevice]: Did not get RTS");
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                 Console.WriteLine("[EXCEPTION in DSP_Program_Manager.ReadFromDevice]: " + ex.Message);
+                return false;
             }
 
 

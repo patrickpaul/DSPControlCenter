@@ -157,7 +157,22 @@ namespace SA_Resources.DSP.Primitives
              *  * */
 
             //PARENT_FORM.AddItemToQueue(new LiveQueueItem(PlainOffset, (uint)this.TypeToValue()));
-            
+
+
+            if (PhantomAvailable)
+            {
+                UInt32 PhantomValue = PhantomPower ? (UInt32)0x00000001 : (UInt32)0x00000000;
+                PARENT_FORM.AddItemToQueue(new LiveQueueItem(PhantomOffset, PhantomValue));
+            }
+        }
+
+        public void QueuePhantom(MainForm_Template PARENT_FORM)
+        {
+            if (PhantomAvailable)
+            {
+                UInt32 PhantomValue = PhantomPower ? (UInt32)0x00000001 : (UInt32)0x00000000;
+                PARENT_FORM.AddItemToQueue(new LiveQueueItem(PhantomOffset, PhantomValue));
+            }
         }
 
         public override void QueueChangeByOffset(MainForm_Template PARENT_FORM, int const_offset)

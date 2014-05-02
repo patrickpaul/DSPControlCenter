@@ -112,7 +112,7 @@ namespace SA_Resources.SAForms
             UInt32 read_address = (RecastStandardGain.Meter);
             
             
-            double offset = 10 * Math.Log10(2) + 20 * Math.Log10(16);
+            double offset = (20 - 20 + 3.8) + 10 * Math.Log10(2) + 20 * Math.Log10(16);
             UInt32 read_value = PARENT_FORM._PIC_Conn.Read_Live_DSP_Value(read_address);
 
             

@@ -34,7 +34,16 @@ namespace SA_Resources.DSP.Primitives
             : base(in_name,in_channel,in_positionA)
         {
             Threshold = -20; //-20
-            Ratio = 2; // 100
+
+            if (in_type == DSP_Primitive_Types.Compressor)
+            {
+                Ratio = 2;
+            }
+            else
+            {
+                Ratio = 100;
+            }
+
             Attack = 0.01; // 10ms
             Release = 0.1; // 100ms
             SoftKnee = true;
@@ -60,7 +69,7 @@ namespace SA_Resources.DSP.Primitives
 
         public override void UpdateFromReadValues(List<UInt32> valuesList)
         {
-            this.Threshold = DSP_Math.MN_to_double_signed(valuesList[0], 9, 23);
+            this.Threshold = (DSP_Math.MN_to_double_signed(valuesList[0], 9, 23) - 16);
             this.SoftKnee = (valuesList[1] == 0x03000000);
             this.Ratio = DSP_Math.value_to_comp_ratio(valuesList[2]);
             this.Attack = DSP_Math.value_to_comp_attack(valuesList[3]);
@@ -86,7 +95,7 @@ namespace SA_Resources.DSP.Primitives
             set
             {
                 this._Threshold = value;
-                this.Threshold_Value = DSP_Math.double_to_MN(value, 9, 23);
+                this.Threshold_Value = DSP_Math.double_to_MN(value + 16, 9, 23);
             }
 
         }

@@ -98,6 +98,7 @@ namespace DSP_4x4
             this.pbtnDucker = new SA_Resources.SAControls.PictureButton();
             this.button1 = new System.Windows.Forms.Button();
             this.btnSavetoFile = new System.Windows.Forms.Button();
+            this.btnStreamRead = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureConnectionStatus)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox37)).BeginInit();
@@ -126,6 +127,26 @@ namespace DSP_4x4
             // dropProgramSelection
             // 
             this.dropProgramSelection.Items.AddRange(new object[] {
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
             "",
             "",
             "",
@@ -953,7 +974,7 @@ namespace DSP_4x4
             // 
             // lblCH4Output
             // 
-            this.lblCH4Output.BackColor = System.Drawing.Color.Teal;
+            this.lblCH4Output.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
             this.lblCH4Output.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lblCH4Output.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCH4Output.ForeColor = System.Drawing.Color.White;
@@ -966,7 +987,7 @@ namespace DSP_4x4
             // 
             // lblCH3Output
             // 
-            this.lblCH3Output.BackColor = System.Drawing.Color.Teal;
+            this.lblCH3Output.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
             this.lblCH3Output.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lblCH3Output.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCH3Output.ForeColor = System.Drawing.Color.White;
@@ -979,7 +1000,7 @@ namespace DSP_4x4
             // 
             // lblCH2Output
             // 
-            this.lblCH2Output.BackColor = System.Drawing.Color.Teal;
+            this.lblCH2Output.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
             this.lblCH2Output.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lblCH2Output.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCH2Output.ForeColor = System.Drawing.Color.White;
@@ -1031,7 +1052,7 @@ namespace DSP_4x4
             // 
             // lblCH1Output
             // 
-            this.lblCH1Output.BackColor = System.Drawing.Color.Teal;
+            this.lblCH1Output.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
             this.lblCH1Output.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lblCH1Output.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCH1Output.ForeColor = System.Drawing.Color.White;
@@ -1093,7 +1114,7 @@ namespace DSP_4x4
             // 
             // lblCH4Input
             // 
-            this.lblCH4Input.BackColor = System.Drawing.Color.Teal;
+            this.lblCH4Input.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
             this.lblCH4Input.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lblCH4Input.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCH4Input.ForeColor = System.Drawing.Color.White;
@@ -1106,7 +1127,7 @@ namespace DSP_4x4
             // 
             // lblCH3Input
             // 
-            this.lblCH3Input.BackColor = System.Drawing.Color.Teal;
+            this.lblCH3Input.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
             this.lblCH3Input.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lblCH3Input.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCH3Input.ForeColor = System.Drawing.Color.White;
@@ -1119,7 +1140,7 @@ namespace DSP_4x4
             // 
             // lblCH2Input
             // 
-            this.lblCH2Input.BackColor = System.Drawing.Color.Teal;
+            this.lblCH2Input.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
             this.lblCH2Input.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lblCH2Input.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCH2Input.ForeColor = System.Drawing.Color.White;
@@ -1132,7 +1153,7 @@ namespace DSP_4x4
             // 
             // lblCH1Input
             // 
-            this.lblCH1Input.BackColor = System.Drawing.Color.Teal;
+            this.lblCH1Input.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
             this.lblCH1Input.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lblCH1Input.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCH1Input.ForeColor = System.Drawing.Color.White;
@@ -1192,12 +1213,23 @@ namespace DSP_4x4
             this.btnSavetoFile.UseVisualStyleBackColor = true;
             this.btnSavetoFile.Click += new System.EventHandler(this.btnSavetoFile_Click);
             // 
+            // btnStreamRead
+            // 
+            this.btnStreamRead.Location = new System.Drawing.Point(454, 321);
+            this.btnStreamRead.Name = "btnStreamRead";
+            this.btnStreamRead.Size = new System.Drawing.Size(101, 23);
+            this.btnStreamRead.TabIndex = 92;
+            this.btnStreamRead.Text = "Stream Read 0,0";
+            this.btnStreamRead.UseVisualStyleBackColor = true;
+            this.btnStreamRead.Click += new System.EventHandler(this.btnStreamRead_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(82)))), ((int)(((byte)(82)))));
             this.ClientSize = new System.Drawing.Size(906, 404);
+            this.Controls.Add(this.btnStreamRead);
             this.Controls.Add(this.btnSavetoFile);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.pbtnDucker);
@@ -1252,6 +1284,7 @@ namespace DSP_4x4
             this.Controls.SetChildIndex(this.pbtnDucker, 0);
             this.Controls.SetChildIndex(this.button1, 0);
             this.Controls.SetChildIndex(this.btnSavetoFile, 0);
+            this.Controls.SetChildIndex(this.btnStreamRead, 0);
             ((System.ComponentModel.ISupportInitialize)(this.pictureConnectionStatus)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox37)).EndInit();
@@ -1337,5 +1370,6 @@ namespace DSP_4x4
         private PictureButton pbtnDucker;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button btnSavetoFile;
+        private System.Windows.Forms.Button btnStreamRead;
     }
 }

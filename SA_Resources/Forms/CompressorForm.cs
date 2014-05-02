@@ -19,7 +19,9 @@ namespace SA_Resources.SAForms
                 myCp.ClassStyle = myCp.ClassStyle | 0x200;
                 return myCp;
             }
-        } 
+        }
+
+        private bool form_loaded = false;
 
         private bool dragging_threshold = false;
         private double stored_threshold = -20;
@@ -161,11 +163,14 @@ namespace SA_Resources.SAForms
                     panel1.Location = new Point(78, 366);
                 }
 
+                
+
             } catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
 
+            form_loaded = true;
 
         }
 
@@ -508,8 +513,16 @@ namespace SA_Resources.SAForms
 
         private void chkBypass_CheckedChanged(object sender, EventArgs e)
         {
-            StraightResponseLine.BorderDashStyle = ChartDashStyle.Solid;
 
+            KneedResponseLine.BorderDashStyle = chkBypass.Checked ? ChartDashStyle.Dash : ChartDashStyle.Solid;
+            StraightResponseLine.BorderDashStyle = chkBypass.Checked ? ChartDashStyle.Dash : ChartDashStyle.Solid;
+            
+             dynChart.Invalidate();
+
+            if (!form_loaded)
+            {
+                return;
+            }
             Active_Primitive.Bypassed = chkBypass.Checked;
 
             Active_Primitive.QueueChangeByOffset(PARENT_FORM, DSP_Primitive_Compressor.BYPASSED_OFFSET);
@@ -546,25 +559,33 @@ namespace SA_Resources.SAForms
 
             UInt32 read_value;
             double converted_value;
-            double offset = 20 + 10 * Math.Log10(2) + 20 * Math.Log10(16);
+            double offset = (20 - 20 + 3.8) + 10 * Math.Log10(2) + 20 * Math.Log10(16);
             UInt32 read_address = 0x00000000;
 
 
-            if (comp_switcher)
-            {
-                //read_address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter();
-            } else
-            {
-                //read_address = PARENT_FORM._comp_out_meters[COMP_INDEX][CH_NUMBER - 1];
+            int compLimOffset = is_limiter ? 1 : 0;
 
+            try
+            {
+                if (comp_switcher)
+                {
+                    // Input
+                    read_address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.Compressor, Active_Primitive.Channel, compLimOffset, 0).Address;
+
+                }
+                else
+                {
+                    // Output
+                    read_address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.Compressor, Active_Primitive.Channel, compLimOffset, 1).Address;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("[Exception in CompressorForm.signalTimer_Tick]: " + ex.Message);
             }
 
             read_value = PARENT_FORM._PIC_Conn.Read_Live_DSP_Value(read_address);
 
-            if(!comp_switcher)
-            {
-                Console.WriteLine("Read " + read_value);
-            }
             converted_value = DSP_Math.MN_to_double_signed(read_value, 1, 31);
 
             if (converted_value > (0.000001 * 0.000001))

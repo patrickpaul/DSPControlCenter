@@ -126,9 +126,10 @@ namespace SA_Resources.DSP.Primitives
             }
         }
 
+
         public override void UpdateFromReadValues(List<UInt32> valuesList)
         {
-            this.Gain = DSP_Math.value_to_gain(valuesList[0]);
+            this.Gain = DSP_Math.Value_To_StandardGain(valuesList[0]);
             this.Muted = (valuesList[1] == 0x0000001);
         }
 

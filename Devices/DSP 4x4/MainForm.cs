@@ -9,6 +9,7 @@ using SA_Resources.DSP.Filters;
 using SA_Resources.SADevices;
 using SA_Resources.SAForms;
 using SA_Resources.DSP.Primitives;
+using SA_Resources.USB;
 
 namespace DSP_4x4
 {
@@ -101,7 +102,7 @@ namespace DSP_4x4
         {
             for (int i = 0; i < this.GetNumPresets(); i++)
             {
-                DSP_PROGRAMS[i] = new DSP_Program_Manager("Program " + i.ToString());
+                DSP_PROGRAMS[i] = new DSP_Program_Manager(i,"Program " + i.ToString());
             }
         }
 
@@ -123,8 +124,48 @@ namespace DSP_4x4
         {
             try
             {
-                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C00094, DSP_Primitive_Types.Compressor, 0, 0));
-                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C00078, DSP_Primitive_Types.Compressor, 0, 1));
+                // Compressors
+
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C000DB, DSP_Primitive_Types.Compressor, 0, 0, 0));
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C000B7, DSP_Primitive_Types.Compressor, 0, 0, 1));
+
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C000DF, DSP_Primitive_Types.Compressor, 1, 0, 0));
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C000BB, DSP_Primitive_Types.Compressor, 1, 0, 1));
+
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C000E3, DSP_Primitive_Types.Compressor, 2, 0, 0));
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C000BF, DSP_Primitive_Types.Compressor, 2, 0, 1));
+
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C000E7, DSP_Primitive_Types.Compressor, 3, 0, 0));
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C000C3, DSP_Primitive_Types.Compressor, 3, 0, 1));
+
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C000EB, DSP_Primitive_Types.Compressor, 4, 0, 0));
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C000C7, DSP_Primitive_Types.Compressor, 4, 0, 1));
+
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C000EF, DSP_Primitive_Types.Compressor, 5, 0, 0));
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C000CB, DSP_Primitive_Types.Compressor, 5, 0, 1));
+
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C000F3, DSP_Primitive_Types.Compressor, 6, 0, 0));
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C000CF, DSP_Primitive_Types.Compressor, 6, 0, 1));
+
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C000F7, DSP_Primitive_Types.Compressor, 7, 0, 0));
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C000D3, DSP_Primitive_Types.Compressor, 7, 0, 1));
+
+                
+                // Limiters
+
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C001CF, DSP_Primitive_Types.Compressor, 0, 1, 0));
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C001BB, DSP_Primitive_Types.Compressor, 0, 1, 1));
+
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C001D3, DSP_Primitive_Types.Compressor, 1, 1, 0));
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C001BF, DSP_Primitive_Types.Compressor, 1, 1, 1));
+
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C001D7, DSP_Primitive_Types.Compressor, 2, 1, 0));
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C001C3, DSP_Primitive_Types.Compressor, 2, 1, 1));
+
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C001DB, DSP_Primitive_Types.Compressor, 3, 1, 0));
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C001C7, DSP_Primitive_Types.Compressor, 3, 1, 1));
+
+
             }
             catch (Exception ex)
             {
@@ -261,9 +302,9 @@ namespace DSP_4x4
 
                 
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(1000, new DSP_Primitive_Input("Local Input CH 1", 0, 0, 1000, 900, "Local Input #1", InputType.Line, false));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(1010, new DSP_Primitive_Input("Local Input CH 2", 1, 0, 1000, 900, "Local Input #2", InputType.Line, false));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(1020, new DSP_Primitive_Input("Local Input CH 3", 2, 0, 1000, 900, "Local Input #3", InputType.Line, false));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(1030, new DSP_Primitive_Input("Local Input CH 4", 3, 0, 1000, 900, "Local Input #4", InputType.Line, false));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(1010, new DSP_Primitive_Input("Local Input CH 2", 1, 0, 1000, 901, "Local Input #2", InputType.Line, false));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(1020, new DSP_Primitive_Input("Local Input CH 3", 2, 0, 1000, 902, "Local Input #3", InputType.Line, false));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(1030, new DSP_Primitive_Input("Local Input CH 4", 3, 0, 1000, 903, "Local Input #4", InputType.Line, false));
 
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(1040, new DSP_Primitive_Output("Output CH 1", 0, 0, "Output #1"));
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(1050, new DSP_Primitive_Output("Output CH 1", 1, 0, "Output #2"));
@@ -307,6 +348,12 @@ namespace DSP_4x4
         private void btnSavetoFile_Click(object sender, EventArgs e)
         {
             DSP_PROGRAMS[0].SaveToFile(@"C:\program1test.txt");
+        }
+
+        private void btnStreamRead_Click(object sender, EventArgs e)
+        {
+            DSP_PROGRAMS[0].ReadFromDevice(this);
+            UpdateTooltips();
         }
 
 

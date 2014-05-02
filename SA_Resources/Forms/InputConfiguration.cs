@@ -146,9 +146,10 @@ namespace SA_Resources
                 chkPhantomPower.Checked = false;
             }
 
+            
             Active_Primitive.PhantomPower = chkPhantomPower.Checked;
 
-            //PARENT_FORM.AddItemToQueue(new LiveQueueItem(1000 + (CH_NUMBER - 1), Active_Primitive.PhantomAsInt()));                
+            Active_Primitive.QueuePhantom(PARENT_FORM);             
 
         }
 

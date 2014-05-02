@@ -101,7 +101,7 @@ namespace SA_Resources.DSP.Primitives
             {
                 
             }
-            this.Gain = DSP_Math.value_to_gain(valuesList[0]);
+            this.Gain = DSP_Math.Value_To_StandardGain(valuesList[0]);
             this.Muted = false;
 
             if (this.Gain < -90)

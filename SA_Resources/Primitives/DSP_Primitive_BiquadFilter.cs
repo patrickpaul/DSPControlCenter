@@ -82,6 +82,7 @@ namespace SA_Resources.DSP.Primitives
 
             set {}
         }
+
         public override void QueueChangeByOffset(MainForm_Template PARENT_FORM, int const_offset)
         {
             Console.WriteLine("BiquadFilter - QueueChangeByOffset - Sending " + this.Values[const_offset].ToString("X") + " to offset " + (Offset + const_offset));
@@ -124,6 +125,7 @@ namespace SA_Resources.DSP.Primitives
 
             UInt32 OutputGain_Value = ((DSP_Primitive_StandardGain)PARENT_FORM.DSP_PROGRAMS[0].LookupPrimitive(DSP_Primitive_Types.StandardGain, this.Channel, 4)).Values[0];
             
+            // Mute outputs
             PARENT_FORM.AddItemToQueue(new LiveQueueItem(OutputGain_Offset, 0x00000000));
 
             PARENT_FORM.AddItemToQueue(new LiveQueueItem(Offset, B0_Value));
@@ -132,6 +134,7 @@ namespace SA_Resources.DSP.Primitives
             PARENT_FORM.AddItemToQueue(new LiveQueueItem(Offset + 3, A1_Value));
             PARENT_FORM.AddItemToQueue(new LiveQueueItem(Offset + 4, A2_Value));
 
+            // Unmute outputs
             PARENT_FORM.AddItemToQueue(new LiveQueueItem(OutputGain_Offset, OutputGain_Value));
 
             PARENT_FORM.AddItemToQueue(new LiveQueueItem(Plainfilter_Offset, Package_Value));
@@ -203,6 +206,35 @@ namespace SA_Resources.DSP.Primitives
             }
 
             return true;
+        }
+
+        public UInt32 ToPackage()
+        {
+            UInt32 return_int = 0x00;
+
+            return_int |= Convert.ToUInt32(this.Bypassed);
+
+            return_int <<= 4;
+
+            return_int |= (uint) this.FType;
+
+            return_int <<= 3;
+
+            if (this.FType == FilterType.SecondOrderHighPass || this.FType == FilterType.SecondOrderLowPass)
+            {
+                return_int |= 0x01;
+            }
+            else
+            {
+                return_int |= 0x00;
+            }
+
+
+            return_int <<= 23;
+
+            return_int |= (uint) this.Filter.CenterFrequency;
+
+            return return_int;
         }
 
         public List<UInt32> Values

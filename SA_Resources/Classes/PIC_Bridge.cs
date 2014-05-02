@@ -722,8 +722,8 @@ namespace SA_Resources.USB
 
                 byte[] buff = new byte[5];
 
-                buff[0] = 0x09; 
-                buff[1] = 0x19;
+                buff[0] = 0x11; 
+                buff[1] = 0x01;
                 buff[2] = (byte)ch_number;
                 buff[3] = (byte)on_off;
                 buff[4] = 0x03;
@@ -734,16 +734,67 @@ namespace SA_Resources.USB
                     serialPort.Write(buff, 0, 5);
                     Thread.Sleep(70);
 
-                    if (serialPort.BytesToRead > 2)
+                    if (serialPort.BytesToRead > 4)
                     {
 
                         Byte[] bytes = new Byte[serialPort.BytesToRead + 5];
 
                         serialPort.Read(bytes, 0, serialPort.BytesToRead);
 
-                        if (bytes[0] == 0x06 && bytes[1] == 0x19 && bytes[2] == 0x02 && bytes[3] == 0x0A)
+                        if (bytes[0] == 0x06 && bytes[1] == 0x11)
                         {
                             return true;
+                        }
+
+                        if (bytes[0] == 0x15)
+                        {
+                            PrintError(bytes[1]);
+                        }
+
+                    }
+                    else
+                    {
+                        FlushBuffer();
+                    }
+                }
+
+                return false;
+            }
+
+        }
+
+
+        public bool ReadPhantomPower(uint ch_number)
+        {
+
+            lock (PIC_LOCK)
+            {
+                FlushBuffer();
+                if (!serialPort.IsOpen) return false;
+
+                byte[] buff = new byte[4];
+
+                buff[0] = 0x11;
+                buff[1] = 0x02;
+                buff[2] = (byte)ch_number;
+                buff[4] = 0x03;
+
+
+                for (int retry_count = 0; retry_count < 3; retry_count++)
+                {
+                    serialPort.Write(buff, 0, 4);
+                    Thread.Sleep(70);
+
+                    if (serialPort.BytesToRead > 4)
+                    {
+
+                        Byte[] bytes = new Byte[serialPort.BytesToRead + 5];
+
+                        serialPort.Read(bytes, 0, serialPort.BytesToRead);
+
+                        if (bytes[0] == 0x06 && bytes[1] == 0x11 && bytes[2] == (byte)ch_number)
+                        {
+                            return (bytes[3] == 0x01);
                         }
 
                         if (bytes[0] == 0x15)
@@ -1197,8 +1248,8 @@ namespace SA_Resources.USB
 
                 byte[] buff = new byte[4];
 
-                buff[0] = 0x09;
-                buff[1] = 0x10;
+                buff[0] = 0x11;
+                buff[1] = 0x02;
                 buff[2] = (byte)channel;
                 buff[3] = 0x03;
 
@@ -1210,14 +1261,14 @@ namespace SA_Resources.USB
                     serialPort.Write(buff, 0, 4);
                     Thread.Sleep(100);
 
-                    if (serialPort.BytesToRead > 3)
+                    if (serialPort.BytesToRead > 4)
                     {
                         Byte[] bytes = new Byte[serialPort.BytesToRead];
 
                         bytes_read = serialPort.BytesToRead;
                         serialPort.Read(bytes, 0, serialPort.BytesToRead);
-
-                        if (bytes[2] == 0x01)
+                        
+                        if (bytes[3] == 0x01)
                         {
                             return true;
                         }
@@ -1436,6 +1487,110 @@ namespace SA_Resources.USB
 
                 return false;
             }
+        }
+
+        public string StreamData = "";
+
+        public void StreamReadPage(int prog_num, int page_num, ref List<UInt32> FLASH_READ_VALUES, int index_offset)
+        {
+            lock (PIC_LOCK)
+            {
+                FlushBuffer();
+
+                byte[] buff = new byte[5];
+
+                buff[0] = 0x10;
+                buff[1] = 0x09;
+                buff[2] = (byte) prog_num;
+                buff[3] = (byte) page_num;
+                buff[4] = 0x03;
+
+                serialPort.Write(buff, 0, buff.Length);
+
+                Thread.Sleep(5);
+
+                while (serialPort.BytesToRead < 1)
+                {
+                    Thread.Sleep(1);
+                }
+
+                while (serialPort.BytesToRead < 261)
+                {
+                    Thread.Sleep(5);
+                }
+
+                if (serialPort.BytesToRead > 1)
+                {
+
+                    // we can assume we're getting a stream
+
+                    while (serialPort.BytesToRead < 261)
+                    {
+                        Thread.Sleep(1);
+                    }
+
+                    if (serialPort.BytesToRead != 261)
+                    {
+                        Console.WriteLine("serialPort.BytesToRead was not == 261, it was " + serialPort.BytesToRead);
+
+                        FlushBuffer();
+                        return;
+                    }
+
+                    Byte[] bytes = new Byte[serialPort.BytesToRead];
+
+                    serialPort.Read(bytes, 0, serialPort.BytesToRead);
+
+                    if (bytes[0] == 0x06 && bytes[1] == 0x09 && bytes[2] == prog_num && bytes[3] == page_num && bytes[260] == 0x03)
+                    {
+                        //Console.WriteLine("Data looks good!");
+
+                        UInt32 temp_value = 0;
+                        byte byte_msb, byte_3, byte_2, byte_lsb;
+
+                        for (int i = 4; i < 260; )
+                        {
+                            temp_value = 0;
+
+                            byte_lsb = bytes[i++];
+                            byte_3 = bytes[i++];
+                            byte_2 = bytes[i++];
+                            byte_msb = bytes[i++];
+
+                            temp_value = temp_value | byte_msb;
+                            temp_value <<= 8;
+                            temp_value = temp_value | byte_2;
+                            temp_value <<= 8;
+                            temp_value = temp_value | byte_3;
+                            temp_value <<= 8;
+                            temp_value = temp_value | byte_lsb;
+
+                            FLASH_READ_VALUES.Add(temp_value);
+
+                        }
+                        return;
+                    }
+                    else
+                    {
+                        Console.WriteLine("[ERROR] First byte read was " + bytes[0]);
+                        return;
+                    }
+
+                }
+                else
+                {
+                    /*
+             Byte[] errbytes = new Byte[serialPort.BytesToRead];
+
+             serialPort.Read(errbytes, 0, serialPort.BytesToRead);
+
+             Console.WriteLine("serialPort.BytesToRead was not > 1, it was " + serialPort.BytesToRead);
+             return false;
+                 */
+                }
+            }
+
+
         }
 
         public void RestoreFactorySettings(object sender, DoWorkEventArgs doWorkEventArgs)
