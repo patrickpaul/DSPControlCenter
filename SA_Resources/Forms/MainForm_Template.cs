@@ -266,7 +266,10 @@ namespace SA_Resources.SAForms
         public void AddItemToQueue(LiveQueueItem itemToAdd)
         {
             // TODO - Disable this once done testing
-            Console.WriteLine("Added item to queue: " + itemToAdd.Index + " - " + itemToAdd.Value.ToString("X8"));
+            if (itemToAdd.Index > 500)
+            {
+                Console.WriteLine("Added item to queue: " + itemToAdd.Index + " - " + itemToAdd.Value.ToString("X8"));
+            }
             lock (_locker)
             {
                 UPDATE_QUEUE.Enqueue(itemToAdd);
@@ -303,65 +306,15 @@ namespace SA_Resources.SAForms
                                 {
                                     if (_PIC_Conn.SetLiveDSPValue((uint)read_setting.Index, read_setting.Value))
                                     {
-                                        Console.WriteLine("Successfully sent queued DSP setting: " + read_setting.Index + " - " + read_setting.Value.ToString("X8"));
+                                        if (read_setting.Index > 500)
+                                        {
+                                            Console.WriteLine("Successfully sent queued DSP setting: " + read_setting.Index + " - " + read_setting.Value.ToString("X8"));
+                                        }
                                     }
                                     else
                                     {
                                         Console.WriteLine("ERROR sending queued DSP Setting");
                                     }
-                                }
-                                else
-                                {
-                                    // THIS IS A UTILITY SUCH AS PHANTOM POWER OR INPUT/OUTPUT NAME
-
-                                    if (read_setting.ValueString != "")
-                                    {
-                                        if (read_setting.Index < GetNumInputChannels()+1)
-                                        {
-                                            
-                                            if(_PIC_Conn.SendChannelName(read_setting.Index, read_setting.ValueString, false))
-                                            {
-                                                Console.WriteLine("Successfully set Input CH " + read_setting.Index.ToString() + " name to " + read_setting.ValueString);
-                                            }
-                                            else
-                                            {
-                                                Console.WriteLine("Error setting Input CH " + read_setting.Index.ToString() + " name to " + read_setting.ValueString);
-                                            }
-                                        } else
-                                        {
-                                            if(_PIC_Conn.SendChannelName(read_setting.Index - GetNumInputChannels(), read_setting.ValueString, true))
-                                            {
-                                                Console.WriteLine("Successfully set Output CH " + read_setting.Index.ToString() + " name to " + read_setting.ValueString);
-                                            } else
-                                            {
-                                                Console.WriteLine("Error setting Output CH " + read_setting.Index.ToString() + " name to " + read_setting.ValueString);
-                                            }
-                                        }
-                                        
-                                    } else if (read_setting.Value == 0x01)
-                                    {
-                                        if(_PIC_Conn.SetLivePhantomPower((uint)read_setting.Index - 900, 1))
-                                        {
-                                            Console.WriteLine("Successfully set Phantom Power CH " + (read_setting.Index - 900) + " to ON");
-                                        }
-                                        else
-                                        {
-                                            Console.WriteLine("Error setting set Phantom Power CH " + (read_setting.Index - 900) + " to ON");
-                                        }
-                                    }
-                                    else
-                                    {
-                                        if (_PIC_Conn.SetLivePhantomPower((uint)read_setting.Index - 900, 0))
-                                        {
-                                            Console.WriteLine("Successfully set Phantom Power CH " + (read_setting.Index - 1000) + " to OFF");
-                                        }
-                                        else
-                                        {
-                                            Console.WriteLine("Error setting set Phantom Power CH " + (read_setting.Index - 1000) + " to OFF");
-                                        }
-                                    }
-
-
                                 }
 
                             }
@@ -936,8 +889,8 @@ namespace SA_Resources.SAForms
                     break;
 
 
-                    case DSP_Primitive_Types.Compressor: 
-    
+                    case DSP_Primitive_Types.Compressor:
+                    case DSP_Primitive_Types.Limiter: 
                         RecastCompressor = (DSP_Primitive_Compressor) SinglePrimitive;
 
                         PrimitiveButton = ((PictureButton)Controls.Find("btnCompressor" + RecastCompressor.Channel + "" + RecastCompressor.PositionA, true).FirstOrDefault());

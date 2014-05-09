@@ -508,6 +508,7 @@ namespace SA_Resources.SAControls
                     if (FilterPrimitive != null && InitialLoadComplete)
                     {
                         FilterPrimitive.FType = FilterType.None;
+                        //FilterPrimitive.Filter = null;
                     }
                     break;
 

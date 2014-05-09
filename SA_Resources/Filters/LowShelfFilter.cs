@@ -7,7 +7,7 @@ namespace SA_Resources.DSP.Filters
     {
         public LowShelfFilter(double in_cf, double in_gain, double in_q) : base(in_cf, in_gain, in_q)
         {
-            filter_type = 2;
+            filter_type = 3;
         }
 
         public override void Recalculate()

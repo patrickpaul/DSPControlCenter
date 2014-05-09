@@ -61,8 +61,12 @@ namespace SA_Resources.DSP
 
         public static UInt32 filter_primitive_to_package(DSP_Primitive_BiquadFilter in_primitive)
         {
-            UInt32 return_int = 0x00;
 
+            // center = 23:0
+            // slope = 26:24
+            // type = 30:27
+            // 
+            UInt32 return_int = 0x00;
             return_int |= Convert.ToUInt32(in_primitive.Bypassed);
 
             return_int <<= 4;
@@ -82,15 +86,14 @@ namespace SA_Resources.DSP
 
 
             return_int <<= 23;
-
             return_int |= (uint)in_primitive.Filter.CenterFrequency;
 
             return return_int;
 
         }
 
-        /*
-        public static FilterConfig rebuild_filter(UInt32 package, UInt32 Gain, UInt32 QVal)
+
+        public static BiquadFilter rebuild_filter(UInt32 package, UInt32 Gain, UInt32 QVal)
         {
             uint center_freq = package & 0x7FFFFF; //23 bits
             package >>= 23;
@@ -109,26 +112,29 @@ namespace SA_Resources.DSP
             switch (type)
             {
                 default:
-                case 0:
-                    return new FilterConfig(FilterType.FirstOrderLowPass, false, new FirstOrderLowPassFilter(center_freq, gain, q_val));
+                    return null;
+                case 0 :
+                    return null;
                 case 1:
-                    return new FilterConfig(FilterType.FirstOrderHighPass, false, new FirstOrderHighPassFilter(center_freq, gain, q_val));
+                    return new FirstOrderLowPassFilter(center_freq,gain,q_val);
                 case 2:
-                    return new FilterConfig(FilterType.LowShelf, false, new LowShelfFilter(center_freq, gain, q_val));
+                    return new FirstOrderHighPassFilter(center_freq, gain, q_val);
                 case 3:
-                    return new FilterConfig(FilterType.HighShelf, false, new HighShelfFilter(center_freq, gain, q_val));
+                    return new LowShelfFilter(center_freq, gain, q_val);
                 case 4:
-                    return new FilterConfig(FilterType.Peak,false,new PeakFilter(center_freq, gain, q_val));
+                    return new HighShelfFilter(center_freq, gain, q_val);
                 case 5:
-                    return new FilterConfig(FilterType.Notch, false, new NotchFilter(center_freq, gain, q_val));
+                    return new PeakFilter(center_freq, gain, q_val);
                 case 6:
-                    return new FilterConfig(FilterType.SecondOrderLowPass, false, new SecondOrderLowPassFilter(center_freq, gain, q_val));
+                    return new NotchFilter(center_freq, gain, q_val);
                 case 7:
-                    return new FilterConfig(FilterType.SecondOrderHighPass, false, new SecondOrderHighPassFilter(center_freq, gain, q_val));
+                    return new SecondOrderLowPassFilter(center_freq, gain, q_val);
+                case 8:
+                    return new SecondOrderHighPassFilter(center_freq, gain, q_val);
             }
         }
          
-        */
+        
         #endregion
 
         #region Decibel and Voltage Gain Conversions
@@ -245,6 +251,16 @@ namespace SA_Resources.DSP
         public static double sine_value_to_freq(UInt32 value)
         {
             return (value / Math.Pow(2.0, 32.0)) * 48000.0;
+        }
+
+        public static UInt32 sine_gain_to_value(double gain)
+        {
+            return double_to_MN(-(Math.Pow(10.0, (gain - 20.0)/20.0)/16.0), 1, 31);
+        }
+
+        public static UInt32 pink_gain_to_value(double gain)
+        {
+            return double_to_MN(-(Math.Pow(10.0, (gain - 23.0103) / 20.0) / 16.0), 1, 31);
         }
 
         #endregion

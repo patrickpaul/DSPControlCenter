@@ -629,8 +629,9 @@ namespace SA_Resources.USB
 
                 if (address_index > 255)
                 {
-                    address_index1 = address_index - 255;
-                    address_index2 = 255;
+                    address_index2 = address_index & 0xFF;
+                    address_index >>= 8;    
+                    address_index1 = address_index;
                 }
                 else
                 {
@@ -712,106 +713,61 @@ namespace SA_Resources.USB
 
         }
 
-        public bool SetLivePhantomPower(uint ch_number, int on_off)
+        public bool UpdatePhantomPower()
         {
-
-            lock (PIC_LOCK)
+            try
             {
-                FlushBuffer();
-                if (!serialPort.IsOpen) return false;
-
-                byte[] buff = new byte[5];
-
-                buff[0] = 0x11; 
-                buff[1] = 0x01;
-                buff[2] = (byte)ch_number;
-                buff[3] = (byte)on_off;
-                buff[4] = 0x03;
-
-
-                for (int retry_count = 0; retry_count < 3; retry_count++)
+                lock (PIC_LOCK)
                 {
-                    serialPort.Write(buff, 0, 5);
-                    Thread.Sleep(70);
+                    FlushBuffer();
 
-                    if (serialPort.BytesToRead > 4)
+                    if (!serialPort.IsOpen) return false;
+
+                    byte[] buff = new byte[10];
+
+                    buff[0] = 0x02;
+                    buff[1] = 0x09;
+                    buff[2] = 0x03;
+
+
+                    for (int retry_count = 0; retry_count < 3; retry_count++)
                     {
+                        serialPort.Write(buff, 0, 3);
+                        Thread.Sleep(30);
 
-                        Byte[] bytes = new Byte[serialPort.BytesToRead + 5];
-
-                        serialPort.Read(bytes, 0, serialPort.BytesToRead);
-
-                        if (bytes[0] == 0x06 && bytes[1] == 0x11)
+                        if (serialPort.BytesToRead >= 3)
                         {
-                            return true;
-                        }
 
-                        if (bytes[0] == 0x15)
+                            Byte[] bytes = new Byte[serialPort.BytesToRead + 5];
+
+                            serialPort.Read(bytes, 0, serialPort.BytesToRead);
+
+                            if (bytes[0] == 0x06 && bytes[1] == 0x09)
+                            {
+                                return true;
+                            }
+
+                            if (bytes[0] == 0x15)
+                            {
+                                //print_error(bytes[1]);
+                            }
+
+                        }
+                        else
                         {
-                            PrintError(bytes[1]);
+                            FlushBuffer();
                         }
+                    }
 
-                    }
-                    else
-                    {
-                        FlushBuffer();
-                    }
+                    return false;
                 }
+            }
+            catch (Exception ex)
+            {
 
-                return false;
             }
 
-        }
-
-
-        public bool ReadPhantomPower(uint ch_number)
-        {
-
-            lock (PIC_LOCK)
-            {
-                FlushBuffer();
-                if (!serialPort.IsOpen) return false;
-
-                byte[] buff = new byte[4];
-
-                buff[0] = 0x11;
-                buff[1] = 0x02;
-                buff[2] = (byte)ch_number;
-                buff[4] = 0x03;
-
-
-                for (int retry_count = 0; retry_count < 3; retry_count++)
-                {
-                    serialPort.Write(buff, 0, 4);
-                    Thread.Sleep(70);
-
-                    if (serialPort.BytesToRead > 4)
-                    {
-
-                        Byte[] bytes = new Byte[serialPort.BytesToRead + 5];
-
-                        serialPort.Read(bytes, 0, serialPort.BytesToRead);
-
-                        if (bytes[0] == 0x06 && bytes[1] == 0x11 && bytes[2] == (byte)ch_number)
-                        {
-                            return (bytes[3] == 0x01);
-                        }
-
-                        if (bytes[0] == 0x15)
-                        {
-                            PrintError(bytes[1]);
-                        }
-
-                    }
-                    else
-                    {
-                        FlushBuffer();
-                    }
-                }
-
-                return false;
-            }
-
+            return false;
         }
 
         public bool sendAckdData(byte commandAddr, byte commandData, int delay_value = 50, byte extra_byte = 0xFF)
@@ -1234,57 +1190,6 @@ namespace SA_Resources.USB
                 }
 
                 return "Unknown";
-            }
-        }
-
-        public bool ReadPhantomPower(int channel)
-        {
-
-            lock (PIC_LOCK)
-            {
-                FlushBuffer();
-
-                if (!serialPort.IsOpen) return false;
-
-                byte[] buff = new byte[4];
-
-                buff[0] = 0x11;
-                buff[1] = 0x02;
-                buff[2] = (byte)channel;
-                buff[3] = 0x03;
-
-                System.Text.StringBuilder return_string = new System.Text.StringBuilder();
-
-                int bytes_read = 0;
-                for (int retry_count = 0; retry_count < 3; retry_count++)
-                {
-                    serialPort.Write(buff, 0, 4);
-                    Thread.Sleep(100);
-
-                    if (serialPort.BytesToRead > 4)
-                    {
-                        Byte[] bytes = new Byte[serialPort.BytesToRead];
-
-                        bytes_read = serialPort.BytesToRead;
-                        serialPort.Read(bytes, 0, serialPort.BytesToRead);
-                        
-                        if (bytes[3] == 0x01)
-                        {
-                            return true;
-                        }
-                        else
-                        {
-                            return false;
-                        }
-
-                    }
-                    else
-                    {
-                        FlushBuffer();
-                    }
-                }
-
-                return false;
             }
         }
 

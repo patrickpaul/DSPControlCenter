@@ -8,7 +8,7 @@ namespace SA_Resources.DSP.Filters
     {
         public FirstOrderHighPassFilter(double in_cf, double in_gain = 0, double in_q = 0): base(in_cf, in_gain, in_q)
         {
-            filter_type = 1;
+            filter_type = 2;
         }
 
         public override void Recalculate()
@@ -40,7 +40,7 @@ namespace SA_Resources.DSP.Filters
     {
         public SecondOrderHighPassFilter(double in_cf, double in_gain = 0, double in_q = 0) : base(in_cf, in_gain, in_q)
         {
-            filter_type = 7;
+            filter_type = 8;
         }
 
         public override void Recalculate()

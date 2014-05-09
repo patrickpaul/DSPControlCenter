@@ -78,7 +78,7 @@ namespace SA_Resources.DSP.Primitives
                 }
                 else
                 {
-                    this.Gain_Value = DSP_Math.double_to_MN(DSP_Math.decibels_to_voltage_gain(this._Gain), 9, 23);
+                    this.Gain_Value = DSP_Math.double_to_MN(DSP_Math.decibels_to_voltage_gain(this._Gain), 3, 29);
                 }
             }
         }

@@ -7,7 +7,7 @@ namespace SA_Resources.DSP.Filters
     {
         public HighShelfFilter(double in_cf, double in_gain, double in_q) : base(in_cf, in_gain, in_q)
         {
-            filter_type = 3;
+            filter_type = 4;
         }
 
         public override void Recalculate()

@@ -110,7 +110,7 @@ namespace SA_Resources.SAForms
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(82)))), ((int)(((byte)(82)))));
-            this.ClientSize = new System.Drawing.Size(259, 380);
+            this.ClientSize = new System.Drawing.Size(171, 380);
             this.Controls.Add(this.saGainFader1);
             this.Controls.Add(this.gainMeter);
             this.Controls.Add(this.btnCancel);

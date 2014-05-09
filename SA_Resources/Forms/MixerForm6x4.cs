@@ -151,7 +151,7 @@ namespace SA_Resources.SAForms
 
             using (GainForm gainForm = new GainForm(PARENT_FORM, ActiveCrosspoint,DSP_Primitive_Types.MixerCrosspoint))
             {
-
+                gainForm.Width = 132;
                 DialogResult showResult = gainForm.ShowDialog(this);
 
                 if(showResult == DialogResult.Cancel)
@@ -200,7 +200,9 @@ namespace SA_Resources.SAForms
         private void signalTimer_Tick(object sender, EventArgs e)
         {
             UInt32 read_address = 0x00000000;
-            double offset = 20 + 10 * Math.Log10(2) + 20 * Math.Log10(16);
+
+            double offset = (20 - 20 + 3.8) + 10 * Math.Log10(2) + 20 * Math.Log10(16);
+
             UInt32 read_value = 0x00000000;
             double converted_value = 0;
 
@@ -213,7 +215,7 @@ namespace SA_Resources.SAForms
 
             SignalMeter curMeter = ((SignalMeter)Controls.Find("gainMeter" + (cur_meter + 1), true).First());
 
-            //read_address = PARENT_FORM._mix_meters[cur_meter];
+            read_address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.MixerCrosspoint, 0, 0, cur_meter).Address;
 
 
             read_value = PARENT_FORM._PIC_Conn.Read_Live_DSP_Value(read_address);

@@ -7,7 +7,7 @@ namespace SA_Resources.DSP.Filters
     {
         public FirstOrderLowPassFilter(double in_cf, double in_gain = 0, double in_q = 0) : base(in_cf, in_gain, in_q)
         {
-            filter_type = 0;
+            filter_type = 1;
         }
 
         public override void Recalculate()
@@ -39,7 +39,7 @@ namespace SA_Resources.DSP.Filters
     {
         public SecondOrderLowPassFilter(double in_cf, double in_gain = 0, double in_q = 0) : base(in_cf, in_gain, in_q)
         {
-            filter_type = 6;
+            filter_type = 7;
         }
 
         public override void Recalculate()

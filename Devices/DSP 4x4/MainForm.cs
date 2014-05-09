@@ -126,6 +126,12 @@ namespace DSP_4x4
             {
                 // Compressors
 
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C0005F, DSP_Primitive_Types.MixerCrosspoint, 0, 0, 0));
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C00063, DSP_Primitive_Types.MixerCrosspoint, 0, 0, 1));
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C00067, DSP_Primitive_Types.MixerCrosspoint, 0, 0, 2));
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C0006B, DSP_Primitive_Types.MixerCrosspoint, 0, 0, 3));
+
+
                 DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C000DB, DSP_Primitive_Types.Compressor, 0, 0, 0));
                 DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C000B7, DSP_Primitive_Types.Compressor, 0, 0, 1));
 
@@ -206,38 +212,40 @@ namespace DSP_4x4
 
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(48, new DSP_Primitive_Ducker4x4("Ducker 4x4", 0, 0));
 
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(70, new DSP_Primitive_BiquadFilter("INFILTER_1_1", 0, 0, 300));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(75, new DSP_Primitive_BiquadFilter("INFILTER_1_2", 0, 1, 303));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(80, new DSP_Primitive_BiquadFilter("INFILTER_1_3", 0, 2, 306));
+                int plainfilter_offset = 0;
 
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(85, new DSP_Primitive_BiquadFilter("INFILTER_2_1", 1, 0, 300));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(90, new DSP_Primitive_BiquadFilter("INFILTER_2_2", 1, 1, 303));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(95, new DSP_Primitive_BiquadFilter("INFILTER_2_3", 1, 2, 306));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(70, new DSP_Primitive_BiquadFilter("INFILTER_1_1", 0, 0, plainfilter_offset++));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(75, new DSP_Primitive_BiquadFilter("INFILTER_1_2", 0, 1, plainfilter_offset++));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(80, new DSP_Primitive_BiquadFilter("INFILTER_1_3", 0, 2, plainfilter_offset++));
 
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(100, new DSP_Primitive_BiquadFilter("INFILTER_3_1", 2, 0, 300));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(105, new DSP_Primitive_BiquadFilter("INFILTER_3_2", 2, 1, 303));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(110, new DSP_Primitive_BiquadFilter("INFILTER_3_3", 2, 2, 306));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(85, new DSP_Primitive_BiquadFilter("INFILTER_2_1", 1, 0, plainfilter_offset++));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(90, new DSP_Primitive_BiquadFilter("INFILTER_2_2", 1, 1, plainfilter_offset++));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(95, new DSP_Primitive_BiquadFilter("INFILTER_2_3", 1, 2, plainfilter_offset++));
 
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(115, new DSP_Primitive_BiquadFilter("INFILTER_4_1", 3, 0, 300));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(120, new DSP_Primitive_BiquadFilter("INFILTER_4_2", 3, 1, 303));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(125, new DSP_Primitive_BiquadFilter("INFILTER_4_3", 3, 2, 306));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(100, new DSP_Primitive_BiquadFilter("INFILTER_3_1", 2, 0, plainfilter_offset++));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(105, new DSP_Primitive_BiquadFilter("INFILTER_3_2", 2, 1, plainfilter_offset++));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(110, new DSP_Primitive_BiquadFilter("INFILTER_3_3", 2, 2, plainfilter_offset++));
 
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(130, new DSP_Primitive_BiquadFilter("INFILTER_5_1", 4, 0, 300));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(135, new DSP_Primitive_BiquadFilter("INFILTER_5_2", 4, 1, 303));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(140, new DSP_Primitive_BiquadFilter("INFILTER_5_3", 4, 2, 306));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(115, new DSP_Primitive_BiquadFilter("INFILTER_4_1", 3, 0, plainfilter_offset++));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(120, new DSP_Primitive_BiquadFilter("INFILTER_4_2", 3, 1, plainfilter_offset++));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(125, new DSP_Primitive_BiquadFilter("INFILTER_4_3", 3, 2, plainfilter_offset++));
+                
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(130, new DSP_Primitive_BiquadFilter("INFILTER_5_1", 4, 0, 12));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(135, new DSP_Primitive_BiquadFilter("INFILTER_5_2", 4, 1, 13));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(140, new DSP_Primitive_BiquadFilter("INFILTER_5_3", 4, 2, 14));
 
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(145, new DSP_Primitive_BiquadFilter("INFILTER_6_1", 5, 0, 300));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(150, new DSP_Primitive_BiquadFilter("INFILTER_6_2", 5, 1, 303));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(155, new DSP_Primitive_BiquadFilter("INFILTER_6_3", 5, 2, 306));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(145, new DSP_Primitive_BiquadFilter("INFILTER_6_1", 5, 0, 15));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(150, new DSP_Primitive_BiquadFilter("INFILTER_6_2", 5, 1, 16));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(155, new DSP_Primitive_BiquadFilter("INFILTER_6_3", 5, 2, 17));
 
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(160, new DSP_Primitive_BiquadFilter("INFILTER_7_1", 6, 0, 300));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(165, new DSP_Primitive_BiquadFilter("INFILTER_7_2", 6, 1, 303));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(170, new DSP_Primitive_BiquadFilter("INFILTER_7_3", 6, 2, 306));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(160, new DSP_Primitive_BiquadFilter("INFILTER_7_1", 6, 0, 18));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(165, new DSP_Primitive_BiquadFilter("INFILTER_7_2", 6, 1, 19));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(170, new DSP_Primitive_BiquadFilter("INFILTER_7_3", 6, 2, 20));
 
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(175, new DSP_Primitive_BiquadFilter("INFILTER_8_1", 7, 0, 300));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(180, new DSP_Primitive_BiquadFilter("INFILTER_8_2", 7, 1, 303));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(185, new DSP_Primitive_BiquadFilter("INFILTER_8_3", 7, 2, 306));
-
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(175, new DSP_Primitive_BiquadFilter("INFILTER_8_1", 7, 0, 21));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(180, new DSP_Primitive_BiquadFilter("INFILTER_8_2", 7, 1, 22));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(185, new DSP_Primitive_BiquadFilter("INFILTER_8_3", 7, 2, 23));
+                
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(190, new DSP_Primitive_Compressor("CH 1 - Compressor", 0, 0));
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(196, new DSP_Primitive_Compressor("CH 2 - Compressor", 1, 0));
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(202, new DSP_Primitive_Compressor("CH 3 - Compressor", 2, 0));
@@ -250,43 +258,45 @@ namespace DSP_4x4
                 int index_counter = 238;
                 int crosspoint_gain = 0;
 
-                for (int in_channel = 0; in_channel < 10; in_channel++)
-                {
+                
                     for (int out_channel = 0; out_channel < 8; out_channel++)
                     {
-                        crosspoint_gain = ((in_channel == out_channel) && (in_channel < 8)) ? 0 : -100;
+                        for (int in_channel = 0; in_channel < 10; in_channel++)
+                        {
+                            
+                            crosspoint_gain = ((in_channel == out_channel) && (in_channel < 8)) ? 0 : -100;
 
                         DSP_PROGRAMS[program_index].RegisterNewPrimitive(index_counter++, new DSP_Primitive_MixerCrosspoint("Mixer Input " + (in_channel + 1) + " - Output " + (out_channel + 1) + "", in_channel, out_channel, crosspoint_gain));
                     }
                 }
 
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(318, new DSP_Primitive_BiquadFilter("OUTFILTER_1_1", 0, 3, 309));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(323, new DSP_Primitive_BiquadFilter("OUTFILTER_1_2", 0, 4, 312));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(328, new DSP_Primitive_BiquadFilter("OUTFILTER_1_3", 0, 5, 315));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(333, new DSP_Primitive_BiquadFilter("OUTFILTER_1_4", 0, 6, 318));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(338, new DSP_Primitive_BiquadFilter("OUTFILTER_1_5", 0, 7, 321));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(343, new DSP_Primitive_BiquadFilter("OUTFILTER_1_6", 0, 8, 324));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(318, new DSP_Primitive_BiquadFilter("OUTFILTER_1_1", 0, 3, plainfilter_offset++));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(323, new DSP_Primitive_BiquadFilter("OUTFILTER_1_2", 0, 4, plainfilter_offset++));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(328, new DSP_Primitive_BiquadFilter("OUTFILTER_1_3", 0, 5, plainfilter_offset++));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(333, new DSP_Primitive_BiquadFilter("OUTFILTER_1_4", 0, 6, plainfilter_offset++));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(338, new DSP_Primitive_BiquadFilter("OUTFILTER_1_5", 0, 7, plainfilter_offset++));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(343, new DSP_Primitive_BiquadFilter("OUTFILTER_1_6", 0, 8, plainfilter_offset++));
 
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(348, new DSP_Primitive_BiquadFilter("OUTFILTER_2_1", 1, 3, 309));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(353, new DSP_Primitive_BiquadFilter("OUTFILTER_2_2", 1, 4, 312));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(358, new DSP_Primitive_BiquadFilter("OUTFILTER_2_3", 1, 5, 315));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(363, new DSP_Primitive_BiquadFilter("OUTFILTER_2_4", 1, 6, 318));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(368, new DSP_Primitive_BiquadFilter("OUTFILTER_2_5", 1, 7, 321));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(373, new DSP_Primitive_BiquadFilter("OUTFILTER_2_6", 1, 8, 324));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(348, new DSP_Primitive_BiquadFilter("OUTFILTER_2_1", 1, 3, plainfilter_offset++));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(353, new DSP_Primitive_BiquadFilter("OUTFILTER_2_2", 1, 4, plainfilter_offset++));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(358, new DSP_Primitive_BiquadFilter("OUTFILTER_2_3", 1, 5, plainfilter_offset++));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(363, new DSP_Primitive_BiquadFilter("OUTFILTER_2_4", 1, 6, plainfilter_offset++));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(368, new DSP_Primitive_BiquadFilter("OUTFILTER_2_5", 1, 7, plainfilter_offset++));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(373, new DSP_Primitive_BiquadFilter("OUTFILTER_2_6", 1, 8, plainfilter_offset++));
 
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(378, new DSP_Primitive_BiquadFilter("OUTFILTER_3_1", 2, 3, 309));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(383, new DSP_Primitive_BiquadFilter("OUTFILTER_3_2", 2, 4, 312));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(388, new DSP_Primitive_BiquadFilter("OUTFILTER_3_3", 2, 5, 315));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(393, new DSP_Primitive_BiquadFilter("OUTFILTER_3_4", 2, 6, 318));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(398, new DSP_Primitive_BiquadFilter("OUTFILTER_3_5", 2, 7, 321));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(403, new DSP_Primitive_BiquadFilter("OUTFILTER_3_6", 2, 8, 324));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(378, new DSP_Primitive_BiquadFilter("OUTFILTER_3_1", 2, 3, plainfilter_offset++));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(383, new DSP_Primitive_BiquadFilter("OUTFILTER_3_2", 2, 4, plainfilter_offset++));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(388, new DSP_Primitive_BiquadFilter("OUTFILTER_3_3", 2, 5, plainfilter_offset++));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(393, new DSP_Primitive_BiquadFilter("OUTFILTER_3_4", 2, 6, plainfilter_offset++));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(398, new DSP_Primitive_BiquadFilter("OUTFILTER_3_5", 2, 7, plainfilter_offset++));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(403, new DSP_Primitive_BiquadFilter("OUTFILTER_3_6", 2, 8, plainfilter_offset++));
 
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(408, new DSP_Primitive_BiquadFilter("OUTFILTER_4_1", 3, 3, 309));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(413, new DSP_Primitive_BiquadFilter("OUTFILTER_4_2", 3, 4, 312));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(418, new DSP_Primitive_BiquadFilter("OUTFILTER_4_3", 3, 5, 315));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(423, new DSP_Primitive_BiquadFilter("OUTFILTER_4_4", 3, 6, 318));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(428, new DSP_Primitive_BiquadFilter("OUTFILTER_4_5", 3, 7, 321));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(433, new DSP_Primitive_BiquadFilter("OUTFILTER_4_6", 3, 8, 324));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(408, new DSP_Primitive_BiquadFilter("OUTFILTER_4_1", 3, 3, plainfilter_offset++));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(413, new DSP_Primitive_BiquadFilter("OUTFILTER_4_2", 3, 4, plainfilter_offset++));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(418, new DSP_Primitive_BiquadFilter("OUTFILTER_4_3", 3, 5, plainfilter_offset++));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(423, new DSP_Primitive_BiquadFilter("OUTFILTER_4_4", 3, 6, plainfilter_offset++));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(428, new DSP_Primitive_BiquadFilter("OUTFILTER_4_5", 3, 7, plainfilter_offset++));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(433, new DSP_Primitive_BiquadFilter("OUTFILTER_4_6", 3, 8, plainfilter_offset++));
 
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(438, new DSP_Primitive_Compressor("CH 1 - Limiter", 0, 1, DSP_Primitive_Types.Limiter));
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(444, new DSP_Primitive_Compressor("CH 2 - Limiter", 1, 1, DSP_Primitive_Types.Limiter));
@@ -355,7 +365,6 @@ namespace DSP_4x4
             DSP_PROGRAMS[0].ReadFromDevice(this);
             UpdateTooltips();
         }
-
 
     }
 }

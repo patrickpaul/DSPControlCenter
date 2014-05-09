@@ -514,8 +514,8 @@ namespace SA_Resources.SAForms
         private void chkBypass_CheckedChanged(object sender, EventArgs e)
         {
 
-            KneedResponseLine.BorderDashStyle = chkBypass.Checked ? ChartDashStyle.Dash : ChartDashStyle.Solid;
-            StraightResponseLine.BorderDashStyle = chkBypass.Checked ? ChartDashStyle.Dash : ChartDashStyle.Solid;
+                KneedResponseLine.BorderDashStyle = chkBypass.Checked ? ChartDashStyle.Dash : ChartDashStyle.Solid;
+                StraightResponseLine.BorderDashStyle = chkBypass.Checked ? ChartDashStyle.Dash : ChartDashStyle.Solid;
             
              dynChart.Invalidate();
 

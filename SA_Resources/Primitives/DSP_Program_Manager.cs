@@ -13,7 +13,7 @@ namespace SA_Resources.DSP.Primitives
         public List<DSP_Primitive> PRIMITIVES;
         public List<UInt32> FLASH_READ_VALUES;
 
-        private const int NUM_PAGES = 8;
+        private const int NUM_PAGES = 12;
 
         public int next_available_offset = 0;
 
@@ -361,23 +361,29 @@ namespace SA_Resources.DSP.Primitives
                     List<UInt32> Single_Primitive_Values = new List<uint>();
 
                     Single_Primitive_Values.Clear();
+                    DSP_Primitive_BiquadFilter SingleFilterPrimitive;
 
                     
                     foreach (DSP_Primitive singlePrimitive in PRIMITIVES)
                     {
-                        Single_Primitive_Values = FLASH_READ_VALUES.GetRange(primitive_value_offset, singlePrimitive.Num_Values);
+                        Single_Primitive_Values.Clear();
+                        
+                        if (singlePrimitive.Type == DSP_Primitive_Types.BiquadFilter)
+                        {
+
+                            SingleFilterPrimitive = (DSP_Primitive_BiquadFilter) singlePrimitive;
+                            Single_Primitive_Values.Add(FLASH_READ_VALUES[512 + SingleFilterPrimitive.Plainfilter_Offset]);
+                            Single_Primitive_Values.Add(FLASH_READ_VALUES[576 + SingleFilterPrimitive.Plainfilter_Offset]);
+                            Single_Primitive_Values.Add(FLASH_READ_VALUES[640 + SingleFilterPrimitive.Plainfilter_Offset]);
+                        }
+                        else
+                        {
+                            Single_Primitive_Values = FLASH_READ_VALUES.GetRange(primitive_value_offset, singlePrimitive.Num_Values);
+ 
+                        }
 
                         singlePrimitive.UpdateFromReadValues(Single_Primitive_Values);
 
-                        if (singlePrimitive.Type == DSP_Primitive_Types.Input)
-                        {
-                            Input_Primitive = (DSP_Primitive_Input) singlePrimitive;
-
-                            if (Input_Primitive.PhantomAvailable)
-                            {
-                                Input_Primitive.PhantomPower = PARENT_FORM._PIC_Conn.ReadPhantomPower(Input_Primitive.Channel);
-                            }
-                        }
                         primitive_value_offset += singlePrimitive.Num_Values;
                     }
 

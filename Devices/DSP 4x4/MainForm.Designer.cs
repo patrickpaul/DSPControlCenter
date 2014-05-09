@@ -96,11 +96,12 @@ namespace DSP_4x4
             this.lblCH1Input = new System.Windows.Forms.Label();
             this.picDuckerLine = new System.Windows.Forms.PictureBox();
             this.pbtnDucker = new SA_Resources.SAControls.PictureButton();
-            this.button1 = new System.Windows.Forms.Button();
             this.btnSavetoFile = new System.Windows.Forms.Button();
             this.btnStreamRead = new System.Windows.Forms.Button();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             ((System.ComponentModel.ISupportInitialize)(this.pictureConnectionStatus)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox37)).BeginInit();
             this.pnlCH2PreMixer.SuspendLayout();
             this.pnlCH4PostMixer.SuspendLayout();
@@ -187,12 +188,44 @@ namespace DSP_4x4
             "",
             "",
             "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
             "Program 1",
             "Program 2",
             "Program 3"});
             // 
             // statusStrip1
             // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel1});
             this.statusStrip1.Location = new System.Drawing.Point(0, 382);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(906, 22);
@@ -1193,19 +1226,9 @@ namespace DSP_4x4
             this.pbtnDucker.TabIndex = 89;
             this.pbtnDucker.ToolTipText = "";
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(253, 321);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 90;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // btnSavetoFile
             // 
-            this.btnSavetoFile.Location = new System.Drawing.Point(359, 321);
+            this.btnSavetoFile.Location = new System.Drawing.Point(15, 347);
             this.btnSavetoFile.Name = "btnSavetoFile";
             this.btnSavetoFile.Size = new System.Drawing.Size(75, 23);
             this.btnSavetoFile.TabIndex = 91;
@@ -1215,13 +1238,18 @@ namespace DSP_4x4
             // 
             // btnStreamRead
             // 
-            this.btnStreamRead.Location = new System.Drawing.Point(454, 321);
+            this.btnStreamRead.Location = new System.Drawing.Point(400, 332);
             this.btnStreamRead.Name = "btnStreamRead";
             this.btnStreamRead.Size = new System.Drawing.Size(101, 23);
             this.btnStreamRead.TabIndex = 92;
-            this.btnStreamRead.Text = "Stream Read 0,0";
+            this.btnStreamRead.Text = "Read Program";
             this.btnStreamRead.UseVisualStyleBackColor = true;
             this.btnStreamRead.Click += new System.EventHandler(this.btnStreamRead_Click);
+            // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(0, 17);
             // 
             // MainForm
             // 
@@ -1231,7 +1259,6 @@ namespace DSP_4x4
             this.ClientSize = new System.Drawing.Size(906, 404);
             this.Controls.Add(this.btnStreamRead);
             this.Controls.Add(this.btnSavetoFile);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.pbtnDucker);
             this.Controls.Add(this.picDuckerLine);
             this.Controls.Add(this.pnlCH2PreMixer);
@@ -1282,11 +1309,12 @@ namespace DSP_4x4
             this.Controls.SetChildIndex(this.pnlCH2PreMixer, 0);
             this.Controls.SetChildIndex(this.picDuckerLine, 0);
             this.Controls.SetChildIndex(this.pbtnDucker, 0);
-            this.Controls.SetChildIndex(this.button1, 0);
             this.Controls.SetChildIndex(this.btnSavetoFile, 0);
             this.Controls.SetChildIndex(this.btnStreamRead, 0);
             ((System.ComponentModel.ISupportInitialize)(this.pictureConnectionStatus)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox37)).EndInit();
             this.pnlCH2PreMixer.ResumeLayout(false);
             this.pnlCH4PostMixer.ResumeLayout(false);
@@ -1368,8 +1396,8 @@ namespace DSP_4x4
         private System.Windows.Forms.Label lblCH1Input;
         private System.Windows.Forms.PictureBox picDuckerLine;
         private PictureButton pbtnDucker;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button btnSavetoFile;
         private System.Windows.Forms.Button btnStreamRead;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
     }
 }

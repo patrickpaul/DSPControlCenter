@@ -24,6 +24,8 @@ namespace SA_Resources.SAForms
 
         public MainForm_Template PARENT_FORM;
 
+        private bool form_loaded = false;
+
         // public DelayForm(MainForm_Template _parent, DSP_Primitive_Delay input_primitive)
         public FilterDesignerForm(MainForm_Template _parent, int num_filters, int ch_num, int starting_filter_index)
         {
@@ -60,12 +62,16 @@ namespace SA_Resources.SAForms
             {
                 filterDesigner.SetActiveFilter(0);
             }
+
+            form_loaded = true;
         }
 
         private void filterDesignBlock_OnChange(object sender, FilterEventArgs e)
         {
             filterDesigner.SetActiveFilter(e.Index);
             filterDesigner.RefreshAllFilters();
+
+            SendActivePrimitive();
 
             Console.WriteLine("filterDesignBlock_OnChange");
         }
@@ -145,14 +151,23 @@ namespace SA_Resources.SAForms
                     uithread_abort = true;
                 }
 
-
-                Console.WriteLine("filterDesigner_OnDragEnd");
+                SendActivePrimitive();
 
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Exception in filterDesigner_OnDragEnd: " + ex.Message);
             }
+        }
+
+        private void SendActivePrimitive()
+        {
+            if (!form_loaded)
+            {
+                return;
+            }
+
+            filterDesigner.PrimitiveCache[filterDesigner.FocusedFilterID].QueueChange(PARENT_FORM);
         }
     }
 }

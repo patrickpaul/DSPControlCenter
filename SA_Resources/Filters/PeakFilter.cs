@@ -7,7 +7,7 @@ namespace SA_Resources.DSP.Filters
     {
         public PeakFilter(double in_cf, double in_gain, double in_q) : base(in_cf, in_gain, in_q)
         {
-            filter_type = 4;
+            filter_type = 5;
         }
 
         public override void Recalculate()

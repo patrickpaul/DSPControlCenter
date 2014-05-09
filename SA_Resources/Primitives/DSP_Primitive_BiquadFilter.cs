@@ -115,15 +115,9 @@ namespace SA_Resources.DSP.Primitives
 
             
             // MUTE THE CHANNEL OUTPUT GAIN TO REDUCE CRAZY NOISES..
+            int OutputGain_Offset = PARENT_FORM.DSP_PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].LookupPrimitive(DSP_Primitive_Types.StandardGain, this.Channel, 3).Offset;
 
-            // We will use a primitive lookup to find output gain
-
-            //PARENT_FORM.AddItemToQueue(new LiveQueueItem(36 + (CH_NUMBER - 1), 0x00000000));
-
-            // TODO - Change this to use current program
-            int OutputGain_Offset = PARENT_FORM.DSP_PROGRAMS[0].LookupPrimitive(DSP_Primitive_Types.StandardGain, this.Channel, 4).Offset;
-
-            UInt32 OutputGain_Value = ((DSP_Primitive_StandardGain)PARENT_FORM.DSP_PROGRAMS[0].LookupPrimitive(DSP_Primitive_Types.StandardGain, this.Channel, 4)).Values[0];
+            UInt32 OutputGain_Value = ((DSP_Primitive_StandardGain)PARENT_FORM.DSP_PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].LookupPrimitive(DSP_Primitive_Types.StandardGain, this.Channel, 3)).Values[0];
             
             // Mute outputs
             PARENT_FORM.AddItemToQueue(new LiveQueueItem(OutputGain_Offset, 0x00000000));
@@ -137,9 +131,9 @@ namespace SA_Resources.DSP.Primitives
             // Unmute outputs
             PARENT_FORM.AddItemToQueue(new LiveQueueItem(OutputGain_Offset, OutputGain_Value));
 
-            PARENT_FORM.AddItemToQueue(new LiveQueueItem(Plainfilter_Offset, Package_Value));
-            PARENT_FORM.AddItemToQueue(new LiveQueueItem(Plainfilter_Offset + 1, Package_Gain_Value));
-            PARENT_FORM.AddItemToQueue(new LiveQueueItem(Plainfilter_Offset + 2, Package_Q_Value));
+            PARENT_FORM.AddItemToQueue(new LiveQueueItem(512 + Plainfilter_Offset, Package_Value));
+            PARENT_FORM.AddItemToQueue(new LiveQueueItem(576 + Plainfilter_Offset, Package_Gain_Value));
+            PARENT_FORM.AddItemToQueue(new LiveQueueItem(640 + Plainfilter_Offset, Package_Q_Value));
         }
 
         public void Recalculate_Values()
@@ -150,11 +144,11 @@ namespace SA_Resources.DSP.Primitives
                 Package_Gain_Value = 0x00000000;
                 Package_Q_Value = 0x00000000;
 
-                if (!this.Bypassed)
+                if (this.Filter != null)
                 {
-                    //Package_Value = DSP_Math.filter_primitive_to_package(this);
-                    //Package_Gain_Value = DSP_Math.double_to_MN(this.Filter.Gain, 8, 24);
-                    //Package_Q_Value = DSP_Math.double_to_MN(this.Filter.QValue, 8, 24);
+                    Package_Value = DSP_Math.filter_primitive_to_package(this);
+                    Package_Gain_Value = DSP_Math.double_to_MN(this.Filter.Gain, 8, 24);
+                    Package_Q_Value = DSP_Math.double_to_MN(this.Filter.QValue, 8, 24);
                 }
 
                 if (this.FType == FilterType.None || this.Bypassed)
@@ -258,7 +252,73 @@ namespace SA_Resources.DSP.Primitives
 
         public override void UpdateFromReadValues(List<UInt32> valuesList)
         {
-            
+
+            uint package_type = 0;
+
+            UInt32 configuredCheck = 0;
+            configuredCheck = valuesList[0];
+            configuredCheck >>= 26;
+
+            package_type = configuredCheck & 0xF;
+
+            if (package_type == 0)
+            {
+                this.Bypassed = true;
+                this.Filter = null;
+                this.FType = FilterType.None;
+
+            }
+            else
+            {
+                this.Bypassed = ((valuesList[0] & 0x80000000) == 0x01);
+
+
+
+                this.Filter = DSP_Math.rebuild_filter(valuesList[0], valuesList[1], valuesList[2]);
+
+
+
+                switch ((int) this.Filter.FilterType)
+                {
+                    case 0:
+                        this.FType = FilterType.None;
+                        break;
+                    case 1:
+                        this.FType = FilterType.FirstOrderLowPass;
+                        break;
+                    case 2:
+                        this.FType = FilterType.FirstOrderHighPass;
+                        break;
+                    case 3:
+                        this.FType = FilterType.LowShelf;
+                        break;
+                    case 4:
+                        this.FType = FilterType.HighShelf;
+                        break;
+                    case 5:
+                        this.FType = FilterType.Peak;
+                        break;
+                    case 6:
+                        this.FType = FilterType.Notch;
+                        break;
+                    case 7:
+                        this.FType = FilterType.SecondOrderLowPass;
+                        break;
+                    case 8:
+                        this.FType = FilterType.SecondOrderHighPass;
+                        break;
+                    default:
+                        this.FType = FilterType.None;
+                        break;
+                }
+
+                if (this.Name == "OUTFILTER_1_2")
+                {
+                    Console.WriteLine("Stop me here");
+                }
+            }
+
+
         }
 
         public override object Clone()
