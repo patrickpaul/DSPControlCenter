@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 using SA_Resources;
@@ -119,6 +120,19 @@ namespace DSP_4x4
 
         #endregion    
 
+
+        public override void ReadDevice(object sender, DoWorkEventArgs doWorkEventArgs)
+        {
+            BackgroundWorker backgroundWorker = sender as BackgroundWorker;
+
+            for (int i = 0; i < GetNumPresets(); i++)
+            {
+                DSP_PROGRAMS[i].ReadFromDevice(this);
+                backgroundWorker.ReportProgress((i+1) * 10);
+            }
+
+            backgroundWorker.ReportProgress(100);
+        }
 
         public override void Default_DSP_Meters()
         {
@@ -311,10 +325,10 @@ namespace DSP_4x4
                 
 
                 
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(1000, new DSP_Primitive_Input("Local Input CH 1", 0, 0, 1000, 900, "Local Input #1", InputType.Line, false));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(1010, new DSP_Primitive_Input("Local Input CH 2", 1, 0, 1000, 901, "Local Input #2", InputType.Line, false));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(1020, new DSP_Primitive_Input("Local Input CH 3", 2, 0, 1000, 902, "Local Input #3", InputType.Line, false));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(1030, new DSP_Primitive_Input("Local Input CH 4", 3, 0, 1000, 903, "Local Input #4", InputType.Line, false));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(1000, new DSP_Primitive_Input("Local Input CH 1", 0, 0, 704, 900, "Local Input #1", InputType.Line, false));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(1010, new DSP_Primitive_Input("Local Input CH 2", 1, 0, 709, 901, "Local Input #2", InputType.Line, false));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(1020, new DSP_Primitive_Input("Local Input CH 3", 2, 0, 714, 902, "Local Input #3", InputType.Line, false));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(1030, new DSP_Primitive_Input("Local Input CH 4", 3, 0, 719, 903, "Local Input #4", InputType.Line, false));
 
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(1040, new DSP_Primitive_Output("Output CH 1", 0, 0, "Output #1"));
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(1050, new DSP_Primitive_Output("Output CH 1", 1, 0, "Output #2"));

@@ -25,13 +25,13 @@ namespace SA_Resources.SAForms
 
 
         private MainForm_Template PARENT_FORM;
-        private byte SWITCH_COMMAND;
-        public SwitchProgramForm(MainForm_Template _parentForm, byte switchCommand)
+        private int NEW_PROGRAM_INDEX;
+        public SwitchProgramForm(MainForm_Template _parentForm, int new_program)
         {
             InitializeComponent();
 
             PARENT_FORM = _parentForm;
-            SWITCH_COMMAND = switchCommand;
+            NEW_PROGRAM_INDEX = new_program;
 
             
         }
@@ -47,7 +47,7 @@ namespace SA_Resources.SAForms
 
             if (PARENT_FORM._PIC_Conn.getRTS())
             {
-                if (PARENT_FORM._PIC_Conn.sendAckdCommand(SWITCH_COMMAND, 3000))
+                if (PARENT_FORM._PIC_Conn.SwitchActiveProgram(NEW_PROGRAM_INDEX))
                 {
                     this.DialogResult = DialogResult.OK;
 

@@ -48,7 +48,7 @@ namespace SA_Resources.SAForms
 
                 for (int i = 0; i < 4; i++)
                 {
-                    InputPrimitive = (DSP_Primitive_Input) PARENT_FORM.DSP_PROGRAMS[0].LookupPrimitive(DSP_Primitive_Types.Input, i, 0);
+                    InputPrimitive = (DSP_Primitive_Input) PARENT_FORM.DSP_PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].LookupPrimitive(DSP_Primitive_Types.Input, i, 0);
                     InputLabel = (Label) Controls.Find("lblInput" + i, true).FirstOrDefault();
 
                     if (InputLabel != null)

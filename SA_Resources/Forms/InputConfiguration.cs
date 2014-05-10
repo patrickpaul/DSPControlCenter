@@ -47,7 +47,7 @@ namespace SA_Resources
 
             this.Text = "CH " + (Active_Primitive.Channel+1).ToString("N0") + " - Input Configuration";
 
-            txtDisplayName.Text = Active_Primitive.Name;
+            txtDisplayName.Text = Active_Primitive.InputName;
 
             chkPhantomPower.Checked = Active_Primitive.PhantomPower;
             chkPhantomPower.Invalidate();
@@ -180,7 +180,7 @@ namespace SA_Resources
 
         private void InputConfiguration_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Active_Primitive.Name = txtDisplayName.Text;
+            Active_Primitive.InputName = txtDisplayName.Text;
         }
 
         public bool input_switcher = false;
@@ -245,6 +245,7 @@ namespace SA_Resources
 
         private void SaveRoutine()
         {
+            
             this.DialogResult = DialogResult.OK;
             this.Close();
 
@@ -256,11 +257,5 @@ namespace SA_Resources
             this.Close();
 
         }
-
-        private void txtDisplayName_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
     }
 }

@@ -69,7 +69,6 @@ namespace SA_Resources
             this.txtDisplayName.Size = new System.Drawing.Size(133, 20);
             this.txtDisplayName.TabIndex = 1;
             this.txtDisplayName.Text = "Local Input #1";
-            this.txtDisplayName.TextChanged += new System.EventHandler(this.txtDisplayName_TextChanged);
             this.txtDisplayName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtDisplayName_KeyPress);
             // 
             // lblPhantomPower

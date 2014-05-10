@@ -342,7 +342,7 @@ namespace SA_Resources.DSP.Primitives
         {
             try
             {
-                DSP_Primitive_Input Input_Primitive;
+                DSP_Primitive_Input InputPrimitive;
 
                 if (PARENT_FORM._PIC_Conn.getRTS())
                 {
@@ -387,7 +387,25 @@ namespace SA_Resources.DSP.Primitives
                         primitive_value_offset += singlePrimitive.Num_Values;
                     }
 
-                    Console.WriteLine("Done with program read");
+                    // Phantom power
+
+                    for (int i = 0; i < PARENT_FORM.GetNumInputChannels(); i++)
+                    {
+                        InputPrimitive = (DSP_Primitive_Input)PARENT_FORM.DSP_PROGRAMS[this.Index].LookupPrimitive(DSP_Primitive_Types.Input, i, 0);
+
+                        InputPrimitive.PhantomPower = ((FLASH_READ_VALUES[569] & 0x01) == 1);
+
+                        FLASH_READ_VALUES[569] >>= 1;
+
+                        InputPrimitive.LoadNameFromValues(FLASH_READ_VALUES.GetRange(InputPrimitive.NameOffset, 5));
+                        
+                        Console.WriteLine("Name input name: " + InputPrimitive.Name);
+
+
+                    }
+
+
+                    //Console.WriteLine("Done with program read");
 
                     return true;
                 }

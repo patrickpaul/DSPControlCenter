@@ -308,6 +308,67 @@ namespace SA_Resources.USB
             return 0.00;
         }
 
+
+        public bool SwitchActiveProgram(int new_index)
+        {
+            try
+            {
+                lock (PIC_LOCK)
+                {
+                    if (!getRTS())
+                    {
+                        throw new Exception("Device did not respond to RTS request");
+                    }
+
+                    byte[] buff = new byte[4];
+
+                    buff[0] = 0x10;
+                    buff[1] = 0x01;
+                    buff[2] = (byte)new_index; 
+                    buff[3] = 0x03;
+
+                    double version = 0;
+
+                    for (int retry_count = 0; retry_count < 3; retry_count++)
+                    {
+                        serialPort.Write(buff, 0, 4);
+                        Thread.Sleep(250);
+
+                        if (serialPort.BytesToRead >= 4)
+                        {
+
+                            Byte[] bytes = new Byte[serialPort.BytesToRead];
+
+                            serialPort.Read(bytes, 0, serialPort.BytesToRead);
+
+                            if (bytes[0] == 0x06 && bytes[1] == 0x01 && bytes[2] == new_index)
+                            {
+                                return true;
+                            }
+
+                            if (bytes[0] == 0x15)
+                            {
+                                //print_error(bytes[1]);
+                            }
+
+                        }
+                        else
+                        {
+                            FlushBuffer();
+                        }
+                    }
+
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return false;
+        }
+
         public UInt32 Read_DSP_Value(uint address_index)
         {
             try

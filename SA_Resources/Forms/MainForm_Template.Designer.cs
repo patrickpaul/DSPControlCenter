@@ -262,12 +262,23 @@ namespace SA_Resources.SAForms
             // 
             // dropProgramSelection
             // 
-            this.dropProgramSelection.FormattingEnabled = true;
-            this.dropProgramSelection.Location = new System.Drawing.Point(729, 30);
+            this.dropProgramSelection.Items.AddRange(new object[] {
+            "Preset 1",
+            "Preset 2",
+            "Preset 3",
+            "Preset 4",
+            "Preset 5",
+            "Preset 6",
+            "Preset 7",
+            "Preset 8",
+            "Preset 9",
+            "Preset 10",
+            "---",
+            "Manage Presets"});
+            this.dropProgramSelection.Location = new System.Drawing.Point(729, 32);
             this.dropProgramSelection.Name = "dropProgramSelection";
             this.dropProgramSelection.Size = new System.Drawing.Size(165, 21);
-            this.dropProgramSelection.TabIndex = 83;
-            this.dropProgramSelection.SelectedIndexChanged += new System.EventHandler(this.dropProgramSelection_SelectedIndexChanged);
+            this.dropProgramSelection.TabIndex = 86;
             // 
             // pictureBox2
             // 
@@ -301,7 +312,7 @@ namespace SA_Resources.SAForms
             this.toolStripSeparator1,
             this.toolStripMenuItem6});
             this.menuBlockCopy.Name = "contextMenuStrip1";
-            this.menuBlockCopy.Size = new System.Drawing.Size(179, 120);
+            this.menuBlockCopy.Size = new System.Drawing.Size(179, 98);
             // 
             // menuItem_Cut
             // 

@@ -69,10 +69,7 @@ namespace SA_Resources.DSP.Primitives
             get { return this._Filter; }
             set {
                 this._Filter = value;
-                if (value != null)
-                {
-                    Recalculate_Values();
-                }
+                Recalculate_Values();
             }
         }
 
@@ -146,7 +143,7 @@ namespace SA_Resources.DSP.Primitives
 
                 if (this.Filter != null)
                 {
-                    Package_Value = DSP_Math.filter_primitive_to_package(this);
+                    Package_Value = this.ToPackage();
                     Package_Gain_Value = DSP_Math.double_to_MN(this.Filter.Gain, 8, 24);
                     Package_Q_Value = DSP_Math.double_to_MN(this.Filter.QValue, 8, 24);
                 }
@@ -210,7 +207,16 @@ namespace SA_Resources.DSP.Primitives
 
             return_int <<= 4;
 
-            return_int |= (uint) this.FType;
+            if (this.Filter != null)
+            {
+                return_int |= (uint)this.Filter.FilterType;
+            }
+            else
+            {
+                return_int |= 0;
+
+            }
+            
 
             return_int <<= 3;
 
@@ -270,7 +276,7 @@ namespace SA_Resources.DSP.Primitives
             }
             else
             {
-                this.Bypassed = ((valuesList[0] & 0x80000000) == 0x01);
+                this.Bypassed = ((valuesList[0] & 0x40000000) != 0);
 
 
 

@@ -206,25 +206,12 @@ namespace SA_Resources.SAForms
                             grpPushPull.Enabled = true;
                             btnConnect.Text = "Disconnect";
                             isConnected = true;
-                            //_isRunning = true;
-                            //OpenDeviceInterface(_deviceIDs[device_type]);
-                            //CloseAndClearComm();
-
-
-                            BackgroundWorker worker = new BackgroundWorker();
-                            worker.WorkerReportsProgress = true;
-                            worker.ProgressChanged += ProgressChanged;
-
-                            worker.DoWork += DebugDoWork;
-                            
 
                             PARENT_FORM.FIRMWARE_VERSION = devicesFound[listDevices.SelectedIndex].FW;
 
-                            worker.RunWorkerCompleted += WorkComplete;
 
 
-
-                            worker.RunWorkerAsync(ONLYPROGRAM1);
+                            
 
 
                         }
@@ -298,23 +285,14 @@ namespace SA_Resources.SAForms
 
             worker.RunWorkerCompleted += WorkComplete;
 
-            worker.RunWorkerAsync(ONLYPROGRAM1);
+            worker.RunWorkerAsync();
         }
 
         private void WorkComplete(object sender, RunWorkerCompletedEventArgs e)
         {
             progressBar1.Value = 100;
-            Console.WriteLine("Completed read routine");
-
-            if (radioPull.Checked)
-            {
-                PARENT_FORM.LoadSettingsToProgramConfig();
-            }
-            
             PARENT_FORM.UpdateTooltips();
-
             PARENT_FORM.BeginLiveMode();
-
             closeTimer.Enabled = true;
 
         }

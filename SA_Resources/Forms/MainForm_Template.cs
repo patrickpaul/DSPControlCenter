@@ -146,7 +146,7 @@ namespace SA_Resources.SAForms
                 //TODO - REMOVE ME
                 for (int i = 0; i < this.GetNumPresets(); i++)
                 {
-                    DSP_PROGRAMS[i] = new DSP_Program_Manager(i,"");
+                    DSP_PROGRAMS[i] = new DSP_Program_Manager(i,"Preset " + i);
                 }
                 Default_DSP_Programs();
                 Default_DSP_Meters();
@@ -310,6 +310,12 @@ namespace SA_Resources.SAForms
                                         {
                                             Console.WriteLine("Successfully sent queued DSP setting: " + read_setting.Index + " - " + read_setting.Value.ToString("X8"));
                                         }
+
+                                        if (read_setting.Index == 569)
+                                        {
+                                            // Phantom power
+                                            _PIC_Conn.UpdatePhantomPower();
+                                        }
                                     }
                                     else
                                     {
@@ -355,103 +361,6 @@ namespace SA_Resources.SAForms
 
         public virtual void ReadDevice(object sender, DoWorkEventArgs doWorkEventArgs)
         {
-            /*
-            int programs_to_run = NUM_PROGRAMS;
-
-            if(doWorkEventArgs.Argument != null)
-            {
-                if((bool)doWorkEventArgs.Argument == true)
-                {
-                    programs_to_run = 1;
-                }
-            }
-            BackgroundWorker backgroundWorker = sender as BackgroundWorker;
-            
-            double num_settings = (_settings[0].Count - 
-                (GetProtectedReadBlock1_End() - GetProtectedReadBlock1_Start()) + 
-                (GetProtectedReadBlock2_End() - GetProtectedReadBlock2_Start()) + 
-                (GetProtectedReadBlock3_End() - GetProtectedReadBlock3_Start())
-                ) * programs_to_run;
-           
-            double total_settings_read = 0.0;
-
-            _PIC_Conn.FlushBuffer();
-
-            backgroundWorker.ReportProgress(0,"Putting device into read mode");
-
-            for (int program_index = 0; program_index < programs_to_run; ++program_index)
-            {
-                if (_PIC_Conn.sendAckdCommand((byte)(GetEEPROMSwitchCommandBase() + (uint)program_index), 3000))
-                {
-                    Console.WriteLine("Successfully switched to program " +  (program_index + 1));
-
-                    backgroundWorker.ReportProgress(0, ("Reading program " + (program_index + 1)));
-
-                    Console.WriteLine("Started main read routine");
-
-                    for (int input_index = 0; input_index < GetNumInputChannels(); ++input_index)
-                    {
-                        PROGRAMS[program_index].inputs[input_index].Name = _PIC_Conn.ReadChannelName(input_index + 1);
-                        Thread.Sleep(100);
-                    }
-
-
-                    for (int output_index = 0; output_index < GetNumOutputChannels(); ++output_index)
-                    {
-                        PROGRAMS[program_index].outputs[output_index].Name = _PIC_Conn.ReadChannelName(output_index + 1, true);
-                        Thread.Sleep(100);
-                    }
-                    for (int phantom_index = 0; phantom_index < GetNumPhantomPowerChannels(); ++phantom_index)
-                    {
-                        PROGRAMS[program_index].inputs[phantom_index].PhantomPower = _PIC_Conn.ReadPhantomPower(phantom_index);
-                        Thread.Sleep(10);
-                    }
-
-                    int setting_index_counter = 0;
-
-                    foreach (DSP_Setting singleSetting in _settings[program_index])
-                    {
-                        if (
-                            (singleSetting.Index > GetProtectedReadBlock1_Start() && singleSetting.Index < GetProtectedReadBlock1_End())
-                            ||
-                            (singleSetting.Index > GetProtectedReadBlock2_Start() && singleSetting.Index < GetProtectedReadBlock2_End())
-                            ||
-                            (singleSetting.Index > GetProtectedReadBlock3_Start() && singleSetting.Index < GetProtectedReadBlock3_End())
-                            )
-                        {
-                            ++setting_index_counter;
-                        }
-                        else
-                        {
-                            if (!_PIC_Conn.sendAckdCommand(1))
-                            {
-                                // error
-                                return;
-                            }
-
-                            uint read_value = _PIC_Conn.Read_DSP_Value(singleSetting.Index);
-
-                            _settings[program_index][setting_index_counter].Value = read_value;
-                            _cached_settings[program_index][setting_index_counter].Value = read_value;
-
-                            setting_index_counter++;
-                            total_settings_read++;
-
-                            backgroundWorker.ReportProgress(Math.Min(100, (int)(total_settings_read / num_settings * 100.0)));
-                        }
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("Unable to switch to program " + (program_index + 1) + ". Exiting.");
-                    return;
-                }
-            }
-
-            backgroundWorker.ReportProgress(0, "Read device complete");
-            backgroundWorker.ReportProgress(100);
-
-            */
         }
 
         public virtual void WriteDevice(object sender, DoWorkEventArgs doWorkEventArgs)
@@ -829,7 +738,11 @@ namespace SA_Resources.SAForms
 
                 foreach (DSP_Program_Manager singleProgram in DSP_PROGRAMS)
                 {
-                    dropProgramSelection.Items.Add(singleProgram.Name);
+                    if (singleProgram != null)
+                    {
+                        dropProgramSelection.Items.Add(singleProgram.Name);
+                    }
+                    
                 }
 
                 if (dropProgramSelection.Items.Count > 0)
@@ -1029,7 +942,7 @@ namespace SA_Resources.SAForms
 
             DSP_Primitive_Input Active_Primitive;
 
-            int PrimitiveIndex = DSP_PROGRAMS[0].LookupIndex(DSP_Primitive_Types.Input, ch_num, 0);
+            int PrimitiveIndex = DSP_PROGRAMS[CURRENT_PROGRAM].LookupIndex(DSP_Primitive_Types.Input, ch_num, 0);
 
             if (PrimitiveIndex < 0)
             {
@@ -1039,7 +952,7 @@ namespace SA_Resources.SAForms
             }
             else
             {
-                Active_Primitive = (DSP_Primitive_Input)DSP_PROGRAMS[0].PRIMITIVES[PrimitiveIndex];
+                Active_Primitive = (DSP_Primitive_Input)DSP_PROGRAMS[CURRENT_PROGRAM].PRIMITIVES[PrimitiveIndex];
 
             }
 
@@ -1074,11 +987,12 @@ namespace SA_Resources.SAForms
                                 Cached_Primitive.QueueDeltas(this, Active_Primitive);
                             }
 
-                            DSP_PROGRAMS[0].PRIMITIVES[PrimitiveIndex] = (DSP_Primitive_Input)Cached_Primitive.Clone();
+                            DSP_PROGRAMS[CURRENT_PROGRAM].PRIMITIVES[PrimitiveIndex] = (DSP_Primitive_Input)Cached_Primitive.Clone();
                         }
                     }
                     else
                     {
+                        
                         UpdateTooltips();
                     }
                 }
@@ -1092,7 +1006,7 @@ namespace SA_Resources.SAForms
                        AddItemToQueue(new LiveQueueItem(ch_num, PROGRAMS[CURRENT_PROGRAM].inputs[ch_num - 1].Name));
                    }
                    * */
-                    
+                    Active_Primitive.QueueChange(this);
                     UpdateTooltips(); 
                      
                 }
@@ -1127,7 +1041,7 @@ namespace SA_Resources.SAForms
 
             DSP_Primitive_Output Active_Primitive;
 
-            int PrimitiveIndex = DSP_PROGRAMS[0].LookupIndex(DSP_Primitive_Types.Output, ch_num, 0);
+            int PrimitiveIndex = DSP_PROGRAMS[CURRENT_PROGRAM].LookupIndex(DSP_Primitive_Types.Output, ch_num, 0);
 
             if (PrimitiveIndex < 0)
             {
@@ -1137,7 +1051,7 @@ namespace SA_Resources.SAForms
             }
             else
             {
-                Active_Primitive = (DSP_Primitive_Output)DSP_PROGRAMS[0].PRIMITIVES[PrimitiveIndex];
+                Active_Primitive = (DSP_Primitive_Output)DSP_PROGRAMS[CURRENT_PROGRAM].PRIMITIVES[PrimitiveIndex];
 
             }
 
@@ -1172,7 +1086,7 @@ namespace SA_Resources.SAForms
                                 Cached_Primitive.QueueDeltas(this, Active_Primitive);
                             }
 
-                            DSP_PROGRAMS[0].PRIMITIVES[PrimitiveIndex] = (DSP_Primitive_Output)Cached_Primitive.Clone();
+                            DSP_PROGRAMS[CURRENT_PROGRAM].PRIMITIVES[PrimitiveIndex] = (DSP_Primitive_Output)Cached_Primitive.Clone();
                         }
                     }
                     else
@@ -1208,7 +1122,7 @@ namespace SA_Resources.SAForms
 
             DSP_Primitive_Ducker4x4 Active_Primitive;
 
-            int PrimitiveIndex = DSP_PROGRAMS[0].LookupIndex(DSP_Primitive_Types.Ducker4x4, 0, 0);
+            int PrimitiveIndex = DSP_PROGRAMS[CURRENT_PROGRAM].LookupIndex(DSP_Primitive_Types.Ducker4x4, 0, 0);
 
             if (PrimitiveIndex < 0)
             {
@@ -1218,7 +1132,7 @@ namespace SA_Resources.SAForms
             }
             else
             {
-                Active_Primitive = (DSP_Primitive_Ducker4x4)DSP_PROGRAMS[0].PRIMITIVES[PrimitiveIndex];
+                Active_Primitive = (DSP_Primitive_Ducker4x4)DSP_PROGRAMS[CURRENT_PROGRAM].PRIMITIVES[PrimitiveIndex];
 
             }
 
@@ -1240,7 +1154,7 @@ namespace SA_Resources.SAForms
                             Cached_Primitive.QueueDeltas(this, Active_Primitive);
                         }
 
-                        DSP_PROGRAMS[0].PRIMITIVES[PrimitiveIndex] = (DSP_Primitive_Ducker4x4)Cached_Primitive.Clone();
+                        DSP_PROGRAMS[CURRENT_PROGRAM].PRIMITIVES[PrimitiveIndex] = (DSP_Primitive_Ducker4x4)Cached_Primitive.Clone();
                     }
                 }
 
@@ -1292,12 +1206,12 @@ namespace SA_Resources.SAForms
             int ch_num = int.Parse(((PictureButton)sender).Name.Substring(13, 1));
             int prim_position = int.Parse(((PictureButton)sender).Name.Substring(14, 1));
 
-            int PrimitiveIndex = DSP_PROGRAMS[0].LookupIndex(DSP_Primitive_Types.Compressor, ch_num, prim_position);
+            int PrimitiveIndex = DSP_PROGRAMS[CURRENT_PROGRAM].LookupIndex(DSP_Primitive_Types.Compressor, ch_num, prim_position);
 
             if (PrimitiveIndex < 0)
             {
                 // Couldn't find a compressor, let's see if we have a limiter there instead
-                PrimitiveIndex = DSP_PROGRAMS[0].LookupIndex(DSP_Primitive_Types.Limiter, ch_num, prim_position);
+                PrimitiveIndex = DSP_PROGRAMS[CURRENT_PROGRAM].LookupIndex(DSP_Primitive_Types.Limiter, ch_num, prim_position);
             }
 
             if (PrimitiveIndex < 0)
@@ -1307,7 +1221,7 @@ namespace SA_Resources.SAForms
                 return;
             } else
             {
-                Active_Primitive = (DSP_Primitive_Compressor)DSP_PROGRAMS[0].PRIMITIVES[PrimitiveIndex];
+                Active_Primitive = (DSP_Primitive_Compressor)DSP_PROGRAMS[CURRENT_PROGRAM].PRIMITIVES[PrimitiveIndex];
 
             }
             
@@ -1341,7 +1255,7 @@ namespace SA_Resources.SAForms
                             Cached_Primitive.QueueDeltas(this, Active_Primitive);
                         }
 
-                        DSP_PROGRAMS[0].PRIMITIVES[PrimitiveIndex] = (DSP_Primitive_Compressor)Cached_Primitive.Clone();
+                        DSP_PROGRAMS[CURRENT_PROGRAM].PRIMITIVES[PrimitiveIndex] = (DSP_Primitive_Compressor)Cached_Primitive.Clone();
                     }
                 }
                 else
@@ -1362,7 +1276,7 @@ namespace SA_Resources.SAForms
 
             DSP_Primitive_Delay Active_Primitive;
 
-            int PrimitiveIndex = DSP_PROGRAMS[0].LookupIndex(DSP_Primitive_Types.Delay, ch_num, 0);
+            int PrimitiveIndex = DSP_PROGRAMS[CURRENT_PROGRAM].LookupIndex(DSP_Primitive_Types.Delay, ch_num, 0);
 
             if (PrimitiveIndex < 0)
             {
@@ -1372,7 +1286,7 @@ namespace SA_Resources.SAForms
             }
             else
             {
-                Active_Primitive = (DSP_Primitive_Delay)DSP_PROGRAMS[0].PRIMITIVES[PrimitiveIndex];
+                Active_Primitive = (DSP_Primitive_Delay)DSP_PROGRAMS[CURRENT_PROGRAM].PRIMITIVES[PrimitiveIndex];
 
             }
 
@@ -1394,7 +1308,7 @@ namespace SA_Resources.SAForms
                             Cached_Primitive.QueueDeltas(this, Active_Primitive);
                         }
 
-                        DSP_PROGRAMS[0].PRIMITIVES[PrimitiveIndex] = (DSP_Primitive_Delay)Cached_Primitive.Clone();
+                        DSP_PROGRAMS[CURRENT_PROGRAM].PRIMITIVES[PrimitiveIndex] = (DSP_Primitive_Delay)Cached_Primitive.Clone();
                     }
                 }
                 else
@@ -1419,7 +1333,7 @@ namespace SA_Resources.SAForms
 
             DSP_Primitive_StandardGain Active_Primitive;
 
-            int PrimitiveIndex = DSP_PROGRAMS[0].LookupIndex(DSP_Primitive_Types.StandardGain, ch_num, pos);
+            int PrimitiveIndex = DSP_PROGRAMS[CURRENT_PROGRAM].LookupIndex(DSP_Primitive_Types.StandardGain, ch_num, pos);
 
             if (PrimitiveIndex < 0)
             {
@@ -1428,7 +1342,7 @@ namespace SA_Resources.SAForms
             }
             else
             {
-                Active_Primitive = (DSP_Primitive_StandardGain)DSP_PROGRAMS[0].PRIMITIVES[PrimitiveIndex];
+                Active_Primitive = (DSP_Primitive_StandardGain)DSP_PROGRAMS[CURRENT_PROGRAM].PRIMITIVES[PrimitiveIndex];
             }
 
             DSP_Primitive_StandardGain Cached_Primitive = (DSP_Primitive_StandardGain)Active_Primitive.Clone();
@@ -1453,7 +1367,7 @@ namespace SA_Resources.SAForms
                             Cached_Primitive.QueueDeltas(this, Active_Primitive);
                         }
 
-                        DSP_PROGRAMS[0].PRIMITIVES[PrimitiveIndex] = (DSP_Primitive_StandardGain)Cached_Primitive.Clone();
+                        DSP_PROGRAMS[CURRENT_PROGRAM].PRIMITIVES[PrimitiveIndex] = (DSP_Primitive_StandardGain)Cached_Primitive.Clone();
                     }
                 }
                 else
@@ -1477,7 +1391,7 @@ namespace SA_Resources.SAForms
 
             DSP_Primitive_Pregain Active_Primitive;
 
-            int PrimitiveIndex = DSP_PROGRAMS[0].LookupIndex(DSP_Primitive_Types.Pregain, ch_num, pos);
+            int PrimitiveIndex = DSP_PROGRAMS[CURRENT_PROGRAM].LookupIndex(DSP_Primitive_Types.Pregain, ch_num, pos);
 
             if (PrimitiveIndex < 0)
             {
@@ -1486,7 +1400,7 @@ namespace SA_Resources.SAForms
             }
             else
             {
-                Active_Primitive = (DSP_Primitive_Pregain)DSP_PROGRAMS[0].PRIMITIVES[PrimitiveIndex];
+                Active_Primitive = (DSP_Primitive_Pregain)DSP_PROGRAMS[CURRENT_PROGRAM].PRIMITIVES[PrimitiveIndex];
             }
 
             DSP_Primitive_Pregain Cached_Primitive = (DSP_Primitive_Pregain)Active_Primitive.Clone();
@@ -1511,7 +1425,7 @@ namespace SA_Resources.SAForms
                             Cached_Primitive.QueueDeltas(this, Active_Primitive);
                         }
 
-                        DSP_PROGRAMS[0].PRIMITIVES[PrimitiveIndex] = (DSP_Primitive_Pregain)Cached_Primitive.Clone();
+                        DSP_PROGRAMS[CURRENT_PROGRAM].PRIMITIVES[PrimitiveIndex] = (DSP_Primitive_Pregain)Cached_Primitive.Clone();
                     }
                 }
                 else
@@ -1602,12 +1516,13 @@ namespace SA_Resources.SAForms
             CURRENT_PROGRAM = ((ListControl)sender).SelectedIndex;
             UpdateTooltips();
 
+
             if (!LIVE_MODE)
             {
                 return;
             }
 
-            switch (new SwitchProgramForm(this, (byte)(GetLiveSwitchCommandBase() + (uint)CURRENT_PROGRAM)).ShowDialog())
+            switch (new SwitchProgramForm(this, CURRENT_PROGRAM).ShowDialog())
             {
                 case DialogResult.No:
                     Console.WriteLine("Unable to switch program. Switch command responded with an error.");
@@ -1837,11 +1752,6 @@ namespace SA_Resources.SAForms
             {
                 
             }
-        }
-
-        private void dropProgramSelection_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
         }
     }
 

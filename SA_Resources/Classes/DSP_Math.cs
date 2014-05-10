@@ -104,7 +104,7 @@ namespace SA_Resources.DSP
             uint type = package & 0xF; // 4 bits
             package >>= 4;
 
-            uint enabled = package & 0x01;
+            uint bypassed = package & 0x01; // This does not go into BiquadFilter constructor.. we must process it when we rebuild primitive
             double gain = DSP_Math.MN_to_double_signed(Gain, 8, 24);
             double q_val = DSP_Math.MN_to_double_unsigned(QVal, 8, 24);
 
