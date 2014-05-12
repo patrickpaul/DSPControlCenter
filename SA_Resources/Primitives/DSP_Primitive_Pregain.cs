@@ -9,15 +9,20 @@ namespace SA_Resources.DSP.Primitives
     public class DSP_Primitive_Pregain : DSP_Primitive, ICloneable
     {
         public double _Gain;
+
         public UInt32 Gain_Value, Muted_Value;
         public bool _Muted;
         public UInt32 _Meter;
+        public int _Pregain;
+
         public DSP_Primitive_Pregain(string in_name, int in_channel, int in_positionA)
             : base(in_name,in_channel,in_positionA)
         {
             Muted = false;
             Gain = 0;
             this.Type = DSP_Primitive_Types.Pregain;
+
+            this.Pregain = 0;
 
             this.Num_Values = 2;
         }
@@ -30,6 +35,7 @@ namespace SA_Resources.DSP.Primitives
             this.Type = DSP_Primitive_Types.Pregain;
             this.Num_Values = 2;
             this.Meter = in_meter;
+            this.Pregain = 0;
         }
 
         public DSP_Primitive_Pregain(string in_name, int in_channel, int in_positionA, UInt32 in_meter, double in_gain = 0, bool in_muted = false)
@@ -56,6 +62,16 @@ namespace SA_Resources.DSP.Primitives
             get { return this._Meter; }
             set { this._Meter = value; }
         }
+
+        public int Pregain
+        {
+            get { return this._Pregain; }
+            set
+            {
+                this._Pregain = value;
+                this.Gain_Value = DSP_Math.double_to_MN(this._Gain + this.Pregain, 9, 23);
+            }
+        }
         public double Gain
         {
             get
@@ -65,7 +81,7 @@ namespace SA_Resources.DSP.Primitives
             set {
                 this._Gain = value;
 
-                this.Gain_Value = DSP_Math.double_to_MN(this._Gain, 9,23);
+                this.Gain_Value = DSP_Math.double_to_MN(this._Gain + this.Pregain, 9,23);
             }
         }
 

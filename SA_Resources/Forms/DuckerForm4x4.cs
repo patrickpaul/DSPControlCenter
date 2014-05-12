@@ -28,7 +28,8 @@ namespace SA_Resources.SAForms
         
         private Dial ReleaseDial, AttackDial, HoldDial;
 
-        
+        private double read_gain_value = 0;
+        private int cur_meter;
 
         private bool flagSwitchingPriorityOrder = false;
 
@@ -198,9 +199,10 @@ namespace SA_Resources.SAForms
 
         private void signalTimer_Tick(object sender, EventArgs e)
         {
-            /*
             UInt32 read_address = 0x00000000;
-            double offset = 20 + 10 * Math.Log10(2) + 20 * Math.Log10(16);
+
+            double offset = (20 - 20 + 3.8) + 10 * Math.Log10(2) + 20 * Math.Log10(16);
+
             UInt32 read_value = 0x00000000;
             double converted_value = 0;
 
@@ -211,9 +213,9 @@ namespace SA_Resources.SAForms
                 cur_meter = 0;
             }
 
-            SignalMeter_Small curMeter = ((SignalMeter_Small)Controls.Find("meter" + (cur_meter + 1), true).First());
+            SignalMeter_Small curMeter = ((SignalMeter_Small)Controls.Find("duckMeter" + (cur_meter + 1), true).First());
 
-            read_address = PARENT_FORM._ducker_meters[cur_meter];
+            read_address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.Ducker4x4, cur_meter,0).Address;
 
 
             read_value = PARENT_FORM._PIC_Conn.Read_Live_DSP_Value(read_address);
@@ -229,8 +231,6 @@ namespace SA_Resources.SAForms
 
             curMeter.DB = read_gain_value;
             curMeter.Refresh();
-
-            */
         }
 
         private void dropPriorityChannel_SelectedIndexChanged(object sender, EventArgs e)
@@ -297,7 +297,12 @@ namespace SA_Resources.SAForms
             RecastDucker.SetChannelBypass(ch_num,!(senderCheckbox.Checked));
             BypassCache[ch_num] = !senderCheckbox.Checked;
 
-            //RecastDucker.RecalculateRouters();
+            RecastDucker.QueueChange(PARENT_FORM);
+        }
+
+        private void signalMeter_Small1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

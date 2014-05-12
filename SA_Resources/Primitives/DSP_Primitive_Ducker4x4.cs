@@ -122,6 +122,9 @@ namespace SA_Resources.DSP.Primitives
 
         public override void UpdateFromReadValues(List<UInt32> valuesList)
         {
+
+
+
         }
 
 
@@ -140,7 +143,7 @@ namespace SA_Resources.DSP.Primitives
 
                 ReturnValues.AddRange(INDUCK_Values);
                 ReturnValues.AddRange(OUTDUCK_Values);
-                ReturnValues.AddRange(new UInt32[] { Threshold_Value, Depth_Value, Attack_Value, Release_Value, Holdtime_Value, Bypassed_Value });
+                ReturnValues.AddRange(new UInt32[] { Threshold_Value, Holdtime_Value, Depth_Value, Attack_Value, Release_Value, Bypassed_Value });
                 
                 return ReturnValues;
             }
@@ -158,7 +161,7 @@ namespace SA_Resources.DSP.Primitives
             set
             {
                 this._Threshold = value;
-                this.Threshold_Value = DSP_Math.double_to_MN(this._Threshold, 9, 23);
+                this.Threshold_Value = DSP_Math.double_to_MN(this._Threshold + 16.2, 9, 23);
             }
 
         }
@@ -238,33 +241,37 @@ namespace SA_Resources.DSP.Primitives
             int router_counter = 1;
 
             int[] channel_cache = new int[8]; // Key = zereo-based Channel Number, Value = The zero-based index coming out of INDUCK_ROUTER
+            int induck_index_counter = 1;
 
             for (int i = 0; i < NUM_CHANNELS; i++)
             {
                 if (i == PriorityChannel)
                 {
-                    channel_cache[i] = 0;
-                    INDUCK_Values[0] = (UInt32) (i + 1);
-                    OUTDUCK_Values[i] = (UInt32) 1;
+                    channel_cache[i] = 0; // Good
+                    INDUCK_Values[0] = (UInt32)(i + 1); // Good
+                    OUTDUCK_Values[i] = (UInt32)1; // Good
                 }
                 else
                 {
-                    channel_cache[i] = router_counter;
-                    INDUCK_Values[router_counter-1] = (UInt32)(i + 1);
+                    channel_cache[i] = induck_index_counter; // Good
+
+                    INDUCK_Values[induck_index_counter] = (UInt32)(i + 1); // Good
 
                     if (CH_Bypasses[i])
                     {
-                        OUTDUCK_Values[i] = (UInt32)(router_counter + NUM_CHANNELS + 1);
+                        OUTDUCK_Values[i] = (UInt32)(induck_index_counter + NUM_CHANNELS + 1);
                     }
                     else
                     {
-                        OUTDUCK_Values[i] = (UInt32)(router_counter + 1);
+                        OUTDUCK_Values[i] = (UInt32)(induck_index_counter + 1);
                     }
+
+                    induck_index_counter++;
                 }
 
-                router_counter++;
-            }
 
+            }
+            /*
             for(int x = 0; x < INDUCK_Values.Count; x++)
             {
                 Console.WriteLine("INDUCK " + x + " = " + INDUCK_Values[x]);
@@ -276,6 +283,7 @@ namespace SA_Resources.DSP.Primitives
                 Console.WriteLine("OUTDUCK " + y + " = " + OUTDUCK_Values[y]);
 
             }
+             * */
         }
 
         public override void QueueChange(MainForm_Template PARENT_FORM)

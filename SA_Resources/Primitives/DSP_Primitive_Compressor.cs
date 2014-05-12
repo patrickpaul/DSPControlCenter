@@ -69,7 +69,7 @@ namespace SA_Resources.DSP.Primitives
 
         public override void UpdateFromReadValues(List<UInt32> valuesList)
         {
-            this.Threshold = (DSP_Math.MN_to_double_signed(valuesList[0], 9, 23) - 16);
+            this.Threshold = (DSP_Math.MN_to_double_signed(valuesList[0], 9, 23) - 16.2);
             this.SoftKnee = (valuesList[1] == 0x03000000);
             this.Ratio = DSP_Math.value_to_comp_ratio(valuesList[2]);
             this.Attack = DSP_Math.value_to_comp_attack(valuesList[3]);
@@ -95,7 +95,7 @@ namespace SA_Resources.DSP.Primitives
             set
             {
                 this._Threshold = value;
-                this.Threshold_Value = DSP_Math.double_to_MN(value + 16, 9, 23);
+                this.Threshold_Value = DSP_Math.double_to_MN(value + 16.2, 9, 23);
             }
 
         }

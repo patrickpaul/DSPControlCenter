@@ -343,6 +343,8 @@ namespace SA_Resources.DSP.Primitives
             try
             {
                 DSP_Primitive_Input InputPrimitive;
+                DSP_Primitive_Output OutputPrimitive;
+                DSP_Primitive_Pregain PregainPrimitive;
 
                 if (PARENT_FORM._PIC_Conn.getRTS())
                 {
@@ -387,22 +389,34 @@ namespace SA_Resources.DSP.Primitives
                         primitive_value_offset += singlePrimitive.Num_Values;
                     }
 
-                    // Phantom power
+                    // Input settings - Name, Pregain, Phantom Power
 
                     for (int i = 0; i < PARENT_FORM.GetNumInputChannels(); i++)
                     {
                         InputPrimitive = (DSP_Primitive_Input)PARENT_FORM.DSP_PROGRAMS[this.Index].LookupPrimitive(DSP_Primitive_Types.Input, i, 0);
-
+                        PregainPrimitive = (DSP_Primitive_Pregain)PARENT_FORM.DSP_PROGRAMS[this.Index].LookupPrimitive(DSP_Primitive_Types.Pregain, i, 0);
+                        
                         InputPrimitive.PhantomPower = ((FLASH_READ_VALUES[569] & 0x01) == 1);
+
+                        InputPrimitive.Pregain = FLASH_READ_VALUES[InputPrimitive.PregainOffset];
 
                         FLASH_READ_VALUES[569] >>= 1;
 
                         InputPrimitive.LoadNameFromValues(FLASH_READ_VALUES.GetRange(InputPrimitive.NameOffset, 5));
-                        
-                        Console.WriteLine("Name input name: " + InputPrimitive.Name);
 
+                        PregainPrimitive.Gain = PregainPrimitive.Gain - InputPrimitive.Pregain;
+                        PregainPrimitive.Pregain = (int)InputPrimitive.Pregain;
 
                     }
+
+                    // Output settings - Name
+                    for (int i = 0; i < PARENT_FORM.GetNumOutputChannels(); i++)
+                    {
+                        OutputPrimitive = (DSP_Primitive_Output)PARENT_FORM.DSP_PROGRAMS[this.Index].LookupPrimitive(DSP_Primitive_Types.Output, i, 0);
+ 
+                        OutputPrimitive.LoadNameFromValues(FLASH_READ_VALUES.GetRange(OutputPrimitive.NameOffset, 5));
+
+                     }
 
 
                     //Console.WriteLine("Done with program read");

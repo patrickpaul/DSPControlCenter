@@ -18,23 +18,19 @@ namespace SA_Resources.DSP.Primitives
         public string InputName;
         public bool PhantomAvailable;
         public bool PhantomPower;
-        public int PhantomOffset;
+        public int PregainOffset;
         public int NameOffset;
         public List<UInt32> NameValues;
 
-        public DSP_Primitive_Input(string in_name, int in_channel, int in_positionA, int in_nameOffset, int in_phantomOffset = -1)
+        public DSP_Primitive_Input(string in_name, int in_channel, int in_positionA, int in_nameOffset, int in_pregainOffset = -1, bool in_phantomAvailable = false)
             : base(in_name, in_channel, in_positionA)
         {
             InputName = "Input #" + (in_channel + 1).ToString("N0");
 
-            if(in_phantomOffset < 0)
-            {
-                PhantomAvailable = false;
-                PhantomPower = false;
-            } else
-            {
-                PhantomOffset = in_phantomOffset;
-            }
+            PhantomAvailable = in_phantomAvailable;
+            PhantomPower = false;
+            PregainOffset = in_pregainOffset;
+
 
             NameValues = new List<UInt32>();
             NameOffset = in_nameOffset;
@@ -46,21 +42,15 @@ namespace SA_Resources.DSP.Primitives
             this.Num_Values = 1;
         }
 
-        public DSP_Primitive_Input(string in_name, int in_channel, int in_positionA, int in_nameOffset, int in_phantomOffset, string _name, InputType _inputType, bool _phantomPower)
+        public DSP_Primitive_Input(string in_name, int in_channel, int in_positionA, int in_nameOffset, int in_pregainOffset, string _name, InputType _inputType, bool in_phantomAvailable = false, bool _phantomPower = false)
             : base(in_name, in_channel, in_positionA)
         {
             InputName = _name;
 
-            if(in_phantomOffset < 0)
-            {
-                PhantomAvailable = false;
-                PhantomPower = false;
-            } else
-            {
-                PhantomAvailable = true;
-                PhantomOffset = in_phantomOffset;
-                PhantomPower = _phantomPower;
-            }
+            PhantomAvailable = in_phantomAvailable;
+            PhantomPower = _phantomPower;
+
+            PregainOffset = in_pregainOffset;
 
             NameValues = new List<UInt32>();
 
@@ -82,9 +72,24 @@ namespace SA_Resources.DSP.Primitives
             set { }
         }
 
-        public double Pregain
+        public uint Pregain
         {
-            set { }
+            set
+            {
+                switch (value)
+                {
+                    
+                    case 6 :
+                        this.InputType = InputType.Microphone6;
+                        break;
+                    case 20 :
+                        this.InputType = InputType.Microphone20;
+                        break;
+                    default:
+                        this.InputType = InputType.Line;
+                    break;
+                }
+            }
             get
             {
                 if (this.InputType == InputType.Line)
@@ -232,20 +237,20 @@ namespace SA_Resources.DSP.Primitives
              * */
         }
 
+        public void LoadPregainFromValue(UInt32 Pregain_Value)
+        {
+            this.Pregain = (uint) Pregain_Value;
+
+        }
+
+        public void QueuePregain(MainForm_Template PARENT_FORM)
+        {
+            PARENT_FORM.AddItemToQueue(new LiveQueueItem(PregainOffset, this.Pregain));
+        }
+
+
         public override void QueueChange(MainForm_Template PARENT_FORM)
         {
-            // Look up parent program
-            /*
-            UInt32 new_val =
-                    DSP_Math.double_to_MN(
-                        PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].pregains[CH_NUMBER - 1] +
-                        PARENT_FORM.PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].gains[CH_NUMBER - 1][0].Gain, 9, 23);
-            
-            PARENT_FORM.AddItemToQueue(new LiveQueueItem((0 + CH_NUMBER - 1), new_val));
-             *  * */
-
-            //PARENT_FORM.AddItemToQueue(new LiveQueueItem(PlainOffset, (uint)this.TypeToValue()));
-
             this.NameToValues();
 
             PARENT_FORM.AddItemToQueue(new LiveQueueItem(NameOffset, NameValues[0]));
@@ -258,6 +263,9 @@ namespace SA_Resources.DSP.Primitives
             {
                 this.QueuePhantom(PARENT_FORM);
             }
+
+            PARENT_FORM.AddItemToQueue(new LiveQueueItem(PregainOffset, this.Pregain));
+
         }
 
         public void QueuePhantom(MainForm_Template PARENT_FORM)

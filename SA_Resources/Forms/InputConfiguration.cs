@@ -96,6 +96,7 @@ namespace SA_Resources
 
         private void dropInputType_SelectedIndexChanged(object sender, EventArgs e)
         {
+            DSP_Primitive_Pregain Pregain_Primitive;
 
             if(!form_loaded)
             {
@@ -121,15 +122,13 @@ namespace SA_Resources
 
             if (PARENT_FORM.LIVE_MODE)
             {
-                
-                UInt32 new_val =
-                    DSP_Math.double_to_MN(
-                        Active_Primitive.Pregain +
-                        Input_Gain_Primitive.Gain, 9, 23);
-                /*
-                PARENT_FORM.AddItemToQueue(new LiveQueueItem((0 + CH_NUMBER - 1), new_val));
-                PARENT_FORM.AddItemToQueue(new LiveQueueItem((412 + CH_NUMBER - 1), (uint) dropInputType.SelectedIndex));
-                 * */
+                Active_Primitive.QueuePregain(PARENT_FORM);
+
+                Pregain_Primitive = (DSP_Primitive_Pregain)PARENT_FORM.DSP_PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].LookupPrimitive(DSP_Primitive_Types.Pregain, Active_Primitive.Channel, 0);
+
+                Pregain_Primitive.Pregain = (int)Active_Primitive.Pregain;
+
+                Pregain_Primitive.QueueChange(PARENT_FORM);
             }
 
         }
@@ -187,50 +186,43 @@ namespace SA_Resources
 
         private void signalTimer_Tick(object sender, EventArgs e)
         {
-            
-            UInt32 read_address;
 
-            //read_address = PARENT_FORM._gain_meters[CH_NUMBER - 1][0];
+            if (!PARENT_FORM._PIC_Conn.isOpen || !PARENT_FORM.LIVE_MODE)
+            {
+                signalTimer.Enabled = false;
+                return;
+            }
 
-            read_address = 0xF0C000E5;
+            UInt32 read_value;
+            double converted_value;
+            double offset = (20 - 20 + 3.8) + 10 * Math.Log10(2) + 20 * Math.Log10(16);
+            UInt32 read_address = 0x00000000;
 
- 
-            double offset = 10 * Math.Log10(2) + 20 * Math.Log10(16);
-            UInt32 read_value = PARENT_FORM._PIC_Conn.Read_Live_DSP_Value(read_address);
 
-            
-            double converted_value = DSP_Math.MN_to_double_signed(read_value, 1, 31);
+            try
+            {
+                read_address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.Input, Active_Primitive.Channel, 0).Address;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("[Exception in OutputConfiguration.signalTimer_Tick]: " + ex.Message);
+            }
 
+            read_value = PARENT_FORM._PIC_Conn.Read_Live_DSP_Value(read_address);
+
+            converted_value = DSP_Math.MN_to_double_signed(read_value, 1, 31);
 
             if (converted_value > (0.000001 * 0.000001))
             {
                 read_gain_value = offset + 10 * Math.Log10(converted_value);
+
             }
             else
             {
                 read_gain_value = -100;
             }
 
-            read_gain_value = offset + 10 * Math.Log10(converted_value);
-             
-            /*
-            if(input_switcher)
-            {
-                textBox1.Text = read_gain_value.ToString("F1");
-                Console.WriteLine("INPUT Read read_value = " + read_value + ", Converted Value = " + converted_value + ", DB Value = " + read_gain_value);
-            
-            } else
-            {
-                textBox2.Text = read_gain_value.ToString("F1");
-                Console.WriteLine("AFTERGAIN Read read_value = " + read_value + ", Converted Value = " + converted_value + ", DB Value = " + read_gain_value);
-            
-            }
-             * */
             gainMeter.DB = read_gain_value;
-
-            input_switcher = !input_switcher;
-
-            
         }
 
         private void btnSave_Click(object sender, EventArgs e)

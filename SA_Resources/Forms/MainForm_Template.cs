@@ -293,7 +293,7 @@ namespace SA_Resources.SAForms
                 else
                 {
                     // Perform a time consuming operation and report progress.
-                    Thread.Sleep(50);
+                    Thread.Sleep(10);
                     lock (_locker)
                     {
                         if (UPDATE_QUEUE.Count > 0)
@@ -306,10 +306,10 @@ namespace SA_Resources.SAForms
                                 {
                                     if (_PIC_Conn.SetLiveDSPValue((uint)read_setting.Index, read_setting.Value))
                                     {
-                                        if (read_setting.Index > 500)
-                                        {
+                                        //if (read_setting.Index > 500)
+                                        //{
                                             Console.WriteLine("Successfully sent queued DSP setting: " + read_setting.Index + " - " + read_setting.Value.ToString("X8"));
-                                        }
+                                        //}
 
                                         if (read_setting.Index == 569)
                                         {
@@ -1104,6 +1104,7 @@ namespace SA_Resources.SAForms
                        AddItemToQueue(new LiveQueueItem(ch_num, PROGRAMS[CURRENT_PROGRAM].inputs[ch_num - 1].Name));
                    }
                    * */
+                    Active_Primitive.QueueChange(this);
 
                     UpdateTooltips();
 
