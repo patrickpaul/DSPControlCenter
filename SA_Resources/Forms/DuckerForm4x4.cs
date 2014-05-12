@@ -297,7 +297,7 @@ namespace SA_Resources.SAForms
             RecastDucker.SetChannelBypass(ch_num,!(senderCheckbox.Checked));
             BypassCache[ch_num] = !senderCheckbox.Checked;
 
-            //RecastDucker.RecalculateRouters();
+            RecastDucker.QueueChange(PARENT_FORM);
         }
     }
 }
