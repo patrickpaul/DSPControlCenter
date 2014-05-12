@@ -245,7 +245,7 @@ namespace DSP_4x4
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(44, new DSP_Primitive_StandardGain("CH 3 - Output Gain", 2, 3, StandardGain_Types.Twelve_to_Negative_100, 0xF0C0019b));
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(46, new DSP_Primitive_StandardGain("CH 4 - Output Gain", 3, 3, StandardGain_Types.Twelve_to_Negative_100, 0xF0C0019f));
 
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(48, new DSP_Primitive_Ducker4x4("Ducker 4x4", 0, 0));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(48, new DSP_Primitive_Ducker4x4("Ducker 4x4", 0, 0, 570));
 
                 int plainfilter_offset = 0;
 

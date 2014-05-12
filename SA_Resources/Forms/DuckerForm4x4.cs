@@ -274,6 +274,7 @@ namespace SA_Resources.SAForms
             if (PARENT_FORM.LIVE_MODE)
             {
                 RecastDucker.QueueChange(PARENT_FORM);
+                RecastDucker.QueuePackageChange(PARENT_FORM);
             }
 
             
@@ -298,6 +299,7 @@ namespace SA_Resources.SAForms
             BypassCache[ch_num] = !senderCheckbox.Checked;
 
             RecastDucker.QueueChange(PARENT_FORM);
+            RecastDucker.QueuePackageChange(PARENT_FORM);
         }
 
         private void signalMeter_Small1_Click(object sender, EventArgs e)

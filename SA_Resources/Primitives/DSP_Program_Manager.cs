@@ -345,6 +345,7 @@ namespace SA_Resources.DSP.Primitives
                 DSP_Primitive_Input InputPrimitive;
                 DSP_Primitive_Output OutputPrimitive;
                 DSP_Primitive_Pregain PregainPrimitive;
+                DSP_Primitive_Ducker4x4 DuckerPrimitive;
 
                 if (PARENT_FORM._PIC_Conn.getRTS())
                 {
@@ -418,6 +419,10 @@ namespace SA_Resources.DSP.Primitives
 
                      }
 
+
+                    DuckerPrimitive = (DSP_Primitive_Ducker4x4)PARENT_FORM.DSP_PROGRAMS[this.Index].LookupPrimitive(DSP_Primitive_Types.Ducker4x4, 0, 0);
+                        
+                    DuckerPrimitive.UpdateFromPlainValues(FLASH_READ_VALUES[DuckerPrimitive.PlainValue_Offset]);
 
                     //Console.WriteLine("Done with program read");
 

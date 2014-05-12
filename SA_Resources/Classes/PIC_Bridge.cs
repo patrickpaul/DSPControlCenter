@@ -332,7 +332,7 @@ namespace SA_Resources.USB
                     for (int retry_count = 0; retry_count < 3; retry_count++)
                     {
                         serialPort.Write(buff, 0, 4);
-                        Thread.Sleep(250);
+                        Thread.Sleep(500);
 
                         if (serialPort.BytesToRead >= 4)
                         {

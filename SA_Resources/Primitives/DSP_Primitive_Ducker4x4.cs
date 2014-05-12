@@ -67,8 +67,12 @@ namespace SA_Resources.DSP.Primitives
 
         #endregion
 
+        public int PlainValue_Offset;
+        public UInt32 Ducker_Package;
 
-        public DSP_Primitive_Ducker4x4(string in_name, int in_channel, int in_positionA)
+
+
+        public DSP_Primitive_Ducker4x4(string in_name, int in_channel, int in_positionA, int in_plainvalue_offset)
             : base(in_name, in_channel, in_positionA)
         {
 
@@ -80,6 +84,8 @@ namespace SA_Resources.DSP.Primitives
             Release = 0.1; // 100ms
             HoldTime = 0.1; // 100ms
             Bypassed = true;
+
+            PlainValue_Offset = in_plainvalue_offset;
 
             this.Type = DSP_Primitive_Types.Ducker4x4;
             this.Num_Values = 22;
@@ -95,7 +101,7 @@ namespace SA_Resources.DSP.Primitives
         }
 
 
-        public DSP_Primitive_Ducker4x4(string in_name, int in_channel, int in_positionA, double in_thresh, double in_depth, double in_attack, double in_release, double in_holdtime, bool in_bypassed, int in_priority = 0)
+        public DSP_Primitive_Ducker4x4(string in_name, int in_channel, int in_positionA, int in_plainvalue_offset, double in_thresh, double in_depth, double in_attack, double in_release, double in_holdtime, bool in_bypassed, int in_priority = 0)
             : base(in_name, in_channel, in_positionA)
         {
             INDUCK_Values = new List<UInt32>();
@@ -108,6 +114,8 @@ namespace SA_Resources.DSP.Primitives
             HoldTime = in_holdtime; // 100ms
             Bypassed = in_bypassed;
 
+            PlainValue_Offset = in_plainvalue_offset;
+            
             this.Type = DSP_Primitive_Types.Ducker4x4;
             this.Num_Values = 22;
 
@@ -122,11 +130,30 @@ namespace SA_Resources.DSP.Primitives
 
         public override void UpdateFromReadValues(List<UInt32> valuesList)
         {
-
+            this.Threshold = DSP_Math.MN_to_double_signed(valuesList[16], 9, 23) - 16.2;
+            this.HoldTime = DSP_Math.value_to_dynamic_hold(valuesList[17]);
+            this.Depth = DSP_Math.MN_to_double_signed(valuesList[18], 9, 23);
+            this.Attack = DSP_Math.value_to_comp_attack(valuesList[19]);
+            this.Release = DSP_Math.value_to_comp_release(valuesList[20]);
+            this.Bypassed = valuesList[21] == 0x00000001;
 
 
         }
 
+        public void UpdateFromPlainValues(UInt32 plainValue)
+        {
+            for (int i = 0; i < NUM_CHANNELS; i++)
+            {
+                SetChannelBypass(i, (plainValue & 0x1) == 0x01);
+                plainValue >>= 1;
+
+            }
+
+            this.PriorityChannel = (int)(plainValue & 0xFF);
+
+        }
+
+        
 
         public void SetChannelBypass(int ch_index, bool in_bypass)
         {
@@ -227,7 +254,19 @@ namespace SA_Resources.DSP.Primitives
         /// </summary>
         public void RecalculateRouters()
         {
-            Console.WriteLine("Recalculating routers... Priority channel is " + PriorityChannel);
+
+            Ducker_Package = 0x00;
+
+            Ducker_Package |= (uint)PriorityChannel;
+
+
+            for (int i = NUM_CHANNELS; i > 0; i--)
+            {
+                Ducker_Package <<= 1; 
+                Ducker_Package |= CH_Bypasses[i - 1] ? (uint)0x01 : (uint)0x00;
+                
+            }
+
             INDUCK_Values.Clear();
             OUTDUCK_Values.Clear();
 
@@ -285,6 +324,12 @@ namespace SA_Resources.DSP.Primitives
             }
              * */
         }
+
+        public void QueuePackageChange(MainForm_Template PARENT_FORM)
+        {
+            PARENT_FORM.AddItemToQueue(new LiveQueueItem(PlainValue_Offset, this.Ducker_Package));
+        }
+
 
         public override void QueueChange(MainForm_Template PARENT_FORM)
         {
