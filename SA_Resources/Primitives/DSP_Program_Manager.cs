@@ -343,7 +343,6 @@ namespace SA_Resources.DSP.Primitives
             try
             {
                 DSP_Primitive_Input InputPrimitive;
-                DSP_Primitive_Output OutputPrimitive;
 
                 if (PARENT_FORM._PIC_Conn.getRTS())
                 {
@@ -401,17 +400,6 @@ namespace SA_Resources.DSP.Primitives
                         InputPrimitive.LoadNameFromValues(FLASH_READ_VALUES.GetRange(InputPrimitive.NameOffset, 5));
                         
                         Console.WriteLine("Name input name: " + InputPrimitive.Name);
-
-
-                    }
-
-                    for (int i = 0; i < PARENT_FORM.GetNumOutputChannels(); i++)
-                    {
-                        OutputPrimitive = (DSP_Primitive_Output)PARENT_FORM.DSP_PROGRAMS[this.Index].LookupPrimitive(DSP_Primitive_Types.Output, i, 0);
-
-                        OutputPrimitive.LoadNameFromValues(FLASH_READ_VALUES.GetRange(OutputPrimitive.NameOffset, 5));
-
-                        Console.WriteLine("Name output name: " + OutputPrimitive.Name);
 
 
                     }

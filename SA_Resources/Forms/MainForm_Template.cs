@@ -1105,8 +1105,7 @@ namespace SA_Resources.SAForms
                    }
                    * */
 
-                    Active_Primitive.QueueChange(this);
-                    UpdateTooltips(); 
+                    UpdateTooltips();
 
                 }
             }

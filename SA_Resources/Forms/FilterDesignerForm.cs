@@ -72,6 +72,8 @@ namespace SA_Resources.SAForms
             filterDesigner.RefreshAllFilters();
 
             SendActivePrimitive();
+
+            Console.WriteLine("filterDesignBlock_OnChange");
         }
 
 
