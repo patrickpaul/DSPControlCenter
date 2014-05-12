@@ -121,21 +121,21 @@ namespace SA_Resources.SAForms
         {
 
             RecastDucker.HoldTime = HoldDial.Value;
-            RecastDucker.QueueChange(PARENT_FORM);
+            RecastDucker.QueueChangeByOffset(PARENT_FORM,17);
         }
         
         private void ReleaseDial_OnChange(object sender, DialEventArgs e)
         {
 
             RecastDucker.Release = ReleaseDial.Value;
-            RecastDucker.QueueChange(PARENT_FORM);
+            RecastDucker.QueueChangeByOffset(PARENT_FORM, 20);
         }
 
         private void AttackDial_OnChange(object sender, DialEventArgs e)
         {
 
             RecastDucker.Attack = AttackDial.Value;
-            RecastDucker.QueueChange(PARENT_FORM);
+            RecastDucker.QueueChangeByOffset(PARENT_FORM, 19);
         }
 
 
@@ -148,7 +148,7 @@ namespace SA_Resources.SAForms
             } 
 
             RecastDucker.Depth = (double)nudDuckDepth.Value;
-            RecastDucker.QueueChange(PARENT_FORM);
+            RecastDucker.QueueChangeByOffset(PARENT_FORM, 18);
         }
 
         private void nudDuckThreshold_ValueChanged(object sender, EventArgs e)
@@ -160,7 +160,7 @@ namespace SA_Resources.SAForms
             } 
 
             RecastDucker.Threshold = (double)nudDuckThreshold.Value;
-            RecastDucker.QueueChange(PARENT_FORM);
+            RecastDucker.QueueChangeByOffset(PARENT_FORM, 16);
         }
 
 
@@ -192,7 +192,7 @@ namespace SA_Resources.SAForms
         {
 
             RecastDucker.Bypassed = chkBypass.Checked;
-            RecastDucker.QueueChange(PARENT_FORM);
+            RecastDucker.QueueChangeByOffset(PARENT_FORM, 21);
             
         }
 
@@ -297,6 +297,7 @@ namespace SA_Resources.SAForms
             RecastDucker.SetChannelBypass(ch_num,!(senderCheckbox.Checked));
             BypassCache[ch_num] = !senderCheckbox.Checked;
 
+            //RecastDucker.RecalculateRouters();
         }
     }
 }

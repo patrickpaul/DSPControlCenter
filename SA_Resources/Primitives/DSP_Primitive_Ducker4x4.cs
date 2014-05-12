@@ -138,9 +138,10 @@ namespace SA_Resources.DSP.Primitives
             {
                 List<UInt32> ReturnValues = new List<UInt32>();
 
-                ReturnValues.AddRange(new UInt32[] {Threshold_Value, Depth_Value, Attack_Value, Release_Value, Holdtime_Value, Bypassed_Value});
                 ReturnValues.AddRange(INDUCK_Values);
-                ReturnValues.AddRange(OUTDUCK_Values); 
+                ReturnValues.AddRange(OUTDUCK_Values);
+                ReturnValues.AddRange(new UInt32[] { Threshold_Value, Depth_Value, Attack_Value, Release_Value, Holdtime_Value, Bypassed_Value });
+                
                 return ReturnValues;
             }
             set { }
@@ -223,7 +224,7 @@ namespace SA_Resources.DSP.Primitives
         /// </summary>
         public void RecalculateRouters()
         {
-
+            Console.WriteLine("Recalculating routers... Priority channel is " + PriorityChannel);
             INDUCK_Values.Clear();
             OUTDUCK_Values.Clear();
 
@@ -263,6 +264,18 @@ namespace SA_Resources.DSP.Primitives
 
                 router_counter++;
             }
+
+            for(int x = 0; x < INDUCK_Values.Count; x++)
+            {
+                Console.WriteLine("INDUCK " + x + " = " + INDUCK_Values[x]);
+                
+            }
+
+            for (int y = 0; y < INDUCK_Values.Count; y++)
+            {
+                Console.WriteLine("OUTDUCK " + y + " = " + OUTDUCK_Values[y]);
+
+            }
         }
 
         public override void QueueChange(MainForm_Template PARENT_FORM)
@@ -284,7 +297,7 @@ namespace SA_Resources.DSP.Primitives
 
         public override void QueueChangeByOffset(MainForm_Template PARENT_FORM, int const_offset)
         {
-            Console.WriteLine("Ducker4x4 - QueueChangeByOffset - Sending " + this.Values[const_offset].ToString("X") + " to offset " + (Offset + const_offset));
+            Console.WriteLine("Ducker4x4 - QueueChangeByOffset - Sending " + this.Values[const_offset].ToString("X8") + " to offset " + (Offset + const_offset));
 
             if (PARENT_FORM.LIVE_MODE)
             {
