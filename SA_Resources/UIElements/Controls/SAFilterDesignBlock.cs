@@ -509,6 +509,7 @@ namespace SA_Resources.SAControls
                     {
                         FilterPrimitive.FType = FilterType.None;
                         FilterPrimitive.Filter = null;
+                        FilterPrimitive.Recalculate_Values();
                     }
                     break;
 

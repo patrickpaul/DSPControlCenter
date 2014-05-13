@@ -68,10 +68,13 @@ namespace SA_Resources.SAForms
 
         private void filterDesignBlock_OnChange(object sender, FilterEventArgs e)
         {
+            
             filterDesigner.SetActiveFilter(e.Index);
-            filterDesigner.RefreshAllFilters();
 
             SendActivePrimitive();
+
+            filterDesigner.RefreshAllFilters();
+
         }
 
 
@@ -166,6 +169,11 @@ namespace SA_Resources.SAForms
             }
 
             filterDesigner.PrimitiveCache[filterDesigner.FocusedFilterID].QueueChange(PARENT_FORM);
+        }
+
+        private void filterDesignBlock0_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

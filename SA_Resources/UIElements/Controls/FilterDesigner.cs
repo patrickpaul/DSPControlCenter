@@ -183,6 +183,7 @@ namespace SA_Resources.SAControls
                     UpdateFocusedFilter();
                 }
             }
+             
             // As we loop through we're going to show/high filter select labels based off of their current (ie new) status
             for (int i = 0; i < NumberPrimitives; i++)
             {
@@ -214,7 +215,7 @@ namespace SA_Resources.SAControls
                 // Do not check for FilterType.None here because we want RefreshPointsInSingleFilter() to clear the points
                 if (PrimitiveCache[i].Filter == null)
                 {
-                    continue;
+                    //continue;
                 }
 
                 RefreshSingleFilter(i);

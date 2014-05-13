@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Stewart Audio")]
 [assembly: AssemblyProduct("SA_Resources")]
-[assembly: AssemblyCopyright("Copyright © Stewart Audio 2013")]
+[assembly: AssemblyCopyright("Copyright © Stewart Audio 2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("2.5.1684.1426")]
-[assembly: AssemblyFileVersion("2.5.1684.1426")]
+[assembly: AssemblyVersion("3.0.1689.1543")]
+[assembly: AssemblyFileVersion("3.0.1689.1543")]

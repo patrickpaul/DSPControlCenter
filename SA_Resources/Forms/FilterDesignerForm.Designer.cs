@@ -116,6 +116,7 @@ namespace SA_Resources.SAForms
             this.filterDesignBlock0.TabIndex = 1;
             this.filterDesignBlock0.Visible = false;
             this.filterDesignBlock0.OnChange += new SA_Resources.SAControls.FilterDesignerEventHandler(this.filterDesignBlock_OnChange);
+            this.filterDesignBlock0.Click += new System.EventHandler(this.filterDesignBlock0_Click);
             // 
             // filterDesigner
             // 
