@@ -164,12 +164,22 @@ namespace SA_Resources.SAControls
             {
                 this.mode = value;
 
-                if (this.mode == 2)
+                if (this.mode == 4) // 4 to -24, Pregain 20
+                {
+                    _maxGain = 4;
+                    _minGain = -24;
+                    this.panel1.BackgroundImage = SA_Resources.GlobalResources.gainfader_4_to__24;
+                } else if (this.mode == 3) // 18 to -24, Pregain 6
+                {
+                    _maxGain = 18;
+                    _minGain = -24;
+                    this.panel1.BackgroundImage = SA_Resources.GlobalResources.gainfader_18_to__24;
+                } else if (this.mode == 2) // 24 to -24, Pregain 0
                 {
                     _maxGain = 24;
                     _minGain = -24;
                     this.panel1.BackgroundImage = SA_Resources.GlobalResources.gainfader_24_to__24;
-                } else if (this.mode == 1)
+                } else if (this.mode == 1) // 6 to -12
                 {
                     _maxGain = 6;
                     _minGain = -12;
@@ -214,7 +224,15 @@ namespace SA_Resources.SAControls
 
         private double yVal_to_gain(double yVal)
         {
-            if (this.mode == 2)
+            if (this.mode == 4)
+            {
+                return yVal_to_gain_mode4(yVal);
+            }
+            else if (this.mode == 3)
+            {
+                return yVal_to_gain_mode3(yVal);
+            }
+            else if (this.mode == 2)
             {
                 return yVal_to_gain_mode2(yVal);
             }  else if (this.mode == 1)
@@ -226,6 +244,9 @@ namespace SA_Resources.SAControls
                 return yVal_to_gain_mode0(yVal);
             }
         }
+
+        #region Mode 0      +12 to -100
+
         private double yVal_to_gain_mode0(double yVal)
         {
 
@@ -287,101 +308,9 @@ namespace SA_Resources.SAControls
             return _minGain;
         }
 
-        private double yVal_to_gain_mode1(double yVal)
-        {
-
-            if (yVal < 29)
-            {
-                return yVal_to_gain_scale(yVal, 5.0, 29.0, 6.0, 4.0);
-            }
-
-            if (yVal < 53)
-            {
-                return yVal_to_gain_scale(yVal, 29.0, 53.0, 4.0, 2.0);
-            }
-
-            if (yVal < 78)
-            {
-                return yVal_to_gain_scale(yVal, 53.0, 78.0, 2.0, 0.0);
-            }
-
-            if (yVal < 104)
-            {
-                return yVal_to_gain_scale(yVal, 78.0, 104.0, 0.0, -2.0);
-            }
-
-            if (yVal < 128)
-            {
-                return yVal_to_gain_scale(yVal, 104.0, 128.0, -2.0, -4.0);
-            }
-
-            if (yVal < 153)
-            {
-                return yVal_to_gain_scale(yVal, 128.0, 153.0, -4.0, -6.0);
-            }
-
-            if (yVal < 177)
-            {
-                return yVal_to_gain_scale(yVal, 153.0, 177.0, -6.0, -8.0);
-            }
-
-            if (yVal < 202)
-            {
-                return yVal_to_gain_scale(yVal, 177.0, 202.0, -8.0, -10.0);
-            }
-
-            if (yVal < 225)
-            {
-                return yVal_to_gain_scale(yVal, 202.0, 225.0, -10.0, -12.0);
-            }
-
-
-            return _minGain;
-        }
-
-        private double yVal_to_gain_mode2(double yVal)
-        {
-            if (yVal < 115)
-            {
-                return yVal_to_gain_scale(yVal, 5.0, 118.0, 24.0, 0.0);
-            } else if (yVal == 118)
-            {
-                return 0.0;
-            }
-            else
-            {
-                return yVal_to_gain_scale(yVal, 115.0, 235.0, 0.0, -24.0);  
-            }
-
-        }
-
-        private double gain_to_yval_scale(double gainVal, double gain_upper, double gain_lower, double y_upper, double y_lower)
-        {
-            double percent = (gain_upper - gainVal) / (gain_upper - gain_lower);
-
-            double return_gain = y_upper + (y_lower - y_upper) * percent;
-
-            return return_gain;
-        }
-
-
-        public double gain_to_yval(double gainVal)
-        {
-            if(this.mode == 2)
-            {
-                return gain_to_yval_mode2(gainVal);
-            } else if(this.mode == 1)
-            {
-                return gain_to_yval_mode1(gainVal);
-            } else
-            {
-                return gain_to_yval_mode0(gainVal);
-            }
-        }
-
         private double gain_to_yval_mode0(double gainVal)
         {
-            if(gainVal > 6)
+            if (gainVal > 6)
             {
                 return gain_to_yval_scale(gainVal, 12.0, 6.0, 5.0, 32.0);
             }
@@ -440,6 +369,62 @@ namespace SA_Resources.SAControls
 
         }
 
+        #endregion
+
+        #region Mode 1      +6 to -12
+
+        private double yVal_to_gain_mode1(double yVal)
+        {
+
+            if (yVal < 29)
+            {
+                return yVal_to_gain_scale(yVal, 5.0, 29.0, 6.0, 4.0);
+            }
+
+            if (yVal < 53)
+            {
+                return yVal_to_gain_scale(yVal, 29.0, 53.0, 4.0, 2.0);
+            }
+
+            if (yVal < 78)
+            {
+                return yVal_to_gain_scale(yVal, 53.0, 78.0, 2.0, 0.0);
+            }
+
+            if (yVal < 104)
+            {
+                return yVal_to_gain_scale(yVal, 78.0, 104.0, 0.0, -2.0);
+            }
+
+            if (yVal < 128)
+            {
+                return yVal_to_gain_scale(yVal, 104.0, 128.0, -2.0, -4.0);
+            }
+
+            if (yVal < 153)
+            {
+                return yVal_to_gain_scale(yVal, 128.0, 153.0, -4.0, -6.0);
+            }
+
+            if (yVal < 177)
+            {
+                return yVal_to_gain_scale(yVal, 153.0, 177.0, -6.0, -8.0);
+            }
+
+            if (yVal < 202)
+            {
+                return yVal_to_gain_scale(yVal, 177.0, 202.0, -8.0, -10.0);
+            }
+
+            if (yVal < 225)
+            {
+                return yVal_to_gain_scale(yVal, 202.0, 225.0, -10.0, -12.0);
+            }
+
+
+            return _minGain;
+        }
+
         private double gain_to_yval_mode1(double gainVal)
         {
             if (gainVal > 4)
@@ -492,6 +477,26 @@ namespace SA_Resources.SAControls
 
         }
 
+        #endregion
+
+        #region Mode 2      +24 to -24
+
+        private double yVal_to_gain_mode2(double yVal)
+        {
+            if (yVal < 115)
+            {
+                return yVal_to_gain_scale(yVal, 5.0, 118.0, 24.0, 0.0);
+            }
+            else if (yVal == 118)
+            {
+                return 0.0;
+            }
+            else
+            {
+                return yVal_to_gain_scale(yVal, 115.0, 235.0, 0.0, -24.0);
+            }
+
+        }
 
         private double gain_to_yval_mode2(double gainVal)
         {
@@ -516,6 +521,210 @@ namespace SA_Resources.SAControls
 
         }
 
+        #endregion
+
+        #region Mode 3      +18 to -24
+
+        private double yVal_to_gain_mode3(double yVal)
+        {
+            if (yVal < 38)
+            {
+                return yVal_to_gain_scale(yVal, 5.0, 38.0, 18.0, 12.0);
+            }
+
+            if (yVal < 71)
+            {
+                return yVal_to_gain_scale(yVal, 38.0, 71.0, 12.0, 6.0);
+            }
+
+            if (yVal < 104)
+            {
+                return yVal_to_gain_scale(yVal, 71.0, 104.0, 6.0, 0.0);
+            }
+
+            if (yVal < 137)
+            {
+                return yVal_to_gain_scale(yVal, 104.0, 137.0, 0.0, -6.0);
+            }
+
+            if (yVal < 170)
+            {
+                return yVal_to_gain_scale(yVal, 137.0, 170.0, -6.0, -12.0);
+            }
+
+            if (yVal < 203)
+            {
+                return yVal_to_gain_scale(yVal, 170.0, 203.0, -12.0, -18.0);
+            }
+
+            if (yVal < 235)
+            {
+                return yVal_to_gain_scale(yVal, 203.0, 235.0, -18.0, -24.0);
+            }
+
+
+            return _minGain;
+        }
+
+        private double gain_to_yval_mode3(double gainVal)
+        {
+            if (gainVal > 12)
+            {
+                return gain_to_yval_scale(gainVal, 18.0, 12.0, 5.0, 38.0);
+            }
+
+            if (gainVal > 6)
+            {
+                return gain_to_yval_scale(gainVal, 12.0, 6.0, 38.0, 71.0);
+            }
+
+            if (gainVal > 0)
+            {
+                return gain_to_yval_scale(gainVal, 6.0, 0.0, 71.0, 104.0);
+            }
+
+            if (gainVal > -6)
+            {
+                return gain_to_yval_scale(gainVal, 0.0, -6.0, 104.0, 137.0);
+            }
+
+            if (gainVal > -12)
+            {
+                return gain_to_yval_scale(gainVal, -6.0, -12.0, 137.0, 170.0);
+            }
+
+            if (gainVal > -18)
+            {
+                return gain_to_yval_scale(gainVal, -12.0, -18.0, 170.0, 203.0);
+            }
+
+            if (gainVal > -24)
+            {
+                return gain_to_yval_scale(gainVal, -18.0, -24.0, 203.0, 235.0);
+            }
+
+            return 235.0;
+
+        }
+
+        #endregion
+
+        #region Mode 4      +4 to -24
+
+        private double yVal_to_gain_mode4(double yVal)
+        {
+            //Console.WriteLine(yVal);
+
+            if (yVal < 38)
+            {
+                return yVal_to_gain_scale(yVal, 5.0, 38.0, 4.0, 2.0);
+            }
+
+            if (yVal < 71)
+            {
+                return yVal_to_gain_scale(yVal, 38.0, 71.0, 2.0, 0.0);
+            }
+
+            if (yVal < 112)
+            {
+                return yVal_to_gain_scale(yVal, 71.0, 112.0, 0.0, -6.0);
+            }
+
+            if (yVal < 153)
+            {
+                return yVal_to_gain_scale(yVal, 112.0, 153.0, -6.0, -12.0);
+            }
+
+            if (yVal < 194)
+            {
+                return yVal_to_gain_scale(yVal, 153.0, 194.0, -12.0, -18.0);
+            }
+
+            if (yVal < 235)
+            {
+                return yVal_to_gain_scale(yVal, 194.0, 235.0, -18.0, -24.0);
+            }
+
+
+            return _minGain;
+        }
+
+        private double gain_to_yval_mode4(double gainVal)
+        {
+            if (gainVal > 2)
+            {
+                return gain_to_yval_scale(gainVal, 4.0, 2.0, 5.0, 38.0);
+            }
+
+            if (gainVal > 0)
+            {
+                return gain_to_yval_scale(gainVal, 2.0, 0.0, 38.0, 71.0);
+            }
+
+            if (gainVal > -6)
+            {
+                return gain_to_yval_scale(gainVal, 0.0, -6.0, 71.0, 112.0);
+            }
+
+            if (gainVal > -12)
+            {
+                return gain_to_yval_scale(gainVal, -6.0, -12.0, 112.0, 153.0);
+            }
+
+            if (gainVal > -18)
+            {
+                return gain_to_yval_scale(gainVal, -12.0, -18.0, 153.0, 194.0);
+            }
+
+            if (gainVal > -24)
+            {
+                return gain_to_yval_scale(gainVal, -18.0, -24.0, 194.0, 235.0);
+            }
+
+            return 235.0;
+
+        }
+
+
+        #endregion
+
+        
+
+        
+
+        private double gain_to_yval_scale(double gainVal, double gain_upper, double gain_lower, double y_upper, double y_lower)
+        {
+            double percent = (gain_upper - gainVal) / (gain_upper - gain_lower);
+
+            double return_gain = y_upper + (y_lower - y_upper) * percent;
+
+            return return_gain;
+        }
+
+
+        public double gain_to_yval(double gainVal)
+        {
+            if (this.mode == 4)
+            {
+                return gain_to_yval_mode4(gainVal);
+            }
+            else if (this.mode == 3)
+            {
+                return gain_to_yval_mode3(gainVal);
+            }
+                else if (this.mode == 2)
+            {
+                return gain_to_yval_mode2(gainVal);
+            } else if(this.mode == 1)
+            {
+                return gain_to_yval_mode1(gainVal);
+            } else
+            {
+                return gain_to_yval_mode0(gainVal);
+            }
+        }
+
+        
         private void pic_MouseMove(object sender, MouseEventArgs e)
         {
             if (mouseDown)

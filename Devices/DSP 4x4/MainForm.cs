@@ -131,6 +131,9 @@ namespace DSP_4x4
                 backgroundWorker.ReportProgress((i+1) * 10);
             }
 
+            
+
+            
             backgroundWorker.ReportProgress(100);
         }
 
@@ -217,6 +220,9 @@ namespace DSP_4x4
         public override void Single_Default_DSP_Program(int program_index = 0)
         {
             try {
+
+                
+
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(0, new DSP_Primitive_Pregain("Input Pre-Gain CH 1", 0, 0, 0xF0C00125));
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(2, new DSP_Primitive_Pregain("Input Pre-Gain CH 2", 1, 0, 0xF0C00127));
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(4, new DSP_Primitive_Pregain("Input Pre-Gain CH 3", 2, 0, 0xF0C0012b));
@@ -245,7 +251,7 @@ namespace DSP_4x4
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(44, new DSP_Primitive_StandardGain("CH 3 - Output Gain", 2, 3, StandardGain_Types.Twelve_to_Negative_100, 0xF0C0019b));
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(46, new DSP_Primitive_StandardGain("CH 4 - Output Gain", 3, 3, StandardGain_Types.Twelve_to_Negative_100, 0xF0C0019f));
 
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(48, new DSP_Primitive_Ducker4x4("Ducker 4x4", 0, 0, 570));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(48, new DSP_Primitive_Ducker4x4("Ducker 4x4", 0, 0, 567));
 
                 int plainfilter_offset = 0;
 
@@ -264,7 +270,7 @@ namespace DSP_4x4
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(115, new DSP_Primitive_BiquadFilter("INFILTER_4_1", 3, 0, plainfilter_offset++));
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(120, new DSP_Primitive_BiquadFilter("INFILTER_4_2", 3, 1, plainfilter_offset++));
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(125, new DSP_Primitive_BiquadFilter("INFILTER_4_3", 3, 2, plainfilter_offset++));
-                
+                /*
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(130, new DSP_Primitive_BiquadFilter("INFILTER_5_1", 4, 0, 12));
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(135, new DSP_Primitive_BiquadFilter("INFILTER_5_2", 4, 1, 13));
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(140, new DSP_Primitive_BiquadFilter("INFILTER_5_3", 4, 2, 14));
@@ -280,7 +286,7 @@ namespace DSP_4x4
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(175, new DSP_Primitive_BiquadFilter("INFILTER_8_1", 7, 0, 21));
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(180, new DSP_Primitive_BiquadFilter("INFILTER_8_2", 7, 1, 22));
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(185, new DSP_Primitive_BiquadFilter("INFILTER_8_3", 7, 2, 23));
-                
+                */
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(190, new DSP_Primitive_Compressor("CH 1 - Compressor", 0, 0));
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(196, new DSP_Primitive_Compressor("CH 2 - Compressor", 1, 0));
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(202, new DSP_Primitive_Compressor("CH 3 - Compressor", 2, 0));
@@ -342,16 +348,17 @@ namespace DSP_4x4
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(464, new DSP_Primitive_Delay("CH 2 - Delay", 1));
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(466, new DSP_Primitive_Delay("CH 3 - Delay", 2));
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(468, new DSP_Primitive_Delay("CH 4 - Delay", 3));
-                
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(1000, new DSP_Primitive_Input("Local Input CH 1", 0, 0, 704, 563, "Local Input #1", InputType.Line, false));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(1010, new DSP_Primitive_Input("Local Input CH 2", 1, 0, 709, 564, "Local Input #2", InputType.Line, false));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(1020, new DSP_Primitive_Input("Local Input CH 3", 2, 0, 714, 565, "Local Input #3", InputType.Line, false));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(1030, new DSP_Primitive_Input("Local Input CH 4", 3, 0, 719, 566, "Local Input #4", InputType.Line, false));
 
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(1040, new DSP_Primitive_Output("Output CH 1", 0, 0, 744, "Output #1"));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(1050, new DSP_Primitive_Output("Output CH 1", 1, 0, 749, "Output #2"));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(1060, new DSP_Primitive_Output("Output CH 1", 2, 0, 754, "Output #3"));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(1070, new DSP_Primitive_Output("Output CH 1", 3, 0, 759, "Output #4"));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(1000, new DSP_Primitive_Input("Local Input CH 1", 0, 0, 704, 560, "Local Input #1", InputType.Line, true));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(1010, new DSP_Primitive_Input("Local Input CH 2", 1, 0, 709, 561, "Local Input #2", InputType.Line, true));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(1020, new DSP_Primitive_Input("Local Input CH 3", 2, 0, 714, 562, "Local Input #3", InputType.Line, true));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(1030, new DSP_Primitive_Input("Local Input CH 4", 3, 0, 719, 563, "Local Input #4", InputType.Line, true));
+
+
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(1040, new DSP_Primitive_Output("Output CH 1", 0, 0, 724, "Output #1"));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(1050, new DSP_Primitive_Output("Output CH 1", 1, 0, 729, "Output #2"));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(1060, new DSP_Primitive_Output("Output CH 1", 2, 0, 734, "Output #3"));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(1070, new DSP_Primitive_Output("Output CH 1", 3, 0, 739, "Output #4"));
                  
 
             }
@@ -370,6 +377,8 @@ namespace DSP_4x4
                 {
                     Single_Default_DSP_Program(i);
                 }
+
+                UpdateTooltips();
             }
             catch (Exception ex)
             {
@@ -381,22 +390,14 @@ namespace DSP_4x4
 
         private void button1_Click(object sender, EventArgs e)
         {
-            using (FilterDesignerForm fdForm = new FilterDesignerForm(this, 3, 0, 0))
-            {
-                fdForm.ShowDialog();
-            }
+            //DSP_PROGRAMS[0].ReadFromFile(this, @"C:\PROGRAMTEST.txt", 0);
+            //UpdateTooltips();
         }
 
-        private void btnSavetoFile_Click(object sender, EventArgs e)
+        private void button2_Click(object sender, EventArgs e)
         {
-            DSP_PROGRAMS[0].SaveToFile(@"C:\program1test.txt");
+            //DSP_PROGRAMS[0].Write_Program_To_Cache(this.GetNumInputChannels());
+            //DSP_PROGRAMS[0].Write_Cache_To_File(@"C:\PROGRAMTEST.txt");
         }
-
-        private void btnStreamRead_Click(object sender, EventArgs e)
-        {
-            DSP_PROGRAMS[0].ReadFromDevice(this);
-            UpdateTooltips();
-        }
-
     }
 }

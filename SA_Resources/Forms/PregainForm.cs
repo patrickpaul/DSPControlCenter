@@ -53,9 +53,24 @@ namespace SA_Resources.SAForms
                     signalTimer.Enabled = false;
                 }
 
+                switch (RecastPregain.Pregain)
+                {
+                    case 0:
+                        saGainFader1.Mode = 2;
+                        break;
+
+                    case 6:
+                        saGainFader1.Mode = 3;
+                        break;
+
+                    case 20:
+                        saGainFader1.Mode = 4;
+                        break;
+
+                }
                 saGainFader1.Gain = RecastPregain.Gain;
                 saGainFader1.Muted = RecastPregain.Muted;
-
+                
 
 
                 this.Text = _inputPrimitive.Name;
@@ -71,7 +86,7 @@ namespace SA_Resources.SAForms
         {
 
                 RecastPregain.Gain = e.Gain;
-                Console.WriteLine("Setting gain to " + e.Gain);
+                Console.WriteLine("Setting gain to " + e.Gain + " + " + RecastPregain.Pregain);
 
                 RecastPregain.Muted = e.Muted;
                 RecastPregain.QueueChange(PARENT_FORM);

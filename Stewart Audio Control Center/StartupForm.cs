@@ -80,7 +80,7 @@ namespace SA_Resources
 
         private void StartupForm_Load(object sender, EventArgs e)
         {
-            //PIC_Conn = new PIC_Bridge(serialPort1);
+            //PIC_Conn = new PIC_Bridge(serialPort);
             
             string[] device_plugins = Directory.GetFiles(@"Devices\", "*.sadev"); // <-- Case-insensitive
 
@@ -105,7 +105,7 @@ namespace SA_Resources
 
             if (CONFIGFILE != "")
             {
-                device_id = SCFG_Manager.GetDeviceID(CONFIGFILE);
+                //device_id = SCFG_Manager.GetDeviceID(CONFIGFILE);
 
                 if (device_id > 0)
                 {

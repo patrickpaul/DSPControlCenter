@@ -63,6 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\COMPortInfo.cs" />
+    <Compile Include="Classes\Crc16Ccitt.cs" />
     <Compile Include="Classes\Line.cs" />
     <Compile Include="Classes\LiveQueueItem.cs" />
     <Compile Include="Classes\SADevice.cs" />
@@ -589,10 +590,16 @@
   <ItemGroup>
     <None Include="Resources\gainfader_24_to__24.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\gainfader_4_to__24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\gainfader_18_to__24.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_UseGlobalSettings="True" BuildVersion_AssemblyInfoFilename="Properties\AssemblyInfo.cs" BuildVersion_UpdateFileVersion="True" BuildVersion_UpdateAssemblyVersion="True" />
+      <UserProperties BuildVersion_UpdateAssemblyVersion="True" BuildVersion_UpdateFileVersion="True" BuildVersion_AssemblyInfoFilename="Properties\AssemblyInfo.cs" BuildVersion_UseGlobalSettings="True" />
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>

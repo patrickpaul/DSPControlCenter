@@ -239,6 +239,7 @@
             this.chkProgram1.TabIndex = 35;
             this.chkProgram1.Text = "Only Program 1";
             this.chkProgram1.UseVisualStyleBackColor = true;
+            this.chkProgram1.Visible = false;
             // 
             // chkDebug
             // 
@@ -249,6 +250,7 @@
             this.chkDebug.TabIndex = 34;
             this.chkDebug.Text = "Skip Sync";
             this.chkDebug.UseVisualStyleBackColor = true;
+            this.chkDebug.Visible = false;
             // 
             // progressBar1
             // 

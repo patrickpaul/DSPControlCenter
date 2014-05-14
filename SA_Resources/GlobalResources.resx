@@ -358,4 +358,10 @@
   <data name="gainfader_24_to__24" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\gainfader_24_to__24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="gainfader_18_to__24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\gainfader_18_to__24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="gainfader_4_to__24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\gainfader_4_to__24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

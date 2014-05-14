@@ -299,21 +299,39 @@ namespace SA_Resources.DSP
 
         #endregion
 
-        #region Compressor Release - Needs verification of 1302 vs 48000
+        #region Compressor
 
-        // TODO - REVERSE ME!
         public static UInt32 comp_release_to_value(double release)
         {
-            //3000 = BLOCK_RATE
-            UInt32 method1 = (UInt32)((1.0 - Math.Exp(-1.0 / (release * 1302.88343))) * Math.Pow(2.0, 31.0));
-            //dsp_release = 1 - pow(10, (-1 / ( release * block_rate )) )
-            UInt32 method2 = (UInt32)((1.0 - Math.Pow(10.0,(-1 / (release * 3000)))) * Math.Pow(2.0, 31.0));
-
-            return (UInt32)((1.0 - Math.Exp(-1.0 / (release * 1302.88343))) * Math.Pow(2.0, 31.0));
+            return DSP_Math.double_to_MN(1.0-Math.Pow(10.0,(-1.0/(release*3000.0))), 1, 31);
         }
 
-        
-/*
+        public static double comp_value_to_release(UInt32 value)
+        {
+            double converted = DSP_Math.MN_to_double_signed(value, 1, 31);
+
+            return (-1 / (Math.Log10(1 - converted) * 3000));
+
+        }
+
+        #endregion
+
+        #region Ducker
+
+        public static UInt32 ducker_release_to_value(double release)
+        {
+            return DSP_Math.double_to_MN(1.0 - Math.Exp(-1.0 / (0.1 * 3000.0)), 1, 31);
+        }
+
+        public static double ducker_value_to_release(UInt32 value)
+        {
+            double converted = DSP_Math.MN_to_double_signed(value, 1, 31);
+
+            return (-1/(Math.Log(1 - converted)*3000));
+        }
+
+        #endregion
+        /*
  * 
  *      Because.. why not?
  *      
@@ -348,12 +366,6 @@ namespace SA_Resources.DSP
         ,,,,,,,,,,M,,,IIIIIIIIII,,,,,,,,?,,,,,,,,,,,,,,,NNNNNNNNNNNN
         ,,,,,,,,,,,,,,IIIIIIIIIIIIIIIMNMM,,,:,,,,,,,,,,NNNNNNNNNNNNN
 */
-        public static double value_to_comp_release(UInt32 value)
-        {
-            return -1.0 / (1302.88343 * Math.Log(1 - (value / Math.Pow(2.0, 31.0))));
-        }
-
-        #endregion
 
         #region Compressor Ratio
 

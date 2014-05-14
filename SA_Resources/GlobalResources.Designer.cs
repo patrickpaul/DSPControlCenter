@@ -173,9 +173,29 @@ namespace SA_Resources {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap gainfader_18_to__24 {
+            get {
+                object obj = ResourceManager.GetObject("gainfader_18_to__24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap gainfader_24_to__24 {
             get {
                 object obj = ResourceManager.GetObject("gainfader_24_to__24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap gainfader_4_to__24 {
+            get {
+                object obj = ResourceManager.GetObject("gainfader_4_to__24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

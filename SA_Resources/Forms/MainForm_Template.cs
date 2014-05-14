@@ -137,7 +137,7 @@ namespace SA_Resources.SAForms
                 // Starting up not connected, set LIVE_MODE to false
                 LIVE_MODE = false;
                 // Initialize the PIC_Bridge (starts up closed)
-                _PIC_Conn = new PIC_Bridge(serialPort1);
+                _PIC_Conn = new PIC_Bridge(serialPort);
 
                 // Initialize Array of Presets (both Programs and Primitives for now)
                 InitializePrograms();
@@ -311,7 +311,7 @@ namespace SA_Resources.SAForms
                                             Console.WriteLine("Successfully sent queued DSP setting: " + read_setting.Index + " - " + read_setting.Value.ToString("X8"));
                                         //}
 
-                                        if (read_setting.Index == 569)
+                                        if (read_setting.Index == 566)
                                         {
                                             // Phantom power
                                             _PIC_Conn.UpdatePhantomPower();
@@ -365,165 +365,60 @@ namespace SA_Resources.SAForms
 
         public virtual void WriteDevice(object sender, DoWorkEventArgs doWorkEventArgs)
         {
-            /*try
+            try
             {
                 
-                int programs_to_run = NUM_PROGRAMS;
-
-                if (doWorkEventArgs.Argument != null)
-                {
-                    if ((bool)doWorkEventArgs.Argument == true)
-                    {
-                        programs_to_run = 1;
-                    }
-                }
-
-                double total_settings_written = 0.0;
-
-                double num_settings = (_settings[0].Count -
-                (GetProtectedWriteBlock1_End() - GetProtectedWriteBlock1_Start()) +
-                (GetProtectedWriteBlock2_End() - GetProtectedWriteBlock2_Start()) +
-                (GetProtectedWriteBlock3_End() - GetProtectedWriteBlock3_Start())
-                ) * programs_to_run;
-
                 BackgroundWorker backgroundWorker = sender as BackgroundWorker;
 
                 backgroundWorker.ReportProgress(0, "Putting device into programming mode");
 
                 _PIC_Conn.FlushBuffer();
 
-                if (!_PIC_Conn.sendAckdCommand(GetProgrammingSwitchCommandBase()))
+                UInt32[] Page_array = new UInt32[64];
+
+                int overall_percantage = 0;
+                double program_percentage = 0;
+
+                backgroundWorker.ReportProgress(0, "Writing Programs...");
+
+                for (int program_counter = 0; program_counter < this.GetNumPresets(); program_counter++)
                 {
-                    Console.WriteLine("Error sending ackd GetProgrammingSwitchCommandBase");
-                }
+                    DSP_PROGRAMS[program_counter].Write_Program_To_Cache(this.GetNumInputChannels());
 
-
-                for (int program_index = 0; program_index < programs_to_run; ++program_index)
-                {
-                    backgroundWorker.ReportProgress(0, ("Saving configuration for Program " + (program_index + 1)));
-
-                    int setting_index = 0;
-
-                    foreach (DSP_Setting single_setting in _settings[program_index])
-                    {
-                        total_settings_written++;
-                        setting_index++;
-
-                        if (
-                            (single_setting.Index > GetProtectedWriteBlock1_Start() && single_setting.Index < GetProtectedWriteBlock1_End())
-                            ||
-                            (single_setting.Index > GetProtectedWriteBlock2_Start() && single_setting.Index < GetProtectedWriteBlock2_End())
-                            ||
-                            (single_setting.Index > GetProtectedWriteBlock3_Start() && single_setting.Index < GetProtectedWriteBlock3_End())
-                        )
-                        {
-                            //Console.WriteLine("Skipping " + (object)single_setting.Index + " because it is protected");
-                            continue;
-                        }
-                        
-
-                        if (_PIC_Conn.sendAckdCommand(GetCommand_RTS()))
-                        {
-                            if (_PIC_Conn.SetDSPValue(single_setting.Index, single_setting.Value))
-                            {
-                                if (!_PIC_Conn.verifyLastCommand())
-                                {
-                                    Console.WriteLine("Unable to verifyLastCommand at index " + single_setting.Index);
-                                }
-                                else
-                                {
-                                    //Console.WriteLine("Successfully SetDSPValue at index " + single_setting.Index + " to " + single_setting.Value.ToString("X8"));
-                                }
-                            }
-                            else
-                            {
-                                Console.WriteLine("Unable to SetDSPValue at index " + single_setting.Index + " to " + single_setting.Value.ToString("X8"));
-                            }
-
-                            backgroundWorker.ReportProgress(Math.Min(100,(int)((total_settings_written / num_settings)*100)));
-                        }
-                        else
-                        {
-                            Console.WriteLine("Unable to GetCommand_RTS at index " + (object)single_setting.Index);
-                            return;
-                        }
-                    }
-
-                    for (int phantom_index = 0; phantom_index < GetNumPhantomPowerChannels(); phantom_index++)
-                    {
-                        if (!_PIC_Conn.sendAckdData(GetCommand_SetPhantomPower(), (byte)phantom_index, 100, Convert.ToByte(PROGRAMS[program_index].inputs[phantom_index].PhantomPower)))
-                        {
-                            // error
-                        }
-                    }
-
-                     
-                    int num_retries = 5;
-
-                    for (int input_index = 0; input_index < this.GetNumInputChannels(); input_index++)
-                    {
-                        
-                        int retry_counter = 0;
-                        while (retry_counter < num_retries)
-                        {
-                            if (_PIC_Conn.SendChannelName(input_index + 1, PROGRAMS[program_index].inputs[input_index].Name))
-                            {
-                                break;
-                            }
-
-                            retry_counter++;
-                        }
-                    }
-
-                    for (int output_index = 0; output_index < this.GetNumOutputChannels(); output_index++)
-                    {
-
-                        
-                        int retry_counter = 0;
-                        while (retry_counter < num_retries)
-                        {
-                            if (_PIC_Conn.SendChannelName(output_index + 1, PROGRAMS[program_index].inputs[output_index].Name, true))
-                            {
-                                break;
-                            }
-
-                            retry_counter++;
-                        }
-                    }
-
-
-                    if (program_index < (programs_to_run - 1))
-                    {
-                        backgroundWorker.ReportProgress(0, "Switching to Program " + (program_index + 2));
-
-                        if (_PIC_Conn.sendAckdCommand((byte)(GetProgrammingSwitchCommandBase() + program_index)))
-                        {
-                            Console.WriteLine("Successfully switched to program " + (program_index + 2));
-                        }
-                        else
-                        {
-                            Console.WriteLine("Unable to switch to program " + (program_index + 2));
-                        }
-                    }
                     
+
+                    program_percentage = 0;
+                    
+
+                    for (int page_counter = 0; page_counter < 12; page_counter++)
+                    {
+                        program_percentage = (((double)page_counter)/12.0)*10.0;
+
+                        if (_PIC_Conn.InitiateWriteStream(program_counter, page_counter, 256))
+                        {
+                            Array.Copy(DSP_PROGRAMS[program_counter].WRITE_VALUE_CACHE, (page_counter*64), Page_array, 0, 64);
+
+                            _PIC_Conn.SendStreamNibble(Page_array);
+                            backgroundWorker.ReportProgress(overall_percantage + (int)program_percentage);
+                            
+                        }
+                        else
+                        {
+                            Console.WriteLine("Unable to initiate stream!");
+                        }
+                    }
+
+                    overall_percantage += 10;
+
+                    backgroundWorker.ReportProgress(overall_percantage);
                 }
 
-
-                backgroundWorker.ReportProgress(0, "Switching back to Preset 1");
-
-                if (!_PIC_Conn.sendAckdCommand(GetLiveSwitchCommandBase()))
-                {
-                    // error
-                }
 
                 backgroundWorker.ReportProgress(95);
 
-                backgroundWorker.ReportProgress(0, "Rebooting device");
+                backgroundWorker.ReportProgress(0, "Soft Rebooting device");
 
-                if (!_PIC_Conn.sendAckdCommand(GetCommand_RebootDevice()))
-                {
-                    // error
-                }
+                _PIC_Conn.SoftReboot();
 
                 backgroundWorker.ReportProgress(0, "Save complete");
                 backgroundWorker.ReportProgress(100);
@@ -531,7 +426,6 @@ namespace SA_Resources.SAForms
             catch (Exception ex)
             {
             }
-                 * */
         }
 
         #endregion
@@ -1449,7 +1343,7 @@ namespace SA_Resources.SAForms
                 if (this.openProgramDialog.ShowDialog() != DialogResult.OK)
                     return;
                 SCFG_Manager.Read(this.openProgramDialog.FileName, this);
-                this.LoadSettingsToProgramConfig();
+                this.UpdateTooltips();
             }
             catch (Exception ex)
             {
@@ -1463,7 +1357,6 @@ namespace SA_Resources.SAForms
             {
                 if (this.saveProgramDialog.ShowDialog() != DialogResult.OK)
                     return;
-                this.LoadProgramConfigToSettings();
                 SCFG_Manager.Write(this.saveProgramDialog.FileName, this);
                 this.UnsavedChanges = false;
             }
@@ -1512,17 +1405,30 @@ namespace SA_Resources.SAForms
             this.Close();
         }
 
+        public bool disableProgramSwitch = false;
+
+        public void ChangeProgram_AfterRead(int read_index)
+        {
+            disableProgramSwitch = true;
+            dropProgramSelection.SelectedIndex = read_index;
+            disableProgramSwitch = false;
+
+            UpdateTooltips();
+
+        }
+
         public void ChangeProgram_Event(object sender, EventArgs e)
         {
             CURRENT_PROGRAM = ((ListControl)sender).SelectedIndex;
             UpdateTooltips();
 
 
-            if (!LIVE_MODE)
+            if (!LIVE_MODE || disableProgramSwitch)
             {
                 return;
             }
 
+            
             switch (new SwitchProgramForm(this, CURRENT_PROGRAM).ShowDialog())
             {
                 case DialogResult.No:

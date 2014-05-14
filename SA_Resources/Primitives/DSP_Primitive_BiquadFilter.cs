@@ -36,6 +36,7 @@ namespace SA_Resources.DSP.Primitives
             this.Type = DSP_Primitive_Types.BiquadFilter;
             this.Num_Values = 5;
             Plainfilter_Offset = _plainOffset;
+            Bypassed = false;
         }
 
 
@@ -318,10 +319,6 @@ namespace SA_Resources.DSP.Primitives
                         break;
                 }
 
-                if (this.Name == "OUTFILTER_1_2")
-                {
-                    Console.WriteLine("Stop me here");
-                }
             }
 
 

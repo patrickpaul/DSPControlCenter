@@ -20,6 +20,7 @@ namespace SA_Resources.SAControls
         public bool InitialLoadComplete = false;
 
         public int Index = 0;
+        private bool SelectingNewFilter;
 
         private const int INDEX_NONE = 0;
         private const int INDEX_LOWPASS = 1;
@@ -322,11 +323,13 @@ namespace SA_Resources.SAControls
 
         private void chkBypass_CheckedChanged(object sender, EventArgs e)
         {
-            
-            if(FilterPrimitive == null)
+
+            if (!InitialLoadComplete || FilterPrimitive == null)
             {
                 return;
             }
+
+            
 
             FilterPrimitive.Bypassed = chkBypass.Checked;
 
@@ -365,6 +368,9 @@ namespace SA_Resources.SAControls
 
             BandPassFilter toolFilter = new BandPassFilter(0, 0, 0);
 
+            SelectingNewFilter = true;
+
+            chkBypass.Checked = false;
             switch(dropFilter.SelectedIndex)
             {
 
@@ -518,6 +524,11 @@ namespace SA_Resources.SAControls
 
             }
 
+            if (!InitialLoadComplete || FilterPrimitive == null)
+            {
+                return;
+            }
+
             OnChangeEvent(new FilterEventArgs(Index, FilterPrimitive));
 
             label1.Focus();
@@ -525,8 +536,9 @@ namespace SA_Resources.SAControls
 
         private void dropSlope_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(!InitialLoadComplete || FilterPrimitive == null)
+            if(!InitialLoadComplete || FilterPrimitive == null || SelectingNewFilter)
             {
+                SelectingNewFilter = false;
                 return;
             }
 

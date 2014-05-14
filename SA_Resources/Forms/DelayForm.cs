@@ -104,6 +104,7 @@ namespace SA_Resources.SAForms
         private void chkBypass_CheckedChanged(object sender, EventArgs e)
         {
             Active_Primitive.Bypassed = chkBypass.Checked;
+            Active_Primitive.QueueChange(PARENT_FORM);
         }
 
         private void btnGo_Click(object sender, EventArgs e)

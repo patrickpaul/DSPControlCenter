@@ -276,7 +276,6 @@ namespace SA_Resources.SAForms
                 }
                 else
                 {
-                    PARENT_FORM.LoadProgramConfigToSettings();
                     worker.DoWork += PARENT_FORM.WriteDevice;
                 }
             }
@@ -291,7 +290,11 @@ namespace SA_Resources.SAForms
         private void WorkComplete(object sender, RunWorkerCompletedEventArgs e)
         {
             progressBar1.Value = 100;
-            PARENT_FORM.UpdateTooltips();
+
+            int program_index = PARENT_FORM._PIC_Conn.GetCurrentProgram();
+
+            PARENT_FORM.ChangeProgram_AfterRead(program_index);
+
             PARENT_FORM.BeginLiveMode();
             closeTimer.Enabled = true;
 

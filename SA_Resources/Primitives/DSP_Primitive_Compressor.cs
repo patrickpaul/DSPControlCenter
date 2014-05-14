@@ -73,7 +73,7 @@ namespace SA_Resources.DSP.Primitives
             this.SoftKnee = (valuesList[1] == 0x03000000);
             this.Ratio = DSP_Math.value_to_comp_ratio(valuesList[2]);
             this.Attack = DSP_Math.value_to_comp_attack(valuesList[3]);
-            this.Release = DSP_Math.value_to_comp_release(valuesList[4]);
+            this.Release = DSP_Math.comp_value_to_release(valuesList[4]);
             this.Bypassed = (valuesList[5] == 0x00000001);
 
         }

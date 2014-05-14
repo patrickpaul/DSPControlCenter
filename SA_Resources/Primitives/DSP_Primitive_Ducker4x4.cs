@@ -134,7 +134,7 @@ namespace SA_Resources.DSP.Primitives
             this.HoldTime = DSP_Math.value_to_dynamic_hold(valuesList[17]);
             this.Depth = DSP_Math.MN_to_double_signed(valuesList[18], 9, 23);
             this.Attack = DSP_Math.value_to_comp_attack(valuesList[19]);
-            this.Release = DSP_Math.value_to_comp_release(valuesList[20]);
+            this.Release = DSP_Math.ducker_value_to_release(valuesList[20]);
             this.Bypassed = valuesList[21] == 0x00000001;
 
 
@@ -231,7 +231,7 @@ namespace SA_Resources.DSP.Primitives
             set
             {
                 this._Release = value;
-                this.Release_Value = DSP_Math.comp_release_to_value(this._Release);
+                this.Release_Value = DSP_Math.ducker_release_to_value(this._Release);
             }
 
         }

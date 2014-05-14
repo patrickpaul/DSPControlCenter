@@ -57,7 +57,7 @@ namespace SA_Resources.SAForms
             this.viewHelpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.aboutDSPControlCenterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
+            this.serialPort = new System.IO.Ports.SerialPort(this.components);
             this.pictureConnectionStatus = new System.Windows.Forms.PictureBox();
             this.btnConnectToDevice = new System.Windows.Forms.Button();
             this.dropProgramSelection = new System.Windows.Forms.ComboBox();
@@ -402,7 +402,7 @@ namespace SA_Resources.SAForms
         private ToolStripSeparator toolStripMenuItem2;
         private ToolStripMenuItem aboutDSPControlCenterToolStripMenuItem;
         protected MenuStrip menuStrip1;
-        protected System.IO.Ports.SerialPort serialPort1;
+        protected System.IO.Ports.SerialPort serialPort;
         protected PictureBox pictureConnectionStatus;
         protected Button btnConnectToDevice;
         protected ComboBox dropProgramSelection;

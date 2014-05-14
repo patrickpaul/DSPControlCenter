@@ -120,13 +120,15 @@ namespace SA_Resources
                 Active_Primitive.InputType = InputType.Microphone20;
             }
 
+            Pregain_Primitive = (DSP_Primitive_Pregain)PARENT_FORM.DSP_PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].LookupPrimitive(DSP_Primitive_Types.Pregain, Active_Primitive.Channel, 0);
+
+            Pregain_Primitive.Pregain = (int)Active_Primitive.Pregain;
+
             if (PARENT_FORM.LIVE_MODE)
             {
                 Active_Primitive.QueuePregain(PARENT_FORM);
 
-                Pregain_Primitive = (DSP_Primitive_Pregain)PARENT_FORM.DSP_PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].LookupPrimitive(DSP_Primitive_Types.Pregain, Active_Primitive.Channel, 0);
-
-                Pregain_Primitive.Pregain = (int)Active_Primitive.Pregain;
+                
 
                 Pregain_Primitive.QueueChange(PARENT_FORM);
             }
