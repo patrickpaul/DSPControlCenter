@@ -181,7 +181,7 @@ namespace SA_Resources.SAForms
                     btnConnect.Text = "Connect";
                     isConnected = false;
                     PARENT_FORM._PIC_Conn.Close();
-
+                    PARENT_FORM.EndLiveMode();
                     grpPushPull.Enabled = false;
                     progressBar1.Visible = false;
                     RefreshDeviceList();

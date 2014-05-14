@@ -30,6 +30,7 @@ namespace SA_Resources.SAForms
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FilterDesignerForm));
             this.filterDesignBlock5 = new SA_Resources.SAControls.SAFilterDesignBlock();
             this.filterDesignBlock4 = new SA_Resources.SAControls.SAFilterDesignBlock();
             this.filterDesignBlock3 = new SA_Resources.SAControls.SAFilterDesignBlock();
@@ -37,6 +38,8 @@ namespace SA_Resources.SAForms
             this.filterDesignBlock1 = new SA_Resources.SAControls.SAFilterDesignBlock();
             this.filterDesignBlock0 = new SA_Resources.SAControls.SAFilterDesignBlock();
             this.filterDesigner = new SA_Resources.SAControls.FilterDesigner();
+            this.btnSave = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.btnSave)).BeginInit();
             this.SuspendLayout();
             // 
             // filterDesignBlock5
@@ -127,12 +130,24 @@ namespace SA_Resources.SAForms
             this.filterDesigner.OnDragBegin += new System.EventHandler(this.filterDesigner_OnDragBegin);
             this.filterDesigner.OnDragEnd += new System.EventHandler(this.filterDesigner_OnDragEnd);
             // 
+            // btnSave
+            // 
+            this.btnSave.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnSave.Image = ((System.Drawing.Image)(resources.GetObject("btnSave.Image")));
+            this.btnSave.Location = new System.Drawing.Point(412, 514);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(49, 23);
+            this.btnSave.TabIndex = 8;
+            this.btnSave.TabStop = false;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+            // 
             // FilterDesignerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(82)))), ((int)(((byte)(82)))));
-            this.ClientSize = new System.Drawing.Size(872, 530);
+            this.ClientSize = new System.Drawing.Size(872, 549);
+            this.Controls.Add(this.btnSave);
             this.Controls.Add(this.filterDesignBlock5);
             this.Controls.Add(this.filterDesignBlock4);
             this.Controls.Add(this.filterDesignBlock3);
@@ -146,6 +161,7 @@ namespace SA_Resources.SAForms
             this.Name = "FilterDesignerForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "FilterDesignerForm";
+            ((System.ComponentModel.ISupportInitialize)(this.btnSave)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -159,6 +175,7 @@ namespace SA_Resources.SAForms
         private SAFilterDesignBlock filterDesignBlock0;
         private SAFilterDesignBlock filterDesignBlock1;
         private SAFilterDesignBlock filterDesignBlock2;
+        private System.Windows.Forms.PictureBox btnSave;
 
 
 

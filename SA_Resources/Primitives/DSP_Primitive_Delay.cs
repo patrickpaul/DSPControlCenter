@@ -48,7 +48,7 @@ namespace SA_Resources.DSP.Primitives
             {
                 this._Delay = value;
 
-                this.Delay_Value = DSP_Math.double_to_MN(this._Delay, 16, 16);
+                this.Delay_Value = DSP_Math.double_to_MN(this._Delay * 1000.0, 16, 16);
             }
         }
 
@@ -78,7 +78,7 @@ namespace SA_Resources.DSP.Primitives
         public override void UpdateFromReadValues(List<UInt32> valuesList)
         {
             this.Bypassed = (valuesList[1] == 0x00000001);
-            this.Delay = (DSP_Math.MN_to_double_signed(valuesList[0], 16, 16));
+            this.Delay = (DSP_Math.MN_to_double_signed(valuesList[0], 16, 16) / 1000.0);
         }
 
         public override void QueueChange(MainForm_Template PARENT_FORM)

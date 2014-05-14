@@ -79,7 +79,7 @@ namespace SA_Resources.SAForms
 
             Active_Primitive.Delay = delayMS.Value;
 
-            Active_Primitive.QueueChange(PARENT_FORM);
+            Active_Primitive.QueueChangeByOffset(PARENT_FORM,0);
         }
 
         private void DialFT_OnChange(object sender, DialEventArgs e)
@@ -104,7 +104,7 @@ namespace SA_Resources.SAForms
         private void chkBypass_CheckedChanged(object sender, EventArgs e)
         {
             Active_Primitive.Bypassed = chkBypass.Checked;
-            Active_Primitive.QueueChange(PARENT_FORM);
+            Active_Primitive.QueueChangeByOffset(PARENT_FORM,1);
         }
 
         private void btnGo_Click(object sender, EventArgs e)

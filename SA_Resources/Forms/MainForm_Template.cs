@@ -385,11 +385,6 @@ namespace SA_Resources.SAForms
                 {
                     DSP_PROGRAMS[program_counter].Write_Program_To_Cache(this.GetNumInputChannels());
 
-                    
-
-                    program_percentage = 0;
-                    
-
                     for (int page_counter = 0; page_counter < 12; page_counter++)
                     {
                         program_percentage = (((double)page_counter)/12.0)*10.0;
@@ -414,7 +409,7 @@ namespace SA_Resources.SAForms
                 }
 
 
-                backgroundWorker.ReportProgress(95);
+                //backgroundWorker.ReportProgress(95);
 
                 backgroundWorker.ReportProgress(0, "Soft Rebooting device");
 
@@ -1342,8 +1337,19 @@ namespace SA_Resources.SAForms
             {
                 if (this.openProgramDialog.ShowDialog() != DialogResult.OK)
                     return;
-                SCFG_Manager.Read(this.openProgramDialog.FileName, this);
-                this.UpdateTooltips();
+
+                if (this.LIVE_MODE)
+                {
+                    LoadProgramFileForm loadForm = new LoadProgramFileForm(this.openProgramDialog.FileName, this);
+
+
+                    loadForm.ShowDialog();
+                }
+                else
+                {
+                    SCFG_Manager.Read(this.openProgramDialog.FileName, this);
+                    UpdateTooltips();
+                }
             }
             catch (Exception ex)
             {

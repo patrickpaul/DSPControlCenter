@@ -175,5 +175,11 @@ namespace SA_Resources.SAForms
         {
 
         }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.OK;
+            this.Close();
+        }
     }
 }
