@@ -250,6 +250,7 @@
             this.chkDebug.TabIndex = 34;
             this.chkDebug.Text = "Skip Sync";
             this.chkDebug.UseVisualStyleBackColor = true;
+            this.chkDebug.Visible = false;
             // 
             // progressBar1
             // 

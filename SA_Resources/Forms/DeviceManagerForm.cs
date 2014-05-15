@@ -44,6 +44,11 @@ namespace SA_Resources.SAForms
 
             manager.StateChanged += new UsbStateChangedEventHandler(USBDeviceStateChanged);
 
+            if (System.Diagnostics.Debugger.IsAttached)
+            {
+                chkDebug.Visible = true;
+            }
+
             if(!PARENT_FORM._vsDebug)
             {
                 chkDebug.Visible = false;

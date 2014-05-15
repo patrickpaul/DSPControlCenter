@@ -915,7 +915,14 @@ namespace SA_Resources.SAForms
 
             using (MixerForm6x4 mixerForm = new MixerForm6x4(this))
             {
-
+                if (LIVE_MODE)
+                {
+                    mixerForm.Width = 499;
+                }
+                else
+                {
+                    mixerForm.Width = 228;
+                }
 
                 DialogResult showBlock = mixerForm.ShowDialog(this);
             }
