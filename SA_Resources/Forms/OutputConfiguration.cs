@@ -50,8 +50,10 @@ namespace SA_Resources
 
                 if (_parentForm.LIVE_MODE && _parentForm._PIC_Conn.isOpen && PARENT_FORM.FIRMWARE_VERSION > 2.5)
                 {
-                    signalTimer.Enabled = true;
                     gainMeterOut.Visible = true;
+                    gainMeterOut.PIC_CONN = PARENT_FORM._PIC_Conn;
+                    gainMeterOut.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.Output, Active_Primitive.Channel, 0).Address;
+                    gainMeterOut.Start();
                     panelRS232.Visible = true;
                 }
                 else
@@ -123,48 +125,10 @@ namespace SA_Resources
         private void OutputConfiguration_FormClosing(object sender, FormClosingEventArgs e)
         {
             Active_Primitive.OutputName = txtDisplayName.Text;
+            gainMeterOut.Stop();
         }
 
-        private void signalTimer_Tick(object sender, EventArgs e)
-        {
-
-            if (!PARENT_FORM._PIC_Conn.isOpen || !PARENT_FORM.LIVE_MODE)
-            {
-                signalTimer.Enabled = false;
-                return;
-            }
-
-            UInt32 read_value;
-            double converted_value;
-            double offset = (20 - 20 + 3.8) + 10 * Math.Log10(2) + 20 * Math.Log10(16);
-            UInt32 read_address = 0x00000000;
-
-
-            try
-            {
-                read_address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.Output, Active_Primitive.Channel, 0).Address;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("[Exception in OutputConfiguration.signalTimer_Tick]: " + ex.Message);
-            }
-
-            read_value = PARENT_FORM._PIC_Conn.Read_Live_DSP_Value(read_address);
-
-            converted_value = DSP_Math.MN_to_double_signed(read_value, 1, 31);
-
-            if (converted_value > (0.000001 * 0.000001))
-            {
-                read_gain_value = offset + 10 * Math.Log10(converted_value);
-
-            }
-            else
-            {
-                read_gain_value = -100;
-            }
-
-            gainMeterOut.DB = read_gain_value;
-        }
+        
 
         private void UpdateRS232Stats()
         {

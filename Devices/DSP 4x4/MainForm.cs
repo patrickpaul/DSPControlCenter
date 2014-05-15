@@ -223,7 +223,7 @@ namespace DSP_4x4
 
                 
 
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(0, new DSP_Primitive_Pregain("Input Pre-Gain CH 1", 0, 0, 0xF0C00125));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(0, new DSP_Primitive_Pregain("Input Pre-Gain CH 1", 0, 0, 0xF0C00123));
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(2, new DSP_Primitive_Pregain("Input Pre-Gain CH 2", 1, 0, 0xF0C00127));
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(4, new DSP_Primitive_Pregain("Input Pre-Gain CH 3", 2, 0, 0xF0C0012b));
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(6, new DSP_Primitive_Pregain("Input Pre-Gain CH 4", 3, 0, 0xF0C0012f));

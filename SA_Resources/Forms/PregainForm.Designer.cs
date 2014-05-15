@@ -30,19 +30,13 @@ namespace SA_Resources.SAForms
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PregainForm));
-            this.signalTimer = new System.Windows.Forms.Timer(this.components);
             this.saGainFader1 = new SA_Resources.SAControls.SAGainFader();
             this.gainMeter = new SA_Resources.SAControls.SignalMeter();
             this.btnCancel = new SA_Resources.SAControls.PictureButton();
             this.btnSave = new SA_Resources.SAControls.PictureButton();
             ((System.ComponentModel.ISupportInitialize)(this.gainMeter)).BeginInit();
             this.SuspendLayout();
-            // 
-            // signalTimer
-            // 
-            this.signalTimer.Tick += new System.EventHandler(this.signalTimer_Tick);
             // 
             // saGainFader1
             // 
@@ -106,11 +100,11 @@ namespace SA_Resources.SAForms
             this.btnSave.ToolTipText = "";
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
-            // Pregain
+            // PregainForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(82)))), ((int)(((byte)(82)))));
-            this.ClientSize = new System.Drawing.Size(259, 380);
+            this.ClientSize = new System.Drawing.Size(169, 380);
             this.Controls.Add(this.saGainFader1);
             this.Controls.Add(this.gainMeter);
             this.Controls.Add(this.btnCancel);
@@ -119,9 +113,10 @@ namespace SA_Resources.SAForms
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "Pregain";
+            this.Name = "PregainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "CH 1 - Gain";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.PregainForm_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.gainMeter)).EndInit();
             this.ResumeLayout(false);
 
@@ -131,7 +126,6 @@ namespace SA_Resources.SAForms
 
         private PictureButton btnCancel;
         private PictureButton btnSave;
-        private System.Windows.Forms.Timer signalTimer;
         private SignalMeter gainMeter;
         private SAGainFader saGainFader1;
     }

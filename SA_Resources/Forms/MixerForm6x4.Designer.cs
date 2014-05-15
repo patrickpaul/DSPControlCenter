@@ -30,7 +30,6 @@ namespace SA_Resources.SAForms
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MixerForm6x4));
             this.lblInput0 = new System.Windows.Forms.Label();
             this.lblInput1 = new System.Windows.Forms.Label();
@@ -42,7 +41,6 @@ namespace SA_Resources.SAForms
             this.lblOutputMeter2 = new System.Windows.Forms.Label();
             this.lblOutputMeter3 = new System.Windows.Forms.Label();
             this.lblOutputMeter4 = new System.Windows.Forms.Label();
-            this.signalTimer = new System.Windows.Forms.Timer(this.components);
             this.gainMeter4 = new SA_Resources.SAControls.SignalMeter();
             this.gainMeter3 = new SA_Resources.SAControls.SignalMeter();
             this.gainMeter2 = new SA_Resources.SAControls.SignalMeter();
@@ -202,12 +200,6 @@ namespace SA_Resources.SAForms
             this.lblOutputMeter4.TabIndex = 74;
             this.lblOutputMeter4.Text = "Output 4 ";
             this.lblOutputMeter4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // signalTimer
-            // 
-            this.signalTimer.Enabled = true;
-            this.signalTimer.Interval = 50;
-            this.signalTimer.Tick += new System.EventHandler(this.signalTimer_Tick);
             // 
             // gainMeter4
             // 
@@ -882,6 +874,7 @@ namespace SA_Resources.SAForms
             this.Name = "MixerForm6x4";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Matrix Mixer";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MixerForm6x4_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.gainMeter4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gainMeter3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gainMeter2)).EndInit();
@@ -933,7 +926,6 @@ namespace SA_Resources.SAForms
         private System.Windows.Forms.Label lblOutputMeter2;
         private System.Windows.Forms.Label lblOutputMeter3;
         private System.Windows.Forms.Label lblOutputMeter4;
-        private System.Windows.Forms.Timer signalTimer;
         private SignalMeter gainMeter1;
         private SignalMeter gainMeter2;
         private SignalMeter gainMeter3;

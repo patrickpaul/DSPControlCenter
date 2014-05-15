@@ -266,10 +266,13 @@ namespace SA_Resources.SAForms
         public void AddItemToQueue(LiveQueueItem itemToAdd)
         {
             // TODO - Disable this once done testing
-            if (itemToAdd.Index > 500)
+            Console.WriteLine("[DEBUG] Adding item to queue: " + itemToAdd.Index + " - " + itemToAdd.Value.ToString("X8"));
+
+            if (!LIVE_MODE)
             {
-                Console.WriteLine("Added item to queue: " + itemToAdd.Index + " - " + itemToAdd.Value.ToString("X8"));
+                return;
             }
+
             lock (_locker)
             {
                 UPDATE_QUEUE.Enqueue(itemToAdd);

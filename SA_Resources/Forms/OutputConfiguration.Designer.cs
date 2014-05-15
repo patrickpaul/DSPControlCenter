@@ -30,7 +30,6 @@ namespace SA_Resources
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OutputConfiguration));
             this.label1 = new System.Windows.Forms.Label();
             this.txtDisplayName = new System.Windows.Forms.TextBox();
@@ -39,13 +38,12 @@ namespace SA_Resources
             this.txtRS232Vol = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.pbtnReset = new System.Windows.Forms.PictureBox();
-            this.signalTimer = new System.Windows.Forms.Timer(this.components);
             this.pbtnMute = new System.Windows.Forms.PictureBox();
             this.txtRS232Mute = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.panelRS232 = new System.Windows.Forms.Panel();
-            this.gainMeterOut = new SignalMeter_Small();
+            this.gainMeterOut = new SA_Resources.SAControls.SignalMeter_Small();
             ((System.ComponentModel.ISupportInitialize)(this.btnCancel)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnSave)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbtnReset)).BeginInit();
@@ -131,10 +129,6 @@ namespace SA_Resources
             this.pbtnReset.TabIndex = 11;
             this.pbtnReset.TabStop = false;
             this.pbtnReset.Click += new System.EventHandler(this.pbtnReset_Click);
-            // 
-            // signalTimer
-            // 
-            this.signalTimer.Tick += new System.EventHandler(this.signalTimer_Tick);
             // 
             // pbtnMute
             // 
@@ -248,7 +242,6 @@ namespace SA_Resources
         private System.Windows.Forms.Label label2;
         private SignalMeter_Small gainMeterOut;
         private System.Windows.Forms.PictureBox pbtnReset;
-        private System.Windows.Forms.Timer signalTimer;
         private System.Windows.Forms.PictureBox pbtnMute;
         public System.Windows.Forms.TextBox txtRS232Mute;
         private System.Windows.Forms.Label label3;

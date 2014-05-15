@@ -42,7 +42,25 @@ namespace SA_Resources.SAForms
             {
                 PARENT_FORM = _parentForm;
 
+                if (PARENT_FORM.LIVE_MODE)
+                {
+                    gainMeter1.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.MixerCrosspoint, 0, 0, 0).Address;
+                    gainMeter1.PIC_CONN = PARENT_FORM._PIC_Conn;
+                    gainMeter1.Start();
 
+                    gainMeter2.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.MixerCrosspoint, 0, 0, 1).Address;
+                    gainMeter2.PIC_CONN = PARENT_FORM._PIC_Conn;
+                    gainMeter2.Start();
+
+                    gainMeter3.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.MixerCrosspoint, 0, 0, 2).Address;
+                    gainMeter3.PIC_CONN = PARENT_FORM._PIC_Conn;
+                    gainMeter3.Start();
+
+                    gainMeter4.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.MixerCrosspoint, 0, 0, 3).Address;
+                    gainMeter4.PIC_CONN = PARENT_FORM._PIC_Conn;
+                    gainMeter4.Start();
+
+                }
                 DSP_Primitive_Input InputPrimitive = null;
                 Label InputLabel = null;
 
@@ -199,7 +217,7 @@ namespace SA_Resources.SAForms
 
         private void signalTimer_Tick(object sender, EventArgs e)
         {
-            UInt32 read_address = 0x00000000;
+            /*UInt32 read_address = 0x00000000;
 
             double offset = (20 - 20 + 3.8) + 10 * Math.Log10(2) + 20 * Math.Log10(16);
 
@@ -231,6 +249,15 @@ namespace SA_Resources.SAForms
 
             curMeter.DB = read_gain_value;
             curMeter.Refresh();
+             * */
+        }
+
+        private void MixerForm6x4_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            gainMeter1.Stop();
+            gainMeter2.Stop();
+            gainMeter3.Stop();
+            gainMeter4.Stop();
         }
 
     }

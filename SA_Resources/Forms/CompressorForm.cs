@@ -79,7 +79,8 @@ namespace SA_Resources.SAForms
 
             try
             {
-                
+                int compLimOffset = is_limiter ? 1 : 0;
+
                 FixedLine = dynChart.Series[0];
                 MarkerLine = dynChart.Series[1];
                 StraightResponseLine = dynChart.Series[2];
@@ -147,15 +148,22 @@ namespace SA_Resources.SAForms
 
                 if (_parentForm.LIVE_MODE && _parentForm._PIC_Conn.isOpen)
                 {
-                    signalTimer.Enabled = true;
                     gainMeterIn.Visible = true;
                     gainMeterOut.Visible = true;
+
+                    gainMeterIn.PIC_CONN = PARENT_FORM._PIC_Conn;
+                    gainMeterIn.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.Compressor, Active_Primitive.Channel, compLimOffset, 0).Address;
+                    gainMeterIn.Start();
+
+                    gainMeterOut.PIC_CONN = PARENT_FORM._PIC_Conn;
+                    gainMeterOut.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.Compressor, Active_Primitive.Channel, compLimOffset, 1).Address;
+                    gainMeterOut.Start();
+
                     lblIn.Visible = true;
                     lblOut.Visible = true;
                     panel1.Location = new Point(35, 366);
                 } else
                 {
-                    signalTimer.Enabled = false;
                     gainMeterIn.Visible = false;
                     gainMeterOut.Visible = false;
                     lblIn.Visible = false;
@@ -548,66 +556,12 @@ namespace SA_Resources.SAForms
              * */
         }
 
-        private void signalTimer_Tick(object sender, EventArgs e)
+       
+
+        private void CompressorForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-
-            if (!PARENT_FORM._PIC_Conn.isOpen || !PARENT_FORM.LIVE_MODE)
-            {
-                signalTimer.Enabled = false;
-                return;
-            }
-
-            UInt32 read_value;
-            double converted_value;
-            double offset = (20 - 20 + 3.8) + 10 * Math.Log10(2) + 20 * Math.Log10(16);
-            UInt32 read_address = 0x00000000;
-
-
-            int compLimOffset = is_limiter ? 1 : 0;
-
-            try
-            {
-                if (comp_switcher)
-                {
-                    // Input
-                    read_address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.Compressor, Active_Primitive.Channel, compLimOffset, 0).Address;
-
-                }
-                else
-                {
-                    // Output
-                    read_address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.Compressor, Active_Primitive.Channel, compLimOffset, 1).Address;
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("[Exception in CompressorForm.signalTimer_Tick]: " + ex.Message);
-            }
-
-            read_value = PARENT_FORM._PIC_Conn.Read_Live_DSP_Value(read_address);
-
-            converted_value = DSP_Math.MN_to_double_signed(read_value, 1, 31);
-
-            if (converted_value > (0.000001 * 0.000001))
-            {
-                read_gain_value = offset + 10 * Math.Log10(converted_value);
-
-            }
-            else
-            {
-                read_gain_value = -100;
-            }
-
-            if (comp_switcher)
-            {
-                gainMeterIn.DB = read_gain_value;
-            }
-            else
-            {
-                gainMeterOut.DB = read_gain_value;
-            }
-            comp_switcher = !comp_switcher;
-
+            gainMeterIn.Stop();
+            gainMeterOut.Stop();
         }
 
 

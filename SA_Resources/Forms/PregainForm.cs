@@ -45,12 +45,13 @@ namespace SA_Resources.SAForms
                 if (PARENT_FORM.LIVE_MODE)
                 {
                     gainMeter.Visible = true;
-                    signalTimer.Enabled = true;
+                    gainMeter.PIC_CONN = PARENT_FORM._PIC_Conn;
+                    gainMeter.Address = RecastPregain._Meter;
+                    gainMeter.Start();
                 }
                 else
                 {
                     gainMeter.Visible = false;
-                    signalTimer.Enabled = false;
                 }
 
                 switch (RecastPregain.Pregain)
@@ -86,39 +87,9 @@ namespace SA_Resources.SAForms
         {
 
                 RecastPregain.Gain = e.Gain;
-                Console.WriteLine("Setting gain to " + e.Gain + " + " + RecastPregain.Pregain);
 
                 RecastPregain.Muted = e.Muted;
                 RecastPregain.QueueChange(PARENT_FORM);
-        }
-
-        private void signalTimer_Tick(object sender, EventArgs e)
-        {
-            // TODO add meter handler here
-
-
-            UInt32 read_address = (RecastPregain.Meter);
-            
-            
-            double offset = (20-20+3.8) + 10 * Math.Log10(2) + 20 * Math.Log10(16);
-            UInt32 read_value = PARENT_FORM._PIC_Conn.Read_Live_DSP_Value(read_address);
-
-            
-            double converted_value = DSP_Math.MN_to_double_signed(read_value, 1, 31);
-            double read_gain_value;
-
-            if (converted_value > (0.000001 * 0.000001))
-            {
-                read_gain_value = offset + 10 * Math.Log10(converted_value);
-            }
-            else
-            {
-                read_gain_value = -100;
-            }
-
-
-            gainMeter.DB = read_gain_value;
-          
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -143,6 +114,11 @@ namespace SA_Resources.SAForms
             this.DialogResult = DialogResult.Cancel;
             this.Close();
 
+        }
+
+        private void PregainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            gainMeter.Stop();
         }
 
         

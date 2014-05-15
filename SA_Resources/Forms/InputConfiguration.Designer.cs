@@ -30,7 +30,6 @@ namespace SA_Resources
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InputConfiguration));
             this.label1 = new System.Windows.Forms.Label();
             this.txtDisplayName = new System.Windows.Forms.TextBox();
@@ -39,7 +38,6 @@ namespace SA_Resources
             this.btnSave = new System.Windows.Forms.PictureBox();
             this.label3 = new System.Windows.Forms.Label();
             this.dropInputType = new System.Windows.Forms.ComboBox();
-            this.signalTimer = new System.Windows.Forms.Timer(this.components);
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.gainMeter = new SA_Resources.SAControls.SignalMeter_Small();
@@ -130,10 +128,6 @@ namespace SA_Resources
             this.dropInputType.TabIndex = 12;
             this.dropInputType.SelectedIndexChanged += new System.EventHandler(this.dropInputType_SelectedIndexChanged);
             // 
-            // signalTimer
-            // 
-            this.signalTimer.Tick += new System.EventHandler(this.signalTimer_Tick);
-            // 
             // textBox1
             // 
             this.textBox1.Location = new System.Drawing.Point(147, 81);
@@ -215,7 +209,6 @@ namespace SA_Resources
         private System.Windows.Forms.PictureBox btnSave;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox dropInputType;
-        private System.Windows.Forms.Timer signalTimer;
         private SignalMeter_Small gainMeter;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.TextBox textBox2;

@@ -541,13 +541,18 @@ namespace SA_Resources.USB
                 buff[4] = (byte)byte4;
                 buff[5] = 0x03;
 
-
+                    int ms_counter = 0;
                 for (int retry_count = 0; retry_count < 3; retry_count++)
                 {
                     serialPort.Write(buff, 0, 6);
-                    Thread.Sleep(60);
 
-                    if (serialPort.BytesToRead > 5)
+                    while (serialPort.BytesToRead < 6 && ms_counter < 50)
+                    {
+                        Thread.Sleep(5);
+                        ms_counter += 5;
+                    }
+
+                    if (serialPort.BytesToRead == 6)
                     {
                         Byte[] bytes = new Byte[serialPort.BytesToRead];
 

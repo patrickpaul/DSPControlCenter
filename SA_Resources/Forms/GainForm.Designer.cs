@@ -30,19 +30,13 @@ namespace SA_Resources.SAForms
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GainForm));
-            this.signalTimer = new System.Windows.Forms.Timer(this.components);
             this.saGainFader1 = new SA_Resources.SAControls.SAGainFader();
             this.gainMeter = new SA_Resources.SAControls.SignalMeter();
             this.btnCancel = new SA_Resources.SAControls.PictureButton();
             this.btnSave = new SA_Resources.SAControls.PictureButton();
             ((System.ComponentModel.ISupportInitialize)(this.gainMeter)).BeginInit();
             this.SuspendLayout();
-            // 
-            // signalTimer
-            // 
-            this.signalTimer.Tick += new System.EventHandler(this.signalTimer_Tick);
             // 
             // saGainFader1
             // 
@@ -122,6 +116,7 @@ namespace SA_Resources.SAForms
             this.Name = "GainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "CH 1 - Gain";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.GainForm_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.gainMeter)).EndInit();
             this.ResumeLayout(false);
 
@@ -131,7 +126,6 @@ namespace SA_Resources.SAForms
 
         private PictureButton btnCancel;
         private PictureButton btnSave;
-        private System.Windows.Forms.Timer signalTimer;
         private SignalMeter gainMeter;
         private SAGainFader saGainFader1;
     }

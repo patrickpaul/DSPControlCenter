@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Windows.Forms;
 using SA_Resources.DSP;
 using SA_Resources.SAControls;
@@ -31,12 +33,17 @@ namespace SA_Resources.SAForms
         private DSP_Primitive_StandardGain RecastStandardGain;
         private DSP_Primitive_MixerCrosspoint RecastCrossPoint;
 
+        public object _threadlock;
+        public bool meterthread_abort = false;
+        public Thread MeterThread;
+
         private bool is_mixer = false;
 
         public GainForm(MainForm_Template _parentForm, DSP_Primitive _inputPrimitive, DSP_Primitive_Types _primitiveType)
         {
             InitializeComponent();
 
+            _threadlock = new object();
             try
             {
                 if (_primitiveType == DSP_Primitive_Types.StandardGain)
@@ -55,15 +62,16 @@ namespace SA_Resources.SAForms
 
                 PARENT_FORM = _parentForm;
 
-                if (PARENT_FORM.LIVE_MODE)
+                if (PARENT_FORM.LIVE_MODE && !is_mixer)
                 {
                     gainMeter.Visible = true;
-                    signalTimer.Enabled = true;
+                    gainMeter.PIC_CONN = PARENT_FORM._PIC_Conn;
+                    gainMeter.Address = RecastStandardGain._Meter;
+                    gainMeter.Start();
                 }
                 else
                 {
                     gainMeter.Visible = false;
-                    signalTimer.Enabled = false;
                 }
 
                 saGainFader1.Gain = is_mixer ? RecastCrossPoint.Gain : RecastStandardGain.Gain;
@@ -101,14 +109,15 @@ namespace SA_Resources.SAForms
 
         private void signalTimer_Tick(object sender, EventArgs e)
         {
-            // TODO add meter handler here
+            /*// TODO add meter handler here
 
             if (is_mixer)
             {
                 return;
             }
 
-
+            Stopwatch sw = new Stopwatch();
+            sw.Restart();
             UInt32 read_address = (RecastStandardGain.Meter);
             
             
@@ -129,8 +138,19 @@ namespace SA_Resources.SAForms
             }
 
             gainMeter.DB = read_gain_value;
-          
+
+            sw.Stop();
+            //Console.WriteLine("Got meter value in " + sw.ElapsedMilliseconds + " seconds");
+             */
         }
+
+
+        #region Meter Threading
+
+        
+
+        #endregion
+
 
         private void btnSave_Click(object sender, EventArgs e)
         {
@@ -154,6 +174,11 @@ namespace SA_Resources.SAForms
             this.DialogResult = DialogResult.Cancel;
             this.Close();
 
+        }
+
+        private void GainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            gainMeter.Stop();
         }
 
         
