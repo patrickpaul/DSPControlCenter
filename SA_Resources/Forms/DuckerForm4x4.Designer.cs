@@ -30,14 +30,12 @@ namespace SA_Resources.SAForms
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DuckerForm4x4));
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.nudDuckThreshold = new System.Windows.Forms.NumericUpDown();
             this.label36 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.signalTimer = new System.Windows.Forms.Timer(this.components);
             this.label1 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.nudDuckDepth = new System.Windows.Forms.NumericUpDown();
@@ -54,25 +52,29 @@ namespace SA_Resources.SAForms
             this.label9 = new System.Windows.Forms.Label();
             this.lblDuckInput1 = new System.Windows.Forms.Label();
             this.lblDuckInput2 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.duckMeter4 = new SA_Resources.SAControls.SignalMeter_Small();
+            this.duckMeter3 = new SA_Resources.SAControls.SignalMeter_Small();
+            this.duckMeter2 = new SA_Resources.SAControls.SignalMeter_Small();
+            this.duckMeter1 = new SA_Resources.SAControls.SignalMeter_Small();
             this.chkBypass2 = new SA_Resources.SAControls.PictureCheckbox();
             this.chkBypass1 = new SA_Resources.SAControls.PictureCheckbox();
             this.chkBypass0 = new SA_Resources.SAControls.PictureCheckbox();
             this.btnSave = new SA_Resources.SAControls.PictureButton();
             this.btnCancel = new SA_Resources.SAControls.PictureButton();
             this.chkBypass = new SA_Resources.SAControls.PictureCheckbox();
-            this.duckMeter1 = new SA_Resources.SAControls.SignalMeter_Small();
-            this.duckMeter2 = new SA_Resources.SAControls.SignalMeter_Small();
-            this.duckMeter3 = new SA_Resources.SAControls.SignalMeter_Small();
-            this.duckMeter4 = new SA_Resources.SAControls.SignalMeter_Small();
             ((System.ComponentModel.ISupportInitialize)(this.nudDuckThreshold)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudDuckDepth)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DialDuckRelease)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DialDuckAttack)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DialDuckHold)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.duckMeter1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.duckMeter2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.duckMeter3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.duckMeter4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.duckMeter3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.duckMeter2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.duckMeter1)).BeginInit();
             this.SuspendLayout();
             // 
             // label2
@@ -142,11 +144,6 @@ namespace SA_Resources.SAForms
             this.label4.Size = new System.Drawing.Size(46, 13);
             this.label4.TabIndex = 26;
             this.label4.Text = "Release";
-            // 
-            // signalTimer
-            // 
-            this.signalTimer.Interval = 70;
-            this.signalTimer.Tick += new System.EventHandler(this.signalTimer_Tick);
             // 
             // label1
             // 
@@ -342,6 +339,95 @@ namespace SA_Resources.SAForms
             this.lblDuckInput2.Text = "Local Input #1";
             this.lblDuckInput2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Segoe UI", 8.25F);
+            this.label8.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.label8.Location = new System.Drawing.Point(380, 219);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(31, 13);
+            this.label8.TabIndex = 141;
+            this.label8.Text = "CH 1";
+            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Segoe UI", 8.25F);
+            this.label10.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.label10.Location = new System.Drawing.Point(419, 219);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(31, 13);
+            this.label10.TabIndex = 142;
+            this.label10.Text = "CH 2";
+            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Segoe UI", 8.25F);
+            this.label11.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.label11.Location = new System.Drawing.Point(458, 219);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(31, 13);
+            this.label11.TabIndex = 143;
+            this.label11.Text = "CH 3";
+            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Segoe UI", 8.25F);
+            this.label12.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.label12.Location = new System.Drawing.Point(497, 219);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(31, 13);
+            this.label12.TabIndex = 144;
+            this.label12.Text = "CH 4";
+            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // duckMeter4
+            // 
+            this.duckMeter4.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("duckMeter4.BackgroundImage")));
+            this.duckMeter4.DB = -35D;
+            this.duckMeter4.Location = new System.Drawing.Point(498, 59);
+            this.duckMeter4.Name = "duckMeter4";
+            this.duckMeter4.Size = new System.Drawing.Size(30, 157);
+            this.duckMeter4.TabIndex = 140;
+            this.duckMeter4.TabStop = false;
+            // 
+            // duckMeter3
+            // 
+            this.duckMeter3.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("duckMeter3.BackgroundImage")));
+            this.duckMeter3.DB = -35D;
+            this.duckMeter3.Location = new System.Drawing.Point(459, 59);
+            this.duckMeter3.Name = "duckMeter3";
+            this.duckMeter3.Size = new System.Drawing.Size(30, 157);
+            this.duckMeter3.TabIndex = 139;
+            this.duckMeter3.TabStop = false;
+            // 
+            // duckMeter2
+            // 
+            this.duckMeter2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("duckMeter2.BackgroundImage")));
+            this.duckMeter2.DB = -35D;
+            this.duckMeter2.Location = new System.Drawing.Point(420, 59);
+            this.duckMeter2.Name = "duckMeter2";
+            this.duckMeter2.Size = new System.Drawing.Size(30, 157);
+            this.duckMeter2.TabIndex = 138;
+            this.duckMeter2.TabStop = false;
+            // 
+            // duckMeter1
+            // 
+            this.duckMeter1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("duckMeter1.BackgroundImage")));
+            this.duckMeter1.DB = -35D;
+            this.duckMeter1.Location = new System.Drawing.Point(381, 59);
+            this.duckMeter1.Name = "duckMeter1";
+            this.duckMeter1.Size = new System.Drawing.Size(30, 157);
+            this.duckMeter1.TabIndex = 137;
+            this.duckMeter1.TabStop = false;
+            this.duckMeter1.Click += new System.EventHandler(this.signalMeter_Small1_Click);
+            // 
             // chkBypass2
             // 
             this.chkBypass2.CheckedImage = null;
@@ -383,7 +469,7 @@ namespace SA_Resources.SAForms
             this.btnSave.AutoResize = true;
             this.btnSave.BackgroundImage = global::SA_Resources.GlobalResources.ui_btn_save;
             this.btnSave.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnSave.Location = new System.Drawing.Point(160, 244);
+            this.btnSave.Location = new System.Drawing.Point(133, 244);
             this.btnSave.Name = "btnSave";
             this.btnSave.OverImage = null;
             this.btnSave.Overlay1Image = null;
@@ -403,7 +489,7 @@ namespace SA_Resources.SAForms
             this.btnCancel.AutoResize = true;
             this.btnCancel.BackgroundImage = global::SA_Resources.GlobalResources.ui_btn_cancel;
             this.btnCancel.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCancel.Location = new System.Drawing.Point(216, 244);
+            this.btnCancel.Location = new System.Drawing.Point(189, 244);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.OverImage = null;
             this.btnCancel.Overlay1Image = null;
@@ -432,53 +518,16 @@ namespace SA_Resources.SAForms
             this.chkBypass.UseVisualStyleBackColor = true;
             this.chkBypass.CheckedChanged += new System.EventHandler(this.chkBypass_CheckedChanged);
             // 
-            // duckMeter1
-            // 
-            this.duckMeter1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("duckMeter1.BackgroundImage")));
-            this.duckMeter1.DB = -35D;
-            this.duckMeter1.Location = new System.Drawing.Point(393, 43);
-            this.duckMeter1.Name = "duckMeter1";
-            this.duckMeter1.Size = new System.Drawing.Size(30, 157);
-            this.duckMeter1.TabIndex = 137;
-            this.duckMeter1.TabStop = false;
-            this.duckMeter1.Click += new System.EventHandler(this.signalMeter_Small1_Click);
-            // 
-            // duckMeter2
-            // 
-            this.duckMeter2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("duckMeter2.BackgroundImage")));
-            this.duckMeter2.DB = -35D;
-            this.duckMeter2.Location = new System.Drawing.Point(429, 43);
-            this.duckMeter2.Name = "duckMeter2";
-            this.duckMeter2.Size = new System.Drawing.Size(30, 157);
-            this.duckMeter2.TabIndex = 138;
-            this.duckMeter2.TabStop = false;
-            // 
-            // duckMeter3
-            // 
-            this.duckMeter3.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("duckMeter3.BackgroundImage")));
-            this.duckMeter3.DB = -35D;
-            this.duckMeter3.Location = new System.Drawing.Point(465, 43);
-            this.duckMeter3.Name = "duckMeter3";
-            this.duckMeter3.Size = new System.Drawing.Size(30, 157);
-            this.duckMeter3.TabIndex = 139;
-            this.duckMeter3.TabStop = false;
-            // 
-            // duckMeter4
-            // 
-            this.duckMeter4.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("duckMeter4.BackgroundImage")));
-            this.duckMeter4.DB = -35D;
-            this.duckMeter4.Location = new System.Drawing.Point(501, 43);
-            this.duckMeter4.Name = "duckMeter4";
-            this.duckMeter4.Size = new System.Drawing.Size(30, 157);
-            this.duckMeter4.TabIndex = 140;
-            this.duckMeter4.TabStop = false;
-            // 
             // DuckerForm4x4
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(82)))), ((int)(((byte)(82)))));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.ClientSize = new System.Drawing.Size(553, 289);
+            this.ClientSize = new System.Drawing.Size(540, 289);
+            this.Controls.Add(this.label12);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.label8);
             this.Controls.Add(this.duckMeter4);
             this.Controls.Add(this.duckMeter3);
             this.Controls.Add(this.duckMeter2);
@@ -516,16 +565,17 @@ namespace SA_Resources.SAForms
             this.Name = "DuckerForm4x4";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Ducker Configuration";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.DuckerForm4x4_FormClosing);
             this.Load += new System.EventHandler(this.DuckerForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.nudDuckThreshold)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudDuckDepth)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DialDuckRelease)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DialDuckAttack)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DialDuckHold)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.duckMeter1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.duckMeter2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.duckMeter3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.duckMeter4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.duckMeter3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.duckMeter2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.duckMeter1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -541,7 +591,6 @@ namespace SA_Resources.SAForms
         private PictureButton btnSave;
         private PictureButton btnCancel;
         private PictureCheckbox chkBypass;
-        private System.Windows.Forms.Timer signalTimer;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.NumericUpDown nudDuckDepth;
@@ -565,5 +614,9 @@ namespace SA_Resources.SAForms
         private SignalMeter_Small duckMeter2;
         private SignalMeter_Small duckMeter3;
         private SignalMeter_Small duckMeter4;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label12;
     }
 }

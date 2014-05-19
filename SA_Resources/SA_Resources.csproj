@@ -70,6 +70,12 @@
     <Compile Include="Classes\SADevicePlugin.cs" />
     <Compile Include="Classes\SCFG_Manager.cs" />
     <Compile Include="Classes\USBManager.cs" />
+    <Compile Include="Forms\MeterViewform.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\MeterViewform.Designer.cs">
+      <DependentUpon>MeterViewform.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\LoadProgramFileForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -315,6 +321,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\CompressorForm.resx">
       <DependentUpon>CompressorForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\MeterViewform.resx">
+      <DependentUpon>MeterViewform.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\LoadProgramFileForm.resx">
       <DependentUpon>LoadProgramFileForm.cs</DependentUpon>
@@ -605,10 +614,16 @@
   <ItemGroup>
     <None Include="Resources\gainfader_18_to__24.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ui_btn_blue_close.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ui_btn_meters.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_UpdateAssemblyVersion="True" BuildVersion_UpdateFileVersion="True" BuildVersion_AssemblyInfoFilename="Properties\AssemblyInfo.cs" BuildVersion_UseGlobalSettings="True" />
+      <UserProperties BuildVersion_UseGlobalSettings="True" BuildVersion_AssemblyInfoFilename="Properties\AssemblyInfo.cs" BuildVersion_UpdateFileVersion="True" BuildVersion_UpdateAssemblyVersion="True" />
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>

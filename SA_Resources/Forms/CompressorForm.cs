@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Threading;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 using SA_Resources.DSP;
@@ -53,9 +54,17 @@ namespace SA_Resources.SAForms
         private bool comp_switcher;
 
         private DSP_Primitive_Compressor Active_Primitive;
+        private UInt32 in_gain_address;
+
+        private object _threadlock;
+        private bool livesignalthread_abort = false;
+        private Thread LiveSignalThread;
 
         public CompressorForm(MainForm_Template _parentForm, DSP_Primitive_Compressor input_primitive)
         {
+
+            _threadlock = new object();
+
 
             Active_Primitive = input_primitive;
 
@@ -162,6 +171,9 @@ namespace SA_Resources.SAForms
                     lblIn.Visible = true;
                     lblOut.Visible = true;
                     panel1.Location = new Point(35, 366);
+
+                    in_gain_address = gainMeterIn.Address;
+
                 } else
                 {
                     gainMeterIn.Visible = false;
@@ -171,7 +183,13 @@ namespace SA_Resources.SAForms
                     panel1.Location = new Point(78, 366);
                 }
 
-                
+                if (_parentForm.LIVE_MODE)
+                {
+                    LiveSignalThread = new Thread(LiveSignal_Worker);
+                    LiveSignalThread.Name = "LiveSignalThread";
+                    LiveSignalThread.IsBackground = true;
+                    LiveSignalThread.Start();
+                }
 
             } catch (Exception ex)
             {
@@ -360,6 +378,10 @@ namespace SA_Resources.SAForms
 
                 int point_index = dynChart.HitTest(e.X, e.Y).PointIndex;
 
+                if (point_index == 3)
+                {
+                    return;
+                }
                 // If we're at the upper-right corner, the hit test will give us the ratio point (point_index = 2)
                 // Force threshold point (point_index = 1) if we detect that the points are likely stacked 
                 if(approx_threshold_override && stored_threshold > 9)
@@ -562,8 +584,115 @@ namespace SA_Resources.SAForms
         {
             gainMeterIn.Stop();
             gainMeterOut.Stop();
+            if(LiveSignalThread != null) {
+                LiveSignalThread.Abort();
+                }
         }
 
+ 
+
+        public void LiveSignal_Worker(object param)
+        {
+            try
+            {
+                MethodInvoker action1;
+                UInt32 read_value;
+                double converted_value, read_gain_value;
+
+
+                double offset = (20 - 20 + 3.8) + 10 * Math.Log10(2) + 20 * Math.Log10(16);
+
+                while (true)
+                {
+                    try
+                    {
+
+                        read_value = PARENT_FORM._PIC_Conn.Read_Live_DSP_Value(in_gain_address);
+
+                        if (read_value != 0xFFFFFFFF)
+                        {
+
+                            converted_value = DSP_Math.MN_to_double_signed(read_value, 1, 31);
+
+                            if (converted_value > (0.000001 * 0.000001))
+                            {
+                                read_gain_value = offset + 10 * Math.Log10(converted_value);
+                            }
+                            else
+                            {
+                                read_gain_value = -100;
+                            }
+
+                            if (read_value != 0xFFFFFFFF)
+                            {
+
+                                converted_value = DSP_Math.MN_to_double_signed(read_value, 1, 31);
+
+                                if (converted_value > (0.000001 * 0.000001))
+                                {
+                                    read_gain_value = offset + 10 * Math.Log10(converted_value);
+                                }
+                                else
+                                {
+                                    read_gain_value = -100;
+                                }
+
+                                if (MarkerLine != null)
+                                {
+                                    action1 = delegate
+                                    {
+                                        if (Active_Primitive.Bypassed || (read_gain_value < stored_threshold))
+                                        {
+                                            MarkerLine.Points[3].SetValueXY(read_gain_value, read_gain_value);
+                                        }
+                                        else
+                                        {
+                                            MarkerLine.Points[3].SetValueXY(read_gain_value, ((read_gain_value - stored_threshold) / stored_ratio) + stored_threshold);
+                                        }
+
+
+                                        dynChart.Invalidate();
+                                    };
+
+                                    dynChart.BeginInvoke(action1);
+                                }
+
+                                
+                            }
+                        }
+                        // Do not delete this Thread.Sleep... you will be banging your head on your desk for an hour wondering why the UI locks up :)
+                        Thread.Sleep(5);
+
+
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Exception in LiveSignal_Thread Level 2: " + ex.Message);
+                    }
+
+                    lock (_threadlock)
+                    {
+                        if (livesignalthread_abort == true)
+                        {
+                            livesignalthread_abort = false;
+                            Console.WriteLine("Broke LiveSignal thread");
+                            LiveSignalThread.Abort();
+                            break;
+
+                        }
+
+
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception in LiveSignal_Thread Level 1: " + ex.Message);
+
+            }
+
+        }
 
     }
 }

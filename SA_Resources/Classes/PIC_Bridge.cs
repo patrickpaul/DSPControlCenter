@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO.Ports;
 using System.Threading;
 
@@ -541,6 +542,8 @@ namespace SA_Resources.USB
                 buff[4] = (byte)byte4;
                 buff[5] = 0x03;
 
+                    //Stopwatch sw = new Stopwatch();
+                    //sw.Restart();
                     int ms_counter = 0;
                 for (int retry_count = 0; retry_count < 3; retry_count++)
                 {
@@ -548,12 +551,15 @@ namespace SA_Resources.USB
 
                     while (serialPort.BytesToRead < 6 && ms_counter < 50)
                     {
-                        Thread.Sleep(5);
-                        ms_counter += 5;
+                        Thread.Sleep(1);
+                        ms_counter += 1;
                     }
 
                     if (serialPort.BytesToRead == 6)
                     {
+                        //sw.Stop();
+
+                        //Console.WriteLine("Received reply from Read_Live_DSP_Value in " + sw.ElapsedMilliseconds + "ms");
                         Byte[] bytes = new Byte[serialPort.BytesToRead];
 
                         serialPort.Read(bytes, 0, serialPort.BytesToRead);
@@ -584,6 +590,7 @@ namespace SA_Resources.USB
                     }
                     }
 
+                    Console.WriteLine("Bad read");
                     return 0xFFFFFFFF;
                 }
             }

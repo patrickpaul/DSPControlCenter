@@ -240,6 +240,9 @@ namespace SA_Resources.SAForms
             // TODO - implement USB detection so heartbeat timer isn't necessary
             //HeartbeatTimer.Enabled = true;
 
+
+            this.pbtn_Meters.Visible = true;
+
         }
 
         public void EndLiveMode()
@@ -259,6 +262,8 @@ namespace SA_Resources.SAForms
             readFromDeviceToolStripMenuItem.Enabled = false;
 
             //HeartbeatTimer.Enabled = false;
+
+            this.pbtn_Meters.Visible = false;
 
         }
 
@@ -1043,6 +1048,16 @@ namespace SA_Resources.SAForms
             {
                 // passing this in ShowDialog will set the .Owner 
                 // property of the child form
+
+                if (LIVE_MODE)
+                {
+                    duckerForm.Width = 556;
+                }
+                else
+                {
+                    duckerForm.Width = 386;
+                }
+
                 DialogResult showBlock = duckerForm.ShowDialog(this);
                 
                 if (showBlock == DialogResult.Cancel)
@@ -1092,6 +1107,7 @@ namespace SA_Resources.SAForms
                 }
             }
         }
+
 
         public void btnComp_MouseClick(object sender, MouseEventArgs e)
         {
@@ -1459,24 +1475,10 @@ namespace SA_Resources.SAForms
             }
         }
 
-        public void ResetInterface_Event(object sender, EventArgs e)
+        public virtual void ResetInterface_Event(object sender, EventArgs e)
         {
 
-            if(MessageBox.Show("Resetting to Default Settings will overwrite your current configuration. Proceed?","Overwrite Warning",MessageBoxButtons.YesNo,MessageBoxIcon.Warning) == DialogResult.No)
-            {
-                return;
-            }
-
-            InitializePrograms();
-
-            DefaultSettings();
             
-            dropProgramSelection.SelectedIndex = 0;
-
-            LoadSettingsToProgramConfig();
-
-            UpdateTooltips();
-
         }
 
         public void FactoryReset_Event(object sender, EventArgs e)
@@ -1675,6 +1677,12 @@ namespace SA_Resources.SAForms
             {
                 
             }
+        }
+
+        private void pbtn_Meters_Click(object sender, EventArgs e)
+        {
+            MeterViewForm mForm = new MeterViewForm(this);
+            mForm.ShowDialog();
         }
     }
 

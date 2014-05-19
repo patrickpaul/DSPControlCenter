@@ -70,6 +70,7 @@ namespace SA_Resources.SAForms
             this.menuItem_Paste = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripMenuItem();
+            this.pbtn_Meters = new SA_Resources.SAControls.PictureButton();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureConnectionStatus)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -200,6 +201,7 @@ namespace SA_Resources.SAForms
             this.readFromDeviceToolStripMenuItem.Name = "readFromDeviceToolStripMenuItem";
             this.readFromDeviceToolStripMenuItem.Size = new System.Drawing.Size(214, 22);
             this.readFromDeviceToolStripMenuItem.Text = "Restore to Factory Settings";
+            this.readFromDeviceToolStripMenuItem.Visible = false;
             this.readFromDeviceToolStripMenuItem.Click += new System.EventHandler(this.FactoryReset_Event);
             // 
             // editToolStripMenuItem
@@ -354,10 +356,32 @@ namespace SA_Resources.SAForms
             this.toolStripMenuItem6.Text = "Clear Configuration";
             this.toolStripMenuItem6.Visible = false;
             // 
+            // pbtn_Meters
+            // 
+            this.pbtn_Meters.AutoResize = true;
+            this.pbtn_Meters.BackgroundImage = global::SA_Resources.GlobalResources.ui_btn_meters;
+            this.pbtn_Meters.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pbtn_Meters.Location = new System.Drawing.Point(13, 344);
+            this.pbtn_Meters.Name = "pbtn_Meters";
+            this.pbtn_Meters.OverImage = null;
+            this.pbtn_Meters.Overlay1Image = null;
+            this.pbtn_Meters.Overlay1Visible = false;
+            this.pbtn_Meters.Overlay2Image = null;
+            this.pbtn_Meters.Overlay2Visible = false;
+            this.pbtn_Meters.Overlay3Image = null;
+            this.pbtn_Meters.Overlay3Visible = false;
+            this.pbtn_Meters.PressedImage = null;
+            this.pbtn_Meters.Size = new System.Drawing.Size(55, 23);
+            this.pbtn_Meters.TabIndex = 87;
+            this.pbtn_Meters.ToolTipText = "";
+            this.pbtn_Meters.Visible = false;
+            this.pbtn_Meters.Click += new System.EventHandler(this.pbtn_Meters_Click);
+            // 
             // MainForm_Template
             // 
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(82)))), ((int)(((byte)(82)))));
             this.ClientSize = new System.Drawing.Size(906, 394);
+            this.Controls.Add(this.pbtn_Meters);
             this.Controls.Add(this.pictureConnectionStatus);
             this.Controls.Add(this.btnConnectToDevice);
             this.Controls.Add(this.dropProgramSelection);
@@ -419,5 +443,6 @@ namespace SA_Resources.SAForms
         private ToolStripMenuItem toolStripMenuItem6;
         private ToolStripMenuItem presetManagerToolStripMenuItem;
         private ToolStripSeparator toolStripMenuItem3;
+        private SAControls.PictureButton pbtn_Meters;
     }
 }

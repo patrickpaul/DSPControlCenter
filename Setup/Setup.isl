@@ -366,7 +366,7 @@
 		<row><td>ftlang.dll1</td><td>{757CBAC6-8B9E-4BE4-A9BA-3623BE60C32F}</td><td>I386</td><td>2</td><td/><td>ftlang.dll1</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>ftserui2.dll</td><td>{7B25C63B-72FD-4273-939E-681523DE9975}</td><td>AMD64</td><td>2</td><td/><td>ftserui2.dll</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>ftserui2.dll1</td><td>{2C15C89A-582A-4E1D-808B-1FAB76E1590C}</td><td>I386</td><td>2</td><td/><td>ftserui2.dll1</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>wyUpdate.exe</td><td>{DB4265D5-6F8A-4CC7-9004-0092D0480512}</td><td>INSTALLDIR</td><td>2</td><td/><td>wyupdate.exe</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>wyUpdate.exe</td><td>{1EE5EBD7-E3FA-4FC4-AB8E-91054AE66198}</td><td>INSTALLDIR</td><td>2</td><td/><td>wyupdate.exe</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 	</table>
 
 	<table name="Condition">
@@ -1942,6 +1942,7 @@
 		<row><td>dpinst_amd64.exe</td><td>dpinst_amd64.exe</td><td>DPINST~1.EXE|dpinst-amd64.exe</td><td>0</td><td/><td/><td/><td>1</td><td>C:\SOURCE\DSPControlCenter\Drivers\dpinst-amd64.exe</td><td>1</td><td/></row>
 		<row><td>dpinst_x86.exe</td><td>dpinst_x86.exe</td><td>DPINST~1.EXE|dpinst-x86.exe</td><td>0</td><td/><td/><td/><td>1</td><td>C:\SOURCE\DSPControlCenter\Drivers\dpinst-x86.exe</td><td>1</td><td/></row>
 		<row><td>dsp_4x4.sadev</td><td>ISX_DEFAULTCOMPONENT</td><td>DSP_4X~1.SAD|DSP_4x4.sadev</td><td>0</td><td/><td/><td/><td>1</td><td>C:\SOURCE\DSPControlCenter\Stewart Audio Control Center\bin\Debug\Devices\DSP_4x4.sadev</td><td>1</td><td/></row>
+		<row><td>dsp_4x4_default.scfg</td><td>ISX_DEFAULTCOMPONENT</td><td>DSP_4X~1.SCF|DSP_4x4_Default.scfg</td><td>0</td><td/><td/><td/><td>1</td><td>C:\SOURCE\DSPControlCenter\Devices\DSP 4x4\DSP_4x4_Default.scfg</td><td>1</td><td/></row>
 		<row><td>dsp_control_center_manual.pd</td><td>ISX_DEFAULTCOMPONENT7</td><td>DSPCON~1.PDF|DSP Control Center Manual.pdf</td><td>0</td><td/><td/><td/><td>1</td><td>C:\SOURCE\DSPControlCenter\DSP Control Center Manual.pdf</td><td>1</td><td/></row>
 		<row><td>ftbusui.dll</td><td>ftbusui.dll</td><td>ftbusui.dll</td><td>0</td><td/><td/><td/><td>1</td><td>C:\SOURCE\DSPControlCenter\Drivers\amd64\ftbusui.dll</td><td>1</td><td/></row>
 		<row><td>ftbusui.dll1</td><td>ftbusui.dll1</td><td>ftbusui.dll</td><td>0</td><td/><td/><td/><td>1</td><td>C:\SOURCE\DSPControlCenter\Drivers\i386\ftbusui.dll</td><td>1</td><td/></row>
@@ -2250,7 +2251,7 @@
 		<row><td>ftlang.dll1</td><td/><td/><td>_6ED9CD55_E86B_44E1_805A_C7645189CDC1_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>ftserui2.dll</td><td/><td/><td>_B90D2932_057E_46F4_9180_E69DE6AEFBE3_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>ftserui2.dll1</td><td/><td/><td>_0BF218D0_16B4_4ED3_AFB1_3002A434C5C8_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>wyUpdate.exe</td><td/><td/><td>_5C7BC5CE_795E_40D7_9689_E7A5216E5BFA_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>wyUpdate.exe</td><td/><td/><td>_F1445851_F929_4D6C_8ABF_D1D87A7C9705_FILTER</td><td/><td/><td/><td/></row>
 	</table>
 
 	<table name="ISCustomActionReference">
@@ -3992,8 +3993,8 @@
 		<row><td>ID_STRING2</td><td>1033</td><td>http://www.StewartAudio.com</td><td>0</td><td/><td>488711467</td></row>
 		<row><td>ID_STRING3</td><td>1033</td><td>Stewart Audio</td><td>0</td><td/><td>488711467</td></row>
 		<row><td>ID_STRING4</td><td>1033</td><td>DSP Control Center</td><td>0</td><td/><td>-341718321</td></row>
-		<row><td>ID_STRING5</td><td>1033</td><td>DSPCON~1|DSP Control Center</td><td>0</td><td/><td>1294067567</td></row>
-		<row><td>ID_STRING6</td><td>1033</td><td>DSPCON~1|DSP Control Center</td><td>0</td><td/><td>1294012464</td></row>
+		<row><td>ID_STRING5</td><td>1033</td><td>DSPCON~1|DSP Control Center 3</td><td>0</td><td/><td>-1700612534</td></row>
+		<row><td>ID_STRING6</td><td>1033</td><td>DSPCON~1|DSP Control Center 3</td><td>0</td><td/><td>-1700618678</td></row>
 		<row><td>ID_STRING7</td><td>1033</td><td>UNINST~1|Uninstall DSP Control Center</td><td>0</td><td/><td>1294049328</td></row>
 		<row><td>IIDS_UITEXT_FeatureUninstalled</td><td>1033</td><td>This feature will remain uninstalled.</td><td>0</td><td/><td>-341734801</td></row>
 		<row><td>NEW_STRING1</td><td>1033</td><td>scfg</td><td>0</td><td/><td>-341721681</td></row>
@@ -4938,7 +4939,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col def="I2">Sequence</col>
 		<col def="L255">Command</col>
 		<col def="L255">Argument</col>
-		<row><td>scfg</td><td>open</td><td/><td>&amp;Open in DSP Control Center</td><td>"%1"</td></row>
+		<row><td>scfg</td><td>open</td><td/><td>&amp;Open in DSP Control Center</td><td/></row>
 	</table>
 
 	<table name="_Validation">

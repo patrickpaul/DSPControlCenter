@@ -142,7 +142,6 @@ namespace SA_Resources.DSP.Primitives
 
         public void NameToValues()
         {
-            List<UInt32> NameToValues = new List<UInt32>();
 
             string padded_name = this.InputName.PadRight(20, (char)0x00);
 

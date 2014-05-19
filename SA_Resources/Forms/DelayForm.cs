@@ -45,9 +45,9 @@ namespace SA_Resources.SAForms
 
             this.Text = "CH " + (Active_Primitive.Channel + 1) + " - Delay";
 
-            delayMS = new Dial(TextDelayMS, DialDelayMS, new double[] { 0, 0.018, 0.034, 0.050, 0.067, 0.084, 0.100 }, DialHelpers.Format_String_Delay_MS, Images.knob_red_bg, Images.knob_red_line);
-            delayFT = new Dial(TextDelayFT, DialDelayFT, new double[] { 0.11, 19.98, 37.74, 55.5, 74.37, 93.24, 111.5 }, DialHelpers.Format_String_Delay_FT, Images.knob_blue_bg, Images.knob_blue_line);
-            delayM = new Dial(TextDelayM, DialDelayM, new double[] { 0, 6.12, 11.56, 17, 22.78, 28.56, 34.0 }, DialHelpers.Format_String_Delay_M, Images.knob_green_bg, Images.knob_green_line);
+            delayMS = new Dial(TextDelayMS, DialDelayMS, new double[] { 0, 0.016, 0.031, 0.045, 0.060, 0.076, 0.09 }, DialHelpers.Format_String_Delay_MS, Images.knob_red_bg, Images.knob_red_line);
+            delayFT = new Dial(TextDelayFT, DialDelayFT, new double[] { 0.10, 17.98, 33.97, 49.95, 66.93, 83.916, 100.35 }, DialHelpers.Format_String_Delay_FT, Images.knob_blue_bg, Images.knob_blue_line);
+            delayM = new Dial(TextDelayM, DialDelayM, new double[] { 0, 5.51, 10.40, 15.3, 20.50, 25.70, 30.6 }, DialHelpers.Format_String_Delay_M, Images.knob_green_bg, Images.knob_green_line);
 
             delayMS.OnChange += new DialEventHandler(this.DialMS_OnChange);
             delayFT.OnChange += new DialEventHandler(this.DialFT_OnChange);

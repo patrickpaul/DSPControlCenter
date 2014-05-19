@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 using SA_Resources;
 using System.Linq;
@@ -388,16 +389,43 @@ namespace DSP_4x4
 
         #endregion
 
-        private void button1_Click(object sender, EventArgs e)
+        public override void ResetInterface_Event(object sender, EventArgs e)
         {
-            //DSP_PROGRAMS[0].ReadFromFile(this, @"C:\PROGRAMTEST.txt", 0);
-            //UpdateTooltips();
+            if (MessageBox.Show("Resetting to Default Settings will overwrite your current configuration. Proceed?", "Overwrite Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
+            {
+                return;
+            }
+
+            if (!File.Exists(@"Devices\DSP_4x4_Default.scfg"))
+            {
+                MessageBox.Show("Unable to locate default configuration file for DSP 4x4", "Error Loading Default Settings", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            try
+            {
+                if (this.LIVE_MODE)
+                {
+                    LoadProgramFileForm loadForm = new LoadProgramFileForm(@"Devices\DSP_4x4_Default.scfg", this);
+
+
+                    loadForm.ShowDialog();
+                }
+                else
+                {
+                    SCFG_Manager.Read(@"Devices\DSP_4x4_Default.scfg", this);
+                    UpdateTooltips();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unable to load program file. Message: " + ex.Message, "Load Program Error", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+            }
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void pictureButton1_Click(object sender, EventArgs e)
         {
-            //DSP_PROGRAMS[0].Write_Program_To_Cache(this.GetNumInputChannels());
-            //DSP_PROGRAMS[0].Write_Cache_To_File(@"C:\PROGRAMTEST.txt");
+            
         }
     }
 }

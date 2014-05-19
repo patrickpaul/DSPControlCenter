@@ -94,14 +94,29 @@ namespace SA_Resources.SAForms
 
                 if (_parentForm.LIVE_MODE && _parentForm._PIC_Conn.isOpen)
                 {
-                    signalTimer.Enabled = true;
-                    //gainMeterIn.Visible = true;
-                    //gainMeterOut.Visible = true;
+                    duckMeter1.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.Ducker4x4, 0, 0).Address;
+                    duckMeter1.PIC_CONN = PARENT_FORM._PIC_Conn;
+                    duckMeter1.Start();
+
+                    duckMeter2.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.Ducker4x4, 1, 0).Address;
+                    duckMeter2.PIC_CONN = PARENT_FORM._PIC_Conn;
+                    duckMeter2.Start(); 
+                    
+                    duckMeter3.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.Ducker4x4, 2, 0).Address;
+                    duckMeter3.PIC_CONN = PARENT_FORM._PIC_Conn;
+                    duckMeter3.Start(); 
+                    
+                    duckMeter4.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.Ducker4x4, 3, 0).Address;
+                    duckMeter4.PIC_CONN = PARENT_FORM._PIC_Conn;
+                    duckMeter4.Start();
+
                 } else
                 {
-                    signalTimer.Enabled = false;
-                    //gainMeterIn.Visible = false;
-                    //gainMeterOut.Visible = false;
+                    duckMeter1.Visible = false;
+                    duckMeter2.Visible = false;
+                    duckMeter3.Visible = false;
+                    duckMeter4.Visible = false;
+
                 }
 
             } catch (Exception ex)
@@ -197,41 +212,6 @@ namespace SA_Resources.SAForms
             
         }
 
-        private void signalTimer_Tick(object sender, EventArgs e)
-        {
-            UInt32 read_address = 0x00000000;
-
-            double offset = (20 - 20 + 3.8) + 10 * Math.Log10(2) + 20 * Math.Log10(16);
-
-            UInt32 read_value = 0x00000000;
-            double converted_value = 0;
-
-
-            cur_meter++;
-            if (cur_meter == 4)
-            {
-                cur_meter = 0;
-            }
-
-            SignalMeter_Small curMeter = ((SignalMeter_Small)Controls.Find("duckMeter" + (cur_meter + 1), true).First());
-
-            read_address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.Ducker4x4, cur_meter,0).Address;
-
-
-            read_value = PARENT_FORM._PIC_Conn.Read_Live_DSP_Value(read_address);
-            converted_value = DSP_Math.MN_to_double_signed(read_value, 1, 31);
-            if (converted_value > (0.000001 * 0.000001))
-            {
-                read_gain_value = offset + 10 * Math.Log10(converted_value);
-            }
-            else
-            {
-                read_gain_value = -100;
-            }
-
-            curMeter.DB = read_gain_value;
-            curMeter.Refresh();
-        }
 
         private void dropPriorityChannel_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -304,6 +284,15 @@ namespace SA_Resources.SAForms
 
         private void signalMeter_Small1_Click(object sender, EventArgs e)
         {
+
+        }
+
+        private void DuckerForm4x4_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            duckMeter1.Stop();
+            duckMeter2.Stop();
+            duckMeter3.Stop();
+            duckMeter4.Stop();
 
         }
     }
