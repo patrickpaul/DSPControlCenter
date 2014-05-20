@@ -113,12 +113,12 @@ namespace SA_Resources.DSP.Primitives
 
             
             // MUTE THE CHANNEL OUTPUT GAIN TO REDUCE CRAZY NOISES..
-            int OutputGain_Offset = PARENT_FORM.DSP_PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].LookupPrimitive(DSP_Primitive_Types.StandardGain, this.Channel, 3).Offset;
+            int OutputGain_Mute_Offset = PARENT_FORM.DSP_PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].LookupPrimitive(DSP_Primitive_Types.StandardGain, this.Channel, 3).Offset + 1;
 
-            UInt32 OutputGain_Value = ((DSP_Primitive_StandardGain)PARENT_FORM.DSP_PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].LookupPrimitive(DSP_Primitive_Types.StandardGain, this.Channel, 3)).Values[0];
+            UInt32 OutputGain_Mute_Value = ((DSP_Primitive_StandardGain)PARENT_FORM.DSP_PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].LookupPrimitive(DSP_Primitive_Types.StandardGain, this.Channel, 3)).Values[1];
             
             // Mute outputs
-            PARENT_FORM.AddItemToQueue(new LiveQueueItem(OutputGain_Offset, 0x00000000));
+            PARENT_FORM.AddItemToQueue(new LiveQueueItem(OutputGain_Mute_Offset, 0x00000001));
 
             PARENT_FORM.AddItemToQueue(new LiveQueueItem(Offset, B0_Value));
             PARENT_FORM.AddItemToQueue(new LiveQueueItem(Offset + 1, B1_Value));
@@ -127,7 +127,7 @@ namespace SA_Resources.DSP.Primitives
             PARENT_FORM.AddItemToQueue(new LiveQueueItem(Offset + 4, A2_Value));
 
             // Unmute outputs
-            PARENT_FORM.AddItemToQueue(new LiveQueueItem(OutputGain_Offset, OutputGain_Value));
+            PARENT_FORM.AddItemToQueue(new LiveQueueItem(OutputGain_Mute_Offset, OutputGain_Mute_Value));
 
             PARENT_FORM.AddItemToQueue(new LiveQueueItem(512 + Plainfilter_Offset, Package_Value));
             PARENT_FORM.AddItemToQueue(new LiveQueueItem(576 + Plainfilter_Offset, Package_Gain_Value));

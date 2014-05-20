@@ -160,7 +160,7 @@ namespace SA_Resources.SAForms
             this.MinimizeBox = false;
             this.Name = "FilterDesignerForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "FilterDesignerForm";
+            this.Text = "Filter Designer";
             ((System.ComponentModel.ISupportInitialize)(this.btnSave)).EndInit();
             this.ResumeLayout(false);
 

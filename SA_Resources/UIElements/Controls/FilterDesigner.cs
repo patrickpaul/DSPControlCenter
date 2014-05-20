@@ -65,10 +65,10 @@ namespace SA_Resources.SAControls
             /* Initialize filter colors */
             filterColors[0] = Color.Chocolate;
             filterColors[1] = Color.Chartreuse;
-            filterColors[2] = Color.DarkMagenta;
+            filterColors[2] = Color.HotPink;
             filterColors[3] = Color.SandyBrown;
             filterColors[4] = Color.PaleGreen;
-            filterColors[5] = Color.Plum;
+            filterColors[5] = Color.Thistle;
 
             MasterResponseLine = filterChart.Series[6];
             MasterMarkerLine = filterChart.Series[7];
