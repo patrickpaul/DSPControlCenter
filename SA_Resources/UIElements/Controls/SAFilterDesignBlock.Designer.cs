@@ -147,8 +147,7 @@
             "Low Shelf",
             "High Shelf",
             "Peak (PEQ)",
-            "Notch",
-            "Bandpass"});
+            "Notch"});
             this.dropFilter.Location = new System.Drawing.Point(41, 4);
             this.dropFilter.Name = "dropFilter";
             this.dropFilter.Size = new System.Drawing.Size(121, 21);

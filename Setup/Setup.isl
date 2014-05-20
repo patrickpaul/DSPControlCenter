@@ -4807,8 +4807,8 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col def="S255">ISShortcutName</col>
 		<col def="I4">ISAttributes</col>
 		<row><td>NewShortcut1</td><td>dspcon_1_dsp_control_center</td><td>##ID_STRING7##</td><td>ISX_DEFAULTCOMPONENT7</td><td>[SystemFolder]MsiExec.exe</td><td>/x [ProductCode]</td><td/><td/><td>NewShortcut1_AC0F0F82DED64525A47C2000918AF691.exe</td><td>0</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>NewShortcut2</td><td>DesktopFolder</td><td>##ID_STRING5##</td><td>ISX_DEFAULTCOMPONENT7</td><td>[INSTALLDIR]Stewart Audio Control Center.exe</td><td/><td/><td/><td>NewShortcut2_460DB07A390443BEA8B0D072E24757BB.exe</td><td>0</td><td>1</td><td>INSTALLDIR</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>NewShortcut3</td><td>dspcon_1_dsp_control_center</td><td>##ID_STRING6##</td><td>ISX_DEFAULTCOMPONENT7</td><td>[INSTALLDIR]Stewart Audio Control Center.exe</td><td/><td/><td/><td>NewShortcut3_F56979B603174096A3B48F38455C6977.exe</td><td>0</td><td>1</td><td>INSTALLDIR</td><td/><td/><td/><td/><td/><td/><td/></row>
+		<row><td>NewShortcut2</td><td>DesktopFolder</td><td>##ID_STRING5##</td><td>ISX_DEFAULTCOMPONENT7</td><td>[INSTALLDIR]DSPControlCenter3.exe</td><td/><td/><td/><td>NewShortcut2_460DB07A390443BEA8B0D072E24757BB.exe</td><td>0</td><td>1</td><td>INSTALLDIR</td><td/><td/><td/><td/><td/><td/><td/></row>
+		<row><td>NewShortcut3</td><td>dspcon_1_dsp_control_center</td><td>##ID_STRING6##</td><td>ISX_DEFAULTCOMPONENT7</td><td>[INSTALLDIR]DSPControlCenter3.exe</td><td/><td/><td/><td>NewShortcut3_F56979B603174096A3B48F38455C6977.exe</td><td>0</td><td>1</td><td>INSTALLDIR</td><td/><td/><td/><td/><td/><td/><td/></row>
 	</table>
 
 	<table name="Signature">
