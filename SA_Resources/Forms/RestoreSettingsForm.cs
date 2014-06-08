@@ -44,7 +44,7 @@ namespace SA_Resources.SAForms
             worker.WorkerReportsProgress = true;
             worker.ProgressChanged += ProgressChanged;
 
-            worker.DoWork += PARENT_FORM._PIC_Conn.RestoreFactorySettings;
+            //worker.DoWork += PARENT_FORM._PIC_Conn.RestoreFactorySettings;
              
             worker.RunWorkerCompleted += WorkComplete;
 

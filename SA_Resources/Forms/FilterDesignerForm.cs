@@ -24,12 +24,20 @@ namespace SA_Resources.SAForms
 
         public MainForm_Template PARENT_FORM;
 
+        public bool isPremix = false;
+
         private bool form_loaded = false;
 
         // public DelayForm(MainForm_Template _parent, DSP_Primitive_Delay input_primitive)
         public FilterDesignerForm(MainForm_Template _parent, int num_filters, int ch_num, int starting_filter_index)
         {
             InitializeComponent();
+
+
+            if (starting_filter_index == 0)
+            {
+                isPremix = true;
+            }
 
             _threadlock = new Object();
 
@@ -43,6 +51,9 @@ namespace SA_Resources.SAForms
             for (int i = 0; i < num_filters; i++)
             {
                 SingleFilterPrimitive = (DSP_Primitive_BiquadFilter)PARENT_FORM.DSP_PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].LookupPrimitive(DSP_Primitive_Types.BiquadFilter,ch_num,starting_filter_index++);
+
+                SingleFilterPrimitive.IsPremix = isPremix;
+
                 filterDesigner.RegisterFilterPrimitive(SingleFilterPrimitive);
 
                 if (SingleFilterPrimitive.Filter != null)
@@ -82,7 +93,7 @@ namespace SA_Resources.SAForms
         {
             try
             {
-                MethodInvoker action1, action2, action3;
+                MethodInvoker action1;
 
                 int FocusedFilterID = (int) param;
 

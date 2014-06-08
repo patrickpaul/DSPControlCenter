@@ -28,9 +28,6 @@ namespace SA_Resources.SAForms
         
         private Dial ReleaseDial, AttackDial, HoldDial;
 
-        private double read_gain_value = 0;
-        private int cur_meter;
-
         private bool flagSwitchingPriorityOrder = false;
 
         private bool form_loaded = false;
@@ -69,7 +66,7 @@ namespace SA_Resources.SAForms
                 nudDuckThreshold.Value = (decimal)RecastDucker.Threshold;
                 nudDuckDepth.Value = (decimal) RecastDucker.Depth;
 
-                HoldDial = new Dial(TextDuckHold, DialDuckHold, new double[] { 0.001, 0.003, 0.01, 0.03, 0.08, 0.3, 1.0 },
+                HoldDial = new Dial(TextDuckHold, DialDuckHold, new double[] { 0.1, 0.2, 0.5, 1, 2.0, 5.0, 10.0 },
                          DialHelpers.Format_String_Duck_Hold, Images.knob_green_bg, Images.knob_green_line);
 
                 HoldDial.Value = RecastDucker.HoldTime;

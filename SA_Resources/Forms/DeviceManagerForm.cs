@@ -101,7 +101,7 @@ namespace SA_Resources.SAForms
             }
             catch (Exception ex)
             {
-
+                Console.WriteLine("[Exception in DeviceManagerForm.GetDeviceList]: " + ex.Message);
             }
 
             return returnList;
@@ -300,6 +300,7 @@ namespace SA_Resources.SAForms
 
             PARENT_FORM.ChangeProgram_AfterRead(program_index);
 
+            PARENT_FORM.SetBridgeMode(PARENT_FORM.AmplifierMode);
             PARENT_FORM.BeginLiveMode();
             closeTimer.Enabled = true;
 

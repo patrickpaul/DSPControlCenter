@@ -46,8 +46,8 @@ namespace SA_Resources.SAForms
             this.Text = "CH " + (Active_Primitive.Channel + 1) + " - Delay";
 
             delayMS = new Dial(TextDelayMS, DialDelayMS, new double[] { 0, 0.016, 0.031, 0.045, 0.060, 0.076, 0.09 }, DialHelpers.Format_String_Delay_MS, Images.knob_red_bg, Images.knob_red_line);
-            delayFT = new Dial(TextDelayFT, DialDelayFT, new double[] { 0.10, 17.98, 33.97, 49.95, 66.93, 83.916, 100.35 }, DialHelpers.Format_String_Delay_FT, Images.knob_blue_bg, Images.knob_blue_line);
-            delayM = new Dial(TextDelayM, DialDelayM, new double[] { 0, 5.51, 10.40, 15.3, 20.50, 25.70, 30.6 }, DialHelpers.Format_String_Delay_M, Images.knob_green_bg, Images.knob_green_line);
+            delayFT = new Dial(TextDelayFT, DialDelayFT, new double[] { 0, 17.98, 33.97, 49.95, 66.93, 83.916, 0.09 * 1110.0 }, DialHelpers.Format_String_Delay_FT, Images.knob_blue_bg, Images.knob_blue_line);
+            delayM = new Dial(TextDelayM, DialDelayM, new double[] { 0, 5.51, 10.40, 15.3, 20.50, 25.70, 0.09 * 340.0 }, DialHelpers.Format_String_Delay_M, Images.knob_green_bg, Images.knob_green_line);
 
             delayMS.OnChange += new DialEventHandler(this.DialMS_OnChange);
             delayFT.OnChange += new DialEventHandler(this.DialFT_OnChange);
@@ -65,8 +65,8 @@ namespace SA_Resources.SAForms
         {
 
             double new_ms = delayMS.Value;
-            delayFT.Value = new_ms * 1110;
-            delayM.Value = new_ms * 340;
+            delayFT.Value = new_ms * 1110.0;
+            delayM.Value = new_ms * 340.0;
 
             Active_Primitive.Delay = delayMS.Value;
         }
@@ -74,8 +74,8 @@ namespace SA_Resources.SAForms
         private void DialMS_OnChange(object sender, DialEventArgs e)
         {
             double new_ms = delayMS.Value;
-            delayFT.Value = new_ms * 1110;
-            delayM.Value = new_ms * 340;
+            delayFT.Value = Math.Min(0.09 * 1110.0,new_ms * 1110.0);
+            delayM.Value = new_ms * 340.0;
 
             Active_Primitive.Delay = delayMS.Value;
 
@@ -85,8 +85,9 @@ namespace SA_Resources.SAForms
         private void DialFT_OnChange(object sender, DialEventArgs e)
         {
             double new_ft = delayFT.Value;
-            delayMS.Value = Math.Min(0.1,new_ft / 1110);
-            delayM.Value = new_ft * 0.3048;
+
+            delayMS.Value = Math.Max(0.0,new_ft / 1110.0);
+            delayM.Value = (new_ft / 1110.0) * 340.0;
 
             Active_Primitive.Delay = delayMS.Value;
         }
@@ -94,8 +95,8 @@ namespace SA_Resources.SAForms
         private void DialM_OnChange(object sender, DialEventArgs e)
         {
             double new_m = delayM.Value;
-            delayMS.Value = Math.Min(0.1,new_m / 340);
-            delayFT.Value = new_m * 3.28;
+            delayMS.Value = Math.Min(0.09,new_m / 340.0);
+            delayFT.Value = Math.Min(0.09 * 1110.0,new_m * 3.28);
 
             Active_Primitive.Delay = delayMS.Value;
             

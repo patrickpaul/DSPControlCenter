@@ -254,61 +254,68 @@ namespace SA_Resources.DSP.Primitives
         /// </summary>
         public void RecalculateRouters()
         {
-
-            Ducker_Package = 0x00;
-
-            Ducker_Package |= (uint)PriorityChannel;
-
-
-            for (int i = NUM_CHANNELS; i > 0; i--)
-            {
-                Ducker_Package <<= 1; 
-                Ducker_Package |= CH_Bypasses[i - 1] ? (uint)0x01 : (uint)0x00;
-                
-            }
-
-            INDUCK_Values.Clear();
-            OUTDUCK_Values.Clear();
-
-            for (int x = 0; x < NUM_CHANNELS; x++)
-            {
-                INDUCK_Values.Add(0);
-                OUTDUCK_Values.Add(0);
-            }
-            // *REMEMBER* - WE STORE THEM IN INDUCK_VALUES AND OUTDUCK_VALUES AT ZERO-BASED ADDRESSES
-            // HOWEVER - THE DSP IS LOOKING FOR ONE-BASED VALUES
-            int router_counter = 1;
-
-            int[] channel_cache = new int[8]; // Key = zereo-based Channel Number, Value = The zero-based index coming out of INDUCK_ROUTER
             int induck_index_counter = 1;
-
-            for (int i = 0; i < NUM_CHANNELS; i++)
+            try
             {
-                if (i == PriorityChannel)
+                Ducker_Package = 0x00;
+
+                Ducker_Package |= (uint) PriorityChannel;
+
+
+                for (int i = NUM_CHANNELS; i > 0; i--)
                 {
-                    channel_cache[i] = 0; // Good
-                    INDUCK_Values[0] = (UInt32)(i + 1); // Good
-                    OUTDUCK_Values[i] = (UInt32)1; // Good
+                    Ducker_Package <<= 1;
+                    Ducker_Package |= CH_Bypasses[i - 1] ? (uint) 0x01 : (uint) 0x00;
+
                 }
-                else
+
+                INDUCK_Values.Clear();
+                OUTDUCK_Values.Clear();
+
+                for (int x = 0; x < NUM_CHANNELS; x++)
                 {
-                    channel_cache[i] = induck_index_counter; // Good
+                    INDUCK_Values.Add(0);
+                    OUTDUCK_Values.Add(0);
+                }
+                // *REMEMBER* - WE STORE THEM IN INDUCK_VALUES AND OUTDUCK_VALUES AT ZERO-BASED ADDRESSES
+                // HOWEVER - THE DSP IS LOOKING FOR ONE-BASED VALUES
 
-                    INDUCK_Values[induck_index_counter] = (UInt32)(i + 1); // Good
+                int[] channel_cache = new int[8]; // Key = zereo-based Channel Number, Value = The zero-based index coming out of INDUCK_ROUTER
 
-                    if (CH_Bypasses[i])
+                induck_index_counter = 1;
+
+                for (int i = 0; i < NUM_CHANNELS; i++)
+                {
+                    if (i == PriorityChannel)
                     {
-                        OUTDUCK_Values[i] = (UInt32)(induck_index_counter + NUM_CHANNELS + 1);
+                        channel_cache[i] = 0; // Good
+                        INDUCK_Values[0] = (UInt32) (i + 1); // Good
+                        OUTDUCK_Values[i] = (UInt32) 1; // Good
                     }
                     else
                     {
-                        OUTDUCK_Values[i] = (UInt32)(induck_index_counter + 1);
+                        channel_cache[i] = induck_index_counter; // Good
+
+                        INDUCK_Values[induck_index_counter] = (UInt32) (i + 1); // Good
+
+                        if (CH_Bypasses[i])
+                        {
+                            OUTDUCK_Values[i] = (UInt32) (induck_index_counter + NUM_CHANNELS + 1);
+                        }
+                        else
+                        {
+                            OUTDUCK_Values[i] = (UInt32) (induck_index_counter + 1);
+                        }
+
+                        induck_index_counter++;
                     }
 
-                    induck_index_counter++;
+
                 }
-
-
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("[Exception in Ducker.RecalculateRouters] at index_counter_value " + induck_index_counter + ": " + ex.Message);
             }
             /*
             for(int x = 0; x < INDUCK_Values.Count; x++)

@@ -242,7 +242,7 @@ namespace SA_Resources.SAControls
                 }
                 else if (backgroundImage != null)
                 {
-                        e.Graphics.DrawImage(this.backgroundImage, 0, 0);
+                        e.Graphics.DrawImage(new Bitmap(this.backgroundImage, this.Width,this.Height), 0, 0);
                 }
             }
 
@@ -266,7 +266,7 @@ namespace SA_Resources.SAControls
                 e.Graphics.DrawImage(this.overlay3Image, 0, 0);
             }
 
-            base.OnPaint(e);
+            //base.OnPaint(e);
         }
     }
 }

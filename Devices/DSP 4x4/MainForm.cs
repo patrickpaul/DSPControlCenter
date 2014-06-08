@@ -53,7 +53,11 @@ namespace DSP_4x4
         {
             return DeviceType.DSP4x4;
         }
-        
+
+        public override DeviceFamily GetDeviceFamily()
+        {
+            return DeviceFamily.DSP4x4;
+        }
         
         public override int GetNumInputChannels()
         {
@@ -70,8 +74,18 @@ namespace DSP_4x4
             return 4;
         }
 
+        public override string GetDefaultDeviceFile()
+        {
+            return @"Devices\DSP_4x4_Default.scfg";
+        }
+
 
         public override bool IsAmplifier()
+        {
+            return false;
+        }
+
+        public override bool isBridgable()
         {
             return false;
         }
@@ -79,6 +93,11 @@ namespace DSP_4x4
         public override int GetNumPresets()
         {
             return 10;
+        }
+
+        public override int GetDisplayOrder()
+        {
+            return 0;
         }
 
         public override void SetConnectionPicture(Image connectionPicture)
@@ -369,63 +388,6 @@ namespace DSP_4x4
             }
         }
 
-        public override void Default_DSP_Programs()
-        {
-            try
-            {
-
-                for (int i = 0; i < this.GetNumPresets(); i++)
-                {
-                    Single_Default_DSP_Program(i);
-                }
-
-                UpdateTooltips();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("[EXCEPTION in Default_DSP_Programs]: " + ex.Message);
-            }
-        }
-
         #endregion
-
-        public override void ResetInterface_Event(object sender, EventArgs e)
-        {
-            if (MessageBox.Show("Resetting to Default Settings will overwrite your current configuration. Proceed?", "Overwrite Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
-            {
-                return;
-            }
-
-            if (!File.Exists(@"Devices\DSP_4x4_Default.scfg"))
-            {
-                MessageBox.Show("Unable to locate default configuration file for DSP 4x4", "Error Loading Default Settings", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            try
-            {
-                if (this.LIVE_MODE)
-                {
-                    LoadProgramFileForm loadForm = new LoadProgramFileForm(@"Devices\DSP_4x4_Default.scfg", this);
-
-
-                    loadForm.ShowDialog();
-                }
-                else
-                {
-                    SCFG_Manager.Read(@"Devices\DSP_4x4_Default.scfg", this);
-                    UpdateTooltips();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Unable to load program file. Message: " + ex.Message, "Load Program Error", MessageBoxButtons.OK, MessageBoxIcon.Hand);
-            }
-        }
-
-        private void pictureButton1_Click(object sender, EventArgs e)
-        {
-            
-        }
     }
 }

@@ -69,7 +69,26 @@
     <Compile Include="Classes\SADevice.cs" />
     <Compile Include="Classes\SADevicePlugin.cs" />
     <Compile Include="Classes\SCFG_Manager.cs" />
+    <Compile Include="Classes\SharedImages.cs" />
     <Compile Include="Classes\USBManager.cs" />
+    <Compile Include="Forms\BridgeConfiguration.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\BridgeConfiguration.Designer.cs">
+      <DependentUpon>BridgeConfiguration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FLXConfiguration.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FLXConfiguration.Designer.cs">
+      <DependentUpon>FLXConfiguration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FLXFrm_Template.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FLXFrm_Template.Designer.cs">
+      <DependentUpon>FLXFrm_Template.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\MeterViewform.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -139,6 +158,11 @@
     <Compile Include="Forms\Resource Classes\Buttons.cs" />
     <Compile Include="Forms\Resource Classes\ControlIcons.cs" />
     <Compile Include="Forms\Resource Classes\Icons.cs" />
+    <Compile Include="GlobalResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GlobalResources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Primitives\DSP_Primitive_Output.cs" />
     <Compile Include="Primitives\DSP_Primitive_Ducker4x4.cs" />
     <Compile Include="Primitives\DSP_Primitive_Ducker8x8.cs" />
@@ -266,11 +290,6 @@
     </Compile>
     <Compile Include="Classes\Helpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="GlobalResources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>GlobalResources.resx</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram1.cd" />
@@ -322,6 +341,15 @@
     <EmbeddedResource Include="Forms\CompressorForm.resx">
       <DependentUpon>CompressorForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\BridgeConfiguration.resx">
+      <DependentUpon>BridgeConfiguration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FLXConfiguration.resx">
+      <DependentUpon>FLXConfiguration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FLXFrm_Template.resx">
+      <DependentUpon>FLXFrm_Template.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\MeterViewform.resx">
       <DependentUpon>MeterViewform.cs</DependentUpon>
     </EmbeddedResource>
@@ -369,8 +397,8 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GlobalResources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>GlobalResources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>GlobalResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="UIElements\Controls\FilterDesigner.resx">
       <DependentUpon>FilterDesigner.cs</DependentUpon>
@@ -582,9 +610,6 @@
     <None Include="Resources\ui_btn_blue_unmute.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\ui_ducker_insert.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\copy_icon.png" />
   </ItemGroup>
   <ItemGroup>
@@ -619,6 +644,24 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\ui_btn_meters.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ui_icon_matrix_2_1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\uidesign_prematrix_line_bridged.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ui_btn_calibrate.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ui_btn_refresh.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ui_btn_settings.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\vertical_line.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>

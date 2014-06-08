@@ -1107,9 +1107,9 @@ namespace DSP_4x4
             // 
             this.picDuckerLine.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("picDuckerLine.BackgroundImage")));
             this.picDuckerLine.Image = ((System.Drawing.Image)(resources.GetObject("picDuckerLine.Image")));
-            this.picDuckerLine.Location = new System.Drawing.Point(194, 109);
+            this.picDuckerLine.Location = new System.Drawing.Point(196, 109);
             this.picDuckerLine.Name = "picDuckerLine";
-            this.picDuckerLine.Size = new System.Drawing.Size(8, 179);
+            this.picDuckerLine.Size = new System.Drawing.Size(4, 179);
             this.picDuckerLine.TabIndex = 88;
             this.picDuckerLine.TabStop = false;
             // 

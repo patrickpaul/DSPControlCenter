@@ -8,11 +8,24 @@ namespace SA_Resources.SADevices
     public enum DeviceType
     {
         DSP4x4,
-        FLX80,
-        FLX160,
-        FLX320,
+        FLX804,
+        FLX804CV,
+        FLX1602,
+        FLX3201,
+        FLX804Net,
+        FLX804CVNet,
+        FLX1602Net,
+        FLX3201Net, 
         DSP1001,
         DSP1002,
+        Unknown
+    }
+
+    public enum DeviceFamily
+    {
+        DSP4x4,
+        FLX,
+        DSP100,
         Unknown
     }
 

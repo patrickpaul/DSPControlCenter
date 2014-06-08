@@ -6,6 +6,7 @@ using System.Text;
 using SA_Resources;
 using System.Globalization;
 using System.IO;
+using SA_Resources.SADevices;
 using SA_Resources.SAForms;
 
 namespace SA_Resources
@@ -30,6 +31,21 @@ namespace SA_Resources
                     writer.WriteLine("DEVICE-ID:" + PARENT_FORM.GetDeviceID().ToString("X8") + ";");
                     writer.WriteLine("SERIAL:" + PARENT_FORM.SERIALNUM + ";");
                     writer.WriteLine("TIMESTAMP:" + DateTime.Now.ToString("MM-dd-yyyy HH:mm:ss") + ";");
+
+                    if (PARENT_FORM.GetDeviceFamily() == DeviceFamily.FLX)
+                    {
+                        int mode = PARENT_FORM.AmplifierMode;
+                        bool sleep_enable = PARENT_FORM.SLEEP_ENABLE;
+                        int sleep_seconds = PARENT_FORM.SLEEP_SECONDS;
+                        int adc_min = PARENT_FORM.ADC_CALIBRATION_MIN;
+                        int adc_max = PARENT_FORM.ADC_CALIBRATION_MAX;
+
+                        writer.WriteLine("MODE:" + mode.ToString("00000000") + ";");
+                        writer.WriteLine("SLEEP_ENABLE:" + sleep_enable + ";");
+                        writer.WriteLine("SLEEP_SECONDS:" + sleep_seconds.ToString("00000000") + ";");
+                        writer.WriteLine("ADC_CALIBRATION_MIN:" + adc_min.ToString("00000000") + ";");
+                        writer.WriteLine("ADC_CALIBRATION_MAX:" + adc_max.ToString("00000000") + ";");
+                    }
 
                     for (int i = 0; i < PARENT_FORM.GetNumPresets(); i++)
                     {
@@ -62,10 +78,47 @@ namespace SA_Resources
                 {
                     string VersionLine = reader.ReadLine();
                     string DeviceLine = reader.ReadLine();
+
+                    
+                    int device_id = Convert.ToInt32(DeviceLine.Substring(16, 2), 16);
+
+                    if (device_id != PARENT_FORM.GetDeviceID())
+                    {
+                        throw new Exception("Loaded SCFG file does not match current device.");
+                    }
+
                     string SerialLine = reader.ReadLine();
                     string TimestampLine = reader.ReadLine();
 
+                    if (PARENT_FORM.GetDeviceFamily() == DeviceFamily.FLX)
+                    {
+                        string ModeLine = reader.ReadLine();
+
+                        
+
+                        string SleepEnableLine = reader.ReadLine();
+                        string SleepSecondsLine = reader.ReadLine();
+                        string ADCMinLine = reader.ReadLine();
+                        string ADCMaxLine = reader.ReadLine();
+
+                        int new_mode = int.Parse(ModeLine.Substring(5, 8));
+                        bool sleep_enable = SleepEnableLine.Contains("True");
+                        int sleep_seconds = int.Parse(SleepSecondsLine.Substring(14, 8));
+                        int adc_min = int.Parse(ADCMinLine.Substring(20, 8));
+                        int adc_max = int.Parse(ADCMaxLine.Substring(20, 8));
+
+                        PARENT_FORM.AmplifierMode = new_mode;
+                        PARENT_FORM.SLEEP_ENABLE = sleep_enable;
+                        PARENT_FORM.SLEEP_SECONDS = sleep_seconds;
+                        PARENT_FORM.ADC_CALIBRATION_MIN = adc_min;
+                        PARENT_FORM.ADC_CALIBRATION_MAX = adc_max;
+
+                        PARENT_FORM.SetBridgeMode(new_mode);
+
+                    }
+
                     string PresetLine = "";
+
                     for (int i = 0; i < PARENT_FORM.GetNumPresets(); i++)
                     {
                         PresetLine = reader.ReadLine();
@@ -84,6 +137,10 @@ namespace SA_Resources
             }
             catch (Exception ex)
             {
+                if (ex.Message.Contains("Loaded SCFG file"))
+                {
+                    throw new Exception(ex.Message);
+                }
                 Console.WriteLine("Exception in SCFG_Manager.Write: " + ex.Message);
             }
 

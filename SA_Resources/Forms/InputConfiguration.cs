@@ -31,10 +31,7 @@ namespace SA_Resources
 
         private MainForm_Template PARENT_FORM;
 
-        private double read_gain_value;
-
         private DSP_Primitive_Input Active_Primitive;
-        private DSP_Primitive_StandardGain Input_Gain_Primitive;
 
 
         public InputConfiguration(MainForm_Template _parentForm, DSP_Primitive_Input in_primitive)

@@ -30,6 +30,8 @@ namespace SA_Resources.DSP.Primitives
         public UInt32 Package_Value, Package_Gain_Value, Package_Q_Value;
         public int Plainfilter_Offset;
 
+        public bool _premix = false;
+
         public DSP_Primitive_BiquadFilter(string in_name, int in_channel, int in_positionA, int _plainOffset)
             : base(in_name, in_channel, in_positionA)
         {
@@ -74,6 +76,12 @@ namespace SA_Resources.DSP.Primitives
             }
         }
 
+        public bool IsPremix
+        {
+            get { return this._premix; }
+            set { this._premix = value; }
+        }
+
         public bool HasNoFilter
         {
             get { return (this.FType == FilterType.None || this.Filter == null); }
@@ -110,15 +118,28 @@ namespace SA_Resources.DSP.Primitives
         public override void QueueChange(MainForm_Template PARENT_FORM)
         {
             Recalculate_Values();
-
-            
             // MUTE THE CHANNEL OUTPUT GAIN TO REDUCE CRAZY NOISES..
-            int OutputGain_Mute_Offset = PARENT_FORM.DSP_PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].LookupPrimitive(DSP_Primitive_Types.StandardGain, this.Channel, 3).Offset + 1;
 
-            UInt32 OutputGain_Mute_Value = ((DSP_Primitive_StandardGain)PARENT_FORM.DSP_PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].LookupPrimitive(DSP_Primitive_Types.StandardGain, this.Channel, 3)).Values[1];
+            int Gain_Mute_Offset = 0;
+            UInt32 Gain_Mute_Value = 0;
+
+            if (IsPremix)
+            {
+                Gain_Mute_Offset = PARENT_FORM.DSP_PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].LookupPrimitive(DSP_Primitive_Types.StandardGain, this.Channel, 1).Offset + 1;
+
+                Gain_Mute_Value = ((DSP_Primitive_StandardGain)PARENT_FORM.DSP_PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].LookupPrimitive(DSP_Primitive_Types.StandardGain, this.Channel, 1)).Values[1];
+            
+            }
+            else
+            {
+                Gain_Mute_Offset = PARENT_FORM.DSP_PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].LookupPrimitive(DSP_Primitive_Types.StandardGain, this.Channel, 3).Offset + 1;
+
+                Gain_Mute_Value = ((DSP_Primitive_StandardGain)PARENT_FORM.DSP_PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].LookupPrimitive(DSP_Primitive_Types.StandardGain, this.Channel, 3)).Values[1];
+            
+            }
             
             // Mute outputs
-            PARENT_FORM.AddItemToQueue(new LiveQueueItem(OutputGain_Mute_Offset, 0x00000001));
+            PARENT_FORM.AddItemToQueue(new LiveQueueItem(Gain_Mute_Offset, 0x00000001));
 
             PARENT_FORM.AddItemToQueue(new LiveQueueItem(Offset, B0_Value));
             PARENT_FORM.AddItemToQueue(new LiveQueueItem(Offset + 1, B1_Value));
@@ -127,7 +148,7 @@ namespace SA_Resources.DSP.Primitives
             PARENT_FORM.AddItemToQueue(new LiveQueueItem(Offset + 4, A2_Value));
 
             // Unmute outputs
-            PARENT_FORM.AddItemToQueue(new LiveQueueItem(OutputGain_Mute_Offset, OutputGain_Mute_Value));
+            PARENT_FORM.AddItemToQueue(new LiveQueueItem(Gain_Mute_Offset, Gain_Mute_Value));
 
             PARENT_FORM.AddItemToQueue(new LiveQueueItem(512 + Plainfilter_Offset, Package_Value));
             PARENT_FORM.AddItemToQueue(new LiveQueueItem(576 + Plainfilter_Offset, Package_Gain_Value));

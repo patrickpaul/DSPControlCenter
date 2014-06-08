@@ -30,7 +30,6 @@ namespace SA_Resources.SAForms
         private MainForm_Template PARENT_FORM;
         private DSP_Primitive_Pregain RecastPregain;
 
-        private bool is_mixer = false;
 
         public PregainForm(MainForm_Template _parentForm, DSP_Primitive _inputPrimitive)
         {

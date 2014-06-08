@@ -41,7 +41,6 @@ namespace SA_Resources.DSP.Primitives
             if(offset < next_available_offset)
             {
                 throw new Exception("Offset overlap in Primitive Manager. Attempted to add at offset " + offset + " where next available is  " + next_available_offset);
-                return;
             }
 
             next_available_offset = offset + in_primitive.Num_Values;
@@ -217,13 +216,9 @@ namespace SA_Resources.DSP.Primitives
 
         public void Write_Program_To_Cache(int num_channels = 4)
         {
-            bool print_labels = false;
             Int16 index_counter = 0;
 
-            
-
-            int offset_counter = 0;
-            int plain_offset_counter = 0;
+            int offset_counter;
 
             for (int i = 0; i < 768; i++)
             {
@@ -528,7 +523,7 @@ namespace SA_Resources.DSP.Primitives
             }
             catch (Exception ex)
             {
-                
+                Console.WriteLine("[Exception in DSP_Program_Manager.SendToDevice]: " + ex.Message);
             }
 
             return false;

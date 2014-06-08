@@ -11,13 +11,14 @@ namespace SA_Resources.SADevices
         public string Name;
         public string Filepath;
         public string Assembly;
-
-        public SADevicePlugin(int _deviceID, string _deviceName, string _filePath, string _assembly)
+        public int DisplayOrder;
+        public SADevicePlugin(int _deviceID, string _deviceName, string _filePath, string _assembly, int _displayOrder)
         {
             ID = _deviceID;
             Name = _deviceName;
             Filepath = _filePath;
             Assembly = _assembly;
+            DisplayOrder = _displayOrder;
         }
 
         public bool MatchesDeviceID(int device_id)

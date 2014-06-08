@@ -184,9 +184,6 @@
   <data name="knob_blue_line" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\knob_blue_line.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ui_ducker_insert" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\ui_ducker_insert.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="ui_btn_trim" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\ui_btn_trim.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -372,5 +369,20 @@
   </data>
   <data name="ui_btn_meters1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Devices\DSP 4x4\Resources\ui_btn_meters.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="uidesign_prematrix_line_bridged" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\uidesign_prematrix_line_bridged.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ui_btn_calibrate" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\ui_btn_calibrate.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ui_btn_refresh" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\ui_btn_refresh.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ui_btn_settings" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\ui_btn_settings.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="vertical_line" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\vertical_line.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

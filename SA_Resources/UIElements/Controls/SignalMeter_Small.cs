@@ -123,23 +123,31 @@ namespace SA_Resources.SAControls
 
         public void Stop()
         {
-            if (MeterThread != null)
+            try
             {
-                MeterThread.Abort();
+                if (MeterThread != null)
+                {
+                    meterthread_abort = true;
+                    //MeterThread.Abort();
+                }
+            }
+            catch (Exception ex)
+            {
+
             }
         }
+
         public void MeterThread_Worker(object param)
         {
             try
             {
-                MethodInvoker action1;
                 UInt32 read_value;
                 double converted_value, read_gain_value;
 
 
                 double offset = (20 - 20 + 3.8) + 10 * Math.Log10(2) + 20 * Math.Log10(16);
 
-                while (true)
+                while (true && !meterthread_abort)
                 {
                     try
                     {
@@ -150,9 +158,9 @@ namespace SA_Resources.SAControls
                         {
                             converted_value = DSP_Math.MN_to_double_signed(read_value, 1, 31);
 
-                            if (converted_value > (0.000001*0.000001))
+                            if (converted_value > (0.000001 * 0.000001))
                             {
-                                read_gain_value = offset + 10*Math.Log10(converted_value);
+                                read_gain_value = offset + 10 * Math.Log10(converted_value);
                             }
                             else
                             {
@@ -164,26 +172,37 @@ namespace SA_Resources.SAControls
                         // Do not delete this Thread.Sleep... you will be banging your head on your desk for an hour wondering why the UI locks up :)
                         Thread.Sleep(5);
 
+
+
+
+                        lock (_threadlock)
+                        {
+                            if (meterthread_abort == true)
+                            {
+                                meterthread_abort = false;
+                                Console.WriteLine("Broke Meter thread");
+                                MeterThread.Abort();
+                                break;
+
+                            }
+
+
+                        }
+
+                    }
+                    catch (ThreadAbortException taex)
+                    {
+
                     }
                     catch (Exception ex)
                     {
                         Console.WriteLine("Exception in MeterThread_Worker Level 2: " + ex.Message);
                     }
-
-                    lock (_threadlock)
-                    {
-                        if (meterthread_abort == true)
-                        {
-                            meterthread_abort = false;
-                            Console.WriteLine("Broke Meter thread");
-                            MeterThread.Abort();
-                            break;
-
-                        }
-
-
-                    }
                 }
+
+            }
+            catch (ThreadAbortException taex)
+            {
 
             }
             catch (Exception ex)

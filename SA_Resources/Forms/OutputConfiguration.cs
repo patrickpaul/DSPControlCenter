@@ -22,12 +22,8 @@ namespace SA_Resources
             }
         } 
 
-        private bool form_loaded = false;
-
         private MainForm_Template PARENT_FORM;
         private int CH_NUMBER;
-
-        private double read_gain_value;
 
         private DSP_Primitive_Output Active_Primitive;
 

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
@@ -52,6 +53,12 @@ namespace SA_Resources.SAForms
         public double FIRMWARE_VERSION;
 
         public Control activeBlockForMenu;
+
+        public int AmplifierMode;
+        public int ADC_CALIBRATION_MIN = 30;
+        public int ADC_CALIBRATION_MAX = 240;
+        public bool SLEEP_ENABLE;
+        public int SLEEP_SECONDS;
 
 
         public object TempConfig;
@@ -202,10 +209,7 @@ namespace SA_Resources.SAForms
 
         }
 
-        public virtual void Default_DSP_Programs()
-        {
-            
-        }
+        
 
         public virtual void Single_Default_DSP_Program(int program_index = 0)
         {
@@ -243,6 +247,10 @@ namespace SA_Resources.SAForms
 
             this.pbtn_Meters.Visible = true;
 
+            if (this.IsAmplifier())
+            {
+                this.pbtnSettings.Visible = true;
+            }
         }
 
         public void EndLiveMode()
@@ -264,7 +272,10 @@ namespace SA_Resources.SAForms
             //HeartbeatTimer.Enabled = false;
 
             this.pbtn_Meters.Visible = false;
-
+            if (this.IsAmplifier())
+            {
+                this.pbtnSettings.Visible = false;
+            }
         }
 
 
@@ -365,7 +376,25 @@ namespace SA_Resources.SAForms
         #endregion
 
 
-        #region Read/Write Routines
+        #region Default/Read/Write Routines
+
+        public void Default_DSP_Programs()
+        {
+            try
+            {
+
+                for (int i = 0; i < this.GetNumPresets(); i++)
+                {
+                    Single_Default_DSP_Program(i);
+                }
+
+                UpdateTooltips();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("[EXCEPTION in Default_DSP_Programs]: " + ex.Message);
+            }
+        }
 
         public virtual void ReadDevice(object sender, DoWorkEventArgs doWorkEventArgs)
         {
@@ -375,7 +404,8 @@ namespace SA_Resources.SAForms
         {
             try
             {
-                
+                _PIC_Conn.sendAckdCommand(0x10);
+
                 BackgroundWorker backgroundWorker = sender as BackgroundWorker;
 
                 backgroundWorker.ReportProgress(0, "Putting device into programming mode");
@@ -417,7 +447,11 @@ namespace SA_Resources.SAForms
                 }
 
 
-                //backgroundWorker.ReportProgress(95);
+                if (GetDeviceType() == DeviceType.FLX804)
+                {
+                    SetBridgeMode(AmplifierMode);
+                }
+                
 
                 backgroundWorker.ReportProgress(0, "Soft Rebooting device");
 
@@ -428,6 +462,7 @@ namespace SA_Resources.SAForms
             }
             catch (Exception ex)
             {
+                Console.WriteLine("[Exception in MainForm_Template.WriteDevice]: " + ex.Message);
             }
         }
 
@@ -481,6 +516,32 @@ namespace SA_Resources.SAForms
             return false;
         }
 
+        public virtual DeviceFamily GetDeviceFamily()
+        {
+            return DeviceFamily.Unknown;
+        }
+
+        public virtual bool isBridgable()
+        {
+            return false;
+        }
+
+        public virtual int GetPermanentAmplifierMode()
+        {
+            return 0;
+        }
+
+        public virtual int GetDisplayOrder()
+        {
+            return 0;
+        }
+
+
+        public virtual string GetDefaultDeviceFile()
+        {
+            return "";
+        }
+
         public virtual byte GetLiveSwitchCommandBase()
         {
             return (byte)16;
@@ -527,6 +588,11 @@ namespace SA_Resources.SAForms
         public virtual int GetNumPresets()
         {
             return 10;
+        }
+
+        public virtual void SetBridgeMode(int BridgeMode)
+        {
+            
         }
 
         
@@ -1379,7 +1445,7 @@ namespace SA_Resources.SAForms
             }
             catch (Exception ex)
             {
-                int num = (int)MessageBox.Show("Unable to load program file. Message: " + ex.Message, "Load Program Error", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+                int num = (int)MessageBox.Show("Unable to load program file.\nMessage: " + ex.Message, "Load Program Error", MessageBoxButtons.OK, MessageBoxIcon.Hand);
             }
         }
 
@@ -1429,7 +1495,7 @@ namespace SA_Resources.SAForms
         public void About_Event(object sender, EventArgs e)
         {
             // TODO - CHECK - WHY IS THIS EMPTY
-            if (new AboutForm("About " + this.GetDeviceName() + " Plugin", "DSP Control Center - " + this.GetDeviceName() + " Plugin", Assembly.GetExecutingAssembly().GetName().Version, "").ShowDialog() != DialogResult.OK);
+            new AboutForm("About " + this.GetDeviceName() + " Plugin", "DSP Control Center - " + this.GetDeviceName() + " Plugin", Assembly.GetExecutingAssembly().GetName().Version, "").ShowDialog();
         }
 
         private void Close_Event(object sender, EventArgs e)
@@ -1475,9 +1541,38 @@ namespace SA_Resources.SAForms
             }
         }
 
-        public virtual void ResetInterface_Event(object sender, EventArgs e)
+        public void ResetInterface_Event(object sender, EventArgs e)
         {
+            if (MessageBox.Show("Resetting to Default Settings will overwrite your current configuration. Proceed?", "Overwrite Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
+            {
+                return;
+            }
 
+            if (!File.Exists(this.GetDefaultDeviceFile()))
+            {
+                MessageBox.Show("Unable to locate default configuration file for this device", "Error Loading Default Settings", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            try
+            {
+                if (this.LIVE_MODE)
+                {
+                    LoadProgramFileForm loadForm = new LoadProgramFileForm(this.GetDefaultDeviceFile(), this);
+
+
+                    loadForm.ShowDialog();
+                }
+                else
+                {
+                    SCFG_Manager.Read(this.GetDefaultDeviceFile(), this);
+                    UpdateTooltips();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unable to load program file. Message: " + ex.Message, "Load Program Error", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+            }
             
         }
 
@@ -1675,14 +1770,27 @@ namespace SA_Resources.SAForms
                 System.Diagnostics.Process.Start("DSP Control Center Manual.pdf");
             } catch (Exception ex)
             {
-                
+                Console.WriteLine("[Exception in MainForm_Template.viewHelpToolStripMenuItem_Click]: " + ex.Message);
             }
         }
 
         private void pbtn_Meters_Click(object sender, EventArgs e)
         {
-            MeterViewForm mForm = new MeterViewForm(this);
-            mForm.ShowDialog();
+            try
+            {
+                MeterViewForm mForm = new MeterViewForm(this);
+                mForm.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                
+            }
+        }
+
+        private void pbtnSettings_Click(object sender, EventArgs e)
+        {
+            FLXConfigurationForm flxForm = new FLXConfigurationForm(this);
+            flxForm.ShowDialog();  
         }
     }
 

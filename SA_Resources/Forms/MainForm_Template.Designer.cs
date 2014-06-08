@@ -70,6 +70,7 @@ namespace SA_Resources.SAForms
             this.menuItem_Paste = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripMenuItem();
+            this.pbtnSettings = new SA_Resources.SAControls.PictureButton();
             this.pbtn_Meters = new SA_Resources.SAControls.PictureButton();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureConnectionStatus)).BeginInit();
@@ -356,6 +357,27 @@ namespace SA_Resources.SAForms
             this.toolStripMenuItem6.Text = "Clear Configuration";
             this.toolStripMenuItem6.Visible = false;
             // 
+            // pbtnSettings
+            // 
+            this.pbtnSettings.AutoResize = true;
+            this.pbtnSettings.BackgroundImage = global::SA_Resources.GlobalResources.ui_btn_settings;
+            this.pbtnSettings.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pbtnSettings.Location = new System.Drawing.Point(74, 344);
+            this.pbtnSettings.Name = "pbtnSettings";
+            this.pbtnSettings.OverImage = null;
+            this.pbtnSettings.Overlay1Image = null;
+            this.pbtnSettings.Overlay1Visible = false;
+            this.pbtnSettings.Overlay2Image = null;
+            this.pbtnSettings.Overlay2Visible = false;
+            this.pbtnSettings.Overlay3Image = null;
+            this.pbtnSettings.Overlay3Visible = false;
+            this.pbtnSettings.PressedImage = null;
+            this.pbtnSettings.Size = new System.Drawing.Size(63, 23);
+            this.pbtnSettings.TabIndex = 101;
+            this.pbtnSettings.ToolTipText = "";
+            this.pbtnSettings.Visible = false;
+            this.pbtnSettings.Click += new System.EventHandler(this.pbtnSettings_Click);
+            // 
             // pbtn_Meters
             // 
             this.pbtn_Meters.AutoResize = true;
@@ -381,6 +403,7 @@ namespace SA_Resources.SAForms
             // 
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(82)))), ((int)(((byte)(82)))));
             this.ClientSize = new System.Drawing.Size(906, 394);
+            this.Controls.Add(this.pbtnSettings);
             this.Controls.Add(this.pbtn_Meters);
             this.Controls.Add(this.pictureConnectionStatus);
             this.Controls.Add(this.btnConnectToDevice);
@@ -444,5 +467,6 @@ namespace SA_Resources.SAForms
         private ToolStripMenuItem presetManagerToolStripMenuItem;
         private ToolStripSeparator toolStripMenuItem3;
         private SAControls.PictureButton pbtn_Meters;
+        private SAControls.PictureButton pbtnSettings;
     }
 }

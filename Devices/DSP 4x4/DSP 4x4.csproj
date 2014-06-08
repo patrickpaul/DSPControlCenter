@@ -72,17 +72,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\SA_Resources\GlobalResources.Designer.cs">
-      <Link>GlobalResources.Designer.cs</Link>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>GlobalResources.resx</DependentUpon>
-    </Compile>
-    <EmbeddedResource Include="..\..\SA_Resources\GlobalResources.resx">
-      <Link>GlobalResources.resx</Link>
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>GlobalResources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>

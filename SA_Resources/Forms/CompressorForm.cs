@@ -43,15 +43,8 @@ namespace SA_Resources.SAForms
         private Dial ReleaseDial, AttackDial;
 
         private MainForm_Template PARENT_FORM;
-        private int CH_NUMBER;
-
-        private int COMP_INDEX = 0; // 0 = compressor, 1 = limiter
-
-        double read_gain_value;
 
         private bool approx_threshold_override = false;
-
-        private bool comp_switcher;
 
         private DSP_Primitive_Compressor Active_Primitive;
         private UInt32 in_gain_address;
@@ -78,12 +71,10 @@ namespace SA_Resources.SAForms
             if (Active_Primitive.Type == DSP_Primitive_Types.Compressor)
             {
                 is_limiter = false;
-                COMP_INDEX = 0;
             }
             else
             {
                 is_limiter = true;
-                COMP_INDEX = 1;
             }
 
             try
@@ -193,7 +184,7 @@ namespace SA_Resources.SAForms
 
             } catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine("[Exception in CompressorForm.Constructor]:" +  ex.Message);
             }
 
             form_loaded = true;

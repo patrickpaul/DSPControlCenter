@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.IO.Ports;
+using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
@@ -21,6 +22,7 @@ namespace SA_Resources
         private bool standalone_build = false;
 
         private List<SADevicePlugin> DevicePlugins = new List<SADevicePlugin>();
+        private List<SADevicePlugin> OrderedDevicePlugins = new List<SADevicePlugin>();
 
 
         private string CONFIGFILE = "";
@@ -90,6 +92,16 @@ namespace SA_Resources
                 
             }
 
+            if (DevicePlugins.Count > 0)
+            {
+                OrderedDevicePlugins = DevicePlugins.OrderBy(x => x.DisplayOrder).ToList();
+
+                foreach (SADevicePlugin singlePlugin in OrderedDevicePlugins)
+                {
+                    DeviceListBox.Items.Add(singlePlugin.Name);
+                }
+            }
+
             DeviceListBox.SelectedIndex = 0;
             DeviceListBox.Invalidate();
             
@@ -105,8 +117,6 @@ namespace SA_Resources
 
             if (CONFIGFILE != "")
             {
-                //device_id = SCFG_Manager.GetDeviceID(CONFIGFILE);
-
                 if (device_id > 0)
                 {
                     foreach (SADevicePlugin singlePlugin in DevicePlugins)
@@ -153,10 +163,10 @@ namespace SA_Resources
 
                 string DeviceName = (string)mainFormType.GetMethod("GetDeviceName").Invoke(form, null);
                 int DeviceID = (int)mainFormType.GetMethod("GetDeviceID").Invoke(form, null);
+                int DisplayOrder = (int)mainFormType.GetMethod("GetDisplayOrder").Invoke(form, null);
+                DevicePlugins.Add(new SADevicePlugin(DeviceID, DeviceName, assembly_path, assembly_name, DisplayOrder));
 
-                DevicePlugins.Add(new SADevicePlugin(DeviceID, DeviceName, assembly_path, assembly_name));
-
-                DeviceListBox.Items.Add(DeviceName);
+                //DeviceListBox.Items.Add(DeviceName);
 
             }
             catch (Exception ex)

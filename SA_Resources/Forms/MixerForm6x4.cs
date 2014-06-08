@@ -29,10 +29,11 @@ namespace SA_Resources.SAForms
 
         private MainForm_Template PARENT_FORM;
 
-        private double read_gain_value = 0;
-        private int cur_meter;
-
         private DSP_Primitive_MixerCrosspoint ActiveCrosspoint;
+
+        private bool CH2_hidden = false;
+        private bool CH3_hidden = false; 
+        private bool CH4_hidden = false;
 
         public MixerForm6x4(MainForm_Template _parentForm)
         {
@@ -42,25 +43,65 @@ namespace SA_Resources.SAForms
             {
                 PARENT_FORM = _parentForm;
 
+                if (PARENT_FORM.IsAmplifier() && PARENT_FORM.AmplifierMode != 0)
+                {
+                    if (PARENT_FORM.AmplifierMode != 0)
+                    {
+                        if (PARENT_FORM.AmplifierMode == 1)
+                        {
+                            CH2_hidden = true;
+                            CH4_hidden = true;
+                            gainMeter2.Visible = false;
+                            gainMeter4.Visible = false;
+                        }
+                        else if (PARENT_FORM.AmplifierMode == 2)
+                        {
+                            CH2_hidden = true;
+                            gainMeter2.Visible = false;
+                        }
+                        else if (PARENT_FORM.AmplifierMode == 3)
+                        {
+                            CH2_hidden = true;
+                            CH3_hidden = true; 
+                            CH4_hidden = true;
+                            gainMeter2.Visible = false;
+                            gainMeter3.Visible = false; 
+                            gainMeter4.Visible = false;
+                        }
+                    }
+                }
+
+
+
                 if (PARENT_FORM.LIVE_MODE)
                 {
                     gainMeter1.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.MixerCrosspoint, 0, 0, 0).Address;
                     gainMeter1.PIC_CONN = PARENT_FORM._PIC_Conn;
                     gainMeter1.Start();
 
-                    gainMeter2.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.MixerCrosspoint, 0, 0, 1).Address;
-                    gainMeter2.PIC_CONN = PARENT_FORM._PIC_Conn;
-                    gainMeter2.Start();
+                    if (!CH2_hidden)
+                    {
+                        gainMeter2.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.MixerCrosspoint, 0, 0, 1).Address;
+                        gainMeter2.PIC_CONN = PARENT_FORM._PIC_Conn;
+                        gainMeter2.Start();
+                    }
 
-                    gainMeter3.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.MixerCrosspoint, 0, 0, 2).Address;
-                    gainMeter3.PIC_CONN = PARENT_FORM._PIC_Conn;
-                    gainMeter3.Start();
-
-                    gainMeter4.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.MixerCrosspoint, 0, 0, 3).Address;
-                    gainMeter4.PIC_CONN = PARENT_FORM._PIC_Conn;
-                    gainMeter4.Start();
+                    if (!CH3_hidden)
+                    {
+                        gainMeter3.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.MixerCrosspoint, 0, 0, 2).Address;
+                        gainMeter3.PIC_CONN = PARENT_FORM._PIC_Conn;
+                        gainMeter3.Start();
+                    }
+                    if (!CH4_hidden)
+                    {
+                        gainMeter4.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.MixerCrosspoint, 0, 0, 3).Address;
+                        gainMeter4.PIC_CONN = PARENT_FORM._PIC_Conn;
+                        gainMeter4.Start();
+                    }
 
                 }
+
+
                 DSP_Primitive_Input InputPrimitive = null;
                 Label InputLabel = null;
 
@@ -84,46 +125,79 @@ namespace SA_Resources.SAForms
                 }
 
                 lblOutput0.Text = ((DSP_Primitive_Output) PARENT_FORM.DSP_PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].LookupPrimitive(DSP_Primitive_Types.Output, 0, 0)).OutputName;
-                lblOutput1.Text = ((DSP_Primitive_Output) PARENT_FORM.DSP_PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].LookupPrimitive(DSP_Primitive_Types.Output, 1, 0)).OutputName;
-                lblOutput2.Text = ((DSP_Primitive_Output) PARENT_FORM.DSP_PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].LookupPrimitive(DSP_Primitive_Types.Output, 2, 0)).OutputName;
-                lblOutput3.Text = ((DSP_Primitive_Output) PARENT_FORM.DSP_PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].LookupPrimitive(DSP_Primitive_Types.Output, 3, 0)).OutputName;
+                if (CH2_hidden)
+                {
+                    lblOutput1.Text = "(Bridged)";
+                }
+                else
+                {
+                    lblOutput1.Text = ((DSP_Primitive_Output) PARENT_FORM.DSP_PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].LookupPrimitive(DSP_Primitive_Types.Output, 1, 0)).OutputName;
 
+                }
+
+                if (CH3_hidden)
+                {
+                    lblOutput2.Text = "(Bridged)";
+                }
+                else
+                {
+                    lblOutput2.Text = ((DSP_Primitive_Output)PARENT_FORM.DSP_PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].LookupPrimitive(DSP_Primitive_Types.Output, 2, 0)).OutputName;
+                }
+
+                
+                if (CH4_hidden)
+                {
+                    lblOutput3.Text = "(Bridged)";
+                }
+                else
+                {
+                    lblOutput3.Text = ((DSP_Primitive_Output) PARENT_FORM.DSP_PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].LookupPrimitive(DSP_Primitive_Types.Output, 3, 0)).OutputName;
+                }
+            
                 int inputIndex = 0;
 
                 DSP_Primitive_MixerCrosspoint SingleCrosspoint;
 
+                // Inputs
                 for (int i = 0; i < 6; i++)
                 {
 
                     inputIndex = i < 4 ? i : i + 4;
-
+                    // Outputs
                     for (int j = 0; j < 4; j++)
                     {
                         PictureButton pbControl = (PictureButton)Controls.Find("btnRouter" + (inputIndex).ToString() + "" + (j).ToString(), true).First();
 
-                        // Create the ToolTip and associate with the Form container.
-                        ToolTip toolTip1 = new ToolTip();
 
-                        // Set up the delays for the ToolTip.
-                        toolTip1.AutoPopDelay = 5000;
-                        toolTip1.InitialDelay = 10;
-                        toolTip1.ReshowDelay = 50;
-                        // Force the ToolTip text to be displayed whether or not the form is active.
-                        toolTip1.ShowAlways = true;
-
-                        SingleCrosspoint = (DSP_Primitive_MixerCrosspoint)PARENT_FORM.DSP_PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].LookupPrimitive(DSP_Primitive_Types.MixerCrosspoint, inputIndex, j);
-
-                        if (SingleCrosspoint.Muted)
+                        if ((CH2_hidden && j == 1) || (CH3_hidden && j == 2) || (CH4_hidden && j == 3))
                         {
-                            toolTip1.SetToolTip(pbControl, "Muted");
-                            pbControl.Overlay3Visible = true;
+                            pbControl.Visible = false;
                         }
                         else
                         {
-                            toolTip1.SetToolTip(pbControl, SingleCrosspoint.Gain.ToString("N1") + "dB");
-                            pbControl.Overlay1Visible = true;
-                        }
+                            // Create the ToolTip and associate with the Form container.
+                            ToolTip toolTip1 = new ToolTip();
 
+                            // Set up the delays for the ToolTip.
+                            toolTip1.AutoPopDelay = 5000;
+                            toolTip1.InitialDelay = 10;
+                            toolTip1.ReshowDelay = 50;
+                            // Force the ToolTip text to be displayed whether or not the form is active.
+                            toolTip1.ShowAlways = true;
+
+                            SingleCrosspoint = (DSP_Primitive_MixerCrosspoint) PARENT_FORM.DSP_PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].LookupPrimitive(DSP_Primitive_Types.MixerCrosspoint, inputIndex, j);
+
+                            if (SingleCrosspoint.Muted)
+                            {
+                                toolTip1.SetToolTip(pbControl, "Muted");
+                                pbControl.Overlay3Visible = true;
+                            }
+                            else
+                            {
+                                toolTip1.SetToolTip(pbControl, SingleCrosspoint.Gain.ToString("N1") + "dB");
+                                pbControl.Overlay1Visible = true;
+                            }
+                        }
                         pbControl.Invalidate();
                     }
                 }
@@ -213,43 +287,6 @@ namespace SA_Resources.SAForms
 
                 crosspoint_button.Invalidate();
             }
-        }
-
-        private void signalTimer_Tick(object sender, EventArgs e)
-        {
-            /*UInt32 read_address = 0x00000000;
-
-            double offset = (20 - 20 + 3.8) + 10 * Math.Log10(2) + 20 * Math.Log10(16);
-
-            UInt32 read_value = 0x00000000;
-            double converted_value = 0;
-
-            
-            cur_meter++;
-            if (cur_meter == 4)
-            {
-                cur_meter = 0;
-            }
-
-            SignalMeter curMeter = ((SignalMeter)Controls.Find("gainMeter" + (cur_meter + 1), true).First());
-
-            read_address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.MixerCrosspoint, 0, 0, cur_meter).Address;
-
-
-            read_value = PARENT_FORM._PIC_Conn.Read_Live_DSP_Value(read_address);
-            converted_value = DSP_Math.MN_to_double_signed(read_value, 1, 31);
-            if (converted_value > (0.000001 * 0.000001))
-            {
-                read_gain_value = offset + 10 * Math.Log10(converted_value);
-            }
-            else
-            {
-                read_gain_value = -100;
-            }
-
-            curMeter.DB = read_gain_value;
-            curMeter.Refresh();
-             * */
         }
 
         private void MixerForm6x4_FormClosing(object sender, FormClosingEventArgs e)

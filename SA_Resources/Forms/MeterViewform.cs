@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Windows.Forms;
 using SA_Resources.DSP;
 using SA_Resources.DSP.Primitives;
@@ -28,11 +29,6 @@ namespace SA_Resources.SAForms
         } 
 
         private MainForm_Template PARENT_FORM;
-
-        private double read_gain_value = 0;
-        private int cur_meter;
-
-        private DSP_Primitive_MixerCrosspoint ActiveCrosspoint;
 
         public MeterViewForm(MainForm_Template _parentForm)
         {
@@ -92,15 +88,26 @@ namespace SA_Resources.SAForms
 
         private void MixerForm6x4_FormClosing(object sender, FormClosingEventArgs e)
         {
-            inMeter1.Stop();
-            inMeter2.Stop();
-            inMeter3.Stop();
-            inMeter4.Stop();
+            try
+            {
+                inMeter1.Stop();
+                inMeter2.Stop();
+                inMeter3.Stop();
+                inMeter4.Stop();
 
-            outMeter1.Stop();
-            outMeter2.Stop();
-            outMeter3.Stop();
-            outMeter4.Stop();
+                outMeter1.Stop();
+                outMeter2.Stop();
+                outMeter3.Stop();
+                outMeter4.Stop();
+            }
+            catch (ThreadAbortException taex)
+            {
+
+            }
+            catch (Exception ex)
+            {
+                
+            }
         }
 
         private void MeterViewForm_Load(object sender, EventArgs e)

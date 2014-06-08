@@ -11,8 +11,6 @@ namespace SA_Resources.SAControls
 {
     public partial class GainFader : PictureBox
     {
-        private int _gainMode;
-
         public GainFader()
         {
             this.BackgroundImage = SA_Resources.GlobalResources.ui_meter_base;

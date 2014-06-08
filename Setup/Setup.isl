@@ -1944,6 +1944,9 @@
 		<row><td>dsp_4x4.sadev</td><td>ISX_DEFAULTCOMPONENT</td><td>DSP_4X~1.SAD|DSP_4x4.sadev</td><td>0</td><td/><td/><td/><td>1</td><td>C:\SOURCE\DSPControlCenter\Stewart Audio Control Center\bin\Debug\Devices\DSP_4x4.sadev</td><td>1</td><td/></row>
 		<row><td>dsp_4x4_default.scfg</td><td>ISX_DEFAULTCOMPONENT</td><td>DSP_4X~1.SCF|DSP_4x4_Default.scfg</td><td>0</td><td/><td/><td/><td>1</td><td>C:\SOURCE\DSPControlCenter\Devices\DSP 4x4\DSP_4x4_Default.scfg</td><td>1</td><td/></row>
 		<row><td>dsp_control_center_manual.pd</td><td>ISX_DEFAULTCOMPONENT7</td><td>DSPCON~1.PDF|DSP Control Center Manual.pdf</td><td>0</td><td/><td/><td/><td>1</td><td>C:\SOURCE\DSPControlCenter\DSP Control Center Manual.pdf</td><td>1</td><td/></row>
+		<row><td>flx160_2_analog.sadev</td><td>ISX_DEFAULTCOMPONENT</td><td>FLX160~1.SAD|FLX160_2_Analog.sadev</td><td>0</td><td/><td/><td/><td>1</td><td>C:\SOURCE\DSPControlCenter\Stewart Audio Control Center\bin\Debug\Devices\FLX160_2_Analog.sadev</td><td>1</td><td/></row>
+		<row><td>flx80_4_analog.sadev</td><td>ISX_DEFAULTCOMPONENT</td><td>FLX80_~1.SAD|FLX80_4_Analog.sadev</td><td>0</td><td/><td/><td/><td>1</td><td>C:\SOURCE\DSPControlCenter\Stewart Audio Control Center\bin\Debug\Devices\FLX80_4_Analog.sadev</td><td>1</td><td/></row>
+		<row><td>flx80_4_cv_analog.sadev</td><td>ISX_DEFAULTCOMPONENT</td><td>FLX80_~1.SAD|FLX80_4_CV_Analog.sadev</td><td>0</td><td/><td/><td/><td>1</td><td>C:\SOURCE\DSPControlCenter\Stewart Audio Control Center\bin\Debug\Devices\FLX80_4_CV_Analog.sadev</td><td>1</td><td/></row>
 		<row><td>ftbusui.dll</td><td>ftbusui.dll</td><td>ftbusui.dll</td><td>0</td><td/><td/><td/><td>1</td><td>C:\SOURCE\DSPControlCenter\Drivers\amd64\ftbusui.dll</td><td>1</td><td/></row>
 		<row><td>ftbusui.dll1</td><td>ftbusui.dll1</td><td>ftbusui.dll</td><td>0</td><td/><td/><td/><td>1</td><td>C:\SOURCE\DSPControlCenter\Drivers\i386\ftbusui.dll</td><td>1</td><td/></row>
 		<row><td>ftcserco.dll</td><td>ftcserco.dll</td><td>ftcserco.dll</td><td>0</td><td/><td/><td/><td>1</td><td>C:\SOURCE\DSPControlCenter\Drivers\amd64\ftcserco.dll</td><td>1</td><td/></row>
@@ -4106,10 +4109,10 @@
 		<col def="V0">Data</col>
 		<col def="S255">ISBuildSourcePath</col>
 		<col def="I2">ISIconIndex</col>
-		<row><td>ARPPRODUCTICON.exe</td><td/><td>C:\SOURCE\DSPControlCenter\DSP Control Center v4.ico</td><td>0</td></row>
+		<row><td>ARPPRODUCTICON.exe</td><td/><td>C:\SOURCE\DSPControlCenter\DSP Control Center FirstInstaller.ico</td><td>0</td></row>
 		<row><td>NewShortcut1_AC0F0F82DED64525A47C2000918AF691.exe</td><td/><td>C:\Program Files (x86)\InstallShield\2012SpringLE\Redist\Language Independent\OS Independent\uninstall.ico</td><td>0</td></row>
-		<row><td>NewShortcut2_460DB07A390443BEA8B0D072E24757BB.exe</td><td/><td>C:\SOURCE\DSPControlCenter\DSP Control Center v4.ico</td><td>0</td></row>
-		<row><td>NewShortcut3_F56979B603174096A3B48F38455C6977.exe</td><td/><td>C:\SOURCE\DSPControlCenter\DSP Control Center v4.ico</td><td>0</td></row>
+		<row><td>NewShortcut2_D45E543C3B1D456C895F927844056B1A.exe</td><td/><td>C:\SOURCE\DSPControlCenter\DSP Control Center FirstInstaller.ico</td><td>0</td></row>
+		<row><td>NewShortcut3_E787255B717F49E4BD4FEE898A029058.exe</td><td/><td>C:\SOURCE\DSPControlCenter\DSP Control Center FirstInstaller.ico</td><td>0</td></row>
 		<row><td>_56C34E30_E160_4BB1_97EA_988FB162CC80</td><td/><td>C:\SOURCE\DSPControlCenter\DSP Control Center v4.ico</td><td>0</td></row>
 		<row><td>_B4FC6954_DD33_422E_8857_87BB63F71AF0</td><td/><td>C:\SOURCE\DSPControlCenter\DSP Control Center v4.ico</td><td>0</td></row>
 		<row><td>_F7C68B79_B656_4B5E_BB31_330699E3125B</td><td/><td>C:\SOURCE\DSPControlCenter\DSP Control Center v4.ico</td><td>0</td></row>
@@ -4252,7 +4255,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>ISTheme</td><td>InstallShield Blue.theme</td></row>
 		<row><td>ISUSLock</td><td>{D8E2F9FF-1ABD-43FE-B1A2-D1254BE3A2C4}</td></row>
 		<row><td>ISUSSignature</td><td>{9E07B878-5CD4-41D4-90D5-838D58A26570}</td></row>
-		<row><td>ISVisitedViews</td><td>viewAssistant,viewCustomActions,viewISToday,viewUI,viewTextMessages,viewRelease,viewProject,viewRealSetupDesign,viewSetupDesign,viewSetupTypes,viewUpgradePaths,viewObjects,viewDependencies,viewFileExtensions,viewSystemSearch,viewShortcuts,viewRegistry,viewFeatureFiles,viewAppFiles,viewAppV,viewXMLConfig,viewInstallScriptStd,viewComponentServices,viewUpdateService,viewSupportFiles,viewIniFiles,viewTextFiles,viewSQLServer,viewBillboards,viewDesignPatches</td></row>
+		<row><td>ISVisitedViews</td><td>viewAssistant,viewCustomActions,viewISToday,viewUI,viewTextMessages,viewRelease,viewProject,viewRealSetupDesign,viewSetupDesign,viewSetupTypes,viewUpgradePaths,viewObjects,viewDependencies,viewFileExtensions,viewSystemSearch,viewShortcuts,viewRegistry,viewFeatureFiles,viewAppFiles,viewAppV,viewXMLConfig,viewInstallScriptStd,viewComponentServices,viewUpdateService,viewSupportFiles,viewIniFiles,viewTextFiles,viewSQLServer,viewBillboards,viewDesignPatches,viewEnvironmentVariables</td></row>
 		<row><td>Limited</td><td>1</td></row>
 		<row><td>LockPermissionMode</td><td>1</td></row>
 		<row><td>MsiExecCmdLineOptions</td><td/></row>
@@ -4633,7 +4636,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>PROGRAMFILETOLAUNCHATEND</td><td>[INSTALLDIR]Stewart Audio Control Center.Primary output</td><td/></row>
 		<row><td>ProductCode</td><td>{C4097ACD-CDC7-4ED5-8D32-8D9C9F7677EB}</td><td/></row>
 		<row><td>ProductName</td><td>DSP Control Center 3</td><td/></row>
-		<row><td>ProductVersion</td><td>3.0.5</td><td/></row>
+		<row><td>ProductVersion</td><td>3.1.0</td><td/></row>
 		<row><td>ProgressType0</td><td>install</td><td/></row>
 		<row><td>ProgressType1</td><td>Installing</td><td/></row>
 		<row><td>ProgressType2</td><td>installed</td><td/></row>
@@ -4807,8 +4810,8 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col def="S255">ISShortcutName</col>
 		<col def="I4">ISAttributes</col>
 		<row><td>NewShortcut1</td><td>dspcon_1_dsp_control_center</td><td>##ID_STRING7##</td><td>ISX_DEFAULTCOMPONENT7</td><td>[SystemFolder]MsiExec.exe</td><td>/x [ProductCode]</td><td/><td/><td>NewShortcut1_AC0F0F82DED64525A47C2000918AF691.exe</td><td>0</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>NewShortcut2</td><td>DesktopFolder</td><td>##ID_STRING5##</td><td>ISX_DEFAULTCOMPONENT7</td><td>[INSTALLDIR]DSPControlCenter3.exe</td><td/><td/><td/><td>NewShortcut2_460DB07A390443BEA8B0D072E24757BB.exe</td><td>0</td><td>1</td><td>INSTALLDIR</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>NewShortcut3</td><td>dspcon_1_dsp_control_center</td><td>##ID_STRING6##</td><td>ISX_DEFAULTCOMPONENT7</td><td>[INSTALLDIR]DSPControlCenter3.exe</td><td/><td/><td/><td>NewShortcut3_F56979B603174096A3B48F38455C6977.exe</td><td>0</td><td>1</td><td>INSTALLDIR</td><td/><td/><td/><td/><td/><td/><td/></row>
+		<row><td>NewShortcut2</td><td>DesktopFolder</td><td>##ID_STRING5##</td><td>ISX_DEFAULTCOMPONENT7</td><td>[INSTALLDIR]DSPControlCenter3.exe</td><td/><td/><td/><td>NewShortcut2_D45E543C3B1D456C895F927844056B1A.exe</td><td>0</td><td>1</td><td>INSTALLDIR</td><td/><td/><td/><td/><td/><td/><td/></row>
+		<row><td>NewShortcut3</td><td>dspcon_1_dsp_control_center</td><td>##ID_STRING6##</td><td>ISX_DEFAULTCOMPONENT7</td><td>[INSTALLDIR]DSPControlCenter3.exe</td><td/><td/><td/><td>NewShortcut3_E787255B717F49E4BD4FEE898A029058.exe</td><td>0</td><td>1</td><td>INSTALLDIR</td><td/><td/><td/><td/><td/><td/><td/></row>
 	</table>
 
 	<table name="Signature">

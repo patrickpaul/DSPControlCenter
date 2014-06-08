@@ -16,9 +16,6 @@ namespace SA_Resources.SAForms
     {
         private MainForm_Template PARENT_FORM;
 
-        private bool timerClose = false;
-
-        private UsbManager manager;
         private string SCFG_FILE;
         //SCFG_Manager.Read(this.openProgramDialog.FileName, this);
         //        this.UpdateTooltips();
@@ -117,7 +114,6 @@ namespace SA_Resources.SAForms
 
         private void closeTimer_Tick(object sender, EventArgs e)
         {
-            timerClose = true;
             this.Close();
         }
     }

@@ -164,7 +164,7 @@ namespace SA_Resources.SAControls
         {
 
             bool NeedsNewFocus = false;
-            Label filterLabel, tempFilterLabel;
+            Label filterLabel;
 
             // A refresh was called, so it's possibly that this occured because a filter was deleted (set to None)
             // Let's see if the filter that was deleted has focus
