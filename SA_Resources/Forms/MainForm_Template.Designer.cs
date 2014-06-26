@@ -61,7 +61,7 @@ namespace SA_Resources.SAForms
             this.pictureConnectionStatus = new System.Windows.Forms.PictureBox();
             this.btnConnectToDevice = new System.Windows.Forms.Button();
             this.dropProgramSelection = new System.Windows.Forms.ComboBox();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.pbPresetSelection = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.HeartbeatTimer = new System.Windows.Forms.Timer(this.components);
             this.menuBlockCopy = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -74,7 +74,7 @@ namespace SA_Resources.SAForms
             this.pbtn_Meters = new SA_Resources.SAControls.PictureButton();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureConnectionStatus)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbPresetSelection)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.menuBlockCopy.SuspendLayout();
             this.SuspendLayout();
@@ -283,14 +283,14 @@ namespace SA_Resources.SAForms
             this.dropProgramSelection.Size = new System.Drawing.Size(165, 21);
             this.dropProgramSelection.TabIndex = 86;
             // 
-            // pictureBox2
+            // pbPresetSelection
             // 
-            this.pictureBox2.Image = global::SA_Resources.GlobalResources.menu_program_selection;
-            this.pictureBox2.Location = new System.Drawing.Point(568, 24);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(155, 37);
-            this.pictureBox2.TabIndex = 82;
-            this.pictureBox2.TabStop = false;
+            this.pbPresetSelection.Image = global::SA_Resources.GlobalResources.menu_program_selection;
+            this.pbPresetSelection.Location = new System.Drawing.Point(568, 24);
+            this.pbPresetSelection.Name = "pbPresetSelection";
+            this.pbPresetSelection.Size = new System.Drawing.Size(155, 37);
+            this.pbPresetSelection.TabIndex = 82;
+            this.pbPresetSelection.TabStop = false;
             // 
             // pictureBox1
             // 
@@ -408,7 +408,7 @@ namespace SA_Resources.SAForms
             this.Controls.Add(this.pictureConnectionStatus);
             this.Controls.Add(this.btnConnectToDevice);
             this.Controls.Add(this.dropProgramSelection);
-            this.Controls.Add(this.pictureBox2);
+            this.Controls.Add(this.pbPresetSelection);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.menuStrip1);
             this.DoubleBuffered = true;
@@ -421,7 +421,7 @@ namespace SA_Resources.SAForms
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureConnectionStatus)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbPresetSelection)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.menuBlockCopy.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -453,7 +453,7 @@ namespace SA_Resources.SAForms
         protected PictureBox pictureConnectionStatus;
         protected Button btnConnectToDevice;
         protected ComboBox dropProgramSelection;
-        protected PictureBox pictureBox2;
+        protected PictureBox pbPresetSelection;
         private PictureBox pictureBox1;
         private ToolStripMenuItem resetToDefaultToolStripMenuItem;
         private ToolStripSeparator toolStripMenuItem1;

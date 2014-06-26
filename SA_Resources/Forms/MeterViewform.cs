@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using SA_Resources.DSP;
 using SA_Resources.DSP.Primitives;
 using SA_Resources.SAControls;
+using SA_Resources.SADevices;
 
 namespace SA_Resources.SAForms
 {
@@ -38,6 +39,18 @@ namespace SA_Resources.SAForms
             {
                 PARENT_FORM = _parentForm;
 
+                if (PARENT_FORM.GetDeviceType() == DeviceType.DSP1001)
+                {
+                    this.Width = 380;
+                    pbtnClose.Location = new Point(185, 278);
+                }
+
+                if (PARENT_FORM.GetDeviceType() == DeviceType.DSP1002)
+                {
+                    this.Width = 441;
+                    pbtnClose.Location = new Point(155, 278);
+                }
+
                 if (PARENT_FORM.LIVE_MODE)
                 {
                     
@@ -60,7 +73,7 @@ namespace SA_Resources.SAForms
                     outMeter1.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.Output, 0, 0).Address;
                     outMeter1.PIC_CONN = PARENT_FORM._PIC_Conn;
                     outMeter1.Start();
-
+                    
                     outMeter2.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.Output, 1, 0).Address;
                     outMeter2.PIC_CONN = PARENT_FORM._PIC_Conn;
                     outMeter2.Start();
@@ -72,6 +85,8 @@ namespace SA_Resources.SAForms
                     outMeter4.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.Output, 3, 0).Address;
                     outMeter4.PIC_CONN = PARENT_FORM._PIC_Conn;
                     outMeter4.Start();
+
+
 
                 }
                   

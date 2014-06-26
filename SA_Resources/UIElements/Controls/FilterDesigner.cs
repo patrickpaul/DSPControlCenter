@@ -24,7 +24,7 @@ namespace SA_Resources.SAControls
 
         /* Colors and Display */
         private Color[] filterColors = new Color[10];
-        private double filterSelectorFade = 0.3;
+        private double filterSelectorFade = 0.6;
 
         /* Dragging */
         public bool dragging_lowcutoff, dragging_center, dragging_highcutoff, dragging_crosshairs;

@@ -38,6 +38,7 @@ namespace SA_Resources.SAControls
         private bool editing_textbox;
         private string starting_text_value;
 
+        private bool textbox_selected_to_clear = false;
         public bool PlaySounds = false;
 
         public SAFilterDesignBlock()
@@ -631,20 +632,39 @@ namespace SA_Resources.SAControls
                 else if (is_gain && (e.KeyChar.ToString() == "." && active_textbox.Text.Contains(".")) || (e.KeyChar.ToString() == "-" && active_textbox.Text != "" && active_textbox.SelectedText == ""))
                 {
                     // Gain allows one decimal and a negative at the beginning
-                    if (PlaySounds)
+                    if (textbox_selected_to_clear && e.KeyChar.ToString() == ".")
                     {
-                        SystemSounds.Beep.Play();
+                        //okay!
+                        e.Handled = true;
+                        active_textbox.Text = "0.";
+                        active_textbox.Select(active_textbox.Text.Length, 0);
                     }
-                    e.Handled = true;
+                    {
+                        // QVal allows no negative but one decimal
+                        if (PlaySounds)
+                        {
+                            SystemSounds.Beep.Play();
+                        }
+                        e.Handled = true;
+                    }
                 }
                 else if (is_q && (e.KeyChar.ToString() == "-" || (e.KeyChar.ToString() == "." && active_textbox.Text.Contains("."))))
                 {
-                    // QVal allows no negative but one decimal
-                    if (PlaySounds)
+                    if (textbox_selected_to_clear && e.KeyChar.ToString() == ".")
                     {
-                        SystemSounds.Beep.Play();
+                        //okay!
+                        e.Handled = true;
+                        active_textbox.Text = "0.";
+                        active_textbox.Select(active_textbox.Text.Length, 0);
                     }
-                    e.Handled = true;
+                    {
+                        // QVal allows no negative but one decimal
+                        if (PlaySounds)
+                        {
+                            SystemSounds.Beep.Play();
+                        }
+                        e.Handled = true;
+                    }
 
                 }
             }
@@ -656,15 +676,23 @@ namespace SA_Resources.SAControls
                 }
                 e.Handled = true;
             }
+
+            textbox_selected_to_clear = false;
         }
 
-        private void Event_Textbox_MouseUp(object sender, MouseEventArgs e)
+        private void Event_Textbox_Enter(object sender, EventArgs e)
         {
             TextBox active_textbox = (TextBox)sender;
 
             starting_text_value = active_textbox.Text;
             active_textbox.SelectAll();
             editing_textbox = true;
+            textbox_selected_to_clear = true;
+        }
+
+        private void Event_Textbox_MouseUp(object sender, MouseEventArgs e)
+        {
+            // Removed here, code moved to Event_Textbox_Enter so that we capture Tab enters
         }
 
         private void Event_Textbox_Leave(object sender, EventArgs e)
@@ -746,6 +774,8 @@ namespace SA_Resources.SAControls
             }
 
         }
+
+        
     }
 
     public class FilterEventArgs : EventArgs

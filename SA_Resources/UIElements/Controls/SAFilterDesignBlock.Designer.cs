@@ -49,6 +49,7 @@
             this.txtQval.Size = new System.Drawing.Size(56, 20);
             this.txtQval.TabIndex = 99;
             this.txtQval.Text = "0.707";
+            this.txtQval.Enter += new System.EventHandler(this.Event_Textbox_Enter);
             this.txtQval.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Event_Textbox_KeyPress);
             this.txtQval.Leave += new System.EventHandler(this.Event_Textbox_Leave);
             this.txtQval.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Event_Textbox_MouseUp);
@@ -61,6 +62,7 @@
             this.txtGain.Size = new System.Drawing.Size(56, 20);
             this.txtGain.TabIndex = 98;
             this.txtGain.Text = "0.0";
+            this.txtGain.Enter += new System.EventHandler(this.Event_Textbox_Enter);
             this.txtGain.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Event_Textbox_KeyPress);
             this.txtGain.Leave += new System.EventHandler(this.Event_Textbox_Leave);
             this.txtGain.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Event_Textbox_MouseUp);
@@ -73,6 +75,7 @@
             this.txtFreq.Size = new System.Drawing.Size(56, 20);
             this.txtFreq.TabIndex = 97;
             this.txtFreq.Text = "100";
+            this.txtFreq.Enter += new System.EventHandler(this.Event_Textbox_Enter);
             this.txtFreq.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Event_Textbox_KeyPress);
             this.txtFreq.Leave += new System.EventHandler(this.Event_Textbox_Leave);
             this.txtFreq.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Event_Textbox_MouseUp);

@@ -106,6 +106,13 @@ namespace SA_Resources.DSP.Primitives
                 }
             }
         }
+
+        public UInt32 PregainToValue()
+        {
+            return DSP_Math.double_to_MN(this.Pregain, 32, 0);
+        }
+
+
         public UInt32 TypeToValue()
         {
             if (this.InputType == InputType.Line)
@@ -238,7 +245,7 @@ namespace SA_Resources.DSP.Primitives
 
         public void LoadPregainFromValue(UInt32 Pregain_Value)
         {
-            this.Pregain = (uint) Pregain_Value;
+            this.Pregain = (uint)DSP_Math.MN_to_double_unsigned(Pregain_Value, 32, 0);
 
         }
 

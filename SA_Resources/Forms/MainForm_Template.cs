@@ -58,7 +58,7 @@ namespace SA_Resources.SAForms
         public int ADC_CALIBRATION_MIN = 30;
         public int ADC_CALIBRATION_MAX = 240;
         public bool SLEEP_ENABLE;
-        public int SLEEP_SECONDS;
+        public int SLEEP_SECONDS = 60;
 
 
         public object TempConfig;
@@ -154,6 +154,12 @@ namespace SA_Resources.SAForms
                 for (int i = 0; i < this.GetNumPresets(); i++)
                 {
                     DSP_PROGRAMS[i] = new DSP_Program_Manager(i,"Preset " + i);
+                }
+
+                if (this.GetNumPresets() < 2)
+                {
+                    pbPresetSelection.Visible = false;
+                    dropProgramSelection.Visible = false;
                 }
                 Default_DSP_Programs();
                 Default_DSP_Meters();
@@ -450,6 +456,7 @@ namespace SA_Resources.SAForms
                 if (GetDeviceType() == DeviceType.FLX804)
                 {
                     SetBridgeMode(AmplifierMode);
+                    _PIC_Conn.SetAmplifierMode(AmplifierMode);
                 }
                 
 
@@ -994,6 +1001,8 @@ namespace SA_Resources.SAForms
                 {
                     mixerForm.Width = 228;
                 }
+
+                
 
                 DialogResult showBlock = mixerForm.ShowDialog(this);
             }

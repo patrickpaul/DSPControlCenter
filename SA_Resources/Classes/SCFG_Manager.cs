@@ -47,6 +47,19 @@ namespace SA_Resources
                         writer.WriteLine("ADC_CALIBRATION_MAX:" + adc_max.ToString("00000000") + ";");
                     }
 
+                    if (PARENT_FORM.GetDeviceFamily() == DeviceFamily.DSP100)
+                    {
+                        bool sleep_enable = PARENT_FORM.SLEEP_ENABLE;
+                        int sleep_seconds = PARENT_FORM.SLEEP_SECONDS;
+                        int adc_min = PARENT_FORM.ADC_CALIBRATION_MIN;
+                        int adc_max = PARENT_FORM.ADC_CALIBRATION_MAX;
+
+                        writer.WriteLine("SLEEP_ENABLE:" + sleep_enable + ";");
+                        writer.WriteLine("SLEEP_SECONDS:" + sleep_seconds.ToString("00000000") + ";");
+                        writer.WriteLine("ADC_CALIBRATION_MIN:" + adc_min.ToString("00000000") + ";");
+                        writer.WriteLine("ADC_CALIBRATION_MAX:" + adc_max.ToString("00000000") + ";");
+                    }
+
                     for (int i = 0; i < PARENT_FORM.GetNumPresets(); i++)
                     {
                         PARENT_FORM.DSP_PROGRAMS[i].Write_Program_To_Cache();
@@ -114,6 +127,24 @@ namespace SA_Resources
                         PARENT_FORM.ADC_CALIBRATION_MAX = adc_max;
 
                         PARENT_FORM.SetBridgeMode(new_mode);
+
+                    }
+
+                    if (PARENT_FORM.GetDeviceFamily() == DeviceFamily.DSP100)
+                    {
+                        string SleepEnableLine = reader.ReadLine();
+                        string SleepSecondsLine = reader.ReadLine();
+                        string ADCMinLine = reader.ReadLine();
+                        string ADCMaxLine = reader.ReadLine();
+
+                        bool sleep_enable = SleepEnableLine.Contains("True");
+                        int sleep_seconds = int.Parse(SleepSecondsLine.Substring(14, 8));
+                        int adc_min = int.Parse(ADCMinLine.Substring(20, 8));
+                        int adc_max = int.Parse(ADCMaxLine.Substring(20, 8));
+                        PARENT_FORM.SLEEP_ENABLE = sleep_enable;
+                        PARENT_FORM.SLEEP_SECONDS = sleep_seconds;
+                        PARENT_FORM.ADC_CALIBRATION_MIN = adc_min;
+                        PARENT_FORM.ADC_CALIBRATION_MAX = adc_max;
 
                     }
 

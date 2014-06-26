@@ -39,7 +39,7 @@ namespace SA_Resources.SAForms
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.pictureButton1 = new SA_Resources.SAControls.PictureButton();
+            this.pbtnClose = new SA_Resources.SAControls.PictureButton();
             this.inMeter4 = new SA_Resources.SAControls.SignalMeter();
             this.inMeter3 = new SA_Resources.SAControls.SignalMeter();
             this.inMeter2 = new SA_Resources.SAControls.SignalMeter();
@@ -154,25 +154,25 @@ namespace SA_Resources.SAForms
             this.label4.Text = "Input 1";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // pictureButton1
+            // pbtnClose
             // 
-            this.pictureButton1.AutoResize = true;
-            this.pictureButton1.BackgroundImage = global::SA_Resources.GlobalResources.ui_btn_blue_close;
-            this.pictureButton1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureButton1.Location = new System.Drawing.Point(248, 278);
-            this.pictureButton1.Name = "pictureButton1";
-            this.pictureButton1.OverImage = null;
-            this.pictureButton1.Overlay1Image = null;
-            this.pictureButton1.Overlay1Visible = false;
-            this.pictureButton1.Overlay2Image = null;
-            this.pictureButton1.Overlay2Visible = false;
-            this.pictureButton1.Overlay3Image = null;
-            this.pictureButton1.Overlay3Visible = false;
-            this.pictureButton1.PressedImage = null;
-            this.pictureButton1.Size = new System.Drawing.Size(55, 23);
-            this.pictureButton1.TabIndex = 88;
-            this.pictureButton1.ToolTipText = "";
-            this.pictureButton1.Click += new System.EventHandler(this.pictureButton1_Click);
+            this.pbtnClose.AutoResize = true;
+            this.pbtnClose.BackgroundImage = global::SA_Resources.GlobalResources.ui_btn_blue_close;
+            this.pbtnClose.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pbtnClose.Location = new System.Drawing.Point(247, 278);
+            this.pbtnClose.Name = "pbtnClose";
+            this.pbtnClose.OverImage = null;
+            this.pbtnClose.Overlay1Image = null;
+            this.pbtnClose.Overlay1Visible = false;
+            this.pbtnClose.Overlay2Image = null;
+            this.pbtnClose.Overlay2Visible = false;
+            this.pbtnClose.Overlay3Image = null;
+            this.pbtnClose.Overlay3Visible = false;
+            this.pbtnClose.PressedImage = null;
+            this.pbtnClose.Size = new System.Drawing.Size(55, 23);
+            this.pbtnClose.TabIndex = 88;
+            this.pbtnClose.ToolTipText = "";
+            this.pbtnClose.Click += new System.EventHandler(this.pictureButton1_Click);
             // 
             // inMeter4
             // 
@@ -258,8 +258,8 @@ namespace SA_Resources.SAForms
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(82)))), ((int)(((byte)(82)))));
-            this.ClientSize = new System.Drawing.Size(550, 313);
-            this.Controls.Add(this.pictureButton1);
+            this.ClientSize = new System.Drawing.Size(548, 313);
+            this.Controls.Add(this.pbtnClose);
             this.Controls.Add(this.inMeter4);
             this.Controls.Add(this.inMeter3);
             this.Controls.Add(this.inMeter2);
@@ -316,6 +316,6 @@ namespace SA_Resources.SAForms
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private PictureButton pictureButton1;
+        private PictureButton pbtnClose;
     }
 }

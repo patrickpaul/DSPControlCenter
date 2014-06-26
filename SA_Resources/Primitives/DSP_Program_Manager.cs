@@ -220,10 +220,12 @@ namespace SA_Resources.DSP.Primitives
 
             int offset_counter;
 
+            // Used for testing purposes so that we could see what wasn't being written
             for (int i = 0; i < 768; i++)
             {
                 WRITE_VALUE_CACHE[i] = 0x11111111;
             }
+            
 
             try
             {
@@ -350,7 +352,7 @@ namespace SA_Resources.DSP.Primitives
                                 int name_offset = RecastInput.NameOffset;
                                 RecastInput.NameToValues();
 
-                                WRITE_VALUE_CACHE[RecastInput.PregainOffset] = RecastInput.Pregain;
+                                WRITE_VALUE_CACHE[RecastInput.PregainOffset] = RecastInput.PregainToValue();
 
                                 WRITE_VALUE_CACHE[name_offset++] = RecastInput.NameValues[0];
                                 WRITE_VALUE_CACHE[name_offset++] = RecastInput.NameValues[1];
@@ -433,9 +435,6 @@ namespace SA_Resources.DSP.Primitives
                     // TODO - REMOVE THIS
                     WRITE_VALUE_CACHE[568] = 0x00000000;
                     WRITE_VALUE_CACHE[569] = 0x00000000;
-                    WRITE_VALUE_CACHE[560] = 0x00000000;
-                    WRITE_VALUE_CACHE[561] = 0x00000000;
-                    WRITE_VALUE_CACHE[562] = 0x00000000;
 
                     /* PREGAIN CHANNELS 5-6 */
                     WRITE_VALUE_CACHE[564] = 0x00000000;
@@ -481,14 +480,6 @@ namespace SA_Resources.DSP.Primitives
                     }
 
                     WRITE_VALUE_CACHE[566] = PhantomMask;
-                    
-                    
-                    
-                    
-
-
-                    
-                
             }
             catch (Exception ex)
             {
@@ -631,7 +622,7 @@ namespace SA_Resources.DSP.Primitives
 
                 InputPrimitive.PhantomPower = ((READ_VALUE_CACHE[566] & 0x01) == 1);
 
-                InputPrimitive.Pregain = READ_VALUE_CACHE[InputPrimitive.PregainOffset];
+                InputPrimitive.LoadPregainFromValue(READ_VALUE_CACHE[InputPrimitive.PregainOffset]);
 
                 READ_VALUE_CACHE[566] >>= 1;
 

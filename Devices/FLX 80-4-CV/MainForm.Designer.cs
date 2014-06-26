@@ -98,7 +98,7 @@ namespace FLX80_4_CV_Analog
             this.picDuckerLine = new System.Windows.Forms.PictureBox();
             this.pbtnDucker = new SA_Resources.SAControls.PictureButton();
             ((System.ComponentModel.ISupportInitialize)(this.pictureConnectionStatus)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbPresetSelection)).BeginInit();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox37)).BeginInit();
             this.pnlCH2PreMixer.SuspendLayout();
@@ -1162,7 +1162,7 @@ namespace FLX80_4_CV_Analog
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
             this.Text = "FLX80-4-CV";
-            this.Controls.SetChildIndex(this.pictureBox2, 0);
+            this.Controls.SetChildIndex(this.pbPresetSelection, 0);
             this.Controls.SetChildIndex(this.dropProgramSelection, 0);
             this.Controls.SetChildIndex(this.btnConnectToDevice, 0);
             this.Controls.SetChildIndex(this.pictureConnectionStatus, 0);
@@ -1188,7 +1188,7 @@ namespace FLX80_4_CV_Analog
             this.Controls.SetChildIndex(this.picDuckerLine, 0);
             this.Controls.SetChildIndex(this.pbtnDucker, 0);
             ((System.ComponentModel.ISupportInitialize)(this.pictureConnectionStatus)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbPresetSelection)).EndInit();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox37)).EndInit();

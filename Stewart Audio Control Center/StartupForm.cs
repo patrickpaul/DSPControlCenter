@@ -33,78 +33,103 @@ namespace SA_Resources
 
             InitializeComponent();
 
-            string[] args = Environment.GetCommandLineArgs();
-
-            
-
-            CONFIGFILE = "";
-            if (args.Length > 1)
+            try
             {
-                if (args[0].Contains(".scfg"))
-                {
-                    CONFIGFILE = args[0];
-                }
+                string[] args = Environment.GetCommandLineArgs();
 
-                if (args[1].Contains(".scfg"))
-                {
-                    CONFIGFILE = args[1];
-                }
 
-                if (args[1] == "/standalone")
-                {
-                    standalone_build = true;
-                }
 
-                if (args.Length > 2)
+                CONFIGFILE = "";
+                if (args.Length > 1)
                 {
-                    if (args[2].Contains(".scfg"))
+                    if (args[0].Contains(".scfg"))
                     {
-                        CONFIGFILE = args[2];
+                        CONFIGFILE = args[0];
                     }
 
-                    if (args[2] == "/standalone")
+                    if (args[1].Contains(".scfg"))
+                    {
+                        CONFIGFILE = args[1];
+                    }
+
+                    if (args[1] == "/standalone")
                     {
                         standalone_build = true;
                     }
+
+                    if (args.Length > 2)
+                    {
+                        if (args[2].Contains(".scfg"))
+                        {
+                            CONFIGFILE = args[2];
+                        }
+
+                        if (args[2] == "/standalone")
+                        {
+                            standalone_build = true;
+                        }
+                    }
+                }
+
+                if (!_vsDebug && !standalone_build)
+                {
+                    string InstallPath = (string) Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\StewartAudioDSP", "Path", null);
+                    // Do stuff
+
+                    if (String.IsNullOrEmpty(InstallPath))
+                    {
+                        MessageBox.Show("Note: Application is not installed, running in portable mode.","Application Not Installed", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        //this.Close();
+                    } else
+                    {
+                        MessageBox.Show("InstallPath:|" + InstallPath + "| " + InstallPath.Length);
+                        Directory.SetCurrentDirectory(InstallPath);
+                    }
                 }
             }
-
-            if (!_vsDebug && !standalone_build)
+            catch (Exception ex)
             {
-                string InstallPath = (string)Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\StewartAudioDSP", "Path", null);
-                // Do stuff
-                Directory.SetCurrentDirectory(InstallPath);
+                MessageBox.Show("Unable to load program: " + ex.StackTrace);
             }
-
-            //CONFIGFILE = @"c:\users\patrick\desktop\manager107.scfg";
         }
 
 
         private void StartupForm_Load(object sender, EventArgs e)
         {
             //PIC_Conn = new PIC_Bridge(serialPort);
-            
-            string[] device_plugins = Directory.GetFiles(@"Devices\", "*.sadev"); // <-- Case-insensitive
-
-            foreach (string single_plugin in device_plugins)
+            try
             {
-                InitializeDevicePlugin(single_plugin);
+                string[] device_plugins = Directory.GetFiles(@"Devices\", "*.sadev"); // <-- Case-insensitive
+
+                if (device_plugins.Count() < 1)
+                {
+                    MessageBox.Show("There are no device plugins available!");
+                }
+
+ 
+                foreach (string single_plugin in device_plugins)
+                {
+                    InitializeDevicePlugin(single_plugin);
+
+                }
+
+                if (DevicePlugins.Count > 0)
+                {
+                    OrderedDevicePlugins = DevicePlugins.OrderBy(x => x.DisplayOrder).ToList();
+
+                    foreach (SADevicePlugin singlePlugin in OrderedDevicePlugins)
+                    {
+                        DeviceListBox.Items.Add(singlePlugin.Name);
+                    }
+                }
+
+                DeviceListBox.SelectedIndex = 0;
+                DeviceListBox.Invalidate();
+            }
+            catch (Exception ex)
+            {
                 
             }
-
-            if (DevicePlugins.Count > 0)
-            {
-                OrderedDevicePlugins = DevicePlugins.OrderBy(x => x.DisplayOrder).ToList();
-
-                foreach (SADevicePlugin singlePlugin in OrderedDevicePlugins)
-                {
-                    DeviceListBox.Items.Add(singlePlugin.Name);
-                }
-            }
-
-            DeviceListBox.SelectedIndex = 0;
-            DeviceListBox.Invalidate();
-            
         }
 
         private void StartupForm_Shown(object sender, EventArgs e)

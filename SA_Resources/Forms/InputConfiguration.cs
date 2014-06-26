@@ -9,6 +9,7 @@ using System.Text;
 using System.Windows.Forms;
 using SA_Resources;
 using SA_Resources.DSP;
+using SA_Resources.SADevices;
 using SA_Resources.SAForms;
 using SA_Resources.DSP.Primitives;
 
@@ -39,6 +40,12 @@ namespace SA_Resources
             InitializeComponent();
 
             PARENT_FORM = _parentForm;
+
+
+            if (PARENT_FORM.GetDeviceFamily() == DeviceFamily.DSP100)
+            {
+                txtDisplayName.Enabled = false;
+            }
 
             Active_Primitive = in_primitive;
 
@@ -127,9 +134,6 @@ namespace SA_Resources
             if (PARENT_FORM.LIVE_MODE)
             {
                 Active_Primitive.QueuePregain(PARENT_FORM);
-
-                
-
                 Pregain_Primitive.QueueChange(PARENT_FORM);
             }
 

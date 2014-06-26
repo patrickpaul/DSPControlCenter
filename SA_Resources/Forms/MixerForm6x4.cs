@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using SA_Resources.DSP;
 using SA_Resources.DSP.Primitives;
 using SA_Resources.SAControls;
+using SA_Resources.SADevices;
 
 namespace SA_Resources.SAForms
 {
@@ -68,6 +69,27 @@ namespace SA_Resources.SAForms
                             gainMeter3.Visible = false; 
                             gainMeter4.Visible = false;
                         }
+                    
+                    }
+
+                    if (PARENT_FORM.GetDeviceType() == DeviceType.DSP1001)
+                    {
+                        CH2_hidden = true;
+                        CH3_hidden = true;
+                        CH4_hidden = true;
+                        gainMeter2.Visible = false;
+                        gainMeter3.Visible = false;
+                        gainMeter4.Visible = false;
+                    }
+
+                    if (PARENT_FORM.GetDeviceType() == DeviceType.DSP1002)
+                    {
+                        CH2_hidden = false;
+                        CH3_hidden = true;
+                        CH4_hidden = true;
+                        gainMeter2.Visible = true;
+                        gainMeter3.Visible = false;
+                        gainMeter4.Visible = false;
                     }
                 }
 
@@ -127,7 +149,7 @@ namespace SA_Resources.SAForms
                 lblOutput0.Text = ((DSP_Primitive_Output) PARENT_FORM.DSP_PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].LookupPrimitive(DSP_Primitive_Types.Output, 0, 0)).OutputName;
                 if (CH2_hidden)
                 {
-                    lblOutput1.Text = "(Bridged)";
+                    lblOutput1.Text = PARENT_FORM.GetDeviceFamily() == DeviceFamily.DSP100 ? "" : "(Bridged)";
                 }
                 else
                 {
@@ -137,7 +159,7 @@ namespace SA_Resources.SAForms
 
                 if (CH3_hidden)
                 {
-                    lblOutput2.Text = "(Bridged)";
+                    lblOutput2.Text = PARENT_FORM.GetDeviceFamily() == DeviceFamily.DSP100 ? "" : "(Bridged)";
                 }
                 else
                 {
@@ -147,7 +169,7 @@ namespace SA_Resources.SAForms
                 
                 if (CH4_hidden)
                 {
-                    lblOutput3.Text = "(Bridged)";
+                    lblOutput3.Text = PARENT_FORM.GetDeviceFamily() == DeviceFamily.DSP100 ? "" : "(Bridged)";
                 }
                 else
                 {
@@ -201,6 +223,7 @@ namespace SA_Resources.SAForms
                         pbControl.Invalidate();
                     }
                 }
+ 
             }
             catch (Exception ex)
             {

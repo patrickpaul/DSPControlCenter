@@ -124,7 +124,7 @@ namespace SA_Resources
             this.label4 = new System.Windows.Forms.Label();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureConnectionStatus)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbPresetSelection)).BeginInit();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox37)).BeginInit();
             this.pnlCH2PreMixer.SuspendLayout();
@@ -1670,13 +1670,13 @@ namespace SA_Resources
             this.Controls.SetChildIndex(this.label3, 0);
             this.Controls.SetChildIndex(this.label2, 0);
             this.Controls.SetChildIndex(this.label1, 0);
-            this.Controls.SetChildIndex(this.pictureBox2, 0);
+            this.Controls.SetChildIndex(this.pbPresetSelection, 0);
             this.Controls.SetChildIndex(this.dropProgramSelection, 0);
             this.Controls.SetChildIndex(this.btnConnectToDevice, 0);
             this.Controls.SetChildIndex(this.pictureConnectionStatus, 0);
             this.Controls.SetChildIndex(this.pictureBox3, 0);
             ((System.ComponentModel.ISupportInitialize)(this.pictureConnectionStatus)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbPresetSelection)).EndInit();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox37)).EndInit();

@@ -8,7 +8,7 @@ using SA_Resources.SADevices;
 using SA_Resources.SAForms;
 using SA_Resources.DSP.Primitives;
 
-namespace FLX80_4_Analog
+namespace DSP100_2_Analog
 {
     public partial class MainForm : MainForm_Template
     {
@@ -20,12 +20,15 @@ namespace FLX80_4_Analog
         {
             InitializeComponent();
 
+            this.AmplifierMode = 3; // 1 Channel
         }
 
         public MainForm(string configFile = "")
             : base(configFile)
         {
             InitializeComponent();
+
+            this.AmplifierMode = 3; // 1 Channel
         }
 
         #endregion
@@ -36,22 +39,22 @@ namespace FLX80_4_Analog
 
         public override int GetDeviceID()
         {
-            return 0x0A;
+            return 0x1F;
         }
 
         public override string GetDeviceName()
         {
-            return "FLX80-4";
+            return "DSP100-2";
         }
 
         public override DeviceType GetDeviceType()
         {
-            return DeviceType.FLX804;
+            return DeviceType.DSP1002;
         }
 
         public override DeviceFamily GetDeviceFamily()
         {
-            return DeviceFamily.FLX;
+            return DeviceFamily.DSP100;
         }
 
         public override int GetNumInputChannels()
@@ -61,17 +64,17 @@ namespace FLX80_4_Analog
 
         public override int GetNumOutputChannels()
         {
-            return 4;
+            return 2;
         }
 
         public override int GetNumPhantomPowerChannels()
         {
-            return 4;
+            return 0;
         }
 
         public override string GetDefaultDeviceFile()
         {
-            return @"Devices\FLX80-4-Analog_Default.scfg";
+            return @"Devices\DSP100-2-Analog_Default.scfg";
         }
 
         public override bool IsAmplifier()
@@ -81,28 +84,29 @@ namespace FLX80_4_Analog
 
         public override bool isBridgable()
         {
-            return true;
+            return false;
         }
 
         public override int GetPermanentAmplifierMode()
         {
-            return 0;
+            return 3;
         }
 
         public override int GetNumPresets()
         {
-            return 10;
+            return 1;
         }
 
         public override int GetDisplayOrder()
         {
-            return 10;
+            return 105;
         }
 
         public override void SetConnectionPicture(Image connectionPicture)
         {
             pictureConnectionStatus.BackgroundImage = connectionPicture;
             pictureConnectionStatus.Invalidate();
+
         }
 
         #endregion
@@ -138,229 +142,11 @@ namespace FLX80_4_Analog
 
         #endregion
 
-        #region Threadsafe UI Modifications
-
-        public delegate void SetPanel1Callback(bool isVisible, Image new_background);
-        public delegate void SetPanel2Callback(bool isVisible, Image new_background);
-        public delegate void SetPanel3Callback(bool isVisible, Image new_background);
-        public delegate void SetPanel4Callback(bool isVisible, Image new_background);
-
-        public delegate void SetLabel1Callback(bool isVisible, Color new_backColor);
-        public delegate void SetLabel2Callback(bool isVisible, Color new_backColor);
-        public delegate void SetLabel3Callback(bool isVisible, Color new_backColor);
-        public delegate void SetLabel4Callback(bool isVisible, Color new_backColor);
-
-        public void SetPanel1(bool isVisible, Image new_background)
-        {
-            // InvokeRequired required compares the thread ID of the
-            // calling thread to the thread ID of the creating thread.
-            // If these threads are different, it returns true.
-            if (this.pnlCH1PostMixer.InvokeRequired)
-            {
-                SetPanel1Callback d = new SetPanel1Callback(SetPanel1);
-                this.Invoke(d, new object[] { isVisible, new_background });
-            }
-            else
-            {
-                this.pnlCH1PostMixer.Visible = isVisible;
-                this.pnlCH1PostMixer.BackgroundImage = new_background;
-                this.pnlCH1PostMixer.Invalidate();
-            }
-        }
-
-        public void SetPanel2(bool isVisible, Image new_background)
-        {
-            // InvokeRequired required compares the thread ID of the
-            // calling thread to the thread ID of the creating thread.
-            // If these threads are different, it returns true.
-            if (this.pnlCH2PostMixer.InvokeRequired)
-            {
-                SetPanel2Callback d = new SetPanel2Callback(SetPanel2);
-                this.Invoke(d, new object[] { isVisible, new_background });
-            }
-            else
-            {
-                this.pnlCH2PostMixer.Visible = isVisible;
-                this.pnlCH2PostMixer.BackgroundImage = new_background;
-                this.pnlCH2PostMixer.Invalidate();
-            }
-        }
-
-        public void SetPanel3(bool isVisible, Image new_background)
-        {
-            // InvokeRequired required compares the thread ID of the
-            // calling thread to the thread ID of the creating thread.
-            // If these threads are different, it returns true.
-            if (this.pnlCH3PostMixer.InvokeRequired)
-            {
-                SetPanel3Callback d = new SetPanel3Callback(SetPanel3);
-                this.Invoke(d, new object[] { isVisible, new_background });
-            }
-            else
-            {
-                this.pnlCH3PostMixer.Visible = isVisible;
-                this.pnlCH3PostMixer.BackgroundImage = new_background;
-                this.pnlCH3PostMixer.Invalidate();
-            }
-        }
-
-        public void SetPanel4(bool isVisible, Image new_background)
-        {
-            // InvokeRequired required compares the thread ID of the
-            // calling thread to the thread ID of the creating thread.
-            // If these threads are different, it returns true.
-            if (this.pnlCH4PostMixer.InvokeRequired)
-            {
-                SetPanel4Callback d = new SetPanel4Callback(SetPanel4);
-                this.Invoke(d, new object[] { isVisible, new_background });
-            }
-            else
-            {
-                this.pnlCH4PostMixer.Visible = isVisible;
-                this.pnlCH4PostMixer.BackgroundImage = new_background;
-                this.pnlCH4PostMixer.Invalidate();
-            }
-        }
-
-        public void SetLabel1(bool isVisible, Color new_backColor)
-        {
-            // InvokeRequired required compares the thread ID of the
-            // calling thread to the thread ID of the creating thread.
-            // If these threads are different, it returns true.
-            if (this.pnlCH1PostMixer.InvokeRequired)
-            {
-                SetLabel1Callback d = new SetLabel1Callback(SetLabel1);
-                this.Invoke(d, new object[] { isVisible, new_backColor });
-            }
-            else
-            {
-                this.lblCH1Output.Visible = isVisible;
-                this.lblCH1Output.BackColor = new_backColor;
-                this.lblCH1Output.Invalidate();
-            }
-        }
-
-        public void SetLabel2(bool isVisible, Color new_backColor)
-        {
-            // InvokeRequired required compares the thread ID of the
-            // calling thread to the thread ID of the creating thread.
-            // If these threads are different, it returns true.
-            if (this.pnlCH2PostMixer.InvokeRequired)
-            {
-                SetLabel2Callback d = new SetLabel2Callback(SetLabel2);
-                this.Invoke(d, new object[] { isVisible, new_backColor });
-            }
-            else
-            {
-                this.lblCH2Output.Visible = isVisible;
-                this.lblCH2Output.BackColor = new_backColor;
-                this.lblCH2Output.Invalidate();
-            }
-        }
-
-        public void SetLabel3(bool isVisible, Color new_backColor)
-        {
-            // InvokeRequired required compares the thread ID of the
-            // calling thread to the thread ID of the creating thread.
-            // If these threads are different, it returns true.
-            if (this.pnlCH3PostMixer.InvokeRequired)
-            {
-                SetLabel3Callback d = new SetLabel3Callback(SetLabel3);
-                this.Invoke(d, new object[] { isVisible, new_backColor });
-            }
-            else
-            {
-                this.lblCH3Output.Visible = isVisible;
-                this.lblCH3Output.BackColor = new_backColor;
-                this.lblCH3Output.Invalidate();
-            }
-        }
-
-        public void SetLabel4(bool isVisible, Color new_backColor)
-        {
-            // InvokeRequired required compares the thread ID of the
-            // calling thread to the thread ID of the creating thread.
-            // If these threads are different, it returns true.
-            if (this.pnlCH4PostMixer.InvokeRequired)
-            {
-                SetLabel4Callback d = new SetLabel4Callback(SetLabel4);
-                this.Invoke(d, new object[] { isVisible, new_backColor });
-            }
-            else
-            {
-                this.lblCH4Output.Visible = isVisible;
-                this.lblCH4Output.BackColor = new_backColor;
-                this.lblCH4Output.Invalidate();
-            }
-        }
-
-
-        #endregion
-
-        public override void SetBridgeMode(int BridgeMode)
-        {
-            Bitmap resized_panel_bg;
-            Bitmap resized_panel_bg_bridged;
-
-            resized_panel_bg = new Bitmap(SA_Resources.GlobalResources.uidesign_prematrix_line, new Size(pnlCH1PostMixer.Width, pnlCH1PostMixer.Height));
-
-            resized_panel_bg_bridged = new Bitmap(SA_Resources.GlobalResources.uidesign_prematrix_line_bridged, new Size(pnlCH1PostMixer.Width, pnlCH1PostMixer.Height));
-
-            switch (BridgeMode)
-            {
-                case 0:
-                    // 4 channel          
-
-                    this.SetPanel1(true, resized_panel_bg);
-                    this.SetPanel2(true, resized_panel_bg);
-                    this.SetPanel3(true, resized_panel_bg);
-                    this.SetPanel4(true, resized_panel_bg);
-
-                    this.SetLabel1(true, Color.FromArgb(40, 40, 40));
-                    this.SetLabel2(true, Color.FromArgb(40, 40, 40));
-                    this.SetLabel3(true, Color.FromArgb(40, 40, 40));
-                    this.SetLabel4(true, Color.FromArgb(40, 40, 40));
-
-                break;
-
-                case 1:
-                    // 2 channel
-
-                    this.SetPanel1(true, resized_panel_bg_bridged);
-                    this.SetPanel2(false, resized_panel_bg);
-                    this.SetPanel3(true, resized_panel_bg_bridged);
-                    this.SetPanel4(false, resized_panel_bg);
-
-                    this.SetLabel1(true, Color.FromArgb(41, 51, 97));
-                    this.SetLabel2(false, Color.FromArgb(40, 40, 40));
-                    this.SetLabel3(true, Color.FromArgb(41, 51, 97));
-                    this.SetLabel4(false, Color.FromArgb(40, 40, 40));
-
-                break;
-
-                case 2:
-
-                // 1.2 channel
-                this.SetPanel1(true, resized_panel_bg_bridged);
-                this.SetPanel2(false, resized_panel_bg);
-                this.SetPanel3(true, resized_panel_bg);
-                this.SetPanel4(true, resized_panel_bg);
-
-                this.SetLabel1(true, Color.FromArgb(41, 51, 97));
-                this.SetLabel2(false, Color.FromArgb(40, 40, 40));
-                this.SetLabel3(true, Color.FromArgb(40, 40, 40));
-                this.SetLabel4(true, Color.FromArgb(40, 40, 40));
-
-                break;
-            }
-        
-        }
-
         public override void ReadDevice(object sender, DoWorkEventArgs doWorkEventArgs)
         {
 
             // Disable timers
-            _PIC_Conn.sendAckdCommand(0x10);
+            //_PIC_Conn.sendAckdCommand(0x10);
 
             BackgroundWorker backgroundWorker = sender as BackgroundWorker;
 
@@ -450,17 +236,11 @@ namespace FLX80_4_Analog
                 DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C001C7, DSP_Primitive_Types.Compressor, 3, 1, 1));
 
                 // Outputs
-                /*
+                
                 DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C00193, DSP_Primitive_Types.Output, 0));
                 DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C00197, DSP_Primitive_Types.Output, 1));
                 DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C0019B, DSP_Primitive_Types.Output, 2));
                 DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C0019F, DSP_Primitive_Types.Output, 3));
-                 * */
-
-                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C0016b, DSP_Primitive_Types.Output, 0));
-                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C0016f, DSP_Primitive_Types.Output, 1));
-                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C00173, DSP_Primitive_Types.Output, 2));
-                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C00177, DSP_Primitive_Types.Output, 3));
 
             }
             catch (Exception ex)
@@ -557,7 +337,9 @@ namespace FLX80_4_Analog
                         for (int in_channel = 0; in_channel < 10; in_channel++)
                         {
                             
-                            crosspoint_gain = ((in_channel == out_channel) && (in_channel < 8)) ? 0 : -100;
+                            crosspoint_gain = (((out_channel == 0) && (in_channel == 0 || in_channel == 2)) ||
+                            ((out_channel == 1) && (in_channel == 1 || in_channel == 3)))
+                            ? 0 : -100;
 
                         DSP_PROGRAMS[program_index].RegisterNewPrimitive(index_counter++, new DSP_Primitive_MixerCrosspoint("Mixer Input " + (in_channel + 1) + " - Output " + (out_channel + 1) + "", in_channel, out_channel, crosspoint_gain));
                     }
@@ -601,15 +383,15 @@ namespace FLX80_4_Analog
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(466, new DSP_Primitive_Delay("CH 3 - Delay", 2));
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(468, new DSP_Primitive_Delay("CH 4 - Delay", 3));
 
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(1000, new DSP_Primitive_Input("Local Input CH 1", 0, 0, 704, 560, "Local Input #1", InputType.Line, true));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(1010, new DSP_Primitive_Input("Local Input CH 2", 1, 0, 709, 561, "Local Input #2", InputType.Line, true));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(1020, new DSP_Primitive_Input("Local Input CH 3", 2, 0, 714, 562, "Local Input #3", InputType.Line, false));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(1030, new DSP_Primitive_Input("Local Input CH 4", 3, 0, 719, 563, "Local Input #4", InputType.Line, false));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(1000, new DSP_Primitive_Input("Local Input CH 1", 0, 0, 704, 560, "Bal Input 1", InputType.Line, false));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(1010, new DSP_Primitive_Input("Local Input CH 2", 1, 0, 709, 561, "Bal Input 2", InputType.Line, false));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(1020, new DSP_Primitive_Input("Local Input CH 3", 2, 0, 714, 562, "RCA Input 1", InputType.Line, false));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(1030, new DSP_Primitive_Input("Local Input CH 4", 3, 0, 719, 563, "RCA Input 2", InputType.Line, false));
 
 
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(1040, new DSP_Primitive_Output("Output CH 1", 0, 0, 724, "Output #1"));
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(1050, new DSP_Primitive_Output("Output CH 1", 1, 0, 729, "Output #2"));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(1060, new DSP_Primitive_Output("Output CH 1", 2, 0, 734, "Output #3"));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(1060, new DSP_Primitive_Output("Output CH 1", 2, 0, 734, "Output #2"));
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(1070, new DSP_Primitive_Output("Output CH 1", 3, 0, 739, "Output #4"));
                  
 
@@ -623,22 +405,7 @@ namespace FLX80_4_Analog
 
         #region Device Specific UI Actions
 
-        private void pbtnBridge_Click(object sender, EventArgs e)
-        {
-            BridgeConfigurationForm Bridgeform = new BridgeConfigurationForm(this);
-
-            Bridgeform.ShowDialog();
-
-            SetBridgeMode(this.AmplifierMode);
-
-        }
-
         #endregion
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            new FLXForm_Template().ShowDialog();
-        }
 
 
     }

@@ -5,6 +5,7 @@ using System.Media;
 using System.Windows.Forms;
 using SA_Resources.DSP;
 using SA_Resources.DSP.Primitives;
+using SA_Resources.SADevices;
 using SA_Resources.SAForms;
 
 namespace SA_Resources
@@ -44,7 +45,7 @@ namespace SA_Resources
 
                 txtDisplayName.Text = Active_Primitive.OutputName;
 
-                if (_parentForm.LIVE_MODE && _parentForm._PIC_Conn.isOpen && PARENT_FORM.FIRMWARE_VERSION > 2.5)
+                if (_parentForm.LIVE_MODE && _parentForm._PIC_Conn.isOpen && PARENT_FORM.FIRMWARE_VERSION > 2.5 && PARENT_FORM.GetDeviceFamily() != DeviceFamily.DSP100)
                 {
                     gainMeterOut.Visible = true;
                     gainMeterOut.PIC_CONN = PARENT_FORM._PIC_Conn;

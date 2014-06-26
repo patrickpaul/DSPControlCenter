@@ -13,9 +13,16 @@ namespace SA_Resources
         [STAThread]
         static void Main()
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new StartupForm());
+            try
+            {
+                Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
+                Application.Run(new StartupForm());
+            }
+            catch (Exception ex)
+            {
+                
+            }
         }
     }
 }

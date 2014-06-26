@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("DSP Control Center")]
+[assembly: AssemblyTitle("DSP100-1 Plugin")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Stewart Audio")]
-[assembly: AssemblyProduct("DSP Control Center")]
+[assembly: AssemblyProduct("DSP100-1 Plugin")]
 [assembly: AssemblyCopyright("Copyright © Stewart Audio 2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("ab9a0e0f-4719-4a1d-8148-935bf9ef20c0")]
+[assembly: Guid("1734e3e2-358c-447c-a46d-23357685b90b")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("3.0.260.1158")]
-[assembly: AssemblyFileVersion("3.0.260.1158")]
+[assembly: AssemblyVersion("3.0.3756.1637")]
+[assembly: AssemblyFileVersion("3.0.3756.1637")]
