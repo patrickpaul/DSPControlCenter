@@ -67,6 +67,34 @@ namespace SA_Resources.SAForms
                 }
                 DesignBlock = (SAFilterDesignBlock)Controls.Find("filterDesignBlock" + i, true).First();
                 DesignBlock.RegisterPrimitive(i, SingleFilterPrimitive);
+
+                switch (i)
+                {
+                    case 0 :
+                        DesignBlock.SetBackgroundColor(Color.Chocolate);
+                    break;
+
+                    case 1 :
+                        DesignBlock.SetBackgroundColor(Color.Chartreuse);
+                        break;
+
+                    case 2:
+                        DesignBlock.SetBackgroundColor(Color.HotPink);
+                        break;
+
+                    case 3:
+                        DesignBlock.SetBackgroundColor(Color.SandyBrown);
+                        break;
+
+                    case 4:
+                        DesignBlock.SetBackgroundColor(Color.PaleGreen);
+                        break;
+
+                    case 5:
+                        DesignBlock.SetBackgroundColor(Color.Thistle);
+                        break;
+
+                }
             }
 
             if (!firstFilterFound)

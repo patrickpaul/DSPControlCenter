@@ -42,6 +42,7 @@ namespace SA_Resources.SAForms
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.mbtnOpenConfiguration = new System.Windows.Forms.ToolStripMenuItem();
             this.openConfigurationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveConfigurationAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveConfigurationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitApplicationToolStripMenuItem = new System.Windows.Forms.ToolStripSeparator();
             this.resetToDefaultToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -115,6 +116,7 @@ namespace SA_Resources.SAForms
             this.mbtnOpenConfiguration.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.openConfigurationToolStripMenuItem,
             this.saveConfigurationToolStripMenuItem,
+            this.saveConfigurationAsToolStripMenuItem,
             this.exitApplicationToolStripMenuItem,
             this.resetToDefaultToolStripMenuItem,
             this.toolStripMenuItem1,
@@ -128,39 +130,48 @@ namespace SA_Resources.SAForms
             // 
             this.openConfigurationToolStripMenuItem.Name = "openConfigurationToolStripMenuItem";
             this.openConfigurationToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.openConfigurationToolStripMenuItem.Size = new System.Drawing.Size(223, 22);
+            this.openConfigurationToolStripMenuItem.Size = new System.Drawing.Size(263, 22);
             this.openConfigurationToolStripMenuItem.Text = "Open Configuration";
             this.openConfigurationToolStripMenuItem.Click += new System.EventHandler(this.ReadSCFG_Event);
+            // 
+            // saveConfigurationAsToolStripMenuItem
+            // 
+            this.saveConfigurationAsToolStripMenuItem.Name = "saveConfigurationAsToolStripMenuItem";
+            this.saveConfigurationAsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
+            | System.Windows.Forms.Keys.S)));
+            this.saveConfigurationAsToolStripMenuItem.Size = new System.Drawing.Size(263, 22);
+            this.saveConfigurationAsToolStripMenuItem.Text = "Save Configuration As...";
+            this.saveConfigurationAsToolStripMenuItem.Click += new System.EventHandler(this.WriteSCFG_As_Event);
             // 
             // saveConfigurationToolStripMenuItem
             // 
             this.saveConfigurationToolStripMenuItem.Name = "saveConfigurationToolStripMenuItem";
             this.saveConfigurationToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveConfigurationToolStripMenuItem.Size = new System.Drawing.Size(223, 22);
+            this.saveConfigurationToolStripMenuItem.Size = new System.Drawing.Size(263, 22);
             this.saveConfigurationToolStripMenuItem.Text = "Save Configuration";
             this.saveConfigurationToolStripMenuItem.Click += new System.EventHandler(this.WriteSCFG_Event);
             // 
             // exitApplicationToolStripMenuItem
             // 
             this.exitApplicationToolStripMenuItem.Name = "exitApplicationToolStripMenuItem";
-            this.exitApplicationToolStripMenuItem.Size = new System.Drawing.Size(220, 6);
+            this.exitApplicationToolStripMenuItem.Size = new System.Drawing.Size(260, 6);
             // 
             // resetToDefaultToolStripMenuItem
             // 
             this.resetToDefaultToolStripMenuItem.Name = "resetToDefaultToolStripMenuItem";
-            this.resetToDefaultToolStripMenuItem.Size = new System.Drawing.Size(223, 22);
+            this.resetToDefaultToolStripMenuItem.Size = new System.Drawing.Size(263, 22);
             this.resetToDefaultToolStripMenuItem.Text = "Restore Default Settings";
             this.resetToDefaultToolStripMenuItem.Click += new System.EventHandler(this.ResetInterface_Event);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(220, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(260, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(223, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(263, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.Close_Event);
             // 
@@ -468,5 +479,6 @@ namespace SA_Resources.SAForms
         private ToolStripSeparator toolStripMenuItem3;
         private SAControls.PictureButton pbtn_Meters;
         private SAControls.PictureButton pbtnSettings;
+        private ToolStripMenuItem saveConfigurationAsToolStripMenuItem;
     }
 }

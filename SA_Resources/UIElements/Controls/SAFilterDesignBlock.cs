@@ -48,7 +48,12 @@ namespace SA_Resources.SAControls
             this.Visible = false;
 
         }
-        
+
+        public void SetBackgroundColor(Color newBackColor)
+        {
+            this.dropFilter.BackColor = newBackColor;
+        }
+
         public SAFilterDesignBlock(int _index, DSP_Primitive_BiquadFilter inputPrimitive)
         {
             InitializeComponent();
@@ -612,6 +617,7 @@ namespace SA_Resources.SAControls
 
                 UpdateFilterValuefromTextbox(active_textbox);
 
+                return;
             }
 
 
@@ -670,11 +676,35 @@ namespace SA_Resources.SAControls
             }
             else
             {
-                if (PlaySounds)
+
+                if (e.KeyChar != 0x03 && e.KeyChar != 0x16)
                 {
-                    SystemSounds.Beep.Play();
+
+                    if (PlaySounds)
+                    {
+                        SystemSounds.Beep.Play();
+                    }
+
+
+                    e.Handled = true;
                 }
-                e.Handled = true;
+                else
+                {
+                    if (e.KeyChar == 0x16)
+                    {
+                        editing_textbox = false;
+
+                        active_textbox.Text = Clipboard.GetText();
+                        active_textbox.Select(0, 0);
+
+                        UpdateFilterValuefromTextbox(active_textbox);
+
+                        e.Handled = true;
+                    }
+
+                    return;
+
+                }
             }
 
             textbox_selected_to_clear = false;

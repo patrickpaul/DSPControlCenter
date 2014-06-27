@@ -82,7 +82,6 @@ namespace SA_Resources
                         //this.Close();
                     } else
                     {
-                        MessageBox.Show("InstallPath:|" + InstallPath + "| " + InstallPath.Length);
                         Directory.SetCurrentDirectory(InstallPath);
                     }
                 }

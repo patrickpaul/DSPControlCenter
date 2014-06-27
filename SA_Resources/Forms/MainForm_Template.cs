@@ -95,6 +95,11 @@ namespace SA_Resources.SAForms
         public bool LIVE_MODE;
 
         public bool PRIMITIVES_LOADED = false;
+
+        public string currentFilePath = "";
+
+        public string currentFilename = "Untitled";
+
         #endregion
 
 
@@ -175,7 +180,9 @@ namespace SA_Resources.SAForms
                 AttachUIEvents();
                 UpdateTooltips();
 
-                 
+
+                this.SetTitleSaved(this.currentFilename);
+
                 if (CONFIGFILE != "" && CONFIGFILE != " ")
                 {
                     SCFG_Manager.Read(CONFIGFILE, this);
@@ -602,6 +609,21 @@ namespace SA_Resources.SAForms
             
         }
 
+        public virtual void SetTitleFilename(string filename)
+        {
+            this.Text = GetDeviceName() + " - " + filename;
+        }
+
+        public virtual void SetTitleUnsaved(string filename)
+        {
+            this.Text = GetDeviceName() + " - " + filename + "*";
+        }
+
+        public virtual void SetTitleSaved(string filename)
+        {
+            this.Text = GetDeviceName() + " - " + filename;
+        }
+
         
 
         #endregion
@@ -629,6 +651,7 @@ namespace SA_Resources.SAForms
         protected void SetUnsavedChanges(object sender, EventArgs e)
         {
             this.UnsavedChanges = true;
+            this.SetTitleUnsaved(this.currentFilename);
         }
 
         #endregion
@@ -1449,8 +1472,18 @@ namespace SA_Resources.SAForms
                 else
                 {
                     SCFG_Manager.Read(this.openProgramDialog.FileName, this);
+
                     UpdateTooltips();
+
+                    
+                    
                 }
+
+                this.currentFilePath = this.openProgramDialog.FileName;
+                this.currentFilename = Path.GetFileNameWithoutExtension(this.openProgramDialog.FileName);
+
+                SetTitleSaved(this.currentFilename);
+
             }
             catch (Exception ex)
             {
@@ -1462,10 +1495,48 @@ namespace SA_Resources.SAForms
         {
             try
             {
-                if (this.saveProgramDialog.ShowDialog() != DialogResult.OK)
-                    return;
-                SCFG_Manager.Write(this.saveProgramDialog.FileName, this);
+
+                if (this.currentFilePath == "")
+                {
+                    if (this.saveProgramDialog.ShowDialog() != DialogResult.OK)
+                        return;
+                    SCFG_Manager.Write(this.saveProgramDialog.FileName, this);
+
+                    this.currentFilename = Path.GetFileNameWithoutExtension(this.saveProgramDialog.FileName);
+                    this.currentFilePath = this.saveProgramDialog.FileName;
+
+                }
+                else
+                {
+                    SCFG_Manager.Write(this.currentFilePath, this);
+                }
+
                 this.UnsavedChanges = false;
+
+                SetTitleSaved(this.currentFilename);
+            }
+            catch (Exception ex)
+            {
+                int num = (int)MessageBox.Show("Unable to save program file. Message: " + ex.Message, "Save Program Error", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+            }
+        }
+
+        private void WriteSCFG_As_Event(object sender, EventArgs e)
+        {
+            try
+            {
+                    this.saveProgramDialog.FileName = this.currentFilename;
+
+                    if (this.saveProgramDialog.ShowDialog() != DialogResult.OK)
+                        return;
+                    SCFG_Manager.Write(this.saveProgramDialog.FileName, this);
+
+                    this.currentFilename = Path.GetFileNameWithoutExtension(this.saveProgramDialog.FileName);
+                    this.currentFilePath = this.saveProgramDialog.FileName;
+
+                this.UnsavedChanges = false;
+
+                SetTitleSaved(this.currentFilename);
             }
             catch (Exception ex)
             {
@@ -1577,6 +1648,10 @@ namespace SA_Resources.SAForms
                     SCFG_Manager.Read(this.GetDefaultDeviceFile(), this);
                     UpdateTooltips();
                 }
+
+                this.currentFilename = "Untitled";
+                this.currentFilePath = "";
+                this.SetTitleSaved(this.currentFilename);
             }
             catch (Exception ex)
             {
@@ -1801,6 +1876,7 @@ namespace SA_Resources.SAForms
             FLXConfigurationForm flxForm = new FLXConfigurationForm(this);
             flxForm.ShowDialog();  
         }
+
     }
 
     #region Toolstrip Custom Renderer Class
