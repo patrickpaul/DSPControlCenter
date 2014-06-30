@@ -4108,8 +4108,8 @@
 		<col def="I2">ISIconIndex</col>
 		<row><td>ARPPRODUCTICON.exe</td><td/><td>C:\SOURCE\DSPControlCenter\DSP Control Center FirstInstaller.ico</td><td>0</td></row>
 		<row><td>NewShortcut1_AC0F0F82DED64525A47C2000918AF691.exe</td><td/><td>C:\Program Files (x86)\InstallShield\2012SpringLE\Redist\Language Independent\OS Independent\uninstall.ico</td><td>0</td></row>
-		<row><td>NewShortcut2_D45E543C3B1D456C895F927844056B1A.exe</td><td/><td>C:\SOURCE\DSPControlCenter\DSP Control Center FirstInstaller.ico</td><td>0</td></row>
-		<row><td>NewShortcut3_E787255B717F49E4BD4FEE898A029058.exe</td><td/><td>C:\SOURCE\DSPControlCenter\DSP Control Center FirstInstaller.ico</td><td>0</td></row>
+		<row><td>NewShortcut2_93C5AAF2A837484B87E9E2CA2C8A9B78.exe</td><td/><td>C:\SOURCE\DSPControlCenter\DSP Control Center FirstInstaller.ico</td><td>0</td></row>
+		<row><td>NewShortcut3_2DC9DC93CE034A90B2AF04CB0D2DDC72.exe</td><td/><td>C:\SOURCE\DSPControlCenter\DSP Control Center FirstInstaller.ico</td><td>0</td></row>
 		<row><td>_56C34E30_E160_4BB1_97EA_988FB162CC80</td><td/><td>C:\SOURCE\DSPControlCenter\DSP Control Center v4.ico</td><td>0</td></row>
 		<row><td>_B4FC6954_DD33_422E_8857_87BB63F71AF0</td><td/><td>C:\SOURCE\DSPControlCenter\DSP Control Center v4.ico</td><td>0</td></row>
 		<row><td>_F7C68B79_B656_4B5E_BB31_330699E3125B</td><td/><td>C:\SOURCE\DSPControlCenter\DSP Control Center v4.ico</td><td>0</td></row>
@@ -4807,8 +4807,8 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col def="S255">ISShortcutName</col>
 		<col def="I4">ISAttributes</col>
 		<row><td>NewShortcut1</td><td>dspcon_1_dsp_control_center</td><td>##ID_STRING7##</td><td>ISX_DEFAULTCOMPONENT7</td><td>[SystemFolder]MsiExec.exe</td><td>/x [ProductCode]</td><td/><td/><td>NewShortcut1_AC0F0F82DED64525A47C2000918AF691.exe</td><td>0</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>NewShortcut2</td><td>DesktopFolder</td><td>##ID_STRING5##</td><td>ISX_DEFAULTCOMPONENT7</td><td>[INSTALLDIR]DSPControlCenter3.exe</td><td/><td/><td/><td>NewShortcut2_D45E543C3B1D456C895F927844056B1A.exe</td><td>0</td><td>1</td><td>INSTALLDIR</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>NewShortcut3</td><td>dspcon_1_dsp_control_center</td><td>##ID_STRING6##</td><td>ISX_DEFAULTCOMPONENT7</td><td>[INSTALLDIR]DSPControlCenter3.exe</td><td/><td/><td/><td>NewShortcut3_E787255B717F49E4BD4FEE898A029058.exe</td><td>0</td><td>1</td><td>INSTALLDIR</td><td/><td/><td/><td/><td/><td/><td/></row>
+		<row><td>NewShortcut2</td><td>DesktopFolder</td><td>##ID_STRING5##</td><td>ISX_DEFAULTCOMPONENT7</td><td>[INSTALLDIR]DSPControlCenter3.exe</td><td/><td/><td/><td>NewShortcut2_93C5AAF2A837484B87E9E2CA2C8A9B78.exe</td><td>0</td><td>1</td><td>INSTALLDIR</td><td/><td/><td/><td/><td/><td/><td/></row>
+		<row><td>NewShortcut3</td><td>dspcon_1_dsp_control_center</td><td>##ID_STRING6##</td><td>ISX_DEFAULTCOMPONENT7</td><td>[INSTALLDIR]DSPControlCenter3.exe</td><td/><td/><td/><td>NewShortcut3_2DC9DC93CE034A90B2AF04CB0D2DDC72.exe</td><td>0</td><td>1</td><td>INSTALLDIR</td><td/><td/><td/><td/><td/><td/><td/></row>
 	</table>
 
 	<table name="Signature">

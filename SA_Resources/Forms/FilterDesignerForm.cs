@@ -116,6 +116,12 @@ namespace SA_Resources.SAForms
 
         }
 
+        private void filterDesignBlock_OnFocus(object sender, FilterEventArgs e)
+        {
+
+            filterDesigner.SetActiveFilter(e.Index);
+
+        }
 
         public void UpdateUIToVals(object param)
         {
@@ -210,15 +216,17 @@ namespace SA_Resources.SAForms
             filterDesigner.PrimitiveCache[filterDesigner.FocusedFilterID].QueueChange(PARENT_FORM);
         }
 
-        private void filterDesignBlock0_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void btnSave_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.OK;
             this.Close();
         }
+
+        private void filterDesignBlock0_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
     }
 }

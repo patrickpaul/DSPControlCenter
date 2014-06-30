@@ -33,7 +33,7 @@ namespace SA_Resources.SAControls
 
         public event FilterDesignerEventHandler OnChange;
 
-        public event EventHandler OnFocus;
+        public event FilterDesignerEventHandler OnFocus;
 
         private bool editing_textbox;
         private string starting_text_value;
@@ -81,7 +81,7 @@ namespace SA_Resources.SAControls
             }
         }
 
-        protected void OnFocusEvent(EventArgs e)
+        protected void OnFocusEvent(FilterEventArgs e)
         {
             if (this.OnFocus != null)
             {
@@ -718,6 +718,8 @@ namespace SA_Resources.SAControls
             active_textbox.SelectAll();
             editing_textbox = true;
             textbox_selected_to_clear = true;
+
+            OnFocusEvent(new FilterEventArgs(Index, FilterPrimitive));
         }
 
         private void Event_Textbox_MouseUp(object sender, MouseEventArgs e)
@@ -732,7 +734,11 @@ namespace SA_Resources.SAControls
                 TextBox active_textbox = (TextBox)sender;
                 editing_textbox = false;
                 active_textbox.Select(0, 0);
-                UpdateFilterValuefromTextbox(active_textbox);
+
+                if (active_textbox.Text != starting_text_value)
+                {
+                    UpdateFilterValuefromTextbox(active_textbox);
+                }
             }
         }
 
@@ -803,6 +809,14 @@ namespace SA_Resources.SAControls
 
             }
 
+        }
+
+        private void dropFilter_Enter(object sender, EventArgs e)
+        {
+            if (dropFilter.SelectedIndex != 0)
+            {
+                OnFocusEvent(new FilterEventArgs(Index, FilterPrimitive));
+            }
         }
 
         
