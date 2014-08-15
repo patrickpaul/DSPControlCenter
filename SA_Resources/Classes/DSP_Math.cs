@@ -303,14 +303,14 @@ namespace SA_Resources.DSP
 
         public static UInt32 comp_release_to_value(double release)
         {
-            return DSP_Math.double_to_MN(1.0-Math.Pow(10.0,(-1.0/(release*3000.0))), 1, 31);
+            return DSP_Math.double_to_MN(1.0 - Math.Pow(10.0, (-1.0 / (release * (48000.0 / 16.0)))), 1, 31);
         }
 
         public static double comp_value_to_release(UInt32 value)
         {
             double converted = DSP_Math.MN_to_double_signed(value, 1, 31);
 
-            return (-1 / (Math.Log10(1 - converted) * 3000));
+            return (-1 / (Math.Log10(1 - converted) * (48000.0 / 16.0)));
 
         }
 
@@ -320,14 +320,14 @@ namespace SA_Resources.DSP
 
         public static UInt32 ducker_release_to_value(double release)
         {
-            return DSP_Math.double_to_MN(1.0 - Math.Exp(-1.0 / (0.1 * 3000.0)), 1, 31);
+            return DSP_Math.double_to_MN(1.0 - Math.Exp(-1.0 / (0.1 * (48000.0 / 16.0))), 1, 31);
         }
 
         public static double ducker_value_to_release(UInt32 value)
         {
             double converted = DSP_Math.MN_to_double_signed(value, 1, 31);
 
-            return (-1/(Math.Log(1 - converted)*3000));
+            return (-1 / (Math.Log(1 - converted) * (48000.0 / 16.0)));
         }
 
         #endregion

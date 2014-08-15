@@ -25,6 +25,13 @@ namespace SA_Resources
                 );
 
         }
+
+        // The dimensions are based off of a SystemInformation.FrameBorderSize of 3
+        // Normalize dimensions to this
+        public static int NormalizeFormDimension(int newWidth)
+        {
+            return newWidth - ((SystemInformation.FrameBorderSize.Width - 3)*2);
+        }
         
     }
 }

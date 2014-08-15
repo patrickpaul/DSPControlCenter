@@ -115,6 +115,27 @@ namespace SA_Resources
                         string ADCMaxLine = reader.ReadLine();
 
                         int new_mode = int.Parse(ModeLine.Substring(5, 8));
+
+                        if (PARENT_FORM.GetDeviceType() == DeviceType.FLX804)
+                        {
+                            switch (new_mode)
+                            {
+                                case 0:
+                                    PARENT_FORM.AmplifierBridgeMode = BridgeMode.FourChannel;
+                                    break;
+
+                                case 1:
+                                    PARENT_FORM.AmplifierBridgeMode = BridgeMode.TwoChannel;
+                                    break;
+
+                                case 2:
+                                    PARENT_FORM.AmplifierBridgeMode = BridgeMode.TwoOneChannel;
+                                    break;
+                            }
+                        }
+
+
+
                         bool sleep_enable = SleepEnableLine.Contains("True");
                         int sleep_seconds = int.Parse(SleepSecondsLine.Substring(14, 8));
                         int adc_min = int.Parse(ADCMinLine.Substring(20, 8));

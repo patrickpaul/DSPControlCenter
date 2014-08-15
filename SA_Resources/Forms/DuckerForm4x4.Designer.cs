@@ -426,7 +426,6 @@ namespace SA_Resources.SAForms
             this.duckMeter1.Size = new System.Drawing.Size(30, 157);
             this.duckMeter1.TabIndex = 137;
             this.duckMeter1.TabStop = false;
-            this.duckMeter1.Click += new System.EventHandler(this.signalMeter_Small1_Click);
             // 
             // chkBypass2
             // 

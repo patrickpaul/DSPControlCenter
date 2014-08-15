@@ -213,7 +213,10 @@ namespace SA_Resources.SAForms
                 return;
             }
 
-            filterDesigner.PrimitiveCache[filterDesigner.FocusedFilterID].QueueChange(PARENT_FORM);
+            if (PARENT_FORM.LIVE_MODE)
+            {
+                filterDesigner.PrimitiveCache[filterDesigner.FocusedFilterID].QueueChange(PARENT_FORM);
+            }
         }
 
         private void btnSave_Click(object sender, EventArgs e)

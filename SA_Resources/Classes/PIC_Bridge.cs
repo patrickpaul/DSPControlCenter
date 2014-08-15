@@ -59,8 +59,7 @@ namespace SA_Resources.USB
 
                 if (portName.Length == 0)
                 {
-                    return false;
-                    //throw new Exception("No serial port chosen");
+                    throw new Exception("No serial port chosen");
                 }
 
                 try
@@ -71,22 +70,18 @@ namespace SA_Resources.USB
                 catch (Exception ex)
                 {
                     Console.WriteLine("Exception in PIC_Bridge.Open: " + ex.Message);
-                    return false;
-                    // throw new Exception("Unable to open port " + portName + ". Error encountered: " + ex.Message);
+                    throw new Exception("Unable to open port " + portName + ". Error encountered: " + ex.Message);
                 }
 
                 if (!serialPort.IsOpen)
                 {
-                    return false;
-                    //throw new Exception("Serial port is not open");
+                    throw new Exception("Serial port is not open");
                 }
 
                 if (!getRTS())
                 {
                     serialPort.Close();
-
-                    return false;
-                    //throw new Exception("Device did not respond after opening Serial Port");
+                    throw new Exception("Device did not respond after opening Serial Port");
                 }
 
                 isOpen = true;
@@ -602,7 +597,7 @@ namespace SA_Resources.USB
             }
             catch (ThreadAbortException taex)
             {
-
+                Console.WriteLine("[ThreadAbortException in Read_Live_DSP_Value]: " + taex.Message);
             }
             catch (Exception ex)
             {

@@ -154,7 +154,10 @@ namespace SA_Resources
             
             Active_Primitive.PhantomPower = chkPhantomPower.Checked;
 
-            Active_Primitive.QueuePhantom(PARENT_FORM);             
+            if (PARENT_FORM.LIVE_MODE)
+            {
+                Active_Primitive.QueuePhantom(PARENT_FORM);
+            }
 
         }
 

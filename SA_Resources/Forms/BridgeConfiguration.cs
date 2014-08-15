@@ -84,6 +84,21 @@ namespace SA_Resources
                 return;
             }
 
+            switch (dropBridgeMode.SelectedIndex)
+            {
+                case 0 :
+                    PARENT_FORM.AmplifierBridgeMode = BridgeMode.FourChannel;
+                    break;
+
+                case 1 :
+                    PARENT_FORM.AmplifierBridgeMode = BridgeMode.TwoChannel;
+                    break;
+
+                case 2:
+                    PARENT_FORM.AmplifierBridgeMode = BridgeMode.TwoOneChannel;
+                    break;
+            }
+
             PARENT_FORM.AmplifierMode = dropBridgeMode.SelectedIndex;
             PARENT_FORM._PIC_Conn.SetAmplifierMode(dropBridgeMode.SelectedIndex);
             PARENT_FORM._PIC_Conn.SoftReboot();

@@ -154,7 +154,7 @@ namespace SA_Resources
 
             double cur_volume = PARENT_FORM._PIC_Conn.ReadRS232Vol(CH_NUMBER);
 
-            this.SetVolumeLabel(cur_volume.ToString() + "%");
+            this.SetVolumeLabel(cur_volume.ToString() + "dB");
         }
 
 

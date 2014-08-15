@@ -122,10 +122,11 @@ namespace SA_Resources.DSP.Primitives
 
         public override void QueueChangeByOffset(MainForm_Template PARENT_FORM, int const_offset)
         {
-            Console.WriteLine("MixerCrosspoint - QueueChangeByOffset - Sending " + this.Values[const_offset].ToString("X") + " to offset " + (Offset + const_offset));
-
+            
             if (PARENT_FORM.LIVE_MODE)
             {
+                Console.WriteLine("MixerCrosspoint - QueueChangeByOffset - Sending " + this.Values[const_offset].ToString("X") + " to offset " + (Offset + const_offset));
+
                 PARENT_FORM.AddItemToQueue(new LiveQueueItem(Offset + const_offset, this.Values[const_offset]));
             }
         }

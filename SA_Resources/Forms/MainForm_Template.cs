@@ -54,6 +54,8 @@ namespace SA_Resources.SAForms
 
         public Control activeBlockForMenu;
 
+        public BridgeMode AmplifierBridgeMode = BridgeMode.FourChannel;
+
         public int AmplifierMode;
         public int ADC_CALIBRATION_MIN = 30;
         public int ADC_CALIBRATION_MAX = 240;
@@ -126,8 +128,6 @@ namespace SA_Resources.SAForms
             /*
             DefaultSettings(); 
             
-            
-            
 
             if (configFile != "")
             {
@@ -195,6 +195,12 @@ namespace SA_Resources.SAForms
                 UpdatePresetDropdown();
 
                 form_loaded = true;
+
+                if (_vsDebug)
+                {
+                    chkDebugLiveMode.Visible = true;
+                    btnDebugShowMeters.Visible = true;
+                }
 
 
             }
@@ -417,6 +423,7 @@ namespace SA_Resources.SAForms
         {
             try
             {
+                // This disables timers. Should not be necessary since USB hardware does automatically.
                 _PIC_Conn.sendAckdCommand(0x10);
 
                 BackgroundWorker backgroundWorker = sender as BackgroundWorker;
@@ -956,15 +963,15 @@ namespace SA_Resources.SAForms
                 
                 if (!LIVE_MODE)
                 {
-                    inputForm.Width = 276;
+                    inputForm.Width = Helpers.NormalizeFormDimension(276);
 
                 }
                 else
                 {
-                    inputForm.Width = 320;
+                    inputForm.Width = Helpers.NormalizeFormDimension(320);
                 }
 
-                inputForm.Height = 221;
+                inputForm.Height = Helpers.NormalizeFormDimension(221);
                 
 
                 DialogResult showBlock = inputForm.ShowDialog(this);
@@ -999,7 +1006,11 @@ namespace SA_Resources.SAForms
                        AddItemToQueue(new LiveQueueItem(ch_num, PROGRAMS[CURRENT_PROGRAM].inputs[ch_num - 1].Name));
                    }
                    * */
-                    Active_Primitive.QueueChange(this);
+                    if (LIVE_MODE)
+                    {
+                        Active_Primitive.QueueChange(this);
+                    }
+
                     UpdateTooltips(); 
                      
                 }
@@ -1016,16 +1027,7 @@ namespace SA_Resources.SAForms
 
             using (MixerForm6x4 mixerForm = new MixerForm6x4(this))
             {
-                if (LIVE_MODE)
-                {
-                    mixerForm.Width = 499;
-                }
-                else
-                {
-                    mixerForm.Width = 228;
-                }
-
-                
+                // Removed Width modifications here so that we can check in the form since we need to move a number of controls
 
                 DialogResult showBlock = mixerForm.ShowDialog(this);
             }
@@ -1064,15 +1066,15 @@ namespace SA_Resources.SAForms
 
                 if (!LIVE_MODE)
                 {
-                    outputForm.Width = 276;
+                    outputForm.Width = Helpers.NormalizeFormDimension(276);
 
                 }
                 else
                 {
-                    outputForm.Width = 320;
+                    outputForm.Width = Helpers.NormalizeFormDimension(320);
                 }
 
-                outputForm.Height = 221;
+                outputForm.Height = Helpers.NormalizeFormDimension(221);
 
 
                 DialogResult showBlock = outputForm.ShowDialog(this);
@@ -1106,7 +1108,10 @@ namespace SA_Resources.SAForms
                        AddItemToQueue(new LiveQueueItem(ch_num, PROGRAMS[CURRENT_PROGRAM].inputs[ch_num - 1].Name));
                    }
                    * */
-                    Active_Primitive.QueueChange(this);
+                    if (LIVE_MODE)
+                    {
+                        Active_Primitive.QueueChange(this);
+                    }
 
                     UpdateTooltips();
 
@@ -1149,11 +1154,11 @@ namespace SA_Resources.SAForms
 
                 if (LIVE_MODE)
                 {
-                    duckerForm.Width = 556;
+                    duckerForm.Width = Helpers.NormalizeFormDimension(556);
                 }
                 else
                 {
-                    duckerForm.Width = 386;
+                    duckerForm.Width = Helpers.NormalizeFormDimension(386);
                 }
 
                 DialogResult showBlock = duckerForm.ShowDialog(this);
@@ -1367,8 +1372,8 @@ namespace SA_Resources.SAForms
             using (GainForm gainForm = new GainForm(this, Active_Primitive, DSP_Primitive_Types.StandardGain))
             {
 
-                gainForm.Width = LIVE_MODE ? 187 : 132;
-                gainForm.Height = 414;
+                gainForm.Width = LIVE_MODE ? Helpers.NormalizeFormDimension(187) : Helpers.NormalizeFormDimension(132);
+                gainForm.Height = Helpers.NormalizeFormDimension(414);
 
                 DialogResult showBlock = gainForm.ShowDialog(this);
 
@@ -1425,8 +1430,8 @@ namespace SA_Resources.SAForms
             using (PregainForm gainForm = new PregainForm(this, Active_Primitive))
             {
 
-                gainForm.Width = LIVE_MODE ? 187 : 132;
-                gainForm.Height = 414;
+                gainForm.Width = LIVE_MODE ? Helpers.NormalizeFormDimension(187) : Helpers.NormalizeFormDimension(132);
+                gainForm.Height = Helpers.NormalizeFormDimension(414);
 
                 DialogResult showBlock = gainForm.ShowDialog(this);
 
@@ -1867,7 +1872,7 @@ namespace SA_Resources.SAForms
             }
             catch (Exception ex)
             {
-                
+                Console.WriteLine("[Exception in MainForm_Template.pbtn_Meters_Click]: " + ex.Message);
             }
         }
 
@@ -1875,6 +1880,23 @@ namespace SA_Resources.SAForms
         {
             FLXConfigurationForm flxForm = new FLXConfigurationForm(this);
             flxForm.ShowDialog();  
+        }
+
+        private void chkDebugLiveMode_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkDebugLiveMode.Checked)
+            {
+                this.LIVE_MODE = true;
+            }
+            else
+            {
+                this.LIVE_MODE = false;
+            }
+        }
+
+        private void btnDebugShowMeters_Click(object sender, EventArgs e)
+        {
+            pbtn_Meters.Visible = true;
         }
 
     }

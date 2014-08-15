@@ -21,7 +21,7 @@ namespace SA_Resources
             }
             catch (Exception ex)
             {
-                
+                Console.WriteLine("[Exception in SA_Resources.Program.Main]: " + ex.Message);
             }
         }
     }

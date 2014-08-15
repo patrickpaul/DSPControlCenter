@@ -44,56 +44,185 @@ namespace SA_Resources.SAForms
             {
                 PARENT_FORM = _parentForm;
 
-                if (PARENT_FORM.IsAmplifier() && PARENT_FORM.AmplifierMode != 0)
+                DeviceType dType = PARENT_FORM.GetDeviceType();
+                DeviceFamily dFamily = PARENT_FORM.GetDeviceFamily();
+                
+                if (dType == DeviceType.DSP4x4)
                 {
-                    if (PARENT_FORM.AmplifierMode != 0)
+                    if (PARENT_FORM.LIVE_MODE)
                     {
-                        if (PARENT_FORM.AmplifierMode == 1)
-                        {
-                            CH2_hidden = true;
-                            CH4_hidden = true;
-                            gainMeter2.Visible = false;
-                            gainMeter4.Visible = false;
-                        }
-                        else if (PARENT_FORM.AmplifierMode == 2)
-                        {
-                            CH2_hidden = true;
-                            gainMeter2.Visible = false;
-                        }
-                        else if (PARENT_FORM.AmplifierMode == 3)
-                        {
-                            CH2_hidden = true;
-                            CH3_hidden = true; 
-                            CH4_hidden = true;
-                            gainMeter2.Visible = false;
-                            gainMeter3.Visible = false; 
-                            gainMeter4.Visible = false;
-                        }
-                    
+                        this.Width = Helpers.NormalizeFormDimension(499);
                     }
-
-                    if (PARENT_FORM.GetDeviceType() == DeviceType.DSP1001)
+                    else
                     {
-                        CH2_hidden = true;
-                        CH3_hidden = true;
-                        CH4_hidden = true;
-                        gainMeter2.Visible = false;
-                        gainMeter3.Visible = false;
-                        gainMeter4.Visible = false;
-                    }
-
-                    if (PARENT_FORM.GetDeviceType() == DeviceType.DSP1002)
-                    {
-                        CH2_hidden = false;
-                        CH3_hidden = true;
-                        CH4_hidden = true;
-                        gainMeter2.Visible = true;
-                        gainMeter3.Visible = false;
-                        gainMeter4.Visible = false;
+                        this.Width = Helpers.NormalizeFormDimension(231);
                     }
                 }
 
+                if (PARENT_FORM.GetDeviceFamily() == DeviceFamily.FLX)
+                {
+                    if (dType == DeviceType.FLX804)
+                    {
+                        switch (PARENT_FORM.AmplifierBridgeMode)
+                        {
+                            case BridgeMode.FourChannel:
+                                if (PARENT_FORM.LIVE_MODE)
+                                {
+                                    this.Width = Helpers.NormalizeFormDimension(499);
+                                }
+                                else
+                                {
+                                    this.Width = Helpers.NormalizeFormDimension(231);
+                                }
+                                break;
 
+                            case BridgeMode.TwoChannel:
+
+                                CH2_hidden = true;
+                                CH3_hidden = false;
+                                CH4_hidden = true;
+
+                                panelCH2.Visible = false; 
+                                panelCH3.Visible = true;
+                                panelCH4.Visible = false;
+
+                                panelCH3.Location = new Point(panelCH2.Location.X, panelCH2.Location.Y);
+
+                                string secondBridgedName = ((DSP_Primitive_Output)PARENT_FORM.DSP_PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].LookupPrimitive(DSP_Primitive_Types.Output, 2, 0)).OutputName;
+
+
+                                lblOutputMeter3.Text = secondBridgedName.Substring(0, Math.Min(secondBridgedName.Length, 10));
+                                lblOutputMeter3.Invalidate();
+                                lblOutputMeter3.Refresh();
+
+                                toolTip1.SetToolTip(lblOutputMeter3,secondBridgedName);
+
+                                gainMeter2.Visible = false;
+                                gainMeter3.Visible = true;
+                                gainMeter4.Visible = false;
+
+                                if (PARENT_FORM.LIVE_MODE)
+                                {
+                                    this.Width = Helpers.NormalizeFormDimension(290);
+                                    gainMeter1.Location = new Point(155, gainMeter1.Location.Y);
+                                    lblOutputMeter1.Location = new Point(150, lblOutputMeter1.Location.Y);
+                                    gainMeter3.Location = new Point(216, gainMeter3.Location.Y);
+                                    lblOutputMeter3.Location = new Point(211, lblOutputMeter3.Location.Y);
+                                    btnSave.Location = new Point(111, btnSave.Location.Y);
+                                }
+                                else
+                                {
+                                    this.Width = Helpers.NormalizeFormDimension(171);
+                                    btnSave.Location = new Point(53, btnSave.Location.Y);
+                                }
+
+                                break;
+
+
+                        }
+                    }
+                    else if (dType == DeviceType.FLX804CV)
+                    {
+                        if (PARENT_FORM.LIVE_MODE)
+                        {
+                            this.Width = Helpers.NormalizeFormDimension(499);
+                        }
+                        else
+                        {
+                            this.Width = Helpers.NormalizeFormDimension(231);
+                        }
+                    }
+                    else if (dType == DeviceType.FLX1602)
+                    {
+                        CH2_hidden = true;
+                        CH3_hidden = false;
+                        CH4_hidden = true;
+
+                        panelCH2.Visible = false; 
+                        panelCH3.Visible = true;
+                        panelCH4.Visible = false;
+
+                        panelCH3.Location = new Point(panelCH2.Location.X, panelCH2.Location.Y);
+                        lblOutputMeter3.Text = "Output #2";
+
+                        gainMeter2.Visible = false;
+                        gainMeter3.Visible = true;
+                        gainMeter4.Visible = false;
+
+                        if (PARENT_FORM.LIVE_MODE)
+                        {
+                            this.Width = Helpers.NormalizeFormDimension(290);
+                            gainMeter1.Location = new Point(155, gainMeter1.Location.Y);
+                            lblOutputMeter1.Location = new Point(150, lblOutputMeter1.Location.Y);
+                            gainMeter3.Location = new Point(216, gainMeter3.Location.Y);
+                            lblOutputMeter3.Location = new Point(211, lblOutputMeter3.Location.Y);
+                            btnSave.Location = new Point(111, btnSave.Location.Y);
+                        }
+                        else
+                        {
+                            this.Width = Helpers.NormalizeFormDimension(171);
+                            btnSave.Location = new Point(53, btnSave.Location.Y);
+                        }
+                    }
+                }
+
+                if (PARENT_FORM.GetDeviceType() == DeviceType.DSP1001)
+                {
+                    // Only panelCH1 visible.
+                    CH2_hidden = true;
+                    CH3_hidden = true;
+                    CH4_hidden = true;
+
+                    panelCH2.Visible = false;
+                    panelCH3.Visible = false;
+                    panelCH4.Visible = false;
+
+                    gainMeter2.Visible = false;
+                    gainMeter3.Visible = false;
+                    gainMeter4.Visible = false;
+
+                    if (PARENT_FORM.LIVE_MODE)
+                    {
+                        this.Width = Helpers.NormalizeFormDimension(211);
+                        gainMeter1.Location = new Point(136, gainMeter1.Location.Y);
+                        lblOutputMeter1.Location = new Point(131, lblOutputMeter1.Location.Y);
+                        btnSave.Location = new Point(73, btnSave.Location.Y);
+                    }
+                    else
+                    {
+                        this.Width = Helpers.NormalizeFormDimension(142);
+                        btnSave.Location = new Point(37, btnSave.Location.Y);
+                    }
+                }
+
+                if (PARENT_FORM.GetDeviceType() == DeviceType.DSP1002)
+                {
+                    CH2_hidden = false;
+                    CH3_hidden = true;
+                    CH4_hidden = true;
+
+                    panelCH3.Visible = false;
+                    panelCH4.Visible = false;
+
+                    gainMeter2.Visible = true;
+                    gainMeter3.Visible = false;
+                    gainMeter4.Visible = false;
+
+                    if (PARENT_FORM.LIVE_MODE)
+                    {
+                        this.Width = Helpers.NormalizeFormDimension(286);
+                        gainMeter1.Location = new Point(155, gainMeter1.Location.Y);
+                        lblOutputMeter1.Location = new Point(150, lblOutputMeter1.Location.Y);
+                        gainMeter2.Location = new Point(216, gainMeter2.Location.Y);
+                        lblOutputMeter2.Location = new Point(211, lblOutputMeter2.Location.Y);
+                        btnSave.Location = new Point(111, btnSave.Location.Y);
+                    }
+                    else
+                    {
+                        this.Width = Helpers.NormalizeFormDimension(171);
+                        btnSave.Location = new Point(53, btnSave.Location.Y);
+                    }
+                }
 
                 if (PARENT_FORM.LIVE_MODE)
                 {
@@ -180,7 +309,7 @@ namespace SA_Resources.SAForms
 
                 DSP_Primitive_MixerCrosspoint SingleCrosspoint;
 
-                // Inputs
+                // Inputs 
                 for (int i = 0; i < 6; i++)
                 {
 
@@ -193,7 +322,7 @@ namespace SA_Resources.SAForms
 
                         if ((CH2_hidden && j == 1) || (CH3_hidden && j == 2) || (CH4_hidden && j == 3))
                         {
-                            pbControl.Visible = false;
+                            //pbControl.Visible = false;
                         }
                         else
                         {
@@ -319,6 +448,12 @@ namespace SA_Resources.SAForms
             gainMeter3.Stop();
             gainMeter4.Stop();
         }
+
+        private void MixerForm6x4_Load(object sender, EventArgs e)
+        {
+
+        }
+
 
     }
 }

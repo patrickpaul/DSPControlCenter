@@ -146,7 +146,7 @@ namespace DSP100_2_Analog
         {
 
             // Disable timers
-            //_PIC_Conn.sendAckdCommand(0x10);
+            _PIC_Conn.sendAckdCommand(0x10);
 
             BackgroundWorker backgroundWorker = sender as BackgroundWorker;
 

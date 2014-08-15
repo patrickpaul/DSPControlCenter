@@ -284,7 +284,6 @@ namespace SA_Resources.SAForms
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Meter Viewer";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MixerForm6x4_FormClosing);
-            this.Load += new System.EventHandler(this.MeterViewForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.inMeter4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.inMeter3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.inMeter2)).EndInit();

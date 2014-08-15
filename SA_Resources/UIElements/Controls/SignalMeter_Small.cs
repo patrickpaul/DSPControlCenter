@@ -133,7 +133,7 @@ namespace SA_Resources.SAControls
             }
             catch (Exception ex)
             {
-
+                Console.WriteLine("[Exception in SignalMeter_Small.Stop]: " + ex.Message);
             }
         }
 
@@ -192,7 +192,7 @@ namespace SA_Resources.SAControls
                     }
                     catch (ThreadAbortException taex)
                     {
-
+                        Console.WriteLine("[ThreadAbortException in MeterThread_Worker Level 2]: " + taex.Message);
                     }
                     catch (Exception ex)
                     {
@@ -203,7 +203,7 @@ namespace SA_Resources.SAControls
             }
             catch (ThreadAbortException taex)
             {
-
+                Console.WriteLine("[ThreadAbortException in MeterThread_Worker Level 1]: " + taex.Message);
             }
             catch (Exception ex)
             {

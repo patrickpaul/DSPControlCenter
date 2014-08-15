@@ -134,21 +134,30 @@ namespace SA_Resources.SAForms
         {
 
             RecastDucker.HoldTime = HoldDial.Value;
-            RecastDucker.QueueChangeByOffset(PARENT_FORM,17);
+            if (PARENT_FORM.LIVE_MODE)
+            {
+                RecastDucker.QueueChangeByOffset(PARENT_FORM, 17);
+            }
         }
         
         private void ReleaseDial_OnChange(object sender, DialEventArgs e)
         {
 
             RecastDucker.Release = ReleaseDial.Value;
-            RecastDucker.QueueChangeByOffset(PARENT_FORM, 20);
+            if (PARENT_FORM.LIVE_MODE)
+            {
+                RecastDucker.QueueChangeByOffset(PARENT_FORM, 20);
+            }
         }
 
         private void AttackDial_OnChange(object sender, DialEventArgs e)
         {
 
             RecastDucker.Attack = AttackDial.Value;
-            RecastDucker.QueueChangeByOffset(PARENT_FORM, 19);
+            if (PARENT_FORM.LIVE_MODE)
+            {
+                RecastDucker.QueueChangeByOffset(PARENT_FORM, 19);
+            }
         }
 
 
@@ -161,7 +170,10 @@ namespace SA_Resources.SAForms
             } 
 
             RecastDucker.Depth = (double)nudDuckDepth.Value;
-            RecastDucker.QueueChangeByOffset(PARENT_FORM, 18);
+            if (PARENT_FORM.LIVE_MODE)
+            {
+                RecastDucker.QueueChangeByOffset(PARENT_FORM, 18);
+            }
         }
 
         private void nudDuckThreshold_ValueChanged(object sender, EventArgs e)
@@ -173,7 +185,10 @@ namespace SA_Resources.SAForms
             } 
 
             RecastDucker.Threshold = (double)nudDuckThreshold.Value;
-            RecastDucker.QueueChangeByOffset(PARENT_FORM, 16);
+            if (PARENT_FORM.LIVE_MODE)
+            {
+                RecastDucker.QueueChangeByOffset(PARENT_FORM, 16);
+            }
         }
 
 
@@ -205,8 +220,11 @@ namespace SA_Resources.SAForms
         {
 
             RecastDucker.Bypassed = chkBypass.Checked;
-            RecastDucker.QueueChangeByOffset(PARENT_FORM, 21);
-            
+            if (PARENT_FORM.LIVE_MODE)
+            {
+                RecastDucker.QueueChangeByOffset(PARENT_FORM, 21);
+            }
+
         }
 
 
@@ -275,13 +293,11 @@ namespace SA_Resources.SAForms
             RecastDucker.SetChannelBypass(ch_num,!(senderCheckbox.Checked));
             BypassCache[ch_num] = !senderCheckbox.Checked;
 
-            RecastDucker.QueueChange(PARENT_FORM);
-            RecastDucker.QueuePackageChange(PARENT_FORM);
-        }
-
-        private void signalMeter_Small1_Click(object sender, EventArgs e)
-        {
-
+            if (PARENT_FORM.LIVE_MODE)
+            {
+                RecastDucker.QueueChange(PARENT_FORM);
+                RecastDucker.QueuePackageChange(PARENT_FORM);
+            }
         }
 
         private void DuckerForm4x4_FormClosing(object sender, FormClosingEventArgs e)

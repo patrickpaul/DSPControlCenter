@@ -161,7 +161,7 @@ namespace FLX80_4_CV_Analog
             SLEEP_SECONDS = _PIC_Conn.ReadSleepModeSeconds();
 
             // Re-enable timers
-            _PIC_Conn.sendAckdCommand(0x11);
+            //_PIC_Conn.sendAckdCommand(0x11);
 
             backgroundWorker.ReportProgress(100);
         }

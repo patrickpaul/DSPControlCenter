@@ -127,7 +127,7 @@ namespace SA_Resources
             }
             catch (Exception ex)
             {
-                
+                Console.WriteLine("[Exception in StartupForm.StartupForm_Load]: " + ex.Message);
             }
         }
 

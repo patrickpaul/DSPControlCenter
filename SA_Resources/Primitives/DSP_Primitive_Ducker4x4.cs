@@ -357,10 +357,11 @@ namespace SA_Resources.DSP.Primitives
 
         public override void QueueChangeByOffset(MainForm_Template PARENT_FORM, int const_offset)
         {
-            Console.WriteLine("Ducker4x4 - QueueChangeByOffset - Sending " + this.Values[const_offset].ToString("X8") + " to offset " + (Offset + const_offset));
-
+            
             if (PARENT_FORM.LIVE_MODE)
             {
+                Console.WriteLine("Ducker4x4 - QueueChangeByOffset - Sending " + this.Values[const_offset].ToString("X8") + " to offset " + (Offset + const_offset));
+
                 PARENT_FORM.AddItemToQueue(new LiveQueueItem(Offset + const_offset, this.Values[const_offset]));
             }
         }

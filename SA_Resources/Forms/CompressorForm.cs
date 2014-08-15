@@ -195,14 +195,21 @@ namespace SA_Resources.SAForms
         {
 
             Active_Primitive.Release = ReleaseDial.Value;
-            Active_Primitive.QueueChangeByOffset(PARENT_FORM, DSP_Primitive_Compressor.RELEASE_OFFSET);
+            if (PARENT_FORM.LIVE_MODE)
+            {
+                Active_Primitive.QueueChangeByOffset(PARENT_FORM, DSP_Primitive_Compressor.RELEASE_OFFSET);
+            }
         }
 
         private void AttackDial_OnChange(object sender, DialEventArgs e)
         {
 
             Active_Primitive.Attack = AttackDial.Value;
-            Active_Primitive.QueueChangeByOffset(PARENT_FORM, DSP_Primitive_Compressor.ATTACK_OFFSET);
+
+            if (PARENT_FORM.LIVE_MODE)
+            {
+                Active_Primitive.QueueChangeByOffset(PARENT_FORM, DSP_Primitive_Compressor.ATTACK_OFFSET);
+            }
         }
 
         private void dynChart_MouseMove(object sender, MouseEventArgs e)
@@ -407,13 +414,19 @@ namespace SA_Resources.SAForms
             if (dragging_threshold)
             {
                 Active_Primitive.Threshold = (double) nudCompThreshold.Value;
-                Active_Primitive.QueueChangeByOffset(PARENT_FORM, DSP_Primitive_Compressor.THRESHOLD_OFFSET);
+                if (PARENT_FORM.LIVE_MODE)
+                {
+                    Active_Primitive.QueueChangeByOffset(PARENT_FORM, DSP_Primitive_Compressor.THRESHOLD_OFFSET);
+                }
             }
 
             if (dragging_ratio)
             {
                 Active_Primitive.Ratio = (double)nudCompRatio.Value;
-                Active_Primitive.QueueChangeByOffset(PARENT_FORM, DSP_Primitive_Compressor.RATIO_OFFSET);
+                if (PARENT_FORM.LIVE_MODE)
+                {
+                    Active_Primitive.QueueChangeByOffset(PARENT_FORM, DSP_Primitive_Compressor.RATIO_OFFSET);
+                }
             }
 
 

@@ -372,6 +372,21 @@ namespace FLX80_4_Analog
 
             AmplifierMode = _PIC_Conn.ReadAmplifierMode();
 
+            switch (AmplifierMode)
+            {
+                case 0 :
+                    AmplifierBridgeMode = BridgeMode.FourChannel;
+                    break;
+
+                case 1 :
+                    AmplifierBridgeMode = BridgeMode.TwoChannel;
+                    break;
+
+                case 2 :
+                    AmplifierBridgeMode = BridgeMode.TwoOneChannel;
+                    break;
+            }
+
             ADC_CALIBRATION_MIN = _PIC_Conn.ReadRVCMin();
             ADC_CALIBRATION_MAX = _PIC_Conn.ReadRVCMax();
             SLEEP_ENABLE = _PIC_Conn.ReadSleepModeEnable();
@@ -634,12 +649,6 @@ namespace FLX80_4_Analog
         }
 
         #endregion
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            new FLXForm_Template().ShowDialog();
-        }
-
 
     }
 }

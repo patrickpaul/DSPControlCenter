@@ -42,8 +42,8 @@ namespace SA_Resources.SAForms
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.mbtnOpenConfiguration = new System.Windows.Forms.ToolStripMenuItem();
             this.openConfigurationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveConfigurationAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveConfigurationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveConfigurationAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitApplicationToolStripMenuItem = new System.Windows.Forms.ToolStripSeparator();
             this.resetToDefaultToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
@@ -73,6 +73,8 @@ namespace SA_Resources.SAForms
             this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripMenuItem();
             this.pbtnSettings = new SA_Resources.SAControls.PictureButton();
             this.pbtn_Meters = new SA_Resources.SAControls.PictureButton();
+            this.chkDebugLiveMode = new System.Windows.Forms.CheckBox();
+            this.btnDebugShowMeters = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureConnectionStatus)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbPresetSelection)).BeginInit();
@@ -134,6 +136,14 @@ namespace SA_Resources.SAForms
             this.openConfigurationToolStripMenuItem.Text = "Open Configuration";
             this.openConfigurationToolStripMenuItem.Click += new System.EventHandler(this.ReadSCFG_Event);
             // 
+            // saveConfigurationToolStripMenuItem
+            // 
+            this.saveConfigurationToolStripMenuItem.Name = "saveConfigurationToolStripMenuItem";
+            this.saveConfigurationToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
+            this.saveConfigurationToolStripMenuItem.Size = new System.Drawing.Size(263, 22);
+            this.saveConfigurationToolStripMenuItem.Text = "Save Configuration";
+            this.saveConfigurationToolStripMenuItem.Click += new System.EventHandler(this.WriteSCFG_Event);
+            // 
             // saveConfigurationAsToolStripMenuItem
             // 
             this.saveConfigurationAsToolStripMenuItem.Name = "saveConfigurationAsToolStripMenuItem";
@@ -142,14 +152,6 @@ namespace SA_Resources.SAForms
             this.saveConfigurationAsToolStripMenuItem.Size = new System.Drawing.Size(263, 22);
             this.saveConfigurationAsToolStripMenuItem.Text = "Save Configuration As...";
             this.saveConfigurationAsToolStripMenuItem.Click += new System.EventHandler(this.WriteSCFG_As_Event);
-            // 
-            // saveConfigurationToolStripMenuItem
-            // 
-            this.saveConfigurationToolStripMenuItem.Name = "saveConfigurationToolStripMenuItem";
-            this.saveConfigurationToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveConfigurationToolStripMenuItem.Size = new System.Drawing.Size(263, 22);
-            this.saveConfigurationToolStripMenuItem.Text = "Save Configuration";
-            this.saveConfigurationToolStripMenuItem.Click += new System.EventHandler(this.WriteSCFG_Event);
             // 
             // exitApplicationToolStripMenuItem
             // 
@@ -410,10 +412,37 @@ namespace SA_Resources.SAForms
             this.pbtn_Meters.Visible = false;
             this.pbtn_Meters.Click += new System.EventHandler(this.pbtn_Meters_Click);
             // 
+            // chkDebugLiveMode
+            // 
+            this.chkDebugLiveMode.AutoSize = true;
+            this.chkDebugLiveMode.Font = new System.Drawing.Font("Segoe UI", 8.25F);
+            this.chkDebugLiveMode.ForeColor = System.Drawing.Color.Gainsboro;
+            this.chkDebugLiveMode.Location = new System.Drawing.Point(157, 349);
+            this.chkDebugLiveMode.Name = "chkDebugLiveMode";
+            this.chkDebugLiveMode.Size = new System.Drawing.Size(116, 17);
+            this.chkDebugLiveMode.TabIndex = 102;
+            this.chkDebugLiveMode.Text = "Debug Live Mode";
+            this.chkDebugLiveMode.UseVisualStyleBackColor = true;
+            this.chkDebugLiveMode.Visible = false;
+            this.chkDebugLiveMode.CheckedChanged += new System.EventHandler(this.chkDebugLiveMode_CheckedChanged);
+            // 
+            // btnDebugShowMeters
+            // 
+            this.btnDebugShowMeters.Location = new System.Drawing.Point(290, 343);
+            this.btnDebugShowMeters.Name = "btnDebugShowMeters";
+            this.btnDebugShowMeters.Size = new System.Drawing.Size(90, 23);
+            this.btnDebugShowMeters.TabIndex = 103;
+            this.btnDebugShowMeters.Text = "Show Meters";
+            this.btnDebugShowMeters.UseVisualStyleBackColor = true;
+            this.btnDebugShowMeters.Visible = false;
+            this.btnDebugShowMeters.Click += new System.EventHandler(this.btnDebugShowMeters_Click);
+            // 
             // MainForm_Template
             // 
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(82)))), ((int)(((byte)(82)))));
             this.ClientSize = new System.Drawing.Size(906, 394);
+            this.Controls.Add(this.btnDebugShowMeters);
+            this.Controls.Add(this.chkDebugLiveMode);
             this.Controls.Add(this.pbtnSettings);
             this.Controls.Add(this.pbtn_Meters);
             this.Controls.Add(this.pictureConnectionStatus);
@@ -480,5 +509,7 @@ namespace SA_Resources.SAForms
         private SAControls.PictureButton pbtn_Meters;
         private SAControls.PictureButton pbtnSettings;
         private ToolStripMenuItem saveConfigurationAsToolStripMenuItem;
+        private CheckBox chkDebugLiveMode;
+        private Button btnDebugShowMeters;
     }
 }

@@ -63,7 +63,7 @@
             this.txtFilename.Name = "txtFilename";
             this.txtFilename.Size = new System.Drawing.Size(200, 22);
             this.txtFilename.TabIndex = 2;
-            this.txtFilename.Text = "Install DSP Control Center ";
+            this.txtFilename.Text = "Install DSP Control Center 3";
             // 
             // label2
             // 
@@ -83,7 +83,7 @@
             this.txtVersion.Name = "txtVersion";
             this.txtVersion.Size = new System.Drawing.Size(200, 22);
             this.txtVersion.TabIndex = 4;
-            this.txtVersion.Text = "2.2-BETA";
+            this.txtVersion.Text = "v3.2.0";
             // 
             // Form1
             // 
