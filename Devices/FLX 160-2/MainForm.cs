@@ -39,7 +39,7 @@ namespace FLX160_2_Analog
 
         public override int GetDeviceID()
         {
-            return 0x0C;
+            return 0x0E;
         }
 
         public override string GetDeviceName()

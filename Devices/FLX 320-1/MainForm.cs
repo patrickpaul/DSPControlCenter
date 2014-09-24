@@ -8,7 +8,7 @@ using SA_Resources.SADevices;
 using SA_Resources.SAForms;
 using SA_Resources.DSP.Primitives;
 
-namespace FLX80_4_CV_Analog
+namespace FLX320_1_Analog
 {
     public partial class MainForm : MainForm_Template
     {
@@ -20,12 +20,15 @@ namespace FLX80_4_CV_Analog
         {
             InitializeComponent();
 
+            this.AmplifierMode = 3; // 1 Channel
         }
 
         public MainForm(string configFile = "")
             : base(configFile)
         {
             InitializeComponent();
+
+            this.AmplifierMode = 3; // 1 Channel
         }
 
         #endregion
@@ -36,17 +39,17 @@ namespace FLX80_4_CV_Analog
 
         public override int GetDeviceID()
         {
-            return 0x0B;
+            return 0x0D;
         }
 
         public override string GetDeviceName()
         {
-            return "FLX80-4-CV";
+            return "FLX320-1";
         }
 
         public override DeviceType GetDeviceType()
         {
-            return DeviceType.FLX804CV;
+            return DeviceType.FLX3201;
         }
 
         public override DeviceFamily GetDeviceFamily()
@@ -61,7 +64,7 @@ namespace FLX80_4_CV_Analog
 
         public override int GetNumOutputChannels()
         {
-            return 4;
+            return 1;
         }
 
         public override int GetNumPhantomPowerChannels()
@@ -71,7 +74,7 @@ namespace FLX80_4_CV_Analog
 
         public override string GetDefaultDeviceFile()
         {
-            return @"Devices\FLX80-4-CV-Analog_Default.scfg";
+            return @"Devices\FLX320-1-Analog_Default.scfg";
         }
 
         public override bool IsAmplifier()
@@ -86,7 +89,7 @@ namespace FLX80_4_CV_Analog
 
         public override int GetPermanentAmplifierMode()
         {
-            return 0;
+            return 3;
         }
 
         public override int GetNumPresets()
@@ -96,7 +99,7 @@ namespace FLX80_4_CV_Analog
 
         public override int GetDisplayOrder()
         {
-            return 20;
+            return 30;
         }
 
         public override void SetConnectionPicture(Image connectionPicture)
@@ -386,7 +389,7 @@ namespace FLX80_4_CV_Analog
 
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(1040, new DSP_Primitive_Output("Output CH 1", 0, 0, 724, "Output #1"));
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(1050, new DSP_Primitive_Output("Output CH 1", 1, 0, 729, "Output #2"));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(1060, new DSP_Primitive_Output("Output CH 1", 2, 0, 734, "Output #3"));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(1060, new DSP_Primitive_Output("Output CH 1", 2, 0, 734, "Output #2"));
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(1070, new DSP_Primitive_Output("Output CH 1", 3, 0, 739, "Output #4"));
                  
 

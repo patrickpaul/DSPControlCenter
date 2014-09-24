@@ -132,7 +132,7 @@ namespace SA_Resources.SAForms
                             this.Width = Helpers.NormalizeFormDimension(231);
                         }
                     }
-                    else if (dType == DeviceType.FLX1602)
+                    else if (dType == DeviceType.FLX1602 || dType == DeviceType.FLX1602CV)
                     {
                         CH2_hidden = true;
                         CH3_hidden = false;
@@ -143,7 +143,7 @@ namespace SA_Resources.SAForms
                         panelCH4.Visible = false;
 
                         panelCH3.Location = new Point(panelCH2.Location.X, panelCH2.Location.Y);
-                        lblOutputMeter3.Text = "Output #2";
+                        lblOutputMeter3.Text = "Output 2";
 
                         gainMeter2.Visible = false;
                         gainMeter3.Visible = true;
@@ -152,6 +152,38 @@ namespace SA_Resources.SAForms
                         if (PARENT_FORM.LIVE_MODE)
                         {
                             this.Width = Helpers.NormalizeFormDimension(290);
+                            gainMeter1.Location = new Point(155, gainMeter1.Location.Y);
+                            lblOutputMeter1.Location = new Point(150, lblOutputMeter1.Location.Y);
+                            gainMeter3.Location = new Point(216, gainMeter3.Location.Y);
+                            lblOutputMeter3.Location = new Point(211, lblOutputMeter3.Location.Y);
+                            btnSave.Location = new Point(111, btnSave.Location.Y);
+                        }
+                        else
+                        {
+                            this.Width = Helpers.NormalizeFormDimension(171);
+                            btnSave.Location = new Point(53, btnSave.Location.Y);
+                        }
+                    }
+                    else if (dType == DeviceType.FLX3201)
+                    {
+                        CH2_hidden = true;
+                        CH3_hidden = true;
+                        CH4_hidden = true;
+
+                        panelCH2.Visible = false;
+                        panelCH3.Visible = false;
+                        panelCH4.Visible = false;
+
+                        panelCH3.Location = new Point(panelCH2.Location.X, panelCH2.Location.Y);
+                        lblOutputMeter3.Visible = false;
+
+                        gainMeter2.Visible = false;
+                        gainMeter3.Visible = false;
+                        gainMeter4.Visible = false;
+
+                        if (PARENT_FORM.LIVE_MODE)
+                        {
+                            this.Width = Helpers.NormalizeFormDimension(230);
                             gainMeter1.Location = new Point(155, gainMeter1.Location.Y);
                             lblOutputMeter1.Location = new Point(150, lblOutputMeter1.Location.Y);
                             gainMeter3.Location = new Point(216, gainMeter3.Location.Y);

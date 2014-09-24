@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Windows.Forms;
 using SA_Resources;
 using System.Globalization;
 using System.IO;
@@ -91,8 +92,6 @@ namespace SA_Resources
                 {
                     string VersionLine = reader.ReadLine();
                     string DeviceLine = reader.ReadLine();
-
-                    
                     int device_id = Convert.ToInt32(DeviceLine.Substring(16, 2), 16);
 
                     if (device_id != PARENT_FORM.GetDeviceID())
@@ -181,11 +180,11 @@ namespace SA_Resources
             }
             catch (IOException io_ex)
             {
-                Console.WriteLine("IOException in SCFG_Manager.Write: " + io_ex.Message);
+                Console.WriteLine("IOException in SCFG_Manager.Read: " + io_ex.Message);
             }
             catch (UnauthorizedAccessException access_ex)
             {
-                Console.WriteLine("UnauthorizedAccessException in SCFG_Manager.Write: " + access_ex.Message);
+                Console.WriteLine("UnauthorizedAccessException in SCFG_Manager.Read: " + access_ex.Message);
             }
             catch (Exception ex)
             {
@@ -193,7 +192,7 @@ namespace SA_Resources
                 {
                     throw new Exception(ex.Message);
                 }
-                Console.WriteLine("Exception in SCFG_Manager.Write: " + ex.Message);
+                Console.WriteLine("Exception in SCFG_Manager.Read: " + ex.Message);
             }
 
 

@@ -1718,6 +1718,7 @@ namespace SA_Resources.SAForms
             {
                 return CopyFormType.Limiter;
             }
+         * 
 
             if (control.Name.Contains("Delay"))
             {

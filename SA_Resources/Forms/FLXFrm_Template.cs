@@ -259,6 +259,47 @@ namespace SA_Resources
                 lblCH4Output.Location = new Point(783, 244);
                 lblCH4Output.BackColor = Color.FromArgb(40, 40, 40);
                 break;
+
+                case 3:
+                // 1 channel
+
+                pnlCH1PostMixer.Visible = true;
+                pnlCH1PostMixer.Location = new Point(454, 91 + 24);
+                pnlCH1PostMixer.BackgroundImage = resized_panel_bg_bridged;
+                pnlCH1PostMixer.Invalidate();
+
+                lblCH1Output.Visible = true;
+                lblCH1Output.Location = new Point(783, 100 + 24);
+                lblCH1Output.BackColor = Color.FromArgb(41, 51, 97);
+
+                pnlCH2PostMixer.Visible = false;
+                pnlCH2PostMixer.Location = new Point(454, 140);
+                pnlCH2PostMixer.BackgroundImage = resized_panel_bg;
+                pnlCH2PostMixer.Invalidate();
+
+                lblCH2Output.Visible = false;
+                lblCH2Output.Location = new Point(783, 148);
+                lblCH2Output.BackColor = Color.FromArgb(40, 40, 40);
+
+                pnlCH3PostMixer.Visible = false;
+                pnlCH3PostMixer.Location = new Point(454, 188 + 24);
+                pnlCH3PostMixer.BackgroundImage = resized_panel_bg_bridged;
+                pnlCH3PostMixer.Invalidate();
+
+                lblCH3Output.Visible = false;
+                lblCH3Output.Location = new Point(783, 196 + 24);
+                lblCH3Output.BackColor = Color.FromArgb(41, 51, 97);
+
+                pnlCH4PostMixer.Visible = false;
+                pnlCH4PostMixer.Location = new Point(454, 236);
+                pnlCH4PostMixer.BackgroundImage = resized_panel_bg;
+                pnlCH4PostMixer.Invalidate();
+
+                lblCH4Output.Visible = false;
+                lblCH4Output.Location = new Point(783, 244);
+                lblCH4Output.BackColor = Color.FromArgb(40, 40, 40);
+
+                break;
             }
         
         }

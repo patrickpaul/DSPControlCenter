@@ -11,6 +11,7 @@ namespace SA_Resources.SADevices
         FLX804,
         FLX804CV,
         FLX1602,
+        FLX1602CV, 
         FLX3201,
         FLX804Net,
         FLX804CVNet,

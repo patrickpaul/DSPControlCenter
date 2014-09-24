@@ -66,7 +66,7 @@ namespace SA_Resources.SAForms
                     outmeter_4_enabled = false;
                 }
 
-                if (PARENT_FORM.GetDeviceType() == DeviceType.FLX1602)
+                if (PARENT_FORM.GetDeviceType() == DeviceType.FLX1602 || PARENT_FORM.GetDeviceType() == DeviceType.FLX1602CV)
                 {
                     this.Width = Helpers.NormalizeFormDimension(439);
                     pbtnClose.Location = new Point(184, 278);

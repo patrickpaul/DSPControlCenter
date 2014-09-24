@@ -1371,17 +1371,26 @@ namespace SA_Resources.USB
 
             int bytes_to_read = 0;
 
+            int iterations = 0;
+
             for (int nibble_counter = 0; nibble_counter < 8; nibble_counter++)
             {
                 serialPort.Write(buff, (nibble_counter * 32), 32);
 
                 Array.Copy(buff, (nibble_counter * 32), nibble_buff, 0, 32);
 
-                while (serialPort.BytesToRead < 1)
+                iterations = 0;
+                while (serialPort.BytesToRead < 1 && iterations < 100)
                 {
-
+                    Thread.Sleep(1);
+                    iterations++;
                 }
 
+                if (iterations == 100)
+                {
+                    Console.WriteLine("Write timeout! ERROR!");
+                    throw new Exception("Timeout trying to send nibble");
+                }
                 if (serialPort.BytesToRead >= 1)
                 {
                     bytes_to_read = serialPort.BytesToRead;
