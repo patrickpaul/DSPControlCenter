@@ -146,6 +146,27 @@ namespace SA_Resources.SAForms
 
             try
             {
+
+                if (IsNetworked())
+                {
+                    if (GetNumNetworkInputChannels() > 2)
+                    {
+                        this.Height = Helpers.NormalizeFormDimension(605);
+                        pbtn_Meters.Location = new Point(pbtn_Meters.Location.X, pbtn_Meters.Location.Y + 163);
+                        pbtnSettings.Location = new Point(pbtnSettings.Location.X, pbtnSettings.Location.Y + 163);
+                        chkDebugLiveMode.Location = new Point(chkDebugLiveMode.Location.X, chkDebugLiveMode.Location.Y + 163);
+                        btnDebugShowMeters.Location = new Point(btnDebugShowMeters.Location.X, btnDebugShowMeters.Location.Y + 163);
+                    }
+                    else
+                    {
+                        this.Height = Helpers.NormalizeFormDimension(518);
+                        pbtn_Meters.Location = new Point(pbtn_Meters.Location.X, pbtn_Meters.Location.Y + 83);
+                        pbtnSettings.Location = new Point(pbtnSettings.Location.X, pbtnSettings.Location.Y + 83);
+                        chkDebugLiveMode.Location = new Point(chkDebugLiveMode.Location.X, chkDebugLiveMode.Location.Y + 83);
+                        btnDebugShowMeters.Location = new Point(btnDebugShowMeters.Location.X, btnDebugShowMeters.Location.Y + 83);
+                    }
+                }
+
                 // Starting up not connected, set LIVE_MODE to false
                 LIVE_MODE = false;
                 // Initialize the PIC_Bridge (starts up closed)
@@ -158,7 +179,7 @@ namespace SA_Resources.SAForms
                 //TODO - REMOVE ME
                 for (int i = 0; i < this.GetNumPresets(); i++)
                 {
-                    DSP_PROGRAMS[i] = new DSP_Program_Manager(i,"Preset " + i);
+                    DSP_PROGRAMS[i] = new DSP_Program_Manager(i,this,"Preset " + i);
                 }
 
                 if (this.GetNumPresets() < 2)
@@ -266,10 +287,12 @@ namespace SA_Resources.SAForms
 
             this.pbtn_Meters.Visible = true;
 
-            if (this.IsAmplifier())
+
+            /* Removed because Sleep mode was removed from amplifiers
+            if (this.IsAmplifier() && !(this.GetDeviceFamily() == DeviceFamily.DSP100))
             {
                 this.pbtnSettings.Visible = true;
-            }
+            }*/
         }
 
         public void EndLiveMode()
@@ -331,7 +354,7 @@ namespace SA_Resources.SAForms
                 else
                 {
                     // Perform a time consuming operation and report progress.
-                    Thread.Sleep(10);
+                    Thread.Sleep(5);
                     lock (_locker)
                     {
                         if (UPDATE_QUEUE.Count > 0)
@@ -346,7 +369,7 @@ namespace SA_Resources.SAForms
                                     {
                                         //if (read_setting.Index > 500)
                                         //{
-                                            Console.WriteLine("Successfully sent queued DSP setting: " + read_setting.Index + " - " + read_setting.Value.ToString("X8"));
+                                            //Console.WriteLine("Successfully sent queued DSP setting: " + read_setting.Index + " - " + read_setting.Value.ToString("X8"));
                                         //}
 
                                         if (read_setting.Index == 566)
@@ -535,6 +558,21 @@ namespace SA_Resources.SAForms
         public virtual bool IsAmplifier()
         {
             return false;
+        }
+
+        public virtual bool IsNetworked()
+        {
+            return false;
+        }
+
+        public virtual int GetNumNetworkInputChannels()
+        {
+            return 0;
+        }
+
+        public virtual int GetNumNetworkOutputChannels()
+        {
+            return 0;
         }
 
         public virtual DeviceFamily GetDeviceFamily()
@@ -781,6 +819,8 @@ namespace SA_Resources.SAForms
             DSP_Primitive_StandardGain RecastStandardGain;
             DSP_Primitive_Pregain RecastPregain; 
             DSP_Primitive_Ducker4x4 RecastDucker4x4;
+            DSP_Primitive_Ducker6x6 RecastDucker6x6;
+            DSP_Primitive_Ducker8x8 RecastDucker8x8;
 
             foreach (DSP_Primitive SinglePrimitive in DSP_PROGRAMS[CURRENT_PROGRAM].PRIMITIVES)
             {
@@ -796,11 +836,39 @@ namespace SA_Resources.SAForms
                         if (PrimitiveButton != null)
                         {
                             PrimitiveButton.Overlay1Visible = (RecastDucker4x4.Bypassed);
+
                             PrimitiveButton.Invalidate();
                         }
 
                     break;
 
+                    case DSP_Primitive_Types.Ducker6x6:
+
+                    RecastDucker6x6 = (DSP_Primitive_Ducker6x6)SinglePrimitive;
+
+                    PrimitiveButton = ((PictureButton)Controls.Find("pbtnDucker", true).FirstOrDefault());
+
+                    if (PrimitiveButton != null)
+                    {
+                        PrimitiveButton.Overlay1Visible = (RecastDucker6x6.Bypassed);
+                        PrimitiveButton.Invalidate();
+                    }
+
+                    break;
+
+                    case DSP_Primitive_Types.Ducker8x8:
+
+                    RecastDucker8x8 = (DSP_Primitive_Ducker8x8)SinglePrimitive;
+
+                    PrimitiveButton = ((PictureButton)Controls.Find("pbtnDucker", true).FirstOrDefault());
+
+                    if (PrimitiveButton != null)
+                    {
+                        PrimitiveButton.Overlay1Visible = (RecastDucker8x8.Bypassed);
+                        PrimitiveButton.Invalidate();
+                    }
+
+                    break;
 
                     case DSP_Primitive_Types.Compressor:
                     case DSP_Primitive_Types.Limiter: 
@@ -843,15 +911,22 @@ namespace SA_Resources.SAForms
                     {
                         PrimitiveLabel.Text = RecastInput.InputName;
 
-                        if (RecastInput.PhantomPower)
+                        if (RecastInput.InputType == InputType.Network)
+                        {
+                            PrimitiveLabel.BackColor = Color.MidnightBlue;
+                            toolTip1.SetToolTip(PrimitiveLabel, "Network Input");
+                        }
+                        else if (RecastInput.PhantomPower)
                         {
                             PrimitiveLabel.BackColor = Color.ForestGreen;
+                            toolTip1.SetToolTip(PrimitiveLabel, RecastInput.ToString());
                         }
                         else
                         {
                             PrimitiveLabel.BackColor = Color.FromArgb(40, 40, 40);
+                            toolTip1.SetToolTip(PrimitiveLabel, RecastInput.ToString());
                         }
-                        toolTip1.SetToolTip(PrimitiveLabel, RecastInput.ToString());
+                        
 
                     }
 
@@ -976,6 +1051,12 @@ namespace SA_Resources.SAForms
 
                 DialogResult showBlock = inputForm.ShowDialog(this);
 
+
+                if (Cached_Primitive.InputType == InputType.Network)
+                {
+                    return;
+                }
+
                 if(showBlock == DialogResult.Cancel)
                 {
                     if (showBlock == DialogResult.Cancel)
@@ -1025,11 +1106,35 @@ namespace SA_Resources.SAForms
                 return;
             }
 
-            using (MixerForm6x4 mixerForm = new MixerForm6x4(this))
+            if (IsNetworked())
             {
-                // Removed Width modifications here so that we can check in the form since we need to move a number of controls
+                if (GetNumNetworkInputChannels() > 2)
+                {
+                    using (MixerForm10x8 mixerForm = new MixerForm10x8(this))
+                    {
+                        // Removed Width modifications here so that we can check in the form since we need to move a number of controls
 
-                DialogResult showBlock = mixerForm.ShowDialog(this);
+                        DialogResult showBlock = mixerForm.ShowDialog(this);
+                    }
+                }
+                else
+                {
+                    using (MixerForm8x2 mixerForm = new MixerForm8x2(this))
+                    {
+                        // Removed Width modifications here so that we can check in the form since we need to move a number of controls
+
+                        DialogResult showBlock = mixerForm.ShowDialog(this);
+                    }
+                }
+            }
+            else
+            {
+                using (MixerForm6x4 mixerForm = new MixerForm6x4(this))
+                {
+                    // Removed Width modifications here so that we can check in the form since we need to move a number of controls
+
+                    DialogResult showBlock = mixerForm.ShowDialog(this);
+                }
             }
         }
 
@@ -1173,6 +1278,126 @@ namespace SA_Resources.SAForms
                         }
 
                         DSP_PROGRAMS[CURRENT_PROGRAM].PRIMITIVES[PrimitiveIndex] = (DSP_Primitive_Ducker4x4)Cached_Primitive.Clone();
+                    }
+                }
+
+                UpdateTooltips();
+            }
+        }
+
+        public void pbtnDucker6x6_MouseClick(object sender, MouseEventArgs e)
+        {
+
+            if (e.Button == MouseButtons.Right)
+            {
+                return;
+            }
+
+            DSP_Primitive_Ducker6x6 Active_Primitive;
+
+            int PrimitiveIndex = DSP_PROGRAMS[CURRENT_PROGRAM].LookupIndex(DSP_Primitive_Types.Ducker6x6, 0, 0);
+
+            if (PrimitiveIndex < 0)
+            {
+                Active_Primitive = null;
+                Console.WriteLine("[ERROR] Unable to locate Ducker Primitive");
+                return;
+            }
+            else
+            {
+                Active_Primitive = (DSP_Primitive_Ducker6x6)DSP_PROGRAMS[CURRENT_PROGRAM].PRIMITIVES[PrimitiveIndex];
+
+            }
+
+            DSP_Primitive_Ducker6x6 Cached_Primitive = (DSP_Primitive_Ducker6x6)Active_Primitive.Clone();
+
+
+            using (DuckerForm6x6 duckerForm = new DuckerForm6x6(this, Active_Primitive))
+            {
+                // passing this in ShowDialog will set the .Owner 
+                // property of the child form
+
+                if (LIVE_MODE)
+                {
+                    duckerForm.Width = Helpers.NormalizeFormDimension(638);
+                }
+                else
+                {
+                    duckerForm.Width = Helpers.NormalizeFormDimension(386);
+                }
+
+                DialogResult showBlock = duckerForm.ShowDialog(this);
+
+                if (showBlock == DialogResult.Cancel)
+                {
+                    if (!Active_Primitive.Equals(Cached_Primitive))
+                    {
+                        if (LIVE_MODE)
+                        {
+                            Cached_Primitive.QueueDeltas(this, Active_Primitive);
+                        }
+
+                        DSP_PROGRAMS[CURRENT_PROGRAM].PRIMITIVES[PrimitiveIndex] = (DSP_Primitive_Ducker6x6)Cached_Primitive.Clone();
+                    }
+                }
+
+                UpdateTooltips();
+            }
+        }
+
+        public void pbtnDucker8x8_MouseClick(object sender, MouseEventArgs e)
+        {
+
+            if (e.Button == MouseButtons.Right)
+            {
+                return;
+            }
+
+            DSP_Primitive_Ducker8x8 Active_Primitive;
+
+            int PrimitiveIndex = DSP_PROGRAMS[CURRENT_PROGRAM].LookupIndex(DSP_Primitive_Types.Ducker8x8, 0, 0);
+
+            if (PrimitiveIndex < 0)
+            {
+                Active_Primitive = null;
+                Console.WriteLine("[ERROR] Unable to locate Ducker Primitive");
+                return;
+            }
+            else
+            {
+                Active_Primitive = (DSP_Primitive_Ducker8x8)DSP_PROGRAMS[CURRENT_PROGRAM].PRIMITIVES[PrimitiveIndex];
+
+            }
+
+            DSP_Primitive_Ducker8x8 Cached_Primitive = (DSP_Primitive_Ducker8x8)Active_Primitive.Clone();
+
+
+            using (DuckerForm8x8 duckerForm = new DuckerForm8x8(this, Active_Primitive))
+            {
+                // passing this in ShowDialog will set the .Owner 
+                // property of the child form
+
+                if (LIVE_MODE)
+                {
+                    duckerForm.Width = Helpers.NormalizeFormDimension(638);
+                }
+                else
+                {
+                    duckerForm.Width = Helpers.NormalizeFormDimension(386);
+                }
+
+                DialogResult showBlock = duckerForm.ShowDialog(this);
+
+                if (showBlock == DialogResult.Cancel)
+                {
+                    if (!Active_Primitive.Equals(Cached_Primitive))
+                    {
+                        if (LIVE_MODE)
+                        {
+                            Cached_Primitive.QueueDeltas(this, Active_Primitive);
+                        }
+
+                        DSP_PROGRAMS[CURRENT_PROGRAM].PRIMITIVES[PrimitiveIndex] = (DSP_Primitive_Ducker8x8)Cached_Primitive.Clone();
                     }
                 }
 
@@ -1868,8 +2093,28 @@ namespace SA_Resources.SAForms
         {
             try
             {
-                MeterViewForm mForm = new MeterViewForm(this);
-                mForm.ShowDialog();
+                if (IsNetworked())
+                {
+                    if (GetNumNetworkInputChannels() > 2)
+                    {
+                        MeterViewForm4Net mForm = new MeterViewForm4Net(this);
+                        mForm.ShowDialog();
+                    }
+                    else
+                    {
+                        MeterViewForm2Net mForm = new MeterViewForm2Net(this);
+
+                        //if(GetNum)
+                        mForm.ShowDialog();
+                    }
+                }
+                else
+                {
+                    MeterViewForm mForm = new MeterViewForm(this);
+                    mForm.ShowDialog();
+                }
+                
+                
             }
             catch (Exception ex)
             {

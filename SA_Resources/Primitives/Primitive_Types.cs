@@ -9,6 +9,7 @@
         Limiter,
         Ducker,
         Ducker4x4,
+        Ducker6x6, 
         Ducker8x8,
         BiquadFilter,
         Delay,

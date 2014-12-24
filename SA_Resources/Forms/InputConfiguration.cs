@@ -63,9 +63,18 @@ namespace SA_Resources
             else if (Active_Primitive.InputType == InputType.Microphone6)
             {
                 dropInputType.SelectedIndex = 1;
-            } else
+            }
+            else if (Active_Primitive.InputType == InputType.Microphone20)
             {
                 dropInputType.SelectedIndex = 2;
+            }
+            else
+            {
+                // This is a Network input
+                dropInputType.Visible = false;
+                lblInputType.Visible = false;
+                txtDisplayName.Enabled = false;
+                lblNoProperties.Visible = true;
             }
 
             dropInputType.Invalidate();

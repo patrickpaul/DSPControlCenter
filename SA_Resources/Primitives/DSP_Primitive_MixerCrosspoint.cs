@@ -113,6 +113,8 @@ namespace SA_Resources.DSP.Primitives
 
         public override void QueueChange(MainForm_Template PARENT_FORM)
         {
+            Console.WriteLine("Crosspoint change - Offset=" + this.Offset + ", Value=" + this.Gain_Value.ToString("X8"));
+            
             if (PARENT_FORM.LIVE_MODE)
             {
                 PARENT_FORM.AddItemToQueue(new LiveQueueItem(this.Offset, this.Gain_Value));

@@ -71,10 +71,10 @@ namespace SA_Resources.SAForms
             this.menuItem_Paste = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripMenuItem();
-            this.pbtnSettings = new SA_Resources.SAControls.PictureButton();
-            this.pbtn_Meters = new SA_Resources.SAControls.PictureButton();
             this.chkDebugLiveMode = new System.Windows.Forms.CheckBox();
             this.btnDebugShowMeters = new System.Windows.Forms.Button();
+            this.pbtnSettings = new SA_Resources.SAControls.PictureButton();
+            this.pbtn_Meters = new SA_Resources.SAControls.PictureButton();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureConnectionStatus)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbPresetSelection)).BeginInit();
@@ -370,6 +370,31 @@ namespace SA_Resources.SAForms
             this.toolStripMenuItem6.Text = "Clear Configuration";
             this.toolStripMenuItem6.Visible = false;
             // 
+            // chkDebugLiveMode
+            // 
+            this.chkDebugLiveMode.AutoSize = true;
+            this.chkDebugLiveMode.Font = new System.Drawing.Font("Segoe UI", 8.25F);
+            this.chkDebugLiveMode.ForeColor = System.Drawing.Color.Gainsboro;
+            this.chkDebugLiveMode.Location = new System.Drawing.Point(157, 349);
+            this.chkDebugLiveMode.Name = "chkDebugLiveMode";
+            this.chkDebugLiveMode.Size = new System.Drawing.Size(116, 17);
+            this.chkDebugLiveMode.TabIndex = 102;
+            this.chkDebugLiveMode.Text = "Debug Live Mode";
+            this.chkDebugLiveMode.UseVisualStyleBackColor = true;
+            this.chkDebugLiveMode.Visible = false;
+            this.chkDebugLiveMode.CheckedChanged += new System.EventHandler(this.chkDebugLiveMode_CheckedChanged);
+            // 
+            // btnDebugShowMeters
+            // 
+            this.btnDebugShowMeters.Location = new System.Drawing.Point(290, 343);
+            this.btnDebugShowMeters.Name = "btnDebugShowMeters";
+            this.btnDebugShowMeters.Size = new System.Drawing.Size(90, 23);
+            this.btnDebugShowMeters.TabIndex = 103;
+            this.btnDebugShowMeters.Text = "Show Meters";
+            this.btnDebugShowMeters.UseVisualStyleBackColor = true;
+            this.btnDebugShowMeters.Visible = false;
+            this.btnDebugShowMeters.Click += new System.EventHandler(this.btnDebugShowMeters_Click);
+            // 
             // pbtnSettings
             // 
             this.pbtnSettings.AutoResize = true;
@@ -411,31 +436,6 @@ namespace SA_Resources.SAForms
             this.pbtn_Meters.ToolTipText = "";
             this.pbtn_Meters.Visible = false;
             this.pbtn_Meters.Click += new System.EventHandler(this.pbtn_Meters_Click);
-            // 
-            // chkDebugLiveMode
-            // 
-            this.chkDebugLiveMode.AutoSize = true;
-            this.chkDebugLiveMode.Font = new System.Drawing.Font("Segoe UI", 8.25F);
-            this.chkDebugLiveMode.ForeColor = System.Drawing.Color.Gainsboro;
-            this.chkDebugLiveMode.Location = new System.Drawing.Point(157, 349);
-            this.chkDebugLiveMode.Name = "chkDebugLiveMode";
-            this.chkDebugLiveMode.Size = new System.Drawing.Size(116, 17);
-            this.chkDebugLiveMode.TabIndex = 102;
-            this.chkDebugLiveMode.Text = "Debug Live Mode";
-            this.chkDebugLiveMode.UseVisualStyleBackColor = true;
-            this.chkDebugLiveMode.Visible = false;
-            this.chkDebugLiveMode.CheckedChanged += new System.EventHandler(this.chkDebugLiveMode_CheckedChanged);
-            // 
-            // btnDebugShowMeters
-            // 
-            this.btnDebugShowMeters.Location = new System.Drawing.Point(290, 343);
-            this.btnDebugShowMeters.Name = "btnDebugShowMeters";
-            this.btnDebugShowMeters.Size = new System.Drawing.Size(90, 23);
-            this.btnDebugShowMeters.TabIndex = 103;
-            this.btnDebugShowMeters.Text = "Show Meters";
-            this.btnDebugShowMeters.UseVisualStyleBackColor = true;
-            this.btnDebugShowMeters.Visible = false;
-            this.btnDebugShowMeters.Click += new System.EventHandler(this.btnDebugShowMeters_Click);
             // 
             // MainForm_Template
             // 

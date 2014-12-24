@@ -128,6 +128,8 @@ namespace SA_Resources.DSP.Primitives
             PriorityChannel = 0;
         }
 
+        private bool SuspendRecalculations = false;
+
         public override void UpdateFromReadValues(List<UInt32> valuesList)
         {
             this.Threshold = DSP_Math.MN_to_double_signed(valuesList[16], 9, 23) - 16.2;
@@ -137,18 +139,18 @@ namespace SA_Resources.DSP.Primitives
             this.Release = DSP_Math.ducker_value_to_release(valuesList[20]);
             this.Bypassed = valuesList[21] == 0x00000001;
 
-
         }
 
         public void UpdateFromPlainValues(UInt32 plainValue)
         {
+            SuspendRecalculations = true;
             for (int i = 0; i < NUM_CHANNELS; i++)
             {
                 SetChannelBypass(i, (plainValue & 0x1) == 0x01);
                 plainValue >>= 1;
 
             }
-
+            SuspendRecalculations = false;
             this.PriorityChannel = (int)(plainValue & 0xFF);
 
         }
@@ -254,6 +256,12 @@ namespace SA_Resources.DSP.Primitives
         /// </summary>
         public void RecalculateRouters()
         {
+
+            if (SuspendRecalculations)
+            {
+                return;
+            }
+
             int induck_index_counter = 1;
             try
             {

@@ -388,7 +388,7 @@ namespace SA_Resources.SAForms
             }
             catch (Exception ex)
             {
-                Console.WriteLine("[Exception in MixerForm6x4]: " + ex.Message);
+                Console.WriteLine("[Exception in MixerForm6x4]: " + ex.Message + " - Trace - " + ex.StackTrace);
             }
 
         }

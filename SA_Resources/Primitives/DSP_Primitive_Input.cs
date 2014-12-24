@@ -9,7 +9,8 @@ namespace SA_Resources.DSP.Primitives
     {
         Line,
         Microphone6,
-        Microphone20
+        Microphone20,
+        Network
     }
 
     public class DSP_Primitive_Input : DSP_Primitive, ICloneable

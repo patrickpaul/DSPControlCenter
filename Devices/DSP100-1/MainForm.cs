@@ -99,7 +99,7 @@ namespace DSP100_1_Analog
 
         public override int GetDisplayOrder()
         {
-            return 100;
+            return 60;
         }
 
         public override void SetConnectionPicture(Image connectionPicture)
@@ -125,7 +125,7 @@ namespace DSP100_1_Analog
         {
             for (int i = 0; i < this.GetNumPresets(); i++)
             {
-                DSP_PROGRAMS[i] = new DSP_Program_Manager(i,"Program " + i.ToString());
+                DSP_PROGRAMS[i] =  new DSP_Program_Manager(i,this,"Program " + i.ToString());
             }
         }
 
@@ -156,7 +156,7 @@ namespace DSP100_1_Analog
                 backgroundWorker.ReportProgress((i+1) * 10);
             }
 
-            AmplifierMode = _PIC_Conn.ReadAmplifierMode();
+            //AmplifierMode = _PIC_Conn.ReadAmplifierMode();
 
             ADC_CALIBRATION_MIN = _PIC_Conn.ReadRVCMin();
             ADC_CALIBRATION_MAX = _PIC_Conn.ReadRVCMax();

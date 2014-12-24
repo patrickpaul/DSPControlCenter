@@ -36,10 +36,11 @@ namespace SA_Resources
             this.lblPhantomPower = new System.Windows.Forms.Label();
             this.btnCancel = new System.Windows.Forms.PictureBox();
             this.btnSave = new System.Windows.Forms.PictureBox();
-            this.label3 = new System.Windows.Forms.Label();
+            this.lblInputType = new System.Windows.Forms.Label();
             this.dropInputType = new System.Windows.Forms.ComboBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
+            this.lblNoProperties = new System.Windows.Forms.Label();
             this.gainMeter = new SA_Resources.SAControls.SignalMeter_Small();
             this.chkPhantomPower = new SA_Resources.SAControls.PictureCheckbox();
             ((System.ComponentModel.ISupportInitialize)(this.btnCancel)).BeginInit();
@@ -104,17 +105,17 @@ namespace SA_Resources
             this.btnSave.TabStop = false;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
-            // label3
+            // lblInputType
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Segoe UI", 8.25F);
-            this.label3.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.label3.Location = new System.Drawing.Point(12, 55);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(64, 13);
-            this.label3.TabIndex = 11;
-            this.label3.Text = "Input Type:";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblInputType.AutoSize = true;
+            this.lblInputType.Font = new System.Drawing.Font("Segoe UI", 8.25F);
+            this.lblInputType.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.lblInputType.Location = new System.Drawing.Point(12, 55);
+            this.lblInputType.Name = "lblInputType";
+            this.lblInputType.Size = new System.Drawing.Size(64, 13);
+            this.lblInputType.TabIndex = 11;
+            this.lblInputType.Text = "Input Type:";
+            this.lblInputType.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // dropInputType
             // 
@@ -145,6 +146,18 @@ namespace SA_Resources
             this.textBox2.TabIndex = 15;
             this.textBox2.Visible = false;
             // 
+            // lblNoProperties
+            // 
+            this.lblNoProperties.AutoSize = true;
+            this.lblNoProperties.Font = new System.Drawing.Font("Segoe UI", 8.25F);
+            this.lblNoProperties.ForeColor = System.Drawing.Color.Gainsboro;
+            this.lblNoProperties.Location = new System.Drawing.Point(47, 55);
+            this.lblNoProperties.Name = "lblNoProperties";
+            this.lblNoProperties.Size = new System.Drawing.Size(167, 13);
+            this.lblNoProperties.TabIndex = 16;
+            this.lblNoProperties.Text = "There are no properties to edit.";
+            this.lblNoProperties.Visible = false;
+            // 
             // gainMeter
             // 
             this.gainMeter.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("gainMeter.BackgroundImage")));
@@ -172,12 +185,13 @@ namespace SA_Resources
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(82)))), ((int)(((byte)(82)))));
-            this.ClientSize = new System.Drawing.Size(327, 180);
+            this.ClientSize = new System.Drawing.Size(303, 180);
+            this.Controls.Add(this.lblNoProperties);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.gainMeter);
             this.Controls.Add(this.dropInputType);
-            this.Controls.Add(this.label3);
+            this.Controls.Add(this.lblInputType);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.chkPhantomPower);
@@ -208,10 +222,11 @@ namespace SA_Resources
         private PictureCheckbox chkPhantomPower;
         private System.Windows.Forms.PictureBox btnCancel;
         private System.Windows.Forms.PictureBox btnSave;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label lblInputType;
         private System.Windows.Forms.ComboBox dropInputType;
         private SignalMeter_Small gainMeter;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.Label lblNoProperties;
     }
 }

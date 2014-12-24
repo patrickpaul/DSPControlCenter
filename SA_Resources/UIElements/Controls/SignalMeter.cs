@@ -180,7 +180,7 @@ namespace SA_Resources.SAControls
                             if (meterthread_abort == true)
                             {
                                 meterthread_abort = false;
-                                Console.WriteLine("Broke Meter thread");
+                                //Console.WriteLine("Broke Meter thread");
                                 MeterThread.Abort();
                                 break;
 
@@ -192,7 +192,7 @@ namespace SA_Resources.SAControls
                     }
                     catch (ThreadAbortException taex)
                     {
-                        Console.WriteLine("[ThreadAbortException in MeterThread_Worker Level 2]: " + taex.Message);
+                        //Console.WriteLine("[ThreadAbortException in MeterThread_Worker Level 2]: " + taex.Message);
                     }
                     catch (Exception ex)
                     {
@@ -203,7 +203,7 @@ namespace SA_Resources.SAControls
             }
             catch (ThreadAbortException taex)
             {
-                Console.WriteLine("[ThreadAbortException in MeterThread_Worker Level 1]: " + taex.Message);
+                //Console.WriteLine("[ThreadAbortException in MeterThread_Worker Level 1]: " + taex.Message);
             }
             catch (Exception ex)
             {

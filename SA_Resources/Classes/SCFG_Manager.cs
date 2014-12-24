@@ -48,7 +48,7 @@ namespace SA_Resources
                         writer.WriteLine("ADC_CALIBRATION_MAX:" + adc_max.ToString("00000000") + ";");
                     }
 
-                    if (PARENT_FORM.GetDeviceFamily() == DeviceFamily.DSP100)
+                    if (PARENT_FORM.GetDeviceFamily() == DeviceFamily.DSP100 || PARENT_FORM.GetDeviceFamily() == DeviceFamily.DSP100NET)
                     {
                         bool sleep_enable = PARENT_FORM.SLEEP_ENABLE;
                         int sleep_seconds = PARENT_FORM.SLEEP_SECONDS;

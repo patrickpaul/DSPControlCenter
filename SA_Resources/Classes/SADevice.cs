@@ -16,9 +16,12 @@ namespace SA_Resources.SADevices
         FLX804Net,
         FLX804CVNet,
         FLX1602Net,
-        FLX3201Net, 
+        FLX1602CVNet,
+        FLX3201CVNet, 
         DSP1001,
         DSP1002,
+        DSP1001Net,
+        DSP1002Net,
         Unknown
     }
 
@@ -27,6 +30,8 @@ namespace SA_Resources.SADevices
         DSP4x4,
         FLX,
         DSP100,
+        FLXNET,
+        DSP100NET,
         Unknown
     }
 

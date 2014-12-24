@@ -178,7 +178,7 @@ namespace SA_Resources.SAForms
             }
             catch (ThreadAbortException taex)
             {
-                Console.WriteLine("[ThreadAbortException in Mixerform6x4_FormClosing]: " + taex.Message);
+                //Console.WriteLine("[ThreadAbortException in Mixerform6x4_FormClosing]: " + taex.Message);
             }
             catch (Exception ex)
             {

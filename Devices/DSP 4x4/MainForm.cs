@@ -123,7 +123,7 @@ namespace DSP_4x4
         {
             for (int i = 0; i < this.GetNumPresets(); i++)
             {
-                DSP_PROGRAMS[i] = new DSP_Program_Manager(i,"Program " + i.ToString());
+                DSP_PROGRAMS[i] =  new DSP_Program_Manager(i,this,"Program " + i.ToString());
             }
         }
 

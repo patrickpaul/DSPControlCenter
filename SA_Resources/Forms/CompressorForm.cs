@@ -671,7 +671,7 @@ namespace SA_Resources.SAForms
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine("Exception in LiveSignal_Thread Level 2: " + ex.Message);
+                        //Console.WriteLine("Exception in LiveSignal_Thread Level 2: " + ex.Message);
                     }
 
                     lock (_threadlock)
@@ -679,7 +679,7 @@ namespace SA_Resources.SAForms
                         if (livesignalthread_abort == true)
                         {
                             livesignalthread_abort = false;
-                            Console.WriteLine("Broke LiveSignal thread");
+                            //Console.WriteLine("Broke LiveSignal thread");
                             LiveSignalThread.Abort();
                             break;
 

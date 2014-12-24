@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using SA_Resources.DSP;
 using SA_Resources.SAForms;
 
@@ -10,38 +11,36 @@ namespace SA_Resources.DSP.Primitives
 
         #region OFFSETS
 
-        public const int THRESHOLD_OFFSET = 0;
-        public const int HOLDTIME_OFFSET = 1;
-        public const int DEPTH_OFFSET = 2;
-        public const int ATTACK_OFFSET = 3;
-        public const int RELEASE_OFFSET = 4;
-        public const int BYPASSED_OFFSET = 5;
+        public const int THRESHOLD_OFFSET = 16;
+        public const int HOLDTIME_OFFSET = 17;
+        public const int DEPTH_OFFSET = 18;
+        public const int ATTACK_OFFSET = 19;
+        public const int RELEASE_OFFSET = 20;
+        public const int BYPASSED_OFFSET = 21;
 
-        public const int INDUCK_SELECT_1_OFFSET = 6;
-        public const int INDUCK_SELECT_2_OFFSET = 7;
-        public const int INDUCK_SELECT_3_OFFSET = 8;
-        public const int INDUCK_SELECT_4_OFFSET = 9;
-        public const int INDUCK_SELECT_5_OFFSET = 10;
-        public const int INDUCK_SELECT_6_OFFSET = 11;
-        public const int INDUCK_SELECT_7_OFFSET = 12;
-        public const int INDUCK_SELECT_8_OFFSET = 13;
-        public const int INDUCK_SELECT_9_OFFSET = 14;
-        public const int INDUCK_SELECT_10_OFFSET = 15;
-        public const int INDUCK_SELECT_11_OFFSET = 16;
-        public const int INDUCK_SELECT_12_OFFSET = 17;
+        public const int INDUCK_SELECT_0_OFFSET = 0;
+        public const int INDUCK_SELECT_1_OFFSET = 1;
+        public const int INDUCK_SELECT_2_OFFSET = 2;
+        public const int INDUCK_SELECT_3_OFFSET = 3;
+        public const int INDUCK_SELECT_4_OFFSET = 4;
+        public const int INDUCK_SELECT_5_OFFSET = 5;
+        public const int INDUCK_SELECT_6_OFFSET = 6;
+        public const int INDUCK_SELECT_7_OFFSET = 7;
 
-        public const int OUTDUCK_SELECT_1_OFFSET = 18;
-        public const int OUTDUCK_SELECT_2_OFFSET = 19;
-        public const int OUTDUCK_SELECT_3_OFFSET = 20;
-        public const int OUTDUCK_SELECT_4_OFFSET = 21;
-        public const int OUTDUCK_SELECT_5_OFFSET = 22;
-        public const int OUTDUCK_SELECT_6_OFFSET = 23;
+        public const int OUTDUCK_SELECT_0_OFFSET = 8;
+        public const int OUTDUCK_SELECT_1_OFFSET = 9;
+        public const int OUTDUCK_SELECT_2_OFFSET = 10;
+        public const int OUTDUCK_SELECT_3_OFFSET = 11;
+        public const int OUTDUCK_SELECT_4_OFFSET = 12;
+        public const int OUTDUCK_SELECT_5_OFFSET = 13;
+        public const int OUTDUCK_SELECT_6_OFFSET = 14;
+        public const int OUTDUCK_SELECT_7_OFFSET = 15;
 
         #endregion
 
         #region VARIABLES
 
-        public int NUM_CHANNELS = 6;
+        public int NUM_CHANNELS = 8;
 
 
         public double _Threshold, _HoldTime, _Depth, _Attack, _Release;
@@ -60,13 +59,6 @@ namespace SA_Resources.DSP.Primitives
 
         public List<UInt32> INDUCK_Values, OUTDUCK_Values;
  
-        /*
-        public UInt32 INDUCK_SELECT_1_VALUE, INDUCK_SELECT_2_VALUE, INDUCK_SELECT_3_VALUE, INDUCK_SELECT_4_VALUE, INDUCK_SELECT_5_VALUE, INDUCK_SELECT_6_VALUE;
-        public UInt32 INDUCK_SELECT_7_VALUE, INDUCK_SELECT_8_VALUE, INDUCK_SELECT_9_VALUE, INDUCK_SELECT_10_VALUE, INDUCK_SELECT_11_VALUE, INDUCK_SELECT_12_VALUE;
-        public UInt32 OUTDUCK_SELECT_1_VALUE, OUTDUCK_SELECT_2_VALUE, OUTDUCK_SELECT_3_VALUE, OUTDUCK_SELECT_4_VALUE, OUTDUCK_SELECT_5_VALUE, OUTDUCK_SELECT_6_VALUE;
-
-        */
-
         #endregion
 
         #region METERS
@@ -75,11 +67,17 @@ namespace SA_Resources.DSP.Primitives
 
         #endregion
 
+        public int PlainValue_Offset;
+        public UInt32 Ducker_Package;
 
-        public DSP_Primitive_Ducker6x6(string in_name, int in_channel, int in_positionA)
+
+
+        public DSP_Primitive_Ducker6x6(string in_name, int in_channel, int in_positionA, int in_plainvalue_offset)
             : base(in_name, in_channel, in_positionA)
         {
-            
+
+            INDUCK_Values = new List<UInt32>();
+            OUTDUCK_Values = new List<UInt32>();
             Threshold = 0;
             Depth = -15.0;
             Attack = 0.01; // 10ms
@@ -87,8 +85,10 @@ namespace SA_Resources.DSP.Primitives
             HoldTime = 0.1; // 100ms
             Bypassed = true;
 
-            this.Type = DSP_Primitive_Types.Ducker;
-            this.Num_Values = 24;
+            PlainValue_Offset = in_plainvalue_offset;
+
+            this.Type = DSP_Primitive_Types.Ducker6x6;
+            this.Num_Values = 22;
 
             for (int i = 0; i < NUM_CHANNELS; i ++)
             {
@@ -101,9 +101,12 @@ namespace SA_Resources.DSP.Primitives
         }
 
 
-        public DSP_Primitive_Ducker6x6(string in_name, int in_channel, int in_positionA, double in_thresh, double in_depth, double in_attack, double in_release, double in_holdtime, bool in_bypassed, int in_priority = 0)
+        public DSP_Primitive_Ducker6x6(string in_name, int in_channel, int in_positionA, int in_plainvalue_offset, double in_thresh, double in_depth, double in_attack, double in_release, double in_holdtime, bool in_bypassed, int in_priority = 0)
             : base(in_name, in_channel, in_positionA)
         {
+            INDUCK_Values = new List<UInt32>();
+            OUTDUCK_Values = new List<UInt32>(); 
+            
             Threshold = in_thresh;
             Depth = in_depth;
             Attack = in_attack; // 10ms
@@ -111,8 +114,10 @@ namespace SA_Resources.DSP.Primitives
             HoldTime = in_holdtime; // 100ms
             Bypassed = in_bypassed;
 
-            this.Type = DSP_Primitive_Types.Ducker;
-            this.Num_Values = 24;
+            PlainValue_Offset = in_plainvalue_offset;
+            
+            this.Type = DSP_Primitive_Types.Ducker6x6;
+            this.Num_Values = 22;
 
             for (int i = 0; i < NUM_CHANNELS; i++)
             {
@@ -125,8 +130,29 @@ namespace SA_Resources.DSP.Primitives
 
         public override void UpdateFromReadValues(List<UInt32> valuesList)
         {
+            this.Threshold = DSP_Math.MN_to_double_signed(valuesList[16], 9, 23) - 16.2;
+            this.HoldTime = DSP_Math.value_to_dynamic_hold(valuesList[17]);
+            this.Depth = DSP_Math.MN_to_double_signed(valuesList[18], 9, 23);
+            this.Attack = DSP_Math.value_to_comp_attack(valuesList[19]);
+            this.Release = DSP_Math.ducker_value_to_release(valuesList[20]);
+            this.Bypassed = valuesList[21] == 0x00000001;
+
         }
 
+        public void UpdateFromPlainValues(UInt32 plainValue)
+        {
+            for (int i = 0; i < NUM_CHANNELS; i++)
+            {
+                SetChannelBypass(i, (plainValue & 0x1) == 0x01);
+                plainValue >>= 1;
+
+            }
+
+            this.PriorityChannel = (int)(plainValue & 0xFF);
+
+        }
+
+        
 
         public void SetChannelBypass(int ch_index, bool in_bypass)
         {
@@ -134,15 +160,17 @@ namespace SA_Resources.DSP.Primitives
 
             RecalculateRouters();
         }
+
         public List<UInt32> Values
         {
             get
             {
                 List<UInt32> ReturnValues = new List<UInt32>();
 
-                ReturnValues.AddRange(new UInt32[] {Threshold_Value, Depth_Value, Attack_Value, Release_Value, Holdtime_Value, Bypassed_Value});
                 ReturnValues.AddRange(INDUCK_Values);
-                ReturnValues.AddRange(OUTDUCK_Values); 
+                ReturnValues.AddRange(OUTDUCK_Values);
+                ReturnValues.AddRange(new UInt32[] { Threshold_Value, Holdtime_Value, Depth_Value, Attack_Value, Release_Value, Bypassed_Value });
+                
                 return ReturnValues;
             }
             set { }
@@ -159,7 +187,7 @@ namespace SA_Resources.DSP.Primitives
             set
             {
                 this._Threshold = value;
-                this.Threshold_Value = DSP_Math.double_to_MN(this._Threshold, 9, 23);
+                this.Threshold_Value = DSP_Math.double_to_MN(this._Threshold + 16.2, 9, 23);
             }
 
         }
@@ -202,7 +230,7 @@ namespace SA_Resources.DSP.Primitives
             set
             {
                 this._Release = value;
-                this.Release_Value = DSP_Math.comp_release_to_value(this._Release);
+                this.Release_Value = DSP_Math.ducker_release_to_value(this._Release);
             }
 
         }
@@ -220,51 +248,94 @@ namespace SA_Resources.DSP.Primitives
 
         }
 
+        /// <summary>
+        /// Generates new router configurations once the priority channel or channel bypasses have been changed
+        /// </summary>
         public void RecalculateRouters()
         {
-            // *REMEMBER* - WE STORE THEM IN INDUCK_VALUES AND OUTDUCK_VALUES AT ZERO-BASED ADDRESSES
-            // HOWEVER - THE DSP IS LOOKING FOR ONE-BASED VALUES
-            int input_router_counter = 0;
-            int input_bypass_counter = NUM_CHANNELS;
-            int output_router_counter = 0;
-
-            for (int i = 0; i < NUM_CHANNELS; i++)
+            int induck_index_counter = 1;
+            try
             {
-                if (i == PriorityChannel)
+                Ducker_Package = 0x00;
+
+                Ducker_Package |= (uint) PriorityChannel;
+
+
+                for (int i = NUM_CHANNELS; i > 0; i--)
                 {
-                    
-                    INDUCK_Values[NUM_CHANNELS-1] = (UInt32)(i + 1);
-                    OUTDUCK_Values[i] = (UInt32)NUM_CHANNELS;
+                    Ducker_Package <<= 1;
+                    Ducker_Package |= CH_Bypasses[i - 1] ? (uint) 0x01 : (uint) 0x00;
+
                 }
-                else
+
+                INDUCK_Values.Clear();
+                OUTDUCK_Values.Clear();
+
+                for (int x = 0; x < NUM_CHANNELS; x++)
                 {
+                    INDUCK_Values.Add(0);
+                    OUTDUCK_Values.Add(0);
+                }
+                // *REMEMBER* - WE STORE THEM IN INDUCK_VALUES AND OUTDUCK_VALUES AT ZERO-BASED ADDRESSES
+                // HOWEVER - THE DSP IS LOOKING FOR ONE-BASED VALUES
 
-                    if(CH_Bypasses[i] == true)
-                    {
-                        INDUCK_Values[input_bypass_counter] = (UInt32) (i + 1);
-                        input_bypass_counter++;
-                        OUTDUCK_Values[i] = (UInt32)input_bypass_counter; // Conveniently this works since we already incremented it
-                    } else
-                    {
-                        INDUCK_Values[input_router_counter] = (UInt32) (i + 1);
-                        input_router_counter++;
+                int[] channel_cache = new int[8]; // Key = zereo-based Channel Number, Value = The zero-based index coming out of INDUCK_ROUTER
 
-                        if (output_router_counter < PriorityChannel)
+                induck_index_counter = 1;
+
+                for (int i = 0; i < NUM_CHANNELS; i++)
+                {
+                    if (i == PriorityChannel)
+                    {
+                        channel_cache[i] = 0; // Good
+                        INDUCK_Values[0] = (UInt32) (i + 1); // Good
+                        OUTDUCK_Values[i] = (UInt32) 1; // Good
+                    }
+                    else
+                    {
+                        channel_cache[i] = induck_index_counter; // Good
+
+                        INDUCK_Values[induck_index_counter] = (UInt32) (i + 1); // Good
+
+                        if (CH_Bypasses[i])
                         {
-                            OUTDUCK_Values[i] = (UInt32) (i + 1);
-                            output_router_counter++;
+                            OUTDUCK_Values[i] = (UInt32) (induck_index_counter + NUM_CHANNELS + 1);
                         }
                         else
                         {
-                            OUTDUCK_Values[i] = (UInt32)(output_router_counter + 1);
-                            output_router_counter++;
+                            OUTDUCK_Values[i] = (UInt32) (induck_index_counter + 1);
                         }
 
-
+                        induck_index_counter++;
                     }
+
+
                 }
             }
+            catch (Exception ex)
+            {
+                Console.WriteLine("[Exception in Ducker.RecalculateRouters] at index_counter_value " + induck_index_counter + ": " + ex.Message);
+            }
+            /*
+            for(int x = 0; x < INDUCK_Values.Count; x++)
+            {
+                Console.WriteLine("INDUCK " + x + " = " + INDUCK_Values[x]);
+                
+            }
+
+            for (int y = 0; y < INDUCK_Values.Count; y++)
+            {
+                Console.WriteLine("OUTDUCK " + y + " = " + OUTDUCK_Values[y]);
+
+            }
+             * */
         }
+
+        public void QueuePackageChange(MainForm_Template PARENT_FORM)
+        {
+            PARENT_FORM.AddItemToQueue(new LiveQueueItem(PlainValue_Offset, this.Ducker_Package));
+        }
+
 
         public override void QueueChange(MainForm_Template PARENT_FORM)
         {
@@ -288,7 +359,7 @@ namespace SA_Resources.DSP.Primitives
             
             if (PARENT_FORM.LIVE_MODE)
             {
-                Console.WriteLine("Compressor - QueueChangeByOffset - Sending " + this.Values[const_offset].ToString("X") + " to offset " + (Offset + const_offset));
+                Console.WriteLine("Ducker6x6 - QueueChangeByOffset - Sending " + this.Values[const_offset].ToString("X8") + " to offset " + (Offset + const_offset));
 
                 PARENT_FORM.AddItemToQueue(new LiveQueueItem(Offset + const_offset, this.Values[const_offset]));
             }
@@ -320,6 +391,11 @@ namespace SA_Resources.DSP.Primitives
 
         }
 
+        /// <summary>
+        /// Checks if another primitive's values are equal to this one
+        /// </summary>
+        /// <param name="comparePrimitive">The primitive to be compared.</param>
+        /// <returns><c>true</c> if all values of the compare primitive are equal, <c>false</c> otherwise.</returns>
         public override bool Equals(DSP_Primitive comparePrimitive)
         {
             if (comparePrimitive == null)

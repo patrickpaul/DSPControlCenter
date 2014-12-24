@@ -1943,8 +1943,12 @@
 		<row><td>dpinst_x86.exe</td><td>dpinst_x86.exe</td><td>DPINST~1.EXE|dpinst-x86.exe</td><td>0</td><td/><td/><td/><td>1</td><td>C:\SOURCE\DSPControlCenter\Drivers\dpinst-x86.exe</td><td>1</td><td/></row>
 		<row><td>dsp100_1_analog.sadev</td><td>ISX_DEFAULTCOMPONENT</td><td>DSP100~1.SAD|DSP100_1_Analog.sadev</td><td>0</td><td/><td/><td/><td>1</td><td>C:\SOURCE\DSPControlCenter\Stewart Audio Control Center\bin\Debug\Devices\DSP100_1_Analog.sadev</td><td>1</td><td/></row>
 		<row><td>dsp100_1_analog_default.scfg</td><td>ISX_DEFAULTCOMPONENT</td><td>DSP100~1.SCF|DSP100-1-Analog_Default.scfg</td><td>0</td><td/><td/><td/><td>1</td><td>C:\SOURCE\DSPControlCenter\Devices\DSP100-1\DSP100-1-Analog_Default.scfg</td><td>1</td><td/></row>
+		<row><td>dsp100_1_net.sadev</td><td>ISX_DEFAULTCOMPONENT</td><td>DSP100~1.SAD|DSP100_1_NET.sadev</td><td>0</td><td/><td/><td/><td>1</td><td>C:\SOURCE\DSPControlCenter\Stewart Audio Control Center\bin\Debug\Devices\DSP100_1_NET.sadev</td><td>1</td><td/></row>
+		<row><td>dsp100_1_net_default.scfg</td><td>ISX_DEFAULTCOMPONENT</td><td>DSP100~1.SCF|DSP100-1-NET_Default.scfg</td><td>0</td><td/><td/><td/><td>1</td><td>C:\SOURCE\DSPControlCenter\Devices\DSP100-1_NET\DSP100-1-NET_Default.scfg</td><td>1</td><td/></row>
 		<row><td>dsp100_2_analog.sadev</td><td>ISX_DEFAULTCOMPONENT</td><td>DSP100~1.SAD|DSP100_2_Analog.sadev</td><td>0</td><td/><td/><td/><td>1</td><td>C:\SOURCE\DSPControlCenter\Stewart Audio Control Center\bin\Debug\Devices\DSP100_2_Analog.sadev</td><td>1</td><td/></row>
 		<row><td>dsp100_2_analog_default.scfg</td><td>ISX_DEFAULTCOMPONENT</td><td>DSP100~1.SCF|DSP100-2-Analog_Default.scfg</td><td>0</td><td/><td/><td/><td>1</td><td>C:\SOURCE\DSPControlCenter\Devices\DSP100-2\DSP100-2-Analog_Default.scfg</td><td>1</td><td/></row>
+		<row><td>dsp100_2_net.sadev</td><td>ISX_DEFAULTCOMPONENT</td><td>DSP100~1.SAD|DSP100_2_NET.sadev</td><td>0</td><td/><td/><td/><td>1</td><td>C:\SOURCE\DSPControlCenter\Stewart Audio Control Center\bin\Debug\Devices\DSP100_2_NET.sadev</td><td>1</td><td/></row>
+		<row><td>dsp100_2_net_default.scfg</td><td>ISX_DEFAULTCOMPONENT</td><td>DSP100~1.SCF|DSP100-2-NET_Default.scfg</td><td>0</td><td/><td/><td/><td>1</td><td>C:\SOURCE\DSPControlCenter\Devices\DSP100-2_NET\DSP100-2-NET_Default.scfg</td><td>1</td><td/></row>
 		<row><td>dsp_4x4.sadev</td><td>ISX_DEFAULTCOMPONENT</td><td>DSP_4X~1.SAD|DSP_4x4.sadev</td><td>0</td><td/><td/><td/><td>1</td><td>C:\SOURCE\DSPControlCenter\Stewart Audio Control Center\bin\Debug\Devices\DSP_4x4.sadev</td><td>1</td><td/></row>
 		<row><td>dsp_4x4_default.scfg</td><td>ISX_DEFAULTCOMPONENT</td><td>DSP_4X~1.SCF|DSP_4x4_Default.scfg</td><td>0</td><td/><td/><td/><td>1</td><td>C:\SOURCE\DSPControlCenter\Devices\DSP 4x4\DSP_4x4_Default.scfg</td><td>1</td><td/></row>
 		<row><td>dsp_control_center_manual.pd</td><td>ISX_DEFAULTCOMPONENT7</td><td>DSPCON~1.PDF|DSP Control Center Manual.pdf</td><td>0</td><td/><td/><td/><td>1</td><td>C:\SOURCE\DSPControlCenter\DSP Control Center Manual.pdf</td><td>1</td><td/></row>
@@ -1952,10 +1956,16 @@
 		<row><td>flx160_2_analog_default.scfg</td><td>ISX_DEFAULTCOMPONENT</td><td>FLX160~1.SCF|FLX160-2-Analog_Default.scfg</td><td>0</td><td/><td/><td/><td>1</td><td>C:\SOURCE\DSPControlCenter\Devices\FLX 160-2\FLX160-2-Analog_Default.scfg</td><td>1</td><td/></row>
 		<row><td>flx160_2_cv_analog.sadev</td><td>ISX_DEFAULTCOMPONENT</td><td>FLX160~1.SAD|FLX160_2_CV_Analog.sadev</td><td>0</td><td/><td/><td/><td>1</td><td>C:\SOURCE\DSPControlCenter\Stewart Audio Control Center\bin\Debug\Devices\FLX160_2_CV_Analog.sadev</td><td>1</td><td/></row>
 		<row><td>flx160_2_cv_analog_default.s</td><td>ISX_DEFAULTCOMPONENT</td><td>FLX160~1.SCF|FLX160-2-CV-Analog_Default.scfg</td><td>0</td><td/><td/><td/><td>1</td><td>C:\SOURCE\DSPControlCenter\Devices\FLX 160-2-CV\FLX160-2-CV-Analog_Default.scfg</td><td>1</td><td/></row>
+		<row><td>flx160_2_cv_network.sadev</td><td>ISX_DEFAULTCOMPONENT</td><td>FLX160~1.SAD|FLX160_2_CV_Network.sadev</td><td>0</td><td/><td/><td/><td>1</td><td>C:\SOURCE\DSPControlCenter\Stewart Audio Control Center\bin\Debug\Devices\FLX160_2_CV_Network.sadev</td><td>1</td><td/></row>
+		<row><td>flx160_2_network.sadev</td><td>ISX_DEFAULTCOMPONENT</td><td>FLX160~1.SAD|FLX160_2_Network.sadev</td><td>0</td><td/><td/><td/><td>1</td><td>C:\SOURCE\DSPControlCenter\Stewart Audio Control Center\bin\Debug\Devices\FLX160_2_Network.sadev</td><td>1</td><td/></row>
+		<row><td>flx320_1_analog.sadev</td><td>ISX_DEFAULTCOMPONENT</td><td>FLX320~1.SAD|FLX320_1_Analog.sadev</td><td>0</td><td/><td/><td/><td>1</td><td>C:\SOURCE\DSPControlCenter\Stewart Audio Control Center\bin\Debug\Devices\FLX320_1_Analog.sadev</td><td>1</td><td/></row>
+		<row><td>flx320_1_cv_network.sadev</td><td>ISX_DEFAULTCOMPONENT</td><td>FLX320~1.SAD|FLX320_1_CV_Network.sadev</td><td>0</td><td/><td/><td/><td>1</td><td>C:\SOURCE\DSPControlCenter\Stewart Audio Control Center\bin\Debug\Devices\FLX320_1_CV_Network.sadev</td><td>1</td><td/></row>
 		<row><td>flx80_4_analog.sadev</td><td>ISX_DEFAULTCOMPONENT</td><td>FLX80_~1.SAD|FLX80_4_Analog.sadev</td><td>0</td><td/><td/><td/><td>1</td><td>C:\SOURCE\DSPControlCenter\Stewart Audio Control Center\bin\Debug\Devices\FLX80_4_Analog.sadev</td><td>1</td><td/></row>
 		<row><td>flx80_4_analog_default.scfg</td><td>ISX_DEFAULTCOMPONENT</td><td>FLX80-~1.SCF|FLX80-4-Analog_Default.scfg</td><td>0</td><td/><td/><td/><td>1</td><td>C:\SOURCE\DSPControlCenter\Devices\FLX 80-4\FLX80-4-Analog_Default.scfg</td><td>1</td><td/></row>
 		<row><td>flx80_4_cv_analog.sadev</td><td>ISX_DEFAULTCOMPONENT</td><td>FLX80_~1.SAD|FLX80_4_CV_Analog.sadev</td><td>0</td><td/><td/><td/><td>1</td><td>C:\SOURCE\DSPControlCenter\Stewart Audio Control Center\bin\Debug\Devices\FLX80_4_CV_Analog.sadev</td><td>1</td><td/></row>
 		<row><td>flx80_4_cv_analog_default.sc</td><td>ISX_DEFAULTCOMPONENT</td><td>FLX80-~1.SCF|FLX80-4-CV-Analog_Default.scfg</td><td>0</td><td/><td/><td/><td>1</td><td>C:\SOURCE\DSPControlCenter\Devices\FLX 80-4-CV\FLX80-4-CV-Analog_Default.scfg</td><td>1</td><td/></row>
+		<row><td>flx80_4_cv_network.sadev</td><td>ISX_DEFAULTCOMPONENT</td><td>FLX80_~1.SAD|FLX80_4_CV_Network.sadev</td><td>0</td><td/><td/><td/><td>1</td><td>C:\SOURCE\DSPControlCenter\Stewart Audio Control Center\bin\Debug\Devices\FLX80_4_CV_Network.sadev</td><td>1</td><td/></row>
+		<row><td>flx80_4_network.sadev</td><td>ISX_DEFAULTCOMPONENT</td><td>FLX80_~1.SAD|FLX80_4_Network.sadev</td><td>0</td><td/><td/><td/><td>1</td><td>C:\SOURCE\DSPControlCenter\Stewart Audio Control Center\bin\Debug\Devices\FLX80_4_Network.sadev</td><td>1</td><td/></row>
 		<row><td>ftbusui.dll</td><td>ftbusui.dll</td><td>ftbusui.dll</td><td>0</td><td/><td/><td/><td>1</td><td>C:\SOURCE\DSPControlCenter\Drivers\amd64\ftbusui.dll</td><td>1</td><td/></row>
 		<row><td>ftbusui.dll1</td><td>ftbusui.dll1</td><td>ftbusui.dll</td><td>0</td><td/><td/><td/><td>1</td><td>C:\SOURCE\DSPControlCenter\Drivers\i386\ftbusui.dll</td><td>1</td><td/></row>
 		<row><td>ftcserco.dll</td><td>ftcserco.dll</td><td>ftcserco.dll</td><td>0</td><td/><td/><td/><td>1</td><td>C:\SOURCE\DSPControlCenter\Drivers\amd64\ftcserco.dll</td><td>1</td><td/></row>
@@ -2895,7 +2905,7 @@
 		<col def="I2">Encoded</col>
 		<col def="S0">Comment</col>
 		<col def="I4">TimeStamp</col>
-		<row><td>COMPANY_NAME</td><td>1033</td><td>Stewart Audio</td><td>0</td><td/><td>488711467</td></row>
+		<row><td>COMPANY_NAME</td><td>1033</td><td>Stewart Audio</td><td>0</td><td/><td>-970841396</td></row>
 		<row><td>DN_AlwaysInstall</td><td>1033</td><td>Always Install</td><td>0</td><td/><td>-341734801</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_COLOR</td><td>1033</td><td>The color settings of your system are not adequate for running [ProductName].</td><td>0</td><td/><td>-341734801</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_DOTNETVERSION40CLIENT</td><td>1033</td><td>Microsoft .NET Framework 4.0 Client Package or greater needs to be installed for this installation to continue.</td><td>0</td><td/><td>-341765489</td></row>
@@ -4002,8 +4012,8 @@
 		<row><td>IDS__TargetReq_DESC_RAM</td><td>1033</td><td>The amount of RAM is not adequate for running [ProductName].</td><td>0</td><td/><td>-341734801</td></row>
 		<row><td>IDS__TargetReq_DESC_RESOLUTION</td><td>1033</td><td>The screen resolution is not adequate for running [ProductName].</td><td>0</td><td/><td>-341734801</td></row>
 		<row><td>ID_STRING1</td><td>1033</td><td/><td>0</td><td/><td>-341734801</td></row>
-		<row><td>ID_STRING2</td><td>1033</td><td>http://www.StewartAudio.com</td><td>0</td><td/><td>488711467</td></row>
-		<row><td>ID_STRING3</td><td>1033</td><td>Stewart Audio</td><td>0</td><td/><td>488711467</td></row>
+		<row><td>ID_STRING2</td><td>1033</td><td>http://www.StewartAudio.com</td><td>0</td><td/><td>-970841396</td></row>
+		<row><td>ID_STRING3</td><td>1033</td><td>Stewart Audio</td><td>0</td><td/><td>-970841396</td></row>
 		<row><td>ID_STRING4</td><td>1033</td><td>DSP Control Center</td><td>0</td><td/><td>-341718321</td></row>
 		<row><td>ID_STRING5</td><td>1033</td><td>DSPCON~1|DSP Control Center 3</td><td>0</td><td/><td>-1700612534</td></row>
 		<row><td>ID_STRING6</td><td>1033</td><td>DSPCON~1|DSP Control Center 3</td><td>0</td><td/><td>-1700618678</td></row>
@@ -4118,13 +4128,13 @@
 		<col def="V0">Data</col>
 		<col def="S255">ISBuildSourcePath</col>
 		<col def="I2">ISIconIndex</col>
-		<row><td>ARPPRODUCTICON.exe</td><td/><td>C:\SOURCE\DSPControlCenter\Stewart Audio Control Center\bin\Debug\DSPControlCenter3.exe</td><td>0</td></row>
+		<row><td>ARPPRODUCTICON.exe</td><td/><td>C:\SOURCE\DSPControlCenter\Stewart Audio Control Center\DSP Control Center v4.ico</td><td>0</td></row>
 		<row><td>NewShortcut1_AC0F0F82DED64525A47C2000918AF691.exe</td><td/><td>C:\Program Files (x86)\InstallShield\2012SpringLE\Redist\Language Independent\OS Independent\uninstall.ico</td><td>0</td></row>
-		<row><td>NewShortcut2_4AB7D93D0B8E47B4BD668F37A6D4F857.exe</td><td/><td>C:\SOURCE\DSPControlCenter\Stewart Audio Control Center\bin\Debug\DSPControlCenter3.exe</td><td>0</td></row>
-		<row><td>NewShortcut3_E018A21AE1B54AB6BDC68B0A7AE154A4.exe</td><td/><td>C:\SOURCE\DSPControlCenter\Stewart Audio Control Center\bin\Debug\DSPControlCenter3.exe</td><td>0</td></row>
+		<row><td>NewShortcut2_B03B046BD4EF4FBA910B687155721C69.exe</td><td/><td>C:\SOURCE\DSPControlCenter\Stewart Audio Control Center\DSP Control Center v4_2_2.ico</td><td>0</td></row>
+		<row><td>NewShortcut3_1CA170FDD6FE47D38FBC8587031FF9E6.exe</td><td/><td>C:\SOURCE\DSPControlCenter\Stewart Audio Control Center\DSP Control Center v4_2.ico</td><td>0</td></row>
 		<row><td>_56C34E30_E160_4BB1_97EA_988FB162CC80</td><td/><td>C:\SOURCE\DSPControlCenter\DSP Control Center v4.ico</td><td>0</td></row>
 		<row><td>_B4FC6954_DD33_422E_8857_87BB63F71AF0</td><td/><td>C:\SOURCE\DSPControlCenter\DSP Control Center v4.ico</td><td>0</td></row>
-		<row><td>_F7C68B79_B656_4B5E_BB31_330699E3125B</td><td/><td>C:\SOURCE\DSPControlCenter\Stewart Audio Control Center\bin\Debug\DSPControlCenter3.exe</td><td>0</td></row>
+		<row><td>_F7C68B79_B656_4B5E_BB31_330699E3125B</td><td/><td>C:\SOURCE\DSPControlCenter\Stewart Audio Control Center\DSP Control Center v4_2_2_2.ico</td><td>0</td></row>
 		<row><td>dp_chooser.exe_289AB4CFFC3942F69D9765AE57E643AC.exe</td><td/><td>&lt;ISProductFolder&gt;\redist\Language Independent\OS Independent\GenericExe.ico</td><td>0</td></row>
 		<row><td>dp_chooser.exe_DD6425703330491F88239C529AA06A2B.exe</td><td/><td>&lt;ISProductFolder&gt;\redist\Language Independent\OS Independent\GenericExe.ico</td><td>0</td></row>
 		<row><td>dpinst_amd64.exe_2B57620D9E51489DA0442EF012CEAD97.exe</td><td/><td>C:\SOURCE\DSPControlCenter\Drivers\dpinst-amd64.exe</td><td>0</td></row>
@@ -4564,7 +4574,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col def="S72">Icon_</col>
 		<col def="I2">IconIndex</col>
 		<col def="I4">ISAttributes</col>
-		<row><td>ext1.File</td><td/><td/><td>Stewart Audio Configuration File</td><td>_F7C68B79_B656_4B5E_BB31_330699E3125B</td><td>1</td><td/></row>
+		<row><td>ext1.File</td><td/><td/><td>Stewart Audio Configuration File</td><td>_F7C68B79_B656_4B5E_BB31_330699E3125B</td><td>0</td><td/></row>
 	</table>
 
 	<table name="Property">
@@ -4645,7 +4655,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>PROGRAMFILETOLAUNCHATEND</td><td>[INSTALLDIR]Stewart Audio Control Center.Primary output</td><td/></row>
 		<row><td>ProductCode</td><td>{C4097ACD-CDC7-4ED5-8D32-8D9C9F7677EB}</td><td/></row>
 		<row><td>ProductName</td><td>DSP Control Center 3</td><td/></row>
-		<row><td>ProductVersion</td><td>3.3</td><td/></row>
+		<row><td>ProductVersion</td><td>3.5.0</td><td/></row>
 		<row><td>ProgressType0</td><td>install</td><td/></row>
 		<row><td>ProgressType1</td><td>Installing</td><td/></row>
 		<row><td>ProgressType2</td><td>installed</td><td/></row>
@@ -4819,8 +4829,8 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col def="S255">ISShortcutName</col>
 		<col def="I4">ISAttributes</col>
 		<row><td>NewShortcut1</td><td>dspcon_1_dsp_control_center</td><td>##ID_STRING7##</td><td>ISX_DEFAULTCOMPONENT7</td><td>[SystemFolder]MsiExec.exe</td><td>/x [ProductCode]</td><td/><td/><td>NewShortcut1_AC0F0F82DED64525A47C2000918AF691.exe</td><td>0</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>NewShortcut2</td><td>DesktopFolder</td><td>##ID_STRING5##</td><td>ISX_DEFAULTCOMPONENT7</td><td>[INSTALLDIR]DSPControlCenter3.exe</td><td/><td/><td/><td>NewShortcut2_4AB7D93D0B8E47B4BD668F37A6D4F857.exe</td><td>1</td><td>1</td><td>INSTALLDIR</td><td/><td/><td/><td/><td/><td/><td/></row>
-		<row><td>NewShortcut3</td><td>dspcon_1_dsp_control_center</td><td>##ID_STRING6##</td><td>ISX_DEFAULTCOMPONENT7</td><td>[INSTALLDIR]DSPControlCenter3.exe</td><td/><td/><td/><td>NewShortcut3_E018A21AE1B54AB6BDC68B0A7AE154A4.exe</td><td>1</td><td>1</td><td>INSTALLDIR</td><td/><td/><td/><td/><td/><td/><td/></row>
+		<row><td>NewShortcut2</td><td>DesktopFolder</td><td>##ID_STRING5##</td><td>ISX_DEFAULTCOMPONENT7</td><td>[INSTALLDIR]DSPControlCenter3.exe</td><td/><td/><td/><td>NewShortcut2_B03B046BD4EF4FBA910B687155721C69.exe</td><td>0</td><td>1</td><td>INSTALLDIR</td><td/><td/><td/><td/><td/><td/><td/></row>
+		<row><td>NewShortcut3</td><td>dspcon_1_dsp_control_center</td><td>##ID_STRING6##</td><td>ISX_DEFAULTCOMPONENT7</td><td>[INSTALLDIR]DSPControlCenter3.exe</td><td/><td/><td/><td>NewShortcut3_1CA170FDD6FE47D38FBC8587031FF9E6.exe</td><td>0</td><td>1</td><td>INSTALLDIR</td><td/><td/><td/><td/><td/><td/><td/></row>
 	</table>
 
 	<table name="Signature">

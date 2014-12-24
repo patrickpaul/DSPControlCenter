@@ -9,6 +9,7 @@ using System.Threading;
 using System.Windows.Forms;
 using Microsoft.Win32;
 using SA_Resources;
+using SA_Resources.DSP;
 using SA_Resources.SADevices;
 using SA_Resources.SAForms;
 
@@ -122,6 +123,7 @@ namespace SA_Resources
                     }
                 }
 
+ 
                 DeviceListBox.SelectedIndex = 0;
                 DeviceListBox.Invalidate();
             }
@@ -189,8 +191,6 @@ namespace SA_Resources
                 int DeviceID = (int)mainFormType.GetMethod("GetDeviceID").Invoke(form, null);
                 int DisplayOrder = (int)mainFormType.GetMethod("GetDisplayOrder").Invoke(form, null);
                 DevicePlugins.Add(new SADevicePlugin(DeviceID, DeviceName, assembly_path, assembly_name, DisplayOrder));
-
-                //DeviceListBox.Items.Add(DeviceName);
 
             }
             catch (Exception ex)

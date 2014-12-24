@@ -255,8 +255,8 @@ enum {
 //
 
 #define FT_X_SERIES_CBUS_TRISTATE			0x00	//	Tristate
-#define FT_X_SERIES_CBUS_RXLED				0x01	//	Tx LED
-#define FT_X_SERIES_CBUS_TXLED				0x02	//	Rx LED
+#define FT_X_SERIES_CBUS_TXLED				0x01	//	Tx LED
+#define FT_X_SERIES_CBUS_RXLED				0x02	//	Rx LED
 #define FT_X_SERIES_CBUS_TXRXLED			0x03	//	Tx and Rx LED
 #define FT_X_SERIES_CBUS_PWREN				0x04	//	Power Enable
 #define FT_X_SERIES_CBUS_SLEEP				0x05	//	Sleep
@@ -1329,6 +1329,16 @@ extern "C" {
 		FT_STATUS WINAPI FT_GetQueueStatusEx(
 		FT_HANDLE ftHandle,
 		DWORD *dwRxBytes
+		);
+
+	FTD2XX_API
+		FT_STATUS WINAPI FT_ComPortIdle(
+		FT_HANDLE ftHandle
+		);
+
+	FTD2XX_API
+		FT_STATUS WINAPI FT_ComPortCancelIdle(
+		FT_HANDLE ftHandle
 		);
 
 

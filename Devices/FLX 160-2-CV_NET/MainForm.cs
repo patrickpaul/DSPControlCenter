@@ -1,33 +1,28 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using SA_Resources;
-using System.Linq;
-using SA_Resources.DSP;
-using SA_Resources.DSP.Filters;
 using SA_Resources.SADevices;
 using SA_Resources.SAForms;
 using SA_Resources.DSP.Primitives;
-using SA_Resources.USB;
 
-namespace SA_Resources
+namespace FLX160_2_CV_Network
 {
-    public partial class FLXForm_Template : MainForm_Template
+    public partial class MainForm : MainForm_Template
     {
 
         #region Constructors - Derived
 
-        public FLXForm_Template()
+        public MainForm()
             : base("")
         {
             InitializeComponent();
 
         }
 
-        public FLXForm_Template(string configFile = "")
+        public MainForm(string configFile = "")
             : base(configFile)
         {
             InitializeComponent();
@@ -41,20 +36,24 @@ namespace SA_Resources
 
         public override int GetDeviceID()
         {
-            return 0x0A;
+            return 0x1C;
         }
 
         public override string GetDeviceName()
         {
-            return "FLX Template";
+            return "FLX160-2-CV Dante";
         }
 
         public override DeviceType GetDeviceType()
         {
-            return DeviceType.FLX804Net;
+            return DeviceType.FLX1602CVNet;
         }
-        
-        
+
+        public override DeviceFamily GetDeviceFamily()
+        {
+            return DeviceFamily.FLXNET;
+        }
+
         public override int GetNumInputChannels()
         {
             return 4;
@@ -62,7 +61,7 @@ namespace SA_Resources
 
         public override int GetNumOutputChannels()
         {
-            return 4;
+            return 2;
         }
 
         public override int GetNumPhantomPowerChannels()
@@ -70,15 +69,40 @@ namespace SA_Resources
             return 4;
         }
 
+        public override string GetDefaultDeviceFile()
+        {
+            return @"Devices\FLX160-2-CV-Network_Default.scfg";
+        }
 
         public override bool IsAmplifier()
         {
             return true;
         }
 
-        public override bool isBridgable()
+        public override bool IsNetworked()
         {
             return true;
+        }
+
+        public override int GetNumNetworkInputChannels()
+        {
+            return 4;
+        }
+
+        public override int GetNumNetworkOutputChannels()
+        {
+            return 4;
+        }
+        
+
+        public override bool isBridgable()
+        {
+            return false;
+        }
+
+        public override int GetPermanentAmplifierMode()
+        {
+            return 1;
         }
 
         public override int GetNumPresets()
@@ -86,11 +110,15 @@ namespace SA_Resources
             return 10;
         }
 
+        public override int GetDisplayOrder()
+        {
+            return 50;
+        }
+
         public override void SetConnectionPicture(Image connectionPicture)
         {
             pictureConnectionStatus.BackgroundImage = connectionPicture;
             pictureConnectionStatus.Invalidate();
-
         }
 
         #endregion
@@ -109,7 +137,7 @@ namespace SA_Resources
         {
             for (int i = 0; i < this.GetNumPresets(); i++)
             {
-                DSP_PROGRAMS[i] = new DSP_Program_Manager(i,"Program " + i.ToString());
+                DSP_PROGRAMS[i] =  new DSP_Program_Manager(i,this,"Program " + i.ToString());
             }
         }
 
@@ -126,195 +154,11 @@ namespace SA_Resources
 
         #endregion
 
-
-        public override void SetBridgeMode(int BridgeMode)
-        {
-            Bitmap resized_panel_bg;
-            Bitmap resized_panel_bg_bridged;
-
-            resized_panel_bg = new Bitmap(SA_Resources.GlobalResources.uidesign_prematrix_line, new Size(pnlCH1PostMixer.Width, pnlCH1PostMixer.Height));
-
-            resized_panel_bg_bridged = new Bitmap(SA_Resources.GlobalResources.uidesign_prematrix_line_bridged, new Size(pnlCH1PostMixer.Width, pnlCH1PostMixer.Height));
-
-            switch (BridgeMode)
-            {
-                case 0:
-                    // 4 channel
-                    pnlCH1PostMixer.Visible = true;
-                    pnlCH1PostMixer.Location = new Point(454, 91);
-                    pnlCH1PostMixer.BackgroundImage = resized_panel_bg;
-                    pnlCH1PostMixer.Invalidate();
-
-                    lblCH1Output.Visible = true;
-                    lblCH1Output.Location = new Point(783, 100);
-                    lblCH1Output.BackColor = Color.FromArgb(40, 40, 40);
-
-                    pnlCH2PostMixer.Visible = true;
-                    pnlCH2PostMixer.Location = new Point(454, 140);
-                    pnlCH2PostMixer.BackgroundImage = resized_panel_bg;
-                    pnlCH2PostMixer.Invalidate();
-
-                    lblCH2Output.Visible = true;
-                    lblCH2Output.Location = new Point(783, 148);
-                    lblCH2Output.BackColor = Color.FromArgb(40, 40, 40);
-
-                    pnlCH3PostMixer.Visible = true;
-                    pnlCH3PostMixer.Location = new Point(454, 188);
-                    pnlCH3PostMixer.BackgroundImage = resized_panel_bg;
-                    pnlCH3PostMixer.Invalidate();
-
-                    lblCH3Output.Visible = true;
-                    lblCH3Output.Location = new Point(783, 196);
-                    lblCH3Output.BackColor = Color.FromArgb(40, 40, 40);
-
-                    pnlCH4PostMixer.Visible = true;
-                    pnlCH4PostMixer.Location = new Point(454, 236);
-                    pnlCH4PostMixer.BackgroundImage = resized_panel_bg;
-                    pnlCH4PostMixer.Invalidate();
-
-                    lblCH4Output.Visible = true;
-                    lblCH4Output.Location = new Point(783, 244);
-                    lblCH4Output.BackColor = Color.FromArgb(40, 40, 40);
-
-                break;
-
-                case 1:
-                    // 2 channel
-
-                    pnlCH1PostMixer.Visible = true;
-                    pnlCH1PostMixer.Location = new Point(454, 91+24);
-                    pnlCH1PostMixer.BackgroundImage = resized_panel_bg_bridged;
-                    pnlCH1PostMixer.Invalidate();
-
-                    lblCH1Output.Visible = true;
-                    lblCH1Output.Location = new Point(783, 100+24);
-                    lblCH1Output.BackColor = Color.FromArgb(41, 51, 97);
-
-                    pnlCH2PostMixer.Visible = false;
-                    pnlCH2PostMixer.Location = new Point(454, 140);
-                    pnlCH2PostMixer.BackgroundImage = resized_panel_bg;
-                    pnlCH2PostMixer.Invalidate();
-
-                    lblCH2Output.Visible = false;
-                    lblCH2Output.Location = new Point(783, 148);
-                    lblCH2Output.BackColor = Color.FromArgb(40, 40, 40);
-
-                    pnlCH3PostMixer.Visible = true;
-                    pnlCH3PostMixer.Location = new Point(454, 188+24);
-                    pnlCH3PostMixer.BackgroundImage = resized_panel_bg_bridged;
-                    pnlCH3PostMixer.Invalidate();
-
-                    lblCH3Output.Visible = true;
-                    lblCH3Output.Location = new Point(783, 196+24);
-                    lblCH3Output.BackColor = Color.FromArgb(41, 51, 97);
-
-                    pnlCH4PostMixer.Visible = false;
-                    pnlCH4PostMixer.Location = new Point(454, 236);
-                    pnlCH4PostMixer.BackgroundImage = resized_panel_bg;
-                    pnlCH4PostMixer.Invalidate();
-
-                    lblCH4Output.Visible = false;
-                    lblCH4Output.Location = new Point(783, 244);
-                    lblCH4Output.BackColor = Color.FromArgb(40, 40, 40);
-
-                break;
-
-                case 2:
-
-                // 1.2 channel
-
-                pnlCH1PostMixer.Visible = true;
-                pnlCH1PostMixer.Location = new Point(454, 91 + 24);
-                pnlCH1PostMixer.BackgroundImage = resized_panel_bg_bridged;
-                pnlCH1PostMixer.Invalidate();
-
-                lblCH1Output.Visible = true;
-                lblCH1Output.Location = new Point(783, 100 + 24);
-                lblCH1Output.BackColor = Color.FromArgb(41, 51, 97);
-
-                pnlCH2PostMixer.Visible = false;
-                pnlCH2PostMixer.Location = new Point(454, 140);
-                pnlCH2PostMixer.BackgroundImage = resized_panel_bg;
-                pnlCH2PostMixer.Invalidate();
-
-                lblCH2Output.Visible = false;
-                lblCH2Output.Location = new Point(783, 148);
-                lblCH2Output.BackColor = Color.FromArgb(40, 40, 40);
-
-                pnlCH3PostMixer.Visible = true;
-                pnlCH3PostMixer.Location = new Point(454, 188);
-                pnlCH3PostMixer.BackgroundImage = resized_panel_bg;
-                pnlCH3PostMixer.Invalidate();
-
-                lblCH3Output.Visible = true;
-                lblCH3Output.Location = new Point(783, 196);
-                lblCH3Output.BackColor = Color.FromArgb(40, 40, 40);
-
-                pnlCH4PostMixer.Visible = true;
-                pnlCH4PostMixer.Location = new Point(454, 236);
-                pnlCH4PostMixer.BackgroundImage = resized_panel_bg;
-                pnlCH4PostMixer.Invalidate();
-
-                lblCH4Output.Visible = true;
-                lblCH4Output.Location = new Point(783, 244);
-                lblCH4Output.BackColor = Color.FromArgb(40, 40, 40);
-                break;
-
-                case 3:
-                // 1 channel
-
-                pnlCH1PostMixer.Visible = true;
-                pnlCH1PostMixer.Location = new Point(454, 91 + 24);
-                pnlCH1PostMixer.BackgroundImage = resized_panel_bg_bridged;
-                pnlCH1PostMixer.Invalidate();
-
-                lblCH1Output.Visible = true;
-                lblCH1Output.Location = new Point(783, 100 + 24);
-                lblCH1Output.BackColor = Color.FromArgb(41, 51, 97);
-
-                pnlCH2PostMixer.Visible = false;
-                pnlCH2PostMixer.Location = new Point(454, 140);
-                pnlCH2PostMixer.BackgroundImage = resized_panel_bg;
-                pnlCH2PostMixer.Invalidate();
-
-                lblCH2Output.Visible = false;
-                lblCH2Output.Location = new Point(783, 148);
-                lblCH2Output.BackColor = Color.FromArgb(40, 40, 40);
-
-                pnlCH3PostMixer.Visible = false;
-                pnlCH3PostMixer.Location = new Point(454, 188 + 24);
-                pnlCH3PostMixer.BackgroundImage = resized_panel_bg_bridged;
-                pnlCH3PostMixer.Invalidate();
-
-                lblCH3Output.Visible = false;
-                lblCH3Output.Location = new Point(783, 196 + 24);
-                lblCH3Output.BackColor = Color.FromArgb(41, 51, 97);
-
-                pnlCH4PostMixer.Visible = false;
-                pnlCH4PostMixer.Location = new Point(454, 236);
-                pnlCH4PostMixer.BackgroundImage = resized_panel_bg;
-                pnlCH4PostMixer.Invalidate();
-
-                lblCH4Output.Visible = false;
-                lblCH4Output.Location = new Point(783, 244);
-                lblCH4Output.BackColor = Color.FromArgb(40, 40, 40);
-
-                break;
-            }
-        
-        }
-
         public override void ReadDevice(object sender, DoWorkEventArgs doWorkEventArgs)
         {
 
-            if (_PIC_Conn.sendAckdCommand(0x10))
-            {
-                Console.WriteLine("Timers disabled!");
-            }
-            else
-            {
-                Console.WriteLine("Unable to disable timers");
-            }
+            // Disable timers
+            _PIC_Conn.sendAckdCommand(0x10);
 
             BackgroundWorker backgroundWorker = sender as BackgroundWorker;
 
@@ -324,27 +168,16 @@ namespace SA_Resources
                 backgroundWorker.ReportProgress((i+1) * 10);
             }
 
-            this.AmplifierMode = _PIC_Conn.ReadAmplifierMode();
 
-            
+            ADC_CALIBRATION_MIN = _PIC_Conn.ReadRVCMin();
+            ADC_CALIBRATION_MAX = _PIC_Conn.ReadRVCMax();
+            SLEEP_ENABLE = _PIC_Conn.ReadSleepModeEnable();
+            SLEEP_SECONDS = _PIC_Conn.ReadSleepModeSeconds();
+
+            // Re-enable timers
+            //_PIC_Conn.sendAckdCommand(0x11);
+
             backgroundWorker.ReportProgress(100);
-
-            if (_PIC_Conn.sendAckdCommand(0x11))
-            {
-                Console.WriteLine("Timers re-enabled!");
-            }
-            else
-            {
-                Console.WriteLine("Unable to re-enable timers");
-            }
-
-            if (IsAmplifier())
-            {
-                ADC_CALIBRATION_MIN = _PIC_Conn.ReadRVCMin();
-                ADC_CALIBRATION_MAX = _PIC_Conn.ReadRVCMax();
-                SLEEP_ENABLE = _PIC_Conn.ReadSleepModeEnable();
-                SLEEP_SECONDS = _PIC_Conn.ReadSleepModeSeconds();
-            }
         }
 
         public override void Default_DSP_Meters()
@@ -359,17 +192,34 @@ namespace SA_Resources
                 DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C0012B, DSP_Primitive_Types.Input, 2));
                 DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C0012F, DSP_Primitive_Types.Input, 3));
 
+                // Network Inputs 
+                
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C00133, DSP_Primitive_Types.Input, 4));
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C00137, DSP_Primitive_Types.Input, 5));
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C0013B, DSP_Primitive_Types.Input, 6));
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C0013F, DSP_Primitive_Types.Input, 7));
+
                 // Ducker
-                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C000FF, DSP_Primitive_Types.Ducker4x4, 0));
-                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C00103, DSP_Primitive_Types.Ducker4x4, 1));
-                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C00107, DSP_Primitive_Types.Ducker4x4, 2));
-                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C0010B, DSP_Primitive_Types.Ducker4x4, 3));
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C000FF, DSP_Primitive_Types.Ducker8x8, 0));
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C00103, DSP_Primitive_Types.Ducker8x8, 1));
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C00107, DSP_Primitive_Types.Ducker8x8, 2));
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C0010B, DSP_Primitive_Types.Ducker8x8, 3));
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C0010F, DSP_Primitive_Types.Ducker8x8, 4));
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C00113, DSP_Primitive_Types.Ducker8x8, 5));
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C00117, DSP_Primitive_Types.Ducker8x8, 6));
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C0011B, DSP_Primitive_Types.Ducker8x8, 7));
                 
                 // Mixer
                 DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C0005F, DSP_Primitive_Types.MixerCrosspoint, 0, 0, 0));
                 DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C00063, DSP_Primitive_Types.MixerCrosspoint, 0, 0, 1));
                 DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C00067, DSP_Primitive_Types.MixerCrosspoint, 0, 0, 2));
                 DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C0006B, DSP_Primitive_Types.MixerCrosspoint, 0, 0, 3));
+
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C0006F, DSP_Primitive_Types.MixerCrosspoint, 0, 0, 4));
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C00073, DSP_Primitive_Types.MixerCrosspoint, 0, 0, 5));
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C00077, DSP_Primitive_Types.MixerCrosspoint, 0, 0, 6));
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C0007B, DSP_Primitive_Types.MixerCrosspoint, 0, 0, 7));
+
 
 
                 // Compressors
@@ -414,11 +264,17 @@ namespace SA_Resources
                 DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C001C7, DSP_Primitive_Types.Compressor, 3, 1, 1));
 
                 // Outputs
-                
+                /*
                 DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C00193, DSP_Primitive_Types.Output, 0));
                 DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C00197, DSP_Primitive_Types.Output, 1));
                 DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C0019B, DSP_Primitive_Types.Output, 2));
                 DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C0019F, DSP_Primitive_Types.Output, 3));
+                 * */
+
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C0016b, DSP_Primitive_Types.Output, 0));
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C0016f, DSP_Primitive_Types.Output, 1));
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C00173, DSP_Primitive_Types.Output, 2));
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C00177, DSP_Primitive_Types.Output, 3));
 
             }
             catch (Exception ex)
@@ -461,7 +317,7 @@ namespace SA_Resources
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(44, new DSP_Primitive_StandardGain("CH 3 - Output Gain", 2, 3, StandardGain_Types.Twelve_to_Negative_100, 0xF0C0019b));
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(46, new DSP_Primitive_StandardGain("CH 4 - Output Gain", 3, 3, StandardGain_Types.Twelve_to_Negative_100, 0xF0C0019f));
 
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(48, new DSP_Primitive_Ducker4x4("Ducker 4x4", 0, 0, 567));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(48, new DSP_Primitive_Ducker8x8("Ducker 8x8", 0, 0, 567));
 
                 int plainfilter_offset = 0;
 
@@ -480,7 +336,7 @@ namespace SA_Resources
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(115, new DSP_Primitive_BiquadFilter("INFILTER_4_1", 3, 0, plainfilter_offset++));
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(120, new DSP_Primitive_BiquadFilter("INFILTER_4_2", 3, 1, plainfilter_offset++));
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(125, new DSP_Primitive_BiquadFilter("INFILTER_4_3", 3, 2, plainfilter_offset++));
-                /*
+                
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(130, new DSP_Primitive_BiquadFilter("INFILTER_5_1", 4, 0, 12));
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(135, new DSP_Primitive_BiquadFilter("INFILTER_5_2", 4, 1, 13));
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(140, new DSP_Primitive_BiquadFilter("INFILTER_5_3", 4, 2, 14));
@@ -496,7 +352,7 @@ namespace SA_Resources
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(175, new DSP_Primitive_BiquadFilter("INFILTER_8_1", 7, 0, 21));
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(180, new DSP_Primitive_BiquadFilter("INFILTER_8_2", 7, 1, 22));
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(185, new DSP_Primitive_BiquadFilter("INFILTER_8_3", 7, 2, 23));
-                */
+                
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(190, new DSP_Primitive_Compressor("CH 1 - Compressor", 0, 0));
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(196, new DSP_Primitive_Compressor("CH 2 - Compressor", 1, 0));
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(202, new DSP_Primitive_Compressor("CH 3 - Compressor", 2, 0));
@@ -515,7 +371,7 @@ namespace SA_Resources
                         for (int in_channel = 0; in_channel < 10; in_channel++)
                         {
                             
-                            crosspoint_gain = ((in_channel == out_channel) && (in_channel < 8)) ? 0 : -100;
+                            crosspoint_gain = ((in_channel == out_channel) && (in_channel < 4)) ? 0 : -100;
 
                         DSP_PROGRAMS[program_index].RegisterNewPrimitive(index_counter++, new DSP_Primitive_MixerCrosspoint("Mixer Input " + (in_channel + 1) + " - Output " + (out_channel + 1) + "", in_channel, out_channel, crosspoint_gain));
                     }
@@ -561,14 +417,24 @@ namespace SA_Resources
 
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(1000, new DSP_Primitive_Input("Local Input CH 1", 0, 0, 704, 560, "Local Input #1", InputType.Line, true));
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(1010, new DSP_Primitive_Input("Local Input CH 2", 1, 0, 709, 561, "Local Input #2", InputType.Line, true));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(1020, new DSP_Primitive_Input("Local Input CH 3", 2, 0, 714, 562, "Local Input #3", InputType.Line, true));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(1030, new DSP_Primitive_Input("Local Input CH 4", 3, 0, 719, 563, "Local Input #4", InputType.Line, true));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(1020, new DSP_Primitive_Input("Local Input CH 3", 2, 0, 714, 562, "Local Input #3", InputType.Line, false));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(1030, new DSP_Primitive_Input("Local Input CH 4", 3, 0, 719, 563, "Local Input #4", InputType.Line, false));
+
+                /*
+                 * DSP_PROGRAMS[program_index].RegisterNewPrimitive(1031, new DSP_Primitive_Input("Network Input #1", 4, 0, 714, 562, "Network Input #1", InputType.Network, false));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(1032, new DSP_Primitive_Input("Network Input #2", 5, 0, 719, 563, "Network Input #2", InputType.Network, false));
+                 */
+
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(1031, new DSP_Primitive_Input("Network Input CH 1", 4, 0, 704, 560, "Network Input #1", InputType.Network, false));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(1032, new DSP_Primitive_Input("Network Input CH 2", 5, 0, 709, 561, "Network Input #2", InputType.Network, false));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(1033, new DSP_Primitive_Input("Network Input CH 3", 6, 0, 714, 562, "Network Input #3", InputType.Network, false));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(1034, new DSP_Primitive_Input("Network Input CH 4", 7, 0, 719, 563, "Network Input #4", InputType.Network, false));
 
 
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(1040, new DSP_Primitive_Output("Output CH 1", 0, 0, 724, "Output #1"));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(1050, new DSP_Primitive_Output("Output CH 1", 1, 0, 729, "Output #2"));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(1060, new DSP_Primitive_Output("Output CH 1", 2, 0, 734, "Output #3"));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(1070, new DSP_Primitive_Output("Output CH 1", 3, 0, 739, "Output #4"));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(1050, new DSP_Primitive_Output("Output CH 1", 1, 0, 729, "Output #1"));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(1060, new DSP_Primitive_Output("Output CH 1", 2, 0, 734, "Output #2"));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(1070, new DSP_Primitive_Output("Output CH 1", 3, 0, 739, "Output #2"));
                  
 
             }
@@ -579,25 +445,6 @@ namespace SA_Resources
         }
         #endregion
 
-        private void pbtnBridge_Click(object sender, EventArgs e)
-        {
-            BridgeConfigurationForm Bridgeform = new BridgeConfigurationForm(this);
-
-            Bridgeform.ShowDialog();
-
-            SetBridgeMode(this.AmplifierMode);
-            
-        }
-
-        private void btnMatrixMixer_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void FLXForm_Template_Load(object sender, EventArgs e)
-        {
-            this.Text = this.GetDeviceName();
-        }
 
     }
 }

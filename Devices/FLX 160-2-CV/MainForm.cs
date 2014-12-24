@@ -99,7 +99,7 @@ namespace FLX160_2_CV_Analog
 
         public override int GetDisplayOrder()
         {
-            return 30;
+            return 25;
         }
 
         public override void SetConnectionPicture(Image connectionPicture)
@@ -125,7 +125,7 @@ namespace FLX160_2_CV_Analog
         {
             for (int i = 0; i < this.GetNumPresets(); i++)
             {
-                DSP_PROGRAMS[i] = new DSP_Program_Manager(i,"Program " + i.ToString());
+                DSP_PROGRAMS[i] =  new DSP_Program_Manager(i,this,"Program " + i.ToString());
             }
         }
 
@@ -156,7 +156,7 @@ namespace FLX160_2_CV_Analog
                 backgroundWorker.ReportProgress((i+1) * 10);
             }
 
-            AmplifierMode = _PIC_Conn.ReadAmplifierMode();
+            //AmplifierMode = _PIC_Conn.ReadAmplifierMode();
 
             ADC_CALIBRATION_MIN = _PIC_Conn.ReadRVCMin();
             ADC_CALIBRATION_MAX = _PIC_Conn.ReadRVCMax();
@@ -388,9 +388,9 @@ namespace FLX160_2_CV_Analog
 
 
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(1040, new DSP_Primitive_Output("Output CH 1", 0, 0, 724, "Output #1"));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(1050, new DSP_Primitive_Output("Output CH 1", 1, 0, 729, "Output #2"));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(1050, new DSP_Primitive_Output("Output CH 1", 1, 0, 729, "Output #1"));
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(1060, new DSP_Primitive_Output("Output CH 1", 2, 0, 734, "Output #2"));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(1070, new DSP_Primitive_Output("Output CH 1", 3, 0, 739, "Output #4"));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(1070, new DSP_Primitive_Output("Output CH 1", 3, 0, 739, "Output #2"));
                  
 
             }

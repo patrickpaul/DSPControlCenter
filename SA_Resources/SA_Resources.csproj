@@ -62,6 +62,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\SharedAssemblyInfo.cs">
+      <Link>Properties\SharedAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="Classes\BridgeMode.cs" />
     <Compile Include="Classes\COMPortInfo.cs" />
     <Compile Include="Classes\Crc16Ccitt.cs" />
@@ -78,17 +81,35 @@
     <Compile Include="Forms\BridgeConfiguration.Designer.cs">
       <DependentUpon>BridgeConfiguration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\DuckerForm8x8.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\DuckerForm8x8.designer.cs">
+      <DependentUpon>DuckerForm8x8.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\MeterViewForm4Net.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\MeterViewForm4Net.Designer.cs">
+      <DependentUpon>MeterViewForm4Net.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\DuckerForm6x6.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\DuckerForm6x6.designer.cs">
+      <DependentUpon>DuckerForm6x6.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\FLXConfiguration.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\FLXConfiguration.Designer.cs">
       <DependentUpon>FLXConfiguration.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\FLXFrm_Template.cs">
+    <Compile Include="Forms\LoadProgramFileForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\FLXFrm_Template.Designer.cs">
-      <DependentUpon>FLXFrm_Template.cs</DependentUpon>
+    <Compile Include="Forms\LoadProgramFileForm.Designer.cs">
+      <DependentUpon>LoadProgramFileForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\MeterViewform.cs">
       <SubType>Form</SubType>
@@ -96,11 +117,29 @@
     <Compile Include="Forms\MeterViewform.Designer.cs">
       <DependentUpon>MeterViewform.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\LoadProgramFileForm.cs">
+    <Compile Include="Forms\MeterViewForm2Net.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\LoadProgramFileForm.Designer.cs">
-      <DependentUpon>LoadProgramFileForm.cs</DependentUpon>
+    <Compile Include="Forms\MeterViewForm2Net.Designer.cs">
+      <DependentUpon>MeterViewForm2Net.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\MixerForm10x8.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\MixerForm10x8.designer.cs">
+      <DependentUpon>MixerForm10x8.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\MixerForm8x2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\MixerForm8x2.designer.cs">
+      <DependentUpon>MixerForm8x2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\MixerForm8x4.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\MixerForm8x4.designer.cs">
+      <DependentUpon>MixerForm8x4.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\PregainForm.cs">
       <SubType>Form</SubType>
@@ -293,7 +332,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagram1.cd" />
     <None Include="Resources\knob_blue_bg.png" />
   </ItemGroup>
   <ItemGroup>
@@ -345,17 +383,35 @@
     <EmbeddedResource Include="Forms\BridgeConfiguration.resx">
       <DependentUpon>BridgeConfiguration.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\DuckerForm8x8.resx">
+      <DependentUpon>DuckerForm8x8.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\MeterViewForm4Net.resx">
+      <DependentUpon>MeterViewForm4Net.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\DuckerForm6x6.resx">
+      <DependentUpon>DuckerForm6x6.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\FLXConfiguration.resx">
       <DependentUpon>FLXConfiguration.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FLXFrm_Template.resx">
-      <DependentUpon>FLXFrm_Template.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\LoadProgramFileForm.resx">
+      <DependentUpon>LoadProgramFileForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\MeterViewform.resx">
       <DependentUpon>MeterViewform.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\LoadProgramFileForm.resx">
-      <DependentUpon>LoadProgramFileForm.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\MeterViewForm2Net.resx">
+      <DependentUpon>MeterViewForm2Net.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\MixerForm10x8.resx">
+      <DependentUpon>MixerForm10x8.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\MixerForm8x2.resx">
+      <DependentUpon>MixerForm8x2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\MixerForm8x4.resx">
+      <DependentUpon>MixerForm8x4.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\PregainForm.resx">
       <DependentUpon>PregainForm.cs</DependentUpon>
@@ -664,10 +720,13 @@
   <ItemGroup>
     <None Include="Resources\vertical_line.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ui_icon_matrix_network_4ch.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_UpdateAssemblyVersion="True" BuildVersion_UpdateFileVersion="True" BuildVersion_AssemblyInfoFilename="Properties\AssemblyInfo.cs" BuildVersion_UseGlobalSettings="True" />
+      <UserProperties BuildVersion_UseGlobalSettings="False" BuildVersion_AssemblyInfoFilename="" BuildVersion_UpdateFileVersion="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_IncrementBeforeBuild="False" BuildVersion_DetectChanges="False" />
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>

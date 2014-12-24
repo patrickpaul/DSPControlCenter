@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using SA_Resources.SAControls;
+using SA_Resources.SADevices;
 using SA_Resources.SAForms;
 using SA_Resources.USB;
 
@@ -19,18 +20,22 @@ namespace SA_Resources.DSP.Primitives
         public UInt32[] WRITE_VALUE_CACHE = new UInt32[768];
         private const int NUM_PAGES = 12;
 
+        public MainForm_Template PARENT_FORM;
+
         public int next_available_offset = 0;
 
         public string Name;
         public int Index;
 
-        public DSP_Program_Manager(int program_index, string in_name = "")
+        public DSP_Program_Manager(int program_index, MainForm_Template in_parent, string in_name = "")
         {
             Index = program_index;
 
             Name = in_name;
             PRIMITIVES = new List<DSP_Primitive>();
             READ_VALUE_CACHE = new List<UInt32>();
+
+            PARENT_FORM = in_parent;
 
 
         }
@@ -198,7 +203,32 @@ namespace SA_Resources.DSP.Primitives
                         if (PrimitiveButton != null)
                         {
                             PrimitiveButton.MouseClick += new MouseEventHandler(PARENT_FORM.pbtnDucker4x4_MouseClick);
+                            
                         }
+
+                    break;
+
+                    case DSP_Primitive_Types.Ducker6x6:
+
+                    PrimitiveButton = (PictureButton)(PARENT_FORM.Controls.Find("pbtnDucker", true).FirstOrDefault());
+
+                    if (PrimitiveButton != null)
+                    {
+                        PrimitiveButton.MouseClick += new MouseEventHandler(PARENT_FORM.pbtnDucker6x6_MouseClick);
+
+                    }
+
+                    break;
+
+                    case DSP_Primitive_Types.Ducker8x8:
+
+                    PrimitiveButton = (PictureButton)(PARENT_FORM.Controls.Find("pbtnDucker", true).FirstOrDefault());
+
+                    if (PrimitiveButton != null)
+                    {
+                        PrimitiveButton.MouseClick += new MouseEventHandler(PARENT_FORM.pbtnDucker8x8_MouseClick);
+
+                    }
 
                     break;
 
@@ -223,9 +253,8 @@ namespace SA_Resources.DSP.Primitives
             // Used for testing purposes so that we could see what wasn't being written
             for (int i = 0; i < 768; i++)
             {
-                WRITE_VALUE_CACHE[i] = 0x11111111;
+                WRITE_VALUE_CACHE[i] = 0xFFFFFFFF;
             }
-            
 
             try
             {
@@ -315,6 +344,40 @@ namespace SA_Resources.DSP.Primitives
                                 WRITE_VALUE_CACHE[RecastDucker.PlainValue_Offset] = RecastDucker.Ducker_Package;
                             break;
 
+                            case DSP_Primitive_Types.Ducker6x6:
+
+                            DSP_Primitive_Ducker6x6 RecastDucker6x6 = ((DSP_Primitive_Ducker6x6)singlePrimitive);
+
+                            offset_counter = singlePrimitive.Offset;
+                            RecastDucker6x6.RecalculateRouters();
+
+                            foreach (UInt32 singleValue in ((DSP_Primitive_Ducker6x6)singlePrimitive).Values)
+                            {
+                                WRITE_VALUE_CACHE[offset_counter++] = singleValue;
+                                //file.WriteLine(index_counter.ToString("0000") + ":" + singleValue.ToString("X8"));
+                                index_counter++;
+                            }
+
+                            WRITE_VALUE_CACHE[RecastDucker6x6.PlainValue_Offset] = RecastDucker6x6.Ducker_Package;
+                            break;
+
+                            case DSP_Primitive_Types.Ducker8x8:
+
+                            DSP_Primitive_Ducker8x8 RecastDucker8x8 = ((DSP_Primitive_Ducker8x8)singlePrimitive);
+
+                            offset_counter = singlePrimitive.Offset;
+                            RecastDucker8x8.RecalculateRouters();
+
+                            foreach (UInt32 singleValue in ((DSP_Primitive_Ducker8x8)singlePrimitive).Values)
+                            {
+                                WRITE_VALUE_CACHE[offset_counter++] = singleValue;
+                                //file.WriteLine(index_counter.ToString("0000") + ":" + singleValue.ToString("X8"));
+                                index_counter++;
+                            }
+
+                            WRITE_VALUE_CACHE[RecastDucker8x8.PlainValue_Offset] = RecastDucker8x8.Ducker_Package;
+                            break;
+
                             case DSP_Primitive_Types.MixerCrosspoint:
 
                                 offset_counter = singlePrimitive.Offset;
@@ -348,6 +411,11 @@ namespace SA_Resources.DSP.Primitives
                             case DSP_Primitive_Types.Input:
 
                             DSP_Primitive_Input RecastInput = ((DSP_Primitive_Input)singlePrimitive);
+
+                                if (RecastInput.InputType == InputType.Network)
+                                {
+                                    continue;
+                                }
 
                                 int name_offset = RecastInput.NameOffset;
                                 RecastInput.NameToValues();
@@ -385,9 +453,11 @@ namespace SA_Resources.DSP.Primitives
 
                     }
 
-
-                    /* CONFIGURE FILTERS FOR FUTURE INPUT CHANNELS 5-8 */
-                    for (int filter_counter = 130; filter_counter < 190; )
+                if (PARENT_FORM.GetNumNetworkInputChannels() == 0)
+                {
+                    // No network channels so there are potentially no in-filter primitives past channel 4
+                    // So we make empty filters for channels 5-8 if
+                    for (int filter_counter = 130; filter_counter < 190;)
                     {
                         WRITE_VALUE_CACHE[filter_counter++] = 0x20000000;
                         WRITE_VALUE_CACHE[filter_counter++] = 0x00000000;
@@ -395,12 +465,31 @@ namespace SA_Resources.DSP.Primitives
                         WRITE_VALUE_CACHE[filter_counter++] = 0x00000000;
                         WRITE_VALUE_CACHE[filter_counter++] = 0x00000000;
 
-                    }
-                    int f_counter = 0;
 
-                    // TODO - This should be for DSP 4X4 ONLY
-                    /* FROM DSP COMM TOOL - Fill in Bridge Router, Generators, HP, and Mutes
-                     */
+                    }
+                }
+
+                if (PARENT_FORM.GetNumNetworkInputChannels() == 2)
+                {
+                    // No network channels so there are potentially no in-filter primitives past channel 4
+                    // So we make empty filters for channels 5-8 if
+                    for (int filter_counter = 160; filter_counter < 190; )
+                    {
+                        WRITE_VALUE_CACHE[filter_counter++] = 0x20000000;
+                        WRITE_VALUE_CACHE[filter_counter++] = 0x00000000;
+                        WRITE_VALUE_CACHE[filter_counter++] = 0x00000000;
+                        WRITE_VALUE_CACHE[filter_counter++] = 0x00000000;
+                        WRITE_VALUE_CACHE[filter_counter++] = 0x00000000;
+
+
+                    }
+                }
+
+
+                int f_counter = 0;
+
+                if (PARENT_FORM.GetDeviceType() == DeviceType.DSP4x4)
+                {
                     WRITE_VALUE_CACHE[470] = 0x00000001;
                     WRITE_VALUE_CACHE[471] = 0x00000002;
                     WRITE_VALUE_CACHE[472] = 0x00000003;
@@ -411,23 +500,17 @@ namespace SA_Resources.DSP.Primitives
                     WRITE_VALUE_CACHE[477] = 0x00000001;
                     WRITE_VALUE_CACHE[478] = 0x00000000;
 
-                    /* BLANKS AFTER MUTE_INPUTS */
+                }
+                /* BLANKS AFTER MUTE_INPUTS */
 
-                    for (f_counter = 479; f_counter < 512; f_counter++)
-                    {
-                        WRITE_VALUE_CACHE[f_counter] = 0xFFFFFFFF;
-                    }
+                // Network output channels don't get filtered.
+                //if (PARENT_FORM.GetNumNetworkOutputChannels() == 0)
+                //{
 
                     /* OUTFILTER PACKAGE CHANNEL 5-6 */
                     for (int filter_counter = 548; filter_counter < 560; filter_counter++)
                     {
                         WRITE_VALUE_CACHE[filter_counter] = 0x00000000;
-                    }
-
- 
-                    for (f_counter = 568; f_counter < 576; f_counter++)
-                    {
-                        WRITE_VALUE_CACHE[f_counter] = 0xFFFFFFFF;
                     }
 
 
@@ -440,28 +523,9 @@ namespace SA_Resources.DSP.Primitives
                     WRITE_VALUE_CACHE[564] = 0x00000000;
                     WRITE_VALUE_CACHE[565] = 0x00000000;
 
-                    /* FILTER GAINS CHANNELS 5+6 AND BLANKS */
-                    for (f_counter = 612; f_counter < 640; f_counter++)
-                    {
-                        WRITE_VALUE_CACHE[f_counter] = 0xFFFFFFFF;
-                    }
+                //}
 
-
-                    /* FILTER Qs CHANNELS 5+6 AND BLANKS */
-                    for (f_counter = 676; f_counter < 704; f_counter++)
-                    {
-                        WRITE_VALUE_CACHE[f_counter] = 0xFFFFFFFF;
-                    }
-
-        
-                    /* POST CHANNEL LABELS*/
-
-                    for (f_counter = 744; f_counter < 768; f_counter++)
-                    {
-                        WRITE_VALUE_CACHE[f_counter] = 0xFFFFFFFF;
-                    }
-
-                    UInt32 PhantomMask = 0;
+                UInt32 PhantomMask = 0;
                     DSP_Primitive_Input InputPrimitive = null;
 
                     for (int i = num_channels; i > 0; i--)
@@ -485,8 +549,6 @@ namespace SA_Resources.DSP.Primitives
             {
                 Console.WriteLine("[Exception in SaveToFile]: " + ex.Message);
             }
-
-
         }
 
         public void Write_Cache_To_File(StreamWriter writer)
@@ -574,79 +636,131 @@ namespace SA_Resources.DSP.Primitives
 
         public void Load_Cache_To_Program(MainForm_Template PARENT_FORM)
         {
+            
             DSP_Primitive_Input InputPrimitive;
             DSP_Primitive_Output OutputPrimitive;
             DSP_Primitive_Pregain PregainPrimitive;
-            DSP_Primitive_Ducker4x4 DuckerPrimitive;
-
+            DSP_Primitive_Ducker4x4 DuckerPrimitive4x4;
+            DSP_Primitive_Ducker6x6 DuckerPrimitive6x6;
+            DSP_Primitive_Ducker8x8 DuckerPrimitive8x8; 
             List<UInt32> Single_Primitive_Values = new List<uint>();
 
             Single_Primitive_Values.Clear();
             DSP_Primitive_BiquadFilter SingleFilterPrimitive;
 
-
-            foreach (DSP_Primitive singlePrimitive in PRIMITIVES)
+            try
             {
-                Single_Primitive_Values.Clear();
-
-                if (singlePrimitive.Type == DSP_Primitive_Types.Input || singlePrimitive.Type == DSP_Primitive_Types.Output)
+                foreach (DSP_Primitive singlePrimitive in PRIMITIVES)
                 {
-                    continue;
+                    Single_Primitive_Values.Clear();
+
+                    if (singlePrimitive.Type == DSP_Primitive_Types.Input || singlePrimitive.Type == DSP_Primitive_Types.Output)
+                    {
+                        continue;
+                    }
+
+                    if (singlePrimitive.Type == DSP_Primitive_Types.BiquadFilter)
+                    {
+
+                        SingleFilterPrimitive = (DSP_Primitive_BiquadFilter) singlePrimitive;
+                        Single_Primitive_Values.Add(READ_VALUE_CACHE[512 + SingleFilterPrimitive.Plainfilter_Offset]);
+                        Single_Primitive_Values.Add(READ_VALUE_CACHE[576 + SingleFilterPrimitive.Plainfilter_Offset]);
+                        Single_Primitive_Values.Add(READ_VALUE_CACHE[640 + SingleFilterPrimitive.Plainfilter_Offset]);
+                    }
+                    else
+                    {
+                        Single_Primitive_Values = READ_VALUE_CACHE.GetRange(singlePrimitive.Offset, singlePrimitive.Num_Values);
+
+                    }
+
+                    try
+                    {
+                        singlePrimitive.UpdateFromReadValues(Single_Primitive_Values);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("[Exception in Load_Cache_To_Program]: " + ex.Message);
+                    }
+                    //primitive_value_offset += singlePrimitive.Num_Values;
                 }
-
-                if (singlePrimitive.Type == DSP_Primitive_Types.BiquadFilter)
-                {
-
-                    SingleFilterPrimitive = (DSP_Primitive_BiquadFilter)singlePrimitive;
-                    Single_Primitive_Values.Add(READ_VALUE_CACHE[512 + SingleFilterPrimitive.Plainfilter_Offset]);
-                    Single_Primitive_Values.Add(READ_VALUE_CACHE[576 + SingleFilterPrimitive.Plainfilter_Offset]);
-                    Single_Primitive_Values.Add(READ_VALUE_CACHE[640 + SingleFilterPrimitive.Plainfilter_Offset]);
-                }
-                else
-                {
-                    Single_Primitive_Values = READ_VALUE_CACHE.GetRange(singlePrimitive.Offset, singlePrimitive.Num_Values);
-
-                }
-
-                singlePrimitive.UpdateFromReadValues(Single_Primitive_Values);
-
-                //primitive_value_offset += singlePrimitive.Num_Values;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception in Load_Cache_To_Program Loop A: " + ex.Message);
             }
 
             // Input settings - Name, Pregain, Phantom Power
-
-            for (int i = 0; i < PARENT_FORM.GetNumInputChannels(); i++)
+            try
             {
-                InputPrimitive = (DSP_Primitive_Input)PARENT_FORM.DSP_PROGRAMS[this.Index].LookupPrimitive(DSP_Primitive_Types.Input, i, 0);
-                PregainPrimitive = (DSP_Primitive_Pregain)PARENT_FORM.DSP_PROGRAMS[this.Index].LookupPrimitive(DSP_Primitive_Types.Pregain, i, 0);
+                for (int i = 0; i < PARENT_FORM.GetNumInputChannels(); i++)
+                {
+                    InputPrimitive = (DSP_Primitive_Input) PARENT_FORM.DSP_PROGRAMS[this.Index].LookupPrimitive(DSP_Primitive_Types.Input, i, 0);
+                    PregainPrimitive = (DSP_Primitive_Pregain) PARENT_FORM.DSP_PROGRAMS[this.Index].LookupPrimitive(DSP_Primitive_Types.Pregain, i, 0);
 
-                InputPrimitive.PhantomPower = ((READ_VALUE_CACHE[566] & 0x01) == 1);
+                    InputPrimitive.PhantomPower = ((READ_VALUE_CACHE[566] & 0x01) == 1);
 
-                InputPrimitive.LoadPregainFromValue(READ_VALUE_CACHE[InputPrimitive.PregainOffset]);
+                    InputPrimitive.LoadPregainFromValue(READ_VALUE_CACHE[InputPrimitive.PregainOffset]);
 
-                READ_VALUE_CACHE[566] >>= 1;
+                    READ_VALUE_CACHE[566] >>= 1;
 
-                InputPrimitive.LoadNameFromValues(READ_VALUE_CACHE.GetRange(InputPrimitive.NameOffset, 5));
+                    InputPrimitive.LoadNameFromValues(READ_VALUE_CACHE.GetRange(InputPrimitive.NameOffset, 5));
 
-                PregainPrimitive.Gain = PregainPrimitive.Gain - InputPrimitive.Pregain;
-                PregainPrimitive.Pregain = (int)InputPrimitive.Pregain;
+                    PregainPrimitive.Gain = PregainPrimitive.Gain - InputPrimitive.Pregain;
+                    PregainPrimitive.Pregain = (int) InputPrimitive.Pregain;
 
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception in Load_Cache_To_Program Loop B: " + ex.Message);
             }
 
-            // Output settings - Name
-            for (int i = 0; i < PARENT_FORM.GetNumOutputChannels(); i++)
+            try
             {
-                OutputPrimitive = (DSP_Primitive_Output)PARENT_FORM.DSP_PROGRAMS[this.Index].LookupPrimitive(DSP_Primitive_Types.Output, i, 0);
+                // Output settings - Name
+                for (int i = 0; i < PARENT_FORM.GetNumOutputChannels(); i++)
+                {
+                    OutputPrimitive = (DSP_Primitive_Output) PARENT_FORM.DSP_PROGRAMS[this.Index].LookupPrimitive(DSP_Primitive_Types.Output, i, 0);
 
-                OutputPrimitive.LoadNameFromValues(READ_VALUE_CACHE.GetRange(OutputPrimitive.NameOffset, 5));
+                    OutputPrimitive.LoadNameFromValues(READ_VALUE_CACHE.GetRange(OutputPrimitive.NameOffset, 5));
 
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception in Load_Cache_To_Program Loop C: " + ex.Message);
             }
 
+            try
+            {
+                if (PARENT_FORM.IsNetworked())
+                {
+                    if (PARENT_FORM.GetNumNetworkInputChannels() > 2)
+                    {
+                        DuckerPrimitive8x8= (DSP_Primitive_Ducker8x8)PARENT_FORM.DSP_PROGRAMS[this.Index].LookupPrimitive(DSP_Primitive_Types.Ducker8x8, 0, 0);
 
-            DuckerPrimitive = (DSP_Primitive_Ducker4x4)PARENT_FORM.DSP_PROGRAMS[this.Index].LookupPrimitive(DSP_Primitive_Types.Ducker4x4, 0, 0);
+                        DuckerPrimitive8x8.UpdateFromPlainValues(READ_VALUE_CACHE[DuckerPrimitive8x8.PlainValue_Offset]);
+                    }
+                    else
+                    {
+                        DuckerPrimitive6x6 = (DSP_Primitive_Ducker6x6)PARENT_FORM.DSP_PROGRAMS[this.Index].LookupPrimitive(DSP_Primitive_Types.Ducker6x6, 0, 0);
 
-            DuckerPrimitive.UpdateFromPlainValues(READ_VALUE_CACHE[DuckerPrimitive.PlainValue_Offset]);
+                        DuckerPrimitive6x6.UpdateFromPlainValues(READ_VALUE_CACHE[DuckerPrimitive6x6.PlainValue_Offset]);
+                    }
+                }
+                else
+                {
+                    DuckerPrimitive4x4 = (DSP_Primitive_Ducker4x4)PARENT_FORM.DSP_PROGRAMS[this.Index].LookupPrimitive(DSP_Primitive_Types.Ducker4x4, 0, 0);
 
+                    DuckerPrimitive4x4.UpdateFromPlainValues(READ_VALUE_CACHE[DuckerPrimitive4x4.PlainValue_Offset]);
+                }
+                
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception in Load_Cache_To_Program Ducker load: " + ex.Message);
+            }
         }
 
 

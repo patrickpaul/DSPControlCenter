@@ -597,7 +597,7 @@ namespace SA_Resources.USB
             }
             catch (ThreadAbortException taex)
             {
-                Console.WriteLine("[ThreadAbortException in Read_Live_DSP_Value]: " + taex.Message);
+                //Console.WriteLine("[ThreadAbortException in Read_Live_DSP_Value]: " + taex.Message);
             }
             catch (Exception ex)
             {
@@ -820,7 +820,7 @@ namespace SA_Resources.USB
                 for (int retry_count = 0; retry_count < 3; retry_count++)
                 {
                     serialPort.Write(buff, 0, 8);
-                    Thread.Sleep(50);
+                    Thread.Sleep(40);
 
                     if (serialPort.BytesToRead >= 4)
                     {

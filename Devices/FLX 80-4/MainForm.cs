@@ -121,7 +121,7 @@ namespace FLX80_4_Analog
         {
             for (int i = 0; i < this.GetNumPresets(); i++)
             {
-                DSP_PROGRAMS[i] = new DSP_Program_Manager(i,"Program " + i.ToString());
+                DSP_PROGRAMS[i] =  new DSP_Program_Manager(i,this,"Program " + i.ToString());
             }
         }
 
@@ -370,7 +370,7 @@ namespace FLX80_4_Analog
                 backgroundWorker.ReportProgress((i+1) * 10);
             }
 
-            AmplifierMode = _PIC_Conn.ReadAmplifierMode();
+            /*AmplifierMode = _PIC_Conn.ReadAmplifierMode();
 
             switch (AmplifierMode)
             {
@@ -386,7 +386,7 @@ namespace FLX80_4_Analog
                     AmplifierBridgeMode = BridgeMode.TwoOneChannel;
                     break;
             }
-
+            */
             ADC_CALIBRATION_MIN = _PIC_Conn.ReadRVCMin();
             ADC_CALIBRATION_MAX = _PIC_Conn.ReadRVCMax();
             SLEEP_ENABLE = _PIC_Conn.ReadSleepModeEnable();

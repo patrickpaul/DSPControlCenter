@@ -213,13 +213,14 @@ namespace FLX160_2_CV_Analog
             this.btnCH4Delay.Size = new System.Drawing.Size(39, 39);
             this.btnCH4Delay.TabIndex = 30;
             this.btnCH4Delay.ToolTipText = "";
+            this.btnCH4Delay.Visible = false;
             // 
             // btnCompressor31
             // 
             this.btnCompressor31.AutoResize = false;
             this.btnCompressor31.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnCompressor31.BackgroundImage")));
             this.btnCompressor31.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCompressor31.Location = new System.Drawing.Point(150, 0);
+            this.btnCompressor31.Location = new System.Drawing.Point(190, 0);
             this.btnCompressor31.Name = "btnCompressor31";
             this.btnCompressor31.OverImage = null;
             this.btnCompressor31.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnCompressor31.Overlay1Image")));
@@ -257,7 +258,7 @@ namespace FLX160_2_CV_Analog
             this.btnCH3PostFilters.AutoResize = false;
             this.btnCH3PostFilters.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnCH3PostFilters.BackgroundImage")));
             this.btnCH3PostFilters.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCH3PostFilters.Location = new System.Drawing.Point(90, 0);
+            this.btnCH3PostFilters.Location = new System.Drawing.Point(110, 0);
             this.btnCH3PostFilters.Name = "btnCH3PostFilters";
             this.btnCH3PostFilters.OverImage = null;
             this.btnCH3PostFilters.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnCH3PostFilters.Overlay1Image")));
@@ -308,13 +309,14 @@ namespace FLX160_2_CV_Analog
             this.btnCH3Delay.Size = new System.Drawing.Size(39, 39);
             this.btnCH3Delay.TabIndex = 30;
             this.btnCH3Delay.ToolTipText = "";
+            this.btnCH3Delay.Visible = false;
             // 
             // btnCompressor21
             // 
             this.btnCompressor21.AutoResize = false;
             this.btnCompressor21.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnCompressor21.BackgroundImage")));
             this.btnCompressor21.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCompressor21.Location = new System.Drawing.Point(150, 0);
+            this.btnCompressor21.Location = new System.Drawing.Point(190, 0);
             this.btnCompressor21.Name = "btnCompressor21";
             this.btnCompressor21.OverImage = null;
             this.btnCompressor21.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnCompressor21.Overlay1Image")));
@@ -352,7 +354,7 @@ namespace FLX160_2_CV_Analog
             this.btnCH2PostFilters.AutoResize = false;
             this.btnCH2PostFilters.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnCH2PostFilters.BackgroundImage")));
             this.btnCH2PostFilters.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCH2PostFilters.Location = new System.Drawing.Point(90, 0);
+            this.btnCH2PostFilters.Location = new System.Drawing.Point(110, 0);
             this.btnCH2PostFilters.Name = "btnCH2PostFilters";
             this.btnCH2PostFilters.OverImage = null;
             this.btnCH2PostFilters.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnCH2PostFilters.Overlay1Image")));
@@ -403,13 +405,14 @@ namespace FLX160_2_CV_Analog
             this.btnCH2Delay.Size = new System.Drawing.Size(39, 39);
             this.btnCH2Delay.TabIndex = 30;
             this.btnCH2Delay.ToolTipText = "";
+            this.btnCH2Delay.Visible = false;
             // 
             // btnCompressor11
             // 
             this.btnCompressor11.AutoResize = false;
             this.btnCompressor11.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnCompressor11.BackgroundImage")));
             this.btnCompressor11.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCompressor11.Location = new System.Drawing.Point(150, 0);
+            this.btnCompressor11.Location = new System.Drawing.Point(190, 0);
             this.btnCompressor11.Name = "btnCompressor11";
             this.btnCompressor11.OverImage = null;
             this.btnCompressor11.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnCompressor11.Overlay1Image")));
@@ -447,7 +450,7 @@ namespace FLX160_2_CV_Analog
             this.btnCH1PostFilters.AutoResize = false;
             this.btnCH1PostFilters.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnCH1PostFilters.BackgroundImage")));
             this.btnCH1PostFilters.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCH1PostFilters.Location = new System.Drawing.Point(90, 0);
+            this.btnCH1PostFilters.Location = new System.Drawing.Point(110, 0);
             this.btnCH1PostFilters.Name = "btnCH1PostFilters";
             this.btnCH1PostFilters.OverImage = null;
             this.btnCH1PostFilters.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnCH1PostFilters.Overlay1Image")));
@@ -508,13 +511,14 @@ namespace FLX160_2_CV_Analog
             this.btnCH1Delay.Size = new System.Drawing.Size(39, 39);
             this.btnCH1Delay.TabIndex = 30;
             this.btnCH1Delay.ToolTipText = "";
+            this.btnCH1Delay.Visible = false;
             // 
             // btnCompressor01
             // 
             this.btnCompressor01.AutoResize = false;
             this.btnCompressor01.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnCompressor01.BackgroundImage")));
             this.btnCompressor01.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCompressor01.Location = new System.Drawing.Point(150, 0);
+            this.btnCompressor01.Location = new System.Drawing.Point(190, 0);
             this.btnCompressor01.Name = "btnCompressor01";
             this.btnCompressor01.OverImage = null;
             this.btnCompressor01.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnCompressor01.Overlay1Image")));
@@ -552,7 +556,7 @@ namespace FLX160_2_CV_Analog
             this.btnCH0PostFilters.AutoResize = false;
             this.btnCH0PostFilters.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnCH0PostFilters.BackgroundImage")));
             this.btnCH0PostFilters.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCH0PostFilters.Location = new System.Drawing.Point(90, 0);
+            this.btnCH0PostFilters.Location = new System.Drawing.Point(110, 0);
             this.btnCH0PostFilters.Name = "btnCH0PostFilters";
             this.btnCH0PostFilters.OverImage = null;
             this.btnCH0PostFilters.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnCH0PostFilters.Overlay1Image")));

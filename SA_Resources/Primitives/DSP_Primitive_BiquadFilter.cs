@@ -281,66 +281,72 @@ namespace SA_Resources.DSP.Primitives
 
         public override void UpdateFromReadValues(List<UInt32> valuesList)
         {
-
-            uint package_type = 0;
-
-            UInt32 configuredCheck = 0;
-            configuredCheck = valuesList[0];
-            configuredCheck >>= 26;
-
-            package_type = configuredCheck & 0xF;
-
-            if (package_type == 0)
+            try
             {
-                this.Bypassed = true;
-                this.Filter = null;
-                this.FType = FilterType.None;
+                uint package_type = 0;
 
-            }
-            else
-            {
-                this.Bypassed = ((valuesList[0] & 0x40000000) != 0);
+                UInt32 configuredCheck = 0;
+                configuredCheck = valuesList[0];
+                configuredCheck >>= 26;
 
+                package_type = configuredCheck & 0xF;
 
-
-                this.Filter = DSP_Math.rebuild_filter(valuesList[0], valuesList[1], valuesList[2]);
-
-
-
-                switch ((int) this.Filter.FilterType)
+                if (package_type == 0)
                 {
-                    case 0:
-                        this.FType = FilterType.None;
-                        break;
-                    case 1:
-                        this.FType = FilterType.FirstOrderLowPass;
-                        break;
-                    case 2:
-                        this.FType = FilterType.FirstOrderHighPass;
-                        break;
-                    case 3:
-                        this.FType = FilterType.LowShelf;
-                        break;
-                    case 4:
-                        this.FType = FilterType.HighShelf;
-                        break;
-                    case 5:
-                        this.FType = FilterType.Peak;
-                        break;
-                    case 6:
-                        this.FType = FilterType.Notch;
-                        break;
-                    case 7:
-                        this.FType = FilterType.SecondOrderLowPass;
-                        break;
-                    case 8:
-                        this.FType = FilterType.SecondOrderHighPass;
-                        break;
-                    default:
-                        this.FType = FilterType.None;
-                        break;
-                }
+                    this.Bypassed = true;
+                    this.Filter = null;
+                    this.FType = FilterType.None;
 
+                }
+                else
+                {
+                    this.Bypassed = ((valuesList[0] & 0x40000000) != 0);
+
+
+
+                    this.Filter = DSP_Math.rebuild_filter(valuesList[0], valuesList[1], valuesList[2]);
+
+
+
+                    switch ((int) this.Filter.FilterType)
+                    {
+                        case 0:
+                            this.FType = FilterType.None;
+                            break;
+                        case 1:
+                            this.FType = FilterType.FirstOrderLowPass;
+                            break;
+                        case 2:
+                            this.FType = FilterType.FirstOrderHighPass;
+                            break;
+                        case 3:
+                            this.FType = FilterType.LowShelf;
+                            break;
+                        case 4:
+                            this.FType = FilterType.HighShelf;
+                            break;
+                        case 5:
+                            this.FType = FilterType.Peak;
+                            break;
+                        case 6:
+                            this.FType = FilterType.Notch;
+                            break;
+                        case 7:
+                            this.FType = FilterType.SecondOrderLowPass;
+                            break;
+                        case 8:
+                            this.FType = FilterType.SecondOrderHighPass;
+                            break;
+                        default:
+                            this.FType = FilterType.None;
+                            break;
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception in BiquadFilter.UpdateFromReadValues: " + ex.Message);
             }
 
 

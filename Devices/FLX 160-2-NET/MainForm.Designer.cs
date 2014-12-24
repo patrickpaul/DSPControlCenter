@@ -1,9 +1,9 @@
 ﻿using SA_Resources;
 using SA_Resources.SAControls;
 
-namespace SA_Resources
+namespace FLX160_2_Network
 {
-    partial class FLXForm_Template
+    partial class MainForm
     {
         /// <summary>
         /// Required designer variable.
@@ -31,7 +31,7 @@ namespace SA_Resources
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FLXForm_Template));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.tsStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
@@ -95,34 +95,32 @@ namespace SA_Resources
             this.lblCH3Input = new System.Windows.Forms.Label();
             this.lblCH2Input = new System.Windows.Forms.Label();
             this.lblCH1Input = new System.Windows.Forms.Label();
+            this.picDuckerLine = new System.Windows.Forms.PictureBox();
             this.pbtnDucker = new SA_Resources.SAControls.PictureButton();
-            this.picBridgeLine = new System.Windows.Forms.PictureBox();
-            this.pbtnBridge = new SA_Resources.SAControls.PictureButton();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.pictureButton1 = new SA_Resources.SAControls.PictureButton();
-            this.pictureButton2 = new SA_Resources.SAControls.PictureButton();
-            this.pictureButton3 = new SA_Resources.SAControls.PictureButton();
-            this.pictureButton4 = new SA_Resources.SAControls.PictureButton();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.pictureButton5 = new SA_Resources.SAControls.PictureButton();
-            this.pictureButton6 = new SA_Resources.SAControls.PictureButton();
-            this.pictureButton7 = new SA_Resources.SAControls.PictureButton();
-            this.pictureButton8 = new SA_Resources.SAControls.PictureButton();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.pictureButton9 = new SA_Resources.SAControls.PictureButton();
-            this.pictureButton10 = new SA_Resources.SAControls.PictureButton();
-            this.pictureButton11 = new SA_Resources.SAControls.PictureButton();
-            this.pictureButton12 = new SA_Resources.SAControls.PictureButton();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.pictureButton13 = new SA_Resources.SAControls.PictureButton();
-            this.pictureButton14 = new SA_Resources.SAControls.PictureButton();
-            this.pictureButton15 = new SA_Resources.SAControls.PictureButton();
-            this.pictureButton16 = new SA_Resources.SAControls.PictureButton();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.pnlCH6PreMixer = new System.Windows.Forms.Panel();
+            this.btnGain50 = new SA_Resources.SAControls.PictureButton();
+            this.btnCH5PreFilters = new SA_Resources.SAControls.PictureButton();
+            this.btnCompressor50 = new SA_Resources.SAControls.PictureButton();
+            this.btnGain51 = new SA_Resources.SAControls.PictureButton();
+            this.pnlCH8PreMixer = new System.Windows.Forms.Panel();
+            this.btnGain70 = new SA_Resources.SAControls.PictureButton();
+            this.btnCH7PreFilters = new SA_Resources.SAControls.PictureButton();
+            this.btnCompressor70 = new SA_Resources.SAControls.PictureButton();
+            this.btnGain71 = new SA_Resources.SAControls.PictureButton();
+            this.pnlCH7PreMixer = new System.Windows.Forms.Panel();
+            this.btnGain60 = new SA_Resources.SAControls.PictureButton();
+            this.btnCH6PreFilters = new SA_Resources.SAControls.PictureButton();
+            this.btnCompressor60 = new SA_Resources.SAControls.PictureButton();
+            this.btnGain61 = new SA_Resources.SAControls.PictureButton();
+            this.pnlCH5PreMixer = new System.Windows.Forms.Panel();
+            this.btnGain40 = new SA_Resources.SAControls.PictureButton();
+            this.btnCH4PreFilters = new SA_Resources.SAControls.PictureButton();
+            this.btnCompressor40 = new SA_Resources.SAControls.PictureButton();
+            this.btnGain41 = new SA_Resources.SAControls.PictureButton();
+            this.lblCH8Input = new System.Windows.Forms.Label();
+            this.lblCH7Input = new System.Windows.Forms.Label();
+            this.lblCH6Input = new System.Windows.Forms.Label();
+            this.lblCH5Input = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureConnectionStatus)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbPresetSelection)).BeginInit();
             this.statusStrip1.SuspendLayout();
@@ -135,12 +133,11 @@ namespace SA_Resources
             this.pnlCH4PreMixer.SuspendLayout();
             this.pnlCH3PreMixer.SuspendLayout();
             this.pnlCH1PreMixer.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picBridgeLine)).BeginInit();
-            this.panel1.SuspendLayout();
-            this.panel2.SuspendLayout();
-            this.panel3.SuspendLayout();
-            this.panel4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picDuckerLine)).BeginInit();
+            this.pnlCH6PreMixer.SuspendLayout();
+            this.pnlCH8PreMixer.SuspendLayout();
+            this.pnlCH7PreMixer.SuspendLayout();
+            this.pnlCH5PreMixer.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolTip1
@@ -244,13 +241,14 @@ namespace SA_Resources
             this.btnCH4Delay.Size = new System.Drawing.Size(39, 39);
             this.btnCH4Delay.TabIndex = 30;
             this.btnCH4Delay.ToolTipText = "";
+            this.btnCH4Delay.Visible = false;
             // 
             // btnCompressor31
             // 
             this.btnCompressor31.AutoResize = false;
             this.btnCompressor31.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnCompressor31.BackgroundImage")));
             this.btnCompressor31.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCompressor31.Location = new System.Drawing.Point(150, 0);
+            this.btnCompressor31.Location = new System.Drawing.Point(190, 0);
             this.btnCompressor31.Name = "btnCompressor31";
             this.btnCompressor31.OverImage = null;
             this.btnCompressor31.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnCompressor31.Overlay1Image")));
@@ -288,7 +286,7 @@ namespace SA_Resources
             this.btnCH3PostFilters.AutoResize = false;
             this.btnCH3PostFilters.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnCH3PostFilters.BackgroundImage")));
             this.btnCH3PostFilters.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCH3PostFilters.Location = new System.Drawing.Point(90, 0);
+            this.btnCH3PostFilters.Location = new System.Drawing.Point(110, 0);
             this.btnCH3PostFilters.Name = "btnCH3PostFilters";
             this.btnCH3PostFilters.OverImage = null;
             this.btnCH3PostFilters.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnCH3PostFilters.Overlay1Image")));
@@ -339,13 +337,14 @@ namespace SA_Resources
             this.btnCH3Delay.Size = new System.Drawing.Size(39, 39);
             this.btnCH3Delay.TabIndex = 30;
             this.btnCH3Delay.ToolTipText = "";
+            this.btnCH3Delay.Visible = false;
             // 
             // btnCompressor21
             // 
             this.btnCompressor21.AutoResize = false;
             this.btnCompressor21.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnCompressor21.BackgroundImage")));
             this.btnCompressor21.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCompressor21.Location = new System.Drawing.Point(150, 0);
+            this.btnCompressor21.Location = new System.Drawing.Point(190, 0);
             this.btnCompressor21.Name = "btnCompressor21";
             this.btnCompressor21.OverImage = null;
             this.btnCompressor21.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnCompressor21.Overlay1Image")));
@@ -383,7 +382,7 @@ namespace SA_Resources
             this.btnCH2PostFilters.AutoResize = false;
             this.btnCH2PostFilters.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnCH2PostFilters.BackgroundImage")));
             this.btnCH2PostFilters.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCH2PostFilters.Location = new System.Drawing.Point(90, 0);
+            this.btnCH2PostFilters.Location = new System.Drawing.Point(110, 0);
             this.btnCH2PostFilters.Name = "btnCH2PostFilters";
             this.btnCH2PostFilters.OverImage = null;
             this.btnCH2PostFilters.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnCH2PostFilters.Overlay1Image")));
@@ -434,13 +433,14 @@ namespace SA_Resources
             this.btnCH2Delay.Size = new System.Drawing.Size(39, 39);
             this.btnCH2Delay.TabIndex = 30;
             this.btnCH2Delay.ToolTipText = "";
+            this.btnCH2Delay.Visible = false;
             // 
             // btnCompressor11
             // 
             this.btnCompressor11.AutoResize = false;
             this.btnCompressor11.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnCompressor11.BackgroundImage")));
             this.btnCompressor11.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCompressor11.Location = new System.Drawing.Point(150, 0);
+            this.btnCompressor11.Location = new System.Drawing.Point(190, 0);
             this.btnCompressor11.Name = "btnCompressor11";
             this.btnCompressor11.OverImage = null;
             this.btnCompressor11.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnCompressor11.Overlay1Image")));
@@ -478,7 +478,7 @@ namespace SA_Resources
             this.btnCH1PostFilters.AutoResize = false;
             this.btnCH1PostFilters.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnCH1PostFilters.BackgroundImage")));
             this.btnCH1PostFilters.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCH1PostFilters.Location = new System.Drawing.Point(90, 0);
+            this.btnCH1PostFilters.Location = new System.Drawing.Point(110, 0);
             this.btnCH1PostFilters.Name = "btnCH1PostFilters";
             this.btnCH1PostFilters.OverImage = null;
             this.btnCH1PostFilters.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnCH1PostFilters.Overlay1Image")));
@@ -495,7 +495,7 @@ namespace SA_Resources
             // pictureBox37
             // 
             this.pictureBox37.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox37.Image")));
-            this.pictureBox37.Location = new System.Drawing.Point(646, 457);
+            this.pictureBox37.Location = new System.Drawing.Point(644, 457);
             this.pictureBox37.Name = "pictureBox37";
             this.pictureBox37.Size = new System.Drawing.Size(248, 63);
             this.pictureBox37.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -539,13 +539,14 @@ namespace SA_Resources
             this.btnCH1Delay.Size = new System.Drawing.Size(39, 39);
             this.btnCH1Delay.TabIndex = 30;
             this.btnCH1Delay.ToolTipText = "";
+            this.btnCH1Delay.Visible = false;
             // 
             // btnCompressor01
             // 
             this.btnCompressor01.AutoResize = false;
             this.btnCompressor01.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnCompressor01.BackgroundImage")));
             this.btnCompressor01.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCompressor01.Location = new System.Drawing.Point(150, 0);
+            this.btnCompressor01.Location = new System.Drawing.Point(190, 0);
             this.btnCompressor01.Name = "btnCompressor01";
             this.btnCompressor01.OverImage = null;
             this.btnCompressor01.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnCompressor01.Overlay1Image")));
@@ -583,7 +584,7 @@ namespace SA_Resources
             this.btnCH0PostFilters.AutoResize = false;
             this.btnCH0PostFilters.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnCH0PostFilters.BackgroundImage")));
             this.btnCH0PostFilters.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCH0PostFilters.Location = new System.Drawing.Point(90, 0);
+            this.btnCH0PostFilters.Location = new System.Drawing.Point(110, 0);
             this.btnCH0PostFilters.Name = "btnCH0PostFilters";
             this.btnCH0PostFilters.OverImage = null;
             this.btnCH0PostFilters.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnCH0PostFilters.Overlay1Image")));
@@ -941,7 +942,6 @@ namespace SA_Resources
             this.btnMatrixMixer.Size = new System.Drawing.Size(54, 375);
             this.btnMatrixMixer.TabIndex = 77;
             this.btnMatrixMixer.ToolTipText = "";
-            this.btnMatrixMixer.Click += new System.EventHandler(this.btnMatrixMixer_Click);
             // 
             // lblCH4Output
             // 
@@ -955,6 +955,7 @@ namespace SA_Resources
             this.lblCH4Output.TabIndex = 73;
             this.lblCH4Output.Text = "Output #4";
             this.lblCH4Output.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblCH4Output.Visible = false;
             // 
             // lblCH3Output
             // 
@@ -981,6 +982,7 @@ namespace SA_Resources
             this.lblCH2Output.TabIndex = 71;
             this.lblCH2Output.Text = "Output #2";
             this.lblCH2Output.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblCH2Output.Visible = false;
             // 
             // pnlCH4PostMixer
             // 
@@ -990,10 +992,11 @@ namespace SA_Resources
             this.pnlCH4PostMixer.Controls.Add(this.btnCompressor31);
             this.pnlCH4PostMixer.Controls.Add(this.btnCH4Delay);
             this.pnlCH4PostMixer.Controls.Add(this.btnGain33);
-            this.pnlCH4PostMixer.Location = new System.Drawing.Point(454, 236);
+            this.pnlCH4PostMixer.Location = new System.Drawing.Point(454, 235);
             this.pnlCH4PostMixer.Name = "pnlCH4PostMixer";
             this.pnlCH4PostMixer.Size = new System.Drawing.Size(335, 39);
             this.pnlCH4PostMixer.TabIndex = 76;
+            this.pnlCH4PostMixer.Visible = false;
             // 
             // pnlCH3PostMixer
             // 
@@ -1003,7 +1006,7 @@ namespace SA_Resources
             this.pnlCH3PostMixer.Controls.Add(this.btnCompressor21);
             this.pnlCH3PostMixer.Controls.Add(this.btnCH3Delay);
             this.pnlCH3PostMixer.Controls.Add(this.btnGain23);
-            this.pnlCH3PostMixer.Location = new System.Drawing.Point(454, 188);
+            this.pnlCH3PostMixer.Location = new System.Drawing.Point(454, 187);
             this.pnlCH3PostMixer.Name = "pnlCH3PostMixer";
             this.pnlCH3PostMixer.Size = new System.Drawing.Size(335, 39);
             this.pnlCH3PostMixer.TabIndex = 75;
@@ -1016,10 +1019,11 @@ namespace SA_Resources
             this.pnlCH2PostMixer.Controls.Add(this.btnCompressor11);
             this.pnlCH2PostMixer.Controls.Add(this.btnCH2Delay);
             this.pnlCH2PostMixer.Controls.Add(this.btnGain13);
-            this.pnlCH2PostMixer.Location = new System.Drawing.Point(454, 140);
+            this.pnlCH2PostMixer.Location = new System.Drawing.Point(454, 139);
             this.pnlCH2PostMixer.Name = "pnlCH2PostMixer";
             this.pnlCH2PostMixer.Size = new System.Drawing.Size(335, 39);
             this.pnlCH2PostMixer.TabIndex = 74;
+            this.pnlCH2PostMixer.Visible = false;
             // 
             // lblCH1Output
             // 
@@ -1135,12 +1139,21 @@ namespace SA_Resources
             this.lblCH1Input.Text = "Local Input #1";
             this.lblCH1Input.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // picDuckerLine
+            // 
+            this.picDuckerLine.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("picDuckerLine.BackgroundImage")));
+            this.picDuckerLine.Location = new System.Drawing.Point(197, 109);
+            this.picDuckerLine.Name = "picDuckerLine";
+            this.picDuckerLine.Size = new System.Drawing.Size(4, 370);
+            this.picDuckerLine.TabIndex = 88;
+            this.picDuckerLine.TabStop = false;
+            // 
             // pbtnDucker
             // 
             this.pbtnDucker.AutoResize = false;
             this.pbtnDucker.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbtnDucker.BackgroundImage")));
             this.pbtnDucker.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pbtnDucker.Location = new System.Drawing.Point(178, 481);
+            this.pbtnDucker.Location = new System.Drawing.Point(180, 473);
             this.pbtnDucker.Name = "pbtnDucker";
             this.pbtnDucker.OverImage = null;
             this.pbtnDucker.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("pbtnDucker.Overlay1Image")));
@@ -1154,465 +1167,428 @@ namespace SA_Resources
             this.pbtnDucker.TabIndex = 89;
             this.pbtnDucker.ToolTipText = "";
             // 
-            // picBridgeLine
+            // pnlCH6PreMixer
             // 
-            this.picBridgeLine.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("picBridgeLine.BackgroundImage")));
-            this.picBridgeLine.Image = ((System.Drawing.Image)(resources.GetObject("picBridgeLine.Image")));
-            this.picBridgeLine.Location = new System.Drawing.Point(467, 109);
-            this.picBridgeLine.Name = "picBridgeLine";
-            this.picBridgeLine.Size = new System.Drawing.Size(4, 179);
-            this.picBridgeLine.TabIndex = 95;
-            this.picBridgeLine.TabStop = false;
+            this.pnlCH6PreMixer.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pnlCH6PreMixer.BackgroundImage")));
+            this.pnlCH6PreMixer.Controls.Add(this.btnGain50);
+            this.pnlCH6PreMixer.Controls.Add(this.btnCH5PreFilters);
+            this.pnlCH6PreMixer.Controls.Add(this.btnCompressor50);
+            this.pnlCH6PreMixer.Controls.Add(this.btnGain51);
+            this.pnlCH6PreMixer.Location = new System.Drawing.Point(119, 331);
+            this.pnlCH6PreMixer.Name = "pnlCH6PreMixer";
+            this.pnlCH6PreMixer.Size = new System.Drawing.Size(281, 39);
+            this.pnlCH6PreMixer.TabIndex = 107;
             // 
-            // pbtnBridge
+            // btnGain50
             // 
-            this.pbtnBridge.AutoResize = false;
-            this.pbtnBridge.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbtnBridge.BackgroundImage")));
-            this.pbtnBridge.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pbtnBridge.Location = new System.Drawing.Point(459, 283);
-            this.pbtnBridge.Name = "pbtnBridge";
-            this.pbtnBridge.OverImage = null;
-            this.pbtnBridge.Overlay1Image = null;
-            this.pbtnBridge.Overlay1Visible = false;
-            this.pbtnBridge.Overlay2Image = null;
-            this.pbtnBridge.Overlay2Visible = false;
-            this.pbtnBridge.Overlay3Image = null;
-            this.pbtnBridge.Overlay3Visible = false;
-            this.pbtnBridge.PressedImage = null;
-            this.pbtnBridge.Size = new System.Drawing.Size(50, 39);
-            this.pbtnBridge.TabIndex = 98;
-            this.pbtnBridge.ToolTipText = "";
-            this.pbtnBridge.Click += new System.EventHandler(this.pbtnBridge_Click);
+            this.btnGain50.AutoResize = false;
+            this.btnGain50.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnGain50.BackgroundImage")));
+            this.btnGain50.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnGain50.Location = new System.Drawing.Point(30, 0);
+            this.btnGain50.Name = "btnGain50";
+            this.btnGain50.OverImage = null;
+            this.btnGain50.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnGain50.Overlay1Image")));
+            this.btnGain50.Overlay1Visible = false;
+            this.btnGain50.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnGain50.Overlay2Image")));
+            this.btnGain50.Overlay2Visible = false;
+            this.btnGain50.Overlay3Image = null;
+            this.btnGain50.Overlay3Visible = false;
+            this.btnGain50.PressedImage = ((System.Drawing.Image)(resources.GetObject("btnGain50.PressedImage")));
+            this.btnGain50.Size = new System.Drawing.Size(39, 39);
+            this.btnGain50.TabIndex = 36;
+            this.btnGain50.ToolTipText = "";
             // 
-            // panel1
+            // btnCH5PreFilters
             // 
-            this.panel1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panel1.BackgroundImage")));
-            this.panel1.Controls.Add(this.pictureButton1);
-            this.panel1.Controls.Add(this.pictureButton2);
-            this.panel1.Controls.Add(this.pictureButton3);
-            this.panel1.Controls.Add(this.pictureButton4);
-            this.panel1.Location = new System.Drawing.Point(119, 331);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(281, 39);
-            this.panel1.TabIndex = 109;
+            this.btnCH5PreFilters.AutoResize = false;
+            this.btnCH5PreFilters.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnCH5PreFilters.BackgroundImage")));
+            this.btnCH5PreFilters.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnCH5PreFilters.Location = new System.Drawing.Point(90, 0);
+            this.btnCH5PreFilters.Name = "btnCH5PreFilters";
+            this.btnCH5PreFilters.OverImage = null;
+            this.btnCH5PreFilters.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnCH5PreFilters.Overlay1Image")));
+            this.btnCH5PreFilters.Overlay1Visible = false;
+            this.btnCH5PreFilters.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnCH5PreFilters.Overlay2Image")));
+            this.btnCH5PreFilters.Overlay2Visible = false;
+            this.btnCH5PreFilters.Overlay3Image = null;
+            this.btnCH5PreFilters.Overlay3Visible = false;
+            this.btnCH5PreFilters.PressedImage = ((System.Drawing.Image)(resources.GetObject("btnCH5PreFilters.PressedImage")));
+            this.btnCH5PreFilters.Size = new System.Drawing.Size(39, 39);
+            this.btnCH5PreFilters.TabIndex = 35;
+            this.btnCH5PreFilters.ToolTipText = "";
             // 
-            // pictureButton1
+            // btnCompressor50
             // 
-            this.pictureButton1.AutoResize = false;
-            this.pictureButton1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureButton1.BackgroundImage")));
-            this.pictureButton1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureButton1.Location = new System.Drawing.Point(30, 0);
-            this.pictureButton1.Name = "pictureButton1";
-            this.pictureButton1.OverImage = null;
-            this.pictureButton1.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("pictureButton1.Overlay1Image")));
-            this.pictureButton1.Overlay1Visible = false;
-            this.pictureButton1.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("pictureButton1.Overlay2Image")));
-            this.pictureButton1.Overlay2Visible = false;
-            this.pictureButton1.Overlay3Image = null;
-            this.pictureButton1.Overlay3Visible = false;
-            this.pictureButton1.PressedImage = ((System.Drawing.Image)(resources.GetObject("pictureButton1.PressedImage")));
-            this.pictureButton1.Size = new System.Drawing.Size(39, 39);
-            this.pictureButton1.TabIndex = 36;
-            this.pictureButton1.ToolTipText = "";
+            this.btnCompressor50.AutoResize = false;
+            this.btnCompressor50.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnCompressor50.BackgroundImage")));
+            this.btnCompressor50.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnCompressor50.Location = new System.Drawing.Point(152, 0);
+            this.btnCompressor50.Name = "btnCompressor50";
+            this.btnCompressor50.OverImage = null;
+            this.btnCompressor50.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnCompressor50.Overlay1Image")));
+            this.btnCompressor50.Overlay1Visible = true;
+            this.btnCompressor50.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnCompressor50.Overlay2Image")));
+            this.btnCompressor50.Overlay2Visible = false;
+            this.btnCompressor50.Overlay3Image = null;
+            this.btnCompressor50.Overlay3Visible = false;
+            this.btnCompressor50.PressedImage = ((System.Drawing.Image)(resources.GetObject("btnCompressor50.PressedImage")));
+            this.btnCompressor50.Size = new System.Drawing.Size(39, 39);
+            this.btnCompressor50.TabIndex = 34;
+            this.btnCompressor50.ToolTipText = "";
             // 
-            // pictureButton2
+            // btnGain51
             // 
-            this.pictureButton2.AutoResize = false;
-            this.pictureButton2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureButton2.BackgroundImage")));
-            this.pictureButton2.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureButton2.Location = new System.Drawing.Point(90, 0);
-            this.pictureButton2.Name = "pictureButton2";
-            this.pictureButton2.OverImage = null;
-            this.pictureButton2.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("pictureButton2.Overlay1Image")));
-            this.pictureButton2.Overlay1Visible = false;
-            this.pictureButton2.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("pictureButton2.Overlay2Image")));
-            this.pictureButton2.Overlay2Visible = false;
-            this.pictureButton2.Overlay3Image = null;
-            this.pictureButton2.Overlay3Visible = false;
-            this.pictureButton2.PressedImage = ((System.Drawing.Image)(resources.GetObject("pictureButton2.PressedImage")));
-            this.pictureButton2.Size = new System.Drawing.Size(39, 39);
-            this.pictureButton2.TabIndex = 35;
-            this.pictureButton2.ToolTipText = "";
+            this.btnGain51.AutoResize = false;
+            this.btnGain51.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnGain51.BackgroundImage")));
+            this.btnGain51.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnGain51.Location = new System.Drawing.Point(212, 0);
+            this.btnGain51.Name = "btnGain51";
+            this.btnGain51.OverImage = null;
+            this.btnGain51.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnGain51.Overlay1Image")));
+            this.btnGain51.Overlay1Visible = false;
+            this.btnGain51.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnGain51.Overlay2Image")));
+            this.btnGain51.Overlay2Visible = false;
+            this.btnGain51.Overlay3Image = null;
+            this.btnGain51.Overlay3Visible = false;
+            this.btnGain51.PressedImage = ((System.Drawing.Image)(resources.GetObject("btnGain51.PressedImage")));
+            this.btnGain51.Size = new System.Drawing.Size(39, 39);
+            this.btnGain51.TabIndex = 33;
+            this.btnGain51.ToolTipText = "";
             // 
-            // pictureButton3
+            // pnlCH8PreMixer
             // 
-            this.pictureButton3.AutoResize = false;
-            this.pictureButton3.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureButton3.BackgroundImage")));
-            this.pictureButton3.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureButton3.Location = new System.Drawing.Point(152, 0);
-            this.pictureButton3.Name = "pictureButton3";
-            this.pictureButton3.OverImage = null;
-            this.pictureButton3.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("pictureButton3.Overlay1Image")));
-            this.pictureButton3.Overlay1Visible = true;
-            this.pictureButton3.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("pictureButton3.Overlay2Image")));
-            this.pictureButton3.Overlay2Visible = false;
-            this.pictureButton3.Overlay3Image = null;
-            this.pictureButton3.Overlay3Visible = false;
-            this.pictureButton3.PressedImage = ((System.Drawing.Image)(resources.GetObject("pictureButton3.PressedImage")));
-            this.pictureButton3.Size = new System.Drawing.Size(39, 39);
-            this.pictureButton3.TabIndex = 34;
-            this.pictureButton3.ToolTipText = "";
+            this.pnlCH8PreMixer.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pnlCH8PreMixer.BackgroundImage")));
+            this.pnlCH8PreMixer.Controls.Add(this.btnGain70);
+            this.pnlCH8PreMixer.Controls.Add(this.btnCH7PreFilters);
+            this.pnlCH8PreMixer.Controls.Add(this.btnCompressor70);
+            this.pnlCH8PreMixer.Controls.Add(this.btnGain71);
+            this.pnlCH8PreMixer.Location = new System.Drawing.Point(119, 427);
+            this.pnlCH8PreMixer.Name = "pnlCH8PreMixer";
+            this.pnlCH8PreMixer.Size = new System.Drawing.Size(281, 39);
+            this.pnlCH8PreMixer.TabIndex = 106;
             // 
-            // pictureButton4
+            // btnGain70
             // 
-            this.pictureButton4.AutoResize = false;
-            this.pictureButton4.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureButton4.BackgroundImage")));
-            this.pictureButton4.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureButton4.Location = new System.Drawing.Point(212, 0);
-            this.pictureButton4.Name = "pictureButton4";
-            this.pictureButton4.OverImage = null;
-            this.pictureButton4.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("pictureButton4.Overlay1Image")));
-            this.pictureButton4.Overlay1Visible = false;
-            this.pictureButton4.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("pictureButton4.Overlay2Image")));
-            this.pictureButton4.Overlay2Visible = false;
-            this.pictureButton4.Overlay3Image = null;
-            this.pictureButton4.Overlay3Visible = false;
-            this.pictureButton4.PressedImage = ((System.Drawing.Image)(resources.GetObject("pictureButton4.PressedImage")));
-            this.pictureButton4.Size = new System.Drawing.Size(39, 39);
-            this.pictureButton4.TabIndex = 33;
-            this.pictureButton4.ToolTipText = "";
+            this.btnGain70.AutoResize = false;
+            this.btnGain70.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnGain70.BackgroundImage")));
+            this.btnGain70.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnGain70.Location = new System.Drawing.Point(30, 0);
+            this.btnGain70.Name = "btnGain70";
+            this.btnGain70.OverImage = null;
+            this.btnGain70.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnGain70.Overlay1Image")));
+            this.btnGain70.Overlay1Visible = false;
+            this.btnGain70.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnGain70.Overlay2Image")));
+            this.btnGain70.Overlay2Visible = false;
+            this.btnGain70.Overlay3Image = null;
+            this.btnGain70.Overlay3Visible = false;
+            this.btnGain70.PressedImage = ((System.Drawing.Image)(resources.GetObject("btnGain70.PressedImage")));
+            this.btnGain70.Size = new System.Drawing.Size(39, 39);
+            this.btnGain70.TabIndex = 36;
+            this.btnGain70.ToolTipText = "";
             // 
-            // panel2
+            // btnCH7PreFilters
             // 
-            this.panel2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panel2.BackgroundImage")));
-            this.panel2.Controls.Add(this.pictureButton5);
-            this.panel2.Controls.Add(this.pictureButton6);
-            this.panel2.Controls.Add(this.pictureButton7);
-            this.panel2.Controls.Add(this.pictureButton8);
-            this.panel2.Location = new System.Drawing.Point(119, 427);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(281, 39);
-            this.panel2.TabIndex = 108;
+            this.btnCH7PreFilters.AutoResize = false;
+            this.btnCH7PreFilters.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnCH7PreFilters.BackgroundImage")));
+            this.btnCH7PreFilters.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnCH7PreFilters.Location = new System.Drawing.Point(90, 0);
+            this.btnCH7PreFilters.Name = "btnCH7PreFilters";
+            this.btnCH7PreFilters.OverImage = null;
+            this.btnCH7PreFilters.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnCH7PreFilters.Overlay1Image")));
+            this.btnCH7PreFilters.Overlay1Visible = false;
+            this.btnCH7PreFilters.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnCH7PreFilters.Overlay2Image")));
+            this.btnCH7PreFilters.Overlay2Visible = false;
+            this.btnCH7PreFilters.Overlay3Image = null;
+            this.btnCH7PreFilters.Overlay3Visible = false;
+            this.btnCH7PreFilters.PressedImage = ((System.Drawing.Image)(resources.GetObject("btnCH7PreFilters.PressedImage")));
+            this.btnCH7PreFilters.Size = new System.Drawing.Size(39, 39);
+            this.btnCH7PreFilters.TabIndex = 35;
+            this.btnCH7PreFilters.ToolTipText = "";
             // 
-            // pictureButton5
+            // btnCompressor70
             // 
-            this.pictureButton5.AutoResize = false;
-            this.pictureButton5.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureButton5.BackgroundImage")));
-            this.pictureButton5.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureButton5.Location = new System.Drawing.Point(30, 0);
-            this.pictureButton5.Name = "pictureButton5";
-            this.pictureButton5.OverImage = null;
-            this.pictureButton5.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("pictureButton5.Overlay1Image")));
-            this.pictureButton5.Overlay1Visible = false;
-            this.pictureButton5.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("pictureButton5.Overlay2Image")));
-            this.pictureButton5.Overlay2Visible = false;
-            this.pictureButton5.Overlay3Image = null;
-            this.pictureButton5.Overlay3Visible = false;
-            this.pictureButton5.PressedImage = ((System.Drawing.Image)(resources.GetObject("pictureButton5.PressedImage")));
-            this.pictureButton5.Size = new System.Drawing.Size(39, 39);
-            this.pictureButton5.TabIndex = 36;
-            this.pictureButton5.ToolTipText = "";
+            this.btnCompressor70.AutoResize = false;
+            this.btnCompressor70.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnCompressor70.BackgroundImage")));
+            this.btnCompressor70.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnCompressor70.Location = new System.Drawing.Point(152, 0);
+            this.btnCompressor70.Name = "btnCompressor70";
+            this.btnCompressor70.OverImage = null;
+            this.btnCompressor70.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnCompressor70.Overlay1Image")));
+            this.btnCompressor70.Overlay1Visible = true;
+            this.btnCompressor70.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnCompressor70.Overlay2Image")));
+            this.btnCompressor70.Overlay2Visible = false;
+            this.btnCompressor70.Overlay3Image = null;
+            this.btnCompressor70.Overlay3Visible = false;
+            this.btnCompressor70.PressedImage = ((System.Drawing.Image)(resources.GetObject("btnCompressor70.PressedImage")));
+            this.btnCompressor70.Size = new System.Drawing.Size(39, 39);
+            this.btnCompressor70.TabIndex = 34;
+            this.btnCompressor70.ToolTipText = "";
             // 
-            // pictureButton6
+            // btnGain71
             // 
-            this.pictureButton6.AutoResize = false;
-            this.pictureButton6.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureButton6.BackgroundImage")));
-            this.pictureButton6.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureButton6.Location = new System.Drawing.Point(90, 0);
-            this.pictureButton6.Name = "pictureButton6";
-            this.pictureButton6.OverImage = null;
-            this.pictureButton6.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("pictureButton6.Overlay1Image")));
-            this.pictureButton6.Overlay1Visible = false;
-            this.pictureButton6.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("pictureButton6.Overlay2Image")));
-            this.pictureButton6.Overlay2Visible = false;
-            this.pictureButton6.Overlay3Image = null;
-            this.pictureButton6.Overlay3Visible = false;
-            this.pictureButton6.PressedImage = ((System.Drawing.Image)(resources.GetObject("pictureButton6.PressedImage")));
-            this.pictureButton6.Size = new System.Drawing.Size(39, 39);
-            this.pictureButton6.TabIndex = 35;
-            this.pictureButton6.ToolTipText = "";
+            this.btnGain71.AutoResize = false;
+            this.btnGain71.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnGain71.BackgroundImage")));
+            this.btnGain71.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnGain71.Location = new System.Drawing.Point(212, 0);
+            this.btnGain71.Name = "btnGain71";
+            this.btnGain71.OverImage = null;
+            this.btnGain71.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnGain71.Overlay1Image")));
+            this.btnGain71.Overlay1Visible = false;
+            this.btnGain71.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnGain71.Overlay2Image")));
+            this.btnGain71.Overlay2Visible = false;
+            this.btnGain71.Overlay3Image = null;
+            this.btnGain71.Overlay3Visible = false;
+            this.btnGain71.PressedImage = ((System.Drawing.Image)(resources.GetObject("btnGain71.PressedImage")));
+            this.btnGain71.Size = new System.Drawing.Size(39, 39);
+            this.btnGain71.TabIndex = 33;
+            this.btnGain71.ToolTipText = "";
             // 
-            // pictureButton7
+            // pnlCH7PreMixer
             // 
-            this.pictureButton7.AutoResize = false;
-            this.pictureButton7.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureButton7.BackgroundImage")));
-            this.pictureButton7.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureButton7.Location = new System.Drawing.Point(152, 0);
-            this.pictureButton7.Name = "pictureButton7";
-            this.pictureButton7.OverImage = null;
-            this.pictureButton7.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("pictureButton7.Overlay1Image")));
-            this.pictureButton7.Overlay1Visible = true;
-            this.pictureButton7.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("pictureButton7.Overlay2Image")));
-            this.pictureButton7.Overlay2Visible = false;
-            this.pictureButton7.Overlay3Image = null;
-            this.pictureButton7.Overlay3Visible = false;
-            this.pictureButton7.PressedImage = ((System.Drawing.Image)(resources.GetObject("pictureButton7.PressedImage")));
-            this.pictureButton7.Size = new System.Drawing.Size(39, 39);
-            this.pictureButton7.TabIndex = 34;
-            this.pictureButton7.ToolTipText = "";
+            this.pnlCH7PreMixer.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pnlCH7PreMixer.BackgroundImage")));
+            this.pnlCH7PreMixer.Controls.Add(this.btnGain60);
+            this.pnlCH7PreMixer.Controls.Add(this.btnCH6PreFilters);
+            this.pnlCH7PreMixer.Controls.Add(this.btnCompressor60);
+            this.pnlCH7PreMixer.Controls.Add(this.btnGain61);
+            this.pnlCH7PreMixer.Location = new System.Drawing.Point(119, 379);
+            this.pnlCH7PreMixer.Name = "pnlCH7PreMixer";
+            this.pnlCH7PreMixer.Size = new System.Drawing.Size(281, 39);
+            this.pnlCH7PreMixer.TabIndex = 105;
             // 
-            // pictureButton8
+            // btnGain60
             // 
-            this.pictureButton8.AutoResize = false;
-            this.pictureButton8.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureButton8.BackgroundImage")));
-            this.pictureButton8.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureButton8.Location = new System.Drawing.Point(212, 0);
-            this.pictureButton8.Name = "pictureButton8";
-            this.pictureButton8.OverImage = null;
-            this.pictureButton8.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("pictureButton8.Overlay1Image")));
-            this.pictureButton8.Overlay1Visible = false;
-            this.pictureButton8.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("pictureButton8.Overlay2Image")));
-            this.pictureButton8.Overlay2Visible = false;
-            this.pictureButton8.Overlay3Image = null;
-            this.pictureButton8.Overlay3Visible = false;
-            this.pictureButton8.PressedImage = ((System.Drawing.Image)(resources.GetObject("pictureButton8.PressedImage")));
-            this.pictureButton8.Size = new System.Drawing.Size(39, 39);
-            this.pictureButton8.TabIndex = 33;
-            this.pictureButton8.ToolTipText = "";
+            this.btnGain60.AutoResize = false;
+            this.btnGain60.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnGain60.BackgroundImage")));
+            this.btnGain60.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnGain60.Location = new System.Drawing.Point(30, 0);
+            this.btnGain60.Name = "btnGain60";
+            this.btnGain60.OverImage = null;
+            this.btnGain60.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnGain60.Overlay1Image")));
+            this.btnGain60.Overlay1Visible = false;
+            this.btnGain60.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnGain60.Overlay2Image")));
+            this.btnGain60.Overlay2Visible = false;
+            this.btnGain60.Overlay3Image = null;
+            this.btnGain60.Overlay3Visible = false;
+            this.btnGain60.PressedImage = ((System.Drawing.Image)(resources.GetObject("btnGain60.PressedImage")));
+            this.btnGain60.Size = new System.Drawing.Size(39, 39);
+            this.btnGain60.TabIndex = 36;
+            this.btnGain60.ToolTipText = "";
             // 
-            // panel3
+            // btnCH6PreFilters
             // 
-            this.panel3.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panel3.BackgroundImage")));
-            this.panel3.Controls.Add(this.pictureButton9);
-            this.panel3.Controls.Add(this.pictureButton10);
-            this.panel3.Controls.Add(this.pictureButton11);
-            this.panel3.Controls.Add(this.pictureButton12);
-            this.panel3.Location = new System.Drawing.Point(119, 379);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(281, 39);
-            this.panel3.TabIndex = 107;
+            this.btnCH6PreFilters.AutoResize = false;
+            this.btnCH6PreFilters.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnCH6PreFilters.BackgroundImage")));
+            this.btnCH6PreFilters.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnCH6PreFilters.Location = new System.Drawing.Point(90, 0);
+            this.btnCH6PreFilters.Name = "btnCH6PreFilters";
+            this.btnCH6PreFilters.OverImage = null;
+            this.btnCH6PreFilters.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnCH6PreFilters.Overlay1Image")));
+            this.btnCH6PreFilters.Overlay1Visible = false;
+            this.btnCH6PreFilters.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnCH6PreFilters.Overlay2Image")));
+            this.btnCH6PreFilters.Overlay2Visible = false;
+            this.btnCH6PreFilters.Overlay3Image = null;
+            this.btnCH6PreFilters.Overlay3Visible = false;
+            this.btnCH6PreFilters.PressedImage = ((System.Drawing.Image)(resources.GetObject("btnCH6PreFilters.PressedImage")));
+            this.btnCH6PreFilters.Size = new System.Drawing.Size(39, 39);
+            this.btnCH6PreFilters.TabIndex = 35;
+            this.btnCH6PreFilters.ToolTipText = "";
             // 
-            // pictureButton9
+            // btnCompressor60
             // 
-            this.pictureButton9.AutoResize = false;
-            this.pictureButton9.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureButton9.BackgroundImage")));
-            this.pictureButton9.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureButton9.Location = new System.Drawing.Point(30, 0);
-            this.pictureButton9.Name = "pictureButton9";
-            this.pictureButton9.OverImage = null;
-            this.pictureButton9.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("pictureButton9.Overlay1Image")));
-            this.pictureButton9.Overlay1Visible = false;
-            this.pictureButton9.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("pictureButton9.Overlay2Image")));
-            this.pictureButton9.Overlay2Visible = false;
-            this.pictureButton9.Overlay3Image = null;
-            this.pictureButton9.Overlay3Visible = false;
-            this.pictureButton9.PressedImage = ((System.Drawing.Image)(resources.GetObject("pictureButton9.PressedImage")));
-            this.pictureButton9.Size = new System.Drawing.Size(39, 39);
-            this.pictureButton9.TabIndex = 36;
-            this.pictureButton9.ToolTipText = "";
+            this.btnCompressor60.AutoResize = false;
+            this.btnCompressor60.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnCompressor60.BackgroundImage")));
+            this.btnCompressor60.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnCompressor60.Location = new System.Drawing.Point(152, 0);
+            this.btnCompressor60.Name = "btnCompressor60";
+            this.btnCompressor60.OverImage = null;
+            this.btnCompressor60.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnCompressor60.Overlay1Image")));
+            this.btnCompressor60.Overlay1Visible = true;
+            this.btnCompressor60.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnCompressor60.Overlay2Image")));
+            this.btnCompressor60.Overlay2Visible = false;
+            this.btnCompressor60.Overlay3Image = null;
+            this.btnCompressor60.Overlay3Visible = false;
+            this.btnCompressor60.PressedImage = ((System.Drawing.Image)(resources.GetObject("btnCompressor60.PressedImage")));
+            this.btnCompressor60.Size = new System.Drawing.Size(39, 39);
+            this.btnCompressor60.TabIndex = 34;
+            this.btnCompressor60.ToolTipText = "";
             // 
-            // pictureButton10
+            // btnGain61
             // 
-            this.pictureButton10.AutoResize = false;
-            this.pictureButton10.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureButton10.BackgroundImage")));
-            this.pictureButton10.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureButton10.Location = new System.Drawing.Point(90, 0);
-            this.pictureButton10.Name = "pictureButton10";
-            this.pictureButton10.OverImage = null;
-            this.pictureButton10.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("pictureButton10.Overlay1Image")));
-            this.pictureButton10.Overlay1Visible = false;
-            this.pictureButton10.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("pictureButton10.Overlay2Image")));
-            this.pictureButton10.Overlay2Visible = false;
-            this.pictureButton10.Overlay3Image = null;
-            this.pictureButton10.Overlay3Visible = false;
-            this.pictureButton10.PressedImage = ((System.Drawing.Image)(resources.GetObject("pictureButton10.PressedImage")));
-            this.pictureButton10.Size = new System.Drawing.Size(39, 39);
-            this.pictureButton10.TabIndex = 35;
-            this.pictureButton10.ToolTipText = "";
+            this.btnGain61.AutoResize = false;
+            this.btnGain61.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnGain61.BackgroundImage")));
+            this.btnGain61.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnGain61.Location = new System.Drawing.Point(212, 0);
+            this.btnGain61.Name = "btnGain61";
+            this.btnGain61.OverImage = null;
+            this.btnGain61.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnGain61.Overlay1Image")));
+            this.btnGain61.Overlay1Visible = false;
+            this.btnGain61.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnGain61.Overlay2Image")));
+            this.btnGain61.Overlay2Visible = false;
+            this.btnGain61.Overlay3Image = null;
+            this.btnGain61.Overlay3Visible = false;
+            this.btnGain61.PressedImage = ((System.Drawing.Image)(resources.GetObject("btnGain61.PressedImage")));
+            this.btnGain61.Size = new System.Drawing.Size(39, 39);
+            this.btnGain61.TabIndex = 33;
+            this.btnGain61.ToolTipText = "";
             // 
-            // pictureButton11
+            // pnlCH5PreMixer
             // 
-            this.pictureButton11.AutoResize = false;
-            this.pictureButton11.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureButton11.BackgroundImage")));
-            this.pictureButton11.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureButton11.Location = new System.Drawing.Point(152, 0);
-            this.pictureButton11.Name = "pictureButton11";
-            this.pictureButton11.OverImage = null;
-            this.pictureButton11.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("pictureButton11.Overlay1Image")));
-            this.pictureButton11.Overlay1Visible = true;
-            this.pictureButton11.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("pictureButton11.Overlay2Image")));
-            this.pictureButton11.Overlay2Visible = false;
-            this.pictureButton11.Overlay3Image = null;
-            this.pictureButton11.Overlay3Visible = false;
-            this.pictureButton11.PressedImage = ((System.Drawing.Image)(resources.GetObject("pictureButton11.PressedImage")));
-            this.pictureButton11.Size = new System.Drawing.Size(39, 39);
-            this.pictureButton11.TabIndex = 34;
-            this.pictureButton11.ToolTipText = "";
+            this.pnlCH5PreMixer.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pnlCH5PreMixer.BackgroundImage")));
+            this.pnlCH5PreMixer.Controls.Add(this.btnGain40);
+            this.pnlCH5PreMixer.Controls.Add(this.btnCH4PreFilters);
+            this.pnlCH5PreMixer.Controls.Add(this.btnCompressor40);
+            this.pnlCH5PreMixer.Controls.Add(this.btnGain41);
+            this.pnlCH5PreMixer.Location = new System.Drawing.Point(119, 283);
+            this.pnlCH5PreMixer.Name = "pnlCH5PreMixer";
+            this.pnlCH5PreMixer.Size = new System.Drawing.Size(281, 39);
+            this.pnlCH5PreMixer.TabIndex = 104;
             // 
-            // pictureButton12
+            // btnGain40
             // 
-            this.pictureButton12.AutoResize = false;
-            this.pictureButton12.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureButton12.BackgroundImage")));
-            this.pictureButton12.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureButton12.Location = new System.Drawing.Point(212, 0);
-            this.pictureButton12.Name = "pictureButton12";
-            this.pictureButton12.OverImage = null;
-            this.pictureButton12.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("pictureButton12.Overlay1Image")));
-            this.pictureButton12.Overlay1Visible = false;
-            this.pictureButton12.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("pictureButton12.Overlay2Image")));
-            this.pictureButton12.Overlay2Visible = false;
-            this.pictureButton12.Overlay3Image = null;
-            this.pictureButton12.Overlay3Visible = false;
-            this.pictureButton12.PressedImage = ((System.Drawing.Image)(resources.GetObject("pictureButton12.PressedImage")));
-            this.pictureButton12.Size = new System.Drawing.Size(39, 39);
-            this.pictureButton12.TabIndex = 33;
-            this.pictureButton12.ToolTipText = "";
+            this.btnGain40.AutoResize = false;
+            this.btnGain40.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnGain40.BackgroundImage")));
+            this.btnGain40.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnGain40.Location = new System.Drawing.Point(30, 0);
+            this.btnGain40.Name = "btnGain40";
+            this.btnGain40.OverImage = null;
+            this.btnGain40.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnGain40.Overlay1Image")));
+            this.btnGain40.Overlay1Visible = false;
+            this.btnGain40.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnGain40.Overlay2Image")));
+            this.btnGain40.Overlay2Visible = false;
+            this.btnGain40.Overlay3Image = null;
+            this.btnGain40.Overlay3Visible = false;
+            this.btnGain40.PressedImage = ((System.Drawing.Image)(resources.GetObject("btnGain40.PressedImage")));
+            this.btnGain40.Size = new System.Drawing.Size(39, 39);
+            this.btnGain40.TabIndex = 35;
+            this.btnGain40.ToolTipText = "";
             // 
-            // panel4
+            // btnCH4PreFilters
             // 
-            this.panel4.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panel4.BackgroundImage")));
-            this.panel4.Controls.Add(this.pictureButton13);
-            this.panel4.Controls.Add(this.pictureButton14);
-            this.panel4.Controls.Add(this.pictureButton15);
-            this.panel4.Controls.Add(this.pictureButton16);
-            this.panel4.Location = new System.Drawing.Point(119, 283);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(281, 39);
-            this.panel4.TabIndex = 106;
+            this.btnCH4PreFilters.AutoResize = false;
+            this.btnCH4PreFilters.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnCH4PreFilters.BackgroundImage")));
+            this.btnCH4PreFilters.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnCH4PreFilters.Location = new System.Drawing.Point(90, 0);
+            this.btnCH4PreFilters.Name = "btnCH4PreFilters";
+            this.btnCH4PreFilters.OverImage = null;
+            this.btnCH4PreFilters.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnCH4PreFilters.Overlay1Image")));
+            this.btnCH4PreFilters.Overlay1Visible = false;
+            this.btnCH4PreFilters.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnCH4PreFilters.Overlay2Image")));
+            this.btnCH4PreFilters.Overlay2Visible = false;
+            this.btnCH4PreFilters.Overlay3Image = null;
+            this.btnCH4PreFilters.Overlay3Visible = false;
+            this.btnCH4PreFilters.PressedImage = ((System.Drawing.Image)(resources.GetObject("btnCH4PreFilters.PressedImage")));
+            this.btnCH4PreFilters.Size = new System.Drawing.Size(39, 39);
+            this.btnCH4PreFilters.TabIndex = 34;
+            this.btnCH4PreFilters.ToolTipText = "Filters";
             // 
-            // pictureButton13
+            // btnCompressor40
             // 
-            this.pictureButton13.AutoResize = false;
-            this.pictureButton13.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureButton13.BackgroundImage")));
-            this.pictureButton13.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureButton13.Location = new System.Drawing.Point(30, 0);
-            this.pictureButton13.Name = "pictureButton13";
-            this.pictureButton13.OverImage = null;
-            this.pictureButton13.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("pictureButton13.Overlay1Image")));
-            this.pictureButton13.Overlay1Visible = false;
-            this.pictureButton13.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("pictureButton13.Overlay2Image")));
-            this.pictureButton13.Overlay2Visible = false;
-            this.pictureButton13.Overlay3Image = null;
-            this.pictureButton13.Overlay3Visible = false;
-            this.pictureButton13.PressedImage = ((System.Drawing.Image)(resources.GetObject("pictureButton13.PressedImage")));
-            this.pictureButton13.Size = new System.Drawing.Size(39, 39);
-            this.pictureButton13.TabIndex = 35;
-            this.pictureButton13.ToolTipText = "";
+            this.btnCompressor40.AutoResize = false;
+            this.btnCompressor40.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnCompressor40.BackgroundImage")));
+            this.btnCompressor40.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnCompressor40.Location = new System.Drawing.Point(152, 0);
+            this.btnCompressor40.Name = "btnCompressor40";
+            this.btnCompressor40.OverImage = null;
+            this.btnCompressor40.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnCompressor40.Overlay1Image")));
+            this.btnCompressor40.Overlay1Visible = false;
+            this.btnCompressor40.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnCompressor40.Overlay2Image")));
+            this.btnCompressor40.Overlay2Visible = false;
+            this.btnCompressor40.Overlay3Image = null;
+            this.btnCompressor40.Overlay3Visible = false;
+            this.btnCompressor40.PressedImage = ((System.Drawing.Image)(resources.GetObject("btnCompressor40.PressedImage")));
+            this.btnCompressor40.Size = new System.Drawing.Size(39, 39);
+            this.btnCompressor40.TabIndex = 33;
+            this.btnCompressor40.ToolTipText = "Compressor";
             // 
-            // pictureButton14
+            // btnGain41
             // 
-            this.pictureButton14.AutoResize = false;
-            this.pictureButton14.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureButton14.BackgroundImage")));
-            this.pictureButton14.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureButton14.Location = new System.Drawing.Point(90, 0);
-            this.pictureButton14.Name = "pictureButton14";
-            this.pictureButton14.OverImage = null;
-            this.pictureButton14.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("pictureButton14.Overlay1Image")));
-            this.pictureButton14.Overlay1Visible = false;
-            this.pictureButton14.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("pictureButton14.Overlay2Image")));
-            this.pictureButton14.Overlay2Visible = false;
-            this.pictureButton14.Overlay3Image = null;
-            this.pictureButton14.Overlay3Visible = false;
-            this.pictureButton14.PressedImage = ((System.Drawing.Image)(resources.GetObject("pictureButton14.PressedImage")));
-            this.pictureButton14.Size = new System.Drawing.Size(39, 39);
-            this.pictureButton14.TabIndex = 34;
-            this.pictureButton14.ToolTipText = "Filters";
+            this.btnGain41.AutoResize = false;
+            this.btnGain41.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnGain41.BackgroundImage")));
+            this.btnGain41.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnGain41.Location = new System.Drawing.Point(212, 0);
+            this.btnGain41.Name = "btnGain41";
+            this.btnGain41.OverImage = null;
+            this.btnGain41.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnGain41.Overlay1Image")));
+            this.btnGain41.Overlay1Visible = false;
+            this.btnGain41.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnGain41.Overlay2Image")));
+            this.btnGain41.Overlay2Visible = false;
+            this.btnGain41.Overlay3Image = null;
+            this.btnGain41.Overlay3Visible = false;
+            this.btnGain41.PressedImage = ((System.Drawing.Image)(resources.GetObject("btnGain41.PressedImage")));
+            this.btnGain41.Size = new System.Drawing.Size(39, 39);
+            this.btnGain41.TabIndex = 32;
+            this.btnGain41.ToolTipText = "";
             // 
-            // pictureButton15
+            // lblCH8Input
             // 
-            this.pictureButton15.AutoResize = false;
-            this.pictureButton15.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureButton15.BackgroundImage")));
-            this.pictureButton15.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureButton15.Location = new System.Drawing.Point(152, 0);
-            this.pictureButton15.Name = "pictureButton15";
-            this.pictureButton15.OverImage = null;
-            this.pictureButton15.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("pictureButton15.Overlay1Image")));
-            this.pictureButton15.Overlay1Visible = false;
-            this.pictureButton15.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("pictureButton15.Overlay2Image")));
-            this.pictureButton15.Overlay2Visible = false;
-            this.pictureButton15.Overlay3Image = null;
-            this.pictureButton15.Overlay3Visible = false;
-            this.pictureButton15.PressedImage = ((System.Drawing.Image)(resources.GetObject("pictureButton15.PressedImage")));
-            this.pictureButton15.Size = new System.Drawing.Size(39, 39);
-            this.pictureButton15.TabIndex = 33;
-            this.pictureButton15.ToolTipText = "Compressor";
+            this.lblCH8Input.BackColor = System.Drawing.Color.MidnightBlue;
+            this.lblCH8Input.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblCH8Input.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCH8Input.ForeColor = System.Drawing.Color.White;
+            this.lblCH8Input.Location = new System.Drawing.Point(12, 436);
+            this.lblCH8Input.Name = "lblCH8Input";
+            this.lblCH8Input.Size = new System.Drawing.Size(107, 23);
+            this.lblCH8Input.TabIndex = 111;
+            this.lblCH8Input.Text = "Network Input #4";
+            this.lblCH8Input.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // pictureButton16
+            // lblCH7Input
             // 
-            this.pictureButton16.AutoResize = false;
-            this.pictureButton16.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureButton16.BackgroundImage")));
-            this.pictureButton16.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureButton16.Location = new System.Drawing.Point(212, 0);
-            this.pictureButton16.Name = "pictureButton16";
-            this.pictureButton16.OverImage = null;
-            this.pictureButton16.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("pictureButton16.Overlay1Image")));
-            this.pictureButton16.Overlay1Visible = false;
-            this.pictureButton16.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("pictureButton16.Overlay2Image")));
-            this.pictureButton16.Overlay2Visible = false;
-            this.pictureButton16.Overlay3Image = null;
-            this.pictureButton16.Overlay3Visible = false;
-            this.pictureButton16.PressedImage = ((System.Drawing.Image)(resources.GetObject("pictureButton16.PressedImage")));
-            this.pictureButton16.Size = new System.Drawing.Size(39, 39);
-            this.pictureButton16.TabIndex = 32;
-            this.pictureButton16.ToolTipText = "";
+            this.lblCH7Input.BackColor = System.Drawing.Color.MidnightBlue;
+            this.lblCH7Input.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblCH7Input.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCH7Input.ForeColor = System.Drawing.Color.White;
+            this.lblCH7Input.Location = new System.Drawing.Point(12, 388);
+            this.lblCH7Input.Name = "lblCH7Input";
+            this.lblCH7Input.Size = new System.Drawing.Size(107, 23);
+            this.lblCH7Input.TabIndex = 109;
+            this.lblCH7Input.Text = "Network Input #3";
+            this.lblCH7Input.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label1
+            // lblCH6Input
             // 
-            this.label1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
-            this.label1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(12, 436);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(107, 23);
-            this.label1.TabIndex = 105;
-            this.label1.Text = "Dante Input #4";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblCH6Input.BackColor = System.Drawing.Color.MidnightBlue;
+            this.lblCH6Input.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblCH6Input.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCH6Input.ForeColor = System.Drawing.Color.White;
+            this.lblCH6Input.Location = new System.Drawing.Point(12, 340);
+            this.lblCH6Input.Name = "lblCH6Input";
+            this.lblCH6Input.Size = new System.Drawing.Size(107, 23);
+            this.lblCH6Input.TabIndex = 108;
+            this.lblCH6Input.Text = "Network Input #2";
+            this.lblCH6Input.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label2
+            // lblCH5Input
             // 
-            this.label2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
-            this.label2.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.label2.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(12, 389);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(107, 23);
-            this.label2.TabIndex = 103;
-            this.label2.Text = "Dante Input #3";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblCH5Input.BackColor = System.Drawing.Color.MidnightBlue;
+            this.lblCH5Input.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblCH5Input.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCH5Input.ForeColor = System.Drawing.Color.White;
+            this.lblCH5Input.Location = new System.Drawing.Point(12, 292);
+            this.lblCH5Input.Name = "lblCH5Input";
+            this.lblCH5Input.Size = new System.Drawing.Size(107, 23);
+            this.lblCH5Input.TabIndex = 110;
+            this.lblCH5Input.Text = "Network Input #1";
+            this.lblCH5Input.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label3
-            // 
-            this.label3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
-            this.label3.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.label3.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(12, 341);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(107, 23);
-            this.label3.TabIndex = 102;
-            this.label3.Text = "Dante Input #2";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label4
-            // 
-            this.label4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
-            this.label4.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.label4.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(12, 294);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(107, 23);
-            this.label4.TabIndex = 104;
-            this.label4.Text = "Dante Input #1";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // pictureBox3
-            // 
-            this.pictureBox3.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox3.BackgroundImage")));
-            this.pictureBox3.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox3.Image")));
-            this.pictureBox3.Location = new System.Drawing.Point(196, 112);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(4, 370);
-            this.pictureBox3.TabIndex = 110;
-            this.pictureBox3.TabStop = false;
-            // 
-            // FLXForm_Template
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(82)))), ((int)(((byte)(82)))));
             this.ClientSize = new System.Drawing.Size(906, 567);
-            this.Controls.Add(this.pictureBox3);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.pbtnBridge);
-            this.Controls.Add(this.picBridgeLine);
-            this.Controls.Add(this.pbtnDucker);
             this.Controls.Add(this.btnMatrixMixer);
+            this.Controls.Add(this.lblCH8Input);
+            this.Controls.Add(this.lblCH7Input);
+            this.Controls.Add(this.lblCH6Input);
+            this.Controls.Add(this.lblCH5Input);
+            this.Controls.Add(this.pbtnDucker);
+            this.Controls.Add(this.picDuckerLine);
+            this.Controls.Add(this.pnlCH6PreMixer);
+            this.Controls.Add(this.pnlCH8PreMixer);
+            this.Controls.Add(this.pnlCH7PreMixer);
+            this.Controls.Add(this.pnlCH5PreMixer);
+            this.Controls.Add(this.pnlCH2PreMixer);
             this.Controls.Add(this.lblCH4Output);
             this.Controls.Add(this.lblCH3Output);
             this.Controls.Add(this.lblCH2Output);
@@ -1621,39 +1597,32 @@ namespace SA_Resources
             this.Controls.Add(this.pnlCH2PostMixer);
             this.Controls.Add(this.lblCH1Output);
             this.Controls.Add(this.pnlCH1PostMixer);
+            this.Controls.Add(this.pnlCH4PreMixer);
+            this.Controls.Add(this.pnlCH3PreMixer);
+            this.Controls.Add(this.pnlCH1PreMixer);
             this.Controls.Add(this.lblCH4Input);
             this.Controls.Add(this.lblCH3Input);
             this.Controls.Add(this.lblCH2Input);
             this.Controls.Add(this.lblCH1Input);
             this.Controls.Add(this.pictureBox37);
             this.Controls.Add(this.statusStrip1);
-            this.Controls.Add(this.panel1);
-            this.Controls.Add(this.panel2);
-            this.Controls.Add(this.panel3);
-            this.Controls.Add(this.panel4);
-            this.Controls.Add(this.pnlCH2PreMixer);
-            this.Controls.Add(this.pnlCH4PreMixer);
-            this.Controls.Add(this.pnlCH3PreMixer);
-            this.Controls.Add(this.pnlCH1PreMixer);
             this.Cursor = System.Windows.Forms.Cursors.Default;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "FLXForm_Template";
-            this.Text = "FLX80-4 Dante";
-            this.Load += new System.EventHandler(this.FLXForm_Template_Load);
-            this.Controls.SetChildIndex(this.pnlCH1PreMixer, 0);
-            this.Controls.SetChildIndex(this.pnlCH3PreMixer, 0);
-            this.Controls.SetChildIndex(this.pnlCH4PreMixer, 0);
-            this.Controls.SetChildIndex(this.pnlCH2PreMixer, 0);
-            this.Controls.SetChildIndex(this.panel4, 0);
-            this.Controls.SetChildIndex(this.panel3, 0);
-            this.Controls.SetChildIndex(this.panel2, 0);
-            this.Controls.SetChildIndex(this.panel1, 0);
+            this.Name = "MainForm";
+            this.Text = "FLX160-2 Dante";
+            this.Controls.SetChildIndex(this.pbPresetSelection, 0);
+            this.Controls.SetChildIndex(this.dropProgramSelection, 0);
+            this.Controls.SetChildIndex(this.btnConnectToDevice, 0);
+            this.Controls.SetChildIndex(this.pictureConnectionStatus, 0);
             this.Controls.SetChildIndex(this.statusStrip1, 0);
             this.Controls.SetChildIndex(this.pictureBox37, 0);
             this.Controls.SetChildIndex(this.lblCH1Input, 0);
             this.Controls.SetChildIndex(this.lblCH2Input, 0);
             this.Controls.SetChildIndex(this.lblCH3Input, 0);
             this.Controls.SetChildIndex(this.lblCH4Input, 0);
+            this.Controls.SetChildIndex(this.pnlCH1PreMixer, 0);
+            this.Controls.SetChildIndex(this.pnlCH3PreMixer, 0);
+            this.Controls.SetChildIndex(this.pnlCH4PreMixer, 0);
             this.Controls.SetChildIndex(this.pnlCH1PostMixer, 0);
             this.Controls.SetChildIndex(this.lblCH1Output, 0);
             this.Controls.SetChildIndex(this.pnlCH2PostMixer, 0);
@@ -1662,19 +1631,18 @@ namespace SA_Resources
             this.Controls.SetChildIndex(this.lblCH2Output, 0);
             this.Controls.SetChildIndex(this.lblCH3Output, 0);
             this.Controls.SetChildIndex(this.lblCH4Output, 0);
-            this.Controls.SetChildIndex(this.btnMatrixMixer, 0);
+            this.Controls.SetChildIndex(this.pnlCH2PreMixer, 0);
+            this.Controls.SetChildIndex(this.pnlCH5PreMixer, 0);
+            this.Controls.SetChildIndex(this.pnlCH7PreMixer, 0);
+            this.Controls.SetChildIndex(this.pnlCH8PreMixer, 0);
+            this.Controls.SetChildIndex(this.pnlCH6PreMixer, 0);
+            this.Controls.SetChildIndex(this.picDuckerLine, 0);
             this.Controls.SetChildIndex(this.pbtnDucker, 0);
-            this.Controls.SetChildIndex(this.picBridgeLine, 0);
-            this.Controls.SetChildIndex(this.pbtnBridge, 0);
-            this.Controls.SetChildIndex(this.label4, 0);
-            this.Controls.SetChildIndex(this.label3, 0);
-            this.Controls.SetChildIndex(this.label2, 0);
-            this.Controls.SetChildIndex(this.label1, 0);
-            this.Controls.SetChildIndex(this.pbPresetSelection, 0);
-            this.Controls.SetChildIndex(this.dropProgramSelection, 0);
-            this.Controls.SetChildIndex(this.btnConnectToDevice, 0);
-            this.Controls.SetChildIndex(this.pictureConnectionStatus, 0);
-            this.Controls.SetChildIndex(this.pictureBox3, 0);
+            this.Controls.SetChildIndex(this.lblCH5Input, 0);
+            this.Controls.SetChildIndex(this.lblCH6Input, 0);
+            this.Controls.SetChildIndex(this.lblCH7Input, 0);
+            this.Controls.SetChildIndex(this.lblCH8Input, 0);
+            this.Controls.SetChildIndex(this.btnMatrixMixer, 0);
             ((System.ComponentModel.ISupportInitialize)(this.pictureConnectionStatus)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbPresetSelection)).EndInit();
             this.statusStrip1.ResumeLayout(false);
@@ -1688,12 +1656,11 @@ namespace SA_Resources
             this.pnlCH4PreMixer.ResumeLayout(false);
             this.pnlCH3PreMixer.ResumeLayout(false);
             this.pnlCH1PreMixer.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.picBridgeLine)).EndInit();
-            this.panel1.ResumeLayout(false);
-            this.panel2.ResumeLayout(false);
-            this.panel3.ResumeLayout(false);
-            this.panel4.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picDuckerLine)).EndInit();
+            this.pnlCH6PreMixer.ResumeLayout(false);
+            this.pnlCH8PreMixer.ResumeLayout(false);
+            this.pnlCH7PreMixer.ResumeLayout(false);
+            this.pnlCH5PreMixer.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1763,34 +1730,32 @@ namespace SA_Resources
         private System.Windows.Forms.Label lblCH3Input;
         private System.Windows.Forms.Label lblCH2Input;
         private System.Windows.Forms.Label lblCH1Input;
+        private System.Windows.Forms.PictureBox picDuckerLine;
         private PictureButton pbtnDucker;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
-        private System.Windows.Forms.PictureBox picBridgeLine;
-        private PictureButton pbtnBridge;
-        private System.Windows.Forms.Panel panel1;
-        private PictureButton pictureButton1;
-        private PictureButton pictureButton2;
-        private PictureButton pictureButton3;
-        private PictureButton pictureButton4;
-        private System.Windows.Forms.Panel panel2;
-        private PictureButton pictureButton5;
-        private PictureButton pictureButton6;
-        private PictureButton pictureButton7;
-        private PictureButton pictureButton8;
-        private System.Windows.Forms.Panel panel3;
-        private PictureButton pictureButton9;
-        private PictureButton pictureButton10;
-        private PictureButton pictureButton11;
-        private PictureButton pictureButton12;
-        private System.Windows.Forms.Panel panel4;
-        private PictureButton pictureButton13;
-        private PictureButton pictureButton14;
-        private PictureButton pictureButton15;
-        private PictureButton pictureButton16;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.PictureBox pictureBox3;
+        private System.Windows.Forms.Panel pnlCH6PreMixer;
+        private PictureButton btnGain50;
+        private PictureButton btnCH5PreFilters;
+        private PictureButton btnCompressor50;
+        private PictureButton btnGain51;
+        private System.Windows.Forms.Panel pnlCH8PreMixer;
+        private PictureButton btnGain70;
+        private PictureButton btnCH7PreFilters;
+        private PictureButton btnCompressor70;
+        private PictureButton btnGain71;
+        private System.Windows.Forms.Panel pnlCH7PreMixer;
+        private PictureButton btnGain60;
+        private PictureButton btnCH6PreFilters;
+        private PictureButton btnCompressor60;
+        private PictureButton btnGain61;
+        private System.Windows.Forms.Panel pnlCH5PreMixer;
+        private PictureButton btnGain40;
+        private PictureButton btnCH4PreFilters;
+        private PictureButton btnCompressor40;
+        private PictureButton btnGain41;
+        private System.Windows.Forms.Label lblCH8Input;
+        private System.Windows.Forms.Label lblCH7Input;
+        private System.Windows.Forms.Label lblCH6Input;
+        private System.Windows.Forms.Label lblCH5Input;
     }
 }
