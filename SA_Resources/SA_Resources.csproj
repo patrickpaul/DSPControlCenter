@@ -62,7 +62,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\SharedAssemblyInfo.cs">
+<Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Classes\BridgeMode.cs" />
@@ -374,7 +374,7 @@
     <None Include="Resources\knob_yellow_line.png" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Forms\AboutForm.resx">
+  <EmbeddedResource Include="Forms\AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\CompressorForm.resx">

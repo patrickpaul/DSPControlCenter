@@ -193,6 +193,8 @@ namespace SA_Resources.SAForms
                 inMeter4.Stop();
                 inMeter5.Stop();
                 inMeter6.Stop();
+                inMeter7.Stop();
+                inMeter8.Stop();
 
                 outMeter1.Stop();
                 outMeter2.Stop();

@@ -224,12 +224,5 @@ namespace SA_Resources.SAForms
             this.DialogResult = DialogResult.OK;
             this.Close();
         }
-
-        private void filterDesignBlock0_Click(object sender, EventArgs e)
-        {
-
-        }
-
-
     }
 }

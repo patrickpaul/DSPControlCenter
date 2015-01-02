@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{89275D49-579A-4339-81BE-5692C8CAD313}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SA_GFXLib</RootNamespace>
+    <AssemblyName>SA_GFXLib</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+  <Compile Include="..\SharedAssemblyInfo.cs">
+      <Link>Properties\SharedAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SA_GFXLib_Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SA_GFXLib_Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="SA_GFXLib_Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>SA_GFXLib_Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ui_btn_gain.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ui_btn_gain_over.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ui_btn_compressor.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ui_btn_compressor_over.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ui_btn_delay.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ui_btn_delay_over.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ui_btn_duck.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ui_btn_ducker.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ui_btn_filters.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ui_btn_filters_over.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ui_btn_limiter.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ui_btn_limiter_over.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ui_btn_trim.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ui_btn_trim_over.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ui_icon_overlay_bypassed.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ui_icon_overlay_mute.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ui_icon_matrix.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ui_icon_matrix_2_1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ui_icon_matrix_network_2ch.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ui_icon_matrix_network_4ch.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ui_bg_horizontal_line.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ui_bg_vertical_line.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ui_logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="DSP Control Center v4.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ui_btn_bridge.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

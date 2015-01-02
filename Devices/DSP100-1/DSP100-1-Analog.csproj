@@ -85,16 +85,18 @@
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.resx">
+    <None Include="..\..\SA_GFXLib\SA_GFXLib_Resources.resx">
+      <Link>SA_GFXLib_Resources.resx</Link>
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
+      <LastGenOutput>SA_GFXLib_Resources.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>SA_GFXLib</CustomToolNamespace>
+    </None>
+    <None Include="..\..\SA_GFXLib\SA_GFXLib_Resources.Designer.cs">
+      <Link>SA_GFXLib_Resources.Designer.cs</Link>
       <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
-    </Compile>
+      <DependentUpon>SA_GFXLib_Resources.resx</DependentUpon>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -104,15 +106,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ui_icon_overlay_bypassed.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ui_icon_overlay_mute.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\menu_program_selection.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
@@ -137,9 +130,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\ui_btn_meters.png" />
-  </ItemGroup>
-  <ItemGroup>
+    <ProjectReference Include="..\..\SA_GFXLib\SA_GFXLib.csproj">
+      <Project>{89275d49-579a-4339-81be-5692c8cad313}</Project>
+      <Name>SA_GFXLib</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\SA_Resources\SA_Resources.csproj">
       <Project>{cbb53399-cc71-4ae3-87ee-d87deaf0ad0d}</Project>
       <Name>SA_Resources</Name>
@@ -148,7 +142,7 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_UseGlobalSettings="False" BuildVersion_AssemblyInfoFilename="" BuildVersion_UpdateFileVersion="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_BuildVersioningStyle="None.None.None.None" BuildVersion_IncrementBeforeBuild="False" BuildVersion_DetectChanges="False" />
+      <UserProperties BuildVersion_DetectChanges="False" BuildVersion_IncrementBeforeBuild="False" BuildVersion_BuildVersioningStyle="None.None.None.None" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UpdateFileVersion="False" BuildVersion_AssemblyInfoFilename="" BuildVersion_UseGlobalSettings="False" />
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>

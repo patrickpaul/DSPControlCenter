@@ -351,6 +351,7 @@
 		<row><td>ISX_DEFAULTCOMPONENT5</td><td>{6C73D936-9E39-42F6-BCDF-08DBA4BCF64A}</td><td>AMD641</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>ISX_DEFAULTCOMPONENT6</td><td>{5A0978B7-03DC-427F-9A4A-4F8FF69E12A4}</td><td>I3861</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>ISX_DEFAULTCOMPONENT7</td><td>{48769C3C-2FAF-4738-AF9F-622BB62EF516}</td><td>INSTALLDIR</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>SA_GFXLib.Primary_output</td><td>{F39B5EAF-E6AE-4B13-ABB5-4BFD3CA2CC80}</td><td>INSTALLDIR</td><td>2</td><td/><td>sa_gfxlib.primary_output</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>SA_Resources.Primary_output</td><td>{783DE6CC-41D8-4D55-AA2F-47C185C73166}</td><td>INSTALLDIR</td><td>2</td><td/><td>sa_resources.primary_output</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>Stewart_Audio_Control_Center.Primary_output</td><td>{18B7467C-4701-4055-B4D8-E7788171F138}</td><td>INSTALLDIR</td><td>2</td><td/><td>stewart_audio_control_center</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>dp_chooser.exe</td><td>{D549B446-CD04-49C9-9598-A7166F509AB8}</td><td>DRIVERS</td><td>2</td><td/><td>dp_chooser.exe</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
@@ -1907,6 +1908,7 @@
 		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT5</td></row>
 		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT6</td></row>
 		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT7</td></row>
+		<row><td>AlwaysInstall</td><td>SA_GFXLib.Primary_output</td></row>
 		<row><td>AlwaysInstall</td><td>SA_Resources.Primary_output</td></row>
 		<row><td>AlwaysInstall</td><td>Stewart_Audio_Control_Center.Primary_output</td></row>
 		<row><td>AlwaysInstall</td><td>dp_chooser.exe</td></row>
@@ -1957,15 +1959,21 @@
 		<row><td>flx160_2_cv_analog.sadev</td><td>ISX_DEFAULTCOMPONENT</td><td>FLX160~1.SAD|FLX160_2_CV_Analog.sadev</td><td>0</td><td/><td/><td/><td>1</td><td>C:\SOURCE\DSPControlCenter\Stewart Audio Control Center\bin\Debug\Devices\FLX160_2_CV_Analog.sadev</td><td>1</td><td/></row>
 		<row><td>flx160_2_cv_analog_default.s</td><td>ISX_DEFAULTCOMPONENT</td><td>FLX160~1.SCF|FLX160-2-CV-Analog_Default.scfg</td><td>0</td><td/><td/><td/><td>1</td><td>C:\SOURCE\DSPControlCenter\Devices\FLX 160-2-CV\FLX160-2-CV-Analog_Default.scfg</td><td>1</td><td/></row>
 		<row><td>flx160_2_cv_network.sadev</td><td>ISX_DEFAULTCOMPONENT</td><td>FLX160~1.SAD|FLX160_2_CV_Network.sadev</td><td>0</td><td/><td/><td/><td>1</td><td>C:\SOURCE\DSPControlCenter\Stewart Audio Control Center\bin\Debug\Devices\FLX160_2_CV_Network.sadev</td><td>1</td><td/></row>
+		<row><td>flx160_2_cv_network_default.</td><td>ISX_DEFAULTCOMPONENT</td><td>FLX160~1.SCF|FLX160-2-CV-Network_Default.scfg</td><td>0</td><td/><td/><td/><td>1</td><td>C:\SOURCE\DSPControlCenter\Devices\FLX 160-2-CV_NET\FLX160-2-CV-Network_Default.scfg</td><td>1</td><td/></row>
 		<row><td>flx160_2_network.sadev</td><td>ISX_DEFAULTCOMPONENT</td><td>FLX160~1.SAD|FLX160_2_Network.sadev</td><td>0</td><td/><td/><td/><td>1</td><td>C:\SOURCE\DSPControlCenter\Stewart Audio Control Center\bin\Debug\Devices\FLX160_2_Network.sadev</td><td>1</td><td/></row>
+		<row><td>flx160_2_network_default.scf</td><td>ISX_DEFAULTCOMPONENT</td><td>FLX160~1.SCF|FLX160-2-Network_Default.scfg</td><td>0</td><td/><td/><td/><td>1</td><td>C:\SOURCE\DSPControlCenter\Devices\FLX 160-2-NET\FLX160-2-Network_Default.scfg</td><td>1</td><td/></row>
 		<row><td>flx320_1_analog.sadev</td><td>ISX_DEFAULTCOMPONENT</td><td>FLX320~1.SAD|FLX320_1_Analog.sadev</td><td>0</td><td/><td/><td/><td>1</td><td>C:\SOURCE\DSPControlCenter\Stewart Audio Control Center\bin\Debug\Devices\FLX320_1_Analog.sadev</td><td>1</td><td/></row>
+		<row><td>flx320_1_analog_default.scfg</td><td>ISX_DEFAULTCOMPONENT</td><td>FLX320~1.SCF|FLX320-1-Analog_Default.scfg</td><td>0</td><td/><td/><td/><td>1</td><td>C:\SOURCE\DSPControlCenter\Devices\FLX 320-1\FLX320-1-Analog_Default.scfg</td><td>1</td><td/></row>
 		<row><td>flx320_1_cv_network.sadev</td><td>ISX_DEFAULTCOMPONENT</td><td>FLX320~1.SAD|FLX320_1_CV_Network.sadev</td><td>0</td><td/><td/><td/><td>1</td><td>C:\SOURCE\DSPControlCenter\Stewart Audio Control Center\bin\Debug\Devices\FLX320_1_CV_Network.sadev</td><td>1</td><td/></row>
+		<row><td>flx320_1_cv_network_default.</td><td>ISX_DEFAULTCOMPONENT</td><td>FLX320~1.SCF|FLX320-1-CV-Network_Default.scfg</td><td>0</td><td/><td/><td/><td>1</td><td>C:\SOURCE\DSPControlCenter\Devices\FLX 320-1-CV_NET\FLX320-1-CV-Network_Default.scfg</td><td>1</td><td/></row>
 		<row><td>flx80_4_analog.sadev</td><td>ISX_DEFAULTCOMPONENT</td><td>FLX80_~1.SAD|FLX80_4_Analog.sadev</td><td>0</td><td/><td/><td/><td>1</td><td>C:\SOURCE\DSPControlCenter\Stewart Audio Control Center\bin\Debug\Devices\FLX80_4_Analog.sadev</td><td>1</td><td/></row>
 		<row><td>flx80_4_analog_default.scfg</td><td>ISX_DEFAULTCOMPONENT</td><td>FLX80-~1.SCF|FLX80-4-Analog_Default.scfg</td><td>0</td><td/><td/><td/><td>1</td><td>C:\SOURCE\DSPControlCenter\Devices\FLX 80-4\FLX80-4-Analog_Default.scfg</td><td>1</td><td/></row>
 		<row><td>flx80_4_cv_analog.sadev</td><td>ISX_DEFAULTCOMPONENT</td><td>FLX80_~1.SAD|FLX80_4_CV_Analog.sadev</td><td>0</td><td/><td/><td/><td>1</td><td>C:\SOURCE\DSPControlCenter\Stewart Audio Control Center\bin\Debug\Devices\FLX80_4_CV_Analog.sadev</td><td>1</td><td/></row>
 		<row><td>flx80_4_cv_analog_default.sc</td><td>ISX_DEFAULTCOMPONENT</td><td>FLX80-~1.SCF|FLX80-4-CV-Analog_Default.scfg</td><td>0</td><td/><td/><td/><td>1</td><td>C:\SOURCE\DSPControlCenter\Devices\FLX 80-4-CV\FLX80-4-CV-Analog_Default.scfg</td><td>1</td><td/></row>
 		<row><td>flx80_4_cv_network.sadev</td><td>ISX_DEFAULTCOMPONENT</td><td>FLX80_~1.SAD|FLX80_4_CV_Network.sadev</td><td>0</td><td/><td/><td/><td>1</td><td>C:\SOURCE\DSPControlCenter\Stewart Audio Control Center\bin\Debug\Devices\FLX80_4_CV_Network.sadev</td><td>1</td><td/></row>
+		<row><td>flx80_4_cv_network_default.s</td><td>ISX_DEFAULTCOMPONENT</td><td>FLX80-~1.SCF|FLX80-4-CV-Network_Default.scfg</td><td>0</td><td/><td/><td/><td>1</td><td>C:\SOURCE\DSPControlCenter\Devices\FLX 80-4-CV_NET\FLX80-4-CV-Network_Default.scfg</td><td>1</td><td/></row>
 		<row><td>flx80_4_network.sadev</td><td>ISX_DEFAULTCOMPONENT</td><td>FLX80_~1.SAD|FLX80_4_Network.sadev</td><td>0</td><td/><td/><td/><td>1</td><td>C:\SOURCE\DSPControlCenter\Stewart Audio Control Center\bin\Debug\Devices\FLX80_4_Network.sadev</td><td>1</td><td/></row>
+		<row><td>flx80_4_network_default.scfg</td><td>ISX_DEFAULTCOMPONENT</td><td>FLX80-~1.SCF|FLX80-4-Network_Default.scfg</td><td>0</td><td/><td/><td/><td>1</td><td>C:\SOURCE\DSPControlCenter\Devices\FLX 80-4_NET\FLX80-4-Network_Default.scfg</td><td>1</td><td/></row>
 		<row><td>ftbusui.dll</td><td>ftbusui.dll</td><td>ftbusui.dll</td><td>0</td><td/><td/><td/><td>1</td><td>C:\SOURCE\DSPControlCenter\Drivers\amd64\ftbusui.dll</td><td>1</td><td/></row>
 		<row><td>ftbusui.dll1</td><td>ftbusui.dll1</td><td>ftbusui.dll</td><td>0</td><td/><td/><td/><td>1</td><td>C:\SOURCE\DSPControlCenter\Drivers\i386\ftbusui.dll</td><td>1</td><td/></row>
 		<row><td>ftcserco.dll</td><td>ftcserco.dll</td><td>ftcserco.dll</td><td>0</td><td/><td/><td/><td>1</td><td>C:\SOURCE\DSPControlCenter\Drivers\amd64\ftcserco.dll</td><td>1</td><td/></row>
@@ -1989,6 +1997,7 @@
 		<row><td>ftser2k.sys1</td><td>ISX_DEFAULTCOMPONENT3</td><td>ftser2k.sys</td><td>0</td><td/><td/><td/><td>1</td><td>C:\SOURCE\DSPControlCenter\Drivers\i386\ftser2k.sys</td><td>1</td><td/></row>
 		<row><td>ftserui2.dll</td><td>ftserui2.dll</td><td>ftserui2.dll</td><td>0</td><td/><td/><td/><td>1</td><td>C:\SOURCE\DSPControlCenter\Drivers\amd64\ftserui2.dll</td><td>1</td><td/></row>
 		<row><td>ftserui2.dll1</td><td>ftserui2.dll1</td><td>ftserui2.dll</td><td>0</td><td/><td/><td/><td>1</td><td>C:\SOURCE\DSPControlCenter\Drivers\i386\ftserui2.dll</td><td>1</td><td/></row>
+		<row><td>sa_gfxlib.primary_output</td><td>SA_GFXLib.Primary_output</td><td>SA_GFXLib.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;SA_GFXLib&gt;|Built</td><td>3</td><td/></row>
 		<row><td>sa_resources.primary_output</td><td>SA_Resources.Primary_output</td><td>SA_Resources.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;SA_Resources&gt;|Built</td><td>3</td><td/></row>
 		<row><td>stewart_audio_control_center</td><td>Stewart_Audio_Control_Center.Primary_output</td><td>Stewart Audio Control Center.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;Stewart Audio Control Center&gt;|Built</td><td>3</td><td/></row>
 		<row><td>wyupdate.exe</td><td>wyUpdate.exe</td><td>wyUpdate.exe</td><td>0</td><td/><td/><td/><td>1</td><td>C:\SOURCE\DSPControlCenter\Updater\wyUpdate\wyUpdate.exe</td><td>1</td><td/></row>
@@ -2258,6 +2267,7 @@
 		<row><td>ISX_DEFAULTCOMPONENT5</td><td/><td/><td>_4B23D6EB_7893_402E_B5D2_50FD68534055_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>ISX_DEFAULTCOMPONENT6</td><td/><td/><td>_EF24590E_E6EE_4522_881D_559BBAB526BD_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>ISX_DEFAULTCOMPONENT7</td><td/><td/><td>_8A56F7F1_9542_435F_90DB_896EFBC9FC60_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>SA_GFXLib.Primary_output</td><td/><td/><td>_D2EE6093_ED5C_4CB4_AFF0_D206C91482D2_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>SA_Resources.Primary_output</td><td/><td/><td>_4024C84A_BDDF_4B95_9140_2B0F708F08A4_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>Stewart_Audio_Control_Center.Primary_output</td><td/><td/><td>_208BFD0F_A5DC_4BA9_9C4F_31B30DC69147_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>dp_chooser.exe</td><td/><td/><td>_7680A715_CB2E_496B_B86F_ED4C7E2598E9_FILTER</td><td/><td/><td/><td/></row>
@@ -2593,6 +2603,7 @@
 		<row><td>ISProjectDataFolder</td><td/><td/><td>1</td></row>
 		<row><td>ISProjectFolder</td><td/><td/><td>1</td></row>
 		<row><td>ProgramFilesFolder</td><td/><td/><td>1</td></row>
+		<row><td>SA_GFXLib</td><td>SA_GFXLib\SA_GFXLib.csproj</td><td/><td>2</td></row>
 		<row><td>SA_Resources</td><td>SA_Resources\SA_Resources.csproj</td><td/><td>2</td></row>
 		<row><td>Stewart Audio Control Center</td><td>Stewart Audio Control Center\Stewart Audio Control Center.csproj</td><td/><td>2</td></row>
 		<row><td>SystemFolder</td><td/><td/><td>1</td></row>

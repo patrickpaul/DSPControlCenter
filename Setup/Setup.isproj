@@ -36,5 +36,9 @@
 			<Name>Stewart Audio Control Center</Name>
 			<Project>{ACCA21E1-0214-41E9-9361-38F15A0E670E}</Project>
 		</ProjectReference>
+		<ProjectReference Include="..\SA_GFXLib\SA_GFXLib.csproj">
+			<Name>SA_GFXLib</Name>
+			<Project>{89275D49-579A-4339-81BE-5692C8CAD313}</Project>
+		</ProjectReference>
 	</ItemGroup>
 </Project>

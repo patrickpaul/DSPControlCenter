@@ -101,6 +101,7 @@ namespace DSP100_1_Analog
             // dropProgramSelection
             // 
             this.dropProgramSelection.Items.AddRange(new object[] {
+            "Preset 0",
             "Preset 0"});
             // 
             // statusStrip1
@@ -158,7 +159,7 @@ namespace DSP100_1_Analog
             // 
             // pictureBox37
             // 
-            this.pictureBox37.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox37.Image")));
+            this.pictureBox37.Image = global::SA_GFXLib.SA_GFXLib_Resources.ui_logo;
             this.pictureBox37.Location = new System.Drawing.Point(644, 292);
             this.pictureBox37.Name = "pictureBox37";
             this.pictureBox37.Size = new System.Drawing.Size(248, 63);
@@ -169,18 +170,18 @@ namespace DSP100_1_Analog
             // btnGain03
             // 
             this.btnGain03.AutoResize = false;
-            this.btnGain03.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnGain03.BackgroundImage")));
+            this.btnGain03.BackgroundImage = global::SA_GFXLib.SA_GFXLib_Resources.ui_btn_gain;
             this.btnGain03.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnGain03.Location = new System.Drawing.Point(270, 0);
             this.btnGain03.Name = "btnGain03";
             this.btnGain03.OverImage = null;
-            this.btnGain03.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnGain03.Overlay1Image")));
+            this.btnGain03.Overlay1Image = global::SA_GFXLib.SA_GFXLib_Resources.ui_icon_overlay_bypassed;
             this.btnGain03.Overlay1Visible = false;
-            this.btnGain03.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnGain03.Overlay2Image")));
+            this.btnGain03.Overlay2Image = global::SA_GFXLib.SA_GFXLib_Resources.ui_icon_overlay_mute;
             this.btnGain03.Overlay2Visible = false;
             this.btnGain03.Overlay3Image = null;
             this.btnGain03.Overlay3Visible = false;
-            this.btnGain03.PressedImage = ((System.Drawing.Image)(resources.GetObject("btnGain03.PressedImage")));
+            this.btnGain03.PressedImage = global::SA_GFXLib.SA_GFXLib_Resources.ui_btn_gain_over;
             this.btnGain03.Size = new System.Drawing.Size(39, 39);
             this.btnGain03.TabIndex = 31;
             this.btnGain03.ToolTipText = "";
@@ -188,18 +189,18 @@ namespace DSP100_1_Analog
             // btnCompressor01
             // 
             this.btnCompressor01.AutoResize = false;
-            this.btnCompressor01.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnCompressor01.BackgroundImage")));
+            this.btnCompressor01.BackgroundImage = global::SA_GFXLib.SA_GFXLib_Resources.ui_btn_limiter;
             this.btnCompressor01.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnCompressor01.Location = new System.Drawing.Point(190, 0);
             this.btnCompressor01.Name = "btnCompressor01";
             this.btnCompressor01.OverImage = null;
-            this.btnCompressor01.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnCompressor01.Overlay1Image")));
+            this.btnCompressor01.Overlay1Image = global::SA_GFXLib.SA_GFXLib_Resources.ui_icon_overlay_bypassed;
             this.btnCompressor01.Overlay1Visible = true;
-            this.btnCompressor01.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnCompressor01.Overlay2Image")));
+            this.btnCompressor01.Overlay2Image = global::SA_GFXLib.SA_GFXLib_Resources.ui_icon_overlay_mute;
             this.btnCompressor01.Overlay2Visible = false;
             this.btnCompressor01.Overlay3Image = null;
             this.btnCompressor01.Overlay3Visible = false;
-            this.btnCompressor01.PressedImage = ((System.Drawing.Image)(resources.GetObject("btnCompressor01.PressedImage")));
+            this.btnCompressor01.PressedImage = global::SA_GFXLib.SA_GFXLib_Resources.ui_btn_limiter_over;
             this.btnCompressor01.Size = new System.Drawing.Size(39, 39);
             this.btnCompressor01.TabIndex = 29;
             this.btnCompressor01.ToolTipText = "";
@@ -207,18 +208,18 @@ namespace DSP100_1_Analog
             // btnGain02
             // 
             this.btnGain02.AutoResize = false;
-            this.btnGain02.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnGain02.BackgroundImage")));
+            this.btnGain02.BackgroundImage = global::SA_GFXLib.SA_GFXLib_Resources.ui_btn_gain;
             this.btnGain02.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnGain02.Location = new System.Drawing.Point(30, 0);
             this.btnGain02.Name = "btnGain02";
             this.btnGain02.OverImage = null;
-            this.btnGain02.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnGain02.Overlay1Image")));
+            this.btnGain02.Overlay1Image = global::SA_GFXLib.SA_GFXLib_Resources.ui_icon_overlay_bypassed;
             this.btnGain02.Overlay1Visible = false;
-            this.btnGain02.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnGain02.Overlay2Image")));
+            this.btnGain02.Overlay2Image = global::SA_GFXLib.SA_GFXLib_Resources.ui_icon_overlay_mute;
             this.btnGain02.Overlay2Visible = false;
             this.btnGain02.Overlay3Image = null;
             this.btnGain02.Overlay3Visible = false;
-            this.btnGain02.PressedImage = ((System.Drawing.Image)(resources.GetObject("btnGain02.PressedImage")));
+            this.btnGain02.PressedImage = global::SA_GFXLib.SA_GFXLib_Resources.ui_btn_gain_over;
             this.btnGain02.Size = new System.Drawing.Size(39, 39);
             this.btnGain02.TabIndex = 28;
             this.btnGain02.ToolTipText = "";
@@ -226,18 +227,18 @@ namespace DSP100_1_Analog
             // btnCH0PostFilters
             // 
             this.btnCH0PostFilters.AutoResize = false;
-            this.btnCH0PostFilters.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnCH0PostFilters.BackgroundImage")));
+            this.btnCH0PostFilters.BackgroundImage = global::SA_GFXLib.SA_GFXLib_Resources.ui_btn_filters;
             this.btnCH0PostFilters.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnCH0PostFilters.Location = new System.Drawing.Point(110, 0);
             this.btnCH0PostFilters.Name = "btnCH0PostFilters";
             this.btnCH0PostFilters.OverImage = null;
-            this.btnCH0PostFilters.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnCH0PostFilters.Overlay1Image")));
+            this.btnCH0PostFilters.Overlay1Image = global::SA_GFXLib.SA_GFXLib_Resources.ui_icon_overlay_bypassed;
             this.btnCH0PostFilters.Overlay1Visible = false;
-            this.btnCH0PostFilters.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnCH0PostFilters.Overlay2Image")));
+            this.btnCH0PostFilters.Overlay2Image = global::SA_GFXLib.SA_GFXLib_Resources.ui_icon_overlay_mute;
             this.btnCH0PostFilters.Overlay2Visible = false;
             this.btnCH0PostFilters.Overlay3Image = null;
             this.btnCH0PostFilters.Overlay3Visible = false;
-            this.btnCH0PostFilters.PressedImage = ((System.Drawing.Image)(resources.GetObject("btnCH0PostFilters.PressedImage")));
+            this.btnCH0PostFilters.PressedImage = global::SA_GFXLib.SA_GFXLib_Resources.ui_btn_filters_over;
             this.btnCH0PostFilters.Size = new System.Drawing.Size(39, 39);
             this.btnCH0PostFilters.TabIndex = 27;
             this.btnCH0PostFilters.ToolTipText = "";
@@ -245,18 +246,18 @@ namespace DSP100_1_Analog
             // btnGain30
             // 
             this.btnGain30.AutoResize = false;
-            this.btnGain30.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnGain30.BackgroundImage")));
+            this.btnGain30.BackgroundImage = global::SA_GFXLib.SA_GFXLib_Resources.ui_btn_gain;
             this.btnGain30.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnGain30.Location = new System.Drawing.Point(30, 0);
             this.btnGain30.Name = "btnGain30";
             this.btnGain30.OverImage = null;
-            this.btnGain30.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnGain30.Overlay1Image")));
+            this.btnGain30.Overlay1Image = global::SA_GFXLib.SA_GFXLib_Resources.ui_icon_overlay_bypassed;
             this.btnGain30.Overlay1Visible = false;
-            this.btnGain30.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnGain30.Overlay2Image")));
+            this.btnGain30.Overlay2Image = global::SA_GFXLib.SA_GFXLib_Resources.ui_icon_overlay_mute;
             this.btnGain30.Overlay2Visible = false;
             this.btnGain30.Overlay3Image = null;
             this.btnGain30.Overlay3Visible = false;
-            this.btnGain30.PressedImage = ((System.Drawing.Image)(resources.GetObject("btnGain30.PressedImage")));
+            this.btnGain30.PressedImage = global::SA_GFXLib.SA_GFXLib_Resources.ui_btn_gain_over;
             this.btnGain30.Size = new System.Drawing.Size(39, 39);
             this.btnGain30.TabIndex = 36;
             this.btnGain30.ToolTipText = "";
@@ -264,18 +265,18 @@ namespace DSP100_1_Analog
             // btnCH3PreFilters
             // 
             this.btnCH3PreFilters.AutoResize = false;
-            this.btnCH3PreFilters.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnCH3PreFilters.BackgroundImage")));
+            this.btnCH3PreFilters.BackgroundImage = global::SA_GFXLib.SA_GFXLib_Resources.ui_btn_filters;
             this.btnCH3PreFilters.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnCH3PreFilters.Location = new System.Drawing.Point(90, 0);
             this.btnCH3PreFilters.Name = "btnCH3PreFilters";
             this.btnCH3PreFilters.OverImage = null;
-            this.btnCH3PreFilters.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnCH3PreFilters.Overlay1Image")));
+            this.btnCH3PreFilters.Overlay1Image = global::SA_GFXLib.SA_GFXLib_Resources.ui_icon_overlay_bypassed;
             this.btnCH3PreFilters.Overlay1Visible = false;
-            this.btnCH3PreFilters.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnCH3PreFilters.Overlay2Image")));
+            this.btnCH3PreFilters.Overlay2Image = global::SA_GFXLib.SA_GFXLib_Resources.ui_icon_overlay_mute;
             this.btnCH3PreFilters.Overlay2Visible = false;
             this.btnCH3PreFilters.Overlay3Image = null;
             this.btnCH3PreFilters.Overlay3Visible = false;
-            this.btnCH3PreFilters.PressedImage = ((System.Drawing.Image)(resources.GetObject("btnCH3PreFilters.PressedImage")));
+            this.btnCH3PreFilters.PressedImage = global::SA_GFXLib.SA_GFXLib_Resources.ui_btn_filters_over;
             this.btnCH3PreFilters.Size = new System.Drawing.Size(39, 39);
             this.btnCH3PreFilters.TabIndex = 35;
             this.btnCH3PreFilters.ToolTipText = "";
@@ -283,18 +284,18 @@ namespace DSP100_1_Analog
             // btnCompressor30
             // 
             this.btnCompressor30.AutoResize = false;
-            this.btnCompressor30.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnCompressor30.BackgroundImage")));
+            this.btnCompressor30.BackgroundImage = global::SA_GFXLib.SA_GFXLib_Resources.ui_btn_compressor;
             this.btnCompressor30.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnCompressor30.Location = new System.Drawing.Point(152, 0);
             this.btnCompressor30.Name = "btnCompressor30";
             this.btnCompressor30.OverImage = null;
-            this.btnCompressor30.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnCompressor30.Overlay1Image")));
+            this.btnCompressor30.Overlay1Image = global::SA_GFXLib.SA_GFXLib_Resources.ui_icon_overlay_bypassed;
             this.btnCompressor30.Overlay1Visible = true;
-            this.btnCompressor30.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnCompressor30.Overlay2Image")));
+            this.btnCompressor30.Overlay2Image = global::SA_GFXLib.SA_GFXLib_Resources.ui_icon_overlay_mute;
             this.btnCompressor30.Overlay2Visible = false;
             this.btnCompressor30.Overlay3Image = null;
             this.btnCompressor30.Overlay3Visible = false;
-            this.btnCompressor30.PressedImage = ((System.Drawing.Image)(resources.GetObject("btnCompressor30.PressedImage")));
+            this.btnCompressor30.PressedImage = global::SA_GFXLib.SA_GFXLib_Resources.ui_btn_compressor_over;
             this.btnCompressor30.Size = new System.Drawing.Size(39, 39);
             this.btnCompressor30.TabIndex = 34;
             this.btnCompressor30.ToolTipText = "";
@@ -302,18 +303,18 @@ namespace DSP100_1_Analog
             // btnGain31
             // 
             this.btnGain31.AutoResize = false;
-            this.btnGain31.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnGain31.BackgroundImage")));
+            this.btnGain31.BackgroundImage = global::SA_GFXLib.SA_GFXLib_Resources.ui_btn_gain;
             this.btnGain31.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnGain31.Location = new System.Drawing.Point(212, 0);
             this.btnGain31.Name = "btnGain31";
             this.btnGain31.OverImage = null;
-            this.btnGain31.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnGain31.Overlay1Image")));
+            this.btnGain31.Overlay1Image = global::SA_GFXLib.SA_GFXLib_Resources.ui_icon_overlay_bypassed;
             this.btnGain31.Overlay1Visible = false;
-            this.btnGain31.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnGain31.Overlay2Image")));
+            this.btnGain31.Overlay2Image = global::SA_GFXLib.SA_GFXLib_Resources.ui_icon_overlay_mute;
             this.btnGain31.Overlay2Visible = false;
             this.btnGain31.Overlay3Image = null;
             this.btnGain31.Overlay3Visible = false;
-            this.btnGain31.PressedImage = ((System.Drawing.Image)(resources.GetObject("btnGain31.PressedImage")));
+            this.btnGain31.PressedImage = global::SA_GFXLib.SA_GFXLib_Resources.ui_btn_gain_over;
             this.btnGain31.Size = new System.Drawing.Size(39, 39);
             this.btnGain31.TabIndex = 33;
             this.btnGain31.ToolTipText = "";
@@ -321,18 +322,18 @@ namespace DSP100_1_Analog
             // btnGain20
             // 
             this.btnGain20.AutoResize = false;
-            this.btnGain20.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnGain20.BackgroundImage")));
+            this.btnGain20.BackgroundImage = global::SA_GFXLib.SA_GFXLib_Resources.ui_btn_gain;
             this.btnGain20.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnGain20.Location = new System.Drawing.Point(30, 0);
             this.btnGain20.Name = "btnGain20";
             this.btnGain20.OverImage = null;
-            this.btnGain20.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnGain20.Overlay1Image")));
+            this.btnGain20.Overlay1Image = global::SA_GFXLib.SA_GFXLib_Resources.ui_icon_overlay_bypassed;
             this.btnGain20.Overlay1Visible = false;
-            this.btnGain20.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnGain20.Overlay2Image")));
+            this.btnGain20.Overlay2Image = global::SA_GFXLib.SA_GFXLib_Resources.ui_icon_overlay_mute;
             this.btnGain20.Overlay2Visible = false;
             this.btnGain20.Overlay3Image = null;
             this.btnGain20.Overlay3Visible = false;
-            this.btnGain20.PressedImage = ((System.Drawing.Image)(resources.GetObject("btnGain20.PressedImage")));
+            this.btnGain20.PressedImage = global::SA_GFXLib.SA_GFXLib_Resources.ui_btn_gain_over;
             this.btnGain20.Size = new System.Drawing.Size(39, 39);
             this.btnGain20.TabIndex = 36;
             this.btnGain20.ToolTipText = "";
@@ -340,18 +341,18 @@ namespace DSP100_1_Analog
             // btnCH2PreFilters
             // 
             this.btnCH2PreFilters.AutoResize = false;
-            this.btnCH2PreFilters.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnCH2PreFilters.BackgroundImage")));
+            this.btnCH2PreFilters.BackgroundImage = global::SA_GFXLib.SA_GFXLib_Resources.ui_btn_filters;
             this.btnCH2PreFilters.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnCH2PreFilters.Location = new System.Drawing.Point(90, 0);
             this.btnCH2PreFilters.Name = "btnCH2PreFilters";
             this.btnCH2PreFilters.OverImage = null;
-            this.btnCH2PreFilters.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnCH2PreFilters.Overlay1Image")));
+            this.btnCH2PreFilters.Overlay1Image = global::SA_GFXLib.SA_GFXLib_Resources.ui_icon_overlay_bypassed;
             this.btnCH2PreFilters.Overlay1Visible = false;
-            this.btnCH2PreFilters.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnCH2PreFilters.Overlay2Image")));
+            this.btnCH2PreFilters.Overlay2Image = global::SA_GFXLib.SA_GFXLib_Resources.ui_icon_overlay_mute;
             this.btnCH2PreFilters.Overlay2Visible = false;
             this.btnCH2PreFilters.Overlay3Image = null;
             this.btnCH2PreFilters.Overlay3Visible = false;
-            this.btnCH2PreFilters.PressedImage = ((System.Drawing.Image)(resources.GetObject("btnCH2PreFilters.PressedImage")));
+            this.btnCH2PreFilters.PressedImage = global::SA_GFXLib.SA_GFXLib_Resources.ui_btn_filters_over;
             this.btnCH2PreFilters.Size = new System.Drawing.Size(39, 39);
             this.btnCH2PreFilters.TabIndex = 35;
             this.btnCH2PreFilters.ToolTipText = "";
@@ -359,18 +360,18 @@ namespace DSP100_1_Analog
             // btnCompressor20
             // 
             this.btnCompressor20.AutoResize = false;
-            this.btnCompressor20.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnCompressor20.BackgroundImage")));
+            this.btnCompressor20.BackgroundImage = global::SA_GFXLib.SA_GFXLib_Resources.ui_btn_compressor;
             this.btnCompressor20.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnCompressor20.Location = new System.Drawing.Point(152, 0);
             this.btnCompressor20.Name = "btnCompressor20";
             this.btnCompressor20.OverImage = null;
-            this.btnCompressor20.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnCompressor20.Overlay1Image")));
+            this.btnCompressor20.Overlay1Image = global::SA_GFXLib.SA_GFXLib_Resources.ui_icon_overlay_bypassed;
             this.btnCompressor20.Overlay1Visible = true;
-            this.btnCompressor20.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnCompressor20.Overlay2Image")));
+            this.btnCompressor20.Overlay2Image = global::SA_GFXLib.SA_GFXLib_Resources.ui_icon_overlay_mute;
             this.btnCompressor20.Overlay2Visible = false;
             this.btnCompressor20.Overlay3Image = null;
             this.btnCompressor20.Overlay3Visible = false;
-            this.btnCompressor20.PressedImage = ((System.Drawing.Image)(resources.GetObject("btnCompressor20.PressedImage")));
+            this.btnCompressor20.PressedImage = global::SA_GFXLib.SA_GFXLib_Resources.ui_btn_compressor_over;
             this.btnCompressor20.Size = new System.Drawing.Size(39, 39);
             this.btnCompressor20.TabIndex = 34;
             this.btnCompressor20.ToolTipText = "";
@@ -378,18 +379,18 @@ namespace DSP100_1_Analog
             // btnGain21
             // 
             this.btnGain21.AutoResize = false;
-            this.btnGain21.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnGain21.BackgroundImage")));
+            this.btnGain21.BackgroundImage = global::SA_GFXLib.SA_GFXLib_Resources.ui_btn_gain;
             this.btnGain21.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnGain21.Location = new System.Drawing.Point(212, 0);
             this.btnGain21.Name = "btnGain21";
             this.btnGain21.OverImage = null;
-            this.btnGain21.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnGain21.Overlay1Image")));
+            this.btnGain21.Overlay1Image = global::SA_GFXLib.SA_GFXLib_Resources.ui_icon_overlay_bypassed;
             this.btnGain21.Overlay1Visible = false;
-            this.btnGain21.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnGain21.Overlay2Image")));
+            this.btnGain21.Overlay2Image = global::SA_GFXLib.SA_GFXLib_Resources.ui_icon_overlay_mute;
             this.btnGain21.Overlay2Visible = false;
             this.btnGain21.Overlay3Image = null;
             this.btnGain21.Overlay3Visible = false;
-            this.btnGain21.PressedImage = ((System.Drawing.Image)(resources.GetObject("btnGain21.PressedImage")));
+            this.btnGain21.PressedImage = global::SA_GFXLib.SA_GFXLib_Resources.ui_btn_gain_over;
             this.btnGain21.Size = new System.Drawing.Size(39, 39);
             this.btnGain21.TabIndex = 33;
             this.btnGain21.ToolTipText = "";
@@ -397,18 +398,18 @@ namespace DSP100_1_Analog
             // btnGain00
             // 
             this.btnGain00.AutoResize = false;
-            this.btnGain00.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnGain00.BackgroundImage")));
+            this.btnGain00.BackgroundImage = global::SA_GFXLib.SA_GFXLib_Resources.ui_btn_gain;
             this.btnGain00.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnGain00.Location = new System.Drawing.Point(30, 0);
             this.btnGain00.Name = "btnGain00";
             this.btnGain00.OverImage = null;
-            this.btnGain00.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnGain00.Overlay1Image")));
+            this.btnGain00.Overlay1Image = global::SA_GFXLib.SA_GFXLib_Resources.ui_icon_overlay_bypassed;
             this.btnGain00.Overlay1Visible = false;
-            this.btnGain00.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnGain00.Overlay2Image")));
+            this.btnGain00.Overlay2Image = global::SA_GFXLib.SA_GFXLib_Resources.ui_icon_overlay_mute;
             this.btnGain00.Overlay2Visible = false;
             this.btnGain00.Overlay3Image = null;
             this.btnGain00.Overlay3Visible = false;
-            this.btnGain00.PressedImage = ((System.Drawing.Image)(resources.GetObject("btnGain00.PressedImage")));
+            this.btnGain00.PressedImage = global::SA_GFXLib.SA_GFXLib_Resources.ui_btn_gain_over;
             this.btnGain00.Size = new System.Drawing.Size(39, 39);
             this.btnGain00.TabIndex = 35;
             this.btnGain00.ToolTipText = "";
@@ -416,18 +417,18 @@ namespace DSP100_1_Analog
             // btnCH0PreFilters
             // 
             this.btnCH0PreFilters.AutoResize = false;
-            this.btnCH0PreFilters.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnCH0PreFilters.BackgroundImage")));
+            this.btnCH0PreFilters.BackgroundImage = global::SA_GFXLib.SA_GFXLib_Resources.ui_btn_filters;
             this.btnCH0PreFilters.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnCH0PreFilters.Location = new System.Drawing.Point(90, 0);
             this.btnCH0PreFilters.Name = "btnCH0PreFilters";
             this.btnCH0PreFilters.OverImage = null;
-            this.btnCH0PreFilters.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnCH0PreFilters.Overlay1Image")));
+            this.btnCH0PreFilters.Overlay1Image = global::SA_GFXLib.SA_GFXLib_Resources.ui_icon_overlay_bypassed;
             this.btnCH0PreFilters.Overlay1Visible = false;
-            this.btnCH0PreFilters.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnCH0PreFilters.Overlay2Image")));
+            this.btnCH0PreFilters.Overlay2Image = global::SA_GFXLib.SA_GFXLib_Resources.ui_icon_overlay_mute;
             this.btnCH0PreFilters.Overlay2Visible = false;
             this.btnCH0PreFilters.Overlay3Image = null;
             this.btnCH0PreFilters.Overlay3Visible = false;
-            this.btnCH0PreFilters.PressedImage = ((System.Drawing.Image)(resources.GetObject("btnCH0PreFilters.PressedImage")));
+            this.btnCH0PreFilters.PressedImage = global::SA_GFXLib.SA_GFXLib_Resources.ui_btn_filters_over;
             this.btnCH0PreFilters.Size = new System.Drawing.Size(39, 39);
             this.btnCH0PreFilters.TabIndex = 34;
             this.btnCH0PreFilters.ToolTipText = "Filters";
@@ -435,18 +436,18 @@ namespace DSP100_1_Analog
             // btnCompressor00
             // 
             this.btnCompressor00.AutoResize = false;
-            this.btnCompressor00.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnCompressor00.BackgroundImage")));
+            this.btnCompressor00.BackgroundImage = global::SA_GFXLib.SA_GFXLib_Resources.ui_btn_compressor;
             this.btnCompressor00.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnCompressor00.Location = new System.Drawing.Point(152, 0);
             this.btnCompressor00.Name = "btnCompressor00";
             this.btnCompressor00.OverImage = null;
-            this.btnCompressor00.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnCompressor00.Overlay1Image")));
+            this.btnCompressor00.Overlay1Image = global::SA_GFXLib.SA_GFXLib_Resources.ui_icon_overlay_bypassed;
             this.btnCompressor00.Overlay1Visible = false;
-            this.btnCompressor00.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnCompressor00.Overlay2Image")));
+            this.btnCompressor00.Overlay2Image = global::SA_GFXLib.SA_GFXLib_Resources.ui_icon_overlay_mute;
             this.btnCompressor00.Overlay2Visible = false;
             this.btnCompressor00.Overlay3Image = null;
             this.btnCompressor00.Overlay3Visible = false;
-            this.btnCompressor00.PressedImage = ((System.Drawing.Image)(resources.GetObject("btnCompressor00.PressedImage")));
+            this.btnCompressor00.PressedImage = global::SA_GFXLib.SA_GFXLib_Resources.ui_btn_compressor_over;
             this.btnCompressor00.Size = new System.Drawing.Size(39, 39);
             this.btnCompressor00.TabIndex = 33;
             this.btnCompressor00.ToolTipText = "Compressor";
@@ -454,18 +455,18 @@ namespace DSP100_1_Analog
             // btnGain01
             // 
             this.btnGain01.AutoResize = false;
-            this.btnGain01.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnGain01.BackgroundImage")));
+            this.btnGain01.BackgroundImage = global::SA_GFXLib.SA_GFXLib_Resources.ui_btn_gain;
             this.btnGain01.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnGain01.Location = new System.Drawing.Point(212, 0);
             this.btnGain01.Name = "btnGain01";
             this.btnGain01.OverImage = null;
-            this.btnGain01.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnGain01.Overlay1Image")));
+            this.btnGain01.Overlay1Image = global::SA_GFXLib.SA_GFXLib_Resources.ui_icon_overlay_bypassed;
             this.btnGain01.Overlay1Visible = false;
-            this.btnGain01.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnGain01.Overlay2Image")));
+            this.btnGain01.Overlay2Image = global::SA_GFXLib.SA_GFXLib_Resources.ui_icon_overlay_mute;
             this.btnGain01.Overlay2Visible = false;
             this.btnGain01.Overlay3Image = null;
             this.btnGain01.Overlay3Visible = false;
-            this.btnGain01.PressedImage = ((System.Drawing.Image)(resources.GetObject("btnGain01.PressedImage")));
+            this.btnGain01.PressedImage = global::SA_GFXLib.SA_GFXLib_Resources.ui_btn_gain_over;
             this.btnGain01.Size = new System.Drawing.Size(39, 39);
             this.btnGain01.TabIndex = 32;
             this.btnGain01.ToolTipText = "";
@@ -482,7 +483,7 @@ namespace DSP100_1_Analog
             // 
             // pnlCH2PreMixer
             // 
-            this.pnlCH2PreMixer.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pnlCH2PreMixer.BackgroundImage")));
+            this.pnlCH2PreMixer.BackgroundImage = global::SA_GFXLib.SA_GFXLib_Resources.ui_bg_horizontal_line;
             this.pnlCH2PreMixer.Controls.Add(this.btnGain10);
             this.pnlCH2PreMixer.Controls.Add(this.btnCH1PreFilters);
             this.pnlCH2PreMixer.Controls.Add(this.btnCompressor10);
@@ -495,18 +496,18 @@ namespace DSP100_1_Analog
             // btnGain10
             // 
             this.btnGain10.AutoResize = false;
-            this.btnGain10.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnGain10.BackgroundImage")));
+            this.btnGain10.BackgroundImage = global::SA_GFXLib.SA_GFXLib_Resources.ui_btn_gain;
             this.btnGain10.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnGain10.Location = new System.Drawing.Point(30, 0);
             this.btnGain10.Name = "btnGain10";
             this.btnGain10.OverImage = null;
-            this.btnGain10.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnGain10.Overlay1Image")));
+            this.btnGain10.Overlay1Image = global::SA_GFXLib.SA_GFXLib_Resources.ui_icon_overlay_bypassed;
             this.btnGain10.Overlay1Visible = false;
-            this.btnGain10.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnGain10.Overlay2Image")));
+            this.btnGain10.Overlay2Image = global::SA_GFXLib.SA_GFXLib_Resources.ui_icon_overlay_mute;
             this.btnGain10.Overlay2Visible = false;
             this.btnGain10.Overlay3Image = null;
             this.btnGain10.Overlay3Visible = false;
-            this.btnGain10.PressedImage = ((System.Drawing.Image)(resources.GetObject("btnGain10.PressedImage")));
+            this.btnGain10.PressedImage = global::SA_GFXLib.SA_GFXLib_Resources.ui_btn_gain_over;
             this.btnGain10.Size = new System.Drawing.Size(39, 39);
             this.btnGain10.TabIndex = 36;
             this.btnGain10.ToolTipText = "";
@@ -514,18 +515,18 @@ namespace DSP100_1_Analog
             // btnCH1PreFilters
             // 
             this.btnCH1PreFilters.AutoResize = false;
-            this.btnCH1PreFilters.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnCH1PreFilters.BackgroundImage")));
+            this.btnCH1PreFilters.BackgroundImage = global::SA_GFXLib.SA_GFXLib_Resources.ui_btn_filters;
             this.btnCH1PreFilters.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnCH1PreFilters.Location = new System.Drawing.Point(90, 0);
             this.btnCH1PreFilters.Name = "btnCH1PreFilters";
             this.btnCH1PreFilters.OverImage = null;
-            this.btnCH1PreFilters.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnCH1PreFilters.Overlay1Image")));
+            this.btnCH1PreFilters.Overlay1Image = global::SA_GFXLib.SA_GFXLib_Resources.ui_icon_overlay_bypassed;
             this.btnCH1PreFilters.Overlay1Visible = false;
-            this.btnCH1PreFilters.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnCH1PreFilters.Overlay2Image")));
+            this.btnCH1PreFilters.Overlay2Image = global::SA_GFXLib.SA_GFXLib_Resources.ui_icon_overlay_mute;
             this.btnCH1PreFilters.Overlay2Visible = false;
             this.btnCH1PreFilters.Overlay3Image = null;
             this.btnCH1PreFilters.Overlay3Visible = false;
-            this.btnCH1PreFilters.PressedImage = ((System.Drawing.Image)(resources.GetObject("btnCH1PreFilters.PressedImage")));
+            this.btnCH1PreFilters.PressedImage = global::SA_GFXLib.SA_GFXLib_Resources.ui_btn_filters_over;
             this.btnCH1PreFilters.Size = new System.Drawing.Size(39, 39);
             this.btnCH1PreFilters.TabIndex = 35;
             this.btnCH1PreFilters.ToolTipText = "";
@@ -533,18 +534,18 @@ namespace DSP100_1_Analog
             // btnCompressor10
             // 
             this.btnCompressor10.AutoResize = false;
-            this.btnCompressor10.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnCompressor10.BackgroundImage")));
+            this.btnCompressor10.BackgroundImage = global::SA_GFXLib.SA_GFXLib_Resources.ui_btn_compressor;
             this.btnCompressor10.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnCompressor10.Location = new System.Drawing.Point(152, 0);
             this.btnCompressor10.Name = "btnCompressor10";
             this.btnCompressor10.OverImage = null;
-            this.btnCompressor10.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnCompressor10.Overlay1Image")));
+            this.btnCompressor10.Overlay1Image = global::SA_GFXLib.SA_GFXLib_Resources.ui_icon_overlay_bypassed;
             this.btnCompressor10.Overlay1Visible = true;
-            this.btnCompressor10.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnCompressor10.Overlay2Image")));
+            this.btnCompressor10.Overlay2Image = global::SA_GFXLib.SA_GFXLib_Resources.ui_icon_overlay_mute;
             this.btnCompressor10.Overlay2Visible = false;
             this.btnCompressor10.Overlay3Image = null;
             this.btnCompressor10.Overlay3Visible = false;
-            this.btnCompressor10.PressedImage = ((System.Drawing.Image)(resources.GetObject("btnCompressor10.PressedImage")));
+            this.btnCompressor10.PressedImage = global::SA_GFXLib.SA_GFXLib_Resources.ui_btn_compressor_over;
             this.btnCompressor10.Size = new System.Drawing.Size(39, 39);
             this.btnCompressor10.TabIndex = 34;
             this.btnCompressor10.ToolTipText = "";
@@ -552,18 +553,18 @@ namespace DSP100_1_Analog
             // btnGain11
             // 
             this.btnGain11.AutoResize = false;
-            this.btnGain11.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnGain11.BackgroundImage")));
+            this.btnGain11.BackgroundImage = global::SA_GFXLib.SA_GFXLib_Resources.ui_btn_gain;
             this.btnGain11.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnGain11.Location = new System.Drawing.Point(212, 0);
             this.btnGain11.Name = "btnGain11";
             this.btnGain11.OverImage = null;
-            this.btnGain11.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnGain11.Overlay1Image")));
+            this.btnGain11.Overlay1Image = global::SA_GFXLib.SA_GFXLib_Resources.ui_icon_overlay_bypassed;
             this.btnGain11.Overlay1Visible = false;
-            this.btnGain11.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnGain11.Overlay2Image")));
+            this.btnGain11.Overlay2Image = global::SA_GFXLib.SA_GFXLib_Resources.ui_icon_overlay_mute;
             this.btnGain11.Overlay2Visible = false;
             this.btnGain11.Overlay3Image = null;
             this.btnGain11.Overlay3Visible = false;
-            this.btnGain11.PressedImage = ((System.Drawing.Image)(resources.GetObject("btnGain11.PressedImage")));
+            this.btnGain11.PressedImage = global::SA_GFXLib.SA_GFXLib_Resources.ui_btn_gain_over;
             this.btnGain11.Size = new System.Drawing.Size(39, 39);
             this.btnGain11.TabIndex = 33;
             this.btnGain11.ToolTipText = "";
@@ -571,7 +572,7 @@ namespace DSP100_1_Analog
             // btnMatrixMixer
             // 
             this.btnMatrixMixer.AutoResize = true;
-            this.btnMatrixMixer.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnMatrixMixer.BackgroundImage")));
+            this.btnMatrixMixer.BackgroundImage = global::SA_GFXLib.SA_GFXLib_Resources.ui_icon_matrix;
             this.btnMatrixMixer.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnMatrixMixer.Location = new System.Drawing.Point(400, 91);
             this.btnMatrixMixer.Name = "btnMatrixMixer";
@@ -602,7 +603,7 @@ namespace DSP100_1_Analog
             // 
             // pnlCH1PostMixer
             // 
-            this.pnlCH1PostMixer.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pnlCH1PostMixer.BackgroundImage")));
+            this.pnlCH1PostMixer.BackgroundImage = global::SA_GFXLib.SA_GFXLib_Resources.ui_bg_horizontal_line;
             this.pnlCH1PostMixer.Controls.Add(this.btnGain02);
             this.pnlCH1PostMixer.Controls.Add(this.btnCH0PostFilters);
             this.pnlCH1PostMixer.Controls.Add(this.btnCompressor01);
@@ -614,7 +615,7 @@ namespace DSP100_1_Analog
             // 
             // pnlCH4PreMixer
             // 
-            this.pnlCH4PreMixer.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pnlCH4PreMixer.BackgroundImage")));
+            this.pnlCH4PreMixer.BackgroundImage = global::SA_GFXLib.SA_GFXLib_Resources.ui_bg_horizontal_line;
             this.pnlCH4PreMixer.Controls.Add(this.btnGain30);
             this.pnlCH4PreMixer.Controls.Add(this.btnCH3PreFilters);
             this.pnlCH4PreMixer.Controls.Add(this.btnCompressor30);
@@ -626,7 +627,7 @@ namespace DSP100_1_Analog
             // 
             // pnlCH3PreMixer
             // 
-            this.pnlCH3PreMixer.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pnlCH3PreMixer.BackgroundImage")));
+            this.pnlCH3PreMixer.BackgroundImage = global::SA_GFXLib.SA_GFXLib_Resources.ui_bg_horizontal_line;
             this.pnlCH3PreMixer.Controls.Add(this.btnGain20);
             this.pnlCH3PreMixer.Controls.Add(this.btnCH2PreFilters);
             this.pnlCH3PreMixer.Controls.Add(this.btnCompressor20);
@@ -638,7 +639,7 @@ namespace DSP100_1_Analog
             // 
             // pnlCH1PreMixer
             // 
-            this.pnlCH1PreMixer.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pnlCH1PreMixer.BackgroundImage")));
+            this.pnlCH1PreMixer.BackgroundImage = global::SA_GFXLib.SA_GFXLib_Resources.ui_bg_horizontal_line;
             this.pnlCH1PreMixer.Controls.Add(this.btnGain00);
             this.pnlCH1PreMixer.Controls.Add(this.btnCH0PreFilters);
             this.pnlCH1PreMixer.Controls.Add(this.btnCompressor00);
@@ -702,7 +703,7 @@ namespace DSP100_1_Analog
             // 
             // picDuckerLine
             // 
-            this.picDuckerLine.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("picDuckerLine.BackgroundImage")));
+            this.picDuckerLine.BackgroundImage = global::SA_GFXLib.SA_GFXLib_Resources.ui_bg_vertical_line;
             this.picDuckerLine.Location = new System.Drawing.Point(197, 109);
             this.picDuckerLine.Name = "picDuckerLine";
             this.picDuckerLine.Size = new System.Drawing.Size(4, 179);
@@ -712,12 +713,12 @@ namespace DSP100_1_Analog
             // pbtnDucker
             // 
             this.pbtnDucker.AutoResize = false;
-            this.pbtnDucker.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbtnDucker.BackgroundImage")));
+            this.pbtnDucker.BackgroundImage = global::SA_GFXLib.SA_GFXLib_Resources.ui_btn_duck;
             this.pbtnDucker.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pbtnDucker.Location = new System.Drawing.Point(180, 288);
             this.pbtnDucker.Name = "pbtnDucker";
             this.pbtnDucker.OverImage = null;
-            this.pbtnDucker.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("pbtnDucker.Overlay1Image")));
+            this.pbtnDucker.Overlay1Image = global::SA_GFXLib.SA_GFXLib_Resources.ui_icon_overlay_bypassed;
             this.pbtnDucker.Overlay1Visible = false;
             this.pbtnDucker.Overlay2Image = null;
             this.pbtnDucker.Overlay2Visible = false;
