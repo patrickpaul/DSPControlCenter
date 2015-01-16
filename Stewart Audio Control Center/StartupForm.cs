@@ -1,16 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
+using System.Diagnostics;
 using System.IO;
-using System.IO.Ports;
 using System.Linq;
 using System.Reflection;
-using System.Threading;
 using System.Windows.Forms;
 using Microsoft.Win32;
-using SA_Resources;
-using SA_Resources.DSP;
-using SA_Resources.SADevices;
+using SA_Resources.DeviceManagement;
+
 using SA_Resources.SAForms;
 
 namespace SA_Resources
@@ -18,10 +15,14 @@ namespace SA_Resources
     public partial class StartupForm : Form
     {
 
-        private readonly bool _vsDebug = System.Diagnostics.Debugger.IsAttached;
+        private readonly bool _vsDebug = Debugger.IsAttached;
 
-        private bool standalone_build = false;
+#if STANDALONE
 
+        private readonly bool _standaloneBuild = true;
+#else
+        private readonly bool _standaloneBuild = false;
+#endif
         private List<SADevicePlugin> DevicePlugins = new List<SADevicePlugin>();
         private List<SADevicePlugin> OrderedDevicePlugins = new List<SADevicePlugin>();
 
@@ -55,7 +56,7 @@ namespace SA_Resources
 
                     if (args[1] == "/standalone")
                     {
-                        standalone_build = true;
+                        _standaloneBuild = true;
                     }
 
                     if (args.Length > 2)
@@ -67,23 +68,23 @@ namespace SA_Resources
 
                         if (args[2] == "/standalone")
                         {
-                            standalone_build = true;
+                            _standaloneBuild = true;
                         }
                     }
                 }
 
-                if (!_vsDebug && !standalone_build)
+                if (!_vsDebug && !_standaloneBuild)
                 {
-                    string InstallPath = (string) Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\StewartAudioDSP", "Path", null);
+                    string installPath = (string) Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\StewartAudioDSP", "Path", null);
                     // Do stuff
 
-                    if (String.IsNullOrEmpty(InstallPath))
+                    if (String.IsNullOrEmpty(installPath))
                     {
                         MessageBox.Show("Note: Application is not installed, running in portable mode.","Application Not Installed", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         //this.Close();
                     } else
                     {
-                        Directory.SetCurrentDirectory(InstallPath);
+                        Directory.SetCurrentDirectory(installPath);
                     }
                 }
             }
@@ -96,7 +97,7 @@ namespace SA_Resources
 
         private void StartupForm_Load(object sender, EventArgs e)
         {
-            //PIC_Conn = new PIC_Bridge(serialPort);
+            //PIC_Conn = new DeviceBridge(serialPort);
             try
             {
                 string[] device_plugins = Directory.GetFiles(@"Devices\", "*.sadev"); // <-- Case-insensitive
@@ -129,7 +130,7 @@ namespace SA_Resources
             }
             catch (Exception ex)
             {
-                Console.WriteLine("[Exception in StartupForm.StartupForm_Load]: " + ex.Message);
+                Debug.WriteLine("[Exception in StartupForm.StartupForm_Load]: " + ex.Message);
             }
         }
 
@@ -156,7 +157,7 @@ namespace SA_Resources
 
                     if (foundPlugin != null)
                     {
-                        Console.WriteLine("Given file is for a " + foundPlugin.Name);
+                        Debug.WriteLine("Given file is for a " + foundPlugin.Name);
 
                         OpenDeviceInterface(foundPlugin.Name, CONFIGFILE);
                     }
@@ -179,23 +180,24 @@ namespace SA_Resources
             try
             {
 
-                String assembly_path = Directory.GetCurrentDirectory() + @"\" + plugin_filepath;
-                String assembly_name = plugin_filepath.Replace(" ", "_").Replace("-", "_").Replace("Devices\\","").Replace(".sadev","");
+                String assemblyPath = Directory.GetCurrentDirectory() + @"\" + plugin_filepath;
+                String assemblyName = plugin_filepath.Replace(" ", "_").Replace("-", "_").Replace("Devices\\","").Replace(".sadev","");
                 Assembly a = null;
-                a = Assembly.LoadFrom(assembly_path);
-                Type mainFormType = a.GetType(assembly_name + ".MainForm");
+                a = Assembly.LoadFrom(assemblyPath);
+                Type mainFormType = a.GetType(assemblyName + ".MainForm");
 
-                Form form = Activator.CreateInstance(mainFormType) as Form;
+                var form = Activator.CreateInstance(mainFormType) as Form;
 
-                string DeviceName = (string)mainFormType.GetMethod("GetDeviceName").Invoke(form, null);
-                int DeviceID = (int)mainFormType.GetMethod("GetDeviceID").Invoke(form, null);
-                int DisplayOrder = (int)mainFormType.GetMethod("GetDisplayOrder").Invoke(form, null);
-                DevicePlugins.Add(new SADevicePlugin(DeviceID, DeviceName, assembly_path, assembly_name, DisplayOrder));
+                string deviceName = (string)mainFormType.GetMethod("GetDeviceName").Invoke(form, null);
+                var deviceId = (int)mainFormType.GetMethod("GetDeviceID").Invoke(form, null);
+                var displayOrder = (int)mainFormType.GetMethod("GetDisplayOrder").Invoke(form, null);
+
+                DevicePlugins.Add(new SADevicePlugin(deviceId, deviceName, assemblyPath, assemblyName, displayOrder));
 
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error loading device plugin at " + plugin_filepath + ". Message was: " + ex.Message);
+                Debug.WriteLine("Error loading device plugin at " + plugin_filepath + ". Message was: " + ex.Message);
             }
         }
 
@@ -226,7 +228,7 @@ namespace SA_Resources
                 a = Assembly.LoadFrom(activePlugin.Filepath);
                 Type classType = a.GetType(activePlugin.Assembly + ".MainForm");
 
-                MainForm_Template form = (MainForm_Template)Activator.CreateInstance(classType, CONFIGFILE);
+                var form = (MainForm_Template)Activator.CreateInstance(classType, CONFIGFILE);
 
                 form.ShowDialog();
 
@@ -254,7 +256,7 @@ namespace SA_Resources
         {
             //loadingWithoutConnecting = true;
             
-            if (DeviceListBox.SelectedIndex == -1)
+            if(DeviceListBox.SelectedIndex == -1)
             {
                 OpenDeviceInterface(DeviceListBox.Items[0].ToString());
             }

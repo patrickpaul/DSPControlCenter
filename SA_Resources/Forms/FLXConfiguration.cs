@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Media;
@@ -12,7 +13,7 @@ using SA_Resources.DSP;
 using SA_Resources.SAForms;
 using SA_Resources.DSP.Primitives;
 
-namespace SA_Resources
+namespace SA_Resources.SAForms
 {
     public partial class FLXConfigurationForm : Form
     {
@@ -54,12 +55,12 @@ namespace SA_Resources
                 txtRVCMIn.Text = adc_min.ToString();
                 txtRVCMax.Text = adc_max.ToString();
 
-                txtRVCValue.Text = PARENT_FORM._PIC_Conn.ReadCurrentRVC();
+                txtRVCValue.Text = PARENT_FORM.DeviceConn.ReadCurrentRVC();
                 txtRVCValue.Invalidate();
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Exception in FLXConfiguration.Load: " + ex.Message);
+                Debug.WriteLine("Exception in FLXConfiguration.Load: " + ex.Message);
             }
         }
 
@@ -75,8 +76,8 @@ namespace SA_Resources
             PARENT_FORM.SLEEP_ENABLE = chkSleepEnable.Checked;
             PARENT_FORM.SLEEP_SECONDS = (Int16)nudSleepSeconds.Value;
 
-            PARENT_FORM._PIC_Conn.SetSleepModeEnable(PARENT_FORM.SLEEP_ENABLE);
-            PARENT_FORM._PIC_Conn.SetSleepModeSeconds(PARENT_FORM.SLEEP_SECONDS);
+            PARENT_FORM.DeviceConn.SetSleepModeEnable(PARENT_FORM.SLEEP_ENABLE);
+            PARENT_FORM.DeviceConn.SetSleepModeSeconds(PARENT_FORM.SLEEP_SECONDS);
 
             this.DialogResult = DialogResult.OK;
             this.Close();
@@ -91,31 +92,31 @@ namespace SA_Resources
         }
         private void pbtnRefresh_Click(object sender, EventArgs e)
         {
-            txtRVCValue.Text = PARENT_FORM._PIC_Conn.ReadCurrentRVC();
+            txtRVCValue.Text = PARENT_FORM.DeviceConn.ReadCurrentRVC();
             txtRVCValue.Invalidate();
         }
 
         private void pbtnCalibrateUpper_Click(object sender, EventArgs e)
         {
-            int new_max = PARENT_FORM._PIC_Conn.CalibrateUpperRVC();
+            int new_max = PARENT_FORM.DeviceConn.CalibrateUpperRVC();
 
             txtRVCMax.Text = new_max.ToString();
 
             PARENT_FORM.ADC_CALIBRATION_MAX = new_max;
 
-            txtRVCValue.Text = PARENT_FORM._PIC_Conn.ReadCurrentRVC();
+            txtRVCValue.Text = PARENT_FORM.DeviceConn.ReadCurrentRVC();
             txtRVCValue.Invalidate();
         }
 
         private void pbtnCalibrateLower_Click(object sender, EventArgs e)
         {
-            int new_min = PARENT_FORM._PIC_Conn.CalibrateLowerRVC();
+            int new_min = PARENT_FORM.DeviceConn.CalibrateLowerRVC();
 
             txtRVCMIn.Text = new_min.ToString();
 
             PARENT_FORM.ADC_CALIBRATION_MIN = new_min;
 
-            txtRVCValue.Text = PARENT_FORM._PIC_Conn.ReadCurrentRVC();
+            txtRVCValue.Text = PARENT_FORM.DeviceConn.ReadCurrentRVC();
             txtRVCValue.Invalidate();
         }
 

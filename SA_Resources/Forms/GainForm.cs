@@ -65,7 +65,7 @@ namespace SA_Resources.SAForms
                 if (PARENT_FORM.LIVE_MODE && !is_mixer)
                 {
                     gainMeter.Visible = true;
-                    gainMeter.PIC_CONN = PARENT_FORM._PIC_Conn;
+                    gainMeter.DeviceConn = PARENT_FORM.DeviceConn;
                     gainMeter.Address = RecastStandardGain._Meter;
                     gainMeter.Start();
                 }
@@ -83,7 +83,7 @@ namespace SA_Resources.SAForms
             }
             catch (Exception ex)
             {
-                Console.WriteLine("[Exception in GainForm]: " + ex.Message);
+                Debug.WriteLine("[Exception in GainForm]: " + ex.Message);
             }
 
         }
@@ -106,51 +106,6 @@ namespace SA_Resources.SAForms
                 RecastStandardGain.QueueChange(PARENT_FORM);
             }
         }
-
-        private void signalTimer_Tick(object sender, EventArgs e)
-        {
-            /*// TODO add meter handler here
-
-            if (is_mixer)
-            {
-                return;
-            }
-
-            Stopwatch sw = new Stopwatch();
-            sw.Restart();
-            UInt32 read_address = (RecastStandardGain.Meter);
-            
-            
-            double offset = (20 - 20 + 3.8) + 10 * Math.Log10(2) + 20 * Math.Log10(16);
-            UInt32 read_value = PARENT_FORM._PIC_Conn.Read_Live_DSP_Value(read_address);
-
-            
-            double converted_value = DSP_Math.MN_to_double_signed(read_value, 1, 31);
-            double read_gain_value;
-
-            if (converted_value > (0.000001 * 0.000001))
-            {
-                read_gain_value = offset + 10 * Math.Log10(converted_value);
-            }
-            else
-            {
-                read_gain_value = -100;
-            }
-
-            gainMeter.DB = read_gain_value;
-
-            sw.Stop();
-            //Console.WriteLine("Got meter value in " + sw.ElapsedMilliseconds + " seconds");
-             */
-        }
-
-
-        #region Meter Threading
-
-        
-
-        #endregion
-
 
         private void btnSave_Click(object sender, EventArgs e)
         {

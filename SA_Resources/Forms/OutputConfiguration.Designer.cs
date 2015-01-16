@@ -1,6 +1,6 @@
 ﻿using SA_Resources.SAControls;
 
-namespace SA_Resources
+namespace SA_Resources.SAForms
 {
     partial class OutputConfiguration
     {
@@ -77,7 +77,7 @@ namespace SA_Resources
             // btnCancel
             // 
             this.btnCancel.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCancel.Image = ((System.Drawing.Image)(resources.GetObject("btnCancel.Image")));
+            this.btnCancel.Image = global::SA_GFXLib.SA_GFXLib_Resources.ui_btn_cancel;
             this.btnCancel.Location = new System.Drawing.Point(137, 142);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(49, 23);
@@ -89,7 +89,7 @@ namespace SA_Resources
             // btnSave
             // 
             this.btnSave.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnSave.Image = ((System.Drawing.Image)(resources.GetObject("btnSave.Image")));
+            this.btnSave.Image = global::SA_GFXLib.SA_GFXLib_Resources.ui_btn_save;
             this.btnSave.Location = new System.Drawing.Point(109, 142);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(49, 23);
@@ -123,7 +123,7 @@ namespace SA_Resources
             // pbtnReset
             // 
             this.pbtnReset.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pbtnReset.Image = global::SA_Resources.GlobalResources.ui_btn_reset;
+            this.pbtnReset.Image = global::SA_GFXLib.SA_GFXLib_Resources.ui_btn_reset;
             this.pbtnReset.Location = new System.Drawing.Point(186, 35);
             this.pbtnReset.Name = "pbtnReset";
             this.pbtnReset.Size = new System.Drawing.Size(49, 23);
@@ -134,7 +134,7 @@ namespace SA_Resources
             // pbtnMute
             // 
             this.pbtnMute.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pbtnMute.Image = global::SA_Resources.GlobalResources.ui_btn_blue_mute;
+            this.pbtnMute.Image = global::SA_GFXLib.SA_GFXLib_Resources.ui_btn_blue_mute;
             this.pbtnMute.Location = new System.Drawing.Point(183, 6);
             this.pbtnMute.Name = "pbtnMute";
             this.pbtnMute.Size = new System.Drawing.Size(55, 23);
@@ -191,7 +191,7 @@ namespace SA_Resources
             // 
             // gainMeterOut
             // 
-            this.gainMeterOut.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("gainMeterOut.BackgroundImage")));
+            this.gainMeterOut.BackgroundImage = global::SA_GFXLib.SA_GFXLib_Resources.bg_meter_small;
             this.gainMeterOut.DB = -35D;
             this.gainMeterOut.Location = new System.Drawing.Point(255, 12);
             this.gainMeterOut.Name = "gainMeterOut";

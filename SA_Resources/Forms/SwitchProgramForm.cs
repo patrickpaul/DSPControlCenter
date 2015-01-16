@@ -45,9 +45,9 @@ namespace SA_Resources.SAForms
         {
             timer1.Enabled = false;
 
-            if (PARENT_FORM._PIC_Conn.getRTS())
+            if (PARENT_FORM.DeviceConn.getRTS())
             {
-                if (PARENT_FORM._PIC_Conn.SwitchActiveProgram(NEW_PROGRAM_INDEX))
+                if (PARENT_FORM.DeviceConn.SwitchActiveProgram(NEW_PROGRAM_INDEX))
                 {
                     this.DialogResult = DialogResult.OK;
 

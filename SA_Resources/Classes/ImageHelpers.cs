@@ -1,10 +1,21 @@
-﻿using System;
+﻿/*
+ * File     : ImageHelpers.cs
+ * Created  : 28 July 2013
+ * Updated  : 15 January 2015
+ * Author   : Patrick Paul
+ * Synopsis : Helper class that performs image rotation
+ *
+ * This software is Copyright (c) 2013-2015, Stewart Audio Inc. and/or its licensors
+ *
+ */
+
+using System;
 using System.Drawing;
 
-namespace SA_Resources
+namespace SA_Resources.Utilities
 {
     /// <summary>
-    /// Summary description for Utilities.
+    /// Performs primarily image rotation for Dial class
     /// </summary>
     public sealed class ImageHelpers
     {

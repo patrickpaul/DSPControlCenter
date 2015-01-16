@@ -1,20 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿/*
+ * File     : SCFG_Manager.cs
+ * Updated  : 15 January 2015
+ * Author   : Patrick Paul
+ * Synopsis : Configuration file (SCFG) manager class.
+ *
+ * This software is Copyright (c) 2013-2015, Stewart Audio Inc. and/or its licensors
+ *
+ */
+
+using System;
 using System.Reflection;
-using System.Text;
-using System.Windows.Forms;
-using SA_Resources;
-using System.Globalization;
 using System.IO;
-using SA_Resources.SADevices;
+using SA_Resources.DeviceManagement;
 using SA_Resources.SAForms;
 
-namespace SA_Resources
+namespace SA_Resources.DeviceManagement
 {
     public static class SCFG_Manager
     {
-
+        /// <summary>
+        /// Writes a device configuration (.scfg) to a file. Will overwrite existing file if it exists.
+        /// </summary>
+        /// <param name="outputFile">The output file path.</param>
+        /// <param name="PARENT_FORM">The device's form.</param>
+        /// <exception cref="SA_Resources.SCFG_Manager.SCFG_WRITE_EXCEPTION">
+        /// IOException in SCFG_Manager.Write
+        /// or
+        /// UnauthorizedAccessException in SCFG_Manager.Write
+        /// or
+        /// Exception in SCFG_Manager.Write
+        /// </exception>
         public static void Write(string outputFile, MainForm_Template PARENT_FORM)
         {
             try
@@ -24,41 +39,35 @@ namespace SA_Resources
                     File.Delete(outputFile);
                 }
 
-                Version currentVersion = Assembly.GetExecutingAssembly().GetName().Version;
+                DeviceFamily dFamily = PARENT_FORM.GetDeviceFamily();
 
                 using (StreamWriter writer = new StreamWriter(outputFile, true))
                 {
+                    Version currentVersion = Assembly.GetExecutingAssembly().GetName().Version;
+
                     writer.WriteLine("DSPCCVERSION:" + currentVersion.Major + "." + currentVersion.Minor + "." + currentVersion.Build);
                     writer.WriteLine("DEVICE-ID:" + PARENT_FORM.GetDeviceID().ToString("X8") + ";");
                     writer.WriteLine("SERIAL:" + PARENT_FORM.SERIALNUM + ";");
                     writer.WriteLine("TIMESTAMP:" + DateTime.Now.ToString("MM-dd-yyyy HH:mm:ss") + ";");
 
-                    if (PARENT_FORM.GetDeviceFamily() == DeviceFamily.FLX)
+                    if (PARENT_FORM.IsAmplifier())
                     {
-                        int mode = PARENT_FORM.AmplifierMode;
-                        bool sleep_enable = PARENT_FORM.SLEEP_ENABLE;
-                        int sleep_seconds = PARENT_FORM.SLEEP_SECONDS;
-                        int adc_min = PARENT_FORM.ADC_CALIBRATION_MIN;
-                        int adc_max = PARENT_FORM.ADC_CALIBRATION_MAX;
+                        if (dFamily == DeviceFamily.FLX || dFamily == DeviceFamily.FLXNET)
+                        {
+                            int amplifierMode = PARENT_FORM.AmplifierMode;
+                            writer.WriteLine("MODE:" + amplifierMode.ToString("00000000") + ";");
+                        }
 
-                        writer.WriteLine("MODE:" + mode.ToString("00000000") + ";");
-                        writer.WriteLine("SLEEP_ENABLE:" + sleep_enable + ";");
-                        writer.WriteLine("SLEEP_SECONDS:" + sleep_seconds.ToString("00000000") + ";");
-                        writer.WriteLine("ADC_CALIBRATION_MIN:" + adc_min.ToString("00000000") + ";");
-                        writer.WriteLine("ADC_CALIBRATION_MAX:" + adc_max.ToString("00000000") + ";");
-                    }
+                        /* Note - these are declared to local variables first to prevent CS1690 Warnings */
+                        bool sleepEnable = PARENT_FORM.SLEEP_ENABLE;
+                        int sleepSeconds = PARENT_FORM.SLEEP_SECONDS;
+                        int adcMin = PARENT_FORM.ADC_CALIBRATION_MIN;
+                        int adcMax = PARENT_FORM.ADC_CALIBRATION_MAX;
 
-                    if (PARENT_FORM.GetDeviceFamily() == DeviceFamily.DSP100 || PARENT_FORM.GetDeviceFamily() == DeviceFamily.DSP100NET)
-                    {
-                        bool sleep_enable = PARENT_FORM.SLEEP_ENABLE;
-                        int sleep_seconds = PARENT_FORM.SLEEP_SECONDS;
-                        int adc_min = PARENT_FORM.ADC_CALIBRATION_MIN;
-                        int adc_max = PARENT_FORM.ADC_CALIBRATION_MAX;
-
-                        writer.WriteLine("SLEEP_ENABLE:" + sleep_enable + ";");
-                        writer.WriteLine("SLEEP_SECONDS:" + sleep_seconds.ToString("00000000") + ";");
-                        writer.WriteLine("ADC_CALIBRATION_MIN:" + adc_min.ToString("00000000") + ";");
-                        writer.WriteLine("ADC_CALIBRATION_MAX:" + adc_max.ToString("00000000") + ";");
+                        writer.WriteLine("SLEEP_ENABLE:" + sleepEnable + ";");
+                        writer.WriteLine("SLEEP_SECONDS:" + sleepSeconds.ToString("00000000") + ";");
+                        writer.WriteLine("ADC_CALIBRATION_MIN:" + adcMin.ToString("00000000") + ";");
+                        writer.WriteLine("ADC_CALIBRATION_MAX:" + adcMax.ToString("00000000") + ";");
                     }
 
                     for (int i = 0; i < PARENT_FORM.GetNumPresets(); i++)
@@ -71,132 +80,186 @@ namespace SA_Resources
             }
             catch (IOException io_ex)
             {
-                Console.WriteLine("IOException in SCFG_Manager.Write: " + io_ex.Message);
+                throw new SCFG_WRITE_EXCEPTION("IOException in SCFG_Manager.Write", io_ex);
             }
             catch (UnauthorizedAccessException access_ex)
             {
-                Console.WriteLine("UnauthorizedAccessException in SCFG_Manager.Write: " + access_ex.Message);
+                throw new SCFG_WRITE_EXCEPTION("UnauthorizedAccessException in SCFG_Manager.Write", access_ex);
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Exception in SCFG_Manager.Write: " + ex.Message);
+                throw new SCFG_WRITE_EXCEPTION("Exception in SCFG_Manager.Write", ex);
             }
 
         }
 
+        /// <summary>
+        /// Reads device configuration file (.scfg) to a device form
+        /// </summary>
+        /// <param name="inputFile">The scfg file path.</param>
+        /// <param name="PARENT_FORM">The device's form.</param>
+        /// <exception cref="SA_Resources.SCFG_Manager.SCFG_READ_EXCEPTION">
+        /// Loaded SCFG file does not match current device.
+        /// or
+        /// Unexpected token in configuration file on line  + linecounter
+        /// or
+        /// Did not find the start for Prefix # + i + .
+        /// or
+        /// IOException in SCFG_Manager.Read
+        /// or
+        /// IOException in SCFG_Manager.Read
+        /// or
+        /// Exception in SCFG_Manager.Read
+        /// </exception>
         public static void Read(string inputFile, MainForm_Template PARENT_FORM)
         {
             try
             {
                 using (StreamReader reader = new StreamReader(inputFile))
                 {
-                    string VersionLine = reader.ReadLine();
-                    string DeviceLine = reader.ReadLine();
-                    int device_id = Convert.ToInt32(DeviceLine.Substring(16, 2), 16);
+                    bool presetStartFound = false;
+                    string unprocessedLine = "";
+                    int linecounter = 1;
 
-                    if (device_id != PARENT_FORM.GetDeviceID())
+                    while (!presetStartFound)
                     {
-                        throw new Exception("Loaded SCFG file does not match current device.");
-                    }
+                        unprocessedLine = reader.ReadLine();
 
-                    string SerialLine = reader.ReadLine();
-                    string TimestampLine = reader.ReadLine();
-
-                    if (PARENT_FORM.GetDeviceFamily() == DeviceFamily.FLX)
-                    {
-                        string ModeLine = reader.ReadLine();
-
-                        
-
-                        string SleepEnableLine = reader.ReadLine();
-                        string SleepSecondsLine = reader.ReadLine();
-                        string ADCMinLine = reader.ReadLine();
-                        string ADCMaxLine = reader.ReadLine();
-
-                        int new_mode = int.Parse(ModeLine.Substring(5, 8));
-
-                        if (PARENT_FORM.GetDeviceType() == DeviceType.FLX804)
+                        if (unprocessedLine == null)
                         {
-                            switch (new_mode)
-                            {
-                                case 0:
-                                    PARENT_FORM.AmplifierBridgeMode = BridgeMode.FourChannel;
-                                    break;
-
-                                case 1:
-                                    PARENT_FORM.AmplifierBridgeMode = BridgeMode.TwoChannel;
-                                    break;
-
-                                case 2:
-                                    PARENT_FORM.AmplifierBridgeMode = BridgeMode.TwoOneChannel;
-                                    break;
-                            }
+                            // Catch the possible null reference exception here.
+                            throw new SCFG_READ_EXCEPTION("Reached end of file before the start of a preset was found.");
                         }
 
+                        if (unprocessedLine.StartsWith("DSPCCVERSION"))
+                        {
+                            // Consume for now
+                        }
+                        else if (unprocessedLine.StartsWith("DEVICE-ID"))
+                        {
+                            int device_id = Convert.ToInt32(unprocessedLine.Substring(16, 2), 16);
 
+                            if (device_id != PARENT_FORM.GetDeviceID())
+                            {
+                                throw new SCFG_READ_EXCEPTION("Loaded SCFG file does not match current device.");
+                            }
+                        }
+                        else if (unprocessedLine.StartsWith("SERIAL"))
+                        {
+                            // Consume for now
+                        }
+                        else if (unprocessedLine.StartsWith("TIMESTAMP"))
+                        {
+                            // Consume for now
+                        }
+                        else if (unprocessedLine.StartsWith("MODE"))
+                        {
+                            // Consume for now as bridge mode for FLX80-4 was removed due to technical limitations
+                            // TODO - Re-evaluate this statement
+                        }
+                        else if (unprocessedLine.StartsWith("SLEEP_ENABLE"))
+                        {
+                            PARENT_FORM.SLEEP_ENABLE = unprocessedLine.Contains("True");
+                        }
+                        else if (unprocessedLine.StartsWith("SLEEP_SECONDS"))
+                        {
+                            PARENT_FORM.SLEEP_SECONDS = int.Parse(unprocessedLine.Substring(14, 8));
+                        }
+                        else if (unprocessedLine.StartsWith("ADC_CALIBRATION_MIN"))
+                        {
+                            PARENT_FORM.ADC_CALIBRATION_MIN = int.Parse(unprocessedLine.Substring(20, 8));
+                        }
+                        else if (unprocessedLine.StartsWith("ADC_CALIBRATION_MAX"))
+                        {
+                            PARENT_FORM.ADC_CALIBRATION_MAX = int.Parse(unprocessedLine.Substring(20, 8));
+                        }
+                        else if (unprocessedLine.StartsWith("PRESET"))
+                        {
+                            presetStartFound = true;
+                        }
+                        else
+                        {
+                            throw new SCFG_READ_EXCEPTION("Unexpected token in configuration file on line " + linecounter);
+                        }
 
-                        bool sleep_enable = SleepEnableLine.Contains("True");
-                        int sleep_seconds = int.Parse(SleepSecondsLine.Substring(14, 8));
-                        int adc_min = int.Parse(ADCMinLine.Substring(20, 8));
-                        int adc_max = int.Parse(ADCMaxLine.Substring(20, 8));
-
-                        PARENT_FORM.AmplifierMode = new_mode;
-                        PARENT_FORM.SLEEP_ENABLE = sleep_enable;
-                        PARENT_FORM.SLEEP_SECONDS = sleep_seconds;
-                        PARENT_FORM.ADC_CALIBRATION_MIN = adc_min;
-                        PARENT_FORM.ADC_CALIBRATION_MAX = adc_max;
-
-                        PARENT_FORM.SetBridgeMode(new_mode);
-
+                        linecounter++;
                     }
-
-                    if (PARENT_FORM.GetDeviceFamily() == DeviceFamily.DSP100)
-                    {
-                        string SleepEnableLine = reader.ReadLine();
-                        string SleepSecondsLine = reader.ReadLine();
-                        string ADCMinLine = reader.ReadLine();
-                        string ADCMaxLine = reader.ReadLine();
-
-                        bool sleep_enable = SleepEnableLine.Contains("True");
-                        int sleep_seconds = int.Parse(SleepSecondsLine.Substring(14, 8));
-                        int adc_min = int.Parse(ADCMinLine.Substring(20, 8));
-                        int adc_max = int.Parse(ADCMaxLine.Substring(20, 8));
-                        PARENT_FORM.SLEEP_ENABLE = sleep_enable;
-                        PARENT_FORM.SLEEP_SECONDS = sleep_seconds;
-                        PARENT_FORM.ADC_CALIBRATION_MIN = adc_min;
-                        PARENT_FORM.ADC_CALIBRATION_MAX = adc_max;
-
-                    }
+                   
 
                     string PresetLine = "";
 
                     for (int i = 0; i < PARENT_FORM.GetNumPresets(); i++)
                     {
-                        PresetLine = reader.ReadLine();
+                        if (i > 0)
+                        {
+                            PresetLine = reader.ReadLine();
+
+                            if (PresetLine == null)
+                            {
+                                throw new SCFG_READ_EXCEPTION("Encountered null reference when searching for Prefix #" + i + ".");
+                            }
+
+                            if (!PresetLine.StartsWith("PRESET"))
+                            {
+                                throw new SCFG_READ_EXCEPTION("Did not find the start for Prefix #" + i + ".");
+                            }
+                        }
+
                         PARENT_FORM.DSP_PROGRAMS[i].ReadFromFile(PARENT_FORM, reader);
                     }
                 }
-
             }
-            catch (IOException io_ex)
+            catch (IOException ioEx)
             {
-                Console.WriteLine("IOException in SCFG_Manager.Read: " + io_ex.Message);
+                throw new SCFG_READ_EXCEPTION("IOException in SCFG_Manager.Read", ioEx);
             }
-            catch (UnauthorizedAccessException access_ex)
+            catch (UnauthorizedAccessException accessEx)
             {
-                Console.WriteLine("UnauthorizedAccessException in SCFG_Manager.Read: " + access_ex.Message);
+                throw new SCFG_READ_EXCEPTION("IOException in SCFG_Manager.Read", accessEx);
             }
             catch (Exception ex)
             {
-                if (ex.Message.Contains("Loaded SCFG file"))
-                {
-                    throw new Exception(ex.Message);
-                }
-                Console.WriteLine("Exception in SCFG_Manager.Read: " + ex.Message);
+                throw new SCFG_READ_EXCEPTION("Exception in SCFG_Manager.Read", ex);
+            }
+        }
+
+        #region Exception Classes
+
+        public class SCFG_WRITE_EXCEPTION : Exception
+        {
+            public SCFG_WRITE_EXCEPTION()
+            {
             }
 
+            public SCFG_WRITE_EXCEPTION(string message)
+                : base(message)
+            {
+            }
 
+            public SCFG_WRITE_EXCEPTION(string message, Exception inner)
+                : base(message, inner)
+            {
+            }
         }
+
+        public class SCFG_READ_EXCEPTION : Exception
+        {
+            public SCFG_READ_EXCEPTION()
+            {
+            }
+
+            public SCFG_READ_EXCEPTION(string message)
+                : base(message)
+            {
+            }
+
+            public SCFG_READ_EXCEPTION(string message, Exception inner)
+                : base(message, inner)
+            {
+            }
+        }
+
+        #endregion
 
     }
 }

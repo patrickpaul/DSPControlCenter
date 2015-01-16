@@ -1,10 +1,12 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using SA_Resources;
-using SA_Resources.SADevices;
+using SA_Resources.DeviceManagement;
+
 using SA_Resources.SAForms;
 using SA_Resources.DSP.Primitives;
 
@@ -302,9 +304,9 @@ namespace FLX80_4_Analog
             Bitmap resized_panel_bg;
             Bitmap resized_panel_bg_bridged;
 
-            resized_panel_bg = new Bitmap(SA_Resources.GlobalResources.uidesign_prematrix_line, new Size(pnlCH1PostMixer.Width, pnlCH1PostMixer.Height));
+            resized_panel_bg = new Bitmap(SA_GFXLib.SA_GFXLib_Resources.uidesign_prematrix_line, new Size(pnlCH1PostMixer.Width, pnlCH1PostMixer.Height));
 
-            resized_panel_bg_bridged = new Bitmap(SA_Resources.GlobalResources.uidesign_prematrix_line_bridged, new Size(pnlCH1PostMixer.Width, pnlCH1PostMixer.Height));
+            resized_panel_bg_bridged = new Bitmap(SA_GFXLib.SA_GFXLib_Resources.uidesign_prematrix_line_bridged, new Size(pnlCH1PostMixer.Width, pnlCH1PostMixer.Height));
 
             switch (BridgeMode)
             {
@@ -360,7 +362,7 @@ namespace FLX80_4_Analog
         {
 
             // Disable timers
-            _PIC_Conn.sendAckdCommand(0x10);
+            DeviceConn.DisableTimers();
 
             BackgroundWorker backgroundWorker = sender as BackgroundWorker;
 
@@ -370,7 +372,7 @@ namespace FLX80_4_Analog
                 backgroundWorker.ReportProgress((i+1) * 10);
             }
 
-            /*AmplifierMode = _PIC_Conn.ReadAmplifierMode();
+            /*AmplifierMode = DeviceConn.ReadAmplifierMode();
 
             switch (AmplifierMode)
             {
@@ -387,13 +389,13 @@ namespace FLX80_4_Analog
                     break;
             }
             */
-            ADC_CALIBRATION_MIN = _PIC_Conn.ReadRVCMin();
-            ADC_CALIBRATION_MAX = _PIC_Conn.ReadRVCMax();
-            SLEEP_ENABLE = _PIC_Conn.ReadSleepModeEnable();
-            SLEEP_SECONDS = _PIC_Conn.ReadSleepModeSeconds();
+            ADC_CALIBRATION_MIN = DeviceConn.ReadRVCMin();
+            ADC_CALIBRATION_MAX = DeviceConn.ReadRVCMax();
+            SLEEP_ENABLE = DeviceConn.ReadSleepModeEnable();
+            SLEEP_SECONDS = DeviceConn.ReadSleepModeSeconds();
 
             // Re-enable timers
-            //_PIC_Conn.sendAckdCommand(0x11);
+            //DeviceConn.sendAckdCommand(0x11);
 
             backgroundWorker.ReportProgress(100);
         }
@@ -480,7 +482,7 @@ namespace FLX80_4_Analog
             }
             catch (Exception ex)
             {
-                Console.WriteLine("[EXCEPTION in Default_DSP_Meters]: " + ex.Message);
+                Debug.WriteLine("[EXCEPTION in Default_DSP_Meters]: " + ex.Message);
             }
         }
 
@@ -631,7 +633,7 @@ namespace FLX80_4_Analog
             }
             catch (Exception ex)
             {
-                Console.WriteLine("[EXCEPTION in Single_Default_DSP_Program]: " + ex.Message);
+                Debug.WriteLine("[EXCEPTION in Single_Default_DSP_Program]: " + ex.Message);
             }
         }
         #endregion

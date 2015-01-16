@@ -1,11 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace SA_Resources
+﻿/*
+ * File     : Line.cs
+ * Created  : 28 July 2013
+ * Updated  : 15 January 2015
+ * Author   : Patrick Paul
+ * Synopsis : A class that performs line calculations (slope and values)
+ *
+ * This software is Copyright (c) 2013-2015, Stewart Audio Inc. and/or its licensors
+ *
+ */
+namespace SA_Resources.Utilities
 {
-    class Line
+    public class Line
     {
         private double Intercept;
         private double Slope;

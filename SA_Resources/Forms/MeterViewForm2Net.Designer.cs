@@ -163,7 +163,7 @@ namespace SA_Resources.SAForms
             // pbtnClose
             // 
             this.pbtnClose.AutoResize = true;
-            this.pbtnClose.BackgroundImage = global::SA_Resources.GlobalResources.ui_btn_blue_close;
+            this.pbtnClose.BackgroundImage = global::SA_GFXLib.SA_GFXLib_Resources.ui_btn_close;
             this.pbtnClose.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pbtnClose.Location = new System.Drawing.Point(302, 278);
             this.pbtnClose.Name = "pbtnClose";
@@ -182,7 +182,7 @@ namespace SA_Resources.SAForms
             // 
             // outMeter4
             // 
-            this.outMeter4.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("outMeter4.BackgroundImage")));
+            this.outMeter4.BackgroundImage = global::SA_GFXLib.SA_GFXLib_Resources.bg_meter_large;
             this.outMeter4.DB = -35D;
             this.outMeter4.Location = new System.Drawing.Point(603, 12);
             this.outMeter4.Name = "outMeter4";
@@ -192,7 +192,7 @@ namespace SA_Resources.SAForms
             // 
             // outMeter3
             // 
-            this.outMeter3.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("outMeter3.BackgroundImage")));
+            this.outMeter3.BackgroundImage = global::SA_GFXLib.SA_GFXLib_Resources.bg_meter_large;
             this.outMeter3.DB = -35D;
             this.outMeter3.Location = new System.Drawing.Point(542, 12);
             this.outMeter3.Name = "outMeter3";
@@ -202,7 +202,7 @@ namespace SA_Resources.SAForms
             // 
             // outMeter2
             // 
-            this.outMeter2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("outMeter2.BackgroundImage")));
+            this.outMeter2.BackgroundImage = global::SA_GFXLib.SA_GFXLib_Resources.bg_meter_large;
             this.outMeter2.DB = -35D;
             this.outMeter2.Location = new System.Drawing.Point(481, 12);
             this.outMeter2.Name = "outMeter2";
@@ -212,7 +212,7 @@ namespace SA_Resources.SAForms
             // 
             // outMeter1
             // 
-            this.outMeter1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("outMeter1.BackgroundImage")));
+            this.outMeter1.BackgroundImage = global::SA_GFXLib.SA_GFXLib_Resources.bg_meter_large;
             this.outMeter1.DB = -35D;
             this.outMeter1.Location = new System.Drawing.Point(420, 12);
             this.outMeter1.Name = "outMeter1";
@@ -222,7 +222,7 @@ namespace SA_Resources.SAForms
             // 
             // inMeter1
             // 
-            this.inMeter1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("inMeter1.BackgroundImage")));
+            this.inMeter1.BackgroundImage = global::SA_GFXLib.SA_GFXLib_Resources.bg_meter_large;
             this.inMeter1.DB = -35D;
             this.inMeter1.Location = new System.Drawing.Point(12, 12);
             this.inMeter1.Name = "inMeter1";
@@ -232,7 +232,7 @@ namespace SA_Resources.SAForms
             // 
             // inMeter2
             // 
-            this.inMeter2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("inMeter2.BackgroundImage")));
+            this.inMeter2.BackgroundImage = global::SA_GFXLib.SA_GFXLib_Resources.bg_meter_large;
             this.inMeter2.DB = -35D;
             this.inMeter2.Location = new System.Drawing.Point(73, 12);
             this.inMeter2.Name = "inMeter2";
@@ -242,7 +242,7 @@ namespace SA_Resources.SAForms
             // 
             // inMeter3
             // 
-            this.inMeter3.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("inMeter3.BackgroundImage")));
+            this.inMeter3.BackgroundImage = global::SA_GFXLib.SA_GFXLib_Resources.bg_meter_large;
             this.inMeter3.DB = -35D;
             this.inMeter3.Location = new System.Drawing.Point(134, 12);
             this.inMeter3.Name = "inMeter3";
@@ -252,7 +252,7 @@ namespace SA_Resources.SAForms
             // 
             // inMeter4
             // 
-            this.inMeter4.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("inMeter4.BackgroundImage")));
+            this.inMeter4.BackgroundImage = global::SA_GFXLib.SA_GFXLib_Resources.bg_meter_large;
             this.inMeter4.DB = -35D;
             this.inMeter4.Location = new System.Drawing.Point(195, 12);
             this.inMeter4.Name = "inMeter4";
@@ -262,7 +262,7 @@ namespace SA_Resources.SAForms
             // 
             // inMeter6
             // 
-            this.inMeter6.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("inMeter6.BackgroundImage")));
+            this.inMeter6.BackgroundImage = global::SA_GFXLib.SA_GFXLib_Resources.bg_meter_large;
             this.inMeter6.DB = -35D;
             this.inMeter6.Location = new System.Drawing.Point(317, 12);
             this.inMeter6.Name = "inMeter6";
@@ -272,7 +272,7 @@ namespace SA_Resources.SAForms
             // 
             // inMeter5
             // 
-            this.inMeter5.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("inMeter5.BackgroundImage")));
+            this.inMeter5.BackgroundImage = global::SA_GFXLib.SA_GFXLib_Resources.bg_meter_large;
             this.inMeter5.DB = -35D;
             this.inMeter5.Location = new System.Drawing.Point(256, 12);
             this.inMeter5.Name = "inMeter5";

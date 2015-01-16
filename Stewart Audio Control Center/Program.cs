@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -21,7 +22,7 @@ namespace SA_Resources
             }
             catch (Exception ex)
             {
-                Console.WriteLine("[Exception in SA_Resources.Program.Main]: " + ex.Message);
+                Debug.WriteLine("[Exception in SA_Resources.Program.Main]: " + ex.Message);
             }
         }
     }

@@ -39,7 +39,6 @@
             this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.button1 = new System.Windows.Forms.Button();
             this.deviceThumbnail = new System.Windows.Forms.PictureBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.radioPush = new System.Windows.Forms.RadioButton();
             this.radioPull = new System.Windows.Forms.RadioButton();
@@ -52,7 +51,7 @@
             this.grpConnect.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.deviceThumbnail)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+
             this.grpPushPull.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -161,16 +160,6 @@
             this.deviceThumbnail.TabStop = false;
             this.deviceThumbnail.Visible = false;
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackgroundImage = global::SA_Resources.GlobalResources.UI_thumbnail;
-            this.pictureBox1.Location = new System.Drawing.Point(12, 333);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(175, 100);
-            this.pictureBox1.TabIndex = 30;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.Visible = false;
-            // 
             // timer1
             // 
             this.timer1.Interval = 1000;
@@ -273,7 +262,6 @@
             this.ClientSize = new System.Drawing.Size(379, 300);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.grpPushPull);
-            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.deviceThumbnail);
             this.Controls.Add(this.statusStrip1);
@@ -290,7 +278,6 @@
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.deviceThumbnail)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.grpPushPull.ResumeLayout(false);
             this.grpPushPull.PerformLayout();
             this.ResumeLayout(false);
@@ -309,7 +296,6 @@
         private System.Windows.Forms.ToolStripStatusLabel statusLabel;
         private System.Windows.Forms.PictureBox deviceThumbnail;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.RadioButton radioPush;
         private System.Windows.Forms.RadioButton radioPull;

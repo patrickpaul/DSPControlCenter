@@ -272,7 +272,7 @@ namespace SA_Resources.SAForms
 
             } catch (Exception ex)
             {
-                Console.WriteLine(ex);
+                Debug.WriteLine(ex);
             }
         }
 
@@ -914,7 +914,7 @@ namespace SA_Resources.SAForms
                                           };
                             freqTextbox.BeginInvoke(action1);
 
-                            //Console.WriteLine("Updating Frequency to " + freqTextbox.Text);
+                            //Debug.WriteLine("Updating Frequency to " + freqTextbox.Text);
 
                         }
 
@@ -945,7 +945,7 @@ namespace SA_Resources.SAForms
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine("Exception in UpdateUIToVals Level 2: " + ex.Message);
+                        Debug.WriteLine("Exception in UpdateUIToVals Level 2: " + ex.Message);
                     }
 
                     lock (_threadlock)
@@ -953,7 +953,7 @@ namespace SA_Resources.SAForms
                         if (uithread_abort == true)
                         {
                             uithread_abort = false;
-                            Console.WriteLine("Broke UI thread");
+                            Debug.WriteLine("Broke UI thread");
                             break;
                         }
 
@@ -963,7 +963,7 @@ namespace SA_Resources.SAForms
 
             } catch (Exception ex)
             {
-                Console.WriteLine("Exception in UpdateUIToVals Level 1: " + ex.Message);
+                Debug.WriteLine("Exception in UpdateUIToVals Level 1: " + ex.Message);
 
             }
 
@@ -1052,7 +1052,7 @@ namespace SA_Resources.SAForms
                 {
 
 
-                    //Console.WriteLine(yPos);
+                    //Debug.WriteLine(yPos);
                     // We are no longer in the chart area... Let's set to max/min values as necessary
 
                     //if (filterChart.HitTest(e.X, e.Y).ChartArea != filterChart.ChartAreas[0])
@@ -1635,7 +1635,7 @@ namespace SA_Resources.SAForms
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Exception in FilterForm.SendFilterToParent: " + ex.Message);
+                Debug.WriteLine("Exception in FilterForm.SendFilterToParent: " + ex.Message);
             }
 
         }

@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
+using System.Diagnostics;
 using System.Threading;
 using System.Windows.Forms;
-using SA_Resources.SADevices;
+using SA_Resources.DeviceManagement;
 using SA_Resources.USB;
 
 namespace SA_Resources.SAForms
@@ -77,13 +74,13 @@ namespace SA_Resources.SAForms
 
                     foreach (COMPortInfo port in USBCOMPorts)
                     {
-                        if (PARENT_FORM._PIC_Conn.Open(port.Name))
+                        if (PARENT_FORM.DeviceConn.Open(port.Name))
                         {
-                            if (PARENT_FORM._PIC_Conn.getRTS())
+                            if (PARENT_FORM.DeviceConn.getRTS())
                             {
 
-                                int device_type = PARENT_FORM._PIC_Conn.GetDeviceID();
-                                double firmwareVersion = PARENT_FORM._PIC_Conn.GetDeviceFirmwareVersion();
+                                int device_type = PARENT_FORM.DeviceConn.GetDeviceID();
+                                double firmwareVersion = PARENT_FORM.DeviceConn.GetDeviceFirmwareVersion();
 
                                 if((deviceTypeFilter == 0) || (deviceTypeFilter == device_type))
                                 {
@@ -92,7 +89,7 @@ namespace SA_Resources.SAForms
                                 }
                             }
 
-                            PARENT_FORM._PIC_Conn.Close();
+                            PARENT_FORM.DeviceConn.Close();
 
                         }
                     }
@@ -101,7 +98,7 @@ namespace SA_Resources.SAForms
             }
             catch (Exception ex)
             {
-                Console.WriteLine("[Exception in DeviceManagerForm.GetDeviceList]: " + ex.Message);
+                Debug.WriteLine("[Exception in DeviceManagerForm.GetDeviceList]: " + ex.Message);
             }
 
             return returnList;
@@ -185,7 +182,7 @@ namespace SA_Resources.SAForms
                 {
                     btnConnect.Text = "Connect";
                     isConnected = false;
-                    PARENT_FORM._PIC_Conn.Close();
+                    PARENT_FORM.DeviceConn.Close();
                     PARENT_FORM.EndLiveMode();
                     grpPushPull.Enabled = false;
                     progressBar1.Visible = false;
@@ -194,14 +191,14 @@ namespace SA_Resources.SAForms
                 }
                 SADevice SelectedDevice = devicesFound[listDevices.SelectedIndex];
 
-                if (PARENT_FORM._PIC_Conn.Open("COM" + SelectedDevice.Port))
+                if (PARENT_FORM.DeviceConn.Open("COM" + SelectedDevice.Port))
                 {
                     Thread.Sleep(100);
-                    if (PARENT_FORM._PIC_Conn.getRTS())
+                    if (PARENT_FORM.DeviceConn.getRTS())
                     {
                         statusLabel.Text = "Connected. Downloading...";
 
-                        int device_type = PARENT_FORM._PIC_Conn.GetDeviceID();
+                        int device_type = PARENT_FORM.DeviceConn.GetDeviceID();
 
                         
                         if (device_type == PARENT_FORM.GetDeviceID())
@@ -296,7 +293,7 @@ namespace SA_Resources.SAForms
         {
             progressBar1.Value = 100;
 
-            int program_index = PARENT_FORM._PIC_Conn.GetCurrentProgram();
+            int program_index = PARENT_FORM.DeviceConn.GetCurrentProgram();
 
             PARENT_FORM.ChangeProgram_AfterRead(program_index);
 
@@ -349,11 +346,11 @@ namespace SA_Resources.SAForms
         {
             if (timerClose == false)
             {
-                if(grpPushPull.Enabled && PARENT_FORM._PIC_Conn.isOpen)
+                if(grpPushPull.Enabled && PARENT_FORM.DeviceConn.isOpen)
                 {
                     // At this point they hit Connect but then hit the Red X to close window
-                    // Close connection so that the _PIC_Conn 
-                    PARENT_FORM._PIC_Conn.Close();
+                    // Close connection so that the DeviceConn 
+                    PARENT_FORM.DeviceConn.Close();
                 }
                 
             }

@@ -2,15 +2,18 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
+using SA_Resources.DeviceManagement;
 using SA_Resources.DSP;
 using SA_Resources.DSP.Primitives;
 using SA_Resources.SAControls;
-using SA_Resources.SADevices;
+
+using SA_Resources.Utilities;
 
 namespace SA_Resources.SAForms
 {
@@ -46,7 +49,10 @@ namespace SA_Resources.SAForms
                 bool outmeter_3_enabled = true;
                 bool outmeter_4_enabled = true;
 
-                if (PARENT_FORM.GetDeviceType() == DeviceType.DSP1001 || PARENT_FORM.GetDeviceType() == DeviceType.FLX3201)
+                DeviceType dType = PARENT_FORM.GetDeviceType();
+                DeviceFamily dFamily = PARENT_FORM.GetDeviceFamily();
+
+                if (dType == DeviceType.DSP1001 || dType == DeviceType.FLX3201)
                 {
                     this.Width = Helpers.NormalizeFormDimension(377);
                     pbtnClose.Location = new Point(153, 278);
@@ -56,8 +62,7 @@ namespace SA_Resources.SAForms
                     outmeter_4_enabled = false;
 
                 }
-
-                if (PARENT_FORM.GetDeviceType() == DeviceType.DSP1002)
+                else if (dType == DeviceType.DSP1002 || dType == DeviceType.DSP1002LZ)
                 {
                     this.Width = Helpers.NormalizeFormDimension(439);
                     pbtnClose.Location = new Point(184, 278);
@@ -65,8 +70,7 @@ namespace SA_Resources.SAForms
                     outmeter_3_enabled = false;
                     outmeter_4_enabled = false;
                 }
-
-                if (PARENT_FORM.GetDeviceType() == DeviceType.FLX1602 || PARENT_FORM.GetDeviceType() == DeviceType.FLX1602CV)
+                else if (dType == DeviceType.FLX1602 || dType == DeviceType.FLX1602CV)
                 {
                     this.Width = Helpers.NormalizeFormDimension(439);
                     pbtnClose.Location = new Point(184, 278);
@@ -89,25 +93,25 @@ namespace SA_Resources.SAForms
                 {
                     
                     inMeter1.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.Input, 0, 0).Address;
-                    inMeter1.PIC_CONN = PARENT_FORM._PIC_Conn;
+                    inMeter1.DeviceConn = PARENT_FORM.DeviceConn;
                     inMeter1.Start();
 
                     inMeter2.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.Input, 1, 0).Address;
-                    inMeter2.PIC_CONN = PARENT_FORM._PIC_Conn;
+                    inMeter2.DeviceConn = PARENT_FORM.DeviceConn;
                     inMeter2.Start();
 
                     inMeter3.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.Input, 2, 0).Address;
-                    inMeter3.PIC_CONN = PARENT_FORM._PIC_Conn;
+                    inMeter3.DeviceConn = PARENT_FORM.DeviceConn;
                     inMeter3.Start();
 
                     inMeter4.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.Input, 3, 0).Address;
-                    inMeter4.PIC_CONN = PARENT_FORM._PIC_Conn;
+                    inMeter4.DeviceConn = PARENT_FORM.DeviceConn;
                     inMeter4.Start();
 
                     if (outmeter_1_enabled)
                     {
                         outMeter1.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.Output, 0, 0).Address;
-                        outMeter1.PIC_CONN = PARENT_FORM._PIC_Conn;
+                        outMeter1.DeviceConn = PARENT_FORM.DeviceConn;
                         outMeter1.Start();
                     }
                     else
@@ -118,7 +122,7 @@ namespace SA_Resources.SAForms
                     if (outmeter_2_enabled)
                     {
                         outMeter2.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.Output, 1, 0).Address;
-                        outMeter2.PIC_CONN = PARENT_FORM._PIC_Conn;
+                        outMeter2.DeviceConn = PARENT_FORM.DeviceConn;
                         outMeter2.Start();
                     }
                     else
@@ -129,7 +133,7 @@ namespace SA_Resources.SAForms
                     if (outmeter_3_enabled)
                     {
                         outMeter3.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.Output, 2, 0).Address;
-                        outMeter3.PIC_CONN = PARENT_FORM._PIC_Conn;
+                        outMeter3.DeviceConn = PARENT_FORM.DeviceConn;
                         outMeter3.Start();
                     }
                     else
@@ -140,7 +144,7 @@ namespace SA_Resources.SAForms
                     if (outmeter_4_enabled)
                     {
                         outMeter4.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.Output, 3, 0).Address;
-                        outMeter4.PIC_CONN = PARENT_FORM._PIC_Conn;
+                        outMeter4.DeviceConn = PARENT_FORM.DeviceConn;
                         outMeter4.Start();
                     }
                     else
@@ -154,7 +158,7 @@ namespace SA_Resources.SAForms
             }
             catch (Exception ex)
             {
-                Console.WriteLine("[Exception in MeterViewForm]: " + ex.Message);
+                Debug.WriteLine("[Exception in MeterViewForm]: " + ex.Message);
             }
 
         }
@@ -178,11 +182,11 @@ namespace SA_Resources.SAForms
             }
             catch (ThreadAbortException taex)
             {
-                //Console.WriteLine("[ThreadAbortException in Mixerform6x4_FormClosing]: " + taex.Message);
+                Debug.WriteLine("[ThreadAbortException in Mixerform6x4_FormClosing]: " + taex.Message);
             }
             catch (Exception ex)
             {
-                Console.WriteLine("[Exception in Mixerform6x4_FormClosing]: " + ex.Message); 
+                Debug.WriteLine("[Exception in Mixerform6x4_FormClosing]: " + ex.Message); 
             }
         }
 

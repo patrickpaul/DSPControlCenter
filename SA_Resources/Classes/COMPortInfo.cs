@@ -1,8 +1,16 @@
-﻿using System;
+﻿/*
+ * File     : COMPortInfo.cs
+ * Created  : 28 July 2013
+ * Updated  : 15 January 2015
+ * Author   : Patrick Paul
+ * Synopsis : COMPort management class to discover USB Serial devices.
+ *
+ * This software is Copyright (c) 2013-2015, Stewart Audio Inc. and/or its licensors
+ *
+ */
+
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net.Security;
-using System.Text;
 using System.Management;
 
 namespace SA_Resources.USB
@@ -12,7 +20,6 @@ namespace SA_Resources.USB
         public string Name { get; set; }
         public string Description { get; set; }
         public string SerialNumber { get; set; }
-        public COMPortInfo() { }
 
         public static List<COMPortInfo> GetUSBCOMPorts()
         {
@@ -39,8 +46,6 @@ namespace SA_Resources.USB
                         object captionObj = obj["Caption"];
                         if (captionObj != null)
                         {
-                            //\\PATRICK-WS1\root\CIMV2:Win32_PnPEntity.DeviceID="FTDIBUS\\VID_0403+PID_6015+DA008AP4A\\0000"
-                            
                             caption = captionObj.ToString();
                             if (caption.Contains("USB Serial Port (COM"))
                             {
@@ -70,18 +75,11 @@ namespace SA_Resources.USB
             return comPortInfoList;
         }
     }
-}
 
-namespace SA_Resources
-{
-
-    using System.Management;
+    
     
     internal class ProcessConnection
     {
-
-        
-        
         public static ConnectionOptions ProcessConnectionOptions()
         {
             ConnectionOptions options = new ConnectionOptions();

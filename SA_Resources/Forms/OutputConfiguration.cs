@@ -3,12 +3,14 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Media;
 using System.Windows.Forms;
+using SA_Resources.DeviceManagement;
 using SA_Resources.DSP;
 using SA_Resources.DSP.Primitives;
-using SA_Resources.SADevices;
-using SA_Resources.SAForms;
 
-namespace SA_Resources
+using SA_Resources.SAForms;
+using System.Diagnostics;
+
+namespace SA_Resources.SAForms
 {
     public partial class OutputConfiguration : Form
     {
@@ -45,10 +47,10 @@ namespace SA_Resources
 
                 txtDisplayName.Text = Active_Primitive.OutputName;
 
-                if (_parentForm.LIVE_MODE && _parentForm._PIC_Conn.isOpen && PARENT_FORM.FIRMWARE_VERSION > 2.5 && PARENT_FORM.GetDeviceFamily() != DeviceFamily.DSP100)
+                if (_parentForm.LIVE_MODE && _parentForm.DeviceConn.isOpen && PARENT_FORM.FIRMWARE_VERSION > 2.5 && PARENT_FORM.GetDeviceFamily() != DeviceFamily.DSP100)
                 {
                     gainMeterOut.Visible = true;
-                    gainMeterOut.PIC_CONN = PARENT_FORM._PIC_Conn;
+                    gainMeterOut.DeviceConn = PARENT_FORM.DeviceConn;
                     gainMeterOut.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.Output, Active_Primitive.Channel, 0).Address;
                     gainMeterOut.Start();
                     panelRS232.Visible = true;
@@ -61,7 +63,7 @@ namespace SA_Resources
             }
             catch (Exception ex)
             {
-                Console.WriteLine("[Exception in OutputConfiguration]: " + ex.Message);
+                Debug.WriteLine("[Exception in OutputConfiguration]: " + ex.Message);
             }
         }
 
@@ -138,21 +140,21 @@ namespace SA_Resources
 
         private void UpdateRS232Stats_DoWork(object sender, DoWorkEventArgs doWorkEventArgs)
         {
-            bool mute_status = PARENT_FORM._PIC_Conn.ReadRS232Mute(CH_NUMBER);
+            bool mute_status = PARENT_FORM.DeviceConn.ReadRS232Mute(CH_NUMBER);
 
             if (mute_status == true)
             {
 
                 this.SetMuteLabel("Muted");
-                this.SetMuteImage(GlobalResources.ui_btn_blue_unmute);
+                this.SetMuteImage(SA_GFXLib.SA_GFXLib_Resources.ui_btn_blue_unmute);
             }
             else
             {
                 this.SetMuteLabel("Unmuted");
-                this.SetMuteImage(GlobalResources.ui_btn_blue_mute);
+                this.SetMuteImage(SA_GFXLib.SA_GFXLib_Resources.ui_btn_blue_mute);
             }
 
-            double cur_volume = PARENT_FORM._PIC_Conn.ReadRS232Vol(CH_NUMBER);
+            double cur_volume = PARENT_FORM.DeviceConn.ReadRS232Vol(CH_NUMBER);
 
             this.SetVolumeLabel(cur_volume.ToString() + "dB");
         }
@@ -222,14 +224,14 @@ namespace SA_Resources
         {
             
             
-            PARENT_FORM._PIC_Conn.SetRS232Mute(CH_NUMBER, 2);
+            PARENT_FORM.DeviceConn.SetRS232Mute(CH_NUMBER, 2);
 
             UpdateRS232Stats();
         }
 
         private void pbtnReset_Click(object sender, EventArgs e)
         {
-            PARENT_FORM._PIC_Conn.ResetRS232Volume(CH_NUMBER);
+            PARENT_FORM.DeviceConn.ResetRS232Volume(CH_NUMBER);
 
             UpdateRS232Stats();
         }

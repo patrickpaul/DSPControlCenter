@@ -2,15 +2,18 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
+using SA_Resources.DeviceManagement;
 using SA_Resources.DSP;
 using SA_Resources.DSP.Primitives;
 using SA_Resources.SAControls;
-using SA_Resources.SADevices;
+
+using SA_Resources.Utilities;
 
 namespace SA_Resources.SAForms
 {
@@ -94,41 +97,41 @@ namespace SA_Resources.SAForms
                 {
                     
                     inMeter1.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.Input, 0, 0).Address;
-                    inMeter1.PIC_CONN = PARENT_FORM._PIC_Conn;
+                    inMeter1.DeviceConn = PARENT_FORM.DeviceConn;
                     inMeter1.Start();
 
                     inMeter2.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.Input, 1, 0).Address;
-                    inMeter2.PIC_CONN = PARENT_FORM._PIC_Conn;
+                    inMeter2.DeviceConn = PARENT_FORM.DeviceConn;
                     inMeter2.Start();
 
                     inMeter3.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.Input, 2, 0).Address;
-                    inMeter3.PIC_CONN = PARENT_FORM._PIC_Conn;
+                    inMeter3.DeviceConn = PARENT_FORM.DeviceConn;
                     inMeter3.Start();
 
                     inMeter4.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.Input, 3, 0).Address;
-                    inMeter4.PIC_CONN = PARENT_FORM._PIC_Conn;
+                    inMeter4.DeviceConn = PARENT_FORM.DeviceConn;
                     inMeter4.Start();
 
                     inMeter5.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.Input, 4, 0).Address;
-                    inMeter5.PIC_CONN = PARENT_FORM._PIC_Conn;
+                    inMeter5.DeviceConn = PARENT_FORM.DeviceConn;
                     inMeter5.Start();
 
                     inMeter6.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.Input, 5, 0).Address;
-                    inMeter6.PIC_CONN = PARENT_FORM._PIC_Conn;
+                    inMeter6.DeviceConn = PARENT_FORM.DeviceConn;
                     inMeter6.Start();
 
                     inMeter7.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.Input, 6, 0).Address;
-                    inMeter7.PIC_CONN = PARENT_FORM._PIC_Conn;
+                    inMeter7.DeviceConn = PARENT_FORM.DeviceConn;
                     inMeter7.Start();
 
                     inMeter8.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.Input, 7, 0).Address;
-                    inMeter8.PIC_CONN = PARENT_FORM._PIC_Conn;
+                    inMeter8.DeviceConn = PARENT_FORM.DeviceConn;
                     inMeter8.Start();
 
                     if (outmeter_1_enabled)
                     {
                         outMeter1.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.Output, 0, 0).Address;
-                        outMeter1.PIC_CONN = PARENT_FORM._PIC_Conn;
+                        outMeter1.DeviceConn = PARENT_FORM.DeviceConn;
                         outMeter1.Start();
                     }
                     else
@@ -139,7 +142,7 @@ namespace SA_Resources.SAForms
                     if (outmeter_2_enabled)
                     {
                         outMeter2.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.Output, 1, 0).Address;
-                        outMeter2.PIC_CONN = PARENT_FORM._PIC_Conn;
+                        outMeter2.DeviceConn = PARENT_FORM.DeviceConn;
                         outMeter2.Start();
                     }
                     else
@@ -150,7 +153,7 @@ namespace SA_Resources.SAForms
                     if (outmeter_3_enabled)
                     {
                         outMeter3.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.Output, 2, 0).Address;
-                        outMeter3.PIC_CONN = PARENT_FORM._PIC_Conn;
+                        outMeter3.DeviceConn = PARENT_FORM.DeviceConn;
                         outMeter3.Start();
                     }
                     else
@@ -161,7 +164,7 @@ namespace SA_Resources.SAForms
                     if (outmeter_4_enabled)
                     {
                         outMeter4.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.Output, 3, 0).Address;
-                        outMeter4.PIC_CONN = PARENT_FORM._PIC_Conn;
+                        outMeter4.DeviceConn = PARENT_FORM.DeviceConn;
                         outMeter4.Start();
                     }
                     else
@@ -175,7 +178,7 @@ namespace SA_Resources.SAForms
             }
             catch (Exception ex)
             {
-                Console.WriteLine("[Exception in MeterViewForm]: " + ex.Message);
+                Debug.WriteLine("[Exception in MeterViewForm]: " + ex.Message);
             }
 
         }
@@ -203,11 +206,11 @@ namespace SA_Resources.SAForms
             }
             catch (ThreadAbortException taex)
             {
-                Console.WriteLine("[ThreadAbortException in MeterViewForm2Net_FormClosing]: " + taex.Message);
+                Debug.WriteLine("[ThreadAbortException in MeterViewForm2Net_FormClosing]: " + taex.Message);
             }
             catch (Exception ex)
             {
-                Console.WriteLine("[Exception in MeterViewForm2Net_FormClosing]: " + ex.Message); 
+                Debug.WriteLine("[Exception in MeterViewForm2Net_FormClosing]: " + ex.Message); 
             }
         }
 

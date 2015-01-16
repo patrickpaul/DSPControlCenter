@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using SA_Resources;
 using System.Linq;
+using SA_Resources.DeviceManagement;
 using SA_Resources.DSP;
 using SA_Resources.DSP.Filters;
-using SA_Resources.SADevices;
+
 using SA_Resources.SAForms;
 using SA_Resources.DSP.Primitives;
 using SA_Resources.USB;
@@ -233,7 +235,7 @@ namespace DSP_4x4
             }
             catch (Exception ex)
             {
-                Console.WriteLine("[EXCEPTION in Default_DSP_Meters]: " + ex.Message);
+                Debug.WriteLine("[EXCEPTION in Default_DSP_Meters]: " + ex.Message);
             }
         }
 
@@ -384,7 +386,7 @@ namespace DSP_4x4
             }
             catch (Exception ex)
             {
-                Console.WriteLine("[EXCEPTION in Single_Default_DSP_Program]: " + ex.Message);
+                Debug.WriteLine("[EXCEPTION in Single_Default_DSP_Program]: " + ex.Message);
             }
         }
 

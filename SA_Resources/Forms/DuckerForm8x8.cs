@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
+using SA_GFXLib;
 using SA_Resources.DSP;
 using SA_Resources.DSP.Primitives;
 using SA_Resources.SAControls;
@@ -69,20 +71,20 @@ namespace SA_Resources.SAForms
                 nudDuckDepth.Value = (decimal) RecastDucker.Depth;
 
                 HoldDial = new Dial(TextDuckHold, DialDuckHold, new double[] { 0.1, 0.2, 0.5, 1, 2.0, 5.0, 10.0 },
-                         DialHelpers.Format_String_Duck_Hold, Images.knob_green_bg, Images.knob_green_line);
+                         DialHelpers.Format_String_Duck_Hold, SA_GFXLib_Resources.knob_green_bg, SA_GFXLib_Resources.knob_green_line);
 
                 HoldDial.Value = RecastDucker.HoldTime;
                 HoldDial.OnChange += new DialEventHandler(this.HoldDial_OnChange);
 
                 AttackDial = new Dial(TextDuckAttack, DialDuckAttack, new double[] { 0.001, 0.003, 0.01, 0.03, 0.08, 0.3, 1.0 },
-                         DialHelpers.Format_String_Comp_Attack, Images.knob_blue_bg, Images.knob_blue_line);
+                         DialHelpers.Format_String_Comp_Attack, SA_GFXLib_Resources.knob_blue_bg, SA_GFXLib_Resources.knob_blue_line);
 
                 AttackDial.Value = RecastDucker.Attack;
                 AttackDial.OnChange += new DialEventHandler(this.AttackDial_OnChange);
 
 
                 ReleaseDial = new Dial(TextDuckRelease, DialDuckRelease, new double[] {0.010, 0.038, 0.150, 0.530, 1.250, 7.0, 30.0},
-                         DialHelpers.Format_String_Comp_Release, Images.knob_orange_bg, Images.knob_orange_line);
+                         DialHelpers.Format_String_Comp_Release, SA_GFXLib_Resources.knob_orange_bg, SA_GFXLib_Resources.knob_orange_line);
 
                 ReleaseDial.Value = RecastDucker.Release;
                 ReleaseDial.OnChange += new DialEventHandler(this.ReleaseDial_OnChange);
@@ -90,38 +92,38 @@ namespace SA_Resources.SAForms
                 chkBypass.Checked = RecastDucker.Bypassed;
 
 
-                if (_parentForm.LIVE_MODE && _parentForm._PIC_Conn.isOpen)
+                if (_parentForm.LIVE_MODE && _parentForm.DeviceConn.isOpen)
                 {
                     duckMeter1.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.Ducker8x8, 0, 0).Address;
-                    duckMeter1.PIC_CONN = PARENT_FORM._PIC_Conn;
+                    duckMeter1.DeviceConn = PARENT_FORM.DeviceConn;
                     duckMeter1.Start();
 
                     duckMeter2.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.Ducker8x8, 1, 0).Address;
-                    duckMeter2.PIC_CONN = PARENT_FORM._PIC_Conn;
+                    duckMeter2.DeviceConn = PARENT_FORM.DeviceConn;
                     duckMeter2.Start();
 
                     duckMeter3.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.Ducker8x8, 2, 0).Address;
-                    duckMeter3.PIC_CONN = PARENT_FORM._PIC_Conn;
+                    duckMeter3.DeviceConn = PARENT_FORM.DeviceConn;
                     duckMeter3.Start();
 
                     duckMeter4.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.Ducker8x8, 3, 0).Address;
-                    duckMeter4.PIC_CONN = PARENT_FORM._PIC_Conn;
+                    duckMeter4.DeviceConn = PARENT_FORM.DeviceConn;
                     duckMeter4.Start();
 
                     duckMeter5.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.Ducker8x8, 4, 0).Address;
-                    duckMeter5.PIC_CONN = PARENT_FORM._PIC_Conn;
+                    duckMeter5.DeviceConn = PARENT_FORM.DeviceConn;
                     duckMeter5.Start();
 
                     duckMeter6.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.Ducker8x8, 5, 0).Address;
-                    duckMeter6.PIC_CONN = PARENT_FORM._PIC_Conn;
+                    duckMeter6.DeviceConn = PARENT_FORM.DeviceConn;
                     duckMeter6.Start();
 
                     duckMeter7.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.Ducker8x8, 6, 0).Address;
-                    duckMeter7.PIC_CONN = PARENT_FORM._PIC_Conn;
+                    duckMeter7.DeviceConn = PARENT_FORM.DeviceConn;
                     duckMeter7.Start();
 
                     duckMeter8.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.Ducker8x8, 7, 0).Address;
-                    duckMeter8.PIC_CONN = PARENT_FORM._PIC_Conn;
+                    duckMeter8.DeviceConn = PARENT_FORM.DeviceConn;
                     duckMeter8.Start();
 
                 } else
@@ -138,7 +140,7 @@ namespace SA_Resources.SAForms
 
             } catch (Exception ex)
             {
-                Console.WriteLine("[Exception in DuckerForm8x8]: " + ex.Message);
+                Debug.WriteLine("[Exception in DuckerForm8x8]: " + ex.Message);
             }
 
             form_loaded = true;
@@ -276,11 +278,11 @@ namespace SA_Resources.SAForms
                     chkOrderCache[label_counter] = i;
 
                     label_counter++;
-                    Console.WriteLine("Relabeling index " + i);
+                    Debug.WriteLine("Relabeling index " + i);
                 }
                 else
                 {
-                    Console.WriteLine("Skipping index " + i);
+                    Debug.WriteLine("Skipping index " + i);
                 }
             }
 

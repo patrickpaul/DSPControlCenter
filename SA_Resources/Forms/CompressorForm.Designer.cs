@@ -289,9 +289,9 @@ namespace SA_Resources.SAForms
             // 
             // DialCompAttack
             // 
-            this.DialCompAttack.BackgroundImage = global::SA_Resources.GlobalResources.knob_blue_bg;
+            this.DialCompAttack.BackgroundImage = global::SA_GFXLib.SA_GFXLib_Resources.knob_blue_bg;
             this.DialCompAttack.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.DialCompAttack.Image = global::SA_Resources.GlobalResources.knob_blue_line;
+            this.DialCompAttack.Image = global::SA_GFXLib.SA_GFXLib_Resources.knob_blue_line;
             this.DialCompAttack.InitialImage = null;
             this.DialCompAttack.Location = new System.Drawing.Point(18, 58);
             this.DialCompAttack.Name = "DialCompAttack";
@@ -347,9 +347,9 @@ namespace SA_Resources.SAForms
             // 
             // DialCompRelease
             // 
-            this.DialCompRelease.BackgroundImage = global::SA_Resources.GlobalResources.knob_orange_bg;
+            this.DialCompRelease.BackgroundImage = global::SA_GFXLib.SA_GFXLib_Resources.knob_orange_bg;
             this.DialCompRelease.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.DialCompRelease.Image = global::SA_Resources.GlobalResources.knob_orange_line;
+            this.DialCompRelease.Image = global::SA_GFXLib.SA_GFXLib_Resources.knob_orange_line;
             this.DialCompRelease.InitialImage = null;
             this.DialCompRelease.Location = new System.Drawing.Point(90, 58);
             this.DialCompRelease.Name = "DialCompRelease";
@@ -421,7 +421,7 @@ namespace SA_Resources.SAForms
             // btnSave
             // 
             this.btnSave.AutoResize = true;
-            this.btnSave.BackgroundImage = global::SA_Resources.GlobalResources.ui_btn_save;
+            this.btnSave.BackgroundImage = global::SA_GFXLib.SA_GFXLib_Resources.ui_btn_save;
             this.btnSave.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSave.Location = new System.Drawing.Point(20, 116);
             this.btnSave.Name = "btnSave";
@@ -441,7 +441,7 @@ namespace SA_Resources.SAForms
             // btnCancel
             // 
             this.btnCancel.AutoResize = true;
-            this.btnCancel.BackgroundImage = global::SA_Resources.GlobalResources.ui_btn_cancel;
+            this.btnCancel.BackgroundImage = global::SA_GFXLib.SA_GFXLib_Resources.ui_btn_cancel;
             this.btnCancel.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnCancel.Location = new System.Drawing.Point(76, 116);
             this.btnCancel.Name = "btnCancel";
@@ -460,7 +460,7 @@ namespace SA_Resources.SAForms
             // 
             // gainMeterOut
             // 
-            this.gainMeterOut.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("gainMeterOut.BackgroundImage")));
+            this.gainMeterOut.BackgroundImage = global::SA_GFXLib.SA_GFXLib_Resources.bg_meter_small;
             this.gainMeterOut.DB = -35D;
             this.gainMeterOut.Location = new System.Drawing.Point(266, 354);
             this.gainMeterOut.Name = "gainMeterOut";
@@ -470,7 +470,7 @@ namespace SA_Resources.SAForms
             // 
             // gainMeterIn
             // 
-            this.gainMeterIn.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("gainMeterIn.BackgroundImage")));
+            this.gainMeterIn.BackgroundImage = global::SA_GFXLib.SA_GFXLib_Resources.bg_meter_small;
             this.gainMeterIn.DB = -35D;
             this.gainMeterIn.Location = new System.Drawing.Point(221, 354);
             this.gainMeterIn.Name = "gainMeterIn";
@@ -481,7 +481,7 @@ namespace SA_Resources.SAForms
             // btnGo
             // 
             this.btnGo.AutoResize = true;
-            this.btnGo.BackgroundImage = global::SA_Resources.GlobalResources.ui_btn_go;
+            this.btnGo.BackgroundImage = global::SA_GFXLib.SA_GFXLib_Resources.ui_btn_go;
             this.btnGo.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnGo.Location = new System.Drawing.Point(244, 535);
             this.btnGo.Name = "btnGo";
@@ -518,14 +518,14 @@ namespace SA_Resources.SAForms
             // chkBypass
             // 
             this.chkBypass.Checked = true;
-            this.chkBypass.CheckedImage = global::SA_Resources.GlobalResources.ui_btn_bypass_red;
+            this.chkBypass.CheckedImage = global::SA_GFXLib.SA_GFXLib_Resources.ui_btn_bypass_red;
             this.chkBypass.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkBypass.Cursor = System.Windows.Forms.Cursors.Hand;
             this.chkBypass.Location = new System.Drawing.Point(235, 314);
             this.chkBypass.Name = "chkBypass";
             this.chkBypass.Size = new System.Drawing.Size(61, 23);
             this.chkBypass.TabIndex = 30;
-            this.chkBypass.UncheckedImage = global::SA_Resources.GlobalResources.ui_btn_bypass;
+            this.chkBypass.UncheckedImage = global::SA_GFXLib.SA_GFXLib_Resources.ui_btn_bypass_grey;
             this.chkBypass.UseVisualStyleBackColor = true;
             this.chkBypass.CheckedChanged += new System.EventHandler(this.chkBypass_CheckedChanged);
             // 
@@ -553,7 +553,7 @@ namespace SA_Resources.SAForms
             this.Controls.Add(this.nudCompRatio);
             this.Controls.Add(this.dynChart);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Icon = global::SA_GFXLib.SA_GFXLib_Resources.DSP_Control_Center_v4;
             this.MaximizeBox = false;
             this.Name = "CompressorForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;

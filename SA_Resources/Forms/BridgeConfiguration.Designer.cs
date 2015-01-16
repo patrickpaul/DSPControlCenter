@@ -1,6 +1,6 @@
 ﻿using SA_Resources.SAControls;
 
-namespace SA_Resources
+namespace SA_Resources.SAForms
 {
     partial class BridgeConfigurationForm
     {
@@ -32,10 +32,8 @@ namespace SA_Resources
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BridgeConfigurationForm));
             this.label1 = new System.Windows.Forms.Label();
-            this.btnCancel = new System.Windows.Forms.PictureBox();
             this.btnSave = new System.Windows.Forms.PictureBox();
             this.dropBridgeMode = new System.Windows.Forms.ComboBox();
-            ((System.ComponentModel.ISupportInitialize)(this.btnCancel)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnSave)).BeginInit();
             this.SuspendLayout();
             // 
@@ -51,22 +49,10 @@ namespace SA_Resources
             this.label1.Text = "Bridge Configuration:";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // btnCancel
-            // 
-            this.btnCancel.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCancel.Image = ((System.Drawing.Image)(resources.GetObject("btnCancel.Image")));
-            this.btnCancel.Location = new System.Drawing.Point(135, 49);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(49, 23);
-            this.btnCancel.TabIndex = 7;
-            this.btnCancel.TabStop = false;
-            this.btnCancel.Visible = false;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
-            // 
             // btnSave
             // 
             this.btnSave.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnSave.Image = ((System.Drawing.Image)(resources.GetObject("btnSave.Image")));
+            this.btnSave.Image = global::SA_GFXLib.SA_GFXLib_Resources.ui_btn_save;
             this.btnSave.Location = new System.Drawing.Point(135, 49);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(49, 23);
@@ -95,7 +81,6 @@ namespace SA_Resources
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(82)))), ((int)(((byte)(82)))), ((int)(((byte)(82)))));
             this.ClientSize = new System.Drawing.Size(318, 84);
             this.Controls.Add(this.dropBridgeMode);
-            this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
@@ -105,7 +90,6 @@ namespace SA_Resources
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Bridge Configuration";
             this.Load += new System.EventHandler(this.BridgeConfigurationForm_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.btnCancel)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnSave)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -115,7 +99,6 @@ namespace SA_Resources
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.PictureBox btnCancel;
         private System.Windows.Forms.PictureBox btnSave;
         private System.Windows.Forms.ComboBox dropBridgeMode;
     }

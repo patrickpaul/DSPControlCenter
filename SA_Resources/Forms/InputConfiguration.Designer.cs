@@ -1,6 +1,6 @@
 ﻿using SA_Resources.SAControls;
 
-namespace SA_Resources
+namespace SA_Resources.SAForms
 {
     partial class InputConfiguration
     {
@@ -85,7 +85,7 @@ namespace SA_Resources
             // btnCancel
             // 
             this.btnCancel.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCancel.Image = ((System.Drawing.Image)(resources.GetObject("btnCancel.Image")));
+            this.btnCancel.Image = global::SA_GFXLib.SA_GFXLib_Resources.ui_btn_cancel;
             this.btnCancel.Location = new System.Drawing.Point(137, 146);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(49, 23);
@@ -97,7 +97,7 @@ namespace SA_Resources
             // btnSave
             // 
             this.btnSave.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnSave.Image = ((System.Drawing.Image)(resources.GetObject("btnSave.Image")));
+            this.btnSave.Image = global::SA_GFXLib.SA_GFXLib_Resources.ui_btn_save;
             this.btnSave.Location = new System.Drawing.Point(113, 145);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(49, 23);
@@ -160,7 +160,7 @@ namespace SA_Resources
             // 
             // gainMeter
             // 
-            this.gainMeter.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("gainMeter.BackgroundImage")));
+            this.gainMeter.BackgroundImage = global::SA_GFXLib.SA_GFXLib_Resources.bg_meter_small;
             this.gainMeter.DB = -35D;
             this.gainMeter.Location = new System.Drawing.Point(264, 16);
             this.gainMeter.Name = "gainMeter";

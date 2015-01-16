@@ -186,16 +186,16 @@ namespace SA_Resources.SAForms
             // btnRouter81
             // 
             this.btnRouter81.AutoResize = true;
-            this.btnRouter81.BackgroundImage = global::SA_Resources.GlobalResources.radiobutton_unchecked;
+            this.btnRouter81.BackgroundImage = global::SA_GFXLib.SA_GFXLib_Resources.radio_unchecked;
             this.btnRouter81.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnRouter81.Location = new System.Drawing.Point(5, 262);
             this.btnRouter81.Name = "btnRouter81";
             this.btnRouter81.OverImage = null;
-            this.btnRouter81.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnRouter81.Overlay1Image")));
+            this.btnRouter81.Overlay1Image = global::SA_GFXLib.SA_GFXLib_Resources.radio_checked;
             this.btnRouter81.Overlay1Visible = false;
-            this.btnRouter81.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnRouter81.Overlay2Image")));
+            this.btnRouter81.Overlay2Image = global::SA_GFXLib.SA_GFXLib_Resources.radio_checked_green;
             this.btnRouter81.Overlay2Visible = false;
-            this.btnRouter81.Overlay3Image = ((System.Drawing.Image)(resources.GetObject("btnRouter81.Overlay3Image")));
+            this.btnRouter81.Overlay3Image = global::SA_GFXLib.SA_GFXLib_Resources.radio_checked_red;
             this.btnRouter81.Overlay3Visible = false;
             this.btnRouter81.PressedImage = null;
             this.btnRouter81.Size = new System.Drawing.Size(17, 17);
@@ -206,16 +206,16 @@ namespace SA_Resources.SAForms
             // btnRouter91
             // 
             this.btnRouter91.AutoResize = true;
-            this.btnRouter91.BackgroundImage = global::SA_Resources.GlobalResources.radiobutton_unchecked;
+            this.btnRouter91.BackgroundImage = global::SA_GFXLib.SA_GFXLib_Resources.radio_unchecked;
             this.btnRouter91.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnRouter91.Location = new System.Drawing.Point(5, 289);
             this.btnRouter91.Name = "btnRouter91";
             this.btnRouter91.OverImage = null;
-            this.btnRouter91.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnRouter91.Overlay1Image")));
+            this.btnRouter91.Overlay1Image = global::SA_GFXLib.SA_GFXLib_Resources.radio_checked;
             this.btnRouter91.Overlay1Visible = false;
-            this.btnRouter91.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnRouter91.Overlay2Image")));
+            this.btnRouter91.Overlay2Image = global::SA_GFXLib.SA_GFXLib_Resources.radio_checked_green;
             this.btnRouter91.Overlay2Visible = false;
-            this.btnRouter91.Overlay3Image = ((System.Drawing.Image)(resources.GetObject("btnRouter91.Overlay3Image")));
+            this.btnRouter91.Overlay3Image = global::SA_GFXLib.SA_GFXLib_Resources.radio_checked_red;
             this.btnRouter91.Overlay3Visible = false;
             this.btnRouter91.PressedImage = null;
             this.btnRouter91.Size = new System.Drawing.Size(17, 17);
@@ -240,16 +240,16 @@ namespace SA_Resources.SAForms
             // btnRouter01
             // 
             this.btnRouter01.AutoResize = true;
-            this.btnRouter01.BackgroundImage = global::SA_Resources.GlobalResources.radiobutton_unchecked;
+            this.btnRouter01.BackgroundImage = global::SA_GFXLib.SA_GFXLib_Resources.radio_unchecked;
             this.btnRouter01.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnRouter01.Location = new System.Drawing.Point(5, 99);
             this.btnRouter01.Name = "btnRouter01";
             this.btnRouter01.OverImage = null;
-            this.btnRouter01.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnRouter01.Overlay1Image")));
+            this.btnRouter01.Overlay1Image = global::SA_GFXLib.SA_GFXLib_Resources.radio_checked;
             this.btnRouter01.Overlay1Visible = false;
-            this.btnRouter01.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnRouter01.Overlay2Image")));
+            this.btnRouter01.Overlay2Image = global::SA_GFXLib.SA_GFXLib_Resources.radio_checked_green;
             this.btnRouter01.Overlay2Visible = false;
-            this.btnRouter01.Overlay3Image = ((System.Drawing.Image)(resources.GetObject("btnRouter01.Overlay3Image")));
+            this.btnRouter01.Overlay3Image = global::SA_GFXLib.SA_GFXLib_Resources.radio_checked_red;
             this.btnRouter01.Overlay3Visible = false;
             this.btnRouter01.PressedImage = null;
             this.btnRouter01.Size = new System.Drawing.Size(17, 17);
@@ -260,16 +260,16 @@ namespace SA_Resources.SAForms
             // btnRouter11
             // 
             this.btnRouter11.AutoResize = true;
-            this.btnRouter11.BackgroundImage = global::SA_Resources.GlobalResources.radiobutton_unchecked;
+            this.btnRouter11.BackgroundImage = global::SA_GFXLib.SA_GFXLib_Resources.radio_unchecked;
             this.btnRouter11.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnRouter11.Location = new System.Drawing.Point(5, 126);
             this.btnRouter11.Name = "btnRouter11";
             this.btnRouter11.OverImage = null;
-            this.btnRouter11.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnRouter11.Overlay1Image")));
+            this.btnRouter11.Overlay1Image = global::SA_GFXLib.SA_GFXLib_Resources.radio_checked;
             this.btnRouter11.Overlay1Visible = false;
-            this.btnRouter11.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnRouter11.Overlay2Image")));
+            this.btnRouter11.Overlay2Image = global::SA_GFXLib.SA_GFXLib_Resources.radio_checked_green;
             this.btnRouter11.Overlay2Visible = false;
-            this.btnRouter11.Overlay3Image = ((System.Drawing.Image)(resources.GetObject("btnRouter11.Overlay3Image")));
+            this.btnRouter11.Overlay3Image = global::SA_GFXLib.SA_GFXLib_Resources.radio_checked_red;
             this.btnRouter11.Overlay3Visible = false;
             this.btnRouter11.PressedImage = null;
             this.btnRouter11.Size = new System.Drawing.Size(17, 17);
@@ -280,16 +280,16 @@ namespace SA_Resources.SAForms
             // btnRouter21
             // 
             this.btnRouter21.AutoResize = true;
-            this.btnRouter21.BackgroundImage = global::SA_Resources.GlobalResources.radiobutton_unchecked;
+            this.btnRouter21.BackgroundImage = global::SA_GFXLib.SA_GFXLib_Resources.radio_unchecked;
             this.btnRouter21.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnRouter21.Location = new System.Drawing.Point(5, 153);
             this.btnRouter21.Name = "btnRouter21";
             this.btnRouter21.OverImage = null;
-            this.btnRouter21.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnRouter21.Overlay1Image")));
+            this.btnRouter21.Overlay1Image = global::SA_GFXLib.SA_GFXLib_Resources.radio_checked;
             this.btnRouter21.Overlay1Visible = false;
-            this.btnRouter21.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnRouter21.Overlay2Image")));
+            this.btnRouter21.Overlay2Image = global::SA_GFXLib.SA_GFXLib_Resources.radio_checked_green;
             this.btnRouter21.Overlay2Visible = false;
-            this.btnRouter21.Overlay3Image = ((System.Drawing.Image)(resources.GetObject("btnRouter21.Overlay3Image")));
+            this.btnRouter21.Overlay3Image = global::SA_GFXLib.SA_GFXLib_Resources.radio_checked_red;
             this.btnRouter21.Overlay3Visible = false;
             this.btnRouter21.PressedImage = null;
             this.btnRouter21.Size = new System.Drawing.Size(17, 17);
@@ -300,16 +300,16 @@ namespace SA_Resources.SAForms
             // btnRouter31
             // 
             this.btnRouter31.AutoResize = true;
-            this.btnRouter31.BackgroundImage = global::SA_Resources.GlobalResources.radiobutton_unchecked;
+            this.btnRouter31.BackgroundImage = global::SA_GFXLib.SA_GFXLib_Resources.radio_unchecked;
             this.btnRouter31.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnRouter31.Location = new System.Drawing.Point(5, 180);
             this.btnRouter31.Name = "btnRouter31";
             this.btnRouter31.OverImage = null;
-            this.btnRouter31.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnRouter31.Overlay1Image")));
+            this.btnRouter31.Overlay1Image = global::SA_GFXLib.SA_GFXLib_Resources.radio_checked;
             this.btnRouter31.Overlay1Visible = false;
-            this.btnRouter31.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnRouter31.Overlay2Image")));
+            this.btnRouter31.Overlay2Image = global::SA_GFXLib.SA_GFXLib_Resources.radio_checked_green;
             this.btnRouter31.Overlay2Visible = false;
-            this.btnRouter31.Overlay3Image = ((System.Drawing.Image)(resources.GetObject("btnRouter31.Overlay3Image")));
+            this.btnRouter31.Overlay3Image = global::SA_GFXLib.SA_GFXLib_Resources.radio_checked_red;
             this.btnRouter31.Overlay3Visible = false;
             this.btnRouter31.PressedImage = null;
             this.btnRouter31.Size = new System.Drawing.Size(17, 17);
@@ -320,16 +320,16 @@ namespace SA_Resources.SAForms
             // btnRouter41
             // 
             this.btnRouter41.AutoResize = true;
-            this.btnRouter41.BackgroundImage = global::SA_Resources.GlobalResources.radiobutton_unchecked;
+            this.btnRouter41.BackgroundImage = global::SA_GFXLib.SA_GFXLib_Resources.radio_unchecked;
             this.btnRouter41.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnRouter41.Location = new System.Drawing.Point(5, 207);
             this.btnRouter41.Name = "btnRouter41";
             this.btnRouter41.OverImage = null;
-            this.btnRouter41.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnRouter41.Overlay1Image")));
+            this.btnRouter41.Overlay1Image = global::SA_GFXLib.SA_GFXLib_Resources.radio_checked;
             this.btnRouter41.Overlay1Visible = false;
-            this.btnRouter41.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnRouter41.Overlay2Image")));
+            this.btnRouter41.Overlay2Image = global::SA_GFXLib.SA_GFXLib_Resources.radio_checked_green;
             this.btnRouter41.Overlay2Visible = false;
-            this.btnRouter41.Overlay3Image = ((System.Drawing.Image)(resources.GetObject("btnRouter41.Overlay3Image")));
+            this.btnRouter41.Overlay3Image = global::SA_GFXLib.SA_GFXLib_Resources.radio_checked_red;
             this.btnRouter41.Overlay3Visible = false;
             this.btnRouter41.PressedImage = null;
             this.btnRouter41.Size = new System.Drawing.Size(17, 17);
@@ -340,16 +340,16 @@ namespace SA_Resources.SAForms
             // btnRouter51
             // 
             this.btnRouter51.AutoResize = true;
-            this.btnRouter51.BackgroundImage = global::SA_Resources.GlobalResources.radiobutton_unchecked;
+            this.btnRouter51.BackgroundImage = global::SA_GFXLib.SA_GFXLib_Resources.radio_unchecked;
             this.btnRouter51.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnRouter51.Location = new System.Drawing.Point(5, 234);
             this.btnRouter51.Name = "btnRouter51";
             this.btnRouter51.OverImage = null;
-            this.btnRouter51.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnRouter51.Overlay1Image")));
+            this.btnRouter51.Overlay1Image = global::SA_GFXLib.SA_GFXLib_Resources.radio_checked;
             this.btnRouter51.Overlay1Visible = false;
-            this.btnRouter51.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnRouter51.Overlay2Image")));
+            this.btnRouter51.Overlay2Image = global::SA_GFXLib.SA_GFXLib_Resources.radio_checked_green;
             this.btnRouter51.Overlay2Visible = false;
-            this.btnRouter51.Overlay3Image = ((System.Drawing.Image)(resources.GetObject("btnRouter51.Overlay3Image")));
+            this.btnRouter51.Overlay3Image = global::SA_GFXLib.SA_GFXLib_Resources.radio_checked_red;
             this.btnRouter51.Overlay3Visible = false;
             this.btnRouter51.PressedImage = null;
             this.btnRouter51.Size = new System.Drawing.Size(17, 17);
@@ -376,16 +376,16 @@ namespace SA_Resources.SAForms
             // btnRouter90
             // 
             this.btnRouter90.AutoResize = true;
-            this.btnRouter90.BackgroundImage = global::SA_Resources.GlobalResources.radiobutton_unchecked;
+            this.btnRouter90.BackgroundImage = global::SA_GFXLib.SA_GFXLib_Resources.radio_unchecked;
             this.btnRouter90.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnRouter90.Location = new System.Drawing.Point(5, 289);
             this.btnRouter90.Name = "btnRouter90";
             this.btnRouter90.OverImage = null;
-            this.btnRouter90.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnRouter90.Overlay1Image")));
+            this.btnRouter90.Overlay1Image = global::SA_GFXLib.SA_GFXLib_Resources.radio_checked;
             this.btnRouter90.Overlay1Visible = false;
-            this.btnRouter90.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnRouter90.Overlay2Image")));
+            this.btnRouter90.Overlay2Image = global::SA_GFXLib.SA_GFXLib_Resources.radio_checked_green;
             this.btnRouter90.Overlay2Visible = false;
-            this.btnRouter90.Overlay3Image = ((System.Drawing.Image)(resources.GetObject("btnRouter90.Overlay3Image")));
+            this.btnRouter90.Overlay3Image = global::SA_GFXLib.SA_GFXLib_Resources.radio_checked_red;
             this.btnRouter90.Overlay3Visible = false;
             this.btnRouter90.PressedImage = null;
             this.btnRouter90.Size = new System.Drawing.Size(17, 17);
@@ -396,16 +396,16 @@ namespace SA_Resources.SAForms
             // btnRouter80
             // 
             this.btnRouter80.AutoResize = true;
-            this.btnRouter80.BackgroundImage = global::SA_Resources.GlobalResources.radiobutton_unchecked;
+            this.btnRouter80.BackgroundImage = global::SA_GFXLib.SA_GFXLib_Resources.radio_unchecked;
             this.btnRouter80.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnRouter80.Location = new System.Drawing.Point(5, 262);
             this.btnRouter80.Name = "btnRouter80";
             this.btnRouter80.OverImage = null;
-            this.btnRouter80.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnRouter80.Overlay1Image")));
+            this.btnRouter80.Overlay1Image = global::SA_GFXLib.SA_GFXLib_Resources.radio_checked;
             this.btnRouter80.Overlay1Visible = false;
-            this.btnRouter80.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnRouter80.Overlay2Image")));
+            this.btnRouter80.Overlay2Image = global::SA_GFXLib.SA_GFXLib_Resources.radio_checked_green;
             this.btnRouter80.Overlay2Visible = false;
-            this.btnRouter80.Overlay3Image = ((System.Drawing.Image)(resources.GetObject("btnRouter80.Overlay3Image")));
+            this.btnRouter80.Overlay3Image = global::SA_GFXLib.SA_GFXLib_Resources.radio_checked_red;
             this.btnRouter80.Overlay3Visible = false;
             this.btnRouter80.PressedImage = null;
             this.btnRouter80.Size = new System.Drawing.Size(17, 17);
@@ -416,16 +416,16 @@ namespace SA_Resources.SAForms
             // btnRouter50
             // 
             this.btnRouter50.AutoResize = true;
-            this.btnRouter50.BackgroundImage = global::SA_Resources.GlobalResources.radiobutton_unchecked;
+            this.btnRouter50.BackgroundImage = global::SA_GFXLib.SA_GFXLib_Resources.radio_unchecked;
             this.btnRouter50.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnRouter50.Location = new System.Drawing.Point(5, 234);
             this.btnRouter50.Name = "btnRouter50";
             this.btnRouter50.OverImage = null;
-            this.btnRouter50.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnRouter50.Overlay1Image")));
+            this.btnRouter50.Overlay1Image = global::SA_GFXLib.SA_GFXLib_Resources.radio_checked;
             this.btnRouter50.Overlay1Visible = false;
-            this.btnRouter50.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnRouter50.Overlay2Image")));
+            this.btnRouter50.Overlay2Image = global::SA_GFXLib.SA_GFXLib_Resources.radio_checked_green;
             this.btnRouter50.Overlay2Visible = false;
-            this.btnRouter50.Overlay3Image = ((System.Drawing.Image)(resources.GetObject("btnRouter50.Overlay3Image")));
+            this.btnRouter50.Overlay3Image = global::SA_GFXLib.SA_GFXLib_Resources.radio_checked_red;
             this.btnRouter50.Overlay3Visible = false;
             this.btnRouter50.PressedImage = null;
             this.btnRouter50.Size = new System.Drawing.Size(17, 17);
@@ -450,16 +450,16 @@ namespace SA_Resources.SAForms
             // btnRouter00
             // 
             this.btnRouter00.AutoResize = true;
-            this.btnRouter00.BackgroundImage = global::SA_Resources.GlobalResources.radiobutton_unchecked;
+            this.btnRouter00.BackgroundImage = global::SA_GFXLib.SA_GFXLib_Resources.radio_unchecked;
             this.btnRouter00.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnRouter00.Location = new System.Drawing.Point(5, 99);
             this.btnRouter00.Name = "btnRouter00";
             this.btnRouter00.OverImage = null;
-            this.btnRouter00.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnRouter00.Overlay1Image")));
+            this.btnRouter00.Overlay1Image = global::SA_GFXLib.SA_GFXLib_Resources.radio_checked;
             this.btnRouter00.Overlay1Visible = false;
-            this.btnRouter00.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnRouter00.Overlay2Image")));
+            this.btnRouter00.Overlay2Image = global::SA_GFXLib.SA_GFXLib_Resources.radio_checked_green;
             this.btnRouter00.Overlay2Visible = false;
-            this.btnRouter00.Overlay3Image = ((System.Drawing.Image)(resources.GetObject("btnRouter00.Overlay3Image")));
+            this.btnRouter00.Overlay3Image = global::SA_GFXLib.SA_GFXLib_Resources.radio_checked_red;
             this.btnRouter00.Overlay3Visible = false;
             this.btnRouter00.PressedImage = null;
             this.btnRouter00.Size = new System.Drawing.Size(17, 17);
@@ -470,16 +470,16 @@ namespace SA_Resources.SAForms
             // btnRouter10
             // 
             this.btnRouter10.AutoResize = true;
-            this.btnRouter10.BackgroundImage = global::SA_Resources.GlobalResources.radiobutton_unchecked;
+            this.btnRouter10.BackgroundImage = global::SA_GFXLib.SA_GFXLib_Resources.radio_unchecked;
             this.btnRouter10.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnRouter10.Location = new System.Drawing.Point(5, 126);
             this.btnRouter10.Name = "btnRouter10";
             this.btnRouter10.OverImage = null;
-            this.btnRouter10.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnRouter10.Overlay1Image")));
+            this.btnRouter10.Overlay1Image = global::SA_GFXLib.SA_GFXLib_Resources.radio_checked;
             this.btnRouter10.Overlay1Visible = false;
-            this.btnRouter10.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnRouter10.Overlay2Image")));
+            this.btnRouter10.Overlay2Image = global::SA_GFXLib.SA_GFXLib_Resources.radio_checked_green;
             this.btnRouter10.Overlay2Visible = false;
-            this.btnRouter10.Overlay3Image = ((System.Drawing.Image)(resources.GetObject("btnRouter10.Overlay3Image")));
+            this.btnRouter10.Overlay3Image = global::SA_GFXLib.SA_GFXLib_Resources.radio_checked_red;
             this.btnRouter10.Overlay3Visible = false;
             this.btnRouter10.PressedImage = null;
             this.btnRouter10.Size = new System.Drawing.Size(17, 17);
@@ -490,16 +490,16 @@ namespace SA_Resources.SAForms
             // btnRouter20
             // 
             this.btnRouter20.AutoResize = true;
-            this.btnRouter20.BackgroundImage = global::SA_Resources.GlobalResources.radiobutton_unchecked;
+            this.btnRouter20.BackgroundImage = global::SA_GFXLib.SA_GFXLib_Resources.radio_unchecked;
             this.btnRouter20.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnRouter20.Location = new System.Drawing.Point(5, 153);
             this.btnRouter20.Name = "btnRouter20";
             this.btnRouter20.OverImage = null;
-            this.btnRouter20.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnRouter20.Overlay1Image")));
+            this.btnRouter20.Overlay1Image = global::SA_GFXLib.SA_GFXLib_Resources.radio_checked;
             this.btnRouter20.Overlay1Visible = false;
-            this.btnRouter20.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnRouter20.Overlay2Image")));
+            this.btnRouter20.Overlay2Image = global::SA_GFXLib.SA_GFXLib_Resources.radio_checked_green;
             this.btnRouter20.Overlay2Visible = false;
-            this.btnRouter20.Overlay3Image = ((System.Drawing.Image)(resources.GetObject("btnRouter20.Overlay3Image")));
+            this.btnRouter20.Overlay3Image = global::SA_GFXLib.SA_GFXLib_Resources.radio_checked_red;
             this.btnRouter20.Overlay3Visible = false;
             this.btnRouter20.PressedImage = null;
             this.btnRouter20.Size = new System.Drawing.Size(17, 17);
@@ -510,16 +510,16 @@ namespace SA_Resources.SAForms
             // btnRouter30
             // 
             this.btnRouter30.AutoResize = true;
-            this.btnRouter30.BackgroundImage = global::SA_Resources.GlobalResources.radiobutton_unchecked;
+            this.btnRouter30.BackgroundImage = global::SA_GFXLib.SA_GFXLib_Resources.radio_unchecked;
             this.btnRouter30.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnRouter30.Location = new System.Drawing.Point(5, 180);
             this.btnRouter30.Name = "btnRouter30";
             this.btnRouter30.OverImage = null;
-            this.btnRouter30.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnRouter30.Overlay1Image")));
+            this.btnRouter30.Overlay1Image = global::SA_GFXLib.SA_GFXLib_Resources.radio_checked;
             this.btnRouter30.Overlay1Visible = false;
-            this.btnRouter30.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnRouter30.Overlay2Image")));
+            this.btnRouter30.Overlay2Image = global::SA_GFXLib.SA_GFXLib_Resources.radio_checked_green;
             this.btnRouter30.Overlay2Visible = false;
-            this.btnRouter30.Overlay3Image = ((System.Drawing.Image)(resources.GetObject("btnRouter30.Overlay3Image")));
+            this.btnRouter30.Overlay3Image = global::SA_GFXLib.SA_GFXLib_Resources.radio_checked_red;
             this.btnRouter30.Overlay3Visible = false;
             this.btnRouter30.PressedImage = null;
             this.btnRouter30.Size = new System.Drawing.Size(17, 17);
@@ -530,16 +530,16 @@ namespace SA_Resources.SAForms
             // btnRouter40
             // 
             this.btnRouter40.AutoResize = true;
-            this.btnRouter40.BackgroundImage = global::SA_Resources.GlobalResources.radiobutton_unchecked;
+            this.btnRouter40.BackgroundImage = global::SA_GFXLib.SA_GFXLib_Resources.radio_unchecked;
             this.btnRouter40.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnRouter40.Location = new System.Drawing.Point(5, 207);
             this.btnRouter40.Name = "btnRouter40";
             this.btnRouter40.OverImage = null;
-            this.btnRouter40.Overlay1Image = ((System.Drawing.Image)(resources.GetObject("btnRouter40.Overlay1Image")));
+            this.btnRouter40.Overlay1Image = global::SA_GFXLib.SA_GFXLib_Resources.radio_checked;
             this.btnRouter40.Overlay1Visible = false;
-            this.btnRouter40.Overlay2Image = ((System.Drawing.Image)(resources.GetObject("btnRouter40.Overlay2Image")));
+            this.btnRouter40.Overlay2Image = global::SA_GFXLib.SA_GFXLib_Resources.radio_checked_green;
             this.btnRouter40.Overlay2Visible = false;
-            this.btnRouter40.Overlay3Image = ((System.Drawing.Image)(resources.GetObject("btnRouter40.Overlay3Image")));
+            this.btnRouter40.Overlay3Image = global::SA_GFXLib.SA_GFXLib_Resources.radio_checked_red;
             this.btnRouter40.Overlay3Visible = false;
             this.btnRouter40.PressedImage = null;
             this.btnRouter40.Size = new System.Drawing.Size(17, 17);
@@ -550,7 +550,7 @@ namespace SA_Resources.SAForms
             // btnSave
             // 
             this.btnSave.AutoResize = true;
-            this.btnSave.BackgroundImage = global::SA_Resources.GlobalResources.ui_btn_save;
+            this.btnSave.BackgroundImage = global::SA_GFXLib.SA_GFXLib_Resources.ui_btn_save;
             this.btnSave.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSave.Location = new System.Drawing.Point(116, 333);
             this.btnSave.Name = "btnSave";
@@ -569,7 +569,7 @@ namespace SA_Resources.SAForms
             // 
             // gainMeter2
             // 
-            this.gainMeter2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("gainMeter2.BackgroundImage")));
+            this.gainMeter2.BackgroundImage = global::SA_GFXLib.SA_GFXLib_Resources.bg_meter_large;
             this.gainMeter2.DB = -35D;
             this.gainMeter2.Location = new System.Drawing.Point(229, 68);
             this.gainMeter2.Name = "gainMeter2";
@@ -579,7 +579,7 @@ namespace SA_Resources.SAForms
             // 
             // gainMeter1
             // 
-            this.gainMeter1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("gainMeter1.BackgroundImage")));
+            this.gainMeter1.BackgroundImage = global::SA_GFXLib.SA_GFXLib_Resources.bg_meter_large;
             this.gainMeter1.DB = -35D;
             this.gainMeter1.Location = new System.Drawing.Point(168, 68);
             this.gainMeter1.Name = "gainMeter1";
@@ -590,7 +590,7 @@ namespace SA_Resources.SAForms
             // btnCancel
             // 
             this.btnCancel.AutoResize = true;
-            this.btnCancel.BackgroundImage = global::SA_Resources.GlobalResources.ui_btn_cancel;
+            this.btnCancel.BackgroundImage = global::SA_GFXLib.SA_GFXLib_Resources.ui_btn_cancel;
             this.btnCancel.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnCancel.Location = new System.Drawing.Point(126, 331);
             this.btnCancel.Name = "btnCancel";

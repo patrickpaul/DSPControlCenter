@@ -52,7 +52,7 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::SA_Resources.GlobalResources.ui_logo;
+            this.pictureBox1.Image = global::SA_GFXLib.SA_GFXLib_Resources.ui_logo;
             this.pictureBox1.ImageLocation = "";
             this.pictureBox1.Location = new System.Drawing.Point(7, 5);
             this.pictureBox1.Name = "pictureBox1";
@@ -129,7 +129,7 @@
             this.Controls.Add(this.lblProductTitle);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Icon = global::SA_GFXLib.SA_GFXLib_Resources.DSP_Control_Center_v4;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "AboutForm";

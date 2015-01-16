@@ -1,8 +1,19 @@
-﻿using System;
+﻿/*
+ * File     : Helpers.cs
+ * Created  : 28 July 2013
+ * Updated  : 15 January 2015
+ * Author   : Patrick Paul
+ * Synopsis : Helper class that performs some color modifications and form resizing.
+ *
+ * This software is Copyright (c) 2013-2015, Stewart Audio Inc. and/or its licensors
+ *
+ */
+
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace SA_Resources
+namespace SA_Resources.Utilities
 {
     public sealed class Helpers
     {

@@ -2,16 +2,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
+using SA_GFXLib;
 using SA_Resources.DSP.Primitives;
 using SA_Resources.SAControls;
-using SA_Resources.SADevices;
+
 using SA_Resources.USB;
+using SA_Resources.DeviceManagement;
+using SA_Resources.Utilities;
 
 namespace SA_Resources.SAForms
 {
@@ -46,7 +50,7 @@ namespace SA_Resources.SAForms
         public int num_channels = 4;
         public int num_phantom = 4;
 
-        public PIC_Bridge _PIC_Conn;
+        public DeviceBridge DeviceConn;
 
         public SADevice activeDevice;
 
@@ -169,8 +173,8 @@ namespace SA_Resources.SAForms
 
                 // Starting up not connected, set LIVE_MODE to false
                 LIVE_MODE = false;
-                // Initialize the PIC_Bridge (starts up closed)
-                _PIC_Conn = new PIC_Bridge(serialPort);
+                // Initialize the DeviceBridge (starts up closed)
+                DeviceConn = new DeviceBridge(serialPort);
 
                 // Initialize Array of Presets (both Programs and Primitives for now)
                 InitializePrograms();
@@ -276,7 +280,7 @@ namespace SA_Resources.SAForms
 
             LIVE_MODE = true;
 
-            this.SetConnectionPicture((Image)GlobalResources.lblStatus_Connected);
+            this.SetConnectionPicture((Image)SA_GFXLib.SA_GFXLib_Resources.lblStatus_Connected);
             this.SetConnectButtonText("Disconnect");
 
             readFromDeviceToolStripMenuItem.Enabled = true;
@@ -304,9 +308,9 @@ namespace SA_Resources.SAForms
 
             LIVE_MODE = false;
 
-            _PIC_Conn.Close();
+            DeviceConn.Close();
 
-            this.SetConnectionPicture((Image)GlobalResources.lblStatus_Disconnected);
+            this.SetConnectionPicture((Image)SA_GFXLib.SA_GFXLib_Resources.lblStatus_Disconnected);
             this.SetConnectButtonText("Connect");
 
             readFromDeviceToolStripMenuItem.Enabled = false;
@@ -324,7 +328,7 @@ namespace SA_Resources.SAForms
         public void AddItemToQueue(LiveQueueItem itemToAdd)
         {
             // TODO - Disable this once done testing
-            Console.WriteLine("[DEBUG] Adding item to queue: " + itemToAdd.Index + " - " + itemToAdd.Value.ToString("X8"));
+            Debug.WriteLine("[DEBUG] Adding item to queue: " + itemToAdd.Index + " - " + itemToAdd.Value.ToString("X8"));
 
             if (!LIVE_MODE)
             {
@@ -348,7 +352,7 @@ namespace SA_Resources.SAForms
                 if (worker.CancellationPending == true)
                 {
                     e.Cancel = true;
-                    //Console.WriteLine("Cancellation Pending...");
+                    //Debug.WriteLine("Cancellation Pending...");
                     break;
                 }
                 else
@@ -361,39 +365,39 @@ namespace SA_Resources.SAForms
                         {
                             LiveQueueItem read_setting = (LiveQueueItem)UPDATE_QUEUE.Dequeue();
 
-                            if (_PIC_Conn.getRTS())
+                            if (DeviceConn.getRTS())
                             {
                                 if (read_setting.Index < 900 && read_setting.Value != 0xFFFFFFFF)
                                 {
-                                    if (_PIC_Conn.SetLiveDSPValue((uint)read_setting.Index, read_setting.Value))
+                                    if (DeviceConn.SetLiveDSPValue((uint)read_setting.Index, read_setting.Value))
                                     {
                                         //if (read_setting.Index > 500)
                                         //{
-                                            //Console.WriteLine("Successfully sent queued DSP setting: " + read_setting.Index + " - " + read_setting.Value.ToString("X8"));
+                                            //Debug.WriteLine("Successfully sent queued DSP setting: " + read_setting.Index + " - " + read_setting.Value.ToString("X8"));
                                         //}
 
                                         if (read_setting.Index == 566)
                                         {
                                             // Phantom power
-                                            _PIC_Conn.UpdatePhantomPower();
+                                            DeviceConn.UpdatePhantomPower();
                                         }
                                     }
                                     else
                                     {
-                                        Console.WriteLine("ERROR sending queued DSP Setting");
+                                        Debug.WriteLine("ERROR sending queued DSP Setting");
                                     }
                                 }
 
                             }
                             else
                             {
-                                //Console.WriteLine("Couldn't get RTS from BW");
+                                //Debug.WriteLine("Couldn't get RTS from BW");
                             }
                         }
                         else
                         {
 
-                            //Console.WriteLine("There are no items in the queue.");
+                            //Debug.WriteLine("There are no items in the queue.");
                         }
                     }
                 }
@@ -402,7 +406,7 @@ namespace SA_Resources.SAForms
 
         protected void Queue_Thread_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            //Console.WriteLine("BW reported work is complete.");
+            //Debug.WriteLine("BW reported work is complete.");
         }
 
         protected void Queue_Thread_stop()
@@ -411,7 +415,7 @@ namespace SA_Resources.SAForms
             {
                 // Cancel the asynchronous operation.
                 Queue_Thread.CancelAsync();
-                //Console.WriteLine("Requested Background worker stop.");
+                //Debug.WriteLine("Requested Background worker stop.");
             }
         }
 
@@ -434,7 +438,7 @@ namespace SA_Resources.SAForms
             }
             catch (Exception ex)
             {
-                Console.WriteLine("[EXCEPTION in Default_DSP_Programs]: " + ex.Message);
+                Debug.WriteLine("[EXCEPTION in Default_DSP_Programs]: " + ex.Message);
             }
         }
 
@@ -447,13 +451,13 @@ namespace SA_Resources.SAForms
             try
             {
                 // This disables timers. Should not be necessary since USB hardware does automatically.
-                _PIC_Conn.sendAckdCommand(0x10);
+                DeviceConn.DisableTimers();
 
                 BackgroundWorker backgroundWorker = sender as BackgroundWorker;
 
                 backgroundWorker.ReportProgress(0, "Putting device into programming mode");
 
-                _PIC_Conn.FlushBuffer();
+                DeviceConn.FlushBuffer();
 
                 UInt32[] Page_array = new UInt32[64];
 
@@ -461,6 +465,11 @@ namespace SA_Resources.SAForms
                 double program_percentage = 0;
 
                 backgroundWorker.ReportProgress(0, "Writing Programs...");
+
+                bool stream_result = false;
+
+                int num_streams_sent = 0;
+                int num_stream_attemps = 0;
 
                 for (int program_counter = 0; program_counter < this.GetNumPresets(); program_counter++)
                 {
@@ -470,17 +479,23 @@ namespace SA_Resources.SAForms
                     {
                         program_percentage = (((double)page_counter)/12.0)*10.0;
 
-                        if (_PIC_Conn.InitiateWriteStream(program_counter, page_counter, 256))
+                        if (DeviceConn.InitiateWriteStream(program_counter, page_counter, 256))
                         {
                             Array.Copy(DSP_PROGRAMS[program_counter].WRITE_VALUE_CACHE, (page_counter*64), Page_array, 0, 64);
 
-                            _PIC_Conn.SendStreamNibble(Page_array);
-                            backgroundWorker.ReportProgress(overall_percantage + (int)program_percentage);
+                            while (!stream_result)
+                            {
+                                stream_result = DeviceConn.SendStreamNibble(Page_array);
+                                num_stream_attemps++;
+                            }
                             
+                            backgroundWorker.ReportProgress(overall_percantage + (int)program_percentage);
+                            num_streams_sent++;
+                            stream_result = false;
                         }
                         else
                         {
-                            Console.WriteLine("Unable to initiate stream!");
+                            Debug.WriteLine("Unable to initiate stream!");
                         }
                     }
 
@@ -489,24 +504,25 @@ namespace SA_Resources.SAForms
                     backgroundWorker.ReportProgress(overall_percantage);
                 }
 
+                MessageBox.Show("Completed " + num_streams_sent + " streams and took " + num_stream_attemps + " attempts");
 
                 if (GetDeviceType() == DeviceType.FLX804)
                 {
                     SetBridgeMode(AmplifierMode);
-                    _PIC_Conn.SetAmplifierMode(AmplifierMode);
+                    DeviceConn.SetAmplifierMode(AmplifierMode);
                 }
                 
 
                 backgroundWorker.ReportProgress(0, "Soft Rebooting device");
 
-                _PIC_Conn.SoftReboot();
+                DeviceConn.SoftReboot();
 
                 backgroundWorker.ReportProgress(0, "Save complete");
                 backgroundWorker.ReportProgress(100);
             }
             catch (Exception ex)
             {
-                Console.WriteLine("[Exception in MainForm_Template.WriteDevice]: " + ex.Message);
+                Debug.WriteLine("[Exception in MainForm_Template.WriteDevice]: " + ex.Message);
             }
         }
 
@@ -791,7 +807,7 @@ namespace SA_Resources.SAForms
             }
             catch (Exception ex)
             {
-                Console.WriteLine("[Exception in UpdatePresetDropdown]: " + ex.Message);
+                Debug.WriteLine("[Exception in UpdatePresetDropdown]: " + ex.Message);
             }
         }
         
@@ -805,7 +821,7 @@ namespace SA_Resources.SAForms
             // Must be called from somewhere inside SA_Resources. Why not here?
             if (!form_loaded)
             {
-                this.SetConnectionPicture(GlobalResources.lblStatus_Disconnected);
+                this.SetConnectionPicture(SA_GFXLib_Resources.lblStatus_Disconnected);
             }
 
 
@@ -1022,7 +1038,7 @@ namespace SA_Resources.SAForms
             if (PrimitiveIndex < 0)
             {
                 Active_Primitive = null;
-                Console.WriteLine("[ERROR] Unable to locate Input at CH=" + ch_num + " and POS = " + 0);
+                Debug.WriteLine("[ERROR] Unable to locate Input at CH=" + ch_num + " and POS = " + 0);
                 return;
             }
             else
@@ -1155,7 +1171,7 @@ namespace SA_Resources.SAForms
             if (PrimitiveIndex < 0)
             {
                 Active_Primitive = null;
-                Console.WriteLine("[ERROR] Unable to locate Output at CH=" + ch_num + " and POS = " + 0);
+                Debug.WriteLine("[ERROR] Unable to locate Output at CH=" + ch_num + " and POS = " + 0);
                 return;
             }
             else
@@ -1240,7 +1256,7 @@ namespace SA_Resources.SAForms
             if (PrimitiveIndex < 0)
             {
                 Active_Primitive = null;
-                Console.WriteLine("[ERROR] Unable to locate Ducker Primitive");
+                Debug.WriteLine("[ERROR] Unable to locate Ducker Primitive");
                 return;
             }
             else
@@ -1300,7 +1316,7 @@ namespace SA_Resources.SAForms
             if (PrimitiveIndex < 0)
             {
                 Active_Primitive = null;
-                Console.WriteLine("[ERROR] Unable to locate Ducker Primitive");
+                Debug.WriteLine("[ERROR] Unable to locate Ducker Primitive");
                 return;
             }
             else
@@ -1360,7 +1376,7 @@ namespace SA_Resources.SAForms
             if (PrimitiveIndex < 0)
             {
                 Active_Primitive = null;
-                Console.WriteLine("[ERROR] Unable to locate Ducker Primitive");
+                Debug.WriteLine("[ERROR] Unable to locate Ducker Primitive");
                 return;
             }
             else
@@ -1461,7 +1477,7 @@ namespace SA_Resources.SAForms
             if (PrimitiveIndex < 0)
             {
                 Active_Primitive = null;
-                Console.WriteLine("[ERROR] Unable to locate Compressor at CH=" + ch_num + " and POS = " + 0);
+                Debug.WriteLine("[ERROR] Unable to locate Compressor at CH=" + ch_num + " and POS = " + 0);
                 return;
             } else
             {
@@ -1473,7 +1489,7 @@ namespace SA_Resources.SAForms
 
             if (e.Button == MouseButtons.Right)
             {
-                Console.WriteLine("Right-click not yet implemented");
+                Debug.WriteLine("Right-click not yet implemented");
                 /*
                 TempConfig = cached_comp;
 
@@ -1525,7 +1541,7 @@ namespace SA_Resources.SAForms
             if (PrimitiveIndex < 0)
             {
                 Active_Primitive = null;
-                Console.WriteLine("[ERROR] Unable to locate Delay at CH=" + ch_num + " and POS = " + 0);
+                Debug.WriteLine("[ERROR] Unable to locate Delay at CH=" + ch_num + " and POS = " + 0);
                 return;
             }
             else
@@ -1582,7 +1598,7 @@ namespace SA_Resources.SAForms
             if (PrimitiveIndex < 0)
             {
                 Active_Primitive = null;
-                Console.WriteLine("[ERROR] Unable to locate StandardGain at CH = " + ch_num + " and POS = " + 0);
+                Debug.WriteLine("[ERROR] Unable to locate StandardGain at CH = " + ch_num + " and POS = " + 0);
             }
             else
             {
@@ -1640,7 +1656,7 @@ namespace SA_Resources.SAForms
             if (PrimitiveIndex < 0)
             {
                 Active_Primitive = null;
-                Console.WriteLine("[ERROR] Unable to locate Pregain at CH = " + ch_num + " and POS = " + 0);
+                Debug.WriteLine("[ERROR] Unable to locate Pregain at CH = " + ch_num + " and POS = " + 0);
             }
             else
             {
@@ -1840,13 +1856,13 @@ namespace SA_Resources.SAForms
             switch (new SwitchProgramForm(this, CURRENT_PROGRAM).ShowDialog())
             {
                 case DialogResult.No:
-                    Console.WriteLine("Unable to switch program. Switch command responded with an error.");
+                    Debug.WriteLine("Unable to switch program. Switch command responded with an error.");
                     break;
                 case DialogResult.Abort:
-                    Console.WriteLine("Unable to switch program. No RTS");
+                    Debug.WriteLine("Unable to switch program. No RTS");
                     break;
                 case DialogResult.OK:
-                    Console.WriteLine("Successfully switched program");
+                    Debug.WriteLine("Successfully switched program");
                     break;
             }
         }
@@ -1875,8 +1891,13 @@ namespace SA_Resources.SAForms
                 }
                 else
                 {
-                    SCFG_Manager.Read(this.GetDefaultDeviceFile(), this);
-                    UpdateTooltips();
+
+                    for (int i = 0; i < this.GetNumPresets(); i++)
+                    {
+                        DSP_PROGRAMS[i] = new DSP_Program_Manager(i, this, "Preset " + i);
+                    }
+
+                    Default_DSP_Programs();
                 }
 
                 this.currentFilename = "Untitled";
@@ -2050,11 +2071,11 @@ namespace SA_Resources.SAForms
         private void MainForm_Template_FormClosing(object sender, FormClosingEventArgs e)
         {
             
-            if (_PIC_Conn != null)
+            if (DeviceConn != null)
             {
-                if (_PIC_Conn.isOpen)
+                if (DeviceConn.isOpen)
                 {
-                    _PIC_Conn.Close();
+                    DeviceConn.Close();
                 }
             }
 
@@ -2085,7 +2106,7 @@ namespace SA_Resources.SAForms
                 System.Diagnostics.Process.Start("DSP Control Center Manual.pdf");
             } catch (Exception ex)
             {
-                Console.WriteLine("[Exception in MainForm_Template.viewHelpToolStripMenuItem_Click]: " + ex.Message);
+                Debug.WriteLine("[Exception in MainForm_Template.viewHelpToolStripMenuItem_Click]: " + ex.Message);
             }
         }
 
@@ -2118,7 +2139,7 @@ namespace SA_Resources.SAForms
             }
             catch (Exception ex)
             {
-                Console.WriteLine("[Exception in MainForm_Template.pbtn_Meters_Click]: " + ex.Message);
+                Debug.WriteLine("[Exception in MainForm_Template.pbtn_Meters_Click]: " + ex.Message);
             }
         }
 
@@ -2153,7 +2174,7 @@ namespace SA_Resources.SAForms
     {
         protected override void OnRenderMenuItemBackground(ToolStripItemRenderEventArgs e)
         {
-            //Console.WriteLine(e.Item.AccessibilityObject.ToString());
+            //Debug.WriteLine(e.Item.AccessibilityObject.ToString());
             if (!e.Item.Selected && !e.Item.IsOnDropDown)
             {
                 // Unselected top level item

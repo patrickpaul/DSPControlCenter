@@ -163,12 +163,14 @@ namespace SA_Resources.SAForms
             this.resetToDefaultToolStripMenuItem.Name = "resetToDefaultToolStripMenuItem";
             this.resetToDefaultToolStripMenuItem.Size = new System.Drawing.Size(263, 22);
             this.resetToDefaultToolStripMenuItem.Text = "Restore Default Settings";
+            this.resetToDefaultToolStripMenuItem.Visible = false;
             this.resetToDefaultToolStripMenuItem.Click += new System.EventHandler(this.ResetInterface_Event);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
             this.toolStripMenuItem1.Size = new System.Drawing.Size(260, 6);
+            this.toolStripMenuItem1.Visible = false;
             // 
             // exitToolStripMenuItem
             // 
@@ -298,7 +300,7 @@ namespace SA_Resources.SAForms
             // 
             // pbPresetSelection
             // 
-            this.pbPresetSelection.Image = global::SA_Resources.GlobalResources.menu_program_selection;
+            this.pbPresetSelection.Image = ((System.Drawing.Image)(resources.GetObject("pbPresetSelection.Image")));
             this.pbPresetSelection.Location = new System.Drawing.Point(568, 24);
             this.pbPresetSelection.Name = "pbPresetSelection";
             this.pbPresetSelection.Size = new System.Drawing.Size(155, 37);
@@ -332,7 +334,7 @@ namespace SA_Resources.SAForms
             // 
             // menuItem_Cut
             // 
-            this.menuItem_Cut.Image = global::SA_Resources.GlobalResources.cut_icon;
+            this.menuItem_Cut.Image = ((System.Drawing.Image)(resources.GetObject("menuItem_Cut.Image")));
             this.menuItem_Cut.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.menuItem_Cut.Name = "menuItem_Cut";
             this.menuItem_Cut.Size = new System.Drawing.Size(178, 22);
@@ -349,7 +351,7 @@ namespace SA_Resources.SAForms
             // 
             // menuItem_Paste
             // 
-            this.menuItem_Paste.Image = global::SA_Resources.GlobalResources.paste_icon;
+            this.menuItem_Paste.Image = ((System.Drawing.Image)(resources.GetObject("menuItem_Paste.Image")));
             this.menuItem_Paste.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.menuItem_Paste.Name = "menuItem_Paste";
             this.menuItem_Paste.Size = new System.Drawing.Size(178, 22);
@@ -363,7 +365,7 @@ namespace SA_Resources.SAForms
             // 
             // toolStripMenuItem6
             // 
-            this.toolStripMenuItem6.Image = global::SA_Resources.GlobalResources.clear_icon;
+            this.toolStripMenuItem6.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItem6.Image")));
             this.toolStripMenuItem6.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripMenuItem6.Name = "toolStripMenuItem6";
             this.toolStripMenuItem6.Size = new System.Drawing.Size(178, 22);
@@ -398,7 +400,7 @@ namespace SA_Resources.SAForms
             // pbtnSettings
             // 
             this.pbtnSettings.AutoResize = true;
-            this.pbtnSettings.BackgroundImage = global::SA_Resources.GlobalResources.ui_btn_settings;
+            this.pbtnSettings.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbtnSettings.BackgroundImage")));
             this.pbtnSettings.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pbtnSettings.Location = new System.Drawing.Point(74, 344);
             this.pbtnSettings.Name = "pbtnSettings";
@@ -419,7 +421,7 @@ namespace SA_Resources.SAForms
             // pbtn_Meters
             // 
             this.pbtn_Meters.AutoResize = true;
-            this.pbtn_Meters.BackgroundImage = global::SA_Resources.GlobalResources.ui_btn_meters;
+            this.pbtn_Meters.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pbtn_Meters.BackgroundImage")));
             this.pbtn_Meters.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pbtn_Meters.Location = new System.Drawing.Point(13, 344);
             this.pbtn_Meters.Name = "pbtn_Meters";

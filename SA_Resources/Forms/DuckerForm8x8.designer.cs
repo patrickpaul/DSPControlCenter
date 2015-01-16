@@ -225,9 +225,9 @@ namespace SA_Resources.SAForms
             // 
             // DialDuckRelease
             // 
-            this.DialDuckRelease.BackgroundImage = global::SA_Resources.GlobalResources.knob_orange_bg;
+            this.DialDuckRelease.BackgroundImage = global::SA_GFXLib.SA_GFXLib_Resources.knob_orange_bg;
             this.DialDuckRelease.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.DialDuckRelease.Image = global::SA_Resources.GlobalResources.knob_orange_line;
+            this.DialDuckRelease.Image = global::SA_GFXLib.SA_GFXLib_Resources.knob_orange_line;
             this.DialDuckRelease.InitialImage = null;
             this.DialDuckRelease.Location = new System.Drawing.Point(239, 176);
             this.DialDuckRelease.Name = "DialDuckRelease";
@@ -249,9 +249,9 @@ namespace SA_Resources.SAForms
             // 
             // DialDuckAttack
             // 
-            this.DialDuckAttack.BackgroundImage = global::SA_Resources.GlobalResources.knob_blue_bg;
+            this.DialDuckAttack.BackgroundImage = global::SA_GFXLib.SA_GFXLib_Resources.knob_blue_bg;
             this.DialDuckAttack.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.DialDuckAttack.Image = global::SA_Resources.GlobalResources.knob_blue_line;
+            this.DialDuckAttack.Image = global::SA_GFXLib.SA_GFXLib_Resources.knob_blue_line;
             this.DialDuckAttack.InitialImage = null;
             this.DialDuckAttack.Location = new System.Drawing.Point(167, 176);
             this.DialDuckAttack.Name = "DialDuckAttack";
@@ -272,9 +272,9 @@ namespace SA_Resources.SAForms
             // 
             // DialDuckHold
             // 
-            this.DialDuckHold.BackgroundImage = global::SA_Resources.GlobalResources.knob_green_bg;
+            this.DialDuckHold.BackgroundImage = global::SA_GFXLib.SA_GFXLib_Resources.knob_green_bg;
             this.DialDuckHold.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.DialDuckHold.Image = global::SA_Resources.GlobalResources.knob_green_line;
+            this.DialDuckHold.Image = global::SA_GFXLib.SA_GFXLib_Resources.knob_green_line;
             this.DialDuckHold.InitialImage = null;
             this.DialDuckHold.Location = new System.Drawing.Point(311, 176);
             this.DialDuckHold.Name = "DialDuckHold";
@@ -409,7 +409,7 @@ namespace SA_Resources.SAForms
             // 
             // duckMeter4
             // 
-            this.duckMeter4.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("duckMeter4.BackgroundImage")));
+            this.duckMeter4.BackgroundImage = global::SA_GFXLib.SA_GFXLib_Resources.bg_meter_small;
             this.duckMeter4.DB = -35D;
             this.duckMeter4.Location = new System.Drawing.Point(498, 59);
             this.duckMeter4.Name = "duckMeter4";
@@ -419,7 +419,7 @@ namespace SA_Resources.SAForms
             // 
             // duckMeter3
             // 
-            this.duckMeter3.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("duckMeter3.BackgroundImage")));
+            this.duckMeter3.BackgroundImage = global::SA_GFXLib.SA_GFXLib_Resources.bg_meter_small;
             this.duckMeter3.DB = -35D;
             this.duckMeter3.Location = new System.Drawing.Point(459, 59);
             this.duckMeter3.Name = "duckMeter3";
@@ -429,7 +429,7 @@ namespace SA_Resources.SAForms
             // 
             // duckMeter2
             // 
-            this.duckMeter2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("duckMeter2.BackgroundImage")));
+            this.duckMeter2.BackgroundImage = global::SA_GFXLib.SA_GFXLib_Resources.bg_meter_small;
             this.duckMeter2.DB = -35D;
             this.duckMeter2.Location = new System.Drawing.Point(420, 59);
             this.duckMeter2.Name = "duckMeter2";
@@ -439,7 +439,7 @@ namespace SA_Resources.SAForms
             // 
             // duckMeter1
             // 
-            this.duckMeter1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("duckMeter1.BackgroundImage")));
+            this.duckMeter1.BackgroundImage = global::SA_GFXLib.SA_GFXLib_Resources.bg_meter_small;
             this.duckMeter1.DB = -35D;
             this.duckMeter1.Location = new System.Drawing.Point(381, 59);
             this.duckMeter1.Name = "duckMeter1";
@@ -486,7 +486,7 @@ namespace SA_Resources.SAForms
             // btnSave
             // 
             this.btnSave.AutoResize = true;
-            this.btnSave.BackgroundImage = global::SA_Resources.GlobalResources.ui_btn_save;
+            this.btnSave.BackgroundImage = global::SA_GFXLib.SA_GFXLib_Resources.ui_btn_save;
             this.btnSave.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSave.Location = new System.Drawing.Point(167, 254);
             this.btnSave.Name = "btnSave";
@@ -506,7 +506,7 @@ namespace SA_Resources.SAForms
             // btnCancel
             // 
             this.btnCancel.AutoResize = true;
-            this.btnCancel.BackgroundImage = global::SA_Resources.GlobalResources.ui_btn_cancel;
+            this.btnCancel.BackgroundImage = global::SA_GFXLib.SA_GFXLib_Resources.ui_btn_cancel;
             this.btnCancel.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnCancel.Location = new System.Drawing.Point(223, 254);
             this.btnCancel.Name = "btnCancel";
@@ -526,20 +526,20 @@ namespace SA_Resources.SAForms
             // chkBypass
             // 
             this.chkBypass.Checked = true;
-            this.chkBypass.CheckedImage = global::SA_Resources.GlobalResources.ui_btn_bypass_red;
+            this.chkBypass.CheckedImage = global::SA_GFXLib.SA_GFXLib_Resources.ui_btn_bypass_red;
             this.chkBypass.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkBypass.Cursor = System.Windows.Forms.Cursors.Hand;
             this.chkBypass.Location = new System.Drawing.Point(300, 14);
             this.chkBypass.Name = "chkBypass";
             this.chkBypass.Size = new System.Drawing.Size(61, 23);
             this.chkBypass.TabIndex = 30;
-            this.chkBypass.UncheckedImage = global::SA_Resources.GlobalResources.ui_btn_bypass;
+            this.chkBypass.UncheckedImage = global::SA_GFXLib.SA_GFXLib_Resources.ui_btn_bypass_grey;
             this.chkBypass.UseVisualStyleBackColor = true;
             this.chkBypass.CheckedChanged += new System.EventHandler(this.chkBypass_CheckedChanged);
             // 
             // duckMeter6
             // 
-            this.duckMeter6.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("duckMeter6.BackgroundImage")));
+            this.duckMeter6.BackgroundImage = global::SA_GFXLib.SA_GFXLib_Resources.bg_meter_small;
             this.duckMeter6.DB = -35D;
             this.duckMeter6.Location = new System.Drawing.Point(576, 59);
             this.duckMeter6.Name = "duckMeter6";
@@ -549,7 +549,7 @@ namespace SA_Resources.SAForms
             // 
             // duckMeter5
             // 
-            this.duckMeter5.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("duckMeter5.BackgroundImage")));
+            this.duckMeter5.BackgroundImage = global::SA_GFXLib.SA_GFXLib_Resources.bg_meter_small;
             this.duckMeter5.DB = -35D;
             this.duckMeter5.Location = new System.Drawing.Point(537, 59);
             this.duckMeter5.Name = "duckMeter5";
@@ -653,7 +653,7 @@ namespace SA_Resources.SAForms
             // 
             // duckMeter8
             // 
-            this.duckMeter8.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("duckMeter8.BackgroundImage")));
+            this.duckMeter8.BackgroundImage = global::SA_GFXLib.SA_GFXLib_Resources.bg_meter_small;
             this.duckMeter8.DB = -35D;
             this.duckMeter8.Location = new System.Drawing.Point(653, 59);
             this.duckMeter8.Name = "duckMeter8";
@@ -663,7 +663,7 @@ namespace SA_Resources.SAForms
             // 
             // duckMeter7
             // 
-            this.duckMeter7.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("duckMeter7.BackgroundImage")));
+            this.duckMeter7.BackgroundImage = global::SA_GFXLib.SA_GFXLib_Resources.bg_meter_small;
             this.duckMeter7.DB = -35D;
             this.duckMeter7.Location = new System.Drawing.Point(614, 59);
             this.duckMeter7.Name = "duckMeter7";

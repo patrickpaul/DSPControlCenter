@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace SA_Resources.SADevices
+namespace SA_Resources.DeviceManagement
 {
     public enum DeviceType
     {
@@ -22,6 +22,8 @@ namespace SA_Resources.SADevices
         DSP1002,
         DSP1001Net,
         DSP1002Net,
+        DSP1002LZ,
+        DSP1002LZNet,
         Unknown
     }
 

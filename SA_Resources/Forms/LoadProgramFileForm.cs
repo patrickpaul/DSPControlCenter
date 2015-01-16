@@ -1,14 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading;
 using System.Windows.Forms;
-using SA_Resources.SADevices;
-using SA_Resources.USB;
+using SA_Resources.DeviceManagement;
 
 namespace SA_Resources.SAForms
 {
@@ -39,7 +32,7 @@ namespace SA_Resources.SAForms
 
             if (radioDisconnect.Checked)
             {
-                PARENT_FORM._PIC_Conn.Close();
+                PARENT_FORM.DeviceConn.Close();
                 PARENT_FORM.EndLiveMode();
 
                 SCFG_Manager.Read(SCFG_FILE, PARENT_FORM);
@@ -70,7 +63,7 @@ namespace SA_Resources.SAForms
         {
             progressBar1.Value = 100;
 
-            int program_index = PARENT_FORM._PIC_Conn.GetCurrentProgram();
+            int program_index = PARENT_FORM.DeviceConn.GetCurrentProgram();
 
             PARENT_FORM.ChangeProgram_AfterRead(program_index);
 

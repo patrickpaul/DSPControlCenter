@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -155,7 +156,7 @@ namespace SA_Resources.SAForms
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine("Exception in UpdateUIToVals Level 2: " + ex.Message);
+                        Debug.WriteLine("Exception in UpdateUIToVals Level 2: " + ex.Message);
                     }
                     
                     lock (_threadlock)
@@ -163,7 +164,7 @@ namespace SA_Resources.SAForms
                         if (uithread_abort == true)
                         {
                             uithread_abort = false;
-                            Console.WriteLine("Broke UI thread");
+                            Debug.WriteLine("Broke UI thread");
                             break;
                         }
 
@@ -174,7 +175,7 @@ namespace SA_Resources.SAForms
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Exception in UpdateUIToVals Level 1: " + ex.Message);
+                Debug.WriteLine("Exception in UpdateUIToVals Level 1: " + ex.Message);
 
             }
 
@@ -202,7 +203,7 @@ namespace SA_Resources.SAForms
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Exception in filterDesigner_OnDragEnd: " + ex.Message);
+                Debug.WriteLine("Exception in filterDesigner_OnDragEnd: " + ex.Message);
             }
         }
 

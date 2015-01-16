@@ -21,7 +21,6 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("Flavor=Retail")] // a.k.a. "Comments"
 #endif
 
-[assembly: CLSCompliant(true)]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
 // to COM components.  If you need to access a type in this assembly from 
@@ -36,8 +35,8 @@ using System.Runtime.InteropServices;
 // to distinguish one build from another. AssemblyFileVersion is specified
 // in AssemblyVersionInfo.cs so that it can be easily incremented by the
 // automated build process.
-[assembly: AssemblyVersion("3.5.81.1255")]
-[assembly: AssemblyFileVersion("3.5.81.1255")]
+[assembly: AssemblyVersion("3.5.315.1500")]
+[assembly: AssemblyFileVersion("3.5.315.1500")]
 
 
 // By default, the "Product version" shown in the file properties window is
@@ -45,4 +44,4 @@ using System.Runtime.InteropServices;
 // Set AssemblyInformationalVersionAttribute to be the same as
 // AssemblyVersionAttribute so that the "Product version" in the file
 // properties window matches the version displayed in the GAC shell extension.
-[assembly: AssemblyInformationalVersion("3.5.0.0")] // a.k.a. "Product version"
+[assembly: AssemblyInformationalVersion("3.5.1.0")] // a.k.a. "Product version"

@@ -1,6 +1,6 @@
 ﻿using SA_Resources.SAControls;
 
-namespace SA_Resources
+namespace SA_Resources.SAForms
 {
     partial class FLXConfigurationForm
     {
@@ -213,7 +213,7 @@ namespace SA_Resources
             // pbtnRefresh
             // 
             this.pbtnRefresh.AutoResize = true;
-            this.pbtnRefresh.BackgroundImage = global::SA_Resources.GlobalResources.ui_btn_refresh;
+            this.pbtnRefresh.BackgroundImage = global::SA_GFXLib.SA_GFXLib_Resources.ui_btn_refresh;
             this.pbtnRefresh.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pbtnRefresh.Location = new System.Drawing.Point(157, 20);
             this.pbtnRefresh.Name = "pbtnRefresh";
@@ -233,7 +233,7 @@ namespace SA_Resources
             // pbtnCalibrateUpper
             // 
             this.pbtnCalibrateUpper.AutoResize = true;
-            this.pbtnCalibrateUpper.BackgroundImage = global::SA_Resources.GlobalResources.ui_btn_calibrate;
+            this.pbtnCalibrateUpper.BackgroundImage = global::SA_GFXLib.SA_GFXLib_Resources.ui_btn_calibrate;
             this.pbtnCalibrateUpper.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pbtnCalibrateUpper.Location = new System.Drawing.Point(157, 80);
             this.pbtnCalibrateUpper.Name = "pbtnCalibrateUpper";
@@ -253,7 +253,7 @@ namespace SA_Resources
             // pbtnCalibrateLower
             // 
             this.pbtnCalibrateLower.AutoResize = true;
-            this.pbtnCalibrateLower.BackgroundImage = global::SA_Resources.GlobalResources.ui_btn_calibrate;
+            this.pbtnCalibrateLower.BackgroundImage = global::SA_GFXLib.SA_GFXLib_Resources.ui_btn_calibrate;
             this.pbtnCalibrateLower.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pbtnCalibrateLower.Location = new System.Drawing.Point(157, 49);
             this.pbtnCalibrateLower.Name = "pbtnCalibrateLower";

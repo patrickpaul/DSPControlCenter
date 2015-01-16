@@ -8,11 +8,12 @@ using System.Media;
 using System.Text;
 using System.Windows.Forms;
 using SA_Resources;
+using SA_Resources.DeviceManagement;
 using SA_Resources.DSP;
 using SA_Resources.SAForms;
 using SA_Resources.DSP.Primitives;
 
-namespace SA_Resources
+namespace SA_Resources.SAForms
 {
     public partial class BridgeConfigurationForm : Form
     {
@@ -100,8 +101,8 @@ namespace SA_Resources
             }
 
             PARENT_FORM.AmplifierMode = dropBridgeMode.SelectedIndex;
-            PARENT_FORM._PIC_Conn.SetAmplifierMode(dropBridgeMode.SelectedIndex);
-            PARENT_FORM._PIC_Conn.SoftReboot();
+            PARENT_FORM.DeviceConn.SetAmplifierMode(dropBridgeMode.SelectedIndex);
+            PARENT_FORM.DeviceConn.SoftReboot();
         }
     }
 }

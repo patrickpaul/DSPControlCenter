@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using SA_GFXLib;
 using SA_Resources;
 using SA_Resources.SAControls;
 using SA_Resources.DSP.Primitives;
@@ -45,9 +47,9 @@ namespace SA_Resources.SAForms
 
             this.Text = "CH " + (Active_Primitive.Channel + 1) + " - Delay";
 
-            delayMS = new Dial(TextDelayMS, DialDelayMS, new double[] { 0, 0.016, 0.031, 0.045, 0.060, 0.076, 0.09 }, DialHelpers.Format_String_Delay_MS, Images.knob_red_bg, Images.knob_red_line);
-            delayFT = new Dial(TextDelayFT, DialDelayFT, new double[] { 0, 17.98, 33.97, 49.95, 66.93, 83.916, 0.09 * 1110.0 }, DialHelpers.Format_String_Delay_FT, Images.knob_blue_bg, Images.knob_blue_line);
-            delayM = new Dial(TextDelayM, DialDelayM, new double[] { 0, 5.51, 10.40, 15.3, 20.50, 25.70, 0.09 * 340.0 }, DialHelpers.Format_String_Delay_M, Images.knob_green_bg, Images.knob_green_line);
+            delayMS = new Dial(TextDelayMS, DialDelayMS, new double[] { 0, 0.016, 0.031, 0.045, 0.060, 0.076, 0.09 }, DialHelpers.Format_String_Delay_MS, SA_GFXLib_Resources.knob_red_bg, SA_GFXLib_Resources.knob_red_line);
+            delayFT = new Dial(TextDelayFT, DialDelayFT, new double[] { 0, 17.98, 33.97, 49.95, 66.93, 83.916, 0.09 * 1110.0 }, DialHelpers.Format_String_Delay_FT, SA_GFXLib_Resources.knob_blue_bg, SA_GFXLib_Resources.knob_blue_line);
+            delayM = new Dial(TextDelayM, DialDelayM, new double[] { 0, 5.51, 10.40, 15.3, 20.50, 25.70, 0.09 * 340.0 }, DialHelpers.Format_String_Delay_M, SA_GFXLib_Resources.knob_green_bg, SA_GFXLib_Resources.knob_green_line);
 
             delayMS.OnChange += new DialEventHandler(this.DialMS_OnChange);
             delayFT.OnChange += new DialEventHandler(this.DialFT_OnChange);
@@ -111,7 +113,7 @@ namespace SA_Resources.SAForms
         private void btnGo_Click(object sender, EventArgs e)
         {
 
-            Console.WriteLine("btnGo_Click not yet implemented");
+            Debug.WriteLine("btnGo_Click not yet implemented");
             return;
             /*
             if (dropAction.SelectedIndex == 0)

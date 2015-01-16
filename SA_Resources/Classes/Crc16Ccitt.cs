@@ -1,9 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿/*
+ * File     : Crc16Ccitt.cs
+ * Created  : 14 May 2014
+ * Updated  : 15 January 2015
+ * Author   : Patrick Paul
+ * Synopsis : Class to generate 16-bit CRC-CCITT checksum.
+ *
+ * This software is Copyright (c) 2013-2015, Stewart Audio Inc. and/or its licensors
+ *
+ */
 
-namespace SA_Resources
+using System;
+
+namespace SA_Resources.USB
 {
     public enum InitialCrcValue { Zeros, NonZero1 = 0xffff, NonZero2 = 0x1D0F }
 

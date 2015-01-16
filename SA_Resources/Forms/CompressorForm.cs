@@ -1,11 +1,14 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
+using SA_GFXLib;
 using SA_Resources.DSP;
 using SA_Resources.SAControls;
 using SA_Resources.DSP.Primitives;
+using SA_Resources.Utilities;
 
 namespace SA_Resources.SAForms
 {
@@ -110,18 +113,18 @@ namespace SA_Resources.SAForms
                 }
 
                 AttackDial = new Dial(TextCompAttack, DialCompAttack, new double[] {0.001, 0.003, 0.01, 0.03, 0.08, 0.3, 1.0},
-                         DialHelpers.Format_String_Comp_Attack, Images.knob_blue_bg, Images.knob_blue_line);
+                         DialHelpers.Format_String_Comp_Attack, SA_GFXLib_Resources.knob_blue_bg, SA_GFXLib_Resources.knob_blue_line);
 
                 AttackDial.Value = Active_Primitive.Attack;
                 AttackDial.OnChange += new DialEventHandler(this.AttackDial_OnChange);
 
                 ReleaseDial = new Dial(TextCompRelease, DialCompRelease, new double[] {0.010, 0.038, 0.150, 0.530, 1.250, 7.0, 30.0},
-                         DialHelpers.Format_String_Comp_Release, Images.knob_orange_bg, Images.knob_orange_line);
+                         DialHelpers.Format_String_Comp_Release, SA_GFXLib_Resources.knob_orange_bg, SA_GFXLib_Resources.knob_orange_line);
                 ReleaseDial.Value = Active_Primitive.Release;
                 ReleaseDial.OnChange += new DialEventHandler(this.ReleaseDial_OnChange);
 
 
-                var backImage = new NamedImage("DynamicsBackground", GlobalResources.DynamicsGraph_BG_Blue);
+                var backImage = new NamedImage("DynamicsBackground", SA_GFXLib_Resources.ui_compressor_bg);
                 dynChart.Images.Add(backImage);
                 dynChart.ChartAreas[0].BackImage = "DynamicsBackground";
 
@@ -146,16 +149,16 @@ namespace SA_Resources.SAForms
                 chkBypass.Checked = Active_Primitive.Bypassed;
 
 
-                if (_parentForm.LIVE_MODE && _parentForm._PIC_Conn.isOpen)
+                if (_parentForm.LIVE_MODE && _parentForm.DeviceConn.isOpen)
                 {
                     gainMeterIn.Visible = true;
                     gainMeterOut.Visible = true;
 
-                    gainMeterIn.PIC_CONN = PARENT_FORM._PIC_Conn;
+                    gainMeterIn.DeviceConn = PARENT_FORM.DeviceConn;
                     gainMeterIn.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.Compressor, Active_Primitive.Channel, compLimOffset, 0).Address;
                     gainMeterIn.Start();
 
-                    gainMeterOut.PIC_CONN = PARENT_FORM._PIC_Conn;
+                    gainMeterOut.DeviceConn = PARENT_FORM.DeviceConn;
                     gainMeterOut.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.Compressor, Active_Primitive.Channel, compLimOffset, 1).Address;
                     gainMeterOut.Start();
 
@@ -184,7 +187,7 @@ namespace SA_Resources.SAForms
 
             } catch (Exception ex)
             {
-                Console.WriteLine("[Exception in CompressorForm.Constructor]:" +  ex.Message);
+                Debug.WriteLine("[Exception in CompressorForm.Constructor]:" +  ex.Message);
             }
 
             form_loaded = true;
@@ -228,14 +231,14 @@ namespace SA_Resources.SAForms
                 dynChart.Invalidate();
                 approx_threshold_override = true;
                 return;
-                //Console.WriteLine("X = " + e.X + ", Y = " + e.Y);
+                //Debug.WriteLine("X = " + e.X + ", Y = " + e.Y);
             } else if (e.Y < 25 && e.X > 283 && e.X < 300 && stored_threshold > 9)
             {
                 dynChart.Cursor = Cursors.Hand;
                 dynChart.Invalidate();
                 approx_threshold_override = true;
                 return;
-                //Console.WriteLine("X = " + e.X + ", Y = " + e.Y);
+                //Debug.WriteLine("X = " + e.X + ", Y = " + e.Y);
             }
             else
             {
@@ -611,7 +614,7 @@ namespace SA_Resources.SAForms
                     try
                     {
 
-                        read_value = PARENT_FORM._PIC_Conn.Read_Live_DSP_Value(in_gain_address);
+                        read_value = PARENT_FORM.DeviceConn.Read_Live_DSP_Value(in_gain_address);
 
                         if (read_value != 0xFFFFFFFF)
                         {
@@ -671,7 +674,7 @@ namespace SA_Resources.SAForms
                     }
                     catch (Exception ex)
                     {
-                        //Console.WriteLine("Exception in LiveSignal_Thread Level 2: " + ex.Message);
+                        Debug.WriteLine("Exception in LiveSignal_Thread Level 2: " + ex.Message);
                     }
 
                     lock (_threadlock)
@@ -679,7 +682,7 @@ namespace SA_Resources.SAForms
                         if (livesignalthread_abort == true)
                         {
                             livesignalthread_abort = false;
-                            //Console.WriteLine("Broke LiveSignal thread");
+                            //Debug.WriteLine("Broke LiveSignal thread");
                             LiveSignalThread.Abort();
                             break;
 
@@ -692,7 +695,7 @@ namespace SA_Resources.SAForms
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Exception in LiveSignal_Thread Level 1: " + ex.Message);
+                Debug.WriteLine("Exception in LiveSignal_Thread Level 1: " + ex.Message);
 
             }
 

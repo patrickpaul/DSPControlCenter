@@ -2,14 +2,17 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using SA_Resources.DeviceManagement;
 using SA_Resources.DSP;
 using SA_Resources.DSP.Primitives;
 using SA_Resources.SAControls;
-using SA_Resources.SADevices;
+
+using SA_Resources.Utilities;
 
 namespace SA_Resources.SAForms
 {
@@ -58,8 +61,7 @@ namespace SA_Resources.SAForms
                         this.Width = Helpers.NormalizeFormDimension(231);
                     }
                 }
-
-                if (PARENT_FORM.GetDeviceFamily() == DeviceFamily.FLX)
+                else if (dFamily == DeviceFamily.FLX)
                 {
                     if (dType == DeviceType.FLX804)
                     {
@@ -197,8 +199,7 @@ namespace SA_Resources.SAForms
                         }
                     }
                 }
-
-                if (PARENT_FORM.GetDeviceType() == DeviceType.DSP1001)
+                else if (dType == DeviceType.DSP1001)
                 {
                     // Only panelCH1 visible.
                     CH2_hidden = true;
@@ -226,8 +227,7 @@ namespace SA_Resources.SAForms
                         btnSave.Location = new Point(37, btnSave.Location.Y);
                     }
                 }
-
-                if (PARENT_FORM.GetDeviceType() == DeviceType.DSP1002)
+                else if (dType == DeviceType.DSP1002 || dType == DeviceType.DSP1002LZ)
                 {
                     CH2_hidden = false;
                     CH3_hidden = true;
@@ -259,26 +259,26 @@ namespace SA_Resources.SAForms
                 if (PARENT_FORM.LIVE_MODE)
                 {
                     gainMeter1.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.MixerCrosspoint, 0, 0, 0).Address;
-                    gainMeter1.PIC_CONN = PARENT_FORM._PIC_Conn;
+                    gainMeter1.DeviceConn = PARENT_FORM.DeviceConn;
                     gainMeter1.Start();
 
                     if (!CH2_hidden)
                     {
                         gainMeter2.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.MixerCrosspoint, 0, 0, 1).Address;
-                        gainMeter2.PIC_CONN = PARENT_FORM._PIC_Conn;
+                        gainMeter2.DeviceConn = PARENT_FORM.DeviceConn;
                         gainMeter2.Start();
                     }
 
                     if (!CH3_hidden)
                     {
                         gainMeter3.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.MixerCrosspoint, 0, 0, 2).Address;
-                        gainMeter3.PIC_CONN = PARENT_FORM._PIC_Conn;
+                        gainMeter3.DeviceConn = PARENT_FORM.DeviceConn;
                         gainMeter3.Start();
                     }
                     if (!CH4_hidden)
                     {
                         gainMeter4.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.MixerCrosspoint, 0, 0, 3).Address;
-                        gainMeter4.PIC_CONN = PARENT_FORM._PIC_Conn;
+                        gainMeter4.DeviceConn = PARENT_FORM.DeviceConn;
                         gainMeter4.Start();
                     }
 
@@ -388,7 +388,7 @@ namespace SA_Resources.SAForms
             }
             catch (Exception ex)
             {
-                Console.WriteLine("[Exception in MixerForm6x4]: " + ex.Message + " - Trace - " + ex.StackTrace);
+                Debug.WriteLine("[Exception in MixerForm6x4]: " + ex.Message + " - Trace - " + ex.StackTrace);
             }
 
         }

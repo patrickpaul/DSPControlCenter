@@ -1,15 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Threading;
 using System.Windows.Forms;
+using SA_Resources.DeviceManagement;
 using SA_Resources.SAControls;
-using SA_Resources.SADevices;
 using SA_Resources.SAForms;
-using SA_Resources.USB;
 
 namespace SA_Resources.DSP.Primitives
 {
@@ -80,7 +78,7 @@ namespace SA_Resources.DSP.Primitives
         {
             foreach (DSP_Primitive singlePrimitive in PRIMITIVES)
             {
-                Console.WriteLine(singlePrimitive.Offset + "-" + (singlePrimitive.Offset + singlePrimitive.Num_Values-1) + " =" + singlePrimitive.Name);
+                Debug.WriteLine(singlePrimitive.Offset + "-" + (singlePrimitive.Offset + singlePrimitive.Num_Values-1) + " =" + singlePrimitive.Name);
             }
 
         }
@@ -89,7 +87,7 @@ namespace SA_Resources.DSP.Primitives
         {
             foreach(DSP_Primitive singlePrimitive in PRIMITIVES)
             {
-                Console.WriteLine("[ERROR] ReloadFromSettingsList - Not yet implemented.");
+                Debug.WriteLine("[ERROR] ReloadFromSettingsList - Not yet implemented.");
                 //singlePrimitive.UpdateFromReadValues(settingsList.GetRange(singlePrimitive.Offset, singlePrimitive.Num_Values));
 
             }
@@ -486,8 +484,6 @@ namespace SA_Resources.DSP.Primitives
                 }
 
 
-                int f_counter = 0;
-
                 if (PARENT_FORM.GetDeviceType() == DeviceType.DSP4x4)
                 {
                     WRITE_VALUE_CACHE[470] = 0x00000001;
@@ -547,7 +543,7 @@ namespace SA_Resources.DSP.Primitives
             }
             catch (Exception ex)
             {
-                Console.WriteLine("[Exception in SaveToFile]: " + ex.Message);
+                Debug.WriteLine("[Exception in SaveToFile]: " + ex.Message);
             }
         }
 
@@ -563,7 +559,7 @@ namespace SA_Resources.DSP.Primitives
             }
             catch (Exception ex)
             {
-                Console.WriteLine("[Exception in Write_Cache_To_File]: " + ex.Message);
+                Debug.WriteLine("[Exception in Write_Cache_To_File]: " + ex.Message);
             }
         }
 
@@ -576,7 +572,7 @@ namespace SA_Resources.DSP.Primitives
             }
             catch (Exception ex)
             {
-                Console.WriteLine("[Exception in DSP_Program_Manager.SendToDevice]: " + ex.Message);
+                Debug.WriteLine("[Exception in DSP_Program_Manager.SendToDevice]: " + ex.Message);
             }
 
             return false;
@@ -593,8 +589,9 @@ namespace SA_Resources.DSP.Primitives
 
                 for (int i = 0; i < 768; i++)
                 {
-       
-                    bool parsedSuccessfully = UInt32.TryParse(reader.ReadLine().Substring(5, 8), NumberStyles.HexNumber, CultureInfo.CurrentCulture, out parsed_value);
+
+                    string stringToParse = reader.ReadLine();
+                    bool parsedSuccessfully = UInt32.TryParse(stringToParse.Substring(5, 8), NumberStyles.HexNumber, CultureInfo.CurrentCulture, out parsed_value);
                     
                     if (!parsedSuccessfully)
                     {
@@ -609,7 +606,7 @@ namespace SA_Resources.DSP.Primitives
             }
             catch (Exception ex)
             {
-                Console.WriteLine("[Exception in Read_File_Into_Cache]: " + ex.Message);
+                Debug.WriteLine("[Exception in Read_File_Into_Cache]: " + ex.Message);
             }
 
         }
@@ -618,19 +615,19 @@ namespace SA_Resources.DSP.Primitives
         {
             try
             {
-                if (PARENT_FORM._PIC_Conn.getRTS())
+                if (PARENT_FORM.DeviceConn.getRTS())
                 {
                     READ_VALUE_CACHE.Clear();
 
                     for (int i = 0; i < NUM_PAGES; i++)
                     {
-                        PARENT_FORM._PIC_Conn.StreamReadPage(this.Index, i, ref READ_VALUE_CACHE, i * 64);
+                        PARENT_FORM.DeviceConn.StreamReadPage(this.Index, i, ref READ_VALUE_CACHE, i * 64);
                     }
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine("[Exception in Read_Device_Into_Cache]: " + ex.Message);
+                Debug.WriteLine("[Exception in Read_Device_Into_Cache]: " + ex.Message);
             }
         }
 
@@ -679,14 +676,14 @@ namespace SA_Resources.DSP.Primitives
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine("[Exception in Load_Cache_To_Program]: " + ex.Message);
+                        Debug.WriteLine("[Exception in Load_Cache_To_Program]: " + ex.Message);
                     }
                     //primitive_value_offset += singlePrimitive.Num_Values;
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Exception in Load_Cache_To_Program Loop A: " + ex.Message);
+                Debug.WriteLine("Exception in Load_Cache_To_Program Loop A: " + ex.Message);
             }
 
             // Input settings - Name, Pregain, Phantom Power
@@ -712,7 +709,7 @@ namespace SA_Resources.DSP.Primitives
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Exception in Load_Cache_To_Program Loop B: " + ex.Message);
+                Debug.WriteLine("Exception in Load_Cache_To_Program Loop B: " + ex.Message);
             }
 
             try
@@ -728,7 +725,7 @@ namespace SA_Resources.DSP.Primitives
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Exception in Load_Cache_To_Program Loop C: " + ex.Message);
+                Debug.WriteLine("Exception in Load_Cache_To_Program Loop C: " + ex.Message);
             }
 
             try
@@ -759,7 +756,7 @@ namespace SA_Resources.DSP.Primitives
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Exception in Load_Cache_To_Program Ducker load: " + ex.Message);
+                Debug.WriteLine("Exception in Load_Cache_To_Program Ducker load: " + ex.Message);
             }
         }
 
@@ -778,7 +775,7 @@ namespace SA_Resources.DSP.Primitives
             }
             catch (Exception ex)
             {
-                Console.WriteLine("[Exception in ReadFromFile]:" + ex.Message);
+                Debug.WriteLine("[Exception in ReadFromFile]:" + ex.Message);
             }
             
             return false;
@@ -798,7 +795,7 @@ namespace SA_Resources.DSP.Primitives
             }
             catch (Exception ex)
             {
-                Console.WriteLine("[Exception in ReadFromDevice]:" + ex.Message);
+                Debug.WriteLine("[Exception in ReadFromDevice]:" + ex.Message);
             }
 
             return false;

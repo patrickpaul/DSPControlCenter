@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using SA_Resources.DSP;
 using SA_Resources.SAForms;
+using SA_Resources.USB;
 
 namespace SA_Resources.DSP.Primitives
 {
@@ -148,7 +150,7 @@ namespace SA_Resources.DSP.Primitives
             
             if (PARENT_FORM.LIVE_MODE)
             {
-                Console.WriteLine("StandardGain - QueueChangeByOffset - Sending " + this.Values[const_offset].ToString("X") + " to offset " + (Offset + const_offset));
+                Debug.WriteLine("StandardGain - QueueChangeByOffset - Sending " + this.Values[const_offset].ToString("X") + " to offset " + (Offset + const_offset));
 
                 PARENT_FORM.AddItemToQueue(new LiveQueueItem(Offset + const_offset, this.Values[const_offset]));
             }
@@ -164,7 +166,7 @@ namespace SA_Resources.DSP.Primitives
             {
                 if (this.Values[i] != RecastPrimitive.Values[i])
                 {
-                    Console.WriteLine("Value[" + i + "] " + this.Values[i].ToString("X") + " does not equal " + RecastPrimitive.Values[i].ToString("X"));
+                    Debug.WriteLine("Value[" + i + "] " + this.Values[i].ToString("X") + " does not equal " + RecastPrimitive.Values[i].ToString("X"));
                     this.QueueChangeByOffset(PARENT_FORM, i);
                 }
             }
@@ -175,7 +177,7 @@ namespace SA_Resources.DSP.Primitives
         {
             for (int i = 0; i < this.Num_Values; i++)
             {
-                Console.WriteLine("Value " + this.Values[i] + " at " + (this.Offset + i).ToString());
+                Debug.WriteLine("Value " + this.Values[i] + " at " + (this.Offset + i).ToString());
             }
 
         }

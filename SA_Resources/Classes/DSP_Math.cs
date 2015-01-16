@@ -1,8 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Drawing;
+﻿/*
+ * File     : DSP_Math.cs
+ * Created  : 28 July 2013
+ * Updated  : 15 January 2015
+ * Author   : Patrick Paul
+ * Synopsis : Math class that performs most of the necessary calculations for the Cirrus DSP family.
+ *
+ * This software is Copyright (c) 2013-2015, Stewart Audio Inc. and/or its licensors
+ *
+ */
+
+using System;
 using SA_Resources.DSP.Filters;
 using SA_Resources.DSP.Primitives;
 
@@ -183,48 +190,6 @@ namespace SA_Resources.DSP
             return (output ^ 0xFFFFFFFF);
         }
 
-        /*
-         *  HEY PATRICK. REMEMBER THAT TIME YOU HAD TO WORK UNTIL CHRISTMAS EVE 2014? 
-         * 
-         * .:::::::::::...                                       
-                  .::::::::::::::::::::.                                  
-                .::::::::::::::::::::::::.                                
-               ::::::::::::::::::::::::::::.                              
-              :::::::::::::::::::::::::::::::  .,uuu   ...                
-             :::::::::::::::::::::::::::::::: dHHHHHLdHHHHb               
-       ....:::::::'`    ::::::::::::::::::' uHHHHHHHHHHHHHF               
-   .uHHHHHHHHH'         ::::::::::::::`.  uHHHHHHHHHHHHHP"                
-   HHHHHHHHHHH          `:::::::::::',dHHuHHHHHHHHP".g@@g                 
-  J"HHHHHHHHHP        4H ::::::::'  u$$$.    
-  ".HHHHHHHHP"     .,uHP :::::' uHHHHHHHHHHP"",e$$$$$c                    
-   HHHHHHHF'      dHHHHf `````.HHHHHHHHHHP",d$$$$$$$P%C                   
- .dHHHP""         JHHHHbuuuu,JHHHHHHHHP",d$$$$$$$$$e=,z$$$$$$$$ee..       
- ""              .HHHHHHHHHHHHHHHHHP",gdP"  ..3$$$Jd$$$$$$$$$$$$$$e.      
-                 dHHHHHHHHHHHHHHP".edP    " .zd$$$$$$$$$$$"3$$$$$$$$c     
-                 `???""??HHHHP",e$$F" .d$,?$$$$$$$$$$$$$F d$$$$$$$$F"     
-                       ?be.eze$$$$$".d$$$$ $$$E$$$$P".,ede`?$$$$$$$$      
-                      4."?$$$$$$$  z$$$$$$ $$$$r.,.e ?$$$$ $$$$$$$$$      
-                      '$c  "$$$$ .d$$$$$$$ 3$$$.$$$$ 4$$$ d$$$$P"`,,      
-                       """- "$$".`$$"    " $$f,d$$P".$$P zeee.zd$$$$$.    
-                     ze.    .C$C"=^"    ..$$$$$$P".$$$'e$$$$$P?$$$$$$     
-                 .e$$$$$$$"="$f",c,3eee$$$$$$$$P $$$P'd$$$$"..::.."?$%    
-                4d$$$P d$$$dF.d$$$$$$$$$$$$$$$$f $$$ d$$$" :::::::::.     
-               $$$$$$ d$$$$$ $$$$$$$$$$$$$$$$$$ J$$",$$$'.::::::::::::    
-              "$$$$$$ ?$$$$ d$$$$$$$$$$$$$$$P".dP'e$$$$':::::::::::::::   
-              4$$$$$$c $$$$b`$$$$$$$$$$$P"",e$$",$$$$$' ::::::::::::::::  
-              ' ?"?$$$b."$$$$.?$$$$$$P".e$$$$F,d$$$$$F :::::::::::::::::: 
-                    "?$$bc."$b.$$$$F z$$P?$$",$$$$$$$ :::::::::::::::::::: 
-                        `"$$c"?$$$".$$$)e$$F,$$$$$$$' :::::::::::::::::::: 
-                        ':. "$b...d$$P4$$$",$$$$$$$" ::::::::::::::::::::: 
-                        ':::: "$$$$$".,"".d$$$$$$$F :::::::::::::::::::::: 
-                         :::: be."".d$$$4$$$$$$$$F ::::::::::::::::::::::: 
-                          :::: "??$$$$$$$$$$?$P" ::::::::::::::::::::::::: 
-                           :::::: ?$$$$$$$$f .:::::::::::::::::::::::::::: 
-                            :::::::`"????"".:::::::::::::::::::::::::::::: 
-
-         * */
-
-
         public static double MN_to_double_unsigned(UInt32 input, int M, int N)
         {
             UInt32 whole_value = 0x00, fractional_value = 0x00;
@@ -320,7 +285,6 @@ namespace SA_Resources.DSP
 
         #endregion
 
-
         #region Compressor Attack - Needs verification of 3000 vs 48000
 
         /// <summary>
@@ -372,41 +336,6 @@ namespace SA_Resources.DSP
         }
 
         #endregion
-        /*
- * 
- *      Because.. why not?
- *      
-        NNNNNNNNNNNNNN8IIMNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
-        NNNNNNNNNN$IIIIIIIIIINNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
-        NNNNNNNNNIIIIIIIIIIIIIONNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
-        NNNNNNNNIIIIIIIIIIIIIIIINNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
-        NNNNNNNZIIIIIIIIIIIIIIIII$NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
-        NNNNNNNZIIIIIIIINIIIIIIIIIDNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
-        NNNNNNNNIIIIIIIIIII$I$ID88DNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
-        NNNNNNNNMIIIIIIIZN. M7.....NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
-        NNNNNNNNN$IIII7.....II7.. MNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
-        NNNNNNNNNNIIII$....$?IIIIIINNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
-        NNNNNNNNNNN?IIIIIIMIIIIIIIIINNNNNNNNNNNNNNNNNNNNNNNNNNINNNNN
-        NNNNNNNNNNNNIIIIIIIIIIIIIIIIIINNNNNNNNNNNNNNNNNNNNNNNMIINNNN
-        NNNNNNNNNNNN8IIIIIIIIIIIINIIIIDNNNNNNNNNNNNINNNNNNNNNIIIDNNN
-        NNNNNNNNNNNNNIIIII$MIII?II?IOIINNNNNNNNNNNIINNNNNNNNIIIIINNN
-        NNNNNNNNNNNNNIIIIIMI?II$IIZI?I?NNNNNNNNNNIIINNNNNNIIIIIIINNN
-        NNNNNNNNNNNNZ?IIIIIIIIIIIIOINNNNNNNNNNNNNIIIZNNNIIIIIIIIINNN
-        NNNNNNNNNNND,.IIIIIIIMI7D8I,NNNNNNNNNNNNNIIIINNDIIIIIIII7NNN
-        NNNNNNNNNNN,,,.~MIIIIIIII7=,,,NNNNNNNNNNNIIIIIIIIIIIIIIINNNN
-        NNNNNNNNN~,,,,,.~~~~~~~N~~~,,,,,MNNNNNNNNIIIIIIIIIIIIIINNNNN
-        NNNNNNNN,,,,,,,,,ZN~~~~~I~~,,,,,,.,NNNNNNNIIIIIIIIIIIINNNNNN
-        NNNNNNN..,,,,,,,,,,~~~~~~~~,,,,,,,,,,NNNN.IIIIIIIIIINNNNNNNN
-        NNNNNN,,,I,,,,,,,,,ZII=~~~=,,,,,,,,,,,.NN,,IIIIIIIMNNNNNNNNN
-        NNNNM.,,,,:,,,,,,NIII,,~=~$,,,,,,,M,,,,,,,,,,,,NI,NNNNNNNNNN
-        NNNN,,,,,,,O,,,,IIIIM,,,,,D,,,,,,,.,,,,,,,,,,,,,,,NNNNNNNNNN
-        NNN,,,,,,,,,,,,OIIII,,,,,,,,,=,,,,,,,,,,,,,,,,,,,MNNNNNNNNNN
-        NN.,,,,,,,,,,,,IIIII,,,,,,,,,,,,,,,,,,,,,,,,,,,,,NNNNNNNNNNN
-        N,,,,,,,,,,,.,?IIIII,,,,,,,,,,,,.,,~,,,,,,,,,,,,:NNNNNNNNNNN
-        N,,,,,,,,,,,,~8IIIIII~,,,,,,,M,,:,,D,,,,,,,,,,,,NNNNNNNNNNNN
-        ,,,,,,,,,,M,,,IIIIIIIIII,,,,,,,,?,,,,,,,,,,,,,,,NNNNNNNNNNNN
-        ,,,,,,,,,,,,,,IIIIIIIIIIIIIIIMNMM,,,:,,,,,,,,,,NNNNNNNNNNNNN
-*/
 
         #region Compressor Ratio
 

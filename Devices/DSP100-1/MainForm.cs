@@ -1,10 +1,12 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using SA_Resources;
-using SA_Resources.SADevices;
+using SA_Resources.DeviceManagement;
+
 using SA_Resources.SAForms;
 using SA_Resources.DSP.Primitives;
 
@@ -146,7 +148,7 @@ namespace DSP100_1_Analog
         {
 
             // Disable timers
-            _PIC_Conn.sendAckdCommand(0x10);
+            DeviceConn.DisableTimers();
 
             BackgroundWorker backgroundWorker = sender as BackgroundWorker;
 
@@ -156,15 +158,15 @@ namespace DSP100_1_Analog
                 backgroundWorker.ReportProgress((i+1) * 10);
             }
 
-            //AmplifierMode = _PIC_Conn.ReadAmplifierMode();
+            //AmplifierMode = DeviceConn.ReadAmplifierMode();
 
-            ADC_CALIBRATION_MIN = _PIC_Conn.ReadRVCMin();
-            ADC_CALIBRATION_MAX = _PIC_Conn.ReadRVCMax();
-            SLEEP_ENABLE = _PIC_Conn.ReadSleepModeEnable();
-            SLEEP_SECONDS = _PIC_Conn.ReadSleepModeSeconds();
+            ADC_CALIBRATION_MIN = DeviceConn.ReadRVCMin();
+            ADC_CALIBRATION_MAX = DeviceConn.ReadRVCMax();
+            SLEEP_ENABLE = DeviceConn.ReadSleepModeEnable();
+            SLEEP_SECONDS = DeviceConn.ReadSleepModeSeconds();
 
             // Re-enable timers
-            //_PIC_Conn.sendAckdCommand(0x11);
+            //DeviceConn.sendAckdCommand(0x11);
 
             backgroundWorker.ReportProgress(100);
         }
@@ -245,7 +247,7 @@ namespace DSP100_1_Analog
             }
             catch (Exception ex)
             {
-                Console.WriteLine("[EXCEPTION in Default_DSP_Meters]: " + ex.Message);
+                Debug.WriteLine("[EXCEPTION in Default_DSP_Meters]: " + ex.Message);
             }
         }
 
@@ -396,7 +398,7 @@ namespace DSP100_1_Analog
             }
             catch (Exception ex)
             {
-                Console.WriteLine("[EXCEPTION in Single_Default_DSP_Program]: " + ex.Message);
+                Debug.WriteLine("[EXCEPTION in Single_Default_DSP_Program]: " + ex.Message);
             }
         }
         #endregion

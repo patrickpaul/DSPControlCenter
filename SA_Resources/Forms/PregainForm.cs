@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -44,7 +45,7 @@ namespace SA_Resources.SAForms
                 if (PARENT_FORM.LIVE_MODE)
                 {
                     gainMeter.Visible = true;
-                    gainMeter.PIC_CONN = PARENT_FORM._PIC_Conn;
+                    gainMeter.DeviceConn = PARENT_FORM.DeviceConn;
                     gainMeter.Address = RecastPregain._Meter;
                     gainMeter.Start();
                 }
@@ -77,7 +78,7 @@ namespace SA_Resources.SAForms
             }
             catch (Exception ex)
             {
-                Console.WriteLine("[Exception in GainForm]: " + ex.Message);
+                Debug.WriteLine("[Exception in GainForm]: " + ex.Message);
             }
 
         }

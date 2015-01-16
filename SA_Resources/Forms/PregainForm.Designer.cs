@@ -52,7 +52,7 @@ namespace SA_Resources.SAForms
             // 
             // gainMeter
             // 
-            this.gainMeter.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("gainMeter.BackgroundImage")));
+            this.gainMeter.BackgroundImage = global::SA_GFXLib.SA_GFXLib_Resources.bg_meter_large;
             this.gainMeter.DB = -35D;
             this.gainMeter.Location = new System.Drawing.Point(116, 69);
             this.gainMeter.Name = "gainMeter";

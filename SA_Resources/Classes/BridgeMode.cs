@@ -1,9 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿/*
+ * File     : BridgeMode.cs
+ * Created  : 15 August 2014
+ * Updated  : 15 January 2015
+ * Author   : Patrick Paul
+ * Synopsis : Enum class for bridge-mode's for low-impedance amplifiers
+ *
+ * This software is Copyright (c) 2013-2015, Stewart Audio Inc. and/or its licensors
+ *
+ */
 
-namespace SA_Resources
+namespace SA_Resources.DeviceManagement
 {
     /// <summary>The amplifiers current BridgeMode (Applicable for FLX units only at this time)</summary>
     public enum BridgeMode

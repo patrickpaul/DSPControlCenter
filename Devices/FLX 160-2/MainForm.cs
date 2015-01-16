@@ -1,10 +1,12 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using SA_Resources;
-using SA_Resources.SADevices;
+using SA_Resources.DeviceManagement;
+
 using SA_Resources.SAForms;
 using SA_Resources.DSP.Primitives;
 
@@ -146,7 +148,7 @@ namespace FLX160_2_Analog
         {
 
             // Disable timers
-            _PIC_Conn.sendAckdCommand(0x10);
+            DeviceConn.DisableTimers();
 
             BackgroundWorker backgroundWorker = sender as BackgroundWorker;
 
@@ -156,15 +158,10 @@ namespace FLX160_2_Analog
                 backgroundWorker.ReportProgress((i+1) * 10);
             }
 
-            //AmplifierMode = _PIC_Conn.ReadAmplifierMode();
-
-            ADC_CALIBRATION_MIN = _PIC_Conn.ReadRVCMin();
-            ADC_CALIBRATION_MAX = _PIC_Conn.ReadRVCMax();
-            SLEEP_ENABLE = _PIC_Conn.ReadSleepModeEnable();
-            SLEEP_SECONDS = _PIC_Conn.ReadSleepModeSeconds();
-
-            // Re-enable timers
-            //_PIC_Conn.sendAckdCommand(0x11);
+            ADC_CALIBRATION_MIN = DeviceConn.ReadRVCMin();
+            ADC_CALIBRATION_MAX = DeviceConn.ReadRVCMax();
+            SLEEP_ENABLE = DeviceConn.ReadSleepModeEnable();
+            SLEEP_SECONDS = DeviceConn.ReadSleepModeSeconds();
 
             backgroundWorker.ReportProgress(100);
         }
@@ -173,7 +170,7 @@ namespace FLX160_2_Analog
         {
             try
             {
-                
+
                 // Inputs
 
                 DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C00123, DSP_Primitive_Types.Input, 0));
@@ -245,15 +242,13 @@ namespace FLX160_2_Analog
             }
             catch (Exception ex)
             {
-                Console.WriteLine("[EXCEPTION in Default_DSP_Meters]: " + ex.Message);
+                Debug.WriteLine("[EXCEPTION in Default_DSP_Meters]: " + ex.Message);
             }
         }
 
         public override void Single_Default_DSP_Program(int program_index = 0)
         {
             try {
-
-                
 
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(0, new DSP_Primitive_Pregain("Input Pre-Gain CH 1", 0, 0, 0xF0C00123));
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(2, new DSP_Primitive_Pregain("Input Pre-Gain CH 2", 1, 0, 0xF0C00127));
@@ -302,23 +297,7 @@ namespace FLX160_2_Analog
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(115, new DSP_Primitive_BiquadFilter("INFILTER_4_1", 3, 0, plainfilter_offset++));
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(120, new DSP_Primitive_BiquadFilter("INFILTER_4_2", 3, 1, plainfilter_offset++));
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(125, new DSP_Primitive_BiquadFilter("INFILTER_4_3", 3, 2, plainfilter_offset++));
-                /*
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(130, new DSP_Primitive_BiquadFilter("INFILTER_5_1", 4, 0, 12));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(135, new DSP_Primitive_BiquadFilter("INFILTER_5_2", 4, 1, 13));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(140, new DSP_Primitive_BiquadFilter("INFILTER_5_3", 4, 2, 14));
 
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(145, new DSP_Primitive_BiquadFilter("INFILTER_6_1", 5, 0, 15));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(150, new DSP_Primitive_BiquadFilter("INFILTER_6_2", 5, 1, 16));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(155, new DSP_Primitive_BiquadFilter("INFILTER_6_3", 5, 2, 17));
-
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(160, new DSP_Primitive_BiquadFilter("INFILTER_7_1", 6, 0, 18));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(165, new DSP_Primitive_BiquadFilter("INFILTER_7_2", 6, 1, 19));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(170, new DSP_Primitive_BiquadFilter("INFILTER_7_3", 6, 2, 20));
-
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(175, new DSP_Primitive_BiquadFilter("INFILTER_8_1", 7, 0, 21));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(180, new DSP_Primitive_BiquadFilter("INFILTER_8_2", 7, 1, 22));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(185, new DSP_Primitive_BiquadFilter("INFILTER_8_3", 7, 2, 23));
-                */
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(190, new DSP_Primitive_Compressor("CH 1 - Compressor", 0, 0));
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(196, new DSP_Primitive_Compressor("CH 2 - Compressor", 1, 0));
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(202, new DSP_Primitive_Compressor("CH 3 - Compressor", 2, 0));
@@ -396,7 +375,7 @@ namespace FLX160_2_Analog
             }
             catch (Exception ex)
             {
-                Console.WriteLine("[EXCEPTION in Single_Default_DSP_Program]: " + ex.Message);
+                Debug.WriteLine("[EXCEPTION in Single_Default_DSP_Program]: " + ex.Message);
             }
         }
         #endregion

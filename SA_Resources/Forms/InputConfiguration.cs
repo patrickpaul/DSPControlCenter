@@ -8,12 +8,13 @@ using System.Media;
 using System.Text;
 using System.Windows.Forms;
 using SA_Resources;
+using SA_Resources.DeviceManagement;
 using SA_Resources.DSP;
-using SA_Resources.SADevices;
+
 using SA_Resources.SAForms;
 using SA_Resources.DSP.Primitives;
 
-namespace SA_Resources
+namespace SA_Resources.SAForms
 {
     public partial class InputConfiguration : Form
     {
@@ -90,7 +91,7 @@ namespace SA_Resources
                 //read_address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.Input, Active_Primitive.Channel, 0).Address;
             
                 gainMeter.Visible = true;
-                gainMeter.PIC_CONN = PARENT_FORM._PIC_Conn;
+                gainMeter.DeviceConn = PARENT_FORM.DeviceConn;
                 gainMeter.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.Input, Active_Primitive.Channel, 0).Address;
                 gainMeter.Start();
             }

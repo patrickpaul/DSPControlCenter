@@ -1,6 +1,17 @@
-﻿using System;
+﻿/*
+ * File     : DSP_Setting.cs
+ * Created  : 28 July 2013
+ * Updated  : 15 January 2015
+ * Author   : Patrick Paul
+ * Synopsis : Enum that holds all the information for a DSP_Setting stored on the device.
+ *
+ * This software is Copyright (c) 2013-2015, Stewart Audio Inc. and/or its licensors
+ *
+ */
 
-namespace SA_Resources
+using System;
+
+namespace SA_Resources.DSP
 {
     public class DSP_Setting
     {

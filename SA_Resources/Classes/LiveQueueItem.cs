@@ -1,9 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿/*
+ * File     : LiveQueueItem.cs
+ * Created  : 16 August 2013
+ * Updated  : 15 January 2015
+ * Author   : Patrick Paul
+ * Synopsis : Class that stores data to be queued to be sent to the device.
+ *
+ * This software is Copyright (c) 2013-2015, Stewart Audio Inc. and/or its licensors
+ *
+ */
 
-namespace SA_Resources
+using System;
+
+namespace SA_Resources.USB
 {
     public class LiveQueueItem
     {

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using SA_Resources.DSP;
 using SA_Resources.SAForms;
+using SA_Resources.USB;
 
 namespace SA_Resources.DSP.Primitives
 {
@@ -323,18 +325,18 @@ namespace SA_Resources.DSP.Primitives
             }
             catch (Exception ex)
             {
-                Console.WriteLine("[Exception in Ducker.RecalculateRouters] at index_counter_value " + induck_index_counter + ": " + ex.Message);
+                Debug.WriteLine("[Exception in Ducker.RecalculateRouters] at index_counter_value " + induck_index_counter + ": " + ex.Message);
             }
             /*
             for(int x = 0; x < INDUCK_Values.Count; x++)
             {
-                Console.WriteLine("INDUCK " + x + " = " + INDUCK_Values[x]);
+                Debug.WriteLine("INDUCK " + x + " = " + INDUCK_Values[x]);
                 
             }
 
             for (int y = 0; y < INDUCK_Values.Count; y++)
             {
-                Console.WriteLine("OUTDUCK " + y + " = " + OUTDUCK_Values[y]);
+                Debug.WriteLine("OUTDUCK " + y + " = " + OUTDUCK_Values[y]);
 
             }
              * */
@@ -350,7 +352,7 @@ namespace SA_Resources.DSP.Primitives
         {
             for (int i = 0; i < this.Num_Values; i++)
             {
-                Console.WriteLine("Ducker4x4 - QueueChange - Sending " + this.Values[i].ToString("X") + " to offset " + (Offset + i));
+                Debug.WriteLine("Ducker4x4 - QueueChange - Sending " + this.Values[i].ToString("X") + " to offset " + (Offset + i));
             }
 
             if (PARENT_FORM.LIVE_MODE)
@@ -368,7 +370,7 @@ namespace SA_Resources.DSP.Primitives
             
             if (PARENT_FORM.LIVE_MODE)
             {
-                Console.WriteLine("Ducker4x4 - QueueChangeByOffset - Sending " + this.Values[const_offset].ToString("X8") + " to offset " + (Offset + const_offset));
+                Debug.WriteLine("Ducker4x4 - QueueChangeByOffset - Sending " + this.Values[const_offset].ToString("X8") + " to offset " + (Offset + const_offset));
 
                 PARENT_FORM.AddItemToQueue(new LiveQueueItem(Offset + const_offset, this.Values[const_offset]));
             }
@@ -384,7 +386,7 @@ namespace SA_Resources.DSP.Primitives
             {
                 if (this.Values[i] != RecastPrimitive.Values[i])
                 {
-                    Console.WriteLine("Value[" + i + "] " + this.Values[i].ToString("X") + " does not equal " + RecastPrimitive.Values[i].ToString("X"));
+                    Debug.WriteLine("Value[" + i + "] " + this.Values[i].ToString("X") + " does not equal " + RecastPrimitive.Values[i].ToString("X"));
                     this.QueueChangeByOffset(PARENT_FORM, i);
                 }
             }
@@ -395,7 +397,7 @@ namespace SA_Resources.DSP.Primitives
         {
             for (int i = 0; i < this.Num_Values; i++)
             {
-                Console.WriteLine("Value " + this.Values[i] + " at " + (this.Offset + i).ToString());
+                Debug.WriteLine("Value " + this.Values[i] + " at " + (this.Offset + i).ToString());
             }
 
         }

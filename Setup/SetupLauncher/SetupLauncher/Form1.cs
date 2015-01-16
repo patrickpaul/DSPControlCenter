@@ -36,10 +36,10 @@ namespace SetupLauncher
                     options.RemoveUnpackedFilesAfterExecute = true;
                     options.FileVersion = new Version(2, 1, 0);
                     options.Description = "DSP Control Center Installer Package";
-                    options.Copyright = "© 2013 Stewart Audio, Inc.";
+                    options.Copyright = "© 2015 Stewart Audio, Inc.";
                     options.IconFile = @"C:\SOURCE\DSPControlCenter\DSP Control Center v4.ico";
                     options.ProductName = "DSP Control Center";
-                    options.ProductVersion = "2.1.0";
+                    options.ProductVersion = "3.5.1";
                     options.ExtractExistingFile = ExtractExistingFileAction.OverwriteSilently;
                     zip.SaveSelfExtractor(txtFilename.Text + " v" + txtVersion.Text + ".exe", options);
 
@@ -49,7 +49,7 @@ namespace SetupLauncher
                 }
             } else
             {
-                string myPath = @"C:\SOURCE\DSPControlCenter\Setup\SetupLauncher\SetupLauncher\bin\Debug";
+                string myPath = @"C:\SOURCE\DSPControlCenter\Setup\SetupLauncher\SetupLauncher\bin\Release";
                 System.Diagnostics.Process prc = new System.Diagnostics.Process();
                 prc.StartInfo.FileName = myPath;
                 prc.Start();

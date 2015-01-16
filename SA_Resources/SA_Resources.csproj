@@ -48,6 +48,15 @@
     <WarningLevel>4</WarningLevel>
     <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Standalone|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Standalone\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -62,18 +71,31 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-<Compile Include="..\SharedAssemblyInfo.cs">
+    <None Include="..\SA_GFXLib\SA_GFXLib_Resources.resx">
+      <Link>SA_GFXLib_Resources.resx</Link>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>SA_GFXLib_Resources.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>SA_GFXLib</CustomToolNamespace>
+    </None>
+    <None Include="..\SA_GFXLib\SA_GFXLib_Resources.Designer.cs">
+      <Link>SA_GFXLib_Resources.Designer.cs</Link>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SA_GFXLib_Resources.resx</DependentUpon>
+    </None>
+    <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Classes\BridgeMode.cs" />
     <Compile Include="Classes\COMPortInfo.cs" />
     <Compile Include="Classes\Crc16Ccitt.cs" />
+    <Compile Include="Classes\ImageHelpers.cs" />
     <Compile Include="Classes\Line.cs" />
     <Compile Include="Classes\LiveQueueItem.cs" />
     <Compile Include="Classes\SADevice.cs" />
     <Compile Include="Classes\SADevicePlugin.cs" />
+    <Compile Include="Classes\SAUSB.cs" />
     <Compile Include="Classes\SCFG_Manager.cs" />
-    <Compile Include="Classes\SharedImages.cs" />
     <Compile Include="Classes\USBManager.cs" />
     <Compile Include="Forms\BridgeConfiguration.cs">
       <SubType>Form</SubType>
@@ -135,12 +157,6 @@
     <Compile Include="Forms\MixerForm8x2.designer.cs">
       <DependentUpon>MixerForm8x2.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\MixerForm8x4.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\MixerForm8x4.designer.cs">
-      <DependentUpon>MixerForm8x4.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\PregainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -195,14 +211,6 @@
     <Compile Include="Forms\SwitchProgramForm.Designer.cs">
       <DependentUpon>SwitchProgramForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Resource Classes\Buttons.cs" />
-    <Compile Include="Forms\Resource Classes\ControlIcons.cs" />
-    <Compile Include="Forms\Resource Classes\Icons.cs" />
-    <Compile Include="GlobalResources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>GlobalResources.resx</DependentUpon>
-    </Compile>
     <Compile Include="Primitives\DSP_Primitive_Output.cs" />
     <Compile Include="Primitives\DSP_Primitive_Ducker4x4.cs" />
     <Compile Include="Primitives\DSP_Primitive_Ducker8x8.cs" />
@@ -219,62 +227,46 @@
     <Compile Include="Primitives\DSP_Primitive_StandardGain.cs" />
     <Compile Include="Primitives\DSP_Program_Manager.cs" />
     <Compile Include="Primitives\Primitive_Types.cs" />
-    <Compile Include="UIElements\Controls\FilterDesigner.cs">
+    <Compile Include="Controls\FilterDesigner.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UIElements\Controls\FilterDesigner.Designer.cs">
+    <Compile Include="Controls\FilterDesigner.Designer.cs">
       <DependentUpon>FilterDesigner.cs</DependentUpon>
     </Compile>
-    <Compile Include="UIElements\Controls\GainFader.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="UIElements\Controls\GainFader.Designer.cs">
-      <DependentUpon>GainFader.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UIElements\Controls\SAComboBox.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="UIElements\Controls\SAFilterDesignBlock.cs">
+    <Compile Include="Controls\SAFilterDesignBlock.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UIElements\Controls\SAFilterDesignBlock.Designer.cs">
+    <Compile Include="Controls\SAFilterDesignBlock.Designer.cs">
       <DependentUpon>SAFilterDesignBlock.cs</DependentUpon>
     </Compile>
-    <Compile Include="UIElements\Controls\SAGainFaider.cs">
+    <Compile Include="Controls\SAGainFaider.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UIElements\Controls\SAGainFaider.Designer.cs">
+    <Compile Include="Controls\SAGainFaider.Designer.cs">
       <DependentUpon>SAGainFaider.cs</DependentUpon>
     </Compile>
-    <Compile Include="UIElements\Controls\SASignalMeter.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UIElements\Controls\SASignalMeter.Designer.cs">
-      <DependentUpon>SASignalMeter.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UIElements\Controls\SignalMeter_Small.cs">
+    <Compile Include="Controls\SignalMeter_Small.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="UIElements\Controls\SignalMeter_Small.Designer.cs">
+    <Compile Include="Controls\SignalMeter_Small.Designer.cs">
       <DependentUpon>SignalMeter_Small.cs</DependentUpon>
     </Compile>
-    <Compile Include="UIElements\Controls\SignalMeter.cs">
+    <Compile Include="Controls\SignalMeter.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="UIElements\Controls\SignalMeter.Designer.cs">
+    <Compile Include="Controls\SignalMeter.Designer.cs">
       <DependentUpon>SignalMeter.cs</DependentUpon>
     </Compile>
-    <Compile Include="UIElements\UI_Helpers.cs" />
-    <Compile Include="UIElements\Controls\OrientedTextLabel.cs">
+    <Compile Include="Controls\OrientedTextLabel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="UIElements\Controls\PictureButton.cs">
+    <Compile Include="Controls\PictureButton.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="UIElements\Controls\PictureCheckbox.cs">
+    <Compile Include="Controls\PictureCheckbox.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="UIElements\Controls\PictureRadioButton.cs">
+    <Compile Include="Controls\PictureRadioButton.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Filters\BandPassFilter.cs" />
@@ -291,13 +283,11 @@
     <Compile Include="Forms\AboutForm.Designer.cs">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UIElements\Dial.cs" />
-    <Compile Include="UIElements\DialHelpers.cs" />
+    <Compile Include="Controls\Dial.cs" />
+    <Compile Include="Controls\DialHelpers.cs" />
     <Compile Include="Classes\DSP_Math.cs" />
     <Compile Include="Classes\DSP_Setting.cs" />
-    <Compile Include="Classes\ImageHelpers.cs" />
-    <Compile Include="Forms\Resource Classes\Images.cs" />
-    <Compile Include="Classes\PIC_Bridge.cs" />
+    <Compile Include="Classes\DeviceBridge.cs" />
     <Compile Include="Forms\CompressorForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -332,51 +322,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\knob_blue_bg.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\knob_blue_line.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\knob_green_bg.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\knob_green_line.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\knob_grey_bg.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\knob_grey_line.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\knob_orange_bg.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\knob_orange_line.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\knob_purple_bg.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\knob_purple_line.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\knob_red_bg.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\knob_red_line.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\knob_yellow_bg.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\knob_yellow_line.png" />
-  </ItemGroup>
-  <ItemGroup>
-  <EmbeddedResource Include="Forms\AboutForm.resx">
-      <DependentUpon>AboutForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\CompressorForm.resx">
       <DependentUpon>CompressorForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -409,9 +354,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\MixerForm8x2.resx">
       <DependentUpon>MixerForm8x2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\MixerForm8x4.resx">
-      <DependentUpon>MixerForm8x4.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\PregainForm.resx">
       <DependentUpon>PregainForm.cs</DependentUpon>
@@ -452,164 +394,15 @@
     <EmbeddedResource Include="Forms\SwitchProgramForm.resx">
       <DependentUpon>SwitchProgramForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GlobalResources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <SubType>Designer</SubType>
-      <LastGenOutput>GlobalResources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UIElements\Controls\FilterDesigner.resx">
+    <EmbeddedResource Include="Controls\FilterDesigner.resx">
       <DependentUpon>FilterDesigner.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UIElements\Controls\SAFilterDesignBlock.resx">
+    <EmbeddedResource Include="Controls\SAFilterDesignBlock.resx">
       <DependentUpon>SAFilterDesignBlock.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UIElements\Controls\SAGainFaider.resx">
+    <EmbeddedResource Include="Controls\SAGainFaider.resx">
       <DependentUpon>SAGainFaider.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UIElements\Controls\SASignalMeter.resx">
-      <DependentUpon>SASignalMeter.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\SA Icon.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\SA Company Logo.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\FilterGraph-BG-Blue.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ui_bypass_grey.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ui_bypass_red.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ui_btn_mute.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ui_btn_save.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\checkbox_checked.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\checkbox_unchecked.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\radio_checked.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\radio_unchecked.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ui_btn_compressor.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ui_btn_compressor_over.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ui_btn_delay.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ui_btn_delay_over.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ui_btn_filters.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ui_btn_filters_over.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ui_btn_gain.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ui_btn_gain_over.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ui_btn_limiter.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ui_btn_limiter_over.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ui_btn_trim.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ui_btn_trim_over.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ui_compressor_bg.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ui_fader_bg_12toinfinite.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ui_fader_slider.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ui_icon_matrix.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ui_logo.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\uidesign_prematrix_line.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\bg_toolbar.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\menu_load.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\menu_load_over.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\menu_program.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\menu_program_over.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\menu_read.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\menu_read_over.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\menu_save.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\menu_save_over.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ui_icon_overlay_bypassed.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ui_icon_overlay_mute.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ui_btn_go.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ui_mute_grey.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ui_mute_red.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\gain_24_24.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\menu_program_selection.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\radio_checked_green.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\radio_checked_red.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">
@@ -634,99 +427,16 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\FilterGraph-BG-Blue_Modified.png" />
+    <ProjectReference Include="..\SA_GFXLib\SA_GFXLib.csproj">
+      <Project>{89275d49-579a-4339-81be-5692c8cad313}</Project>
+      <Name>SA_GFXLib</Name>
+    </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ui_btn_copy.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\meter.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\meter_small.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ui_btn_reset.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\UI_thumbnail.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\lblStatus_Connected.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\lblStatus_Disconnected.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\lblStatus_Blank.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ui_btn_blue_mute.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ui_btn_blue_unmute.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\copy_icon.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\clear_icon.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\cut_icon.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\paste_icon.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\gainfader_6_to_-12.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\gainfader_12_to_-100.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ui_fader_slider_muted.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\gainfader_24_to__24.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\gainfader_4_to__24.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\gainfader_18_to__24.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ui_btn_blue_close.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ui_btn_meters.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ui_icon_matrix_2_1.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\uidesign_prematrix_line_bridged.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ui_btn_calibrate.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ui_btn_refresh.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ui_btn_settings.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\vertical_line.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ui_icon_matrix_network_4ch.png" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties BuildVersion_UseGlobalSettings="False" BuildVersion_AssemblyInfoFilename="" BuildVersion_UpdateFileVersion="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_IncrementBeforeBuild="False" BuildVersion_DetectChanges="False" />
+      <UserProperties BuildVersion_DetectChanges="False" BuildVersion_IncrementBeforeBuild="False" BuildVersion_UpdateAssemblyVersion="False" BuildVersion_UpdateFileVersion="False" BuildVersion_AssemblyInfoFilename="" BuildVersion_UseGlobalSettings="False" />
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>
