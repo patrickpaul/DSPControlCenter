@@ -39,7 +39,7 @@ namespace SetupLauncher
                     options.Copyright = "© 2015 Stewart Audio, Inc.";
                     options.IconFile = @"C:\SOURCE\DSPControlCenter\DSP Control Center v4.ico";
                     options.ProductName = "DSP Control Center";
-                    options.ProductVersion = "3.5.1";
+                    options.ProductVersion = "3.5.2";
                     options.ExtractExistingFile = ExtractExistingFileAction.OverwriteSilently;
                     zip.SaveSelfExtractor(txtFilename.Text + " v" + txtVersion.Text + ".exe", options);
 

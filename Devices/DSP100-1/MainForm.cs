@@ -46,7 +46,7 @@ namespace DSP100_1_Analog
 
         public override string GetDeviceName()
         {
-            return "DSP100-1";
+            return "DSP100-1-CV";
         }
 
         public override DeviceType GetDeviceType()

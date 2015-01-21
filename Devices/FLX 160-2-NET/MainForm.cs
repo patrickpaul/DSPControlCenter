@@ -43,7 +43,7 @@ namespace FLX160_2_Network
 
         public override string GetDeviceName()
         {
-            return "FLX160-2 Dante";
+            return "FLX160-2-LZ Dante";
         }
 
         public override DeviceType GetDeviceType()

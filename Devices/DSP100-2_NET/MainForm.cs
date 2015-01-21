@@ -46,7 +46,7 @@ namespace DSP100_2_NET
 
         public override string GetDeviceName()
         {
-            return "DSP100-2 Networked";
+            return "DSP100-2-CV Networked";
         }
 
         public override DeviceType GetDeviceType()

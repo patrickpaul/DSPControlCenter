@@ -46,7 +46,7 @@ namespace FLX160_2_Analog
 
         public override string GetDeviceName()
         {
-            return "FLX160-2";
+            return "FLX160-2-LZ";
         }
 
         public override DeviceType GetDeviceType()

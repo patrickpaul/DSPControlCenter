@@ -43,7 +43,7 @@ namespace FLX80_4_Analog
 
         public override string GetDeviceName()
         {
-            return "FLX80-4";
+            return "FLX80-4-LZ";
         }
 
         public override DeviceType GetDeviceType()

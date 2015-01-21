@@ -57,7 +57,6 @@ namespace SA_Resources.DSP
                 return_int |= 0x00;
             }
             
-
             return_int <<= 23;
 
             return_int |= (uint)in_filter.Filter.CenterFrequency;

@@ -504,7 +504,7 @@ namespace SA_Resources.SAForms
                     backgroundWorker.ReportProgress(overall_percantage);
                 }
 
-                MessageBox.Show("Completed " + num_streams_sent + " streams and took " + num_stream_attemps + " attempts");
+                //MessageBox.Show("Completed " + num_streams_sent + " streams and took " + num_stream_attemps + " attempts");
 
                 if (GetDeviceType() == DeviceType.FLX804)
                 {
