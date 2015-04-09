@@ -533,16 +533,7 @@ namespace SA_Resources.SAControls
                     dragging_center = true;
                 }
                 
-                // TODO - Rectify the thread situation
-
-                /*
-
-                UIThread = new Thread(UpdateUIToVals);
-                UIThread.Name = "UIThread";
-                UIThread.IsBackground = true;
-                UIThread.Start(active_global_filter_index);
-
-                */
+                // Based on this a UIThread is now created in the FilterDesignerForm
 
             }
             else

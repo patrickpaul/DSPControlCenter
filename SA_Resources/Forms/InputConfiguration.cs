@@ -88,11 +88,11 @@ namespace SA_Resources.SAForms
 
             if (PARENT_FORM.LIVE_MODE)
             {
-                //read_address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.Input, Active_Primitive.Channel, 0).Address;
+                //read_address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Type.Input, Active_Primitive.Channel, 0).Address;
             
                 gainMeter.Visible = true;
                 gainMeter.DeviceConn = PARENT_FORM.DeviceConn;
-                gainMeter.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.Input, Active_Primitive.Channel, 0).Address;
+                gainMeter.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Type.Input, Active_Primitive.Channel, 0).Address;
                 gainMeter.Start();
             }
             else
@@ -137,7 +137,7 @@ namespace SA_Resources.SAForms
                 Active_Primitive.InputType = InputType.Microphone20;
             }
 
-            Pregain_Primitive = (DSP_Primitive_Pregain)PARENT_FORM.DSP_PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].LookupPrimitive(DSP_Primitive_Types.Pregain, Active_Primitive.Channel, 0);
+            Pregain_Primitive = (DSP_Primitive_Pregain)PARENT_FORM.DSP_PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].LookupPrimitive(DSP_Primitive_Type.Pregain, Active_Primitive.Channel, 0);
 
             Pregain_Primitive.Pregain = (int)Active_Primitive.Pregain;
 

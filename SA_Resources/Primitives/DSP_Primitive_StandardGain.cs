@@ -28,7 +28,7 @@ namespace SA_Resources.DSP.Primitives
             Gain = 0;
             _Pregain = 0;
             Mode = StandardGain_Types.Twelve_to_Negative_100;
-            this.Type = DSP_Primitive_Types.StandardGain;
+            this.Type = DSP_Primitive_Type.StandardGain;
 
             this.Num_Values = 2;
         }
@@ -40,7 +40,7 @@ namespace SA_Resources.DSP.Primitives
             Gain = 0;
             _Pregain = 0;
             Mode = in_type;
-            this.Type = DSP_Primitive_Types.StandardGain;
+            this.Type = DSP_Primitive_Type.StandardGain;
             this.Num_Values = 2;
             this.Meter = in_meter;
         }
@@ -52,7 +52,7 @@ namespace SA_Resources.DSP.Primitives
             Gain = in_gain;
             Mode = in_type;
             _Pregain = 0;
-            this.Type = DSP_Primitive_Types.StandardGain;
+            this.Type = DSP_Primitive_Type.StandardGain;
             this.Num_Values = 2;
             this.Meter = in_meter;
         }

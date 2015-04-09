@@ -37,6 +37,10 @@ namespace SA_Resources
 
             try
             {
+                EventLog appLog = new EventLog();
+                appLog.Source = "DSP Control Center";
+                appLog.WriteEntry("Started DSP Control Center");      
+
                 string[] args = Environment.GetCommandLineArgs();
 
 
@@ -235,7 +239,7 @@ namespace SA_Resources
             }
             catch (Exception ex)
             {
-                if (ex.Message.Contains("device attached"))
+                if (ex.Message.Contains("device attached") || ex.Message.Contains("device timeout"))
                 {
                     MessageBox.Show("Communication with device lost. Please re-connect.", "Device Configuration Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 

@@ -23,11 +23,11 @@ namespace SA_Resources.DSP.Primitives
 
         }
 
-        public int LookupIndex(DSP_Primitive_Types in_type, int in_ch, int in_positiona, int in_positionb = -1)
+        public int LookupIndex(DSP_Primitive_Type inType, int in_ch, int in_positiona, int in_positionb = -1)
         {
             return METERS.FindIndex(
                 prim => 
-                    (prim.PrimitiveType == in_type) && 
+                    (prim.PrimitiveType == inType) && 
                     (prim.Channel == in_ch) &&
                     (prim.PositionA == in_positiona) &&
                     (prim.PositionB == in_positionb)
@@ -35,11 +35,11 @@ namespace SA_Resources.DSP.Primitives
 
         }
 
-        public DSP_Meter LookupMeter(DSP_Primitive_Types in_type, int in_ch, int in_positiona, int in_positionb = -1)
+        public DSP_Meter LookupMeter(DSP_Primitive_Type inType, int in_ch, int in_positiona, int in_positionb = -1)
         {
             return METERS.Find(
                 prim =>
-                    (prim.PrimitiveType == in_type) &&
+                    (prim.PrimitiveType == inType) &&
                     (prim.Channel == in_ch) &&
                     (prim.PositionA == in_positiona) &&
                     (prim.PositionB == in_positionb)

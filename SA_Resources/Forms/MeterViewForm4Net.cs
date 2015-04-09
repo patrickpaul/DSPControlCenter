@@ -96,41 +96,41 @@ namespace SA_Resources.SAForms
                 if (PARENT_FORM.LIVE_MODE)
                 {
                     
-                    inMeter1.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.Input, 0, 0).Address;
+                    inMeter1.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Type.Input, 0, 0).Address;
                     inMeter1.DeviceConn = PARENT_FORM.DeviceConn;
                     inMeter1.Start();
 
-                    inMeter2.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.Input, 1, 0).Address;
+                    inMeter2.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Type.Input, 1, 0).Address;
                     inMeter2.DeviceConn = PARENT_FORM.DeviceConn;
                     inMeter2.Start();
 
-                    inMeter3.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.Input, 2, 0).Address;
+                    inMeter3.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Type.Input, 2, 0).Address;
                     inMeter3.DeviceConn = PARENT_FORM.DeviceConn;
                     inMeter3.Start();
 
-                    inMeter4.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.Input, 3, 0).Address;
+                    inMeter4.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Type.Input, 3, 0).Address;
                     inMeter4.DeviceConn = PARENT_FORM.DeviceConn;
                     inMeter4.Start();
 
-                    inMeter5.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.Input, 4, 0).Address;
+                    inMeter5.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Type.Input, 4, 0).Address;
                     inMeter5.DeviceConn = PARENT_FORM.DeviceConn;
                     inMeter5.Start();
 
-                    inMeter6.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.Input, 5, 0).Address;
+                    inMeter6.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Type.Input, 5, 0).Address;
                     inMeter6.DeviceConn = PARENT_FORM.DeviceConn;
                     inMeter6.Start();
 
-                    inMeter7.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.Input, 6, 0).Address;
+                    inMeter7.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Type.Input, 6, 0).Address;
                     inMeter7.DeviceConn = PARENT_FORM.DeviceConn;
                     inMeter7.Start();
 
-                    inMeter8.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.Input, 7, 0).Address;
+                    inMeter8.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Type.Input, 7, 0).Address;
                     inMeter8.DeviceConn = PARENT_FORM.DeviceConn;
                     inMeter8.Start();
 
                     if (outmeter_1_enabled)
                     {
-                        outMeter1.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.Output, 0, 0).Address;
+                        outMeter1.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Type.Output, 0, 0).Address;
                         outMeter1.DeviceConn = PARENT_FORM.DeviceConn;
                         outMeter1.Start();
                     }
@@ -141,7 +141,7 @@ namespace SA_Resources.SAForms
 
                     if (outmeter_2_enabled)
                     {
-                        outMeter2.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.Output, 1, 0).Address;
+                        outMeter2.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Type.Output, 1, 0).Address;
                         outMeter2.DeviceConn = PARENT_FORM.DeviceConn;
                         outMeter2.Start();
                     }
@@ -152,7 +152,7 @@ namespace SA_Resources.SAForms
 
                     if (outmeter_3_enabled)
                     {
-                        outMeter3.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.Output, 2, 0).Address;
+                        outMeter3.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Type.Output, 2, 0).Address;
                         outMeter3.DeviceConn = PARENT_FORM.DeviceConn;
                         outMeter3.Start();
                     }
@@ -163,7 +163,7 @@ namespace SA_Resources.SAForms
 
                     if (outmeter_4_enabled)
                     {
-                        outMeter4.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.Output, 3, 0).Address;
+                        outMeter4.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Type.Output, 3, 0).Address;
                         outMeter4.DeviceConn = PARENT_FORM.DeviceConn;
                         outMeter4.Start();
                     }

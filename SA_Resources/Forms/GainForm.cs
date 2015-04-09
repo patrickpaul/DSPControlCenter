@@ -39,14 +39,14 @@ namespace SA_Resources.SAForms
 
         private bool is_mixer = false;
 
-        public GainForm(MainForm_Template _parentForm, DSP_Primitive _inputPrimitive, DSP_Primitive_Types _primitiveType)
+        public GainForm(MainForm_Template _parentForm, DSP_Primitive _inputPrimitive, DSP_Primitive_Type primitiveType)
         {
             InitializeComponent();
 
             _threadlock = new object();
             try
             {
-                if (_primitiveType == DSP_Primitive_Types.StandardGain)
+                if (primitiveType == DSP_Primitive_Type.StandardGain)
                 {
                     is_mixer = false;
                     RecastStandardGain = (DSP_Primitive_StandardGain) _inputPrimitive;

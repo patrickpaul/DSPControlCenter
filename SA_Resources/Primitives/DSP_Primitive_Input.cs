@@ -40,7 +40,7 @@ namespace SA_Resources.DSP.Primitives
 
             InputType = InputType.Line;
 
-            this.Type = DSP_Primitive_Types.Input;
+            this.Type = DSP_Primitive_Type.Input;
 
             this.Num_Values = 1;
         }
@@ -61,7 +61,7 @@ namespace SA_Resources.DSP.Primitives
 
             InputType = _inputType;
 
-            this.Type = DSP_Primitive_Types.Input;
+            this.Type = DSP_Primitive_Type.Input;
 
             this.Num_Values = 1;
         }
@@ -286,7 +286,7 @@ namespace SA_Resources.DSP.Primitives
             {
                 PhantomMask <<= 1;
 
-                InputPrimitive = (DSP_Primitive_Input)PARENT_FORM.DSP_PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].LookupPrimitive(DSP_Primitive_Types.Input, i-1, 0);
+                InputPrimitive = (DSP_Primitive_Input)PARENT_FORM.DSP_PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].LookupPrimitive(DSP_Primitive_Type.Input, i-1, 0);
 
                 if (InputPrimitive.PhantomAvailable)
                 {

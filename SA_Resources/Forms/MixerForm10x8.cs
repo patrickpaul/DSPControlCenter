@@ -162,42 +162,42 @@ namespace SA_Resources.SAForms
                     
                     //netGainMeter1
                     
-                    netGainMeter1.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.MixerCrosspoint, 0, 0, 4).Address;
+                    netGainMeter1.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Type.MixerCrosspoint, 0, 0, 4).Address;
                     netGainMeter1.DeviceConn = PARENT_FORM.DeviceConn;
                     netGainMeter1.Start();
 
-                    netGainMeter2.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.MixerCrosspoint, 0, 0, 5).Address;
+                    netGainMeter2.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Type.MixerCrosspoint, 0, 0, 5).Address;
                     netGainMeter2.DeviceConn = PARENT_FORM.DeviceConn;
                     netGainMeter2.Start();
 
-                    netGainMeter3.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.MixerCrosspoint, 0, 0, 6).Address;
+                    netGainMeter3.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Type.MixerCrosspoint, 0, 0, 6).Address;
                     netGainMeter3.DeviceConn = PARENT_FORM.DeviceConn;
                     netGainMeter3.Start();
 
-                    netGainMeter4.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.MixerCrosspoint, 0, 0, 7).Address;
+                    netGainMeter4.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Type.MixerCrosspoint, 0, 0, 7).Address;
                     netGainMeter4.DeviceConn = PARENT_FORM.DeviceConn;
                     netGainMeter4.Start();
                     
-                    gainMeter1.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.MixerCrosspoint, 0, 0, 0).Address;
+                    gainMeter1.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Type.MixerCrosspoint, 0, 0, 0).Address;
                     gainMeter1.DeviceConn = PARENT_FORM.DeviceConn;
                     gainMeter1.Start();
 
                     if (!CH2_hidden)
                     {
-                        gainMeter2.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.MixerCrosspoint, 0, 0, 1).Address;
+                        gainMeter2.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Type.MixerCrosspoint, 0, 0, 1).Address;
                         gainMeter2.DeviceConn = PARENT_FORM.DeviceConn;
                         gainMeter2.Start();
                     }
 
                     if (!CH3_hidden)
                     {
-                        gainMeter3.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.MixerCrosspoint, 0, 0, 2).Address;
+                        gainMeter3.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Type.MixerCrosspoint, 0, 0, 2).Address;
                         gainMeter3.DeviceConn = PARENT_FORM.DeviceConn;
                         gainMeter3.Start();
                     }
                     if (!CH4_hidden)
                     {
-                        gainMeter4.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.MixerCrosspoint, 0, 0, 3).Address;
+                        gainMeter4.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Type.MixerCrosspoint, 0, 0, 3).Address;
                         gainMeter4.DeviceConn = PARENT_FORM.DeviceConn;
                         gainMeter4.Start();
                     }
@@ -210,7 +210,7 @@ namespace SA_Resources.SAForms
 
                 for (int i = 0; i < 4; i++)
                 {
-                    InputPrimitive = (DSP_Primitive_Input) PARENT_FORM.DSP_PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].LookupPrimitive(DSP_Primitive_Types.Input, i, 0);
+                    InputPrimitive = (DSP_Primitive_Input) PARENT_FORM.DSP_PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].LookupPrimitive(DSP_Primitive_Type.Input, i, 0);
                     InputLabel = (Label) Controls.Find("lblInput" + i, true).FirstOrDefault();
 
                     if (InputLabel != null)
@@ -227,14 +227,14 @@ namespace SA_Resources.SAForms
 
                 }
 
-                lblOutput0.Text = ((DSP_Primitive_Output) PARENT_FORM.DSP_PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].LookupPrimitive(DSP_Primitive_Types.Output, 0, 0)).OutputName;
+                lblOutput0.Text = ((DSP_Primitive_Output) PARENT_FORM.DSP_PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].LookupPrimitive(DSP_Primitive_Type.Output, 0, 0)).OutputName;
                 if (CH2_hidden)
                 {
                     lblOutput1.Text = PARENT_FORM.GetDeviceFamily() == DeviceFamily.DSP100 ? "" : "(Bridged)";
                 }
                 else
                 {
-                    lblOutput1.Text = ((DSP_Primitive_Output) PARENT_FORM.DSP_PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].LookupPrimitive(DSP_Primitive_Types.Output, 1, 0)).OutputName;
+                    lblOutput1.Text = ((DSP_Primitive_Output) PARENT_FORM.DSP_PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].LookupPrimitive(DSP_Primitive_Type.Output, 1, 0)).OutputName;
 
                 }
 
@@ -244,7 +244,7 @@ namespace SA_Resources.SAForms
                 }
                 else
                 {
-                    lblOutput2.Text = ((DSP_Primitive_Output)PARENT_FORM.DSP_PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].LookupPrimitive(DSP_Primitive_Types.Output, 2, 0)).OutputName;
+                    lblOutput2.Text = ((DSP_Primitive_Output)PARENT_FORM.DSP_PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].LookupPrimitive(DSP_Primitive_Type.Output, 2, 0)).OutputName;
                 }
 
                 
@@ -254,7 +254,7 @@ namespace SA_Resources.SAForms
                 }
                 else
                 {
-                    lblOutput3.Text = ((DSP_Primitive_Output) PARENT_FORM.DSP_PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].LookupPrimitive(DSP_Primitive_Types.Output, 3, 0)).OutputName;
+                    lblOutput3.Text = ((DSP_Primitive_Output) PARENT_FORM.DSP_PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].LookupPrimitive(DSP_Primitive_Type.Output, 3, 0)).OutputName;
                 }
             
                 int inputIndex = 0;
@@ -288,7 +288,7 @@ namespace SA_Resources.SAForms
                             // Force the ToolTip text to be displayed whether or not the form is active.
                             toolTip1.ShowAlways = true;
 
-                            SingleCrosspoint = (DSP_Primitive_MixerCrosspoint) PARENT_FORM.DSP_PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].LookupPrimitive(DSP_Primitive_Types.MixerCrosspoint, inputIndex, j);
+                            SingleCrosspoint = (DSP_Primitive_MixerCrosspoint) PARENT_FORM.DSP_PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].LookupPrimitive(DSP_Primitive_Type.MixerCrosspoint, inputIndex, j);
 
                             if (SingleCrosspoint.Muted)
                             {
@@ -342,10 +342,10 @@ namespace SA_Resources.SAForms
             int index_in = int.Parse(((PictureButton)sender).Name.Substring(9, 1));
             int index_out = int.Parse(((PictureButton)sender).Name.Substring(10, 1));
 
-            ActiveCrosspoint = (DSP_Primitive_MixerCrosspoint)PARENT_FORM.DSP_PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].LookupPrimitive(DSP_Primitive_Types.MixerCrosspoint, index_in, index_out);
+            ActiveCrosspoint = (DSP_Primitive_MixerCrosspoint)PARENT_FORM.DSP_PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].LookupPrimitive(DSP_Primitive_Type.MixerCrosspoint, index_in, index_out);
 
 
-            using (GainForm gainForm = new GainForm(PARENT_FORM, ActiveCrosspoint,DSP_Primitive_Types.MixerCrosspoint))
+            using (GainForm gainForm = new GainForm(PARENT_FORM, ActiveCrosspoint,DSP_Primitive_Type.MixerCrosspoint))
             {
                 gainForm.Width = 132;
                 DialogResult showResult = gainForm.ShowDialog(this);

@@ -21,7 +21,7 @@ namespace SA_Resources.DSP.Primitives
             Gain = 0;
             _Pregain = 0;
 
-            this.Type = DSP_Primitive_Types.MixerCrosspoint; ;
+            this.Type = DSP_Primitive_Type.MixerCrosspoint; ;
             this.Num_Values = 1;
         }
 
@@ -31,7 +31,7 @@ namespace SA_Resources.DSP.Primitives
             Muted = (in_gain == -100) ? true : in_muted;
             Gain = in_gain;
             _Pregain = 0;
-            this.Type = DSP_Primitive_Types.MixerCrosspoint;
+            this.Type = DSP_Primitive_Type.MixerCrosspoint;
             this.Num_Values = 1;
         }
 

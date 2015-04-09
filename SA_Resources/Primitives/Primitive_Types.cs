@@ -1,6 +1,6 @@
 ﻿namespace SA_Resources.DSP.Primitives
 {
-    public enum DSP_Primitive_Types
+    public enum DSP_Primitive_Type
     {
         StandardGain,
         Pregain,

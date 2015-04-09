@@ -193,75 +193,75 @@ namespace DSP100_2_NET
                 
                 // Inputs
 
-                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C00123, DSP_Primitive_Types.Input, 0));
-                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C00127, DSP_Primitive_Types.Input, 1));
-                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C0012B, DSP_Primitive_Types.Input, 2));
-                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C0012F, DSP_Primitive_Types.Input, 3));
-                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C00133, DSP_Primitive_Types.Input, 4));
-                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C00137, DSP_Primitive_Types.Input, 5));
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C00123, DSP_Primitive_Type.Input, 0));
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C00127, DSP_Primitive_Type.Input, 1));
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C0012B, DSP_Primitive_Type.Input, 2));
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C0012F, DSP_Primitive_Type.Input, 3));
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C00133, DSP_Primitive_Type.Input, 4));
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C00137, DSP_Primitive_Type.Input, 5));
 
                 // Ducker
-                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C000FF, DSP_Primitive_Types.Ducker6x6, 0));
-                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C00103, DSP_Primitive_Types.Ducker6x6, 1));
-                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C00107, DSP_Primitive_Types.Ducker6x6, 2));
-                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C0010B, DSP_Primitive_Types.Ducker6x6, 3));
-                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C0010F, DSP_Primitive_Types.Ducker6x6, 4));
-                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C00113, DSP_Primitive_Types.Ducker6x6, 5));
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C000FF, DSP_Primitive_Type.Ducker6x6, 0));
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C00103, DSP_Primitive_Type.Ducker6x6, 1));
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C00107, DSP_Primitive_Type.Ducker6x6, 2));
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C0010B, DSP_Primitive_Type.Ducker6x6, 3));
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C0010F, DSP_Primitive_Type.Ducker6x6, 4));
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C00113, DSP_Primitive_Type.Ducker6x6, 5));
 
                 // Mixer
-                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C0005F, DSP_Primitive_Types.MixerCrosspoint, 0, 0, 0));
-                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C00063, DSP_Primitive_Types.MixerCrosspoint, 0, 0, 1));
-                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C00067, DSP_Primitive_Types.MixerCrosspoint, 0, 0, 2));
-                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C0006B, DSP_Primitive_Types.MixerCrosspoint, 0, 0, 3));
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C0005F, DSP_Primitive_Type.MixerCrosspoint, 0, 0, 0));
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C00063, DSP_Primitive_Type.MixerCrosspoint, 0, 0, 1));
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C00067, DSP_Primitive_Type.MixerCrosspoint, 0, 0, 2));
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C0006B, DSP_Primitive_Type.MixerCrosspoint, 0, 0, 3));
 
 
                 // Compressors
 
-                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C000DB, DSP_Primitive_Types.Compressor, 0, 0, 0));
-                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C000B7, DSP_Primitive_Types.Compressor, 0, 0, 1));
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C000DB, DSP_Primitive_Type.Compressor, 0, 0, 0));
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C000B7, DSP_Primitive_Type.Compressor, 0, 0, 1));
 
-                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C000DF, DSP_Primitive_Types.Compressor, 1, 0, 0));
-                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C000BB, DSP_Primitive_Types.Compressor, 1, 0, 1));
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C000DF, DSP_Primitive_Type.Compressor, 1, 0, 0));
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C000BB, DSP_Primitive_Type.Compressor, 1, 0, 1));
 
-                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C000E3, DSP_Primitive_Types.Compressor, 2, 0, 0));
-                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C000BF, DSP_Primitive_Types.Compressor, 2, 0, 1));
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C000E3, DSP_Primitive_Type.Compressor, 2, 0, 0));
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C000BF, DSP_Primitive_Type.Compressor, 2, 0, 1));
 
-                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C000E7, DSP_Primitive_Types.Compressor, 3, 0, 0));
-                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C000C3, DSP_Primitive_Types.Compressor, 3, 0, 1));
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C000E7, DSP_Primitive_Type.Compressor, 3, 0, 0));
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C000C3, DSP_Primitive_Type.Compressor, 3, 0, 1));
 
-                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C000EB, DSP_Primitive_Types.Compressor, 4, 0, 0));
-                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C000C7, DSP_Primitive_Types.Compressor, 4, 0, 1));
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C000EB, DSP_Primitive_Type.Compressor, 4, 0, 0));
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C000C7, DSP_Primitive_Type.Compressor, 4, 0, 1));
 
-                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C000EF, DSP_Primitive_Types.Compressor, 5, 0, 0));
-                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C000CB, DSP_Primitive_Types.Compressor, 5, 0, 1));
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C000EF, DSP_Primitive_Type.Compressor, 5, 0, 0));
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C000CB, DSP_Primitive_Type.Compressor, 5, 0, 1));
 
-                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C000F3, DSP_Primitive_Types.Compressor, 6, 0, 0));
-                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C000CF, DSP_Primitive_Types.Compressor, 6, 0, 1));
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C000F3, DSP_Primitive_Type.Compressor, 6, 0, 0));
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C000CF, DSP_Primitive_Type.Compressor, 6, 0, 1));
 
-                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C000F7, DSP_Primitive_Types.Compressor, 7, 0, 0));
-                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C000D3, DSP_Primitive_Types.Compressor, 7, 0, 1));
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C000F7, DSP_Primitive_Type.Compressor, 7, 0, 0));
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C000D3, DSP_Primitive_Type.Compressor, 7, 0, 1));
 
                 
                 // Limiters
 
-                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C001CF, DSP_Primitive_Types.Compressor, 0, 1, 0));
-                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C001BB, DSP_Primitive_Types.Compressor, 0, 1, 1));
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C001CF, DSP_Primitive_Type.Compressor, 0, 1, 0));
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C001BB, DSP_Primitive_Type.Compressor, 0, 1, 1));
 
-                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C001D3, DSP_Primitive_Types.Compressor, 1, 1, 0));
-                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C001BF, DSP_Primitive_Types.Compressor, 1, 1, 1));
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C001D3, DSP_Primitive_Type.Compressor, 1, 1, 0));
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C001BF, DSP_Primitive_Type.Compressor, 1, 1, 1));
 
-                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C001D7, DSP_Primitive_Types.Compressor, 2, 1, 0));
-                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C001C3, DSP_Primitive_Types.Compressor, 2, 1, 1));
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C001D7, DSP_Primitive_Type.Compressor, 2, 1, 0));
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C001C3, DSP_Primitive_Type.Compressor, 2, 1, 1));
 
-                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C001DB, DSP_Primitive_Types.Compressor, 3, 1, 0));
-                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C001C7, DSP_Primitive_Types.Compressor, 3, 1, 1));
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C001DB, DSP_Primitive_Type.Compressor, 3, 1, 0));
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C001C7, DSP_Primitive_Type.Compressor, 3, 1, 1));
 
                 // Outputs
                 
-                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C00193, DSP_Primitive_Types.Output, 0));
-                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C00197, DSP_Primitive_Types.Output, 1));
-                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C0019B, DSP_Primitive_Types.Output, 2));
-                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C0019F, DSP_Primitive_Types.Output, 3));
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C00193, DSP_Primitive_Type.Output, 0));
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C00197, DSP_Primitive_Type.Output, 1));
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C0019B, DSP_Primitive_Type.Output, 2));
+                DSP_METER_MANAGER.RegisterNewMeter(new DSP_Meter(0xF0C0019F, DSP_Primitive_Type.Output, 3));
 
             }
             catch (Exception ex)
@@ -397,10 +397,10 @@ namespace DSP100_2_NET
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(428, new DSP_Primitive_BiquadFilter("OUTFILTER_4_5", 3, 7, plainfilter_offset++));
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(433, new DSP_Primitive_BiquadFilter("OUTFILTER_4_6", 3, 8, plainfilter_offset++));
 
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(438, new DSP_Primitive_Compressor("CH 1 - Limiter", 0, 1, DSP_Primitive_Types.Limiter));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(444, new DSP_Primitive_Compressor("CH 2 - Limiter", 1, 1, DSP_Primitive_Types.Limiter));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(450, new DSP_Primitive_Compressor("CH 3 - Limiter", 2, 1, DSP_Primitive_Types.Limiter));
-                DSP_PROGRAMS[program_index].RegisterNewPrimitive(456, new DSP_Primitive_Compressor("CH 4 - Limiter", 3, 1, DSP_Primitive_Types.Limiter));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(438, new DSP_Primitive_Compressor("CH 1 - Limiter", 0, 1, DSP_Primitive_Type.Limiter));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(444, new DSP_Primitive_Compressor("CH 2 - Limiter", 1, 1, DSP_Primitive_Type.Limiter));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(450, new DSP_Primitive_Compressor("CH 3 - Limiter", 2, 1, DSP_Primitive_Type.Limiter));
+                DSP_PROGRAMS[program_index].RegisterNewPrimitive(456, new DSP_Primitive_Compressor("CH 4 - Limiter", 3, 1, DSP_Primitive_Type.Limiter));
 
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(462, new DSP_Primitive_Delay("CH 1 - Delay", 0));
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(464, new DSP_Primitive_Delay("CH 2 - Delay", 1));

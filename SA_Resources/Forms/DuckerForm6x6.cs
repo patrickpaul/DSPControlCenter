@@ -57,13 +57,13 @@ namespace SA_Resources.SAForms
                 for (int i = 0; i < PARENT_FORM.GetNumInputChannels(); i++)
                 {
                     BypassCache.Add(RecastDucker.CH_Bypasses[i]);
-                    dropPriorityChannel.Items.Add(((DSP_Primitive_Input)PARENT_FORM.DSP_PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].LookupPrimitive(DSP_Primitive_Types.Input, i, 0)).InputName);
+                    dropPriorityChannel.Items.Add(((DSP_Primitive_Input)PARENT_FORM.DSP_PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].LookupPrimitive(DSP_Primitive_Type.Input, i, 0)).InputName);
                 }
 
                 for (int j = 0; j < PARENT_FORM.GetNumNetworkInputChannels(); j++)
                 {
                     BypassCache.Add(RecastDucker.CH_Bypasses[j + PARENT_FORM.GetNumInputChannels()]);
-                    dropPriorityChannel.Items.Add(((DSP_Primitive_Input)PARENT_FORM.DSP_PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].LookupPrimitive(DSP_Primitive_Types.Input, j + PARENT_FORM.GetNumInputChannels(), 0)).InputName);
+                    dropPriorityChannel.Items.Add(((DSP_Primitive_Input)PARENT_FORM.DSP_PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].LookupPrimitive(DSP_Primitive_Type.Input, j + PARENT_FORM.GetNumInputChannels(), 0)).InputName);
                 }
 
                 dropPriorityChannel.SelectedIndex = RecastDucker.PriorityChannel;
@@ -99,27 +99,27 @@ namespace SA_Resources.SAForms
 
                 if (_parentForm.LIVE_MODE && _parentForm.DeviceConn.isOpen)
                 {
-                    duckMeter1.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.Ducker6x6, 0, 0).Address;
+                    duckMeter1.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Type.Ducker6x6, 0, 0).Address;
                     duckMeter1.DeviceConn = PARENT_FORM.DeviceConn;
                     duckMeter1.Start();
 
-                    duckMeter2.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.Ducker6x6, 1, 0).Address;
+                    duckMeter2.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Type.Ducker6x6, 1, 0).Address;
                     duckMeter2.DeviceConn = PARENT_FORM.DeviceConn;
                     duckMeter2.Start(); 
                     
-                    duckMeter3.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.Ducker6x6, 2, 0).Address;
+                    duckMeter3.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Type.Ducker6x6, 2, 0).Address;
                     duckMeter3.DeviceConn = PARENT_FORM.DeviceConn;
                     duckMeter3.Start(); 
                     
-                    duckMeter4.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.Ducker6x6, 3, 0).Address;
+                    duckMeter4.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Type.Ducker6x6, 3, 0).Address;
                     duckMeter4.DeviceConn = PARENT_FORM.DeviceConn;
                     duckMeter4.Start();
 
-                    duckMeter5.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.Ducker6x6, 4, 0).Address;
+                    duckMeter5.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Type.Ducker6x6, 4, 0).Address;
                     duckMeter5.DeviceConn = PARENT_FORM.DeviceConn;
                     duckMeter5.Start();
 
-                    duckMeter6.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.Ducker6x6, 5, 0).Address;
+                    duckMeter6.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Type.Ducker6x6, 5, 0).Address;
                     duckMeter6.DeviceConn = PARENT_FORM.DeviceConn;
                     duckMeter6.Start();
 
@@ -262,7 +262,7 @@ namespace SA_Resources.SAForms
                     PictureCheckbox temp_checkbox = ((PictureCheckbox)Controls.Find("chkBypass" + label_counter.ToString(), true).FirstOrDefault());
                     temp_checkbox.Checked = !BypassCache[i];
 
-                    Temp_Primitive = ((DSP_Primitive_Input)PARENT_FORM.DSP_PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].LookupPrimitive(DSP_Primitive_Types.Input, i, 0));
+                    Temp_Primitive = ((DSP_Primitive_Input)PARENT_FORM.DSP_PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].LookupPrimitive(DSP_Primitive_Type.Input, i, 0));
                     temp_label = ((Label)Controls.Find("lblDuckInput" + label_counter.ToString(), true).FirstOrDefault());
                     temp_label.Text = Temp_Primitive.InputName;
                     temp_label.Invalidate();

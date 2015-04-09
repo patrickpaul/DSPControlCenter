@@ -37,7 +37,7 @@ namespace SA_Resources.DSP.Primitives
         public DSP_Primitive_BiquadFilter(string in_name, int in_channel, int in_positionA, int _plainOffset)
             : base(in_name, in_channel, in_positionA)
         {
-            this.Type = DSP_Primitive_Types.BiquadFilter;
+            this.Type = DSP_Primitive_Type.BiquadFilter;
             this.Num_Values = 5;
             Plainfilter_Offset = _plainOffset;
             Bypassed = false;
@@ -47,7 +47,7 @@ namespace SA_Resources.DSP.Primitives
         public DSP_Primitive_BiquadFilter(string in_name, int in_channel, int in_positionA, int _plainOffset, FilterType type, bool bypassed)
             : base(in_name, in_channel, in_positionA)
         {
-            this.Type = DSP_Primitive_Types.BiquadFilter; ;
+            this.Type = DSP_Primitive_Type.BiquadFilter; ;
             this.Num_Values = 5;
             Plainfilter_Offset = _plainOffset;
 
@@ -60,7 +60,7 @@ namespace SA_Resources.DSP.Primitives
         public DSP_Primitive_BiquadFilter(string in_name, int in_channel, int in_positionA, int _plainOffset,FilterType type, bool bypassed, BiquadFilter in_filter)
             : base(in_name, in_channel, in_positionA)
         {
-            this.Type = DSP_Primitive_Types.BiquadFilter; ;
+            this.Type = DSP_Primitive_Type.BiquadFilter; ;
             this.Num_Values = 5;
             Plainfilter_Offset = _plainOffset;
 
@@ -128,16 +128,16 @@ namespace SA_Resources.DSP.Primitives
 
             if (IsPremix)
             {
-                Gain_Mute_Offset = PARENT_FORM.DSP_PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].LookupPrimitive(DSP_Primitive_Types.StandardGain, this.Channel, 1).Offset + 1;
+                Gain_Mute_Offset = PARENT_FORM.DSP_PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].LookupPrimitive(DSP_Primitive_Type.StandardGain, this.Channel, 1).Offset + 1;
 
-                Gain_Mute_Value = ((DSP_Primitive_StandardGain)PARENT_FORM.DSP_PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].LookupPrimitive(DSP_Primitive_Types.StandardGain, this.Channel, 1)).Values[1];
+                Gain_Mute_Value = ((DSP_Primitive_StandardGain)PARENT_FORM.DSP_PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].LookupPrimitive(DSP_Primitive_Type.StandardGain, this.Channel, 1)).Values[1];
             
             }
             else
             {
-                Gain_Mute_Offset = PARENT_FORM.DSP_PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].LookupPrimitive(DSP_Primitive_Types.StandardGain, this.Channel, 3).Offset + 1;
+                Gain_Mute_Offset = PARENT_FORM.DSP_PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].LookupPrimitive(DSP_Primitive_Type.StandardGain, this.Channel, 3).Offset + 1;
 
-                Gain_Mute_Value = ((DSP_Primitive_StandardGain)PARENT_FORM.DSP_PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].LookupPrimitive(DSP_Primitive_Types.StandardGain, this.Channel, 3)).Values[1];
+                Gain_Mute_Value = ((DSP_Primitive_StandardGain)PARENT_FORM.DSP_PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].LookupPrimitive(DSP_Primitive_Type.StandardGain, this.Channel, 3)).Values[1];
             
             }
             

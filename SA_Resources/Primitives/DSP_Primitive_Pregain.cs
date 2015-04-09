@@ -22,7 +22,7 @@ namespace SA_Resources.DSP.Primitives
         {
             Muted = false;
             Gain = 0;
-            this.Type = DSP_Primitive_Types.Pregain;
+            this.Type = DSP_Primitive_Type.Pregain;
 
             this.Pregain = 0;
 
@@ -34,7 +34,7 @@ namespace SA_Resources.DSP.Primitives
         {
             Muted = false;
             Gain = 0;
-            this.Type = DSP_Primitive_Types.Pregain;
+            this.Type = DSP_Primitive_Type.Pregain;
             this.Num_Values = 2;
             this.Meter = in_meter;
             this.Pregain = 0;
@@ -45,7 +45,7 @@ namespace SA_Resources.DSP.Primitives
         {
             Muted = in_muted;
             Gain = in_gain;
-            this.Type = DSP_Primitive_Types.Pregain;
+            this.Type = DSP_Primitive_Type.Pregain;
             this.Num_Values = 2;
             this.Meter = in_meter;
         }

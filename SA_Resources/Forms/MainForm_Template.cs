@@ -34,9 +34,18 @@ namespace SA_Resources.SAForms
 
         /* Queue Processing */
         
+        public EventLog appLog = new EventLog();
+
+
+        public Form activeForm = null;
+
         public Queue UPDATE_QUEUE = new Queue();
         public object _locker = new Object();
 
+        public bool lastItemRequeue = false;
+        public int requeueCount = 0;
+
+        public int max_requeue_attempts = 20;
 
         /* Settings to put into demo modes */
 
@@ -82,6 +91,8 @@ namespace SA_Resources.SAForms
         public int copy_from_ch = 0;
         public int copy_from_index = 0;
 
+
+
         public int cut_from_preset = 0;
         public int cut_from_ch = 0;
         public int cut_from_index = 0;
@@ -89,9 +100,8 @@ namespace SA_Resources.SAForms
         //public CopyFormType CopyType;
         //public CopyFormType CutType;
 
-        // TODO - Move all DEVICE ID's to a global list
-        public string DEVICE_NAME = "";
-        public int DEVICE_ID = 0x20;
+
+
         public string SERIALNUM = "";
 
         public string CONFIGFILE = "";
@@ -150,6 +160,7 @@ namespace SA_Resources.SAForms
 
             try
             {
+                appLog.Source = "DSP Control Center";
 
                 if (IsNetworked())
                 {
@@ -299,6 +310,13 @@ namespace SA_Resources.SAForms
             }*/
         }
 
+
+        public void throwDeviceException()
+        {
+            throw new Exception("device timeout");
+
+        }
+
         public void EndLiveMode()
         {
             if (Queue_Thread.WorkerSupportsCancellation == true)
@@ -314,6 +332,12 @@ namespace SA_Resources.SAForms
             this.SetConnectButtonText("Connect");
 
             readFromDeviceToolStripMenuItem.Enabled = false;
+
+            if (UPDATE_QUEUE != null)
+            {
+                UPDATE_QUEUE.Clear(); // Clear items from Queue
+            }
+            
 
             //HeartbeatTimer.Enabled = false;
 
@@ -363,7 +387,9 @@ namespace SA_Resources.SAForms
                     {
                         if (UPDATE_QUEUE.Count > 0)
                         {
-                            LiveQueueItem read_setting = (LiveQueueItem)UPDATE_QUEUE.Dequeue();
+
+                            //LiveQueueItem read_setting = (LiveQueueItem)UPDATE_QUEUE.Dequeue();
+                            LiveQueueItem read_setting = (LiveQueueItem)UPDATE_QUEUE.Peek();
 
                             if (DeviceConn.getRTS())
                             {
@@ -381,9 +407,35 @@ namespace SA_Resources.SAForms
                                             // Phantom power
                                             DeviceConn.UpdatePhantomPower();
                                         }
+
+                                        if (lastItemRequeue)
+                                        {
+                                            lastItemRequeue = false;
+                                            appLog.WriteEntry("Recovered from a Dequeue after " + requeueCount + " requeues");
+                                        }
+
+                                        UPDATE_QUEUE.Dequeue(); // Remove it from the Queue now that it has been sent
                                     }
                                     else
                                     {
+                                        if (lastItemRequeue)
+                                        {
+                                            requeueCount++;
+
+                                            if (requeueCount > max_requeue_attempts)
+                                            {
+                                                
+                                                throw new Exception("device timeout");
+
+                                            }
+                                        }
+                                        else
+                                        {
+                                            lastItemRequeue = true;
+                                            requeueCount = 1;
+                                        }
+                                        appLog.WriteEntry("ERROR sending queued DSP Setting - Sending " + read_setting.Value.ToString("X8") + " to " + (uint)read_setting.Index + ", Requeue attempts so far: " + requeueCount);
+                                        
                                         Debug.WriteLine("ERROR sending queued DSP Setting");
                                     }
                                 }
@@ -391,6 +443,10 @@ namespace SA_Resources.SAForms
                             }
                             else
                             {
+                                EventLog appLog = new EventLog();
+                                appLog.Source = "DSP Control Center";
+                                appLog.WriteEntry("No RTS while sending queued DSP Setting - Sending " + read_setting.Value.ToString("X8") + " to " + (uint)read_setting.Index);
+                                        
                                 //Debug.WriteLine("Couldn't get RTS from BW");
                             }
                         }
@@ -406,7 +462,24 @@ namespace SA_Resources.SAForms
 
         protected void Queue_Thread_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            //Debug.WriteLine("BW reported work is complete.");
+            // Check if the worker thread exited because it timed out trying to send a value.. If so capture and kick it to the main thread
+
+            if (e.Error != null)
+            {
+                if (e.Error.Message != null)
+                {
+                    if (e.Error.Message.Contains("device timeout"))
+                    {
+                        MessageBox.Show("Communication with device lost. Please re-connect.", "Device Configuration Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        EndLiveMode();
+                        if (activeForm != null)
+                        {
+                            activeForm.Close();
+                        }
+                    }
+                }
+            }
+
         }
 
         protected void Queue_Thread_stop()
@@ -471,6 +544,9 @@ namespace SA_Resources.SAForms
                 int num_streams_sent = 0;
                 int num_stream_attemps = 0;
 
+                int max_stream_counts = 5;
+                int individual_stream_attempts;
+
                 for (int program_counter = 0; program_counter < this.GetNumPresets(); program_counter++)
                 {
                     DSP_PROGRAMS[program_counter].Write_Program_To_Cache(this.GetNumInputChannels());
@@ -479,14 +555,34 @@ namespace SA_Resources.SAForms
                     {
                         program_percentage = (((double)page_counter)/12.0)*10.0;
 
+                        individual_stream_attempts = 0;
+
                         if (DeviceConn.InitiateWriteStream(program_counter, page_counter, 256))
                         {
                             Array.Copy(DSP_PROGRAMS[program_counter].WRITE_VALUE_CACHE, (page_counter*64), Page_array, 0, 64);
 
-                            while (!stream_result)
+                            while (!stream_result && (individual_stream_attempts < max_stream_counts))
                             {
                                 stream_result = DeviceConn.SendStreamNibble(Page_array);
+                                individual_stream_attempts++;
                                 num_stream_attemps++;
+                            }
+
+                            if (!stream_result)
+                            {
+                                // We timed out, what do we want to do here?
+#if DEBUG
+                                MessageBox.Show("Unable to complete stream after max attempts!");
+#endif
+                            }
+                            else
+                            {
+                                if (individual_stream_attempts > 1)
+                                {
+#if DEBUG
+                                    MessageBox.Show("Had to use " + individual_stream_attempts + " stream attempts but completed successfully.");
+#endif
+                                }
                             }
                             
                             backgroundWorker.ReportProgress(overall_percantage + (int)program_percentage);
@@ -506,12 +602,13 @@ namespace SA_Resources.SAForms
 
                 //MessageBox.Show("Completed " + num_streams_sent + " streams and took " + num_stream_attemps + " attempts");
 
+                /* Bridging option removed in November 2014
                 if (GetDeviceType() == DeviceType.FLX804)
                 {
                     SetBridgeMode(AmplifierMode);
                     DeviceConn.SetAmplifierMode(AmplifierMode);
                 }
-                
+                */
 
                 backgroundWorker.ReportProgress(0, "Soft Rebooting device");
 
@@ -843,7 +940,7 @@ namespace SA_Resources.SAForms
                 switch(SinglePrimitive.Type)
                 {
 
-                    case DSP_Primitive_Types.Ducker4x4:
+                    case DSP_Primitive_Type.Ducker4x4:
 
                         RecastDucker4x4 = (DSP_Primitive_Ducker4x4)SinglePrimitive;
 
@@ -858,7 +955,7 @@ namespace SA_Resources.SAForms
 
                     break;
 
-                    case DSP_Primitive_Types.Ducker6x6:
+                    case DSP_Primitive_Type.Ducker6x6:
 
                     RecastDucker6x6 = (DSP_Primitive_Ducker6x6)SinglePrimitive;
 
@@ -872,7 +969,7 @@ namespace SA_Resources.SAForms
 
                     break;
 
-                    case DSP_Primitive_Types.Ducker8x8:
+                    case DSP_Primitive_Type.Ducker8x8:
 
                     RecastDucker8x8 = (DSP_Primitive_Ducker8x8)SinglePrimitive;
 
@@ -886,8 +983,8 @@ namespace SA_Resources.SAForms
 
                     break;
 
-                    case DSP_Primitive_Types.Compressor:
-                    case DSP_Primitive_Types.Limiter: 
+                    case DSP_Primitive_Type.Compressor:
+                    case DSP_Primitive_Type.Limiter: 
                         RecastCompressor = (DSP_Primitive_Compressor) SinglePrimitive;
 
                         PrimitiveButton = ((PictureButton)Controls.Find("btnCompressor" + RecastCompressor.Channel + "" + RecastCompressor.PositionA, true).FirstOrDefault());
@@ -900,7 +997,7 @@ namespace SA_Resources.SAForms
 
                     break;
 
-                    case DSP_Primitive_Types.Delay:
+                    case DSP_Primitive_Type.Delay:
 
                     RecastDelay = (DSP_Primitive_Delay)SinglePrimitive;
 
@@ -917,7 +1014,7 @@ namespace SA_Resources.SAForms
 
                     break;
 
-                    case DSP_Primitive_Types.Input:
+                    case DSP_Primitive_Type.Input:
 
                     RecastInput = (DSP_Primitive_Input)SinglePrimitive;
 
@@ -948,7 +1045,7 @@ namespace SA_Resources.SAForms
 
                     break;
 
-                    case DSP_Primitive_Types.Output:
+                    case DSP_Primitive_Type.Output:
 
                     RecastOutput = (DSP_Primitive_Output)SinglePrimitive;
 
@@ -962,7 +1059,7 @@ namespace SA_Resources.SAForms
 
                     break;
 
-                    case DSP_Primitive_Types.Pregain:
+                    case DSP_Primitive_Type.Pregain:
 
                     RecastPregain = (DSP_Primitive_Pregain)SinglePrimitive;
 
@@ -980,7 +1077,7 @@ namespace SA_Resources.SAForms
                     break;
                     
                     
-                    case DSP_Primitive_Types.StandardGain:
+                    case DSP_Primitive_Type.StandardGain:
 
                     RecastStandardGain = (DSP_Primitive_StandardGain)SinglePrimitive;
 
@@ -1033,7 +1130,7 @@ namespace SA_Resources.SAForms
 
             DSP_Primitive_Input Active_Primitive;
 
-            int PrimitiveIndex = DSP_PROGRAMS[CURRENT_PROGRAM].LookupIndex(DSP_Primitive_Types.Input, ch_num, 0);
+            int PrimitiveIndex = DSP_PROGRAMS[CURRENT_PROGRAM].LookupIndex(DSP_Primitive_Type.Input, ch_num, 0);
 
             if (PrimitiveIndex < 0)
             {
@@ -1051,7 +1148,9 @@ namespace SA_Resources.SAForms
 
             using (InputConfiguration inputForm = new InputConfiguration(this,Active_Primitive))
             {
-                
+
+                activeForm = inputForm;
+
                 if (!LIVE_MODE)
                 {
                     inputForm.Width = Helpers.NormalizeFormDimension(276);
@@ -1130,6 +1229,7 @@ namespace SA_Resources.SAForms
                     {
                         // Removed Width modifications here so that we can check in the form since we need to move a number of controls
 
+                        activeForm = mixerForm;
                         DialogResult showBlock = mixerForm.ShowDialog(this);
                     }
                 }
@@ -1138,6 +1238,7 @@ namespace SA_Resources.SAForms
                     using (MixerForm8x2 mixerForm = new MixerForm8x2(this))
                     {
                         // Removed Width modifications here so that we can check in the form since we need to move a number of controls
+                        activeForm = mixerForm;
 
                         DialogResult showBlock = mixerForm.ShowDialog(this);
                     }
@@ -1148,6 +1249,7 @@ namespace SA_Resources.SAForms
                 using (MixerForm6x4 mixerForm = new MixerForm6x4(this))
                 {
                     // Removed Width modifications here so that we can check in the form since we need to move a number of controls
+                    activeForm = mixerForm;
 
                     DialogResult showBlock = mixerForm.ShowDialog(this);
                 }
@@ -1166,7 +1268,7 @@ namespace SA_Resources.SAForms
 
             DSP_Primitive_Output Active_Primitive;
 
-            int PrimitiveIndex = DSP_PROGRAMS[CURRENT_PROGRAM].LookupIndex(DSP_Primitive_Types.Output, ch_num, 0);
+            int PrimitiveIndex = DSP_PROGRAMS[CURRENT_PROGRAM].LookupIndex(DSP_Primitive_Type.Output, ch_num, 0);
 
             if (PrimitiveIndex < 0)
             {
@@ -1184,6 +1286,8 @@ namespace SA_Resources.SAForms
 
             using (OutputConfiguration outputForm = new OutputConfiguration(this, Active_Primitive))
             {
+
+                activeForm = outputForm;
 
                 if (!LIVE_MODE)
                 {
@@ -1251,7 +1355,7 @@ namespace SA_Resources.SAForms
 
             DSP_Primitive_Ducker4x4 Active_Primitive;
 
-            int PrimitiveIndex = DSP_PROGRAMS[CURRENT_PROGRAM].LookupIndex(DSP_Primitive_Types.Ducker4x4, 0, 0);
+            int PrimitiveIndex = DSP_PROGRAMS[CURRENT_PROGRAM].LookupIndex(DSP_Primitive_Type.Ducker4x4, 0, 0);
 
             if (PrimitiveIndex < 0)
             {
@@ -1272,6 +1376,8 @@ namespace SA_Resources.SAForms
             {
                 // passing this in ShowDialog will set the .Owner 
                 // property of the child form
+
+                activeForm = duckerForm;
 
                 if (LIVE_MODE)
                 {
@@ -1311,7 +1417,7 @@ namespace SA_Resources.SAForms
 
             DSP_Primitive_Ducker6x6 Active_Primitive;
 
-            int PrimitiveIndex = DSP_PROGRAMS[CURRENT_PROGRAM].LookupIndex(DSP_Primitive_Types.Ducker6x6, 0, 0);
+            int PrimitiveIndex = DSP_PROGRAMS[CURRENT_PROGRAM].LookupIndex(DSP_Primitive_Type.Ducker6x6, 0, 0);
 
             if (PrimitiveIndex < 0)
             {
@@ -1330,6 +1436,8 @@ namespace SA_Resources.SAForms
 
             using (DuckerForm6x6 duckerForm = new DuckerForm6x6(this, Active_Primitive))
             {
+                activeForm = duckerForm;
+
                 // passing this in ShowDialog will set the .Owner 
                 // property of the child form
 
@@ -1371,7 +1479,7 @@ namespace SA_Resources.SAForms
 
             DSP_Primitive_Ducker8x8 Active_Primitive;
 
-            int PrimitiveIndex = DSP_PROGRAMS[CURRENT_PROGRAM].LookupIndex(DSP_Primitive_Types.Ducker8x8, 0, 0);
+            int PrimitiveIndex = DSP_PROGRAMS[CURRENT_PROGRAM].LookupIndex(DSP_Primitive_Type.Ducker8x8, 0, 0);
 
             if (PrimitiveIndex < 0)
             {
@@ -1390,6 +1498,8 @@ namespace SA_Resources.SAForms
 
             using (DuckerForm8x8 duckerForm = new DuckerForm8x8(this, Active_Primitive))
             {
+                activeForm = duckerForm;
+
                 // passing this in ShowDialog will set the .Owner 
                 // property of the child form
 
@@ -1439,6 +1549,9 @@ namespace SA_Resources.SAForms
 
             using (FilterDesignerForm filterForm = new FilterDesignerForm(this, num_primitives, ch_num, primitive_offset))
             {
+
+                activeForm = filterForm;
+
                 DialogResult showBlock = filterForm.ShowDialog(this);
 
                 if (showBlock == DialogResult.Cancel)
@@ -1466,12 +1579,12 @@ namespace SA_Resources.SAForms
             int ch_num = int.Parse(((PictureButton)sender).Name.Substring(13, 1));
             int prim_position = int.Parse(((PictureButton)sender).Name.Substring(14, 1));
 
-            int PrimitiveIndex = DSP_PROGRAMS[CURRENT_PROGRAM].LookupIndex(DSP_Primitive_Types.Compressor, ch_num, prim_position);
+            int PrimitiveIndex = DSP_PROGRAMS[CURRENT_PROGRAM].LookupIndex(DSP_Primitive_Type.Compressor, ch_num, prim_position);
 
             if (PrimitiveIndex < 0)
             {
                 // Couldn't find a compressor, let's see if we have a limiter there instead
-                PrimitiveIndex = DSP_PROGRAMS[CURRENT_PROGRAM].LookupIndex(DSP_Primitive_Types.Limiter, ch_num, prim_position);
+                PrimitiveIndex = DSP_PROGRAMS[CURRENT_PROGRAM].LookupIndex(DSP_Primitive_Type.Limiter, ch_num, prim_position);
             }
 
             if (PrimitiveIndex < 0)
@@ -1504,6 +1617,8 @@ namespace SA_Resources.SAForms
 
             using (CompressorForm compressorForm = new CompressorForm(this, Active_Primitive))
             {
+                activeForm = compressorForm;
+
                 DialogResult showBlock = compressorForm.ShowDialog(this);
 
                 if (showBlock == DialogResult.Cancel)
@@ -1536,7 +1651,7 @@ namespace SA_Resources.SAForms
 
             DSP_Primitive_Delay Active_Primitive;
 
-            int PrimitiveIndex = DSP_PROGRAMS[CURRENT_PROGRAM].LookupIndex(DSP_Primitive_Types.Delay, ch_num, 0);
+            int PrimitiveIndex = DSP_PROGRAMS[CURRENT_PROGRAM].LookupIndex(DSP_Primitive_Type.Delay, ch_num, 0);
 
             if (PrimitiveIndex < 0)
             {
@@ -1556,6 +1671,8 @@ namespace SA_Resources.SAForms
             
             using (DelayForm delayForm = new DelayForm(this, Active_Primitive))
             {
+
+                activeForm = delayForm;
 
                 DialogResult showBlock = delayForm.ShowDialog(this);
 
@@ -1583,6 +1700,8 @@ namespace SA_Resources.SAForms
         public void btnStandardGain_MouseClick(object sender, MouseEventArgs e)
         {
 
+            
+
             if (e.Button == MouseButtons.Right)
             {
                 return;
@@ -1593,7 +1712,7 @@ namespace SA_Resources.SAForms
 
             DSP_Primitive_StandardGain Active_Primitive;
 
-            int PrimitiveIndex = DSP_PROGRAMS[CURRENT_PROGRAM].LookupIndex(DSP_Primitive_Types.StandardGain, ch_num, pos);
+            int PrimitiveIndex = DSP_PROGRAMS[CURRENT_PROGRAM].LookupIndex(DSP_Primitive_Type.StandardGain, ch_num, pos);
 
             if (PrimitiveIndex < 0)
             {
@@ -1610,8 +1729,9 @@ namespace SA_Resources.SAForms
 
             
 
-            using (GainForm gainForm = new GainForm(this, Active_Primitive, DSP_Primitive_Types.StandardGain))
+            using (GainForm gainForm = new GainForm(this, Active_Primitive, DSP_Primitive_Type.StandardGain))
             {
+                activeForm = gainForm;
 
                 gainForm.Width = LIVE_MODE ? Helpers.NormalizeFormDimension(187) : Helpers.NormalizeFormDimension(132);
                 gainForm.Height = Helpers.NormalizeFormDimension(414);
@@ -1637,21 +1757,29 @@ namespace SA_Resources.SAForms
             }
         }
 
+        public Point LowerLeftOfControl(Control inputControl, bool inPanel = true)
+        {
+
+            Point returnPoint = new Point(inputControl.Location.X, inputControl.Location.Y + inputControl.Height);
+
+            if (inPanel)
+            {
+                returnPoint.X = returnPoint.X + inputControl.Parent.Location.X;
+                returnPoint.Y = returnPoint.Y + inputControl.Parent.Location.Y;
+            }
+
+            return PointToScreen(returnPoint);
+        }
 
         public void btnPregain_MouseClick(object sender, MouseEventArgs e)
         {
-
-            if (e.Button == MouseButtons.Right)
-            {
-                return;
-            }
 
             int ch_num = int.Parse(((PictureButton)sender).Name.Substring(7, 1));
             int pos = int.Parse(((PictureButton)sender).Name.Substring(8, 1));
 
             DSP_Primitive_Pregain Active_Primitive;
 
-            int PrimitiveIndex = DSP_PROGRAMS[CURRENT_PROGRAM].LookupIndex(DSP_Primitive_Types.Pregain, ch_num, pos);
+            int PrimitiveIndex = DSP_PROGRAMS[CURRENT_PROGRAM].LookupIndex(DSP_Primitive_Type.Pregain, ch_num, pos);
 
             if (PrimitiveIndex < 0)
             {
@@ -1665,11 +1793,17 @@ namespace SA_Resources.SAForms
 
             DSP_Primitive_Pregain Cached_Primitive = (DSP_Primitive_Pregain)Active_Primitive.Clone();
 
+            if (e.Button == MouseButtons.Right)
+            {
+                menuBlockCopy.Show(LowerLeftOfControl((PictureButton)sender));
 
-
+                return;
+            }
 
             using (PregainForm gainForm = new PregainForm(this, Active_Primitive))
             {
+
+                activeForm = gainForm;
 
                 gainForm.Width = LIVE_MODE ? Helpers.NormalizeFormDimension(187) : Helpers.NormalizeFormDimension(132);
                 gainForm.Height = Helpers.NormalizeFormDimension(414);
@@ -2154,6 +2288,7 @@ namespace SA_Resources.SAForms
             if (chkDebugLiveMode.Checked)
             {
                 this.LIVE_MODE = true;
+                this.BeginLiveMode();
             }
             else
             {
@@ -2167,6 +2302,12 @@ namespace SA_Resources.SAForms
         }
 
     }
+
+
+    #region Copy & Paste Handler
+
+
+    #endregion
 
     #region Toolstrip Custom Renderer Class
 

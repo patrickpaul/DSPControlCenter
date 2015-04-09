@@ -17,7 +17,7 @@ namespace SA_Resources.DSP.Primitives
         {
             OutputName = "Output #" + (in_channel + 1).ToString("N0");
 
-            this.Type = DSP_Primitive_Types.Output;
+            this.Type = DSP_Primitive_Type.Output;
 
             NameValues = new List<UInt32>();
             NameOffset = in_nameOffset; 
@@ -30,7 +30,7 @@ namespace SA_Resources.DSP.Primitives
         {
             OutputName = _name;
 
-            this.Type = DSP_Primitive_Types.Output;
+            this.Type = DSP_Primitive_Type.Output;
 
             NameValues = new List<UInt32>();
             NameOffset = in_nameOffset;

@@ -12,6 +12,8 @@ using SA_Resources.USB;
 
 namespace SA_Resources.SAControls
 {
+    
+
     public partial class SignalMeter_Small : PictureBox
     {
         private double db_value;
@@ -22,6 +24,8 @@ namespace SA_Resources.SAControls
         private Thread MeterThread;
         public DeviceBridge DeviceConn = null;
 
+        public event SignalMeterEventHandler OnChange;
+
         public SignalMeter_Small()
         {
             _threadlock = new object();
@@ -30,6 +34,22 @@ namespace SA_Resources.SAControls
             this.Size = new Size(30,157);
             this.DB = -35;
         }
+
+        protected void OnChangeEvent(SignalMeterEventargs e)
+        {
+            if (this.OnChange != null)
+            {
+                try
+                {
+                    OnChange(this, e);
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("Exception in SignalMeter_Small.OnChangeEvent: " + ex.Message);
+                }
+            }
+        } 
+
 
         private int scale_between(double value, double upper, double lower, int pixel_upper, int pixel_lower)
         {
@@ -153,6 +173,10 @@ namespace SA_Resources.SAControls
 
                         read_value = DeviceConn.Read_Live_DSP_Value(this.Address);
 
+                        SignalMeterEventargs args = new SignalMeterEventargs(this.Address,read_value);
+
+                        OnChangeEvent(args);
+
                         if (read_value != 0xFFFFFFFF)
                         {
                             converted_value = DSP_Math.MN_to_double_signed(read_value, 1, 31);
@@ -225,6 +249,24 @@ namespace SA_Resources.SAControls
             
         }
 
+        public delegate void SignalMeterEventHandler(object sender, SignalMeterEventargs e);
+
 
     }
+
+    public class SignalMeterEventargs : EventArgs
+    {
+        // Constructor.
+        public SignalMeterEventargs(UInt32 _address, UInt32 _newValue)
+        {
+            ReadValue = _newValue;
+            Address = _address;
+        }
+        // Properties.
+
+        public UInt32 ReadValue;
+        public UInt32 Address;
+
+    }
+
 }

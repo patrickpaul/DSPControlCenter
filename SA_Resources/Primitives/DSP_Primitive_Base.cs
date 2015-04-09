@@ -12,7 +12,7 @@ namespace SA_Resources.DSP.Primitives
         public int PositionA;
         public int PositionB;
         public string Name;
-        public DSP_Primitive_Types Type = DSP_Primitive_Types.Unknown;
+        public DSP_Primitive_Type Type = DSP_Primitive_Type.Unknown;
 
         public DSP_Primitive(string in_name, int in_channel, int in_positionA = 0, int in_positionB = -1)
         {

@@ -89,7 +89,7 @@ namespace SA_Resources.DSP.Primitives
 
             PlainValue_Offset = in_plainvalue_offset;
 
-            this.Type = DSP_Primitive_Types.Ducker8x8;
+            this.Type = DSP_Primitive_Type.Ducker8x8;
             this.Num_Values = 22;
 
             for (int i = 0; i < NUM_CHANNELS; i ++)
@@ -118,7 +118,7 @@ namespace SA_Resources.DSP.Primitives
 
             PlainValue_Offset = in_plainvalue_offset;
             
-            this.Type = DSP_Primitive_Types.Ducker8x8;
+            this.Type = DSP_Primitive_Type.Ducker8x8;
             this.Num_Values = 22;
 
             for (int i = 0; i < NUM_CHANNELS; i++)

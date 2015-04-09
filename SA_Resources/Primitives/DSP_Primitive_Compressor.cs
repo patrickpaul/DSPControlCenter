@@ -32,12 +32,12 @@ namespace SA_Resources.DSP.Primitives
         public UInt16 METER1, METER2;
 
 
-        public DSP_Primitive_Compressor(string in_name, int in_channel, int in_positionA, DSP_Primitive_Types in_type = DSP_Primitive_Types.Compressor)
+        public DSP_Primitive_Compressor(string in_name, int in_channel, int in_positionA, DSP_Primitive_Type inType = DSP_Primitive_Type.Compressor)
             : base(in_name,in_channel,in_positionA)
         {
             Threshold = -20; //-20
 
-            if (in_type == DSP_Primitive_Types.Compressor)
+            if (inType == DSP_Primitive_Type.Compressor)
             {
                 Ratio = 2;
             }
@@ -50,7 +50,7 @@ namespace SA_Resources.DSP.Primitives
             Release = 0.1; // 100ms
             SoftKnee = true;
             Bypassed = true;
-            this.Type = in_type;
+            this.Type = inType;
             this.Num_Values = 6;
         }
 
@@ -65,7 +65,7 @@ namespace SA_Resources.DSP.Primitives
             Release = rel;
             SoftKnee = sk;
             Bypassed = bypassed;
-            this.Type = DSP_Primitive_Types.Compressor;
+            this.Type = DSP_Primitive_Type.Compressor;
             this.Num_Values = 6;
         }
 

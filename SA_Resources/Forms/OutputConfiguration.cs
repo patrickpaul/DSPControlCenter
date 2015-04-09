@@ -51,7 +51,7 @@ namespace SA_Resources.SAForms
                 {
                     gainMeterOut.Visible = true;
                     gainMeterOut.DeviceConn = PARENT_FORM.DeviceConn;
-                    gainMeterOut.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.Output, Active_Primitive.Channel, 0).Address;
+                    gainMeterOut.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Type.Output, Active_Primitive.Channel, 0).Address;
                     gainMeterOut.Start();
                     panelRS232.Visible = true;
                 }

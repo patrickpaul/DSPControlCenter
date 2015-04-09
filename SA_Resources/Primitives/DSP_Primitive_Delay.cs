@@ -17,7 +17,7 @@ namespace SA_Resources.DSP.Primitives
         {
             Bypassed = true;
             Delay = 0;
-            this.Type = DSP_Primitive_Types.Delay; ;
+            this.Type = DSP_Primitive_Type.Delay; ;
             this.Num_Values = 2;
         }
 
@@ -26,7 +26,7 @@ namespace SA_Resources.DSP.Primitives
         {
             Bypassed = in_bypassed;
             Delay = in_delay;
-            this.Type = DSP_Primitive_Types.Delay;
+            this.Type = DSP_Primitive_Type.Delay;
             this.Num_Values = 2;
         }
 

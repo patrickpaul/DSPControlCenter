@@ -51,7 +51,7 @@ namespace SA_Resources.SAForms
 
             for (int i = 0; i < num_filters; i++)
             {
-                SingleFilterPrimitive = (DSP_Primitive_BiquadFilter)PARENT_FORM.DSP_PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].LookupPrimitive(DSP_Primitive_Types.BiquadFilter,ch_num,starting_filter_index++);
+                SingleFilterPrimitive = (DSP_Primitive_BiquadFilter)PARENT_FORM.DSP_PROGRAMS[PARENT_FORM.CURRENT_PROGRAM].LookupPrimitive(DSP_Primitive_Type.BiquadFilter,ch_num,starting_filter_index++);
 
                 SingleFilterPrimitive.IsPremix = isPremix;
 

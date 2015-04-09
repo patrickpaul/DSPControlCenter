@@ -71,7 +71,7 @@ namespace SA_Resources.SAForms
 
             PARENT_FORM = _parentForm;
 
-            if (Active_Primitive.Type == DSP_Primitive_Types.Compressor)
+            if (Active_Primitive.Type == DSP_Primitive_Type.Compressor)
             {
                 is_limiter = false;
             }
@@ -144,8 +144,7 @@ namespace SA_Resources.SAForms
                     KneedResponseLine.Enabled = false;
                     StraightResponseLine.Enabled = true;
                 }
-
-
+                 
                 chkBypass.Checked = Active_Primitive.Bypassed;
 
 
@@ -155,11 +154,11 @@ namespace SA_Resources.SAForms
                     gainMeterOut.Visible = true;
 
                     gainMeterIn.DeviceConn = PARENT_FORM.DeviceConn;
-                    gainMeterIn.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.Compressor, Active_Primitive.Channel, compLimOffset, 0).Address;
+                    gainMeterIn.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Type.Compressor, Active_Primitive.Channel, compLimOffset, 0).Address;
                     gainMeterIn.Start();
 
                     gainMeterOut.DeviceConn = PARENT_FORM.DeviceConn;
-                    gainMeterOut.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Types.Compressor, Active_Primitive.Channel, compLimOffset, 1).Address;
+                    gainMeterOut.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Type.Compressor, Active_Primitive.Channel, compLimOffset, 1).Address;
                     gainMeterOut.Start();
 
                     lblIn.Visible = true;

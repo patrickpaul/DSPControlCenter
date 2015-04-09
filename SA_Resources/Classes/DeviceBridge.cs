@@ -12,9 +12,11 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.IO.Ports;
 using System.Linq;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace SA_Resources.USB
 {
@@ -107,7 +109,7 @@ namespace SA_Resources.USB
         {
             try
             {
-                return _USBConn.WriteByteArrayVerifyReturn(new byte[] { 0x02, 0x05, 0x03 }, new byte[] { 0x06, 0x05, 0x03 }, 1000);
+                return _USBConn.WriteByteArrayVerifyReturn(new byte[] { 0x02, 0x05, 0x03 }, new byte[] { 0x06, 0x05, 0x03 }, 4000);
             }
             catch (Exception ex)
             {
@@ -224,47 +226,81 @@ namespace SA_Resources.USB
         {
             try
             {
-                _USBConn.FlushBuffer();
-
-                if (!_USBConn.IsOpen) { return 0xFFFFFFFF; }
-
-                uint byte4 = DSP_address & 0xFF;
-                DSP_address = DSP_address >> 8;
-
-                uint byte3 = DSP_address & 0xFF;
-                DSP_address = DSP_address >> 8;
-
-                uint byte2 = DSP_address & 0xFF;
-
-                uint byte1 = DSP_address >> 8;
-
-                Byte[] readBytes;
-
-                _USBConn.ReadLiveByteArray(new byte[] { 0x08, (byte)byte1, (byte)byte2, (byte)byte3, (byte)byte4, 0x03 }, out readBytes);
-
-
-                if (readBytes.Count() < 6)
+                
+                //Stopwatch sw = new Stopwatch();
+                //sw.Start();
+                lock (DEVICE_LOCK)
                 {
+                    //FileStream fs = new FileStream(@"C:\meterStats.txt", FileMode.Append);
+                    /// First, save the standard output.
+                    //TextWriter tmp = Console.Out;
+                    //StreamWriter streamWriter = new StreamWriter(fs);
+                    //Console.SetOut(streamWriter);
+
+
+                    //sw.Stop();
+                    //Console.WriteLine("Waited " + sw.ElapsedMilliseconds + "ms for lock to release");
+                    //sw.Restart();
+
+                    _USBConn.FlushBuffer();
+
+                    if (!_USBConn.IsOpen)
+                    {
+                        return 0xFFFFFFFF;
+                    }
+
+                    uint byte4 = DSP_address & 0xFF;
+                    DSP_address = DSP_address >> 8;
+
+                    uint byte3 = DSP_address & 0xFF;
+                    DSP_address = DSP_address >> 8;
+
+                    uint byte2 = DSP_address & 0xFF;
+
+                    uint byte1 = DSP_address >> 8;
+
+                    Byte[] readBytes;
+
+                    _USBConn.ReadLiveByteArray(new byte[] {0x08, (byte) byte1, (byte) byte2, (byte) byte3, (byte) byte4, 0x03}, out readBytes);
+
+
+                    if (readBytes.Count() < 6)
+                    {
+                        //sw.Stop();
+                        //Console.WriteLine("Returned a BAD1 value " + sw.ElapsedMilliseconds + "ms later");
+                        return 0xFFFFFFFF;
+                    }
+
+                    if ((readBytes[0] == 0x06) && (readBytes[5] == 0x03))
+                    {
+                        /* INTENTIONAL REVERSAL!! */
+                        UInt32 test_value = 0x00000000 | (uint) readBytes[1];
+                        test_value = test_value << 8;
+                        test_value = test_value | (uint) readBytes[2];
+                        test_value = test_value << 8;
+                        test_value = test_value | (uint) readBytes[3];
+                        test_value = test_value << 8;
+                        test_value = test_value | (uint) readBytes[4];
+
+                        FlushBuffer();
+
+                        //sw.Stop();
+                        //Console.WriteLine("Returned a value " + sw.ElapsedMilliseconds + "ms later");
+
+                        //streamWriter.Close();
+                        //fs.Close(); 
+                        return test_value;
+                    }
+
+                    //sw.Stop();
+                    //Console.WriteLine("Returned a BAD value " + sw.ElapsedMilliseconds + "ms later");
+
+                    //fs.Close();
+                    //streamWriter.Close();
                     return 0xFFFFFFFF;
+
+                    
                 }
-
-                if ((readBytes[0] == 0x06) && (readBytes[5] == 0x03))
-                {
-                    /* INTENTIONAL REVERSAL!! */
-                    UInt32 test_value = 0x00000000 | (uint) readBytes[1];
-                    test_value = test_value << 8;
-                    test_value = test_value | (uint) readBytes[2];
-                    test_value = test_value << 8;
-                    test_value = test_value | (uint) readBytes[3];
-                    test_value = test_value << 8;
-                    test_value = test_value | (uint) readBytes[4];
-
-                    FlushBuffer();
-
-                    return test_value;
-                }
-
-                return 0xFFFFFFFF;
 
             }
             catch (Exception ex)
@@ -329,11 +365,13 @@ namespace SA_Resources.USB
                 buff[6] = (byte)byte4;
                 buff[7] = 0x03;
 
+                EventLog appLog = new EventLog();
+                appLog.Source = "DSP Control Center";
 
                 for (int retry_count = 0; retry_count < 3; retry_count++)
                 {
                     serialPort.Write(buff, 0, 8);
-                    Thread.Sleep(40);
+                    Thread.Sleep(50);
 
                     if (serialPort.BytesToRead >= 4)
                     {
@@ -347,6 +385,9 @@ namespace SA_Resources.USB
                             return true;
                         }
 
+                        appLog.WriteEntry("Bad SetLiveDSP Response. Address: " + address_index + ", Data: " + value.ToString("X8") + ", Retry Count: " + retry_count + ", Bytes to read: " + serialPort.BytesToRead + ", Read Data: " + string.Concat(bytes.Select(b => b.ToString("X2")).ToArray()));
+                                        
+
                         if (bytes[0] == 0x15)
                         {
                             PrintError(bytes[1]);
@@ -358,6 +399,8 @@ namespace SA_Resources.USB
                         FlushBuffer();
                     }
                 }
+
+                appLog.WriteEntry("NO SetLiveDSP Response. Address: " + address_index + ", Data: " + value.ToString("X8"));
 
                 return false;
             }
@@ -645,7 +688,7 @@ namespace SA_Resources.USB
                     else
                     {
 #if DEBUG
-                        //MessageBox.Show("CRC INVALID! - CRC=" + rx_buffer[0] + ", Expecting - " + checksum + ", BTR=" + bytes_to_read);
+                        MessageBox.Show("CRC INVALID! - CRC=" + rx_buffer[0] + ", Expecting - " + checksum + ", BTR=" + bytes_to_read);
 #endif
                         error_found = true;
                     }
@@ -654,10 +697,30 @@ namespace SA_Resources.USB
             }
 
 
+            int ms_waited = 0;
+            int max_ms_to_wait = 250;
+
+            bool timed_out = false;
 
             while (serialPort.BytesToRead < 5)
             {
+                Thread.Sleep(50);
+                ms_waited += 50;
 
+                if (ms_waited >= max_ms_to_wait)
+                {
+                    timed_out = true;
+                    break;
+                }
+            }
+
+            if (timed_out)
+            {
+#if DEBUG
+                MessageBox.Show("Timed out after writing flash stream");
+#endif  
+
+                return false;
             }
 
             if (serialPort.BytesToRead >= 5)
@@ -674,7 +737,7 @@ namespace SA_Resources.USB
                 else
                 {
 #if DEBUG
-                    //MessageBox.Show("Invalid response from write to flash page");
+                    MessageBox.Show("Invalid response from write to flash page");
 #endif  
                     error_found = true;
                 }

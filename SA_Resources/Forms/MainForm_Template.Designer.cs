@@ -361,7 +361,6 @@ namespace SA_Resources.SAForms
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(175, 6);
-            this.toolStripSeparator1.Visible = false;
             // 
             // toolStripMenuItem6
             // 
@@ -370,7 +369,6 @@ namespace SA_Resources.SAForms
             this.toolStripMenuItem6.Name = "toolStripMenuItem6";
             this.toolStripMenuItem6.Size = new System.Drawing.Size(178, 22);
             this.toolStripMenuItem6.Text = "Clear Configuration";
-            this.toolStripMenuItem6.Visible = false;
             // 
             // chkDebugLiveMode
             // 

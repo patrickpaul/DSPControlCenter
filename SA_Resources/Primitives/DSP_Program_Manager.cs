@@ -52,22 +52,22 @@ namespace SA_Resources.DSP.Primitives
             PRIMITIVES.Add(in_primitive);
         }
 
-        public int LookupIndex(DSP_Primitive_Types in_type, int in_ch, int in_positiona, int in_positionb = -1)
+        public int LookupIndex(DSP_Primitive_Type inType, int in_ch, int in_positiona, int in_positionb = -1)
         {
             return PRIMITIVES.FindIndex(
                 prim => 
-                    (prim.Type == in_type) && 
+                    (prim.Type == inType) && 
                     (prim.Channel == in_ch) && 
                     (prim.PositionA == in_positiona)
                 );
 
         }
 
-        public DSP_Primitive LookupPrimitive(DSP_Primitive_Types in_type, int in_ch, int in_positiona, int in_positionb = -1)
+        public DSP_Primitive LookupPrimitive(DSP_Primitive_Type inType, int in_ch, int in_positiona, int in_positionb = -1)
         {
             return PRIMITIVES.Find(
                 prim =>
-                    (prim.Type == in_type) &&
+                    (prim.Type == inType) &&
                     (prim.Channel == in_ch) &&
                     (prim.PositionA == in_positiona)
                 );
@@ -103,8 +103,8 @@ namespace SA_Resources.DSP.Primitives
             {
                 switch (SinglePrimitive.Type)
                 {
-                    case DSP_Primitive_Types.Compressor:
-                    case DSP_Primitive_Types.Limiter:
+                    case DSP_Primitive_Type.Compressor:
+                    case DSP_Primitive_Type.Limiter:
 
                         PrimitiveButton = (PictureButton)(PARENT_FORM.Controls.Find("btnCompressor" + (SinglePrimitive.Channel) + (SinglePrimitive.PositionA), true).FirstOrDefault());
 
@@ -115,7 +115,7 @@ namespace SA_Resources.DSP.Primitives
 
                     break;
 
-                    case DSP_Primitive_Types.StandardGain:
+                    case DSP_Primitive_Type.StandardGain:
 
                     PrimitiveButton = (PictureButton)(PARENT_FORM.Controls.Find("btnGain" + SinglePrimitive.Channel + SinglePrimitive.PositionA, true).FirstOrDefault());
 
@@ -126,7 +126,7 @@ namespace SA_Resources.DSP.Primitives
 
                     break;
                     
-                    case DSP_Primitive_Types.Pregain:
+                    case DSP_Primitive_Type.Pregain:
                         
                     PrimitiveButton = (PictureButton)(PARENT_FORM.Controls.Find("btnGain" + SinglePrimitive.Channel + SinglePrimitive.PositionA, true).FirstOrDefault());
 
@@ -138,7 +138,7 @@ namespace SA_Resources.DSP.Primitives
                     break;
                     
                     
-                    case DSP_Primitive_Types.BiquadFilter:
+                    case DSP_Primitive_Type.BiquadFilter:
 
                         if (SinglePrimitive.PositionA == 0)
                         {
@@ -161,7 +161,7 @@ namespace SA_Resources.DSP.Primitives
                     break;
                     
                     
-                    case DSP_Primitive_Types.Delay:
+                    case DSP_Primitive_Type.Delay:
 
                         PrimitiveButton = (PictureButton)(PARENT_FORM.Controls.Find("btnCH" + (SinglePrimitive.Channel + 1) + "Delay", true).FirstOrDefault());
 
@@ -172,7 +172,7 @@ namespace SA_Resources.DSP.Primitives
 
                     break;
 
-                    case DSP_Primitive_Types.Input:
+                    case DSP_Primitive_Type.Input:
 
                     PrimitiveLabel = (Label)(PARENT_FORM.Controls.Find("lblCH" + (SinglePrimitive.Channel + 1) + "Input", true).FirstOrDefault());
 
@@ -183,7 +183,7 @@ namespace SA_Resources.DSP.Primitives
 
                     break;
 
-                    case DSP_Primitive_Types.Output:
+                    case DSP_Primitive_Type.Output:
 
                     PrimitiveLabel = (Label)(PARENT_FORM.Controls.Find("lblCH" + (SinglePrimitive.Channel + 1) + "Output", true).FirstOrDefault());
 
@@ -194,7 +194,7 @@ namespace SA_Resources.DSP.Primitives
 
                     break;
 
-                    case DSP_Primitive_Types.Ducker4x4:
+                    case DSP_Primitive_Type.Ducker4x4:
 
                     PrimitiveButton = (PictureButton)(PARENT_FORM.Controls.Find("pbtnDucker", true).FirstOrDefault());
 
@@ -206,7 +206,7 @@ namespace SA_Resources.DSP.Primitives
 
                     break;
 
-                    case DSP_Primitive_Types.Ducker6x6:
+                    case DSP_Primitive_Type.Ducker6x6:
 
                     PrimitiveButton = (PictureButton)(PARENT_FORM.Controls.Find("pbtnDucker", true).FirstOrDefault());
 
@@ -218,7 +218,7 @@ namespace SA_Resources.DSP.Primitives
 
                     break;
 
-                    case DSP_Primitive_Types.Ducker8x8:
+                    case DSP_Primitive_Type.Ducker8x8:
 
                     PrimitiveButton = (PictureButton)(PARENT_FORM.Controls.Find("pbtnDucker", true).FirstOrDefault());
 
@@ -263,7 +263,7 @@ namespace SA_Resources.DSP.Primitives
 
                         switch (singlePrimitive.Type)
                         {
-                            case DSP_Primitive_Types.StandardGain:
+                            case DSP_Primitive_Type.StandardGain:
 
                                 offset_counter = singlePrimitive.Offset;
                                 
@@ -276,7 +276,7 @@ namespace SA_Resources.DSP.Primitives
 
                                 break;
 
-                            case DSP_Primitive_Types.Pregain:
+                            case DSP_Primitive_Type.Pregain:
 
                                 offset_counter = singlePrimitive.Offset;
 
@@ -290,7 +290,7 @@ namespace SA_Resources.DSP.Primitives
                                 break;
 
 
-                            case DSP_Primitive_Types.BiquadFilter:
+                            case DSP_Primitive_Type.BiquadFilter:
 
                                 DSP_Primitive_BiquadFilter RecastFilter = ((DSP_Primitive_BiquadFilter) singlePrimitive);
                                 RecastFilter.Recalculate_Values();
@@ -310,8 +310,8 @@ namespace SA_Resources.DSP.Primitives
 
                             break;
 
-                            case DSP_Primitive_Types.Compressor:
-                            case DSP_Primitive_Types.Limiter:
+                            case DSP_Primitive_Type.Compressor:
+                            case DSP_Primitive_Type.Limiter:
 
                             offset_counter = singlePrimitive.Offset;
 
@@ -325,7 +325,7 @@ namespace SA_Resources.DSP.Primitives
 
                             break;
 
-                            case DSP_Primitive_Types.Ducker4x4:
+                            case DSP_Primitive_Type.Ducker4x4:
 
                                 DSP_Primitive_Ducker4x4 RecastDucker = ((DSP_Primitive_Ducker4x4)singlePrimitive);
 
@@ -342,7 +342,7 @@ namespace SA_Resources.DSP.Primitives
                                 WRITE_VALUE_CACHE[RecastDucker.PlainValue_Offset] = RecastDucker.Ducker_Package;
                             break;
 
-                            case DSP_Primitive_Types.Ducker6x6:
+                            case DSP_Primitive_Type.Ducker6x6:
 
                             DSP_Primitive_Ducker6x6 RecastDucker6x6 = ((DSP_Primitive_Ducker6x6)singlePrimitive);
 
@@ -359,7 +359,7 @@ namespace SA_Resources.DSP.Primitives
                             WRITE_VALUE_CACHE[RecastDucker6x6.PlainValue_Offset] = RecastDucker6x6.Ducker_Package;
                             break;
 
-                            case DSP_Primitive_Types.Ducker8x8:
+                            case DSP_Primitive_Type.Ducker8x8:
 
                             DSP_Primitive_Ducker8x8 RecastDucker8x8 = ((DSP_Primitive_Ducker8x8)singlePrimitive);
 
@@ -376,7 +376,7 @@ namespace SA_Resources.DSP.Primitives
                             WRITE_VALUE_CACHE[RecastDucker8x8.PlainValue_Offset] = RecastDucker8x8.Ducker_Package;
                             break;
 
-                            case DSP_Primitive_Types.MixerCrosspoint:
+                            case DSP_Primitive_Type.MixerCrosspoint:
 
                                 offset_counter = singlePrimitive.Offset;
 
@@ -391,7 +391,7 @@ namespace SA_Resources.DSP.Primitives
                             break;
                             
                             
-                            case DSP_Primitive_Types.Delay:
+                            case DSP_Primitive_Type.Delay:
 
                             offset_counter = singlePrimitive.Offset;
                             
@@ -406,7 +406,7 @@ namespace SA_Resources.DSP.Primitives
 
                             break;
 
-                            case DSP_Primitive_Types.Input:
+                            case DSP_Primitive_Type.Input:
 
                             DSP_Primitive_Input RecastInput = ((DSP_Primitive_Input)singlePrimitive);
 
@@ -429,7 +429,7 @@ namespace SA_Resources.DSP.Primitives
                             break;
 
 
-                            case DSP_Primitive_Types.Output:
+                            case DSP_Primitive_Type.Output:
 
                             DSP_Primitive_Output RecastOutput = ((DSP_Primitive_Output)singlePrimitive);
 
@@ -528,7 +528,7 @@ namespace SA_Resources.DSP.Primitives
                     {
                         PhantomMask <<= 1;
 
-                        InputPrimitive = (DSP_Primitive_Input)this.LookupPrimitive(DSP_Primitive_Types.Input, i - 1, 0);
+                        InputPrimitive = (DSP_Primitive_Input)this.LookupPrimitive(DSP_Primitive_Type.Input, i - 1, 0);
 
                         if (InputPrimitive.PhantomAvailable)
                         {
@@ -651,12 +651,12 @@ namespace SA_Resources.DSP.Primitives
                 {
                     Single_Primitive_Values.Clear();
 
-                    if (singlePrimitive.Type == DSP_Primitive_Types.Input || singlePrimitive.Type == DSP_Primitive_Types.Output)
+                    if (singlePrimitive.Type == DSP_Primitive_Type.Input || singlePrimitive.Type == DSP_Primitive_Type.Output)
                     {
                         continue;
                     }
 
-                    if (singlePrimitive.Type == DSP_Primitive_Types.BiquadFilter)
+                    if (singlePrimitive.Type == DSP_Primitive_Type.BiquadFilter)
                     {
 
                         SingleFilterPrimitive = (DSP_Primitive_BiquadFilter) singlePrimitive;
@@ -691,8 +691,8 @@ namespace SA_Resources.DSP.Primitives
             {
                 for (int i = 0; i < PARENT_FORM.GetNumInputChannels(); i++)
                 {
-                    InputPrimitive = (DSP_Primitive_Input) PARENT_FORM.DSP_PROGRAMS[this.Index].LookupPrimitive(DSP_Primitive_Types.Input, i, 0);
-                    PregainPrimitive = (DSP_Primitive_Pregain) PARENT_FORM.DSP_PROGRAMS[this.Index].LookupPrimitive(DSP_Primitive_Types.Pregain, i, 0);
+                    InputPrimitive = (DSP_Primitive_Input) PARENT_FORM.DSP_PROGRAMS[this.Index].LookupPrimitive(DSP_Primitive_Type.Input, i, 0);
+                    PregainPrimitive = (DSP_Primitive_Pregain) PARENT_FORM.DSP_PROGRAMS[this.Index].LookupPrimitive(DSP_Primitive_Type.Pregain, i, 0);
 
                     InputPrimitive.PhantomPower = ((READ_VALUE_CACHE[566] & 0x01) == 1);
 
@@ -717,7 +717,7 @@ namespace SA_Resources.DSP.Primitives
                 // Output settings - Name
                 for (int i = 0; i < PARENT_FORM.GetNumOutputChannels(); i++)
                 {
-                    OutputPrimitive = (DSP_Primitive_Output) PARENT_FORM.DSP_PROGRAMS[this.Index].LookupPrimitive(DSP_Primitive_Types.Output, i, 0);
+                    OutputPrimitive = (DSP_Primitive_Output) PARENT_FORM.DSP_PROGRAMS[this.Index].LookupPrimitive(DSP_Primitive_Type.Output, i, 0);
 
                     OutputPrimitive.LoadNameFromValues(READ_VALUE_CACHE.GetRange(OutputPrimitive.NameOffset, 5));
 
@@ -734,20 +734,20 @@ namespace SA_Resources.DSP.Primitives
                 {
                     if (PARENT_FORM.GetNumNetworkInputChannels() > 2)
                     {
-                        DuckerPrimitive8x8= (DSP_Primitive_Ducker8x8)PARENT_FORM.DSP_PROGRAMS[this.Index].LookupPrimitive(DSP_Primitive_Types.Ducker8x8, 0, 0);
+                        DuckerPrimitive8x8= (DSP_Primitive_Ducker8x8)PARENT_FORM.DSP_PROGRAMS[this.Index].LookupPrimitive(DSP_Primitive_Type.Ducker8x8, 0, 0);
 
                         DuckerPrimitive8x8.UpdateFromPlainValues(READ_VALUE_CACHE[DuckerPrimitive8x8.PlainValue_Offset]);
                     }
                     else
                     {
-                        DuckerPrimitive6x6 = (DSP_Primitive_Ducker6x6)PARENT_FORM.DSP_PROGRAMS[this.Index].LookupPrimitive(DSP_Primitive_Types.Ducker6x6, 0, 0);
+                        DuckerPrimitive6x6 = (DSP_Primitive_Ducker6x6)PARENT_FORM.DSP_PROGRAMS[this.Index].LookupPrimitive(DSP_Primitive_Type.Ducker6x6, 0, 0);
 
                         DuckerPrimitive6x6.UpdateFromPlainValues(READ_VALUE_CACHE[DuckerPrimitive6x6.PlainValue_Offset]);
                     }
                 }
                 else
                 {
-                    DuckerPrimitive4x4 = (DSP_Primitive_Ducker4x4)PARENT_FORM.DSP_PROGRAMS[this.Index].LookupPrimitive(DSP_Primitive_Types.Ducker4x4, 0, 0);
+                    DuckerPrimitive4x4 = (DSP_Primitive_Ducker4x4)PARENT_FORM.DSP_PROGRAMS[this.Index].LookupPrimitive(DSP_Primitive_Type.Ducker4x4, 0, 0);
 
                     DuckerPrimitive4x4.UpdateFromPlainValues(READ_VALUE_CACHE[DuckerPrimitive4x4.PlainValue_Offset]);
                 }

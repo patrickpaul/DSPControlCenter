@@ -21,7 +21,8 @@ namespace SA_Resources.SAControls
         public bool InitialLoadComplete = false;
 
         public int Index = 0;
-        private bool SelectingNewFilter;
+        private bool SelectingNewFilter_BlockSlope;
+        private bool SelectingNewFilter_BlockBypass;
 
         private const int INDEX_NONE = 0;
         private const int INDEX_LOWPASS = 1;
@@ -182,8 +183,11 @@ namespace SA_Resources.SAControls
             }
         }
 
+        private bool loadingValues = false;
+
         private void LoadInitialValues()
         {
+            loadingValues = true;
             switch(FilterPrimitive.FType)
             {
                 case FilterType.FirstOrderLowPass:
@@ -325,6 +329,8 @@ namespace SA_Resources.SAControls
 
                     break;
             }
+
+            loadingValues = false;
         }
 
 
@@ -336,11 +342,19 @@ namespace SA_Resources.SAControls
                 return;
             }
 
-            
-
             FilterPrimitive.Bypassed = chkBypass.Checked;
 
-            OnChangeEvent(new FilterEventArgs(Index, FilterPrimitive));
+            if(SelectingNewFilter_BlockBypass)
+            {
+                SelectingNewFilter_BlockBypass = false;
+                return;
+            }
+
+            if (!loadingValues)
+            {
+                Console.WriteLine("Onchange Event called by chkBypass_CheckedChanged");
+                OnChangeEvent(new FilterEventArgs(Index, FilterPrimitive));
+            }
         }
 
         private void SetFrequencyVisibility(bool shown)
@@ -375,7 +389,8 @@ namespace SA_Resources.SAControls
 
             BandPassFilter toolFilter = new BandPassFilter(0, 0, 0);
 
-            SelectingNewFilter = true;
+            SelectingNewFilter_BlockSlope = true;
+            SelectingNewFilter_BlockBypass = true;
 
             chkBypass.Checked = false;
             switch(dropFilter.SelectedIndex)
@@ -536,6 +551,8 @@ namespace SA_Resources.SAControls
                 return;
             }
 
+            Console.WriteLine("Onchange Event called by dropFilter_SelectedIndexChanged"); 
+            
             OnChangeEvent(new FilterEventArgs(Index, FilterPrimitive));
 
             label1.Focus();
@@ -543,9 +560,9 @@ namespace SA_Resources.SAControls
 
         private void dropSlope_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(!InitialLoadComplete || FilterPrimitive == null || SelectingNewFilter)
+            if(!InitialLoadComplete || FilterPrimitive == null || SelectingNewFilter_BlockSlope)
             {
-                SelectingNewFilter = false;
+                SelectingNewFilter_BlockSlope = false;
                 return;
             }
 
@@ -582,6 +599,7 @@ namespace SA_Resources.SAControls
                 }
             }
 
+            Console.WriteLine("Onchange Event called by dropSlope_SelectedIndexChanged"); 
             OnChangeEvent(new FilterEventArgs(Index, FilterPrimitive));
 
         }
@@ -761,6 +779,7 @@ namespace SA_Resources.SAControls
                     active_textbox.Text = FilterPrimitive.Filter.SuggestedFrequency(parsed_value).ToString();
                     FilterPrimitive.Filter.CenterFrequency = FilterPrimitive.Filter.SuggestedFrequency(parsed_value);
 
+                    Console.WriteLine("Onchange Event called by UpdateFilterValuefromTextbox A"); 
                     OnChangeEvent(new FilterEventArgs(Index, FilterPrimitive, FilterChangeType.CenterFrequency));
                 }
             }
@@ -783,6 +802,7 @@ namespace SA_Resources.SAControls
                     }
 
                     FilterPrimitive.Filter.Gain = FilterPrimitive.Filter.SuggestedGain(parsed_value);
+                    Console.WriteLine("Onchange Event called by UpdateFilterValuefromTextbox B"); 
 
                     OnChangeEvent(new FilterEventArgs(Index, FilterPrimitive, FilterChangeType.Gain));
                 }
@@ -805,6 +825,7 @@ namespace SA_Resources.SAControls
                     //}
                     FilterPrimitive.Filter.QValue = FilterPrimitive.Filter.SuggestedQ(parsed_value);
 
+                    Console.WriteLine("Onchange Event called by UpdateFilterValuefromTextbox C"); 
                     OnChangeEvent(new FilterEventArgs(Index, FilterPrimitive, FilterChangeType.QVal));
                 }
 

@@ -142,6 +142,8 @@ namespace SA_Resources.USB
                             returnBytes = new Byte[serialPort.BytesToRead + 5];
 
                             serialPort.Read(returnBytes, 0, serialPort.BytesToRead);
+
+                            return;
                         }
                         else
                         {
@@ -227,7 +229,6 @@ namespace SA_Resources.USB
                 {
                     FlushBuffer();
 
-                    
 
                     if (!serialPort.IsOpen)
                     {
@@ -259,8 +260,11 @@ namespace SA_Resources.USB
                             Console.WriteLine("Did not have 6 bytes to read, flushing");
                             FlushBuffer();
                         }
+
+                        ms_counter = 0;
                     }
 
+                    // TODO - Remove this graceful exit
                     Console.WriteLine("Bad read");
 
                     returnBytes = new byte[0];
