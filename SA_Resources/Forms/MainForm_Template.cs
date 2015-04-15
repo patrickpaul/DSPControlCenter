@@ -100,7 +100,7 @@ namespace SA_Resources.SAForms
         //public CopyFormType CopyType;
         //public CopyFormType CutType;
 
-
+        public bool FLXDelayEnabled = true;
 
         public string SERIALNUM = "";
 
@@ -302,6 +302,42 @@ namespace SA_Resources.SAForms
 
             this.pbtn_Meters.Visible = true;
 
+            if (this.GetDeviceFamily() == DeviceFamily.FLX && this.FIRMWARE_VERSION < 1.8)
+            {
+                // We rolled the firmware revision on 4-13-15 to distinguish between units that had
+                // DSP firmware that supported Delay. Units shipped with FIRMWARE_VERSION 1.7 and
+                // lower to not have DSP firmware to support Delay so we must hide those blocks
+
+                FLXDelayEnabled = false;
+
+                MessageBox.Show("FLX devices with firmware version below 1.8 do not support delay. This feature has been disabled.", "Device Notificiation", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                for (int i = 0; i < this.GetNumOutputChannels(); i++)
+                {
+                    PictureButton PrimitiveButton;
+                    PrimitiveButton= ((PictureButton)Controls.Find("btnCH" + (i + 1) + "Delay", true).FirstOrDefault());
+
+                    if (PrimitiveButton != null)
+                    {
+                        PrimitiveButton.Visible = false;
+                    }
+
+                    PrimitiveButton = ((PictureButton)Controls.Find("btnCH" + (i) + "PostFilters", true).FirstOrDefault());
+                    if (PrimitiveButton != null)
+                    {
+                        PrimitiveButton.Location = new Point(110, 0);
+                    }
+
+                    PrimitiveButton = ((PictureButton)Controls.Find("btnCompressor" + (i) + "1", true).FirstOrDefault());
+                    if (PrimitiveButton != null)
+                    {
+                        PrimitiveButton.Location = new Point(190, 0);
+                    }
+
+
+                }             
+
+            }
 
             /* Removed because Sleep mode was removed from amplifiers
             if (this.IsAmplifier() && !(this.GetDeviceFamily() == DeviceFamily.DSP100))
@@ -345,6 +381,32 @@ namespace SA_Resources.SAForms
             if (this.IsAmplifier())
             {
                 this.pbtnSettings.Visible = false;
+            }
+
+            if (this.GetDeviceFamily() == DeviceFamily.FLX && this.FIRMWARE_VERSION < 1.8)
+            {
+                for (int i = 0; i < this.GetNumOutputChannels(); i++)
+                {
+                    PictureButton PrimitiveButton;
+                    PrimitiveButton = ((PictureButton) Controls.Find("btnCH" + (i + 1) + "Delay", true).FirstOrDefault());
+
+                    if (PrimitiveButton != null)
+                    {
+                        PrimitiveButton.Visible = true;
+                    }
+
+                    PrimitiveButton = ((PictureButton) Controls.Find("btnCH" + (i) + "PostFilters", true).FirstOrDefault());
+                    if (PrimitiveButton != null)
+                    {
+                        PrimitiveButton.Location = new Point(90, 0);
+                    }
+
+                    PrimitiveButton = ((PictureButton) Controls.Find("btnCompressor" + (i) + "1", true).FirstOrDefault());
+                    if (PrimitiveButton != null)
+                    {
+                        PrimitiveButton.Location = new Point(150, 0);
+                    }
+                }
             }
         }
 
@@ -2300,6 +2362,7 @@ namespace SA_Resources.SAForms
         {
             pbtn_Meters.Visible = true;
         }
+
 
     }
 

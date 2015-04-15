@@ -298,6 +298,7 @@ namespace SA_Resources.SAForms
             PARENT_FORM.ChangeProgram_AfterRead(program_index);
 
             PARENT_FORM.SetBridgeMode(PARENT_FORM.AmplifierMode);
+
             PARENT_FORM.BeginLiveMode();
             closeTimer.Enabled = true;
 

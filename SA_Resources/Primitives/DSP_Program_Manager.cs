@@ -394,13 +394,26 @@ namespace SA_Resources.DSP.Primitives
                             case DSP_Primitive_Type.Delay:
 
                             offset_counter = singlePrimitive.Offset;
-                            
-                            foreach (UInt32 singleValue in ((DSP_Primitive_Delay)singlePrimitive).Values)
-                            {
-                                WRITE_VALUE_CACHE[offset_counter++] = singleValue;
 
-                                //file.WriteLine(index_counter.ToString("0000") + ":" + singleValue.ToString("X8"));
+                            if (PARENT_FORM.GetDeviceFamily() == DeviceFamily.FLX && PARENT_FORM.FIRMWARE_VERSION < 1.8)
+                            {
+                                // Delay not supported for these devices.
+                                WRITE_VALUE_CACHE[offset_counter++] = 0x00000001;
+                                WRITE_VALUE_CACHE[offset_counter++] = 0x00000000;
                                 index_counter++;
+                                index_counter++;
+                            }
+                            else
+                            {
+                                foreach (UInt32 singleValue in ((DSP_Primitive_Delay) singlePrimitive).Values)
+                                {
+
+                                    WRITE_VALUE_CACHE[offset_counter++] = singleValue;
+
+
+                                    //file.WriteLine(index_counter.ToString("0000") + ":" + singleValue.ToString("X8"));
+                                    index_counter++;
+                                }
                             }
 
 

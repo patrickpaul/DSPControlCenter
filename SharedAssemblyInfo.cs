@@ -35,8 +35,8 @@ using System.Runtime.InteropServices;
 // to distinguish one build from another. AssemblyFileVersion is specified
 // in AssemblyVersionInfo.cs so that it can be easily incremented by the
 // automated build process.
-[assembly: AssemblyVersion("3.5.13.1012")]
-[assembly: AssemblyFileVersion("3.5.13.1012")]
+[assembly: AssemblyVersion("3.5.20.1900")]
+[assembly: AssemblyFileVersion("3.5.20.1900")]
 
 
 // By default, the "Product version" shown in the file properties window is
