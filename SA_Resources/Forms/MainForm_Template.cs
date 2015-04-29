@@ -310,9 +310,10 @@ namespace SA_Resources.SAForms
 
                 FLXDelayEnabled = false;
 
-                MessageBox.Show("FLX devices with firmware version below 1.8 do not support delay. This feature has been disabled.", "Device Notificiation", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                for (int i = 0; i < this.GetNumOutputChannels(); i++)
+                
+                // Note.. we have to use 4 instead of GetNumOutputChannels because of amps that use bridge mode
+                // 160-2 outputs are 1 and 3 for example
+                for (int i = 0; i < 4; i++)
                 {
                     PictureButton PrimitiveButton;
                     PrimitiveButton= ((PictureButton)Controls.Find("btnCH" + (i + 1) + "Delay", true).FirstOrDefault());
@@ -2349,12 +2350,14 @@ namespace SA_Resources.SAForms
         {
             if (chkDebugLiveMode.Checked)
             {
+                this.FIRMWARE_VERSION = 1.7;
                 this.LIVE_MODE = true;
                 this.BeginLiveMode();
             }
             else
             {
                 this.LIVE_MODE = false;
+                this.EndLiveMode();
             }
         }
 

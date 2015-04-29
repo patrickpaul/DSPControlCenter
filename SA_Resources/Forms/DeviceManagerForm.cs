@@ -211,11 +211,10 @@ namespace SA_Resources.SAForms
 
                             PARENT_FORM.FIRMWARE_VERSION = devicesFound[listDevices.SelectedIndex].FW;
 
-
-
-                            
-
-
+                            if (PARENT_FORM.GetDeviceFamily() == DeviceFamily.FLX && PARENT_FORM.FIRMWARE_VERSION < 1.8)
+                            {
+                                MessageBox.Show("FLX devices with firmware version below 1.8 do not support delay. This feature will be disabled once you synchronize the device.", "Device Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
                         }
                         else
                         {
