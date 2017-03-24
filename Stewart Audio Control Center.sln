@@ -236,7 +236,6 @@ Global
 		{79AB05A8-CD4F-4532-850F-CED511FAA33D}.Debug|Any CPU.ActiveCfg = DVD-5
 		{79AB05A8-CD4F-4532-850F-CED511FAA33D}.Debug|Any CPU.Build.0 = DVD-5
 		{79AB05A8-CD4F-4532-850F-CED511FAA33D}.Debug|Mixed Platforms.ActiveCfg = DVD-5
-		{79AB05A8-CD4F-4532-850F-CED511FAA33D}.Debug|Mixed Platforms.Build.0 = DVD-5
 		{79AB05A8-CD4F-4532-850F-CED511FAA33D}.Debug|x86.ActiveCfg = SingleImage
 		{79AB05A8-CD4F-4532-850F-CED511FAA33D}.DVD-5|Any CPU.ActiveCfg = DVD-5
 		{79AB05A8-CD4F-4532-850F-CED511FAA33D}.DVD-5|Any CPU.Build.0 = DVD-5
@@ -247,7 +246,6 @@ Global
 		{79AB05A8-CD4F-4532-850F-CED511FAA33D}.Release|Any CPU.ActiveCfg = SingleImage
 		{79AB05A8-CD4F-4532-850F-CED511FAA33D}.Release|Any CPU.Build.0 = SingleImage
 		{79AB05A8-CD4F-4532-850F-CED511FAA33D}.Release|Mixed Platforms.ActiveCfg = SingleImage
-		{79AB05A8-CD4F-4532-850F-CED511FAA33D}.Release|Mixed Platforms.Build.0 = SingleImage
 		{79AB05A8-CD4F-4532-850F-CED511FAA33D}.Release|x86.ActiveCfg = SingleImage
 		{79AB05A8-CD4F-4532-850F-CED511FAA33D}.SingleImage|Any CPU.ActiveCfg = SingleImage
 		{79AB05A8-CD4F-4532-850F-CED511FAA33D}.SingleImage|Any CPU.Build.0 = SingleImage
@@ -268,7 +266,6 @@ Global
 		{22BAB393-39B7-41E3-8EA1-43B4175D33EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{22BAB393-39B7-41E3-8EA1-43B4175D33EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{22BAB393-39B7-41E3-8EA1-43B4175D33EB}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{22BAB393-39B7-41E3-8EA1-43B4175D33EB}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
 		{22BAB393-39B7-41E3-8EA1-43B4175D33EB}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{22BAB393-39B7-41E3-8EA1-43B4175D33EB}.DVD-5|Any CPU.ActiveCfg = Debug|Any CPU
 		{22BAB393-39B7-41E3-8EA1-43B4175D33EB}.DVD-5|Any CPU.Build.0 = Debug|Any CPU
@@ -278,7 +275,6 @@ Global
 		{22BAB393-39B7-41E3-8EA1-43B4175D33EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{22BAB393-39B7-41E3-8EA1-43B4175D33EB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{22BAB393-39B7-41E3-8EA1-43B4175D33EB}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{22BAB393-39B7-41E3-8EA1-43B4175D33EB}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{22BAB393-39B7-41E3-8EA1-43B4175D33EB}.Release|x86.ActiveCfg = Release|Any CPU
 		{22BAB393-39B7-41E3-8EA1-43B4175D33EB}.SingleImage|Any CPU.ActiveCfg = Release|Any CPU
 		{22BAB393-39B7-41E3-8EA1-43B4175D33EB}.SingleImage|Any CPU.Build.0 = Release|Any CPU
@@ -817,10 +813,10 @@ Global
 		{72454067-D41E-4A47-A1A6-07B6FCFA343F} = {C91ADE65-5BB8-4B63-B13C-3CBA81A81A59}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		BuildVersion_IncrementBeforeBuild = True
-		BuildVersion_BuildVersioningStyle = None.None.Increment.TimeStamp
-		BuildVersion_UpdateAssemblyVersion = True
-		BuildVersion_UpdateFileVersion = True
 		BuildVersion_AssemblyInfoFilename = SharedAssemblyInfo.cs
+		BuildVersion_UpdateFileVersion = True
+		BuildVersion_UpdateAssemblyVersion = True
+		BuildVersion_BuildVersioningStyle = None.None.Increment.TimeStamp
+		BuildVersion_IncrementBeforeBuild = True
 	EndGlobalSection
 EndGlobal

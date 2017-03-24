@@ -190,7 +190,7 @@ namespace SA_Resources.SAForms
             }
             else
             {
-                // Skip the car
+                // Skip the char
                 SystemSounds.Beep.Play();
                 e.Handled = true;
             }

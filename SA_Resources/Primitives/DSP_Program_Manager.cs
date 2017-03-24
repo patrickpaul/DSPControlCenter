@@ -510,29 +510,6 @@ namespace SA_Resources.DSP.Primitives
                     WRITE_VALUE_CACHE[478] = 0x00000000;
 
                 }
-                /* BLANKS AFTER MUTE_INPUTS */
-
-                // Network output channels don't get filtered.
-                //if (PARENT_FORM.GetNumNetworkOutputChannels() == 0)
-                //{
-
-                    /* OUTFILTER PACKAGE CHANNEL 5-6 */
-                    for (int filter_counter = 548; filter_counter < 560; filter_counter++)
-                    {
-                        WRITE_VALUE_CACHE[filter_counter] = 0x00000000;
-                    }
-
-
-                    /* PRESET LABEL */
-                    // TODO - REMOVE THIS
-                    WRITE_VALUE_CACHE[568] = 0x00000000;
-                    WRITE_VALUE_CACHE[569] = 0x00000000;
-
-                    /* PREGAIN CHANNELS 5-6 */
-                    WRITE_VALUE_CACHE[564] = 0x00000000;
-                    WRITE_VALUE_CACHE[565] = 0x00000000;
-
-                //}
 
                 UInt32 PhantomMask = 0;
                     DSP_Primitive_Input InputPrimitive = null;

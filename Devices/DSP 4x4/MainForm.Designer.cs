@@ -97,6 +97,7 @@ namespace DSP_4x4
             this.lblCH1Input = new System.Windows.Forms.Label();
             this.picDuckerLine = new System.Windows.Forms.PictureBox();
             this.pbtnDucker = new SA_Resources.SAControls.PictureButton();
+            ((System.ComponentModel.ISupportInitialize)(this.appLog)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureConnectionStatus)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbPresetSelection)).BeginInit();
             this.statusStrip1.SuspendLayout();
@@ -111,6 +112,11 @@ namespace DSP_4x4
             this.pnlCH1PreMixer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picDuckerLine)).BeginInit();
             this.SuspendLayout();
+            // 
+            // appLog
+            // 
+            this.appLog.Log = "Application";
+            this.appLog.Source = "DSP Control Center";
             // 
             // toolTip1
             // 
@@ -1163,10 +1169,6 @@ namespace DSP_4x4
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
             this.Text = "DSP 4x4";
-            this.Controls.SetChildIndex(this.pbPresetSelection, 0);
-            this.Controls.SetChildIndex(this.dropProgramSelection, 0);
-            this.Controls.SetChildIndex(this.btnConnectToDevice, 0);
-            this.Controls.SetChildIndex(this.pictureConnectionStatus, 0);
             this.Controls.SetChildIndex(this.statusStrip1, 0);
             this.Controls.SetChildIndex(this.pictureBox_Logo, 0);
             this.Controls.SetChildIndex(this.lblCH1Input, 0);
@@ -1188,6 +1190,11 @@ namespace DSP_4x4
             this.Controls.SetChildIndex(this.pnlCH2PreMixer, 0);
             this.Controls.SetChildIndex(this.picDuckerLine, 0);
             this.Controls.SetChildIndex(this.pbtnDucker, 0);
+            this.Controls.SetChildIndex(this.pbPresetSelection, 0);
+            this.Controls.SetChildIndex(this.dropProgramSelection, 0);
+            this.Controls.SetChildIndex(this.btnConnectToDevice, 0);
+            this.Controls.SetChildIndex(this.pictureConnectionStatus, 0);
+            ((System.ComponentModel.ISupportInitialize)(this.appLog)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureConnectionStatus)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbPresetSelection)).EndInit();
             this.statusStrip1.ResumeLayout(false);

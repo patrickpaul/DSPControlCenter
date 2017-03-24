@@ -209,7 +209,7 @@ namespace SA_Resources.SAControls
     }
 
     /// <summary>
-    /// This is a lable, in which you can set the text in any direction/angle
+    /// This is a label, in which you can set the text in any direction/angle
     /// </summary>
 	
     #region Orientation

@@ -255,6 +255,7 @@ namespace SA_Resources.SAForms
             progressBar1.Value = 0;
             progressBar1.Visible = true;
 
+            btnOK.Enabled = false;
 
             BackgroundWorker worker = new BackgroundWorker();
             worker.WorkerReportsProgress = true;
