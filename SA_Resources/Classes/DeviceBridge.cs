@@ -365,9 +365,6 @@ namespace SA_Resources.USB
                 buff[6] = (byte)byte4;
                 buff[7] = 0x03;
 
-                EventLog appLog = new EventLog();
-                appLog.Source = "DSP Control Center";
-
                 for (int retry_count = 0; retry_count < 3; retry_count++)
                 {
                     serialPort.Write(buff, 0, 8);
@@ -384,10 +381,6 @@ namespace SA_Resources.USB
                         {
                             return true;
                         }
-
-                        appLog.WriteEntry("Bad SetLiveDSP Response. Address: " + address_index + ", Data: " + value.ToString("X8") + ", Retry Count: " + retry_count + ", Bytes to read: " + serialPort.BytesToRead + ", Read Data: " + string.Concat(bytes.Select(b => b.ToString("X2")).ToArray()));
-                                        
-
                         if (bytes[0] == 0x15)
                         {
                             PrintError(bytes[1]);
@@ -399,9 +392,6 @@ namespace SA_Resources.USB
                         FlushBuffer();
                     }
                 }
-
-                appLog.WriteEntry("NO SetLiveDSP Response. Address: " + address_index + ", Data: " + value.ToString("X8"));
-
                 return false;
             }
 

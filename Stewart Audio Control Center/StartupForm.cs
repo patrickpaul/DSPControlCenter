@@ -36,10 +36,7 @@ namespace SA_Resources
             InitializeComponent();
 
             try
-            {
-                EventLog appLog = new EventLog();
-                appLog.Source = "DSP Control Center";
-                appLog.WriteEntry("Started DSP Control Center");      
+            {    
 
                 string[] args = Environment.GetCommandLineArgs();
 

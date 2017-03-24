@@ -99,7 +99,6 @@ namespace FLX80_4_Analog
             this.pbtnDucker = new SA_Resources.SAControls.PictureButton();
             this.picBridgeLine = new System.Windows.Forms.PictureBox();
             this.pbtnBridge = new SA_Resources.SAControls.PictureButton();
-            ((System.ComponentModel.ISupportInitialize)(this.appLog)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureConnectionStatus)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbPresetSelection)).BeginInit();
             this.statusStrip1.SuspendLayout();
@@ -115,11 +114,6 @@ namespace FLX80_4_Analog
             ((System.ComponentModel.ISupportInitialize)(this.picDuckerLine)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picBridgeLine)).BeginInit();
             this.SuspendLayout();
-            // 
-            // appLog
-            // 
-            this.appLog.Log = "Application";
-            this.appLog.Source = "DSP Control Center";
             // 
             // toolTip1
             // 
@@ -1231,7 +1225,6 @@ namespace FLX80_4_Analog
             this.Controls.SetChildIndex(this.pbtnDucker, 0);
             this.Controls.SetChildIndex(this.picBridgeLine, 0);
             this.Controls.SetChildIndex(this.pbtnBridge, 0);
-            ((System.ComponentModel.ISupportInitialize)(this.appLog)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureConnectionStatus)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbPresetSelection)).EndInit();
             this.statusStrip1.ResumeLayout(false);

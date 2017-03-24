@@ -33,10 +33,6 @@ namespace SA_Resources.SAForms
         public int CURRENT_PROGRAM = 0;
 
         /* Queue Processing */
-        
-        public EventLog appLog = new EventLog();
-
-
         public Form activeForm = null;
 
         public Queue UPDATE_QUEUE = new Queue();
@@ -160,8 +156,6 @@ namespace SA_Resources.SAForms
 
             try
             {
-                appLog.Source = "DSP Control Center";
-
                 if (IsNetworked())
                 {
                     if (GetNumNetworkInputChannels() > 2)
@@ -474,7 +468,6 @@ namespace SA_Resources.SAForms
                                         if (lastItemRequeue)
                                         {
                                             lastItemRequeue = false;
-                                            appLog.WriteEntry("Recovered from a Dequeue after " + requeueCount + " requeues");
                                         }
 
                                         UPDATE_QUEUE.Dequeue(); // Remove it from the Queue now that it has been sent
@@ -497,20 +490,11 @@ namespace SA_Resources.SAForms
                                             lastItemRequeue = true;
                                             requeueCount = 1;
                                         }
-                                        appLog.WriteEntry("ERROR sending queued DSP Setting - Sending " + read_setting.Value.ToString("X8") + " to " + (uint)read_setting.Index + ", Requeue attempts so far: " + requeueCount);
-                                        
+
                                         Debug.WriteLine("ERROR sending queued DSP Setting");
                                     }
                                 }
 
-                            }
-                            else
-                            {
-                                EventLog appLog = new EventLog();
-                                appLog.Source = "DSP Control Center";
-                                appLog.WriteEntry("No RTS while sending queued DSP Setting - Sending " + read_setting.Value.ToString("X8") + " to " + (uint)read_setting.Index);
-                                        
-                                //Debug.WriteLine("Couldn't get RTS from BW");
                             }
                         }
                         else
