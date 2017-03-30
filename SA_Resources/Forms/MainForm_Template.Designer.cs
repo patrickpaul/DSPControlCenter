@@ -163,7 +163,6 @@ namespace SA_Resources.SAForms
             this.resetToDefaultToolStripMenuItem.Name = "resetToDefaultToolStripMenuItem";
             this.resetToDefaultToolStripMenuItem.Size = new System.Drawing.Size(263, 22);
             this.resetToDefaultToolStripMenuItem.Text = "Restore Default Settings";
-            this.resetToDefaultToolStripMenuItem.Visible = false;
             this.resetToDefaultToolStripMenuItem.Click += new System.EventHandler(this.ResetInterface_Event);
             // 
             // toolStripMenuItem1
