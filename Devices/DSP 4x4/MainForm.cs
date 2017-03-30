@@ -99,7 +99,7 @@ namespace DSP_4x4
 
         public override int GetDisplayOrder()
         {
-            return 0;
+            return 10;
         }
 
         public override void SetConnectionPicture(Image connectionPicture)

@@ -101,7 +101,7 @@ namespace DSP100_2_Analog
 
         public override int GetDisplayOrder()
         {
-            return 65;
+            return 140;
         }
 
         public override void SetConnectionPicture(Image connectionPicture)

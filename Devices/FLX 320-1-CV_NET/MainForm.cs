@@ -114,7 +114,7 @@ namespace FLX320_1_CV_Network
 
         public override int GetDisplayOrder()
         {
-            return 55;
+            return 110;
         }
 
         public override void SetConnectionPicture(Image connectionPicture)

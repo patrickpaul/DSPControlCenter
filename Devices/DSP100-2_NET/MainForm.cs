@@ -116,7 +116,7 @@ namespace DSP100_2_NET
 
         public override int GetDisplayOrder()
         {
-            return 75;
+            return 150;
         }
 
         public override void SetConnectionPicture(Image connectionPicture)

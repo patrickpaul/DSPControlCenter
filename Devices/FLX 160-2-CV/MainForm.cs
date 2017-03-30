@@ -101,7 +101,7 @@ namespace FLX160_2_CV_Analog
 
         public override int GetDisplayOrder()
         {
-            return 25;
+            return 60;
         }
 
         public override void SetConnectionPicture(Image connectionPicture)

@@ -98,7 +98,7 @@ namespace FLX80_4_CV_Analog
 
         public override int GetDisplayOrder()
         {
-            return 15;
+            return 20;
         }
 
         public override void SetConnectionPicture(Image connectionPicture)
