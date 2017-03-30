@@ -10,7 +10,7 @@ using SA_Resources.DeviceManagement;
 using SA_Resources.SAForms;
 using SA_Resources.DSP.Primitives;
 
-namespace DSP100_2_NET
+namespace DSP100_1_NET
 {
     public partial class MainForm : MainForm_Template
     {
@@ -41,17 +41,17 @@ namespace DSP100_2_NET
 
         public override int GetDeviceID()
         {
-            return 0x3F;
+            return 0x3E;
         }
 
         public override string GetDeviceName()
         {
-            return "DSP100-2-CV Dante";
+            return "DSP100-1-CV Dante";
         }
 
         public override DeviceType GetDeviceType()
         {
-            return DeviceType.DSP1002Net;
+            return DeviceType.DSP1001Net;
         }
 
         public override DeviceFamily GetDeviceFamily()
@@ -66,7 +66,7 @@ namespace DSP100_2_NET
 
         public override int GetNumOutputChannels()
         {
-            return 2;
+            return 1;
         }
 
         public override int GetNumPhantomPowerChannels()
@@ -76,7 +76,7 @@ namespace DSP100_2_NET
 
         public override string GetDefaultDeviceFile()
         {
-            return @"Devices\DSP100-2-NET_Default.scfg";
+            return @"Devices\DSP100-1-NET_Default.scfg";
         }
 
         public override bool IsAmplifier()
@@ -116,7 +116,7 @@ namespace DSP100_2_NET
 
         public override int GetDisplayOrder()
         {
-            return 75;
+            return 70;
         }
 
         public override void SetConnectionPicture(Image connectionPicture)
@@ -173,7 +173,7 @@ namespace DSP100_2_NET
                 backgroundWorker.ReportProgress((i+1) * 10);
             }
 
-            //AmplifierMode = _PIC_Conn.ReadAmplifierMode();
+            //AmplifierMode = DeviceConn.ReadAmplifierMode();
 
             ADC_CALIBRATION_MIN = DeviceConn.ReadRVCMin();
             ADC_CALIBRATION_MAX = DeviceConn.ReadRVCMax();
@@ -181,7 +181,7 @@ namespace DSP100_2_NET
             SLEEP_SECONDS = DeviceConn.ReadSleepModeSeconds();
 
             // Re-enable timers
-            //_PIC_Conn.sendAckdCommand(0x11);
+            //DeviceConn.sendAckdCommand(0x11);
 
             backgroundWorker.ReportProgress(100);
         }
@@ -285,6 +285,7 @@ namespace DSP100_2_NET
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(12, new DSP_Primitive_Pregain("Input Pre-Gain CH 7", 6, 0, 0xF0C0013b));
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(14, new DSP_Primitive_Pregain("Input Pre-Gain CH 8", 7, 0, 0xF0C0013f));
 
+
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(16, new DSP_Primitive_StandardGain("CH 1 - Pre-Mix Gain", 0, 1, StandardGain_Types.Twelve_to_Negative_100, 0xF0C0008b));
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(18, new DSP_Primitive_StandardGain("CH 2 - Pre-Mix Gain", 1, 1, StandardGain_Types.Twelve_to_Negative_100, 0xF0C0008f));
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(20, new DSP_Primitive_StandardGain("CH 3 - Pre-Mix Gain", 2, 1, StandardGain_Types.Twelve_to_Negative_100, 0xF0C00093));
@@ -331,7 +332,6 @@ namespace DSP100_2_NET
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(145, new DSP_Primitive_BiquadFilter("INFILTER_6_1", 5, 0, plainfilter_offset++));
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(150, new DSP_Primitive_BiquadFilter("INFILTER_6_2", 5, 1, plainfilter_offset++));
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(155, new DSP_Primitive_BiquadFilter("INFILTER_6_3", 5, 2, plainfilter_offset++));
-                
                 /*
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(160, new DSP_Primitive_BiquadFilter("INFILTER_7_1", 6, 0, 18));
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(165, new DSP_Primitive_BiquadFilter("INFILTER_7_2", 6, 1, 19));
@@ -341,8 +341,6 @@ namespace DSP100_2_NET
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(180, new DSP_Primitive_BiquadFilter("INFILTER_8_2", 7, 1, 22));
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(185, new DSP_Primitive_BiquadFilter("INFILTER_8_3", 7, 2, 23));
                 */
-
-
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(190, new DSP_Primitive_Compressor("CH 1 - Compressor", 0, 0));
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(196, new DSP_Primitive_Compressor("CH 2 - Compressor", 1, 0));
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(202, new DSP_Primitive_Compressor("CH 3 - Compressor", 2, 0));
@@ -360,14 +358,12 @@ namespace DSP100_2_NET
                     {
                         for (int in_channel = 0; in_channel < 10; in_channel++)
                         {
+                            
+                            crosspoint_gain = ((out_channel == 0) && (in_channel < 8)) ? 0 : -100;
 
-                            crosspoint_gain = (((out_channel == 0) && (in_channel == 0 || in_channel == 2 || in_channel == 4)) ||
-                            ((out_channel == 1) && (in_channel == 1 || in_channel == 3 || in_channel == 5)))
-                            ? 0 : -100;
-
-                            DSP_PROGRAMS[program_index].RegisterNewPrimitive(index_counter++, new DSP_Primitive_MixerCrosspoint("Mixer Input " + (in_channel + 1) + " - Output " + (out_channel + 1) + "", in_channel, out_channel, crosspoint_gain));
-                        }
+                        DSP_PROGRAMS[program_index].RegisterNewPrimitive(index_counter++, new DSP_Primitive_MixerCrosspoint("Mixer Input " + (in_channel + 1) + " - Output " + (out_channel + 1) + "", in_channel, out_channel, crosspoint_gain));
                     }
+                }
 
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(318, new DSP_Primitive_BiquadFilter("OUTFILTER_1_1", 0, 3, plainfilter_offset++));
                 DSP_PROGRAMS[program_index].RegisterNewPrimitive(323, new DSP_Primitive_BiquadFilter("OUTFILTER_1_2", 0, 4, plainfilter_offset++));

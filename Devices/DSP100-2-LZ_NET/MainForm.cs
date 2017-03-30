@@ -46,7 +46,7 @@ namespace DSP100_2_LZ_NET
 
         public override string GetDeviceName()
         {
-            return "DSP100-2-LZ Networked";
+            return "DSP100-2-LZ Dante";
         }
 
         public override DeviceType GetDeviceType()
