@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 // associated with an assembly.
 [assembly: AssemblyCompany("Stewart Audio, Inc.")]
 [assembly: AssemblyProduct("DSP Control Center")]
-[assembly: AssemblyCopyright("Copyright © Stewart Audio, Inc. 2014")]
+[assembly: AssemblyCopyright("Copyright © Stewart Audio, Inc. 2017")]
 [assembly: AssemblyTrademark("")]
 
 // Make it easy to distinguish Debug and Release (i.e. Retail) builds;
@@ -35,8 +35,8 @@ using System.Runtime.InteropServices;
 // to distinguish one build from another. AssemblyFileVersion is specified
 // in AssemblyVersionInfo.cs so that it can be easily incremented by the
 // automated build process.
-[assembly: AssemblyVersion("3.5.97.2338")]
-[assembly: AssemblyFileVersion("3.5.97.2338")]
+[assembly: AssemblyVersion("3.6.115.1326")]
+[assembly: AssemblyFileVersion("3.6.115.1326")]
 
 
 // By default, the "Product version" shown in the file properties window is
@@ -44,4 +44,4 @@ using System.Runtime.InteropServices;
 // Set AssemblyInformationalVersionAttribute to be the same as
 // AssemblyVersionAttribute so that the "Product version" in the file
 // properties window matches the version displayed in the GAC shell extension.
-[assembly: AssemblyInformationalVersion("3.5.3.2")] // a.k.a. "Product version"
+[assembly: AssemblyInformationalVersion("3.6.0.0")] // a.k.a. "Product version"

@@ -151,6 +151,7 @@ namespace SA_Resources.SAForms
             | System.Windows.Forms.Keys.S)));
             this.saveConfigurationAsToolStripMenuItem.Size = new System.Drawing.Size(263, 22);
             this.saveConfigurationAsToolStripMenuItem.Text = "Save Configuration As...";
+            this.saveConfigurationAsToolStripMenuItem.Visible = false;
             this.saveConfigurationAsToolStripMenuItem.Click += new System.EventHandler(this.WriteSCFG_As_Event);
             // 
             // exitApplicationToolStripMenuItem
@@ -169,7 +170,6 @@ namespace SA_Resources.SAForms
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
             this.toolStripMenuItem1.Size = new System.Drawing.Size(260, 6);
-            this.toolStripMenuItem1.Visible = false;
             // 
             // exitToolStripMenuItem
             // 

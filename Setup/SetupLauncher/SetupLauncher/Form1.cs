@@ -34,12 +34,12 @@ namespace SetupLauncher
                     options.DefaultExtractDirectory = "%TEMP%\\DSPCC";
                     options.PostExtractCommandLine = "%TEMP%\\DSPCC\\DISK1\\setup.exe";
                     options.RemoveUnpackedFilesAfterExecute = true;
-                    options.FileVersion = new Version(2, 1, 0);
+                    options.FileVersion = new Version(3, 6, 0);
                     options.Description = "DSP Control Center Installer Package";
                     options.Copyright = "© 2015 Stewart Audio, Inc.";
                     options.IconFile = @"C:\SOURCE\DSPControlCenter\DSP Control Center v4.ico";
                     options.ProductName = "DSP Control Center";
-                    options.ProductVersion = "3.5.2";
+                    options.ProductVersion = "3.6.0";
                     options.ExtractExistingFile = ExtractExistingFileAction.OverwriteSilently;
                     zip.SaveSelfExtractor(txtFilename.Text + " v" + txtVersion.Text + ".exe", options);
 
