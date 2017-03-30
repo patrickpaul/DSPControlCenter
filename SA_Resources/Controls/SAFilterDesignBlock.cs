@@ -548,6 +548,8 @@ namespace SA_Resources.SAControls
 
             if (!InitialLoadComplete || FilterPrimitive == null)
             {
+                SelectingNewFilter_BlockSlope = false;
+                SelectingNewFilter_BlockBypass = false;
                 return;
             }
 

@@ -47,7 +47,7 @@ namespace SA_Resources.SAForms
 
                 txtDisplayName.Text = Active_Primitive.OutputName;
 
-                if (_parentForm.LIVE_MODE && _parentForm.DeviceConn.isOpen && PARENT_FORM.FIRMWARE_VERSION > 1.7 && PARENT_FORM.GetDeviceFamily() != DeviceFamily.DSP100)
+                if (_parentForm.LIVE_MODE && _parentForm.DeviceConn.IsReady() && PARENT_FORM.FIRMWARE_VERSION > 1.7 && PARENT_FORM.GetDeviceFamily() != DeviceFamily.DSP100)
                 {
                     gainMeterOut.Visible = true;
                     gainMeterOut.DeviceConn = PARENT_FORM.DeviceConn;

@@ -91,7 +91,7 @@ namespace SA_Resources.SAForms
 
 
 
-                if (_parentForm.LIVE_MODE && _parentForm.DeviceConn.isOpen)
+                if (_parentForm.LIVE_MODE && _parentForm.DeviceConn.IsReady())
                 {
                     duckMeter1.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Type.Ducker4x4, 0, 0).Address;
                     duckMeter1.DeviceConn = PARENT_FORM.DeviceConn;

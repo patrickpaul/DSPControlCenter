@@ -29,7 +29,7 @@ namespace SA_Resources.SAForms
         private void btnOK_Click(object sender, EventArgs e)
         {
             btnCancel.Enabled = false;
-
+            btnOK.Enabled = false;
             if (radioDisconnect.Checked)
             {
                 PARENT_FORM.DeviceConn.Close();

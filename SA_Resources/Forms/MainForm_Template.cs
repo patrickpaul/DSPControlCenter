@@ -1552,7 +1552,7 @@ namespace SA_Resources.SAForms
 
                 if (LIVE_MODE)
                 {
-                    duckerForm.Width = Helpers.NormalizeFormDimension(638);
+                    duckerForm.Width = Helpers.NormalizeFormDimension(712);
                 }
                 else
                 {
@@ -2254,7 +2254,7 @@ namespace SA_Resources.SAForms
             
             if (DeviceConn != null)
             {
-                if (DeviceConn.isOpen)
+                if (DeviceConn.IsReady())
                 {
                     DeviceConn.Close();
                 }

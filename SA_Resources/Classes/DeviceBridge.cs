@@ -28,7 +28,6 @@ namespace SA_Resources.USB
         private SAUSB _USBConn;
 
         private SerialPort serialPort;
-        public bool isOpen = false; 
 
         Object DEVICE_LOCK = new Object();
 

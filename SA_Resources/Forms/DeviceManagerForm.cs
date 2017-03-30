@@ -256,6 +256,7 @@ namespace SA_Resources.SAForms
             progressBar1.Visible = true;
 
             btnOK.Enabled = false;
+            btnRefreshDevices.Enabled = false;
 
             BackgroundWorker worker = new BackgroundWorker();
             worker.WorkerReportsProgress = true;
@@ -347,7 +348,7 @@ namespace SA_Resources.SAForms
         {
             if (timerClose == false)
             {
-                if(grpPushPull.Enabled && PARENT_FORM.DeviceConn.isOpen)
+                if(grpPushPull.Enabled && PARENT_FORM.DeviceConn.IsReady())
                 {
                     // At this point they hit Connect but then hit the Red X to close window
                     // Close connection so that the DeviceConn 

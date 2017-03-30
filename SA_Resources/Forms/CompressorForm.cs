@@ -148,7 +148,7 @@ namespace SA_Resources.SAForms
                 chkBypass.Checked = Active_Primitive.Bypassed;
 
 
-                if (_parentForm.LIVE_MODE && _parentForm.DeviceConn.isOpen)
+66                if (_parentForm.LIVE_MODE && _parentForm.DeviceConn.IsReady())
                 {
                     gainMeterIn.Visible = true;
                     gainMeterOut.Visible = true;
