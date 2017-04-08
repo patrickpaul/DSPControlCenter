@@ -217,6 +217,10 @@ namespace SA_Resources.DeviceManagement
             {
                 throw new SCFG_READ_EXCEPTION("IOException in SCFG_Manager.Read", accessEx);
             }
+            catch (SCFG_READ_EXCEPTION sfcgex)
+            {
+                throw sfcgex;
+            }
             catch (Exception ex)
             {
                 throw new SCFG_READ_EXCEPTION("Exception in SCFG_Manager.Read", ex);

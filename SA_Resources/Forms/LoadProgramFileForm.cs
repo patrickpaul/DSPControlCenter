@@ -42,19 +42,27 @@ namespace SA_Resources.SAForms
             }
             else
             {
-                this.progressBar1.Visible = true;
-                SCFG_Manager.Read(SCFG_FILE, PARENT_FORM);
-                PARENT_FORM.UpdateTooltips();
+                try
+                {
+                    this.progressBar1.Visible = true;
+                    SCFG_Manager.Read(SCFG_FILE, PARENT_FORM);
+                    PARENT_FORM.UpdateTooltips();
 
-                BackgroundWorker worker = new BackgroundWorker();
-                worker.WorkerReportsProgress = true;
-                worker.ProgressChanged += ProgressChanged;
+                    BackgroundWorker worker = new BackgroundWorker();
+                    worker.WorkerReportsProgress = true;
+                    worker.ProgressChanged += ProgressChanged;
 
-                worker.DoWork += PARENT_FORM.WriteDevice;
+                    worker.DoWork += PARENT_FORM.WriteDevice;
 
-                worker.RunWorkerCompleted += WorkComplete;
+                    worker.RunWorkerCompleted += WorkComplete;
 
-                worker.RunWorkerAsync();
+                    worker.RunWorkerAsync();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Unable to load program file. Message: " + ex.Message, "Restore Default Program Error", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+                    closeTimer.Enabled = true;
+                }
 
             }
         }
