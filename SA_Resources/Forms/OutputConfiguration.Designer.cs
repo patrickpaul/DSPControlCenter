@@ -188,6 +188,7 @@ namespace SA_Resources.SAForms
             this.panelRS232.Name = "panelRS232";
             this.panelRS232.Size = new System.Drawing.Size(241, 100);
             this.panelRS232.TabIndex = 16;
+            this.panelRS232.Visible = false;
             // 
             // gainMeterOut
             // 

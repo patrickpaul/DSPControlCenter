@@ -49,13 +49,13 @@ namespace SA_Resources.SAForms
 
                 if (_parentForm.LIVE_MODE && _parentForm.DeviceConn.IsReady() && PARENT_FORM.FIRMWARE_VERSION > 1.7 && PARENT_FORM.GetDeviceFamily() != DeviceFamily.DSP100)
                 {
-                    /* Disabled 3-20-2017 per request from TK
+                    
                     gainMeterOut.Visible = true;
                     gainMeterOut.DeviceConn = PARENT_FORM.DeviceConn;
                     gainMeterOut.Address = PARENT_FORM.DSP_METER_MANAGER.LookupMeter(DSP_Primitive_Type.Output, Active_Primitive.Channel, 0).Address;
                     gainMeterOut.Start();
-                    panelRS232.Visible = true;
-                     * */
+                    //panelRS232.Visible = true;
+                   
                 }
                 else
                 {
